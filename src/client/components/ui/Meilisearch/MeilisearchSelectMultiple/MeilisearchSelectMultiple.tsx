@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useRefinementList, UseRefinementListProps } from 'react-instantsearch';
 
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
@@ -13,23 +13,25 @@ export function MeilisearchSelectMultiple(props: UseRefinementListProps & Meilis
 	const { label, className } = props;
 
 	// TODO (BRUJ 08/07/2024): A supprimer lors du passage des options en composition
-	const optionsList: Array<OptionSelect> = items.map((item) => ({
-		libellé: getCapitalizedItems(item.label),
-		valeur: item.value,
-	}));
+	const optionsList: Array<OptionSelect> = useMemo(() => {
+		return items.map((item) => ({
+			libellé: getCapitalizedItems(item.label),
+			valeur: item.value,
+		}));
+	}, [items]);
 
 	const valuesSelected = useMemo(() => {
 		return items.filter((item) => item.isRefined)
 			.map((item) => item.value);
 	}, [items]);
 
-
-	function onOptionSelected(option: HTMLElement) {
-		const value = option.getAttribute('data-value') ?? '';
-		value && refine(value);
-	}
+	const onOptionSelected = useCallback((option: HTMLElement) => {
+		const value = option.getAttribute('data-value');
+		if (value) refine(value);
+	}, [refine]);
 
 	return (
-		<Select className={className} label={label} optionList={optionsList} multiple onChange={onOptionSelected} value={valuesSelected}/>
+		<Select className={className} label={label} optionList={optionsList} multiple onChange={onOptionSelected}
+			value={valuesSelected}/>
 	);
 }
