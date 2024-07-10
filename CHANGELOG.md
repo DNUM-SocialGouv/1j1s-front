@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.315.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.315.1...v3.315.2) (2024-07-10)
+
+
+### Bug Fixes
+
+* **mon-espace:** wording La bonne alternance et Les entreprises s'engagent ([#3150](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3150)) ([6338452](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6338452982abe9eb175544854c751247d6b8379c))
+
 ## [3.315.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.315.0...v3.315.1) (2024-07-09)
 
 
