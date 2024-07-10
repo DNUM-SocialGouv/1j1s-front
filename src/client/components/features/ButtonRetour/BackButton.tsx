@@ -30,6 +30,7 @@ export function BackButton({ className, label= 'Retour', ...rest }: BackButtonPr
 		<div className={className}>
 			<Container>
 				<ButtonComponent
+					role="link"
 					appearance="secondary"
 					aria-label={'Retour vers la page précédente'}
 					icon={<Icon name="angle-left" />}

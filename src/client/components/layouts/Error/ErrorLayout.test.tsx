@@ -18,7 +18,7 @@ describe('ErrorLayout', () => {
 	});
 	it('affiche le bouton de retour à la page précédente', () => {
 		render(<ErrorLayout><p>children</p></ErrorLayout>);
-		expect(screen.getByRole('button', { name: 'Retourner à la page précédente' })).toBeVisible();
+		expect(screen.getByRole('link', { name: 'Retourner à la page précédente' })).toBeVisible();
 	});
 	it('affiche le bouton de retour vers la page d‘accueil', () => {
 		render(<ErrorLayout><p>children</p></ErrorLayout>);

@@ -28,8 +28,7 @@ describe('<ConsulterAnnonce />', () => {
 		render(<DependenciesProvider dateService={aDateService()}>
 			<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>
 		</DependenciesProvider>);
-		const boutonRetour = screen.getByRole('button', { name: 'Retour vers la page précédente' });
-		expect(boutonRetour).toBeVisible();
+		expect(screen.getByRole('link', { name: 'Retour vers la page précédente' })).toBeVisible();
 	});
 
 	it("affiche le titre de l'annonce", () => {
