@@ -128,7 +128,7 @@ describe('ApiFranceTravailJobEteRepository', () => {
 					expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_OFFRE_JOB_ETE_KEY');
 
 					expect(result).toEqual(aRésultatsRechercheOffre());
-					expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith('/search?range=0-14&typeContrat=CDD,MIS,SAI&dureeContratMax=2');
+					expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith('/search?range=0-14&typeContrat=SAI&dureeContratMax=2');
 
 					expect(cacheService.set).toHaveBeenCalledWith('ECHANTILLON_OFFRE_JOB_ETE_KEY', aRésultatsRechercheOffreEmploiApiResponse(), 24);
 				});
@@ -186,7 +186,7 @@ describe('ApiFranceTravailJobEteRepository', () => {
 
 				expect(result).toEqual(aRésultatsRechercheOffre());
 				expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
-					'/search?region=34&motsCles=boulanger&range=0-14&&typeContrat=CDD,MIS,SAI&dureeContratMax=2',
+					'/search?region=34&motsCles=boulanger&range=0-14&&typeContrat=SAI&dureeContratMax=2',
 				);
 			});
 		});

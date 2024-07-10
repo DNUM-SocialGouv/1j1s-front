@@ -32,7 +32,7 @@ export class ApiFranceTravailJobEteRepository implements OffreRepository {
 		private readonly apiFranceTravailOffreErrorManagementGet: ErrorManagementWithErrorCheckingService,
 	) {}
 
-	paramètreParDéfaut = 'typeContrat=CDD,MIS,SAI&dureeContratMax=2';
+	paramètreParDéfaut = 'typeContrat=SAI&dureeContratMax=2';
 
 	private ECHANTILLON_OFFRE_JOB_ETE_KEY = 'ECHANTILLON_OFFRE_JOB_ETE_KEY';
 
