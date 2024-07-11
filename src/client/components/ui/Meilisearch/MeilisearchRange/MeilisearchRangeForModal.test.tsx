@@ -10,10 +10,10 @@ import {
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
-import { MeilisearchCustomRangeInputForModal } from '~/client/components/ui/Meilisearch/MeilisearchCustomRangeInputForModal';
+import { MeilisearchRangeForModal } from '~/client/components/ui/Meilisearch/MeilisearchRange/MeilisearchRangeForModal';
 import {
 	mockUseRangeInput,
-} from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
+} from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const spyOnUseRange = jest.spyOn(require('react-instantsearch'), 'useRange');
@@ -22,7 +22,7 @@ let refineMock: jest.Mock<string>;
 
 const renderMeilisearchCustomRangeInputForModalComponent = () => {
 	render(
-		<MeilisearchCustomRangeInputForModal
+		<MeilisearchRangeForModal
 	  attribute='test'
 	  unite='test-unité'
 	  min={20}

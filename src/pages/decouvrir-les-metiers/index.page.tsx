@@ -8,8 +8,8 @@ import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
-import MeilisearchCustomCurrentRefinements
-	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
+import MeilisearchTagsList
+	from '~/client/components/ui/Meilisearch/MeilisearchTagsList/MeilisearchTagsList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/decouvrir-les-metiers/index.analytics';
 import styles from '~/pages/decouvrir-les-metiers/index.module.scss';
@@ -37,7 +37,7 @@ export default function RechercherFicheMetierPage() {
 				messageResultatRechercheLabelPluriel="fiches métier"
 				nombreDeSkeleton={2}
 				resultatDeRecherche={RésultatRechercherMétier}
-				tagList={<MeilisearchCustomCurrentRefinements />}
+				tagList={<MeilisearchTagsList />}
 				isAffichageListeDeResultatsDesktopDirectionRow
 			/>
 			<EnTete heading="Découvrez des services faits pour vous" />

@@ -10,79 +10,37 @@ import {
 import {
 	generateRefinementListItem,
 	mockUseRefinementList,
-} from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
+} from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const spyed = jest.spyOn(require('react-instantsearch'), 'useRefinementList');
 
-let refineMock: jest.Mock<string>;
-
 describe('FormulaireRechercheAnnonceLogement', () => {
+	it('affiche un formulaire', () => {
+		render(<FormulaireRechercheAnnonceLogement/>);
+
+		const form = screen.getByRole('search');
+		expect(form).toBeVisible();
+	});
+
+	beforeEach(() => {
+		mockLargeScreen();
+		spyed.mockImplementation(() => mockUseRefinementList({
+			items: [generateRefinementListItem({ label: 'exemple', value: 'exemple' })],
+			refine: jest.fn(),
+		}));
+	});
+
 	describe('en Desktop', () => {
-		beforeEach(() => {
-			mockLargeScreen();
-		});
-		beforeEach(() => {
-			// GIVEN
-			refineMock = jest.fn();
-			spyed.mockImplementation(() => mockUseRefinementList({
-				items: [ generateRefinementListItem({ label: 'exemple', value: 'exemple' }) ],
-				refine: refineMock,
-			}));
-		});
-
-		afterEach(() => {
-			jest.clearAllMocks();
-		});
-
-		it('affiche un formulaire', () => {
+		it('affiche les champs de recherche', () => {
 			render(<FormulaireRechercheAnnonceLogement/>);
 
-			const form = screen.getByRole('search');
-			expect(form).toBeInTheDocument();
-		});
-
-		it('n‘affiche pas de bouton pour filtrer la recherche', () => {
-			render(<FormulaireRechercheAnnonceLogement/>);
-
-			const buttonFiltreMobile = screen.getByTestId('bouton-filtrer-recherche-mobile');
-			expect(buttonFiltreMobile).toBeInTheDocument();
-		});
-
-		it('affiche le champ ville dans le formulaire', () => {
-			render(<FormulaireRechercheAnnonceLogement/>);
-
-			const inputVille = screen.getByRole('textbox', { name: 'Ville' });
-			expect(inputVille).toBeInTheDocument();
-		});
-
-		it('affiche le champ type d‘offre dans le formulaire', () => {
-			render(<FormulaireRechercheAnnonceLogement/>);
-
-			const buttonTypeOffre = screen.getByRole('button', { name: 'Type d‘offre' });
-			expect(buttonTypeOffre).toBeInTheDocument();
-		});
-
-		it('affiche le champ type de bien dans le formulaire', () => {
-			render(<FormulaireRechercheAnnonceLogement/>);
-
-			const buttonTypeOffre = screen.getByRole('button', { name: 'Type de bien' });
-			expect(buttonTypeOffre).toBeInTheDocument();
-		});
-
-		it('affiche le champ prix dans le formulaire', () => {
-			render(<FormulaireRechercheAnnonceLogement/>);
-
-			const buttonPrix = screen.getByRole('button', { name: 'Prix' });
-			expect(buttonPrix).toBeInTheDocument();
-		});
-
-		it('affiche le champ surface dans le formulaire', () => {
-			render(<FormulaireRechercheAnnonceLogement/>);
-
-			const buttonSurface = screen.getByRole('button', { name: 'Surface (m²)' });
-			expect(buttonSurface).toBeInTheDocument();
+			expect(screen.getByRole('textbox', { name: 'Ville' })).toBeVisible();
+			expect(screen.getByRole('combobox', { name: 'Type d‘offre' })).toBeVisible();
+			expect(screen.getByRole('combobox', { name: 'Type de bien' })).toBeVisible();
+			expect(screen.getByRole('button', { name: 'Surface (m²)' })).toBeVisible();
+			expect(screen.getByRole('button', { name: 'Prix' })).toBeVisible();
 		});
 	});
 
@@ -91,60 +49,17 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 			mockSmallScreen();
 		});
 
-		afterEach(() => {
-			jest.clearAllMocks();
-		});
-
-		it('affiche un formulaire', () => {
+		it('affiche uniquement le champ ville dans le formulaire', () => {
 			render(<FormulaireRechercheAnnonceLogement/>);
 
-			const form = screen.getByRole('search');
-			expect(form).toBeInTheDocument();
-		});
-
-		it('affiche le champ ville dans le formulaire', () => {
-			render(<FormulaireRechercheAnnonceLogement/>);
-
-			const inputVille = screen.getByRole('textbox', { name: 'Ville' });
-			expect(inputVille).toBeInTheDocument();
-			expect(inputVille).toBeVisible();
+			expect(screen.getByRole('textbox', { name: 'Ville' })).toBeVisible();
 		});
 
 		it('affiche un bouton pour filtrer la recherche', () => {
 			render(<FormulaireRechercheAnnonceLogement/>);
 
 			const buttonFiltre = screen.getByRole('button', { name: 'Filtrer ma recherche' });
-			expect(buttonFiltre).toBeInTheDocument();
-		});
-
-		it('n‘affiche pas le champ type d‘offre dans le formulaire', () => {
-			render(<FormulaireRechercheAnnonceLogement/>);
-
-			const buttonTypeOffreDesktop = screen.getByTestId('input-type-offre-desktop');
-			expect(buttonTypeOffreDesktop).toBeInTheDocument();
-
-		});
-
-		it('n‘affiche pas le champ type de bien dans le formulaire', () => {
-			render(<FormulaireRechercheAnnonceLogement/>);
-
-			const buttonTypeBienDesktop = screen.getByTestId('input-type-bien-desktop');
-			expect(buttonTypeBienDesktop).toBeInTheDocument();
-
-		});
-
-		it('n‘affiche pas le champ prix dans le formulaire', () => {
-			render(<FormulaireRechercheAnnonceLogement/>);
-
-			const buttonPrixDesktop = screen.getByTestId('input-prix-desktop');
-			expect(buttonPrixDesktop).toBeInTheDocument();
-		});
-
-		it('n‘affiche pas le champ surface dans le formulaire', () => {
-			render(<FormulaireRechercheAnnonceLogement/>);
-
-			const buttonSurfaceDesktop = screen.getByTestId('input-surface-desktop');
-			expect(buttonSurfaceDesktop).toBeInTheDocument();
+			expect(buttonFiltre).toBeVisible();
 		});
 
 		describe('quand l‘utilisateur ouvre les filtres de recherche', () => {

@@ -5,8 +5,8 @@ import { RésultatRechercherEvenement } from '~/client/components/features/Evene
 import { Head } from '~/client/components/head/Head';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
-import MeilisearchCustomCurrentRefinements
-	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
+import MeilisearchTagsList
+	from '~/client/components/ui/Meilisearch/MeilisearchTagsList/MeilisearchTagsList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/evenements/index.analytics';
 
@@ -56,7 +56,7 @@ export default function PageEvenements() {
 					messageResultatRechercheLabelPluriel="évènements"
 					nombreDeSkeleton={2}
 					resultatDeRecherche={RésultatRechercherEvenement}
-					tagList={<MeilisearchCustomCurrentRefinements />}
+					tagList={<MeilisearchTagsList />}
 					isAffichageListeDeResultatsDesktopDirectionRow
 				/>
 			</>

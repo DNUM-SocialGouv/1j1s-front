@@ -6,8 +6,8 @@ import {
 import { OffreDeStage } from '~/client/components/features/OffreDeStage/OffreDeStage';
 import { Head } from '~/client/components/head/Head';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
-import MeilisearchCustomCurrentRefinements
-	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
+import MeilisearchTagsList
+	from '~/client/components/ui/Meilisearch/MeilisearchTagsList/MeilisearchTagsList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/stages/index.analytics';
 
@@ -34,7 +34,7 @@ export default function RechercherOffreStagePage() {
 				messageResultatRechercheLabelPluriel="offres de stage"
 				nombreDeSkeleton={2}
 				resultatDeRecherche={OffreDeStage}
-				tagList={<MeilisearchCustomCurrentRefinements />}
+				tagList={<MeilisearchTagsList />}
 				isAffichageListeDeResultatsDesktopDirectionRow
 			/>
 		</>

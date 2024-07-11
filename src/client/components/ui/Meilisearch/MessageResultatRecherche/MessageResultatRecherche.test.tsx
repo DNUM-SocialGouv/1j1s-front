@@ -4,7 +4,7 @@
 
 import { render, screen, within } from '@testing-library/react';
 
-import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/MessageResultatRecherche';
+import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/MessageResultatRecherche/MessageResultatRecherche';
 
 describe('<MessageResultatRecherche />', () => {
 	it('affiche une note de bas de page', () => {

@@ -15,8 +15,7 @@ describe('Recherche de stages', () => {
 				cy.intercept({ pathname: '/multi-search' }, stageNonFiltreeResponse).as('facets');
 				cy.wait('@facets');
 
-				// FIXME (GAFI 06-11-2023): Devrait être role combobox
-				cy.findByRole('button', { name: /Domaines/i }).click();
+				cy.findByRole('combobox', { name: /Domaines/i }).click();
 
 				cy.findAllByRole('option').first().should('contain.text', 'Achats');
 				cy.findAllByRole('option').eq(1).should('contain.text', 'Production');

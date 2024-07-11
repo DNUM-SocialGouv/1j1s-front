@@ -3,7 +3,7 @@ import React from 'react';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Footnote } from '~/client/components/ui/Footnote/Footnote';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
-import styles from '~/client/components/ui/Meilisearch/MessageResultatRecherche.module.scss';
+import styles from '~/client/components/ui/Meilisearch/MessageResultatRecherche/MessageResultatRecherche.module.scss';
 
 interface MessageResultatRechercheProps {
 	labelSingulier: string

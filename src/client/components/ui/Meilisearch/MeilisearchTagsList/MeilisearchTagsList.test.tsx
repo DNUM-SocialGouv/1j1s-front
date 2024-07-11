@@ -9,26 +9,26 @@ import {
 } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import MeilisearchCustomCurrentRefinements from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
+import MeilisearchTagsList from '~/client/components/ui/Meilisearch/MeilisearchTagsList/MeilisearchTagsList';
 import {
 	aDisjunctiveImmeubleItemRefinement,
 	aTypeBienItem,
 	mockUseCurrentRefinements,
-} from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
+} from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const spyOnUseCurrentRefinements = jest.spyOn(require('react-instantsearch'), 'useCurrentRefinements');
 
 let refineMock: jest.Mock<string>;
 
-describe('MeilisearchCustomCurrentRefinements', () => {
+describe('MeilisearchTagsList', () => {
 	describe('quand il n‘y a pas d‘étiquettes à afficher', () => {
 		it('ne retourne pas de liste', () => {
 		  spyOnUseCurrentRefinements.mockImplementation(() => mockUseCurrentRefinements({
 				items: [],
 				refine: refineMock,
 		  }));
-		  render(<MeilisearchCustomCurrentRefinements/>);
+		  render(<MeilisearchTagsList/>);
 		  const currentRefinements = screen.queryByRole('list');
 
 		  expect(currentRefinements).not.toBeInTheDocument();
@@ -40,7 +40,7 @@ describe('MeilisearchCustomCurrentRefinements', () => {
 	  spyOnUseCurrentRefinements.mockImplementation(() => mockUseCurrentRefinements({
 				items: [aTypeBienItem()],
 	  }));
-	  render(<MeilisearchCustomCurrentRefinements/>);
+	  render(<MeilisearchTagsList/>);
 	  const currentRefinements = screen.getByRole('list');
 
 	  expect(currentRefinements).toBeInTheDocument();
@@ -55,7 +55,7 @@ describe('MeilisearchCustomCurrentRefinements', () => {
 			spyOnUseCurrentRefinements.mockImplementation(() => mockUseCurrentRefinements({
 		  items: [aTypeBienItem()],
 			}));
-			render(<MeilisearchCustomCurrentRefinements/>);
+			render(<MeilisearchTagsList/>);
 			const currentRefinements = screen.getByRole('list');
 
 			expect(currentRefinements).toBeInTheDocument();
@@ -73,7 +73,7 @@ describe('MeilisearchCustomCurrentRefinements', () => {
 		  refine: refineMock,
 			}));
 			const user = userEvent.setup();
-			render(<MeilisearchCustomCurrentRefinements/>);
+			render(<MeilisearchTagsList/>);
 			const currentRefinements = screen.getByRole('list');
 
 			expect(currentRefinements).toBeInTheDocument();
