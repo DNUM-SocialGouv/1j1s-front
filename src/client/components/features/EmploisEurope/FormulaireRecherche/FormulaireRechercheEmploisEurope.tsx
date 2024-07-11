@@ -131,16 +131,15 @@ export function FormulaireRechercheEmploisEurope() {
 						placeholder="Sélectionnez vos choix"
 					/>
 
-					<div className={styles.filtresRechercheMobile}>
-						<ButtonComponent
-							appearance="quaternary"
-							type="button"
-							icon={<Icon name="filter"/>}
-							iconPosition="right"
-							label="Filtrer ma recherche"
-							onClick={() => setIsFiltresAvancesMobileOpen(!isFiltresAvancesMobileOpen)}
-						/>
-					</div>
+					<ButtonComponent
+						className={styles.filtresRechercheMobile}
+						appearance="quaternary"
+						type="button"
+						icon={<Icon name="filter"/>}
+						iconPosition="right"
+						label="Filtrer ma recherche"
+						onClick={() => setIsFiltresAvancesMobileOpen(!isFiltresAvancesMobileOpen)}
+					/>
 					<ModaleFiltreAvancee
 						close={() => setIsFiltresAvancesMobileOpen(false)}
 						toggleTypeContrat={toggleTypeContrat}

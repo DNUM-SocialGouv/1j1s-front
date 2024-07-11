@@ -36,6 +36,7 @@
   }
 
   .filtresRechercheMobile {
+    text-align: left;
     @include utilities.media(medium) {
       display: none;
     }
