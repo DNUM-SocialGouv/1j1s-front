@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.317.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.317.1...v3.317.2) (2024-07-11)
+
+
+### Bug Fixes
+
+* **a11y:** retour du focus lors de la fermeture de la modale ([#3149](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3149)) ([25797a7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/25797a7d8bb538918976ee992f47417bea16b20b))
+
 ## [3.317.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.317.0...v3.317.1) (2024-07-11)
 
 
