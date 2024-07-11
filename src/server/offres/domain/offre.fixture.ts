@@ -60,6 +60,7 @@ export function anOffreEmploi(override?: Partial<Offre>): Offre {
 		intitulé: 'Barman / Barmaid (H/F)',
 		lieuTravail: 'BOURG LES VALENCE (26)',
 		qualitéeProfessionnelleList: [],
+		salaire: '1500 euros',
 		typeContrat: Offre.CONTRAT_SAISONNIER,
 		urlOffreOrigine: 'https://candidat.francetravail.fr/offres/recherche/detail/132LKFB',
 		étiquetteList: ['BOURG LES VALENCE (26)', 'Débutant accepté', 'Saisonnier', 'Temps partiel'],
@@ -126,9 +127,10 @@ export function anOffreEmploiFiltre(override?: Partial<EmploiFiltre>): EmploiFil
 	};
 }
 
-export function anOffreÉchantillonFiltre(): OffreFiltre {
+export function anOffreÉchantillonFiltre(override?: Partial<OffreFiltre>): OffreFiltre {
 	return {
 		page: 1,
+		...override,
 	};
 }
 
