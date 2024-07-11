@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.317.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.316.0...v3.317.0) (2024-07-11)
+
+
+### Features
+
+* **a11y:** utiliser le select sur les pages Meilisearch ([#3147](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3147)) ([da3a945](https://github.com/DNUM-SocialGouv/1j1s-front/commit/da3a945103e40bb782575466555a6b5c8b4f4ea1))
+
 ## [3.316.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.315.3...v3.316.0) (2024-07-10)
 
 
