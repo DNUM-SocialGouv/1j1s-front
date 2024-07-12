@@ -1,7 +1,6 @@
 @use "sass:color";
 @use "@styles/utilities";
 @use "@styles/components/form/variables";
-@use "@styles/theme/variables" as theme-variables;
 
 $color-border-filters: lighten(utilities.$color-primary, 15%);
 
@@ -21,32 +20,19 @@ $color-border-filters: lighten(utilities.$color-primary, 15%);
     @include utilities.media(medium) {
       grid-template-columns: repeat(6, 1fr);
       grid-template-rows: repeat(3, 1fr);
-      grid-template-areas: "metier metier metier localisation localisation localisation"
-    "typeContrat typeContrat tempsTravail tempsTravail niveau niveau"
-    "domaines domaines domaines domaines domaines domaines";
 
-      .metier {
-        grid-area: metier;
+      .metier, .localisation {
+        grid-column: span 3;
       }
 
-      .localisation {
-        grid-area: localisation;
-      }
-
-      .typeContrat {
-        grid-area: typeContrat;
-      }
-
-      .tempsTravail {
-        grid-area: tempsTravail;
-      }
-
-      .niveau {
-        grid-area: niveau;
+      .typeContrat, .tempsTravail, .niveau {
+        grid-row: 2;
+        grid-column: span 2;
       }
 
       .domaines {
-        grid-area: domaines;
+        grid-row: 3;
+        grid-column: -1/1;
       }
     }
   }
