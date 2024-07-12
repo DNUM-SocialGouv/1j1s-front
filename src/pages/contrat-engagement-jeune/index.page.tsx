@@ -4,7 +4,7 @@ import Accompagnement from '~/client/components/features/ContratEngagementJeune/
 import Actions from '~/client/components/features/ContratEngagementJeune/Actions/Actions';
 import Allocations from '~/client/components/features/ContratEngagementJeune/Allocations/Allocations';
 import Application from '~/client/components/features/ContratEngagementJeune/Application/Application';
-import Banniere from '~/client/components/features/ContratEngagementJeune/Banniere/Banniere';
+import { Banniere } from '~/client/components/features/ContratEngagementJeune/Banniere/Banniere';
 import DemandeContactCEJ from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/DemandeContactCEJ';
 import PourquoiCEstFaitPourMoi from '~/client/components/features/ContratEngagementJeune/Pourquoi/PourquoiCEstFaitPourMoi';
 import QuEstCeQueCEst from '~/client/components/features/ContratEngagementJeune/QuEstCeQueCest/QuEstCeQueCEst';
