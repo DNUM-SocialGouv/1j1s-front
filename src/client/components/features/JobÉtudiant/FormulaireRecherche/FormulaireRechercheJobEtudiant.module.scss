@@ -1,7 +1,5 @@
-@use "sass:color";
 @use "@styles/utilities";
 @use "@styles/components/form/variables";
-@use "@styles/theme/variables" as theme-variables;
 
 .rechercheOffreForm {
   @include utilities.media(medium) {
@@ -11,25 +9,22 @@
 
   & .filtres {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: variables.$form-submit-button-vertical-gap-mobile;
-  
-    @include utilities.media(medium) {
-      grid-template-columns: repeat(2, 1fr);
-      grid-gap: variables.$form-horizontal-gap;
+    grid-gap: variables.$form-vertical-gap-mobile;
 
-      .domaine {
-        grid-area: 2 / 1 / 3 / 3;
+    @include utilities.media(medium) {
+      grid-gap: variables.$form-horizontal-gap;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+
+      & .domaine {
+        grid-column: span 2;
       }
     }
 
     @include utilities.media(large) {
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-auto-flow: column;
+      grid-template-columns: 1.5fr 1fr 1fr;
       grid-template-rows: 1fr;
-
-      .domaine {
-        grid-area: auto;
-      }
     }
   }
 
@@ -37,7 +32,3 @@
     @extend %buttonRechercher;
   }
 }
-
-
-
-

@@ -1,7 +1,5 @@
-@use "sass:color";
 @use "@styles/utilities";
 @use "@styles/components/form/variables";
-@use "@styles/theme/variables" as theme-variables;
 
 .rechercheOffreForm {
   @include utilities.media(medium) {
