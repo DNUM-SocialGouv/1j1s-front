@@ -9,7 +9,6 @@ $form-vertical-gap-desktop: 1.5rem;
 
 $form-submit-button-vertical-gap-mobile: 3rem;
 
-$border-width: 1px;
 
 
 %label-champ{
@@ -33,7 +32,7 @@ $border-width: 1px;
     &::before,
     &::after {
       content: '';
-      border-top: $border-width solid utilities.$color-background-border;
+      border-top: 1px solid utilities.$color-background-border;
     }
   }
 

@@ -1,41 +1,43 @@
 @use "@styles/utilities";
 @use "@styles/components/form/variables";
 // FIXME (DORO - 2023-10-02): Duplication de FormulaireRechercheAlternance.module.scss et FormulaireRechercheOffreEmploi.module.scss
-@use "@styles/theme/variables" as theme-variables;
 
 .filtresRechercherOffre {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: variables.$form-submit-button-vertical-gap-mobile;
+  grid-gap: variables.$form-vertical-gap-mobile;
 
-  & .filtreRechercheEmploisEtLocalisation {
-    display: flex;
-    flex-direction: column;
-    gap: variables.$form-vertical-gap-mobile;
+  @include utilities.media(medium) {
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: repeat(6, 1fr);
+
+    & .localisation {
+      grid-column: span 3;
+    }
+
+    & .metier {
+      grid-column: span 3;
+    }
+
+    & .typeContrat, & .tempsTravail, & .niveauEtudes {
+      grid-row: 2;
+      grid-column: span 2;
+    }
+
+    & .domaines {
+      grid-row: 3;
+      grid-column: 1 / -1;
+    }
   }
 
-  .filtreRechercheDesktop {
+  .filtreDesktopOnly {
     display: none;
 
     @include utilities.media(medium) {
-        display: flex;
-        column-gap: variables.$form-horizontal-gap;
-        row-gap: variables.$form-vertical-gap-desktop;
-        flex-wrap: wrap;
-      }
-
-      > div {
-        flex-grow: 1;
-        flex-shrink: 0;
-        flex-basis: 25%;
-      }
-
-      > div > button {
-        width: 100%;
-      }
+      display: unset;
+    }
   }
 
-  .filtresRechercheMobile {
+  .buttonMoreFilterMobileOnly {
     text-align: left;
     @include utilities.media(medium) {
       display: none;
@@ -46,23 +48,3 @@
 .buttonRechercher {
   @extend %buttonRechercher;
 }
-
-@include utilities.media(medium) {
-  .filtresRechercherOffre {
-    grid-gap: variables.$form-vertical-gap-desktop;
-
-    & .filtreRechercheEmploisEtLocalisation {
-      display: flex;
-      flex-direction: row;
-      width: 100%;
-      gap: 1rem;
-      flex-wrap: wrap;
-      padding-block: 0;
-    }
-  }
-
-  .filtreRechercheEmploisEtLocalisation > div {
-    flex-grow: 1;
-  }
-}
-
