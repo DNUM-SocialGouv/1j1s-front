@@ -24,14 +24,10 @@ export function MonEspaceEntreprise() {
 					<Image src="/images/logos/les-entrerprises-s-engagent.svg" alt="" width={150} height={150}/>
 					<h2>
 						<LightHeroSecondaryText>
-							<span>J‘accède à mon espace entreprise</span>
-							Les entreprises s‘engagent
+							<span>Vous êtes déjà membre de la Communauté</span> &quot;Les entreprises s‘engagent&quot; ?
 						</LightHeroSecondaryText>
 					</h2>
 					<p>
-						<strong>
-							Vous êtes déjà membre de la Communauté &quot;Les entreprises s‘engagent&quot; ?
-						</strong>
 						<span>
 							Connectez-vous à votre espace sur la plateforme &quot;Les entreprises s‘engagent&quot; pour accéder à tous les services d‘accompagnement et valoriser votre engagement en faveur des jeunes.
 						</span>
@@ -57,13 +53,10 @@ export function MonEspaceEntreprise() {
 						height={200}/>
 					<h2>
 						<LightHeroSecondaryText>
-							Je gère mes offres d’emploi en alternance avec La bonne alternance
+							Vous avez déjà publié une offre en alternance pour les jeunes ?
 						</LightHeroSecondaryText>
 					</h2>
 					<p>
-						<strong>
-							Vous avez déjà publié une offre en alternance pour les jeunes ?
-						</strong>
 						<span>
 							Connectez-vous à votre espace sur la plateforme &quot;La bonne alternance&quot; pour gérer vos offres
 							actuelles ou en publier de nouvelles.
@@ -80,8 +73,8 @@ export function MonEspaceEntreprise() {
 					</div>
 				</div>
 				<p className={styles.contact}>
-					Pour toute demande concernant les offres de stages d‘études, veuillez nous contacter par <Link
-						href={`mailto:${MAIL_TO_CONTACT_1J1S}`} aria-label={'demande de contact par email'}>email<Link.Icon/></Link>
+					Pour toute demande concernant les offres de stages d‘études, veuillez <Link
+						href={`mailto:${MAIL_TO_CONTACT_1J1S}`}>nous contacter par email<Link.Icon/></Link>
 				</p>
 			</Container>
 		</section>
