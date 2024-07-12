@@ -32,7 +32,7 @@ describe('<MonEspaceEntreprise/>', () => {
 	it('voit la demande de contact par mail', () => {
 		render(<MonEspaceEntreprise/>);
 
-		const demandeContactMail = screen.getByRole('link', { name: 'demande de contact par email' });
+		const demandeContactMail = screen.getByRole('link', { name: 'nous contacter par email - nouvelle fenêtre' });
 		expect(demandeContactMail).toBeVisible();
 		expect(demandeContactMail).toHaveAttribute('href', 'mailto:contact-1j1s@sg.social.gouv.fr');
 	});
