@@ -17,7 +17,7 @@ Ce site web propose aux utilisateurs différents services destinés aux jeunes d
 - [x] Chercher une offre d'alternance
 - [x] Chercher une offre de stage
 - [x] Chercher une offre de job d'été
-- [ ] Chercher une formation
+- [x] Chercher une formation
 - [ ] Chercher une formation initiale
 - [x] Chercher une formation en apprentissage
 - [x] Chercher un logement étudiant
@@ -30,3 +30,4 @@ Ce site web propose aux utilisateurs différents services destinés aux jeunes d
 - [x] Déposer une offre d'alternance
 - [x] Découvrir le contrat d'engagement jeune
 - [x] Découvrir les métiers
+
