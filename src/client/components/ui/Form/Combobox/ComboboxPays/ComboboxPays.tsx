@@ -48,6 +48,7 @@ export const ComboboxPays = React.forwardRef<ComboboxRef, ComboboxPaysProps>(fun
 		id: idProps,
 		onInvalid: onInvalidProps = () => {},
 		'aria-describedby': ariaDescribedby = '',
+		className,
 		...comboboxProps
 	} = props;
 
@@ -82,7 +83,7 @@ export const ComboboxPays = React.forwardRef<ComboboxRef, ComboboxPaysProps>(fun
 	const isEmpty = value === '';
 
 	return (
-		<div>
+		<div className={className}>
 			<Champ>
 				<Champ.Label>
 					{label}

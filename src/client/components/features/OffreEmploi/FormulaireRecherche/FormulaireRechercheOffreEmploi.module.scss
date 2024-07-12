@@ -5,64 +5,40 @@
 $color-border-filters: lighten(utilities.$color-primary, 15%);
 
 .rechercheOffreForm {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr auto;
-  grid-gap: variables.$form-submit-button-vertical-gap-mobile;
-
   @include utilities.media(medium) {
-    grid-template-columns: 1fr auto;
-    grid-gap: variables.$form-horizontal-gap;
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
   }
 
   & .filtres {
     display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
     grid-auto-rows: auto;
     grid-gap: variables.$form-vertical-gap-mobile;
 
     @include utilities.media(medium) {
       grid-template-columns: repeat(6, 1fr);
       grid-template-rows: repeat(3, 1fr);
-      grid-template-areas: "metier metier metier localisation localisation localisation"
-    "typeContrat typeContrat tempsTravail tempsTravail niveau niveau"
-    "domaines domaines domaines domaines domaines domaines";
 
-      .metier {
-        grid-area: metier;
+      .metier, .localisation {
+        grid-column: span 3;
       }
 
-      .localisation {
-        grid-area: localisation;
-      }
-
-      .typeContrat {
-        grid-area: typeContrat;
-      }
-
-      .tempsTravail {
-        grid-area: tempsTravail;
-      }
-
-      .niveau {
-        grid-area: niveau;
+      .typeContrat, .tempsTravail, .niveau {
+        grid-row: 2;
+        grid-column: span 2;
       }
 
       .domaines {
-        grid-area: domaines;
+        grid-row: 3;
+        grid-column: -1/1;
       }
     }
   }
 
   & .buttonRechercher {
-    > button {
-      width: 100%;
-    }
-
-    @include utilities.media(medium) {
-      margin-top: utilities.pixel-to-rem(28);
-    }
+    @extend %buttonRechercher;
   }
 }
 

@@ -72,22 +72,20 @@ export function FormulaireRechercheAlternance(props: FormulaireRechercheAlternan
 				onSubmit={updateRechercherAlternanceQueryParams}
 			>
 				<div className={styles.filtresRechercherOffre}>
-					<div className={styles.inputButtonWrapper}>
-						<MetierDependenciesProvider metierService={metierService}>
-							<ComboboxMetiers
-								defaultValue={domaineDefaultValue}
-								required
-								valueName={'codeRomes'}
-							/>
-						</MetierDependenciesProvider>
-
-						<ComboboxCommune
-							defaultCommune={defaultCommune}
-							showRadiusInput
-							defaultDistance={distanceCommune}
+					<MetierDependenciesProvider metierService={metierService}>
+						<ComboboxMetiers
+							defaultValue={domaineDefaultValue}
 							required
+							valueName={'codeRomes'}
 						/>
-					</div>
+					</MetierDependenciesProvider>
+
+					<ComboboxCommune
+						defaultCommune={defaultCommune}
+						showRadiusInput
+						defaultDistance={distanceCommune}
+						required
+					/>
 				</div>
 				<div className={styles.buttonRechercher}>
 					<ButtonComponent

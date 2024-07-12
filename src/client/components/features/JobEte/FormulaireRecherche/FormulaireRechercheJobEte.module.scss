@@ -1,45 +1,34 @@
-@use "sass:color";
 @use "@styles/utilities";
 @use "@styles/components/form/variables";
 
-$color-border-filters: lighten(utilities.$color-primary, 15%);
-
 .rechercheOffreForm {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr auto;
-  grid-gap: variables.$form-submit-button-vertical-gap-mobile;
-
   @include utilities.media(medium) {
-    grid-template-columns: 1fr auto;
-    grid-gap: variables.$form-horizontal-gap;
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
   }
 
   & .filtres {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    gap: variables.$form-vertical-gap-mobile;
+    display: grid;
+    grid-gap: variables.$form-vertical-gap-mobile;
 
     @include utilities.media(medium) {
-      flex-direction: row;
+      grid-gap: variables.$form-horizontal-gap;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
 
-      .localisation, .metier, .domaine {
-        min-width: 28ch;
-        flex: 1
+      & .domaine {
+        grid-column: span 2;
       }
+    }
+
+    @include utilities.media(large) {
+      grid-auto-flow: column;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      grid-template-rows: 1fr;
     }
   }
 
   & .buttonRechercher {
-    @include utilities.media(medium) {
-      margin-top: utilities.pixel-to-rem(28);
-    }
-
-    > button {
-      width: 100%;
-    }
+    @extend %buttonRechercher;
   }
 }

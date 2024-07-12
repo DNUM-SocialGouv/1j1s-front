@@ -40,7 +40,7 @@ export function FormulaireRechercheJobÉtudiant() {
 			onSubmit={updateRechercherJobÉtudiantQueryParams}
 		>
 			<div className={styles.filtres}>
-				<Champ className={styles.metier}>
+				<Champ>
 					<Champ.Label>
 						Métier, mot-clé (minimum 2 caractères)
 						<Champ.Label.Complement>Exemples : boulanger, informatique…</Champ.Label.Complement>
@@ -54,11 +54,9 @@ export function FormulaireRechercheJobÉtudiant() {
 					<Champ.Error/>
 				</Champ>
 
-				<div className={styles.localisation}>
-					<ComboboxLocalisation
-						defaultValue={inputLocalisation}
-					/>
-				</div>
+				<ComboboxLocalisation
+					defaultValue={inputLocalisation}
+				/>
 
 				<Select
 					className={styles.domaine}
