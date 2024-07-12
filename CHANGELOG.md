@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.318.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.317.2...v3.318.0) (2024-07-12)
+
+
+### Features
+
+* **ui:** déplacer bouton rechercher formulaire de recherche ([#3145](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3145)) ([5c8bbd5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5c8bbd52fcfc1a3ecb885f9564b3c7dc8f8a75ba))
+
 ## [3.317.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.317.1...v3.317.2) (2024-07-11)
 
 
