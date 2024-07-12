@@ -20,7 +20,7 @@ export default function ContratEngagementJeune() {
 	return (
 		<>
 			<Head
-				title="Contrat Engagement Jeune"
+				title="Contrat d’engagement jeune | 1jeune1solution"
 				description="Plus de 400 000 offres d‘emplois et d‘alternances sélectionnées pour vous"
 				robots="index,follow"
 			/>
