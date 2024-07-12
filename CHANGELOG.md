@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.319.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.318.0...v3.319.0) (2024-07-12)
+
+
+### Features
+
+* **mon-espace:** change wording titres et lien de contact ([#3163](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3163)) ([5999ea7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5999ea796ba11e52e0b411a25baf4e33f5277e27))
+
 ## [3.318.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.317.2...v3.318.0) (2024-07-12)
 
 
