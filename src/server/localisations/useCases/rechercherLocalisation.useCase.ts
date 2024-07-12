@@ -10,8 +10,9 @@ import RechercheLocalisationUtils from '~/server/localisations/domain/rechercheL
 const MIN_CHAR_LENGTH_FOR_SEARCH = 3;
 
 export class RechercherLocalisationUseCase {
-	constructor(private localisationRepository: LocalisationRepository,
-							private localisationAvecCoordonnéesRepository: LocalisationAvecCoordonnéesRepository) {
+	constructor(
+		private localisationRepository: LocalisationRepository,
+		private localisationAvecCoordonnéesRepository: LocalisationAvecCoordonnéesRepository) {
 	}
 
 	async handle(recherche: string): Promise<Either<RechercheLocalisation>> {
