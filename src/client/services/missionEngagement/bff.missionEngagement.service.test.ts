@@ -17,18 +17,15 @@ describe('MissionEngagementService', () => {
 					domain: 'sante',
 					ouvertsAuxMineurs: true,
 					page: '2',
-					...aCommuneQuery({
-
-					}),
+					...aCommuneQuery({}),
 				};
 
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
 
 				const result = await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 
-				expect(result).toEqual({ instance: 'success', result: aRésultatRechercheMission() });
+				expect(result).toEqual(createSuccess(aRésultatRechercheMission()));
 				expect(httpClientService.get).toHaveBeenCalledWith('services-civique?distanceCommune=10&domain=sante&ouvertsAuxMineurs=true&page=2&codeCommune=75056&codePostal=75006&latitudeCommune=48.859&libelleCommune=Paris%20(75006)&longitudeCommune=2.347&ville=Paris');
-
 			});
 		});
 
@@ -42,13 +39,14 @@ describe('MissionEngagementService', () => {
 					domain: 'sante',
 					ouvertsAuxMineurs: true,
 					page: '2',
-					...aCommuneQuery() };
+					...aCommuneQuery(),
+				};
 
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
 
 				const result = await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 
-				expect(result).toEqual({ instance: 'success', result: aRésultatRechercheMission() });
+				expect(result).toEqual(createSuccess(aRésultatRechercheMission()));
 				expect(httpClientService.get).toHaveBeenCalledWith('benevolats?distanceCommune=10&domain=sante&ouvertsAuxMineurs=true&page=2&codeCommune=75056&codePostal=75006&latitudeCommune=48.859&libelleCommune=Paris%20(75006)&longitudeCommune=2.347&ville=Paris');
 			});
 		});
@@ -61,7 +59,8 @@ describe('MissionEngagementService', () => {
 				domain: undefined,
 				ouvertsAuxMineurs: true,
 				page: '2',
-				...aCommuneQuery() };
+				...aCommuneQuery(),
+			};
 
 			await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 

@@ -28,6 +28,7 @@ import { useFormationQuery } from '~/client/hooks/useFormationQuery';
 import { FormationService } from '~/client/services/formation/formation.service';
 import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
+import { isSuccess } from '~/server/errors/either';
 import { Erreur } from '~/server/errors/erreur.types';
 import { RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { transformObjectToQueryString } from '~/server/services/utils/urlParams.util';
@@ -52,7 +53,7 @@ export default function RechercherFormation() {
 
 			formationService.rechercherFormation(formationQuery)
 				.then((response) => {
-					if (response.instance === 'success') {
+					if (isSuccess(response)) {
 						setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.length === 0 ? ' - Aucun résultat' : ''}`));
 						setFormationList(response.result);
 						setNombreRésultats(response.result.length);

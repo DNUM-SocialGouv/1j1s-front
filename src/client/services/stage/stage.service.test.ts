@@ -26,7 +26,7 @@ describe('stageService', () => {
 
 			// THEN
 			expect(httpClient.post).toHaveBeenCalledWith('stages', offreToSubmit);
-			expect(result).toEqual({ instance: 'success' });
+			expect(result).toEqual(createSuccess(undefined));
 		});
 	});
 });
