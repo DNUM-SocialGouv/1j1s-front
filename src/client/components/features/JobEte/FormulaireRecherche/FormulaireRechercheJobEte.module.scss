@@ -14,21 +14,19 @@
     grid-gap: variables.$form-vertical-gap-mobile;
 
     @include utilities.media(medium) {
-      grid-template-columns: repeat(2, 1fr);
       grid-gap: variables.$form-horizontal-gap;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
 
-      .domaine {
-        grid-area: 2 / 1 / 3 / 3;
+      & .domaine {
+        grid-column: span 2;
       }
     }
 
     @include utilities.media(large) {
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-auto-flow: column;
+      grid-template-columns: 1.5fr 1fr 1fr;
       grid-template-rows: 1fr;
-
-      .domaine {
-        grid-area: auto;
-      }
     }
   }
 

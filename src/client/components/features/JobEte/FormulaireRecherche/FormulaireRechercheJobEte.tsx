@@ -39,9 +39,9 @@ export function FormulaireRechercheJobEte() {
 			onSubmit={updateRechercherJobEteQueryParams}
 		>
 			<div className={styles.filtres}>
-				<Champ className={styles.metier}>
+				<Champ>
 					<Champ.Label>
-							Métier, mot-clé (minimum 2 caractères)
+						Métier, mot-clé (minimum 2 caractères)
 						<Champ.Label.Complement>Exemples : boulanger, informatique…</Champ.Label.Complement>
 					</Champ.Label>
 					<Champ.Input
@@ -53,11 +53,7 @@ export function FormulaireRechercheJobEte() {
 					<Champ.Error/>
 				</Champ>
 
-				<div className={styles.localisation}>
-					<ComboboxLocalisation
-						defaultValue={inputLocalisation}
-					/>
-				</div>
+				<ComboboxLocalisation defaultValue={inputLocalisation}/>
 
 				<Select
 					className={styles.domaine}
@@ -71,10 +67,10 @@ export function FormulaireRechercheJobEte() {
 			</div>
 			<div className={styles.buttonRechercher}>
 				<ButtonComponent
-					label='Rechercher'
-					icon={<Icon name="magnifying-glass" />}
-					iconPosition='right'
-					type='submit'
+					label="Rechercher"
+					icon={<Icon name="magnifying-glass"/>}
+					iconPosition="right"
+					type="submit"
 				/>
 			</div>
 		</form>
