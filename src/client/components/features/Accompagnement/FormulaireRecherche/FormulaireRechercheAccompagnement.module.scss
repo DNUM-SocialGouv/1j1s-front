@@ -2,45 +2,29 @@
 @use "@styles/components/form/variables";
 
 .rechercheAccompagnementForm {
-  display: flex;
-  flex-direction: column;
-  gap: variables.$form-submit-button-vertical-gap-mobile;
+  @include utilities.media(medium){
+    padding-bottom: 2.5rem;
+  }
 }
 
 .filtresRecherche {
-  display: flex;
-  flex-direction: column;
-  gap: variables.$form-vertical-gap-mobile;
-  flex-grow: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: variables.$form-vertical-gap-mobile;
+
+  @include utilities.media(medium){
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: 1fr;
+    grid-gap: variables.$form-vertical-gap-desktop;
+  }
 }
 
-.comboboxCommune {
-  flex-grow: 1;
-}
-
-.inputAccompagnement {
-  flex-grow: 0.3;
+.buttonRechercher {
+  @extend %buttonRechercher;
 }
 
 .rechercherAccompagnementHint {
   color: utilities.$color-primary;
   margin-block: 1.25rem;
-}
-
-@include utilities.media(medium){
-  .filtresRecherche {
-    flex-direction: row;
-    gap: variables.$form-vertical-gap-desktop;
-  }
-
-  .rechercheAccompagnementForm {
-    flex-direction: row;
-    align-items: flex-start;
-    padding-bottom: 2.5rem;
-    gap: variables.$form-vertical-gap-desktop;
-  }
-
-  .buttonRechercher {
-    margin-top: auto;
-  }
 }
