@@ -29,6 +29,11 @@
     opacity: 0;
     top: 50%;
     transform: translateY(-50%);
+
+    &:focus + label::before {
+      outline: 2px solid utilities.$color-primary;
+      outline-offset: 2px;
+    }
   }
 
   input[type=radio] + label {

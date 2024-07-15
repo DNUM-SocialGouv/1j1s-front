@@ -235,20 +235,6 @@ describe('FormulaireRechercheOffreEmploi', () => {
 			mockLargeScreen();
 		});
 
-		it('affiche les filtres avancés sans modale', async () => {
-			// GIVEN
-			const localisationServiceMock = aLocalisationService();
-			mockUseRouter({ push: jest.fn() });
-			render(
-				<DependenciesProvider localisationService={localisationServiceMock}>
-					<FormulaireRechercheOffreEmploi/>
-				</DependenciesProvider>,
-			);
-
-			const button = screen.getByRole('combobox', { name: 'Domaines Exemple : Commerce, Immobilier…' });
-			expect(button).toBeVisible();
-		});
-
 		describe('quand on filtre par type de contrat', () => {
 			it('ajoute les types de contrat aux query params', async () => {
 				const localisationServiceMock = aLocalisationService();
@@ -382,10 +368,10 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const localisation = screen.getByRole('combobox', { name: /Localisation/i });
 				expect(localisation).toHaveValue('Paris (75010)');
 
-				checkSelectValue('Types de contrats Exemple : CDI, CDD…', Offre.CONTRAT_CDD.libelléCourt);
-				checkSelectValue('Temps de travail Exemple : temps plein, temps partiel…', Offre.TEMPS_PLEIN.libellé);
-				checkSelectValue('Niveau demandé Exemple : De 1 à 3 ans', Offre.EXPÉRIENCE_DEBUTANT.libellé);
-				checkSelectValue('Niveau demandé Exemple : De 1 à 3 ans', référentielDomaineList[0].libelle);
+				expect(screen.getByRole('option', { hidden: true, name: Offre.CONTRAT_CDD.libelléCourt })).toHaveAttribute('aria-selected', 'true');
+				expect(screen.getByRole('option', { hidden: true, name: Offre.TEMPS_PLEIN.libellé })).toHaveAttribute('aria-selected', 'true');
+				expect(screen.getByRole('option', { hidden: true, name: Offre.EXPÉRIENCE_DEBUTANT.libellé })).toHaveAttribute('aria-selected', 'true');
+				expect(screen.getByRole('option', { hidden: true, name: référentielDomaineList[0].libelle })).toHaveAttribute('aria-selected', 'true');
 			});
 		});
 		describe('que le type de localisation est un département', () => {
@@ -414,16 +400,12 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const localisation = screen.getByRole('combobox', { name: /Localisation/i });
 				expect(localisation).toHaveValue('Paris (75)');
 
-				checkSelectValue('Types de contrats Exemple : CDI, CDD…', Offre.CONTRAT_CDD.libelléCourt);
-				checkSelectValue('Temps de travail Exemple : temps plein, temps partiel…', Offre.TEMPS_PLEIN.libellé);
-				checkSelectValue('Niveau demandé Exemple : De 1 à 3 ans', Offre.EXPÉRIENCE_DEBUTANT.libellé);
-				checkSelectValue('Domaines Exemple : Commerce, Immobilier…', référentielDomaineList[0].libelle);
+				expect(screen.getByRole('option', { hidden: true, name: Offre.CONTRAT_CDD.libelléCourt })).toHaveAttribute('aria-selected', 'true');
+				expect(screen.getByRole('option', { hidden: true, name: Offre.TEMPS_PLEIN.libellé })).toHaveAttribute('aria-selected', 'true');
+				expect(screen.getByRole('option', { hidden: true, name: Offre.EXPÉRIENCE_DEBUTANT.libellé })).toHaveAttribute('aria-selected', 'true');
+				expect(screen.getByRole('option', { hidden: true, name: référentielDomaineList[0].libelle })).toHaveAttribute('aria-selected', 'true');
 			});
 		});
 	});
 });
 
-function checkSelectValue(fieldLabel: string, optionName: string): void {
-	const option = screen.getByRole('option', { hidden: true, name: optionName });
-	expect(option).toHaveAttribute('aria-selected', 'true');
-}

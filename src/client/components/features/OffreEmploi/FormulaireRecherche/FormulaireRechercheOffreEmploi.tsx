@@ -216,6 +216,7 @@ export function FormulaireRechercheOffreEmploi() {
 					<FilterAccordion title="Type de contrat" open>
 						{Offre.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
 							<Checkbox
+								name="typeDeContrats"
 								key={`Type de contrat${index}`}
 								label={typeDeContrat.libelléLong}
 								onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
@@ -241,7 +242,7 @@ export function FormulaireRechercheOffreEmploi() {
 							<Radio
 								key={`Niveau demandé${index}`}
 								label={expérience.libellé}
-								name={expérience.libellé}
+								name="experienceExigence"
 								checked={inputExpérience === expérience.valeur}
 								onChange={() => setInputExpérience(expérience.valeur)}
 								value={expérience.valeur}
@@ -251,6 +252,7 @@ export function FormulaireRechercheOffreEmploi() {
 					<FilterAccordion title="Domaine">
 						{référentielDomaineList.map((domaine, index) => (
 							<Checkbox
+								name={'grandDomaine'}
 								key={`Domaine${index}`}
 								label={domaine.libelle}
 								onChange={(e: ChangeEvent<HTMLInputElement>) => toggleDomaine(e.target.value)}
