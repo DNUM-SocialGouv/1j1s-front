@@ -2,28 +2,24 @@
 @use "@styles/components/form/variables";
 
 .rechercheMissionEngagementForm {
-  display: flex;
-  flex-direction: column;
-  gap: variables.$form-submit-button-vertical-gap-mobile;
-  &__Container {
-    flex: 1 0;
+  @include utilities.media(medium) {
+    padding: 40px 0;
+
   }
 
-  & .inputButtonWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: variables.$form-vertical-gap-mobile;
+  &__Container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: variables.$form-vertical-gap-mobile;
+
+    @include utilities.media(medium) {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 }
 
 .rechercherMissionEngagementButton {
-  > button {
-    width: 100%;
-  }
-}
-
-.rechercherMissionEngagementButton > span {
-  margin: auto;
+  @extend %buttonRechercher;
 }
 
 @include utilities.media(medium) {
@@ -31,22 +27,5 @@
     flex-direction: row;
     gap: variables.$form-vertical-gap-desktop;
     align-items: flex-start;
-    padding: 40px 0;
-
-    & .inputButtonWrapper {
-      width: 100%;
-      flex-direction: row;
-      gap: variables.$form-vertical-gap-desktop;
-
-      > div {
-        flex-grow: 1;
-      }
-    }
-  }
-
-  .rechercherMissionEngagementButton {
-    width: initial;
-    margin-top: auto;
-    margin-bottom: auto;
   }
 }
