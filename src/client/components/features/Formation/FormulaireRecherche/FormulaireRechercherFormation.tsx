@@ -63,22 +63,20 @@ export function FormulaireRechercherFormation() {
 				onSubmit={updateRechercherFormationQueryParams}
 			>
 				<div className={styles.filtresRechercherFormation}>
-					<div className={styles.inputButtonWrapper}>
-						<MetierDependenciesProvider metierService={metierService}>
-							<ComboboxMetiers
-								defaultValue={domaineDefaultValue}
-								required
-								autoFocus
-								valueName={'codeRomes'}
-							/>
-						</MetierDependenciesProvider>
-						<ComboboxCommune
-							defaultCommune={communeDefaultValue}
-							showRadiusInput
-							defaultDistance={distanceCommune}
+					<MetierDependenciesProvider metierService={metierService}>
+						<ComboboxMetiers
+							defaultValue={domaineDefaultValue}
 							required
+							autoFocus
+							valueName={'codeRomes'}
 						/>
-					</div>
+					</MetierDependenciesProvider>
+					<ComboboxCommune
+						defaultCommune={communeDefaultValue}
+						showRadiusInput
+						defaultDistance={distanceCommune}
+						required
+					/>
 					<Select
 						name="niveauEtudes"
 						optionList={Formation.NIVEAU_ETUDES}
