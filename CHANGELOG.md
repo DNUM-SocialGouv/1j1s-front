@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.321.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.320.0...v3.321.0) (2024-07-15)
+
+
+### Features
+
+* **job été:** filtrer les jobs été pour maximiser la cohérence des résultats ([#3156](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3156)) ([bcf9772](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bcf9772d8322d97486eecc93a3cb9ac1a28ae592))
+
 ## [3.320.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.319.0...v3.320.0) (2024-07-15)
 
 
