@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useCallback, useRef, useState } from 'react';
 
@@ -104,96 +105,82 @@ export function FormulaireRechercheEmploisEurope() {
 		<form
 			ref={rechercheEmploiEuropeForm}
 			role="search"
-			className={styles.rechercheOffreForm}
 			aria-label="Rechercher une offre d'emploi en Europe"
 			onSubmit={updateRechercherEmploiEuropeQueryParams}
 		>
 			<div className={styles.filtresRechercherOffre}>
-				<div className={styles.inputButtonWrapper}>
-					<Champ>
-						<Champ.Label>
-							Métier, mot-clé ou entreprise
-							<Champ.Label.Complement>Exemple : boulanger, marketing, Google</Champ.Label.Complement>
-						</Champ.Label>
-						<Champ.Input
-							render={Input}
-							autoFocus
-							value={inputMotCle}
-							name="motCle"
-							onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
-						/>
-						<Champ.Error/>
-					</Champ>
-					<ComboboxPays
-						paysList={paysEuropeList}
-						labelComplement="Exemple : Belgique, Allemagne"
-						defaultValue={localisationDefaultValue}
-						placeholder="Sélectionnez vos choix"
+				<Champ className={styles.metier}>
+					<Champ.Label>
+						Métier, mot-clé ou entreprise
+						<Champ.Label.Complement>Exemple : boulanger, marketing, Google</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input
+						render={Input}
+						autoFocus
+						value={inputMotCle}
+						name="motCle"
+						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
 					/>
+					<Champ.Error/>
+				</Champ>
+				<ComboboxPays
+					className={styles.localisation}
+					paysList={paysEuropeList}
+					labelComplement="Exemple : Belgique, Allemagne"
+					defaultValue={localisationDefaultValue}
+					placeholder="Sélectionnez vos choix"
+				/>
 
-					<div className={styles.filtresRechercheMobile}>
-						<ButtonComponent
-							appearance="quaternary"
-							type="button"
-							icon={<Icon name="filter"/>}
-							iconPosition="right"
-							label="Filtrer ma recherche"
-							onClick={() => setIsFiltresAvancesMobileOpen(!isFiltresAvancesMobileOpen)}
-						/>
-					</div>
-					<ModaleFiltreAvancee
-						close={() => setIsFiltresAvancesMobileOpen(false)}
-						toggleTypeContrat={toggleTypeContrat}
-						toggleTempsDeTravail={toggleTempsDeTravail}
-						toggleNiveauEtude={toggleNiveauEtude}
-						toggleSecteurActivite={toggleSecteurActivite}
-						inputTypeContrat={inputTypeContrat}
-						inputSecteurActivite={inputSecteurActivite}
-						inputNiveauEtude={inputNiveauEtude}
-						inputTempsDeTravail={inputTempsDeTravail}
-						open={isFiltresAvancesMobileOpen}
-						onClick={applyFiltresAvances}
-					/>
-				</div>
+				<ButtonComponent
+					className={styles.buttonMoreFilterMobileOnly}
+					appearance="quaternary"
+					type="button"
+					icon={<Icon name="filter"/>}
+					iconPosition="right"
+					label="Filtrer ma recherche"
+					onClick={() => setIsFiltresAvancesMobileOpen(!isFiltresAvancesMobileOpen)}
+				/>
 
-				<div className={styles.filtreRechercheDesktop}>
-					<Select
-						multiple
-						optionList={typesContratEures}
-						onChange={(option) => onChangeMultipleSelect(option, setInputTypeContrat)}
-						label="Type de contrat"
-						value={inputTypeContrat}
-						name="typeContrat"
-						labelComplement="Exemple : Alternance, Contrat déterminé"
-					/>
-					<Select
-						multiple
-						optionList={tempsDeTravailEures}
-						onChange={(option) => onChangeMultipleSelect(option, setInputTempsDeTravail)}
-						label="Temps de travail"
-						value={inputTempsDeTravail}
-						name="tempsDeTravail"
-						labelComplement="Exemple : Temps plein, temps partiel"
-					/>
-					<Select
-						multiple
-						optionList={niveauEtudesEures}
-						onChange={(option) => onChangeMultipleSelect(option, setInputNiveauEtude)}
-						label="Niveau d‘études demandé"
-						value={inputNiveauEtude}
-						name="niveauEtude"
-						labelComplement="Exemple : Master, Bachelor"
-					/>
-					<Select
-						multiple
-						optionList={secteurActiviteEures}
-						onChange={(option) => onChangeMultipleSelect(option, setInputSecteurActivite)}
-						label="Domaines"
-						value={inputSecteurActivite}
-						name="secteurActivite"
-						labelComplement="Exemple : Agriculture, Communication"
-					/>
-				</div>
+				<Select
+					className={classNames(styles.filtreDesktopOnly, styles.typeContrat)}
+					multiple
+					optionList={typesContratEures}
+					onChange={(option) => onChangeMultipleSelect(option, setInputTypeContrat)}
+					label="Type de contrat"
+					value={inputTypeContrat}
+					name="typeContrat"
+					labelComplement="Exemple : Alternance, Contrat déterminé"
+				/>
+				<Select
+					className={classNames(styles.filtreDesktopOnly, styles.tempsTravail)}
+					multiple
+					optionList={tempsDeTravailEures}
+					onChange={(option) => onChangeMultipleSelect(option, setInputTempsDeTravail)}
+					label="Temps de travail"
+					value={inputTempsDeTravail}
+					name="tempsDeTravail"
+					labelComplement="Exemple : Temps plein, temps partiel"
+				/>
+				<Select
+					className={classNames(styles.filtreDesktopOnly, styles.niveauEtudes)}
+					multiple
+					optionList={niveauEtudesEures}
+					onChange={(option) => onChangeMultipleSelect(option, setInputNiveauEtude)}
+					label="Niveau d‘études demandé"
+					value={inputNiveauEtude}
+					name="niveauEtude"
+					labelComplement="Exemple : Master, Bachelor"
+				/>
+				<Select
+					className={classNames(styles.filtreDesktopOnly, styles.domaines)}
+					multiple
+					optionList={secteurActiviteEures}
+					onChange={(option) => onChangeMultipleSelect(option, setInputSecteurActivite)}
+					label="Domaines"
+					value={inputSecteurActivite}
+					name="secteurActivite"
+					labelComplement="Exemple : Agriculture, Communication"
+				/>
 			</div>
 			<div className={styles.buttonRechercher}>
 				<ButtonComponent
@@ -203,6 +190,20 @@ export function FormulaireRechercheEmploisEurope() {
 					type="submit"
 				/>
 			</div>
+
+			<ModaleFiltreAvancee
+				close={() => setIsFiltresAvancesMobileOpen(false)}
+				toggleTypeContrat={toggleTypeContrat}
+				toggleTempsDeTravail={toggleTempsDeTravail}
+				toggleNiveauEtude={toggleNiveauEtude}
+				toggleSecteurActivite={toggleSecteurActivite}
+				inputTypeContrat={inputTypeContrat}
+				inputSecteurActivite={inputSecteurActivite}
+				inputNiveauEtude={inputNiveauEtude}
+				inputTempsDeTravail={inputTempsDeTravail}
+				open={isFiltresAvancesMobileOpen}
+				onClick={applyFiltresAvances}
+			/>
 		</form>
 	);
 }

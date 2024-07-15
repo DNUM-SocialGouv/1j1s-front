@@ -213,53 +213,73 @@ export function FormulaireRechercheOffreEmploi() {
 					<span id="dialog_label">Filtrer ma recherche</span>
 				</ModalComponent.Title>
 				<ModalComponent.Content className={styles.modalfiltresAvancesContenu}>
-					<FilterAccordion title="Type de contrat" open>
-						{Offre.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
-							<Checkbox
-								name="typeDeContrats"
-								key={`Type de contrat${index}`}
-								label={typeDeContrat.libelléLong}
-								onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
-								value={typeDeContrat.valeur}
-								checked={inputTypeDeContrat.includes(typeDeContrat.valeur)}
-							/>
-						))}
+					<FilterAccordion open>
+						<FilterAccordion.Title id="type-de-contrat-title">Type de contrat</FilterAccordion.Title>
+						<FilterAccordion.Content>
+							<fieldset aria-labelledby="type-de-contrat-title">
+								{Offre.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
+									<Checkbox
+										name="typeDeContrats"
+										key={`Type de contrat${index}`}
+										label={typeDeContrat.libelléLong}
+										onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
+										value={typeDeContrat.valeur}
+										checked={inputTypeDeContrat.includes(typeDeContrat.valeur)}
+									/>
+								))}
+							</fieldset>
+						</FilterAccordion.Content>
 					</FilterAccordion>
-					<FilterAccordion title="Temps de travail">
-						{Offre.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
-							<Radio
-								key={index}
-								label={tempsDeTravail.libellé}
-								name="tempsDeTravail"
-								checked={inputTempsDeTravail === tempsDeTravail.valeur}
-								onChange={() => setInputTempsDeTravail(tempsDeTravail.valeur)}
-								value={tempsDeTravail.valeur}
-							/>
-						))}
+					<FilterAccordion>
+						<FilterAccordion.Title id="temps-de-travail-title">Temps de travail</FilterAccordion.Title>
+						<FilterAccordion.Content>
+							<fieldset aria-labelledby="temps-de-travail-title">
+								{Offre.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
+									<Radio
+										key={index}
+										label={tempsDeTravail.libellé}
+										name="tempsDeTravail"
+										checked={inputTempsDeTravail === tempsDeTravail.valeur}
+										onChange={() => setInputTempsDeTravail(tempsDeTravail.valeur)}
+										value={tempsDeTravail.valeur}
+									/>
+								))}
+							</fieldset>
+						</FilterAccordion.Content>
 					</FilterAccordion>
-					<FilterAccordion title="Niveau demandé">
-						{Offre.EXPÉRIENCE.map((expérience, index) => (
-							<Radio
-								key={`Niveau demandé${index}`}
-								label={expérience.libellé}
-								name="experienceExigence"
-								checked={inputExpérience === expérience.valeur}
-								onChange={() => setInputExpérience(expérience.valeur)}
-								value={expérience.valeur}
-							/>
-						))}
+					<FilterAccordion>
+						<FilterAccordion.Title id="niveau-demande-title">Niveau demandé</FilterAccordion.Title>
+						<FilterAccordion.Content>
+							<fieldset aria-labelledby="niveau-demande-title">
+								{Offre.EXPÉRIENCE.map((expérience, index) => (
+									<Radio
+										key={`Niveau demandé${index}`}
+										label={expérience.libellé}
+										name="experienceExigence"
+										checked={inputExpérience === expérience.valeur}
+										onChange={() => setInputExpérience(expérience.valeur)}
+										value={expérience.valeur}
+									/>
+								))}
+							</fieldset>
+						</FilterAccordion.Content>
 					</FilterAccordion>
-					<FilterAccordion title="Domaine">
-						{référentielDomaineList.map((domaine, index) => (
-							<Checkbox
-								name={'grandDomaine'}
-								key={`Domaine${index}`}
-								label={domaine.libelle}
-								onChange={(e: ChangeEvent<HTMLInputElement>) => toggleDomaine(e.target.value)}
-								value={domaine.code}
-								checked={inputDomaine.includes(domaine.code)}
-							/>
-						))}
+					<FilterAccordion>
+						<FilterAccordion.Title id="domaine-title">Domaine</FilterAccordion.Title>
+						<FilterAccordion.Content>
+							<fieldset aria-labelledby="domaine-title">
+								{référentielDomaineList.map((domaine, index) => (
+									<Checkbox
+										name={'grandDomaine'}
+										key={`Domaine${index}`}
+										label={domaine.libelle}
+										onChange={(e: ChangeEvent<HTMLInputElement>) => toggleDomaine(e.target.value)}
+										value={domaine.code}
+										checked={inputDomaine.includes(domaine.code)}
+									/>
+								))}
+							</fieldset>
+						</FilterAccordion.Content>
 					</FilterAccordion>
 				</ModalComponent.Content>
 				<ModalComponent.Footer>
