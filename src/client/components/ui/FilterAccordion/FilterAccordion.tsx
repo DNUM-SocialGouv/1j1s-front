@@ -8,23 +8,19 @@ interface FilterAccordionProps extends React.ComponentPropsWithoutRef<'details'>
 }
 
 export function FilterAccordion(props: React.PropsWithChildren<FilterAccordionProps>) {
-	const { children, open, className, ...rest } = props;
+	const { open, className, ...rest } = props;
 	return (
-		<details className={classNames(styles.details, className)} {...rest} open={open || false}>
-			{children}
-		</details>
+		<details className={classNames(styles.details, className)} {...rest} open={open || false}/>
 	);
 }
 
 export function FilterAccordionTitle(props: React.ComponentPropsWithoutRef<'summary'>) {
-	const { children, ...rest } = props;
-	return (<summary {...rest}>{children}</summary>
-	);
+	return <summary {...props}/>;
 }
 
 export function FilterAccordionContent(props: React.ComponentPropsWithoutRef<'div'>) {
-	const { className, children, ...rest } = props;
-	return <div className={classNames(styles.detailsContent, className)} {...rest}>{children}</div>;
+	const { className, ...rest } = props;
+	return <div className={classNames(styles.detailsContent, className)} {...rest}/>;
 }
 
 FilterAccordion.Title = FilterAccordionTitle;
