@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.320.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.319.0...v3.320.0) (2024-07-15)
+
+
+### Features
+
+* **CEJ:** change wording lien ([#3161](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3161)) ([e666bcf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e666bcf54396eeac9a84d5b774038ba8031ea541))
+
 ## [3.319.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.318.0...v3.319.0) (2024-07-12)
 
 
