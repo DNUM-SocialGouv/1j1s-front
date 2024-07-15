@@ -30,10 +30,11 @@ export class ApiFranceTravailJobEteRepository implements OffreRepository {
 		private readonly cacheService: CacheService,
 		private readonly apiFranceTravailOffreErrorManagementSearch: ErrorManagementService,
 		private readonly apiFranceTravailOffreErrorManagementGet: ErrorManagementWithErrorCheckingService,
-	) {}
+	) {
+	}
 
-	paramètreParDéfaut = 'typeContrat=CDD,MIS,SAI&dureeContratMax=2';
-
+	paramètreParDéfaut = 'typeContrat=SAI&dureeContratMax=2';
+	private DUREE_VALIDITE_CACHE_HEURE = 24;
 	private ECHANTILLON_OFFRE_JOB_ETE_KEY = 'ECHANTILLON_OFFRE_JOB_ETE_KEY';
 
 	async get(id: OffreId): Promise<Either<Offre>> {
@@ -55,7 +56,7 @@ export class ApiFranceTravailJobEteRepository implements OffreRepository {
 	}
 
 	async search(jobEteFiltre: JobEteFiltre): Promise<Either<RésultatsRechercheOffre>> {
-		if (isOffreÉchantillonFiltre(jobEteFiltre)) return this.getÉchantillonOffre(jobEteFiltre);
+		if (isOffreÉchantillonFiltre(jobEteFiltre)) return this.getEchantillonOffre();
 		return this.getOffreJobEteRecherche(jobEteFiltre);
 	}
 
@@ -90,9 +91,9 @@ export class ApiFranceTravailJobEteRepository implements OffreRepository {
 		}
 	}
 
-	private async getÉchantillonOffre(jobEteFiltre: JobEteFiltre): Promise<Either<RésultatsRechercheOffre>> {
+	private async getEchantillonOffre(): Promise<Either<RésultatsRechercheOffre>> {
 		const responseInCache = await this.cacheService.get<RésultatsRechercheOffreResponse>(this.ECHANTILLON_OFFRE_JOB_ETE_KEY);
-		const range = buildRangeParamètre(jobEteFiltre);
+		const range = buildRangeParamètre({ page: 1 });
 
 		if (responseInCache) {
 			return createSuccess(mapRésultatsRechercheOffre(responseInCache));
@@ -101,7 +102,7 @@ export class ApiFranceTravailJobEteRepository implements OffreRepository {
 				const response = await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse>(
 					`/search?range=${range}&${this.paramètreParDéfaut}`,
 				);
-				this.cacheService.set(this.ECHANTILLON_OFFRE_JOB_ETE_KEY, response.data, 24);
+				this.cacheService.set(this.ECHANTILLON_OFFRE_JOB_ETE_KEY, response.data, this.DUREE_VALIDITE_CACHE_HEURE);
 				return createSuccess(mapRésultatsRechercheOffre(response.data));
 			} catch (error) {
 				return this.apiFranceTravailOffreErrorManagementSearch.handleFailureError(error, {

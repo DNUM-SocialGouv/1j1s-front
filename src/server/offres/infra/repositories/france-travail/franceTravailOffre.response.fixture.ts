@@ -37,6 +37,9 @@ export function aBarmanOffreEmploiApiResponse(): OffreResponse {
 		origineOffre: {
 			urlOrigine: 'https://candidat.francetravail.fr/offres/recherche/detail/132LKFB',
 		},
+		salaire:{
+			libelle: '1500 euros',
+		},
 		typeContrat: 'SAI',
 	};
 }
