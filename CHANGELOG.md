@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.323.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.322.0...v3.323.0) (2024-07-16)
+
+
+### Features
+
+* **a11y:** focus sur les boutons radio ([#3170](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3170)) ([1d04226](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1d042260905affeedf9e8cc4b8fe0f106d5c39eb))
+
 ## [3.322.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.321.0...v3.322.0) (2024-07-16)
 
 
