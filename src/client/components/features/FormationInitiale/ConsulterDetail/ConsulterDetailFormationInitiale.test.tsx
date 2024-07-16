@@ -40,7 +40,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 			render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>);
 
 			const tagsList = within(screen.getByRole('list')).getAllByRole('listitem');
-			expect(tagsList.length).toBe(3);
+			expect(tagsList).toHaveLength(3);
 			expect(tagsList[0]).toHaveTextContent('Certifiante');
 			expect(tagsList[1]).toHaveTextContent('Bac + 2');
 			expect(tagsList[2]).toHaveTextContent('2 ans');
@@ -56,7 +56,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 			render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>);
 
 			const tagsList = within(screen.getByRole('list')).getAllByRole('listitem');
-			expect(tagsList.length).toBe(2);
+			expect(tagsList).toHaveLength(2);
 			expect(tagsList[0]).toHaveTextContent('Bac + 2');
 			expect(tagsList[1]).toHaveTextContent('2 ans');
 		});
