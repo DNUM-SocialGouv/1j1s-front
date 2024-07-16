@@ -19,7 +19,6 @@ export function useCommuneQuery(): CommuneQueryParams {
 		codeCommune: getSingleQueryParam(query.codeCommune),
 		codePostal: getSingleQueryParam(query.codePostal),
 		latitudeCommune: getSingleQueryParam(query.latitudeCommune),
-		libelleCommune: getSingleQueryParam(query.libelleCommune),
 		longitudeCommune: getSingleQueryParam(query.longitudeCommune),
 		ville: getSingleQueryParam(query.ville),
 	}), [query]);

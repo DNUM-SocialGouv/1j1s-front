@@ -31,7 +31,7 @@ describe('Etiquettes filtre mission', () => {
 			render(<EtiquettesFiltreMission/>);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
-			expect(filtresRecherche).toBeInTheDocument();
+			expect(filtresRecherche).toBeVisible();
 		});
 	});
 
@@ -41,15 +41,15 @@ describe('Etiquettes filtre mission', () => {
 			mockUseRouter({
 				query: {
 					codeCommune: '75',
-					libelleCommune: 'Paris',
+					codePostal: '75001',
+					ville: 'Paris',
 				},
 			});
 			render(<EtiquettesFiltreMission/>);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
-			const localisation = within(filtresRecherche).getByText('Paris');
-			expect(filtresRecherche).toBeInTheDocument();
-			expect(localisation).toBeInTheDocument();
+			const localisation = within(filtresRecherche).getByText('Paris (75001)');
+			expect(localisation).toBeVisible();
 		});
 	});
 
@@ -59,16 +59,16 @@ describe('Etiquettes filtre mission', () => {
 			mockUseRouter({
 				query: {
 					codeCommune: '75',
-					libelleCommune: 'Paris',
+					codePostal: '75001',
 					ouvertsAuxMineurs: 'true',
+					ville: 'Paris',
 				},
 			});
 			render(<EtiquettesFiltreMission/>);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 			const ouvertsAuxMineurs = within(filtresRecherche).getByText('Dès 16 ans');
-			expect(filtresRecherche).toBeInTheDocument();
-			expect(ouvertsAuxMineurs).toBeInTheDocument();
+			expect(ouvertsAuxMineurs).toBeVisible();
 		});
 	});
 });

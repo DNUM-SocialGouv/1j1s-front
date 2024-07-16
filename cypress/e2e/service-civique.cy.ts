@@ -52,7 +52,7 @@ context('Parcours service civique', () => {
 
 	context('quand l‘utilisateur clique sur le premier élément de la liste', () => {
 		beforeEach(() => {
-			cy.visit('/service-civique?domain=culture-loisirs&libelleCommune=Paris+%2875001%29&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=10&page=1');
+			cy.visit('/service-civique?domain=culture-loisirs&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=10&page=1');
 		});
 		it('navigue vers le détail de l‘offre', () => {
 			cy.intercept('GET', '/api/services-civique*', JSON.stringify(aRésultatRechercheMission()))

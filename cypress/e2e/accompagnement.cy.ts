@@ -128,7 +128,7 @@ describe('Parcours Accompagnement', () => {
 
 	describe('quand l‘utilisateur ajoute des paramètre incorrecte à la query', () => {
 		it('affiche le message "Erreur - Demande incorrecte"', () => {
-			cy.visit('/accompagnement?libelleCommune=Figeac+%2846100%29&codeCommune=46102&oui=non');
+			cy.visit('/accompagnement?codeCommune=46102&oui=non');
 			cy.findByText('Erreur - Demande incorrecte').should('be.visible');
 		});
 	});

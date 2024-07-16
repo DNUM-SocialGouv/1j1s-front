@@ -27,7 +27,7 @@ describe('rechercher une mission du service civique', () => {
 				const json = await res.json();
 				expect(json).toEqual(aRésultatRechercheMission());
 			},
-			url: 'services-civique?domain=culture-loisirs&libelleCommune=Paris%2015e%20Arrondissement%20(75015)&codeCommune=75115&latitudeCommune=48.841959&longitudeCommune=2.295289&distanceCommune=10&page=1',
+			url: 'services-civique?domain=culture-loisirs&codeCommune=75115&latitudeCommune=48.841959&longitudeCommune=2.295289&distanceCommune=10&page=1',
 		});
 	});
 

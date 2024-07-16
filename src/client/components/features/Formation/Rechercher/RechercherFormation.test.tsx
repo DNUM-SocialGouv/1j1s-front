@@ -115,9 +115,9 @@ describe('RechercherFormation', () => {
 					codeRomes: 'D1103,D1101,H2101',
 					distanceCommune: '10',
 					latitudeCommune: '48.856614',
-					libelleCommune: 'Paris',
 					libelleMetier: 'Boucherie,charcuterie,traiteur',
 					longitudeCommune: '2.3522219',
+					ville: 'Paris',
 				},
 			});
 
@@ -136,7 +136,7 @@ describe('RechercherFormation', () => {
 			const resultList = await screen.findByRole('list', { name: 'Formations en alternance' });
 			const resultListElements = within(resultList).getAllByRole('link');
 			expect(resultListElements).toHaveLength(formationFixture.length);
-			expect(resultListElements[0].getAttribute('href')).toEqual('/formations/apprentissage/123?codeCommune=75056&codeRomes=D1103%2CD1101%2CH2101&distanceCommune=10&latitudeCommune=48.856614&longitudeCommune=2.3522219&codeCertification=123456');
+			expect(resultListElements[0].getAttribute('href')).toEqual('/formations/apprentissage/123?codeCommune=75056&codeRomes=D1103%2CD1101%2CH2101&distanceCommune=10&latitudeCommune=48.856614&longitudeCommune=2.3522219&ville=Paris&codeCertification=123456');
 		});
 	});
 
@@ -182,14 +182,15 @@ describe('RechercherFormation', () => {
 		mockUseRouter({
 			query: {
 				codeCommune: '75056',
+				codePostal: '75001',
 				codeRomes: 'M1805%2CM1806%2CM1802',
 				distanceCommune: '10',
 				latitudeCommune: '48.859',
-				libelleCommune: 'Paris+%2875001%29',
 				libelleMetier: 'Développement+web%2C+intégration',
 				longitudeCommune: '2.347',
 				niveauEtudes: '4',
 				test: 'test',
+				ville: 'Paris',
 			},
 		});
 

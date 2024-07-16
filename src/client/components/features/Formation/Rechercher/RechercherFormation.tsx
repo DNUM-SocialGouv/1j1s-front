@@ -100,7 +100,6 @@ export default function RechercherFormation() {
 					résultatList={formationList}
 					queryParams={transformObjectToQueryString({
 						...router.query,
-						libelleCommune: undefined,
 						libelleMetier: undefined,
 					})}
 				/>
