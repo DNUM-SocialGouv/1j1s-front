@@ -13,7 +13,9 @@ export const EtiquettesFiltreFormation = () => {
 
 	useEffect(() => {
 		const filtreList: string[] = [];
-		if (formationQuery.libelleCommune) { filtreList.push(formationQuery.libelleCommune); }
+		if (formationQuery.ville && formationQuery.codePostal) {
+			filtreList.push(`${formationQuery.ville} (${formationQuery.codePostal})`);
+		}
 		if (formationQuery.niveauEtudes) {
 			const niveauEtudes = Formation.NIVEAU_ETUDES.find((niveau) => niveau.valeur !== 'indifférent' && niveau.valeur === formationQuery.niveauEtudes);
 			if (niveauEtudes) filtreList.push(niveauEtudes.libellé);
@@ -24,6 +26,6 @@ export const EtiquettesFiltreFormation = () => {
 	if (!filtres.length) return null;
 
 	return (
-		<TagList list={filtres} aria-label="Filtres de la recherche" />
+		<TagList list={filtres} aria-label="Filtres de la recherche"/>
 	);
 };

@@ -63,7 +63,7 @@ export class RechercherLocalisationUseCase {
 		]);
 
 		if (isSuccess(responseCommuneList) && isSuccess(responseDépartementList) && isSuccess(responseRégionList)) {
-			responseCommuneList.result.résultats.sort((a, b) => a.libelle.toLowerCase().localeCompare(b.libelle.toLowerCase()));
+			responseCommuneList.result.résultats.sort((a, b) => a.ville.toLowerCase().localeCompare(b.ville.toLowerCase()));
 
 			return createSuccess({
 				communeList: responseCommuneList.result.résultats,

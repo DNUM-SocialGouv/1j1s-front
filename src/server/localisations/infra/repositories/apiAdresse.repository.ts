@@ -16,12 +16,13 @@ export class ApiAdresseRepository implements LocalisationAvecCoordonnéesReposit
 	async getCommuneList(adresseRecherchee: string): Promise<Either<RésultatsRechercheCommune>> {
 		try {
 			const adresseRechercheeWithoutParenthesis = removeParenthesis(adresseRecherchee);
+			const cityOnly = 'type=municipality';
 			const response = await this.httpClientService.get<ApiAdresseResponse>(
-				`search/?q=${adresseRechercheeWithoutParenthesis}&type=municipality&limit=21`,
+				`search/?q=${adresseRechercheeWithoutParenthesis}&${cityOnly}&limit=21`,
 			);
 			return createSuccess(mapRésultatsRechercheCommune(response.data));
 		} catch (error) {
-			return this.errorManagementService.handleFailureError(error,{
+			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API Adresse',
 				contexte: 'get commune', message: 'impossible de récupérer les communes associées à une adresse',
 			});

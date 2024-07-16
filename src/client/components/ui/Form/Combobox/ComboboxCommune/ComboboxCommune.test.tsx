@@ -56,11 +56,12 @@ describe('<ComboboxCommune/>', () => {
 				render(<DependenciesProvider localisationService={localisationService}>
 					<ComboboxCommune defaultCommune={aCommune({
 						code: '75056',
+						codePostal: '75015',
 						coordonnées: {
 							latitude: 48.8,
 							longitude: 2.2,
 						},
-						libelle: 'Paris 15e Arrondissement (75015)',
+						ville: 'Paris 15e Arrondissement',
 					})}/>
 				</DependenciesProvider>);
 				const combobox = screen.getByRole('combobox');
@@ -78,11 +79,12 @@ describe('<ComboboxCommune/>', () => {
 
 				const commune = aCommune({
 					code: '75056',
+					codePostal: '75015',
 					coordonnées: {
 						latitude: 48.8,
 						longitude: 2.2,
 					},
-					libelle: 'Paris 15e Arrondissement (75015)',
+					ville: 'Paris 15e Arrondissement',
 				});
 				const communeList = aRésultatsRechercheCommune([commune]);
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
@@ -95,7 +97,7 @@ describe('<ComboboxCommune/>', () => {
 				const options = screen.getAllByRole('option', { hidden: true });
 				expect(options.length).toBe(1);
 				expect(options[0]).toBeInTheDocument();
-				expect(options[0]).toHaveTextContent(commune.libelle);
+				expect(options[0]).toHaveTextContent('Paris 15e Arrondissement (75015)');
 				expect(combobox).toBeValid();
 			});
 		});
@@ -107,11 +109,12 @@ describe('<ComboboxCommune/>', () => {
 				<ComboboxCommune
 					defaultCommune={aCommune({
 						code: '75056',
+						codePostal: '75015',
 						coordonnées: {
 							latitude: 48.8,
 							longitude: 2.2,
 						},
-						libelle: 'Paris 15e Arrondissement (75015)',
+						ville: 'Paris 15e Arrondissement',
 					})}
 					showRadiusInput
 					defaultDistance={radiusExpected.valeur}
@@ -266,8 +269,8 @@ describe('<ComboboxCommune/>', () => {
 		it('affiche les options', async () => {
 			const user = userEvent.setup();
 			const communeList = aRésultatsRechercheCommune([
-				aCommune({ libelle: 'Paris' }),
-				aCommune({ libelle: 'Toulon' }),
+				aCommune({ code: '75001', codePostal: '75001', ville: 'Paris' }),
+				aCommune({ code: '83000', codePostal: '83000', ville: 'Toulon' }),
 			]);
 			const localisationService = aLocalisationService({
 				rechercherCommune: jest.fn(),
@@ -282,10 +285,8 @@ describe('<ComboboxCommune/>', () => {
 
 			const options = await screen.findAllByRole('option');
 			expect(options.length).toBe(2);
-			expect(options[0]).toBeVisible();
-			expect(options[0]).toHaveTextContent('Paris');
-			expect(options[1]).toBeVisible();
-			expect(options[1]).toHaveTextContent('Toulon');
+			expect(screen.getByRole('option', { name: 'Paris (75001)' })).toBeVisible();
+			expect(screen.getByRole('option', { name: 'Toulon (83000)' })).toBeVisible();
 		});
 
 		describe('lorsque je sélectionne une valeur valide', () => {
@@ -293,7 +294,7 @@ describe('<ComboboxCommune/>', () => {
 				const user = userEvent.setup();
 				const messageErreur = 'Veuillez sélectionner une option dans la liste';
 				const communeList = aRésultatsRechercheCommune([
-					aCommune({ code: '91000', libelle: 'Paris' }),
+					aCommune({ code: '91000', codePostal: '75001', ville: 'Paris' }),
 				]);
 				const localisationService = aLocalisationService({
 					rechercherCommune: jest.fn(),
@@ -305,7 +306,7 @@ describe('<ComboboxCommune/>', () => {
 				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 				await user.type(combobox, 'abc');
-				const parisOption = await screen.findByText('Paris');
+				const parisOption = await screen.findByRole('option', { name: 'Paris (75001)' });
 				await user.click(parisOption);
 
 				expect(combobox).toBeValid();
@@ -315,7 +316,7 @@ describe('<ComboboxCommune/>', () => {
 			it('met à jour la valeur du code commune', async () => {
 				const user = userEvent.setup();
 				const communeList = aRésultatsRechercheCommune([
-					aCommune({ code: '91000', libelle: 'Paris' }),
+					aCommune({ code: '91000', codePostal: '75001', ville: 'Paris' }),
 				]);
 				const localisationService = aLocalisationService({
 					rechercherCommune: jest.fn(),
@@ -327,7 +328,7 @@ describe('<ComboboxCommune/>', () => {
 				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 				await user.type(combobox, 'abc');
-				await user.click(await screen.findByText('Paris'));
+				await user.click(await screen.findByRole('option', { name: 'Paris (75001)' }));
 
 				const inputCode = screen.getByDisplayValue('91000');
 				expect(inputCode).toBeInTheDocument();
@@ -336,7 +337,7 @@ describe('<ComboboxCommune/>', () => {
 			it('met à jour la valeur de la latitude', async () => {
 				const user = userEvent.setup();
 				const communeList = aRésultatsRechercheCommune([
-					aCommune({ coordonnées: { latitude: 1.23, longitude: 4.56 }, libelle: 'Paris' }),
+					aCommune({ codePostal: '75001', coordonnées: { latitude: 1.23, longitude: 4.56 }, ville: 'Paris' }),
 				]);
 				const localisationService = aLocalisationService({
 					rechercherCommune: jest.fn(),
@@ -348,7 +349,7 @@ describe('<ComboboxCommune/>', () => {
 				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 				await user.type(combobox, 'abc');
-				await user.click(await screen.findByText('Paris'));
+				await user.click(await screen.findByRole('option', { name: 'Paris (75001)' }));
 
 				const inputCode = screen.getByDisplayValue('1.23');
 				expect(inputCode).toBeInTheDocument();
@@ -357,7 +358,7 @@ describe('<ComboboxCommune/>', () => {
 			it('met à jour la valeur de la longitude', async () => {
 				const user = userEvent.setup();
 				const communeList = aRésultatsRechercheCommune([
-					aCommune({ coordonnées: { latitude: 1.23, longitude: 4.56 }, libelle: 'Paris' }),
+					aCommune({ codePostal: '75001', coordonnées: { latitude: 1.23, longitude: 4.56 }, ville: 'Paris' }),
 				]);
 				const localisationService = aLocalisationService({
 					rechercherCommune: jest.fn(),
@@ -369,7 +370,7 @@ describe('<ComboboxCommune/>', () => {
 				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 				await user.type(combobox, 'abc');
-				await user.click(await screen.findByText('Paris'));
+				await user.click(await screen.findByRole('option', { name: 'Paris (75001)' }));
 
 				const inputCode = screen.getByDisplayValue('4.56');
 				expect(inputCode).toBeInTheDocument();
@@ -378,7 +379,7 @@ describe('<ComboboxCommune/>', () => {
 			it('met à jour la valeur de la ville', async () => {
 				const user = userEvent.setup();
 				const communeList = aRésultatsRechercheCommune([
-					aCommune({ libelle: 'Paris (75019)', ville: 'Paris' }),
+					aCommune({ codePostal: '75019', ville: 'Paris' }),
 				]);
 				const localisationService = aLocalisationService();
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
@@ -397,7 +398,7 @@ describe('<ComboboxCommune/>', () => {
 			it('met à jour la valeur du code postal', async () => {
 				const user = userEvent.setup();
 				const communeList = aRésultatsRechercheCommune([
-					aCommune({ codePostal: '75006', libelle: 'Paris' }),
+					aCommune({ codePostal: '75006', ville: 'Paris' }),
 				]);
 				const localisationService = aLocalisationService();
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
@@ -407,7 +408,7 @@ describe('<ComboboxCommune/>', () => {
 				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 				await user.type(combobox, 'abc');
-				await user.click(await screen.findByText('Paris'));
+				await user.click(await screen.findByRole('option', { name: 'Paris (75006)' }));
 
 				const inputCode = screen.getByDisplayValue('75006');
 				expect(inputCode).toBeInTheDocument();
@@ -417,7 +418,7 @@ describe('<ComboboxCommune/>', () => {
 				it('affiche le bouton de sélection du radius avec sa valeur par default', async () => {
 					const user = userEvent.setup();
 					const communeList = aRésultatsRechercheCommune([
-						aCommune({ coordonnées: { latitude: 1.23, longitude: 4.56 }, libelle: 'Paris' }),
+						aCommune({ codePostal: '75001', coordonnées: { latitude: 1.23, longitude: 4.56 }, ville: 'Paris' }),
 					]);
 					const localisationService = aLocalisationService({
 						rechercherCommune: jest.fn(),
@@ -429,7 +430,7 @@ describe('<ComboboxCommune/>', () => {
 					const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 					await user.type(combobox, 'abc');
-					await user.click(await screen.findByText('Paris'));
+					await user.click(await screen.findByRole('option', { name: 'Paris (75001)' }));
 
 					expect(screen.getByRole('combobox', { name: 'Rayon Exemple : 30 km' })).toBeVisible();
 					expect(screen.getByDisplayValue(DEFAULT_RADIUS_VALUE)).toBeInTheDocument();
@@ -439,7 +440,7 @@ describe('<ComboboxCommune/>', () => {
 					const user = userEvent.setup();
 					const radiusToSelect = radiusList[1];
 					const communeList = aRésultatsRechercheCommune([
-						aCommune({ coordonnées: { latitude: 1.23, longitude: 4.56 }, libelle: 'Paris' }),
+						aCommune({ codePostal: '75001', coordonnées: { latitude: 1.23, longitude: 4.56 }, ville: 'Paris' }),
 					]);
 					const localisationService = aLocalisationService({
 						rechercherCommune: jest.fn(),
@@ -451,7 +452,7 @@ describe('<ComboboxCommune/>', () => {
 					const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 					await user.type(combobox, 'abc');
-					await user.click(await screen.findByText('Paris'));
+					await user.click(await screen.findByRole('option', { name: 'Paris (75001)' }));
 
 					const rayonSelect = screen.getByRole('combobox', { name: 'Rayon Exemple : 30 km' });
 					await user.click(rayonSelect);
@@ -464,7 +465,7 @@ describe('<ComboboxCommune/>', () => {
 			it('lorsque le combobox est invalide après avoir été valide, le bouton de sélection du rayon n‘apparait pas', async () => {
 				const user = userEvent.setup();
 				const communeList = aRésultatsRechercheCommune([
-					aCommune({ coordonnées: { latitude: 1.23, longitude: 4.56 }, libelle: 'Paris' }),
+					aCommune({ codePostal: '75006', coordonnées: { latitude: 1.23, longitude: 4.56 }, ville: 'Paris' }),
 				]);
 				const localisationService = aLocalisationService({
 					rechercherCommune: jest.fn(),
@@ -476,8 +477,7 @@ describe('<ComboboxCommune/>', () => {
 				const combobox = screen.getByRole('combobox');
 
 				await user.type(combobox, 'abc');
-				const parisOption = await screen.findByText('Paris');
-				await user.click(parisOption);
+				await user.click(await screen.findByRole('option', { name: 'Paris (75006)' }));
 				await user.tab();
 
 				await user.clear(combobox);
@@ -488,7 +488,7 @@ describe('<ComboboxCommune/>', () => {
 			it('lorsque le combobox est vide et optionel, n‘affiche pas le bouton rayon', async () => {
 				const user = userEvent.setup();
 				const communeList = aRésultatsRechercheCommune([
-					aCommune({ coordonnées: { latitude: 1.23, longitude: 4.56 }, libelle: 'Paris' }),
+					aCommune({ codePostal: '75001', coordonnées: { latitude: 1.23, longitude: 4.56 }, ville: 'Paris' }),
 				]);
 				const localisationService = aLocalisationService({
 					rechercherCommune: jest.fn(),

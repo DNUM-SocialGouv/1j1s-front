@@ -152,7 +152,8 @@ function mapDemandeDeContactAccompagnement(formData: FormData, contactÉtablisse
 	return {
 		age: Number(formData.get('age')) as Age,
 		commentaire: String(formData.get('commentaire')),
-		commune: String(formData.get('libelleCommune')),
+		// TODO (BRUJ 16/07/2024): devrait être traité côté serveur
+		commune: String(`${formData.get('ville')} (${formData.get('codePostal')})`),
 		email: String(formData.get('mail')),
 		nom: String(formData.get('lastname')),
 		prénom: String(formData.get('firstname')),

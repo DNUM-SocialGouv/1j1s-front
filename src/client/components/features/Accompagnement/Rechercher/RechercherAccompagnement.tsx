@@ -83,12 +83,12 @@ export function RechercherAccompagnement() {
 	}, [accompagnementQuery.typeAccompagnement, établissementAccompagnementList.length]);
 
 	const étiquettesRecherche = useMemo(() => {
-		if (accompagnementQuery.libelleCommune) {
-			return <TagList list={[accompagnementQuery.libelleCommune]} aria-label="Filtres de la recherche"/>;
+		if (accompagnementQuery.ville && accompagnementQuery.codePostal) {
+			return <TagList list={[`${accompagnementQuery.ville} (${accompagnementQuery.codePostal})`]} aria-label="Filtres de la recherche"/>;
 		} else {
 			return undefined;
 		}
-	}, [accompagnementQuery.libelleCommune]);
+	}, [accompagnementQuery.ville, accompagnementQuery.codePostal]);
 
 	return (
 		<>

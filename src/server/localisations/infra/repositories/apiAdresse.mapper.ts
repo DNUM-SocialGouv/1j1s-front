@@ -11,7 +11,6 @@ export function mapRésultatsRechercheCommune(response: ApiAdresseResponse): Ré
 					latitude: geometry.coordinates[1],
 					longitude: geometry.coordinates[0],
 				},
-				libelle: `${properties.label} (${properties.postcode})`,
 				ville: properties.city,
 			};
 		}),

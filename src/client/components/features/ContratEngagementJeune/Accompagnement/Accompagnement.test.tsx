@@ -287,20 +287,13 @@ describe('<Accompagnement />', () => {
 		describe('lorsque je remplis le formulaire', () => {
 			it('lorsque l‘envoi du formulaire est en succes, affiche la modale de succès', async () => {
 				const user = userEvent.setup();
-				const formulaireContact = {
-					adresseMail: 'mariotintin@mail.com',
-					age: '16 ans',
-					nom: 'Tintin',
-					prenom: 'Mario',
-					telephone: '0123456789',
-					ville: 'Paris (75006)',
-				};
 				const demandeDeContactService = aDemandeDeContactService();
 				jest.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createSuccess(undefined));
 				const localisationService = aLocalisationService();
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 					résultats: [aCommune({
-						libelle: formulaireContact.ville,
+						codePostal: '75006',
+						ville: 'Paris',
 					})],
 				}));
 
@@ -318,11 +311,11 @@ describe('<Accompagnement />', () => {
 
 				expect(screen.getByRole('form')).toHaveFormValues({
 					age: '16',
-					commune: formulaireContact.ville,
-					firstname: formulaireContact.prenom,
-					lastname: formulaireContact.nom,
-					mail: formulaireContact.adresseMail,
-					phone: formulaireContact.telephone,
+					firstname: 'Mario',
+					lastname: 'Tintin',
+					mail: 'mariotintin@mail.com',
+					phone: '0123456789',
+					ville: 'Paris',
 				});
 
 				await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
@@ -341,7 +334,8 @@ describe('<Accompagnement />', () => {
 					const localisationService = aLocalisationService();
 					jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 						résultats: [aCommune({
-							libelle: formulaireContact.ville,
+							codePostal: '75006',
+							ville: 'Paris',
 						})],
 					}));
 
@@ -372,7 +366,8 @@ describe('<Accompagnement />', () => {
 					const localisationService = aLocalisationService();
 					jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 						résultats: [aCommune({
-							libelle: formulaireContact.ville,
+							codePostal: '75006',
+							ville: 'Paris',
 						})],
 					}));
 
@@ -407,7 +402,8 @@ describe('<Accompagnement />', () => {
 					const localisationService = aLocalisationService();
 					jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 						résultats: [aCommune({
-							libelle: formulaireContact.ville,
+							codePostal: '75006',
+							ville: 'Paris',
 						})],
 					}));
 

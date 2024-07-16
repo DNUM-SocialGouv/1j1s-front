@@ -14,7 +14,6 @@ describe('mapRésultatsRechercheCommune', () => {
 						latitude: 48.926541,
 						longitude: 2.493832,
 					},
-					libelle: '20 Avenue Jules Jouy Aulnay-sous-Bois (93600)',
 					ville: 'Aulnay-sous-Bois',
 				},
 				{
@@ -24,7 +23,6 @@ describe('mapRésultatsRechercheCommune', () => {
 						latitude: 48.510887,
 						longitude: 1.553914,
 					},
-					libelle: '20 Avenue de la Gare Jouy (28300)',
 					ville: 'Jouy',
 				},
 			],

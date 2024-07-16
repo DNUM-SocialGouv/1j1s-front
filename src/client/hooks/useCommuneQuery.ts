@@ -10,7 +10,6 @@ export type CommuneQueryParams = {
 	longitudeCommune: string | undefined
 	codePostal: string | undefined
 	ville: string | undefined
-	libelleCommune: string | undefined
 } // FIXME (SULI 20-12-2023): le nom des champs est intimement lié au "name" des inputs hidden dans combobox commune :(
 // FIXME à cause de getFormAsQuery
 
@@ -31,15 +30,14 @@ export function aCommuneQuery(overrides?: Partial<CommuneQueryParams>): CommuneQ
 		codeCommune: '75056',
 		codePostal: '75006',
 		latitudeCommune: '48.859',
-		libelleCommune: 'Paris (75006)',
 		longitudeCommune: '2.347',
 		ville: 'Paris',
 		...overrides,
 	};
 }
+
 export function mapToCommune(communeQuery: CommuneQueryParams): Commune | undefined {
-	const isCommuneAvailableInQuery = communeQuery.libelleCommune
-		&& communeQuery.codeCommune
+	const isCommuneAvailableInQuery = communeQuery.codeCommune
 		&& communeQuery.codePostal
 		&& communeQuery.ville
 		&& communeQuery.longitudeCommune
@@ -56,7 +54,6 @@ export function mapToCommune(communeQuery: CommuneQueryParams): Commune | undefi
 			latitude: Number(communeQuery.latitudeCommune),
 			longitude: Number(communeQuery.longitudeCommune),
 		},
-		libelle: communeQuery.libelleCommune!,
 		ville: communeQuery.ville!,
 	};
 }

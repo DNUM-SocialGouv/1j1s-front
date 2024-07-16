@@ -67,12 +67,12 @@ export default function RechercherStages3eEt2de() {
 
 	const etiquettesRecherche = useMemo(() => {
 		const filtreList: string[] = [];
-		if (stage3eEt2deQuery.libelleCommune) {
-			filtreList.push(stage3eEt2deQuery.libelleCommune);
+		if (stage3eEt2deQuery.ville && stage3eEt2deQuery.codePostal) {
+			filtreList.push(`${stage3eEt2deQuery.ville} (${stage3eEt2deQuery.codePostal})`);
 		}
 		if (filtreList.length === 0) return;
 		return <TagList list={filtreList} aria-label="Filtres de la recherche"/>;
-	}, [stage3eEt2deQuery.libelleCommune]);
+	}, [stage3eEt2deQuery.codePostal, stage3eEt2deQuery.ville]);
 
 	return <>
 		<Head

@@ -84,7 +84,7 @@ describe('<DemandeContactCEJ />', () => {
 			const localisationService = aLocalisationService();
 			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 				résultats: [aCommune({
-					libelle: formulaireContact.ville,
+					ville: formulaireContact.ville,
 				})],
 			}));
 
@@ -125,7 +125,7 @@ describe('<DemandeContactCEJ />', () => {
 				const localisationService = aLocalisationService();
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 					résultats: [aCommune({
-						libelle: formulaireContact.ville,
+						ville: formulaireContact.ville,
 					})],
 				}));
 
@@ -156,7 +156,7 @@ describe('<DemandeContactCEJ />', () => {
 				const localisationService = aLocalisationService();
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 					résultats: [aCommune({
-						libelle: formulaireContact.ville,
+						ville: formulaireContact.ville,
 					})],
 				}));
 
@@ -191,7 +191,7 @@ describe('<DemandeContactCEJ />', () => {
 				const localisationService = aLocalisationService();
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 					résultats: [aCommune({
-						libelle: formulaireContact.ville,
+						ville: formulaireContact.ville,
 					})],
 				}));
 

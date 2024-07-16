@@ -104,7 +104,6 @@ describe('FormulaireRechercheAlternance', () => {
 			// Then
 			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleMetier=Conduite+de+travaux%2C+direction+de+chantier') }, undefined, { scroll: false });
 			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeRomes=F1201%2CF1202%2CI1101') }, undefined, { scroll: false });
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleCommune=Paris+%2875006%29') }, undefined, { scroll: false });
 			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeCommune=75056') }, undefined, { scroll: false });
 			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('latitudeCommune=48.859') }, undefined, { scroll: false });
 			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('longitudeCommune=2.347') }, undefined, { scroll: false });
@@ -197,9 +196,10 @@ describe('FormulaireRechercheAlternance', () => {
 				libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
 				...aCommuneQuery({
 					codeCommune: '75056',
+					codePostal: '75001',
 					latitudeCommune: '48.859',
-					libelleCommune: 'Paris (75001)',
 					longitudeCommune: '2.347',
+					ville: 'Paris',
 				}),
 			},
 		});

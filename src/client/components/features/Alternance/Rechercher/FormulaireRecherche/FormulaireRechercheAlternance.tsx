@@ -31,7 +31,6 @@ export function FormulaireRechercheAlternance(props: FormulaireRechercheAlternan
 		libelleMetier,
 		codeRomes,
 		codeCommune,
-		libelleCommune,
 		distanceCommune,
 		longitudeCommune,
 		latitudeCommune,
@@ -49,7 +48,6 @@ export function FormulaireRechercheAlternance(props: FormulaireRechercheAlternan
 		codeCommune,
 		codePostal,
 		latitudeCommune,
-		libelleCommune,
 		longitudeCommune,
 		ville,
 	});

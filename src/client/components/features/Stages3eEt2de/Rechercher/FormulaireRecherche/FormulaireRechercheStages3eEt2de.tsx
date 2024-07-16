@@ -22,13 +22,12 @@ export function FormulaireRechercheStages3eEt2de() {
 		codeCommune,
 		codePostal,
 		latitudeCommune,
-		libelleCommune,
 		longitudeCommune,
 		ville,
 		distanceCommune,
 	} = queryParams;
 
-	const defaultCommuneValue = mapToCommune({ codeCommune, codePostal, latitudeCommune, libelleCommune, longitudeCommune, ville });
+	const defaultCommuneValue = mapToCommune({ codeCommune, codePostal, latitudeCommune, longitudeCommune, ville });
 
 	const metierDefaultValue = (codeMetier && libelleMetier)
 		? { code: codeMetier, label: libelleMetier }

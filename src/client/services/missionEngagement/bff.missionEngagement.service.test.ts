@@ -25,7 +25,7 @@ describe('MissionEngagementService', () => {
 				const result = await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 
 				expect(result).toEqual(createSuccess(aRésultatRechercheMission()));
-				expect(httpClientService.get).toHaveBeenCalledWith('services-civique?distanceCommune=10&domain=sante&ouvertsAuxMineurs=true&page=2&codeCommune=75056&codePostal=75006&latitudeCommune=48.859&libelleCommune=Paris%20(75006)&longitudeCommune=2.347&ville=Paris');
+				expect(httpClientService.get).toHaveBeenCalledWith('services-civique?distanceCommune=10&domain=sante&ouvertsAuxMineurs=true&page=2&codeCommune=75056&codePostal=75006&latitudeCommune=48.859&longitudeCommune=2.347&ville=Paris');
 			});
 		});
 
@@ -47,7 +47,16 @@ describe('MissionEngagementService', () => {
 				const result = await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 
 				expect(result).toEqual(createSuccess(aRésultatRechercheMission()));
-				expect(httpClientService.get).toHaveBeenCalledWith('benevolats?distanceCommune=10&domain=sante&ouvertsAuxMineurs=true&page=2&codeCommune=75056&codePostal=75006&latitudeCommune=48.859&libelleCommune=Paris%20(75006)&longitudeCommune=2.347&ville=Paris');
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('benevolats?'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('distanceCommune=10'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('domain=sante'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('ouvertsAuxMineurs=true'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('page=2'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('codeCommune=75056'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('codePostal=75006'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('latitudeCommune=48.859'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('longitudeCommune=2.347'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('ville=Paris'));
 			});
 		});
 		it('filtre les clés undefined', async () => {

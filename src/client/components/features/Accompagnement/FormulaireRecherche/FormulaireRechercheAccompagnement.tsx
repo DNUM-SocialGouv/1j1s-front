@@ -24,7 +24,6 @@ export function FormulaireRechercheAccompagnement() {
 
 	const accompagnementQueryParams = useAccompagnementQuery();
 	const {
-		libelleCommune,
 		codeCommune,
 		codePostal,
 		ville,
@@ -37,7 +36,6 @@ export function FormulaireRechercheAccompagnement() {
 		codeCommune,
 		codePostal,
 		latitudeCommune,
-		libelleCommune,
 		longitudeCommune,
 		ville,
 	});
