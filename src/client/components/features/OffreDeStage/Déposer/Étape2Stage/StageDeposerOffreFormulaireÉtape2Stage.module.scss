@@ -49,15 +49,6 @@
 
   &InputRadio {
     padding-bottom: 1rem;
-
-    input[type=radio] {
-      margin-right: 1.5rem;
-
-      &:focus + label::before {
-        outline: 2px solid utilities.$color-primary;
-        outline-offset: 2px;
-      }
-    }
   }
 }
 
