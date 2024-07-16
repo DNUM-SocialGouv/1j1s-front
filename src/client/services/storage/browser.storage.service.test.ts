@@ -15,7 +15,7 @@ describe('browserStorageService', () => {
 		const storage = aStorage({
 			getItem: jest.fn().mockReturnValue(JSON.stringify(expectedData)),
 		});
-		const service = new BrowserStorageService(storage);
+		const service = new BrowserStorageService(() => storage);
 
 		const result = service.get('key');
 
@@ -24,7 +24,7 @@ describe('browserStorageService', () => {
 	it('serialise la donnée quand on set()', () => {
 		const data = { test: 'value' };
 		const storage = aStorage();
-		const service = new BrowserStorageService(storage);
+		const service = new BrowserStorageService(() => storage);
 
 		service.set('key', data);
 
@@ -34,7 +34,7 @@ describe('browserStorageService', () => {
 		const storage = aStorage({
 			getItem: jest.fn().mockImplementation(() => { throw new TypeError('getItem is not a function');}),
 		});
-		const service = new BrowserStorageService(storage);
+		const service = new BrowserStorageService(() => storage);
 
 		expect(() => service.get('key')).toThrow(new BrowserStorageService.StorageUnavailableError('storage unavailable'));
 	});
@@ -42,7 +42,7 @@ describe('browserStorageService', () => {
 		const storage = aStorage({
 			setItem: jest.fn().mockImplementation(() => { throw new TypeError('setItem is not a function');}),
 		});
-		const service = new BrowserStorageService(storage);
+		const service = new BrowserStorageService(() => storage);
 
 		expect(() => service.set('key', 'value')).toThrow(new BrowserStorageService.StorageUnavailableError('storage unavailable'));
 	});
@@ -50,8 +50,18 @@ describe('browserStorageService', () => {
 		const storage = aStorage({
 			removeItem: jest.fn().mockImplementation(() => { throw new TypeError('removeItem is not a function');}),
 		});
-		const service = new BrowserStorageService(storage);
+		const service = new BrowserStorageService(() => storage);
 
 		expect(() => service.remove('key')).toThrow(new BrowserStorageService.StorageUnavailableError('storage unavailable'));
+	});
+	it('check la validité du stockage uniquement à l’utilisation', () => {
+		let storage: BrowserStorage | null = null;
+		// @ts-expect-error Test quand le storage est invalide
+		const service = new BrowserStorageService(() => storage);
+		storage = aStorage();
+
+		expect(() => service.get('key')).not.toThrow();
+		expect(() => service.set('key', 'value')).not.toThrow();
+		expect(() => service.remove('key')).not.toThrow();
 	});
 });
