@@ -155,8 +155,8 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 
 	const stage3eEt2deService = new BffStage3eEt2deService(httpClientService);
 
-	const localStorageService = new BrowserStorageService(window.localStorage);
-	const sessionStorageService = new BrowserStorageService(window.sessionStorage);
+	const localStorageService = new BrowserStorageService(() => window.localStorage);
+	const sessionStorageService = new BrowserStorageService(() => window.sessionStorage);
 	const stageDeposerOffreEtape1PersistenceService = new LocalStorageStageDeposerOffreEtape1PersistenceService(
 		addFallbackToStorageService(localStorageService, new NullStorageService()));
 	const stageDeposerOffreEtape2PersistenceService = new SessionStorageStageDeposerOffreEtape2PersistenceService(
