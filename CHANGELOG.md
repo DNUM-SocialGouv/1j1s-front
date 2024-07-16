@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.322.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.321.0...v3.322.0) (2024-07-16)
+
+
+### Features
+
+* **CEJ:** corriger title de la page ([#3167](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3167)) ([16ce6ce](https://github.com/DNUM-SocialGouv/1j1s-front/commit/16ce6ce7757c71e7b97a75e7e02736a85efe59c4))
+
 ## [3.321.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.320.0...v3.321.0) (2024-07-15)
 
 
