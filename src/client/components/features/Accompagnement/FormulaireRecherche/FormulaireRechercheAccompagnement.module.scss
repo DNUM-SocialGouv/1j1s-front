@@ -10,7 +10,6 @@
 .filtresRecherche {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(2, 1fr);
   grid-gap: variables.$form-vertical-gap-mobile;
 
   @include utilities.media(medium){

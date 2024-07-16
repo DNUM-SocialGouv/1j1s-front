@@ -60,7 +60,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 			onSubmit={rechercherMission}
 			aria-label="Rechercher une mission d'engagement"
 		>
-			<div className={styles.rechercheMissionEngagementForm__Container}>
+			<div className={styles.filtreRecherche}>
 				<Select
 					label="Domaine"
 					name="domain"

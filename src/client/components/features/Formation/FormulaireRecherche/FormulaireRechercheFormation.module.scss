@@ -16,7 +16,7 @@ $color-message-champs-obligatoires: utilities.$color-primary;
 
     @include utilities.media(medium) {
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, 1fr);
+      grid-gap: variables.$form-vertical-gap-desktop;
     }
   }
 
