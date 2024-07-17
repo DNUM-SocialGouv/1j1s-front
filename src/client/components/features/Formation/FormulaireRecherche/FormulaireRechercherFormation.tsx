@@ -83,7 +83,7 @@ export function FormulaireRechercherFormation() {
 						defaultValue={niveauEtudes}
 						label="Niveau d’études visé (facultatif)"
 						className={styles.inputNiveauEtudes}
-						labelComplement="Exemples: CAP, Bac..."
+						labelComplement="Exemples : CAP, Bac..."
 					/>
 				</div>
 				<div className={styles.buttonRechercher}>

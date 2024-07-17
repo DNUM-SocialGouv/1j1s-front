@@ -239,7 +239,7 @@ describe('FormulaireRechercherFormation', () => {
 			const localisationOptions = await screen.findAllByRole('option');
 			await user.click(localisationOptions[0]);
 
-			const selectNiveauEtudes = screen.getByRole('combobox', { name: 'Niveau d’études visé (facultatif)' });
+			const selectNiveauEtudes = screen.getByRole('combobox', { name: 'Niveau d’études visé (facultatif) Exemples : CAP, Bac...' });
 			await user.click(selectNiveauEtudes);
 
 			const optionNiveauEtude = screen.getByRole('option', { name: Formation.NIVEAU_3.libellé });
