@@ -142,23 +142,48 @@ describe('RechercherFormationInitiale', () => {
 					expect(cardTitles[1]).toHaveTextContent('patissier');
 				});
 
-				it('je vois les tags', async () => {
-					const aFormationService = aFormationInitialeService();
-					const formationsInitiales = [aFormationInitiale({ tags: ['Certifiante', 'Bac + 2', '1 ans'] })];
-					const resultatFormationInitiale = createSuccess(aResultatFormationInitiale({ formationsInitiales: formationsInitiales }));
-					jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValueOnce(resultatFormationInitiale);
-					render(<DependenciesProvider formationInitialeService={aFormationService}>
-						<RechercherFormationInitiale/>
-					</DependenciesProvider>);
-					const listeCards = await screen.findByRole('list', { name: 'Caractéristiques de l‘offre' });
-					const tags = within(listeCards).getAllByRole('listitem');
-					expect(tags).toHaveLength(3);
-					expect(tags[0]).toBeVisible();
-					expect(tags[0]).toHaveTextContent('Certifiante');
-					expect(tags[1]).toBeVisible();
-					expect(tags[1]).toHaveTextContent('Bac + 2');
-					expect(tags[2]).toBeVisible();
-					expect(tags[2]).toHaveTextContent('1 ans');
+				describe('tags', () => {
+					it('je vois les tags', async () => {
+						const aFormationService = aFormationInitialeService();
+						const formationsInitiales = [aFormationInitiale({
+							duree: '1 an',
+							isCertifiante: true,
+							niveauDeSortie: 'Bac + 2',
+						})];
+						const resultatFormationInitiale = createSuccess(aResultatFormationInitiale({ formationsInitiales: formationsInitiales }));
+						jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValueOnce(resultatFormationInitiale);
+						render(<DependenciesProvider formationInitialeService={aFormationService}>
+							<RechercherFormationInitiale/>
+						</DependenciesProvider>);
+						const listeTags = await screen.findByRole('list', { name: 'Caractéristiques de l‘offre' });
+						const tags = within(listeTags).getAllByRole('listitem');
+						expect(tags).toHaveLength(3);
+						expect(tags[0]).toHaveTextContent('Certifiante');
+						expect(tags[1]).toHaveTextContent('Bac + 2');
+						expect(tags[2]).toHaveTextContent('1 an');
+					});
+
+					it('lorsque la formation n‘est pas certifiante, je ne vois pas le tag Certifiante', async () => {
+						const aFormationService = aFormationInitialeService();
+						const resultatFormationInitiale = createSuccess(aResultatFormationInitiale({
+							formationsInitiales: [aFormationInitiale({
+								duree: '1 an',
+								isCertifiante: false,
+								niveauDeSortie: 'Bac + 2',
+							})],
+						}));
+						jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValueOnce(resultatFormationInitiale);
+						
+						render(<DependenciesProvider formationInitialeService={aFormationService}>
+							<RechercherFormationInitiale/>
+						</DependenciesProvider>);
+
+						const listeTags = await screen.findByRole('list', { name: 'Caractéristiques de l‘offre' });
+						const tags = within(listeTags).getAllByRole('listitem');
+						expect(tags).toHaveLength(2);
+						expect(tags[0]).toHaveTextContent('Bac + 2');
+						expect(tags[1]).toHaveTextContent('1 an');
+					});
 				});
 			});
 		});
@@ -210,7 +235,7 @@ describe('RechercherFormationInitiale', () => {
 			mockUseRouter({});
 		});
 
-		it('la section porte le nom "Des services faits pour vous"',   () => {
+		it('la section porte le nom "Des services faits pour vous"', () => {
 			// GIVEN
 			const aFormationService = aFormationInitialeService();
 
@@ -224,7 +249,7 @@ describe('RechercherFormationInitiale', () => {
 			expect(titreSection).toBeVisible();
 		});
 
-		describe('la section contient une liste de redirections, dont',   () => {
+		describe('la section contient une liste de redirections, dont', () => {
 			it('une première redirection vers un article sur Carif Oref', () => {
 				// GIVEN
 				const aFormationService = aFormationInitialeService();
@@ -235,7 +260,7 @@ describe('RechercherFormationInitiale', () => {
 				</DependenciesProvider>);
 
 				// THEN
-				const servicesList = screen.getByRole('list', { name : 'Liste des partenaires et des services' });
+				const servicesList = screen.getByRole('list', { name: 'Liste des partenaires et des services' });
 				const servicesItems = within(servicesList).getAllByRole('listitem');
 				const metierCard = within(servicesItems[0]).getByRole('link');
 				expect(metierCard).toHaveAttribute('href', '/articles/le-reseau-des-carif-oref-vous-accompagne');
@@ -250,7 +275,7 @@ describe('RechercherFormationInitiale', () => {
 				</DependenciesProvider>);
 
 				// THEN
-				const servicesList = screen.getByRole('list', { name : 'Liste des partenaires et des services' });
+				const servicesList = screen.getByRole('list', { name: 'Liste des partenaires et des services' });
 				const servicesItems = within(servicesList).getAllByRole('listitem');
 				const formationsEnApprentissageCard = within(servicesItems[1]).getByRole('link');
 				expect(formationsEnApprentissageCard).toHaveAttribute('href', '/formations/apprentissage');
@@ -265,7 +290,7 @@ describe('RechercherFormationInitiale', () => {
 				</DependenciesProvider>);
 
 				// THEN
-				const servicesList = screen.getByRole('list', { name : 'Liste des partenaires et des services' });
+				const servicesList = screen.getByRole('list', { name: 'Liste des partenaires et des services' });
 				const servicesItems = within(servicesList).getAllByRole('listitem');
 				const parcoursupCard = within(servicesItems[2]).getByRole('link');
 				expect(parcoursupCard).toHaveAttribute('href', 'https://www.parcoursup.fr/');
@@ -280,7 +305,7 @@ describe('RechercherFormationInitiale', () => {
 				</DependenciesProvider>);
 
 				// THEN
-				const servicesList = screen.getByRole('list', { name : 'Liste des partenaires et des services' });
+				const servicesList = screen.getByRole('list', { name: 'Liste des partenaires et des services' });
 				const servicesItems = within(servicesList).getAllByRole('listitem');
 				const monCompteFormationCard = within(servicesItems[3]).getByRole('link');
 				expect(monCompteFormationCard).toHaveAttribute('href', 'https://www.moncompteformation.gouv.fr/espace-prive/html/#/');
@@ -295,7 +320,7 @@ describe('RechercherFormationInitiale', () => {
 				</DependenciesProvider>);
 
 				// THEN
-				const servicesList = screen.getByRole('list', { name : 'Liste des partenaires et des services' });
+				const servicesList = screen.getByRole('list', { name: 'Liste des partenaires et des services' });
 				const servicesItems = within(servicesList).getAllByRole('listitem');
 				const monCompteFormationCard = within(servicesItems[4]).getByRole('link');
 				expect(monCompteFormationCard).toHaveAttribute('href', 'https://app.pix.fr/campagnes/NRABNT181/presentation');

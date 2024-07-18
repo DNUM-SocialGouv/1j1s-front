@@ -117,8 +117,16 @@ function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 		return undefined;
 	}
 
-	function getLienOffre(identifiant?: string){
+	function getLienOffre(identifiant?: string) {
 		return identifiant ? `/formations-initiales/${encodeURIComponent(identifiant)}` : undefined;
+	}
+
+	function getTags(formation: FormationInitiale) {
+		const tags = [];
+		if (formation.isCertifiante) tags.push('Certifiante');
+		tags.push(formation.niveauDeSortie);
+		tags.push(formation.duree);
+		return tags;
 	}
 
 	return (
@@ -126,7 +134,7 @@ function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 			{resultatList.map((formation: FormationInitiale) => (
 				<li key={formation.libelle}>
 					<ResultatRechercherSolution
-						étiquetteOffreList={formation.tags}
+						étiquetteOffreList={getTags(formation)}
 						intituléOffre={formation.libelle}
 						logo={'/images/logos/fallback.svg'}
 						lienOffre={getLienOffre(formation.identifiant)}

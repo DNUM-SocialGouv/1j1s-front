@@ -29,18 +29,38 @@ describe('ConsulterDetailFormationInitiale', () => {
 		expect(screen.getByRole('heading', { level: 1, name: 'Je suis le titre' })).toBeVisible();
 	});
 
-	it('je vois les tags', () => {
-		const formationInitialeDetail = aFormationInitialeDetailComplete({ tags: ['Certifiante', 'Bac + 2', '2 ans'] });
+	describe('tags', () => {
+		it('je vois les tags', () => {
+			const formationInitialeDetail = aFormationInitialeDetailComplete({
+				duree: '2 ans',
+				isCertifiante: true,
+				niveauDeSortie: 'Bac + 2',
+			});
 
-		render(<ConsulterDetailFormationInitiale
-			formationInitialeDetail={formationInitialeDetail}
-		/>);
+			render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>);
 
-		const tagsList = within(screen.getByRole('list')).getAllByRole('listitem');
-		expect(tagsList.length).toBe(3);
-		expect(tagsList[0]).toHaveTextContent('Certifiante');
-		expect(tagsList[1]).toHaveTextContent('Bac + 2');
-		expect(tagsList[2]).toHaveTextContent('2 ans');
+			const tagsList = within(screen.getByRole('list')).getAllByRole('listitem');
+			expect(tagsList).toHaveLength(3);
+			expect(tagsList[0]).toHaveTextContent('Certifiante');
+			expect(tagsList[1]).toHaveTextContent('Bac + 2');
+			expect(tagsList[2]).toHaveTextContent('2 ans');
+		});
+
+		it('lorsque la formation n‘est pas certifiante, je ne vois pas l‘information', () => {
+			const formationInitialeDetail = aFormationInitialeDetailComplete({
+				duree: '2 ans',
+				isCertifiante: false,
+				niveauDeSortie: 'Bac + 2',
+			});
+
+			render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>);
+
+			const tagsList = within(screen.getByRole('list')).getAllByRole('listitem');
+			expect(tagsList).toHaveLength(2);
+			expect(tagsList[0]).toHaveTextContent('Bac + 2');
+			expect(tagsList[1]).toHaveTextContent('2 ans');
+		});
+
 	});
 
 	it('contient un lien vers la fiche formation du partenaire pour y découvrir les établissements proposant cette formation', () => {

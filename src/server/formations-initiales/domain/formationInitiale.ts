@@ -1,10 +1,12 @@
 export const NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE = 15;
 
 export interface FormationInitiale {
-    libelle: string;
-    url_formation: string
-    tags: Array<string>
-    identifiant?: string
+	libelle: string;
+	url_formation: string
+	identifiant?: string
+	isCertifiante: boolean
+	niveauDeSortie: string
+	duree: string
 }
 
 export interface ResultatRechercheFormationsInitiales {
@@ -25,7 +27,9 @@ export interface FormationInitialeDetailCMS {
 	dateDeMiseAJour: Date,
 }
 
-export type FormationInitialeDetailAvecInformationsComplementaires = FormationInitiale | (FormationInitiale & FormationInitialeDetailCMS);
+export type FormationInitialeDetailAvecInformationsComplementaires =
+	FormationInitiale
+	| (FormationInitiale & FormationInitialeDetailCMS);
 
 export function isFormationWithComplementaryInformation(formation: FormationInitialeDetailAvecInformationsComplementaires): formation is (FormationInitiale & FormationInitialeDetailCMS) {
 	return 'dateDeMiseAJour' in formation;
