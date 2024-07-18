@@ -60,21 +60,19 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 			onSubmit={rechercherMission}
 			aria-label="Rechercher une mission d'engagement"
 		>
-			<div className={styles.rechercheMissionEngagementForm__Container}>
-				<div className={styles.inputButtonWrapper}>
-					<Select
-						label="Domaine"
-						name="domain"
-						labelComplement="Exemple : Culture et loisirs"
-						optionList={domainList}
-						defaultValue={domain}
-					/>
-					<ComboboxCommune
-						defaultCommune={defaultCommune}
-						defaultDistance={distanceCommune}
-						showRadiusInput
-					/>
-				</div>
+			<div className={styles.filtreRecherche}>
+				<Select
+					label="Domaine"
+					name="domain"
+					labelComplement="Exemple : Culture et loisirs"
+					optionList={domainList}
+					defaultValue={domain}
+				/>
+				<ComboboxCommune
+					defaultCommune={defaultCommune}
+					defaultDistance={distanceCommune}
+					showRadiusInput
+				/>
 
 				<Checkbox
 					label="Dès 16 ans"

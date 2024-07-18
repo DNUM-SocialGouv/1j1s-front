@@ -76,12 +76,14 @@ export function FormulaireRechercheAccompagnement() {
 						labelComplement="Exemple : Missions locales"
 					/>
 				</div>
-				<ButtonComponent
-					className={styles.buttonRechercher}
-					label="Rechercher"
-					icon={<Icon name="magnifying-glass"/>}
-					iconPosition="right"
-					type="submit"/>
+				<div className={styles.buttonRechercher}>
+					<ButtonComponent
+						label="Rechercher"
+						icon={<Icon name="magnifying-glass"/>}
+						iconPosition="right"
+						type="submit"/>
+				</div>
+				
 			</form>
 		</>
 	);
