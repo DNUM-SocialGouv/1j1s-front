@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.324.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.323.0...v3.324.0) (2024-07-18)
+
+
+### Features
+
+* **formation init:** deplacer les tags côté client ([#3138](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3138)) ([688f79c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/688f79cf9650b3a5938cb2409dd114d86afa2fb1))
+
 ## [3.323.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.322.0...v3.323.0) (2024-07-16)
 
 
