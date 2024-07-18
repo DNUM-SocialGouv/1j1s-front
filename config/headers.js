@@ -2,16 +2,17 @@ const LOCAL_MODE_HEADERS = [];
 
 const STRAPI_MEDIA_HOST = new URL(process.env.STRAPI_MEDIA_URL).hostname;
 const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.meilisearch.io/multi-search *.meilisearch.com/multi-search 1j1s-front.osc-fr1.scalingo.io *.1jeune1solution.gouv.fr';
-const ANALYTICS_SOURCES = `${process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN} ${process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_HOST}`;
+const ANALYTICS_SOURCES = `${process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN} ${process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_HOST} ${process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_TAG_MANAGER_DEBUG_PANNEL}`;
 const contentSecurityPolicy = `
   default-src 'self' ${TRUSTED_SOURCES};
-  script-src 'self' ${ANALYTICS_SOURCES} https://*.adform.net;
+  connect-src 'self' ${process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_HOST} ${process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_TAG_MANAGER_DEBUG_PANNEL};
+  script-src 'self' ${ANALYTICS_SOURCES} https://*.adform.net 'sha256-nzv8I5Mf0AZBUKeL70LtQfYBjK/DghfP72B8j+UI49I=' 'sha256-Q9vPNvpI3BYCNwzFpA56s9IESqfHGcA8LabbrsO988U=' 'sha256-c05p+z3r1Hq95j2lKu8yuym/fTAZyeAcH4tHh4jnSLY=';
   img-src 'self' *.google.com data: ${STRAPI_MEDIA_HOST} ${ANALYTICS_SOURCES} img.youtube.com jedonnemonavis.numerique.gouv.fr;
   style-src 'self' 'unsafe-inline' ${ANALYTICS_SOURCES};
   frame-ancestors 'none';
   frame-src 'self' *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube-nocookie.com simulateur-alternance.1jeune1solution.gouv.fr https://*.adform.net mes-aides.francetravail.fr;
   form-action 'self';
-  base-uri 'none';
+  base-uri ${process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_HOST} ${process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_TAG_MANAGER_DEBUG_PANNEL};
 `;
 
 const SECURITY_MODE_HEADERS = [{
