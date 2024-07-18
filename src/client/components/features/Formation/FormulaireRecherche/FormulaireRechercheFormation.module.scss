@@ -10,8 +10,6 @@ $color-message-champs-obligatoires: utilities.$color-primary;
 
   & .filtresRechercherFormation {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
     grid-gap: variables.$form-vertical-gap-mobile;
 
     @include utilities.media(medium) {
