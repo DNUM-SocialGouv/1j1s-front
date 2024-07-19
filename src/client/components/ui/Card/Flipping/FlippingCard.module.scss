@@ -1,91 +1,111 @@
 @use "@styles/utilities";
 
-.animate {
+$transition-duration: 700ms;
+
+.cardWrapperWithVersoVisible {
   --rotate-y: 180deg;
 }
 
 .cardWrapper {
-  height: 100%;
-  position: relative;
   transform-style: preserve-3d;
-  transition: 700ms;
+  transition: transform $transition-duration ease-in-out;
   transform: rotateY(var(--rotate-y, 0));
-}
 
-.card {
-  display: flex;
-  flex-direction: column;
-  border-radius: 20px;
-  box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);
-  background-color: utilities.$color-background-primary;
-  max-height: calc(250px + 8.75rem);
-  overflow: hidden;
-  border: 1px solid utilities.$color-background-border;
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);
+    background-color: utilities.$color-background-primary;
+    border: 1px solid utilities.$color-background-border;
+    overflow: hidden;
 
-  > img {
-    object-fit: cover;
-    width: auto;
-    height: 180px;
+    .cardWrapperWithVersoVisible & {
+      transition: visibility 0ms $transition-duration linear;
+      visibility: var(--visibility);
+    }
+
+    > img {
+      object-fit: cover;
+      width: auto;
+      height: 180px;
+    }
+
+    & .cardCategory {
+      @include utilities.text-small;
+      font-weight: bold;
+      color: utilities.$color-text-primary-inverse;
+      margin-inline: 1rem;
+      padding: 0.25rem 0.25rem;
+      width: fit-content;
+    }
+
+    & .cardCategoryAccompagnement {
+      background-color: utilities.$color-groupe-2-light-green;
+    }
+
+    & .cardCategoryOrienterFormer {
+      background-color: utilities.$color-groupe-2-burgundy;
+    }
+
+    & .cardCategoryVieProfessionnelle {
+      background-color: utilities.$color-groupe-2-rust;
+    }
+
+    & .cardCategoryAidesFinancieres {
+      background-color: utilities.$color-groupe-3-green;
+    }
+
+    & .cardBody {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      padding: 1rem;
+
+      & .cardBodyTitle {
+        $lineHeight: 1.2;
+        @include utilities.line-clamp(3, $lineHeight);
+        font-size: 1rem;
+        font-weight: bold;
+        line-height: $lineHeight;
+        margin-bottom: 0.75rem;
+      }
+    }
+
+    & .cardActionWrapper {
+      display: flex;
+
+      & > button {
+        @include utilities.text-small
+      }
+
+      & > :last-child {
+        margin-left: auto;
+      }
+    }
   }
 
-  &Category {
-    margin-inline: 1rem;
-    color: utilities.$color-text-primary-inverse;
-    padding: 0.25rem 0.25rem;
-    width: fit-content;
-    @include utilities.text-small;
-    font-weight: bold;
-  }
-
-  & .cardCategoryAccompagnement {
-    background-color: utilities.$color-groupe-2-light-green;
-  }
-  & .cardCategoryOrienterFormer {
-    background-color: utilities.$color-groupe-2-burgundy;
-  }
-  & .cardCategoryVieProfessionnelle {
-    background-color: utilities.$color-groupe-2-rust;
-  }
-  & .cardCategoryAidesFinancieres {
-    background-color: utilities.$color-groupe-3-green;
-  }
-
-  &Flip {
+  & .cardRecto {
+    .cardWrapperWithVersoVisible & {
+      --visibility: hidden;
+    }
     backface-visibility: hidden;
   }
 
-  &FlipBack {
-    width: 100%;
+  & .cardVerso {
+    position: absolute;
+    inset: 0;
     backface-visibility: hidden;
     background-color: utilities.$color-background-secondary;
-    position: absolute;
-    top: 0;
-    bottom: 0;
     transform: rotateY(180deg) translateZ(1px);
     color: utilities.$color-text-primary-inverse;
     padding: 1rem;
-
-
-    &Title {
-      $lineHeight: 1.2;
-      @include utilities.line-clamp(2, $lineHeight);
-      font-size: 1rem;
-      font-weight: bold;
-      text-align: center;
-      line-height: $lineHeight;
-      margin: 1.5rem 0;
+    --visibility: hidden;
+    .cardWrapperWithVersoVisible & {
+      --visibility: visible;
     }
 
-    &Content {
-      display: flex;
-      align-items: center;
-      min-height: 10.75rem;
-      overflow: auto;
-      padding-inline: 1rem;
-    }
-
-
-    &Action {
+    & button {
       background-color: utilities.$color-background-primary;
       border-radius: 50%;
       padding: 0.25rem;
@@ -93,66 +113,33 @@
       color: utilities.$color-text-primary-alternative;
       width: 2rem;
       height: 2rem;
+
+      &:focus {
+        outline-color: utilities.$color-text-primary-inverse;
+        outline-offset: 2px;
+      }
     }
-  }
 
-  &Body {
-    padding: 1rem;
-
-    &Title {
-      $lineHeight: 1.2;
-      @include utilities.line-clamp(3, $lineHeight);
-      font-size: 1rem;
+    & .cardVersoTitle {
       font-weight: bold;
-      line-height: $lineHeight;
-      margin-bottom: 0.75rem;
-    }
-  }
-
-  &ActionWrapper {
-    display: flex;
-    margin-top: 1rem;
-
-    &SpaceBetween {
-      justify-content: space-between;
+      text-align: center;
+      margin: 1rem 0;
     }
 
-    &FlexEnd {
-      justify-content: flex-end;
-    }
-
-    &Button {
-      font-size: 0.875rem;
-    }
-  }
-}
-
-@include utilities.media(medium) {
-  .card {
-    max-height: calc(17.5rem + 8.75rem);
-
-    &ImageWrapper {
-      flex: 0 0 180px;
-    }
-
-    &FlipBackContent {
-      > *:first-child {
-        padding-top: 1rem;
-      }
-    }
-
-    &Content {
-      &Title {
-        font-size: 1.25rem;
-        min-height: calc(3 * 1.2 * 1.25rem);
+    & .cardVersoContent {
+      overflow: auto;
+      padding-inline: 1rem;
+      @include utilities.media(medium) {
+        > *:first-child {
+          padding-top: 1rem;
+        }
       }
     }
   }
 }
-
 
 @media (prefers-reduced-motion: reduce) {
-  .cardWrapper, .cardFlipBack {
+  .cardWrapper, .cardVerso {
     transform: none;
   }
 }
