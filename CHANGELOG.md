@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.328.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.327.0...v3.328.0) (2024-07-22)
+
+
+### Features
+
+* **matomo:** ajout var d'env ([#3202](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3202)) ([0ab6bb5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0ab6bb5aba81d808940e7515b4ca78dd21dde5ad))
+
 ## [3.327.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.326.0...v3.327.0) (2024-07-22)
 
 
