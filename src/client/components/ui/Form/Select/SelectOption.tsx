@@ -1,17 +1,19 @@
 import classNames from 'classnames';
-import React, { useCallback } from 'react';
+import React, { ComponentPropsWithoutRef, useCallback } from 'react';
 
 import { OptionSelect } from './Select';
 import styles from './Select.module.scss';
-import { useSelectSimple } from './SelectSimpleContext';
+import { useSelect } from './SelectSimpleContext';
 
-type SelectOptionProps = {
+type SelectOptionPropsOption = {
 	option: OptionSelect
 }
 
-export function SelectOption({ option }: SelectOptionProps) {
+type SelectOptionProps = ComponentPropsWithoutRef<'li'>
+
+export function SelectOption({ option, className }: SelectOptionProps & SelectOptionPropsOption) {
 	const id = option.libellé;
-	const { onOptionSelection, state, isCurrentItemSelected } = useSelectSimple();
+	const { onOptionSelection, activeDescendant, isCurrentItemSelected } = useSelect();
 
 	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
 	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
@@ -20,7 +22,7 @@ export function SelectOption({ option }: SelectOptionProps) {
 
 
 	return <li
-		className={classNames(styles.optionComboboxSimple, state.activeDescendant === id ? styles.optionVisuallyFocus : '')}
+		className={classNames(className, activeDescendant === id ? styles.optionVisuallyFocus : '')}
 		id={id}
 		role="option"
 		onMouseDown={onMouseDown}

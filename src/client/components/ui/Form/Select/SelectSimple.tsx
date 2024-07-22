@@ -17,7 +17,7 @@ import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
 import { OptionSelect } from '~/client/components/ui/Form/Select/Select';
 import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption';
-import { SelectSimpleProvider } from '~/client/components/ui/Form/Select/SelectSimpleContext';
+import { SelectProvider } from '~/client/components/ui/Form/Select/SelectSimpleContext';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './Select.module.scss';
@@ -224,10 +224,10 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 	}
 
 	return (
-		<SelectSimpleProvider value={{
+		<SelectProvider value={{
+			activeDescendant: state.activeDescendant,
 			isCurrentItemSelected,
 			onOptionSelection: selectOption,
-			state: state,
 		}}>
 			<div>
 				<div className={styles.container}>
@@ -265,11 +265,11 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 						aria-labelledby={labelledBy}
 						id={listboxId}
 						hidden={!state.isListOptionsOpen}>
-						{optionList.map((option) => <SelectOption key={option.libellé} option={option}/>)}
+						{optionList.map((option) => <SelectOption className={styles.optionComboboxSimple} key={option.libellé} option={option}/>)}
 					</ul>
 				</div>
 			</div>
-		</SelectSimpleProvider>
+		</SelectProvider>
 	);
 }
 
