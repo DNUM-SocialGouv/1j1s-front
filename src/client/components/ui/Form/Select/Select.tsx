@@ -3,7 +3,6 @@ import React, { useId } from 'react';
 
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { SelectMultiple, SelectMultipleProps } from '~/client/components/ui/Form/Select/SelectMultiple';
-import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption';
 import { SelectSimple, SelectSimpleProps } from '~/client/components/ui/Form/Select/SelectSimple';
 
 import styles from './Select.module.scss';

@@ -12,7 +12,7 @@ type SelectOptionPropsOption = {
 type SelectOptionProps = ComponentPropsWithoutRef<'li'>
 
 export function SelectOption({ option, className }: SelectOptionProps & SelectOptionPropsOption) {
-	const id = option.libellé;
+	const id = option.valeur;
 	const { onOptionSelection, activeDescendant, isCurrentItemSelected } = useSelect();
 
 	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
