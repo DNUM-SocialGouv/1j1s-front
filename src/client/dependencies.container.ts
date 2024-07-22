@@ -4,6 +4,9 @@ import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/eulerian.analytics.service';
 import { MatomoAnalyticsService } from '~/client/services/analytics/matomo/matomo.analytics.service';
+import {
+	MatomoTagManagerAnalyticsService,
+} from '~/client/services/analytics/matomoTagManager/matomoTagManager.analytics.service';
 import { BffHttpClientService } from '~/client/services/bff.httpClient.service';
 import { CookiesService } from '~/client/services/cookies/cookies.service';
 import { NullCookiesService } from '~/client/services/cookies/null/null.cookies.service';
@@ -132,6 +135,11 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 	if (process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_FEATURE === '1') {
 		new MatomoAnalyticsService(cookiesService);
 	}
+
+	if (process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_TAG_MANAGER_FEATURE === '1') {
+		new MatomoTagManagerAnalyticsService(cookiesService);
+	}
+
 	const analyticsService = new EulerianAnalyticsService(cookiesService);
 
 	const youtubeService = new YoutubeVideoService(cookiesService);
