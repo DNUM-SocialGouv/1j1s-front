@@ -167,7 +167,7 @@ export namespace SelectSimpleAction {
 	}
 }
 
-export function SelectReducer(state: SelectSimpleState, action: SelectSimpleAction): SelectSimpleState {
+export function SelectSimpleReducer(state: SelectSimpleState, action: SelectSimpleAction): SelectSimpleState {
 	return action.execute(state);
 }
 

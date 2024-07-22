@@ -16,10 +16,12 @@ import React, {
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
 import { OptionSelect } from '~/client/components/ui/Form/Select/Select';
+import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption';
+import { SelectSimpleProvider } from '~/client/components/ui/Form/Select/SelectSimpleContext';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './Select.module.scss';
-import { SelectReducer, SelectSimpleAction } from './SelectReducer';
+import { SelectSimpleAction, SelectSimpleReducer } from './SelectReducer';
 
 const ERROR_LABEL_REQUIRED_SIMPLE = 'Séléctionnez un élément de la liste';
 const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
@@ -49,13 +51,11 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 	} = props;
 	const listboxRef = useRef<HTMLUListElement>(null);
 	const inputHiddenRef = useRef<HTMLInputElement>(null);
-
-	const optionsId = useId();
 	const listboxId = useId();
 
 	const [touched, setTouched] = useState<boolean>(false);
 	const [state, dispatch] = useReducer(
-		SelectReducer, {
+		SelectSimpleReducer, {
 			activeDescendant: undefined,
 			isListOptionsOpen: false,
 			optionSelectedValue: defaultValue ? defaultValue : '',
@@ -93,11 +93,6 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 			document.getElementById(state.activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 		}
 	}, [state.activeDescendant]);
-
-	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
-	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
-		event.preventDefault();
-	}, []);
 
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLDivElement>) {
 		const newFocusStillInSelect = event.currentTarget.contains(event.relatedTarget);
@@ -229,59 +224,52 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 	}
 
 	return (
-		<div>
-			<div className={styles.container}>
-				<Input
-					ref={inputHiddenRef}
-					className={styles.inputHiddenValue}
-					tabIndex={-1}
-					required={required}
-					aria-hidden={'true'}
-					name={name}
-					onInvalid={onInvalidProps}
-					value={optionSelectedValue}
-				/>
-				<div
-					className={classNames(styles.combobox)}
-					role="combobox"
-					aria-controls={listboxId}
-					aria-haspopup="listbox"
-					aria-expanded={state.isListOptionsOpen}
-					aria-labelledby={labelledBy}
-					data-touched={touched}
-					tabIndex={0}
-					onClick={() => dispatch(new SelectSimpleAction.ToggleList())}
-					aria-activedescendant={state.activeDescendant}
-					onKeyDown={onKeyDown}
-					onBlur={onBlur}
-					{...rest}
-				>
-					<PlaceholderSelectedValue/>
-					{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+		<SelectSimpleProvider value={{
+			isCurrentItemSelected,
+			onOptionSelection: selectOption,
+			state: state,
+		}}>
+			<div>
+				<div className={styles.container}>
+					<Input
+						ref={inputHiddenRef}
+						className={styles.inputHiddenValue}
+						tabIndex={-1}
+						required={required}
+						aria-hidden={'true'}
+						name={name}
+						onInvalid={onInvalidProps}
+						value={optionSelectedValue}
+					/>
+					<div
+						className={classNames(styles.combobox)}
+						role="combobox"
+						aria-controls={listboxId}
+						aria-haspopup="listbox"
+						aria-expanded={state.isListOptionsOpen}
+						aria-labelledby={labelledBy}
+						data-touched={touched}
+						tabIndex={0}
+						onClick={() => dispatch(new SelectSimpleAction.ToggleList())}
+						aria-activedescendant={state.activeDescendant}
+						onKeyDown={onKeyDown}
+						onBlur={onBlur}
+						{...rest}
+					>
+						<PlaceholderSelectedValue/>
+						{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+					</div>
+					<ul
+						role="listbox"
+						ref={listboxRef}
+						aria-labelledby={labelledBy}
+						id={listboxId}
+						hidden={!state.isListOptionsOpen}>
+						{optionList.map((option) => <SelectOption key={option.libellé} option={option}/>)}
+					</ul>
 				</div>
-				<ul
-					role="listbox"
-					ref={listboxRef}
-					aria-labelledby={labelledBy}
-					id={listboxId}
-					hidden={!state.isListOptionsOpen}>
-					{optionList.map((option, index) => {
-						const optionId = `${optionsId}-${index}`;
-						return <li
-							className={classNames(styles.optionComboboxSimple, state.activeDescendant === optionId ? styles.optionVisuallyFocus : '')}
-							id={optionId}
-							role="option"
-							key={index}
-							onMouseDown={onMouseDown}
-							data-value={option.valeur}
-							onClick={() => selectOption(optionId)}
-							aria-selected={isCurrentItemSelected(option.valeur)}>
-							{option.libellé}
-						</li>;
-					})}
-				</ul>
 			</div>
-		</div>
+		</SelectSimpleProvider>
 	);
 }
 
