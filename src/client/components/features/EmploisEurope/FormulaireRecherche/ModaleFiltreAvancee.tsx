@@ -1,5 +1,4 @@
 import { ChangeEvent } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import styles
 	from '~/client/components/features/EmploisEurope/FormulaireRecherche/FormulaireRechercheEmploisEurope.module.scss';
@@ -38,50 +37,71 @@ export function ModaleFiltreAvancee(props: {
 				<span id="dialog_label">Filtrer ma recherche</span>
 			</ModalComponent.Title>
 			<ModalComponent.Content>
-				<FilterAccordion title="Type de contrat" open>
-					{typesContratEures.map((typeContrat) => (
-						<Checkbox
-							key={uuidv4()}
-							label={typeContrat.libellé}
-							onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleTypeContrat(e.target.value)}
-							value={typeContrat.valeur}
-							// NOTE (DORO - 05-12-2023): Pourrait ne plus marcher si on ajoute des types de contrat (cas avec 2 chiffres)
-							checked={props.inputTypeContrat.includes(typeContrat.valeur)}
-						/>
-					))}
+				<FilterAccordion open>
+					<FilterAccordion.Title>Type de contrat</FilterAccordion.Title>
+					<FilterAccordion.Content>
+						{typesContratEures.map((typeContrat) => (
+							<Checkbox
+								key={typeContrat.libellé}
+								label={typeContrat.libellé}
+								onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleTypeContrat(e.target.value)}
+								value={typeContrat.valeur}
+								// NOTE (DORO - 05-12-2023): Pourrait ne plus marcher si on ajoute des types de contrat (cas avec 2 chiffres)
+								checked={props.inputTypeContrat.includes(typeContrat.valeur)}
+							/>
+						))}
+					</FilterAccordion.Content>
 				</FilterAccordion>
-				<FilterAccordion title="Temps de travail">
-					{tempsDeTravailEures.map((tempsDeTravail) => (
-						<Checkbox
-							key={uuidv4()}
-							label={tempsDeTravail.libellé}
-							onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleTempsDeTravail(e.target.value)}
-							value={tempsDeTravail.valeur}
-							checked={props.inputTempsDeTravail.includes(tempsDeTravail.valeur)}
-						/>
-					))}
+
+				<FilterAccordion>
+					<FilterAccordion.Title>
+						Temps de travail
+					</FilterAccordion.Title>
+					<FilterAccordion.Content>
+						{tempsDeTravailEures.map((tempsDeTravail) => (
+							<Checkbox
+								key={tempsDeTravail.libellé}
+								label={tempsDeTravail.libellé}
+								onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleTempsDeTravail(e.target.value)}
+								value={tempsDeTravail.valeur}
+								checked={props.inputTempsDeTravail.includes(tempsDeTravail.valeur)}
+							/>
+						))}
+					</FilterAccordion.Content>
 				</FilterAccordion>
-				<FilterAccordion title="Niveau d‘études demandé">
-					{niveauEtudesEures.map((niveauEtude) => (
-						<Checkbox
-							key={uuidv4()}
-							label={niveauEtude.libellé}
-							onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleNiveauEtude(e.target.value)}
-							value={niveauEtude.valeur}
-							checked={props.inputNiveauEtude.includes(niveauEtude.valeur)}
-						/>
-					))}
+
+				<FilterAccordion>
+					<FilterAccordion.Title>
+						Niveau d‘études demandé
+					</FilterAccordion.Title>
+					<FilterAccordion.Content>
+						{niveauEtudesEures.map((niveauEtude) => (
+							<Checkbox
+								key={niveauEtude.libellé}
+								label={niveauEtude.libellé}
+								onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleNiveauEtude(e.target.value)}
+								value={niveauEtude.valeur}
+								checked={props.inputNiveauEtude.includes(niveauEtude.valeur)}
+							/>
+						))}
+					</FilterAccordion.Content>
 				</FilterAccordion>
-				<FilterAccordion title="Domaines">
-					{secteurActiviteEures.map((secteurActivite) => (
-						<Checkbox
-							key={uuidv4()}
-							label={secteurActivite.libellé}
-							onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleSecteurActivite(e.target.value)}
-							value={secteurActivite.valeur}
-							checked={props.inputSecteurActivite.includes(secteurActivite.valeur)}
-						/>
-					))}
+
+				<FilterAccordion>
+					<FilterAccordion.Title>
+						Domaines
+					</FilterAccordion.Title>
+					<FilterAccordion.Content>
+						{secteurActiviteEures.map((secteurActivite) => (
+							<Checkbox
+								key={secteurActivite.libellé}
+								label={secteurActivite.libellé}
+								onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleSecteurActivite(e.target.value)}
+								value={secteurActivite.valeur}
+								checked={props.inputSecteurActivite.includes(secteurActivite.valeur)}
+							/>
+						))}
+					</FilterAccordion.Content>
 				</FilterAccordion>
 			</ModalComponent.Content>
 			<ModalComponent.Footer>

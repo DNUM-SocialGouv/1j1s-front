@@ -88,35 +88,47 @@ export function FormulaireRechercheAnnonceLogement() {
 						<span id="dialog_label">Filtrer ma recherche</span>
 					</ModalComponent.Title>
 					<ModalComponent.Content className={styles.filtresAvancésModalContenu}>
-						<FilterAccordion title="Type d‘offre" open>
-							<MeilisearchCheckboxList
-								attribute="type"
-								label="Type d‘offre"
-								sortBy={['name:asc']}
-							/>
+						<FilterAccordion open>
+							<FilterAccordion.Title>Type d‘offre</FilterAccordion.Title>
+							<FilterAccordion.Content>
+								<MeilisearchCheckboxList
+									attribute="type"
+									label="Type d‘offre"
+									sortBy={['name:asc']}
+								/>
+							</FilterAccordion.Content>
 						</FilterAccordion>
-						<FilterAccordion title="Type de bien">
-							<MeilisearchCheckboxList
-								attribute="typeBien"
-								label="Type de bien"
-								sortBy={['name:asc']}
-							/>
+						<FilterAccordion>
+							<FilterAccordion.Title>Type de bien</FilterAccordion.Title>
+							<FilterAccordion.Content>
+								<MeilisearchCheckboxList
+									attribute="typeBien"
+									label="Type de bien"
+									sortBy={['name:asc']}
+								/>
+							</FilterAccordion.Content>
 						</FilterAccordion>
-						<FilterAccordion title="Prix">
-							<MeilisearchRangeForModal
-								attribute="prix"
-								unite="€"
-								min={PRIX_MINIMUM}
-								max={PRIX_MAXIMUM}
-							/>
+						<FilterAccordion>
+							<FilterAccordion.Title>Prix</FilterAccordion.Title>
+							<FilterAccordion.Content>
+								<MeilisearchRangeForModal
+									attribute="prix"
+									unite="€"
+									min={PRIX_MINIMUM}
+									max={PRIX_MAXIMUM}
+								/>
+							</FilterAccordion.Content>
 						</FilterAccordion>
-						<FilterAccordion title="Surface">
-							<MeilisearchRangeForModal
-								attribute="surface"
-								unite="m²"
-								min={SURFACE_MINIMUM}
-								max={SURFACE_MAXIMUM}
-							/>
+						<FilterAccordion>
+							<FilterAccordion.Title>Surface</FilterAccordion.Title>
+							<FilterAccordion.Content>
+								<MeilisearchRangeForModal
+									attribute="surface"
+									unite="m²"
+									min={SURFACE_MINIMUM}
+									max={SURFACE_MAXIMUM}
+								/>
+							</FilterAccordion.Content>
 						</FilterAccordion>
 					</ModalComponent.Content>
 					<ModalComponent.Footer>

@@ -55,108 +55,6 @@ describe('FormulaireRechercheOffreEmploi', () => {
 			});
 		});
 
-		describe('quand on recherche par type de contrat', () => {
-			it('ajoute les types de contrat aux query params', async () => {
-				// GIVEN
-				const localisationServiceMock = aLocalisationService();
-				const routerPush = jest.fn();
-				const user = userEvent.setup();
-				mockUseRouter({ push: routerPush });
-
-				render(
-					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi/>
-					</DependenciesProvider>,
-				);
-
-				const buttonFiltresRecherche = screen.getByRole('button', { name: 'Filtrer ma recherche' });
-
-				// WHEN
-				await user.click(buttonFiltresRecherche);
-				const modalComponent = screen.getByRole('dialog');
-				const inputTypeDeContrat = within(modalComponent).getByRole('checkbox', { name: 'Mission intérimaire' });
-				await user.click(inputTypeDeContrat);
-
-				expect(modalComponent).toBeInTheDocument();
-
-				const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
-
-				// WHEN
-				await user.click(buttonAppliquerFiltres);
-
-				// THEN
-				expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=MIS&page=1' }, undefined, { scroll: false });
-			});
-		});
-
-		describe('quand on recherche par temps de travail', () => {
-			it('ajoute les temps de travail aux query params', async () => {
-				// GIVEN
-				const localisationServiceMock = aLocalisationService();
-				const routerPush = jest.fn();
-				const user = userEvent.setup();
-				mockUseRouter({ push: routerPush });
-
-				render(
-					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi/>
-					</DependenciesProvider>,
-				);
-
-				const buttonFiltresRecherche = screen.getByRole('button', { name: 'Filtrer ma recherche' });
-
-				// WHEN
-				await user.click(buttonFiltresRecherche);
-				const modalComponent = screen.getByRole('dialog');
-				const inputTempsDeTravail = within(modalComponent).getByRole('radio', { name: 'Temps plein' });
-				await user.click(inputTempsDeTravail);
-
-				expect(modalComponent).toBeInTheDocument();
-
-				const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
-
-				// WHEN
-				await user.click(buttonAppliquerFiltres);
-
-				// THEN
-				expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' }, undefined, { scroll: false });
-			});
-		});
-
-		describe('quand on recherche par niveau demandé', () => {
-			it('ajoute le niveau demandé aux query params', async () => {
-				// GIVEN
-				const localisationServiceMock = aLocalisationService();
-				const routerPush = jest.fn();
-				const user = userEvent.setup();
-				mockUseRouter({ push: routerPush });
-
-				render(
-					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi/>
-					</DependenciesProvider>,
-				);
-
-				const buttonFiltresRecherche = screen.getByRole('button', { name: 'Filtrer ma recherche' });
-
-				// WHEN
-				await user.click(buttonFiltresRecherche);
-				const modalComponent = screen.getByRole('dialog');
-				const inputExperienceExigence = within(modalComponent).getByRole('radio', { name: 'Moins de 1 an' });
-				await user.click(inputExperienceExigence);
-
-				expect(modalComponent).toBeInTheDocument();
-
-				const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
-
-				// WHEN
-				await user.click(buttonAppliquerFiltres);
-
-				// THEN
-				expect(routerPush).toHaveBeenCalledWith({ query: 'experienceExigence=D&page=1' }, undefined, { scroll: false });
-			});
-		});
-
 		describe('quand on recherche par localisation', () => {
 			it('ajoute la localisation aux query params', async () => {
 				// GIVEN
@@ -194,6 +92,161 @@ describe('FormulaireRechercheOffreEmploi', () => {
 			});
 		});
 
+		describe('quand on recherche par type de contrat', () => {
+			it('ajoute les types de contrat aux query params', async () => {
+				// GIVEN
+				const localisationServiceMock = aLocalisationService();
+				const routerPush = jest.fn();
+				const user = userEvent.setup();
+				mockUseRouter({ push: routerPush });
+
+				render(
+					<DependenciesProvider localisationService={localisationServiceMock}>
+						<FormulaireRechercheOffreEmploi/>
+					</DependenciesProvider>,
+				);
+
+				const buttonFiltresRecherche = screen.getByRole('button', { name: 'Filtrer ma recherche' });
+
+				// WHEN
+				await user.click(buttonFiltresRecherche);
+				const modalComponent = screen.getByRole('dialog');
+				const inputTypeDeContrat = within(modalComponent).getByRole('checkbox', { name: 'Mission intérimaire' });
+				await user.click(inputTypeDeContrat);
+
+				expect(modalComponent).toBeInTheDocument();
+
+				const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
+
+				// WHEN
+				await user.click(buttonAppliquerFiltres);
+
+				// THEN
+				expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=MIS&page=1' }, undefined, { scroll: false });
+			});
+
+			it('regroupe par types de contrat', async () => {
+				// GIVEN
+				mockUseRouter({});
+				const user = userEvent.setup();
+
+				// WHEN
+				render(
+					<DependenciesProvider localisationService={aLocalisationService()}>
+						<FormulaireRechercheOffreEmploi/>
+					</DependenciesProvider>,
+				);
+				await user.click(screen.getByRole('button', { name: 'Filtrer ma recherche' }));
+
+				// THEN
+				expect(screen.getByRole('group', { name: 'Type de contrat' })).toBeVisible();
+			});
+		});
+
+		describe('quand on recherche par temps de travail', () => {
+			it('ajoute les temps de travail aux query params', async () => {
+				// GIVEN
+				const localisationServiceMock = aLocalisationService();
+				const routerPush = jest.fn();
+				const user = userEvent.setup();
+				mockUseRouter({ push: routerPush });
+
+				render(
+					<DependenciesProvider localisationService={localisationServiceMock}>
+						<FormulaireRechercheOffreEmploi/>
+					</DependenciesProvider>,
+				);
+
+				const buttonFiltresRecherche = screen.getByRole('button', { name: 'Filtrer ma recherche' });
+
+				// WHEN
+				await user.click(buttonFiltresRecherche);
+				const modalComponent = screen.getByRole('dialog');
+				const inputTempsDeTravail = within(modalComponent).getByRole('radio', { name: 'Temps plein' });
+				await user.click(inputTempsDeTravail);
+
+				expect(modalComponent).toBeInTheDocument();
+
+				const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
+
+				// WHEN
+				await user.click(buttonAppliquerFiltres);
+
+				// THEN
+				expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' }, undefined, { scroll: false });
+			});
+
+			it('regroupe par temps de travail', async () => {
+				// GIVEN
+				mockUseRouter({});
+				const user = userEvent.setup();
+
+				// WHEN
+				render(
+					<DependenciesProvider localisationService={aLocalisationService()}>
+						<FormulaireRechercheOffreEmploi/>
+					</DependenciesProvider>,
+				);
+				await user.click(screen.getByRole('button', { name: 'Filtrer ma recherche' }));
+				await user.click(screen.getByText('Temps de travail'));
+
+				// THEN
+				expect(screen.getByRole('group', { name: 'Temps de travail' })).toBeVisible();
+			});
+		});
+
+		describe('quand on recherche par niveau demandé', () => {
+			it('ajoute le niveau demandé aux query params', async () => {
+				// GIVEN
+				const localisationServiceMock = aLocalisationService();
+				const routerPush = jest.fn();
+				const user = userEvent.setup();
+				mockUseRouter({ push: routerPush });
+
+				render(
+					<DependenciesProvider localisationService={localisationServiceMock}>
+						<FormulaireRechercheOffreEmploi/>
+					</DependenciesProvider>,
+				);
+
+				const buttonFiltresRecherche = screen.getByRole('button', { name: 'Filtrer ma recherche' });
+
+				// WHEN
+				await user.click(buttonFiltresRecherche);
+				const modalComponent = screen.getByRole('dialog');
+				const inputExperienceExigence = within(modalComponent).getByRole('radio', { name: 'Moins de 1 an' });
+				await user.click(inputExperienceExigence);
+
+				expect(modalComponent).toBeInTheDocument();
+
+				const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
+
+				// WHEN
+				await user.click(buttonAppliquerFiltres);
+
+				// THEN
+				expect(routerPush).toHaveBeenCalledWith({ query: 'experienceExigence=D&page=1' }, undefined, { scroll: false });
+			});
+
+			it('regroupe par niveaux', async () => {
+				// GIVEN
+				mockUseRouter({});
+				const user = userEvent.setup();
+
+				// WHEN
+				render(
+					<DependenciesProvider localisationService={aLocalisationService()}>
+						<FormulaireRechercheOffreEmploi/>
+					</DependenciesProvider>,
+				);
+				await user.click(screen.getByRole('button', { name: 'Filtrer ma recherche' }));
+				await user.click(screen.getByText('Niveau demandé'));
+
+				// THEN
+				expect(screen.getByRole('group', { name: 'Niveau demandé' })).toBeVisible();
+			});
+		});
+
 		describe('quand on recherche par domaine', () => {
 			it('ajoute les domaines aux query params', async () => {
 				// GIVEN
@@ -226,6 +279,24 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				// THEN
 				expect(routerPush).toHaveBeenCalledWith({ query: 'grandDomaine=C&page=1' }, undefined, { scroll: false });
+			});
+
+			it('regroupe par domaine', async () => {
+				// GIVEN
+				mockUseRouter({});
+				const user = userEvent.setup();
+
+				// WHEN
+				render(
+					<DependenciesProvider localisationService={aLocalisationService()}>
+						<FormulaireRechercheOffreEmploi/>
+					</DependenciesProvider>,
+				);
+				await user.click(screen.getByRole('button', { name: 'Filtrer ma recherche' }));
+				await user.click(screen.getByText('Domaine'));
+
+				// THEN
+				expect(screen.getByRole('group', { name: 'Domaine' })).toBeVisible();
 			});
 		});
 	});
@@ -329,7 +400,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const button = screen.getByRole('combobox', { name: 'Temps de travail Exemple : temps plein, temps partiel…' });
 				await user.click(button);
 
-				const optionTempsTravail = screen.getByRole('option',{ name: Offre.TEMPS_PLEIN.libellé });
+				const optionTempsTravail = screen.getByRole('option', { name: Offre.TEMPS_PLEIN.libellé });
 				await user.click(optionTempsTravail);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
