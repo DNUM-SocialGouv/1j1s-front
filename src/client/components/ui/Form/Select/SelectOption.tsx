@@ -20,7 +20,6 @@ export function SelectOption({ option, className }: SelectOptionProps & SelectOp
 		event.preventDefault();
 	}, []);
 
-
 	return <li
 		className={classNames(className, activeDescendant === id ? styles.optionVisuallyFocus : '')}
 		id={id}

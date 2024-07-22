@@ -15,8 +15,6 @@ import React, {
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
-import { OptionSelect } from '~/client/components/ui/Form/Select/Select';
-import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption';
 import { SelectProvider } from '~/client/components/ui/Form/Select/SelectSimpleContext';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
@@ -28,7 +26,6 @@ const ERROR_LABEL_REQUIRED_MULTIPLE = 'Séléctionnez au moins un élément de l
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
 export type SelectMultipleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
-	optionList: OptionSelect[];
 	value?: Array<string>;
 	onChange?: (value: HTMLElement) => void;
 	defaultValue?: Array<string>;
@@ -37,7 +34,7 @@ export type SelectMultipleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onCha
 
 export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 	const {
-		optionList,
+		children,
 		value,
 		placeholder,
 		name,
@@ -52,7 +49,6 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 	const listboxRef = useRef<HTMLUListElement>(null);
 	const firstInputHiddenRef = useRef<HTMLInputElement>(null);
 
-	const optionsId = useId();
 	const listboxId = useId();
 
 	const [touched, setTouched] = useState<boolean>(false);
@@ -94,11 +90,6 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 			document.getElementById(state.activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 		}
 	}, [state.activeDescendant]);
-
-	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
-	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
-		event.preventDefault();
-	}, []);
 
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLDivElement>) {
 		const newFocusStillInCombobox = event.currentTarget.contains(event.relatedTarget);
@@ -270,11 +261,7 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 						aria-labelledby={labelledBy}
 						id={listboxId}
 						hidden={!state.isListOptionsOpen}>
-						{optionList.map((option, index) =>
-							<SelectOption
-								className={styles.optionComboboxMultiple}
-								key={option.libellé} option={option}/>,
-						)}
+						{children}
 					</ul>
 				</div>
 			</div>

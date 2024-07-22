@@ -3,6 +3,7 @@ import React, { useId } from 'react';
 
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { SelectMultiple, SelectMultipleProps } from '~/client/components/ui/Form/Select/SelectMultiple';
+import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption';
 import { SelectSimple, SelectSimpleProps } from '~/client/components/ui/Form/Select/SelectSimple';
 
 import styles from './Select.module.scss';
@@ -16,6 +17,7 @@ export interface OptionSelect {
 type SelectProps = {
 	label: string;
 	labelComplement?: string
+	optionList: OptionSelect[]
 } & (
 	SelectSimpleProps & { multiple?: false }
 	| SelectMultipleProps & { multiple: true }
@@ -27,6 +29,7 @@ export function Select(props: SelectProps) {
 		label,
 		labelComplement,
 		multiple,
+		optionList,
 		...rest
 	} = props;
 	const labelledBy = useId();
@@ -46,8 +49,16 @@ export function Select(props: SelectProps) {
 					{label}
 					{labelComplement && <Champ.Label.Complement>{labelComplement}</Champ.Label.Complement>}
 				</Champ.Label>
-				{isSelectSimpleProps(rest) && <Champ.Input render={SelectSimple} labelledBy={labelledBy} {...rest}/>}
-				{isSelectMultipleProps(rest) && <Champ.Input render={SelectMultiple} labelledBy={labelledBy} {...rest}/>}
+				{isSelectSimpleProps(rest) && <Champ.Input render={SelectSimple} labelledBy={labelledBy} {...rest}>
+					{optionList.map((option) =>
+						<SelectOption className={styles.optionComboboxSimple} key={option.libellé} option={option}/>,
+					)}
+				</Champ.Input>}
+				{isSelectMultipleProps(rest) && <Champ.Input render={SelectMultiple} labelledBy={labelledBy} {...rest}>
+					{optionList.map((option) =>
+						<SelectOption className={styles.optionComboboxMultiple} key={option.libellé} option={option}/>,
+					)}
+				</Champ.Input>}
 				<Champ.Error/>
 			</Champ>
 		</div>

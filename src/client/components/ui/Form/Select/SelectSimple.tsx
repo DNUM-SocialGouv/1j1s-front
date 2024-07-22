@@ -5,6 +5,7 @@ import React, {
 	KeyboardEvent,
 	SyntheticEvent,
 	useCallback,
+	useEffect,
 	useId,
 	useLayoutEffect,
 	useMemo,
@@ -15,20 +16,17 @@ import React, {
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
-import { OptionSelect } from '~/client/components/ui/Form/Select/Select';
-import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption';
 import { SelectProvider } from '~/client/components/ui/Form/Select/SelectSimpleContext';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './Select.module.scss';
-import { SelectSimpleAction, SelectSimpleReducer } from './SelectReducer';
+import { getOptionsElement, SelectSimpleAction, SelectSimpleReducer } from './SelectReducer';
 
 const ERROR_LABEL_REQUIRED_SIMPLE = 'Séléctionnez un élément de la liste';
 const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
 export type SelectSimpleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
-	optionList: OptionSelect[];
 	value?: string;
 	onChange?: (value: HTMLElement) => void;
 	defaultValue?: string;
@@ -37,9 +35,9 @@ export type SelectSimpleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChang
 
 export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 	const {
-		optionList,
+		children,
 		value,
-		placeholder,
+		placeholder: placeholderProps,
 		name,
 		onChange: onChangeProps = doNothing,
 		onInvalid: onInvalidProps = doNothing,
@@ -54,6 +52,8 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 	const listboxId = useId();
 
 	const [touched, setTouched] = useState<boolean>(false);
+	const [placeholder, setPlaceholder] = useState<string>();
+
 	const [state, dispatch] = useReducer(
 		SelectSimpleReducer, {
 			activeDescendant: undefined,
@@ -66,6 +66,18 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 	);
 
 	const optionSelectedValue = value ?? state.optionSelectedValue;
+
+	const placeholderWhenValueSelected = useCallback(() => {
+		if (optionSelectedValue) {
+			const options = getOptionsElement(listboxRef);
+			const optionSelected = options.find((option) => option.getAttribute('data-value') === optionSelectedValue);
+			return optionSelected?.textContent;
+		}
+	}, [optionSelectedValue]);
+
+	useEffect(() => {
+		setPlaceholder(placeholderWhenValueSelected() ?? placeholderProps ?? SELECT_PLACEHOLDER_SINGULAR);
+	}, [optionSelectedValue, placeholderProps, placeholderWhenValueSelected]);
 
 	const selectOption = useCallback((optionId: string) => {
 		setTouched(true);
@@ -212,17 +224,6 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 		}
 	}, [closeList, handlefocusOnTypeLetterDebounce, selectOption, state]);
 
-	function PlaceholderSelectedValue() {
-		function getLabelByValue(value: string) {
-			const optionValue = optionList.find((option) => option.valeur === value);
-			return optionValue?.libellé ?? '';
-		}
-
-		if (optionSelectedValue) return getLabelByValue(optionSelectedValue);
-		if (placeholder) return placeholder;
-		return SELECT_PLACEHOLDER_SINGULAR;
-	}
-
 	return (
 		<SelectProvider value={{
 			activeDescendant: state.activeDescendant,
@@ -256,7 +257,7 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 						onBlur={onBlur}
 						{...rest}
 					>
-						<PlaceholderSelectedValue/>
+						{placeholder}
 						{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
 					</div>
 					<ul
@@ -265,7 +266,7 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 						aria-labelledby={labelledBy}
 						id={listboxId}
 						hidden={!state.isListOptionsOpen}>
-						{optionList.map((option) => <SelectOption className={styles.optionComboboxSimple} key={option.libellé} option={option}/>)}
+						{children}
 					</ul>
 				</div>
 			</div>
