@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.326.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.325.1...v3.326.0) (2024-07-22)
+
+
+### Features
+
+* **cookie:** ajout du service matomo tag manager ([#3191](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3191)) ([1247552](https://github.com/DNUM-SocialGouv/1j1s-front/commit/124755221fb5ba1d3840034e03640daeefb40dc7))
+
 ## [3.325.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.325.0...v3.325.1) (2024-07-20)
 
 
