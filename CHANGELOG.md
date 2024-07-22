@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.327.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.326.0...v3.327.0) (2024-07-22)
+
+
+### Features
+
+* **UI:** passer le filterAccordion en composition ([#3174](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3174)) ([f891ec4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f891ec4af5925b553f5a1f324e3d2a40056bd8fd))
+
 ## [3.326.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.325.1...v3.326.0) (2024-07-22)
 
 
