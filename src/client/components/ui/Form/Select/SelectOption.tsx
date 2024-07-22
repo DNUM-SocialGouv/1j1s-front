@@ -3,7 +3,7 @@ import React, { ComponentPropsWithoutRef, useCallback } from 'react';
 
 import { OptionSelect } from './Select';
 import styles from './Select.module.scss';
-import { useSelect } from './SelectSimpleContext';
+import { useSelect } from './SelectContext';
 
 type SelectOptionPropsOption = {
 	option: OptionSelect

@@ -15,7 +15,9 @@ import React, {
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
-import { SelectProvider } from '~/client/components/ui/Form/Select/SelectSimpleContext';
+import { SelectProvider } from '~/client/components/ui/Form/Select/SelectContext';
+import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption';
+import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './Select.module.scss';
@@ -277,3 +279,9 @@ function cancelEvent(event: SyntheticEvent) {
 function doNothing() {
 	return;
 }
+
+function SelectMultipleOption(props: React.ComponentPropsWithoutRef<typeof SelectOption>) {
+	return <SelectOption {...props} className={classNames(props.className, styles.optionComboboxMultiple)}/>;
+}
+
+SelectMultiple.Option = SelectMultipleOption;

@@ -16,10 +16,11 @@ import React, {
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
-import { SelectProvider } from '~/client/components/ui/Form/Select/SelectSimpleContext';
+import { SelectProvider } from '~/client/components/ui/Form/Select/SelectContext';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './Select.module.scss';
+import { SelectOption } from './SelectOption';
 import { getOptionsElement, SelectSimpleAction, SelectSimpleReducer } from './SelectReducer';
 
 const ERROR_LABEL_REQUIRED_SIMPLE = 'Séléctionnez un élément de la liste';
@@ -283,3 +284,9 @@ function cancelEvent(event: SyntheticEvent) {
 function doNothing() {
 	return;
 }
+
+function SelectSimpleOption(props: React.ComponentPropsWithoutRef<typeof SelectOption>) {
+	return <SelectOption {...props} className={classNames(props.className, styles.optionComboboxSimple)}/>;
+}
+
+SelectSimple.Option = SelectSimpleOption;

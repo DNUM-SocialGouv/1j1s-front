@@ -51,14 +51,16 @@ export function Select(props: SelectProps) {
 				</Champ.Label>
 				{isSelectSimpleProps(rest) && <Champ.Input render={SelectSimple} labelledBy={labelledBy} {...rest}>
 					{optionList.map((option) =>
-						<SelectOption className={styles.optionComboboxSimple} key={option.libellé} option={option}/>,
+						<SelectSimple.Option key={option.libellé} option={option}/>,
 					)}
 				</Champ.Input>}
+
 				{isSelectMultipleProps(rest) && <Champ.Input render={SelectMultiple} labelledBy={labelledBy} {...rest}>
 					{optionList.map((option) =>
-						<SelectOption className={styles.optionComboboxMultiple} key={option.libellé} option={option}/>,
+						<SelectMultiple.Option key={option.libellé} option={option}/>,
 					)}
 				</Champ.Input>}
+
 				<Champ.Error/>
 			</Champ>
 		</div>
