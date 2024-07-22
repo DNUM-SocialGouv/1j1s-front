@@ -1,5 +1,4 @@
 import { ChangeEvent } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import styles
 	from '~/client/components/features/EmploisEurope/FormulaireRecherche/FormulaireRechercheEmploisEurope.module.scss';
@@ -43,7 +42,7 @@ export function ModaleFiltreAvancee(props: {
 					<FilterAccordion.Content>
 						{typesContratEures.map((typeContrat) => (
 							<Checkbox
-								key={uuidv4()}
+								key={typeContrat.libellé}
 								label={typeContrat.libellé}
 								onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleTypeContrat(e.target.value)}
 								value={typeContrat.valeur}
@@ -61,7 +60,7 @@ export function ModaleFiltreAvancee(props: {
 					<FilterAccordion.Content>
 						{tempsDeTravailEures.map((tempsDeTravail) => (
 							<Checkbox
-								key={uuidv4()}
+								key={tempsDeTravail.libellé}
 								label={tempsDeTravail.libellé}
 								onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleTempsDeTravail(e.target.value)}
 								value={tempsDeTravail.valeur}
@@ -78,7 +77,7 @@ export function ModaleFiltreAvancee(props: {
 					<FilterAccordion.Content>
 						{niveauEtudesEures.map((niveauEtude) => (
 							<Checkbox
-								key={uuidv4()}
+								key={niveauEtude.libellé}
 								label={niveauEtude.libellé}
 								onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleNiveauEtude(e.target.value)}
 								value={niveauEtude.valeur}
@@ -95,7 +94,7 @@ export function ModaleFiltreAvancee(props: {
 					<FilterAccordion.Content>
 						{secteurActiviteEures.map((secteurActivite) => (
 							<Checkbox
-								key={uuidv4()}
+								key={secteurActivite.libellé}
 								label={secteurActivite.libellé}
 								onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleSecteurActivite(e.target.value)}
 								value={secteurActivite.valeur}

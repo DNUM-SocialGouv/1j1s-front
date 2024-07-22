@@ -251,9 +251,9 @@ export function FormulaireRechercheOffreEmploi() {
 						<FilterAccordion.Title id="niveau-demande-title">Niveau demandé</FilterAccordion.Title>
 						<FilterAccordion.Content>
 							<fieldset aria-labelledby="niveau-demande-title">
-								{Offre.EXPÉRIENCE.map((expérience, index) => (
+								{Offre.EXPÉRIENCE.map((expérience) => (
 									<Radio
-										key={`Niveau demandé${index}`}
+										key={expérience.libellé}
 										label={expérience.libellé}
 										name="experienceExigence"
 										checked={inputExpérience === expérience.valeur}

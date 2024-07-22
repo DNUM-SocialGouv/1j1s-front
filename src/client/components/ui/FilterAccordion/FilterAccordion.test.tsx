@@ -9,7 +9,7 @@ import { userEvent } from '@testing-library/user-event';
 import { FilterAccordion } from '~/client/components/ui/FilterAccordion/FilterAccordion';
 
 describe('<FilterAccordion/>', () => {
-	it('Je vois l‘accordéon avec le titre et son contenu', () => {
+	it('Je vois l‘accordéon avec le titre mais pas son contenu', () => {
 		render(<FilterAccordion>
 			<FilterAccordion.Title>Je suis le titre</FilterAccordion.Title>
 			<FilterAccordion.Content>Je suis le contenu</FilterAccordion.Content>
