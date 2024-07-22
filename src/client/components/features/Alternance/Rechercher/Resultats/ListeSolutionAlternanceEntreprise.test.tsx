@@ -91,4 +91,29 @@ describe('les tags', () => {
 		expect(tags[2]).toHaveTextContent('Rencontre au sein de l’entreprise');
 		expect(tags[3]).toHaveTextContent('Candidature sur le site de l’entreprise');
 	});
+
+	describe('lien de candidature vers une entreprise', () => {
+		it("lorsque la candidature est possible, je vois le lien 'Candidater'", async () => {
+			const anEntreprisesList = [
+				aRechercheEntrepriseAlternance({
+					candidaturePossible: true,
+				}),
+			];
+
+			render(<ListeSolutionAlternanceEntreprise entrepriseList={anEntreprisesList}/>);
+
+			expect(screen.getByRole('link', { name: 'Candidater' })).toBeVisible();
+		});
+		it("lorsque la candidature n'est pas possible, je ne vois pas le lien 'Candidater'", async () => {
+			const anEntreprisesList = [
+				aRechercheEntrepriseAlternance({
+					candidaturePossible: false,
+				}),
+			];
+
+			render(<ListeSolutionAlternanceEntreprise entrepriseList={anEntreprisesList}/>);
+
+			expect(screen.queryByText('Candidater')).not.toBeInTheDocument();
+		});
+	});
 });
