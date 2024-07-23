@@ -1,5 +1,4 @@
 export interface Commune {
-  libelle: string;
   ville: string;
   code: string;
   codePostal: string;

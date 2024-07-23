@@ -57,14 +57,14 @@ describe('rechercher une localisation', () => {
 					const expectedJSON: RechercheLocalisationApiResponse = {
 						communeList: [
 							{
-								code: '28201',
-								codePostal: '28300',
-								nom: 'Jouy',
-							},
-							{
 								code: '93005',
 								codePostal: '93600',
 								nom: 'Aulnay-sous-Bois',
+							},
+							{
+								code: '28201',
+								codePostal: '28300',
+								nom: 'Jouy',
 							},
 						],
 						departementList: [{

@@ -23,7 +23,6 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 
 	const {
 		codeCommune,
-		libelleCommune,
 		latitudeCommune,
 		longitudeCommune,
 		ville,
@@ -36,7 +35,6 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 		codeCommune,
 		codePostal,
 		latitudeCommune,
-		libelleCommune,
 		longitudeCommune,
 		ville,
 	});

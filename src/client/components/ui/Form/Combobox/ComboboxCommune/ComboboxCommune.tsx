@@ -47,8 +47,12 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 	} = props;
 	const localisationService = useDependency<LocalisationService>('localisationService');
 
+	function formatLibelle(ville: string, codePostal: string) {
+		return `${ville} (${codePostal})`;
+	}
+
 	const [communeOptions, setCommuneOptions] = useState<Array<Commune>>(defaultCommuneProps ? [defaultCommuneProps] : []);
-	const [userInput, setUserInput] = useState<string>(defaultCommuneProps?.libelle ?? '');
+	const [userInput, setUserInput] = useState<string>(defaultCommuneProps ? formatLibelle(defaultCommuneProps.ville, defaultCommuneProps.codePostal) : '');
 
 	const [status, setStatus] = useState<FetchStatus>('init');
 
@@ -95,7 +99,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 	}
 
 	function findMatchingOptionFromUserInput(userInput: string, communeList: Array<Commune>) {
-		return communeList.find((commune) => userInput === commune.libelle);
+		return communeList.find((commune) => userInput === `${commune.ville} (${commune.codePostal})`);
 	}
 
 	const isCommuneValid = matchingOption?.code;
@@ -110,7 +114,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 					<Champ.Input render={Combobox}
 											 ref={ref}
 											 filter={Combobox.noFilter}
-											 valueName="libelleCommune"
+											 valueName="codeCommune"
 											 autoComplete="off"
 											 value={userInput}
 											 optionsAriaLabel="communes"
@@ -123,8 +127,8 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 											 {...rest}>
 						{
 							(communeOptions.map((commune: Commune) => (
-								<Combobox.Option key={commune.libelle}>
-									{commune.libelle}
+								<Combobox.Option key={commune.code} value={commune.code}>
+									{formatLibelle(commune.ville, commune.codePostal)}
 								</Combobox.Option>
 							)))
 						}
@@ -140,11 +144,10 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 					</Champ.Input>
 					<Champ.Error/>
 				</Champ>
-				<input type="hidden" name="codeCommune" value={matchingOption?.code ?? ''}/>
+				<input type="hidden" name="ville" value={matchingOption?.ville ?? ''}/>
 				<input type="hidden" name="latitudeCommune" value={matchingOption?.coordonnées.latitude ?? ''}/>
 				<input type="hidden" name="longitudeCommune" value={matchingOption?.coordonnées.longitude ?? ''}/>
 				<input type="hidden" name="codePostal" value={matchingOption?.codePostal ?? ''}/>
-				<input type="hidden" name="ville" value={matchingOption?.ville ?? ''}/>
 			</div>
 			{showRadiusInput && isCommuneValid && userInput && <Select
 				label="Rayon"

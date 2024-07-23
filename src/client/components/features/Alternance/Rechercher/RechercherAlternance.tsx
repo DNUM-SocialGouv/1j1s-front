@@ -65,12 +65,12 @@ export default function RechercherAlternance(props: RechercherAlternanceProps) {
 	}
 
 	const étiquettesRecherche = useMemo(() => {
-		if (alternanceQuery.libelleCommune) {
-			return <TagList list={[alternanceQuery.libelleCommune as string]} aria-label="Filtres de la recherche"/>;
+		if (alternanceQuery.ville && alternanceQuery.codePostal) {
+			return <TagList list={[`${alternanceQuery.ville} (${alternanceQuery.codePostal})`]} aria-label="Filtres de la recherche"/>;
 		} else {
 			return undefined;
 		}
-	}, [alternanceQuery.libelleCommune]);
+	}, [alternanceQuery.ville, alternanceQuery.codePostal]);
 
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -124,7 +124,7 @@ export default function RechercherAlternance(props: RechercherAlternanceProps) {
 					link="/articles/l-aide-a-l-apprentissage-l-atout-qu-il-faut-pour-vos-candidatures"
 					title="Une aide exceptionnelle pour l’apprentissage : l’atout qu’il vous faut pour vos candidatures !"
 					titleAs={'h3'}>
-						Découvrez un argument supplémentaire à avancer pour vous faire embaucher
+					Découvrez un argument supplémentaire à avancer pour vous faire embaucher
 				</ServiceCard>
 			</ServiceCardList>
 

@@ -45,7 +45,7 @@ describe('Parcours bénévolat', () => {
 	context('quand l‘utilisateur clique sur le premier élément de la liste', () => {
 		beforeEach(() => {
 			cy.viewport('iphone-x');
-			cy.visit('/benevolat?domain=culture-loisirs&libelleCommune=Paris+%2875001%29&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=10&page=1');
+			cy.visit('/benevolat?domain=culture-loisirs&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=10&page=1');
 		});
 		it('navigue vers le détail de l‘offre', () => {
 			const id = aRésultatRechercheMission().résultats[0].id;

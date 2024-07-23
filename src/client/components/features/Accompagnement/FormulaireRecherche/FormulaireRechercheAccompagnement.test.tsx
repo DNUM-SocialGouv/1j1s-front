@@ -47,9 +47,8 @@ describe('FormulaireRechercheAccompagnement', () => {
 			await user.click(submitButton);
 
 			// THEN
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleCommune=Paris+%2875006%29') }, undefined, { shallow: true });
 			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeCommune=75056') }, undefined, { shallow: true });
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('latitudeCommune=48.859&longitudeCommune=2.347&codePostal=75006&ville=Paris') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('latitudeCommune=48.859') }, undefined, { shallow: true });
 			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('longitudeCommune=2.347') }, undefined, { shallow: true });
 			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codePostal=75006') }, undefined, { shallow: true });
 			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('ville=Paris') }, undefined, { shallow: true });
@@ -80,8 +79,8 @@ describe('FormulaireRechercheAccompagnement', () => {
 		mockUseRouter({ query: {
 			typeAccompagnement: 'mission_locale',
 			...aCommuneQuery({
-				codeCommune: '75001',
-				libelleCommune: 'Paris (75001)',
+				codePostal: '75001',
+				ville: 'Paris',
 			}),
 		} });
 

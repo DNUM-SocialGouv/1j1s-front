@@ -16,16 +16,6 @@ import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aCommune } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
 
-
-const formulaireContact = {
-	adresseMail: 'mariotintin@mail.com',
-	age: '16 ans',
-	nom: 'Tintin',
-	prenom: 'Mario',
-	telephone: '0123456789',
-	ville: 'Paris (75006)',
-};
-
 describe('<DemandeContactCEJ />', () => {
 	beforeAll(() => {
 		mockScrollIntoView();
@@ -39,7 +29,8 @@ describe('<DemandeContactCEJ />', () => {
 		const localisationService = aLocalisationService();
 
 		render(
-			<DependenciesProvider demandeDeContactService={demandeDeContactServiceMock} localisationService={localisationService}>
+			<DependenciesProvider demandeDeContactService={demandeDeContactServiceMock}
+				localisationService={localisationService}>
 				<DemandeContactCEJ/>
 			</DependenciesProvider>,
 		);
@@ -52,13 +43,14 @@ describe('<DemandeContactCEJ />', () => {
 		// Then
 		expect(screen.getByText('Demander à être contacté.e')).toBeVisible();
 	});
+
 	describe('Lorsqu‘on clique sur le bouton je souhaite être contacté(e)', () => {
 		it('affiche un formulaire de rappel', async () => {
-			// Given
+			const user = userEvent.setup();
 			renderComponent();
-			// When
-			await userEvent.click(screen.getByText('Demander à être contacté.e'));
-			// Then
+
+			await user.click(screen.getByText('Demander à être contacté.e'));
+
 			expect(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' })).toBeVisible();
 			expect(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' })).toBeVisible();
 			expect(screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' })).toBeVisible();
@@ -71,20 +63,13 @@ describe('<DemandeContactCEJ />', () => {
 
 		it('lorsque l‘envoi du formulaire est en succes, affiche la modale de succès', async () => {
 			const user = userEvent.setup();
-			const formulaireContact = {
-				adresseMail: 'mariotintin@mail.com',
-				age: '16 ans',
-				nom: 'Tintin',
-				prenom: 'Mario',
-				telephone: '0123456789',
-				ville: 'Paris (75006)',
-			};
 			const demandeDeContactService = aDemandeDeContactService();
-			jest.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createSuccess(undefined));
 			const localisationService = aLocalisationService();
+			jest.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createSuccess(undefined));
 			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 				résultats: [aCommune({
-					libelle: formulaireContact.ville,
+					codePostal: '75006',
+					ville: 'Paris',
 				})],
 			}));
 
@@ -95,37 +80,32 @@ describe('<DemandeContactCEJ />', () => {
 					<DemandeContactCEJ/>
 				</DependenciesProvider>,
 			);
-			const boutonFormulaireModale= screen.getByRole('button', { name: 'Demander à être contacté.e' });
-			await user.click(boutonFormulaireModale);
+			await user.click(screen.getByRole('button', { name: 'Demander à être contacté.e' }));
 
-			await remplirFormulaire();
-
-			expect(screen.getByRole('form')).toHaveFormValues({
-				age: '16',
-				commune: formulaireContact.ville,
-				firstname: formulaireContact.prenom,
-				lastname: formulaireContact.nom,
-				mail: formulaireContact.adresseMail,
-				phone: formulaireContact.telephone,
-			});
+			await user.type(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' }), 'Jean');
+			await user.type(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }), 'Dupont');
+			await user.type(screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' }), 'jean.dupont@mail.com');
+			await user.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), '0123456789');
+			await user.type(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers…' }), 'Paris');
+			await user.click(await screen.findByRole('option', { name: 'Paris (75006)' }));
+			await user.click(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }));
+			await user.click(screen.getByRole('option', { name: '16 ans' }));
 
 			await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
 
-			expect(demandeDeContactService.envoyerPourLeCEJ).toHaveBeenCalledTimes(1);
 			expect(screen.getByRole('dialog', { name: 'Votre demande a bien été transmise !' })).toBeVisible();
 		});
 
 		describe('modale d‘erreur', () => {
 			it('lorsque l‘envoi du formulaire est en echec, affiche la modale d‘echec et ferme la modale de formulaire', async () => {
 				const user = userEvent.setup();
-
 				const demandeDeContactService = aDemandeDeContactService();
-				jest.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
-
 				const localisationService = aLocalisationService();
+				jest.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 					résultats: [aCommune({
-						libelle: formulaireContact.ville,
+						codePostal: '75006',
+						ville: 'Paris',
 					})],
 				}));
 
@@ -136,10 +116,17 @@ describe('<DemandeContactCEJ />', () => {
 						<DemandeContactCEJ/>
 					</DependenciesProvider>,
 				);
-				const boutonFormulaireModale= screen.getByRole('button', { name: 'Demander à être contacté.e' });
-				await user.click(boutonFormulaireModale);
 
-				await remplirFormulaire();
+				await user.click(screen.getByRole('button', { name: 'Demander à être contacté.e' }));
+
+				await user.type(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' }), 'Jean');
+				await user.type(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }), 'Dupont');
+				await user.type(screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' }), 'jean.dupont@mail.com');
+				await user.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), '0123456789');
+				await user.type(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers…' }), 'Paris');
+				await user.click(await screen.findByRole('option', { name: 'Paris (75006)' }));
+				await user.click(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }));
+				await user.click(screen.getByRole('option', { name: '16 ans' }));
 
 				await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
 
@@ -149,14 +136,13 @@ describe('<DemandeContactCEJ />', () => {
 
 			it('lorsque je clique sur le bouton Retour au formulaire, ouvre la modale de formulaire', async () => {
 				const user = userEvent.setup();
-
 				const demandeDeContactService = aDemandeDeContactService();
-				jest.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
-
 				const localisationService = aLocalisationService();
+				jest.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 					résultats: [aCommune({
-						libelle: formulaireContact.ville,
+						codePostal: '75006',
+						ville: 'Paris',
 					})],
 				}));
 
@@ -168,10 +154,16 @@ describe('<DemandeContactCEJ />', () => {
 					</DependenciesProvider>,
 				);
 
-				const boutonFormulaireModale= screen.getByRole('button', { name: 'Demander à être contacté.e' });
-				await user.click(boutonFormulaireModale);
+				await user.click(screen.getByRole('button', { name: 'Demander à être contacté.e' }));
 
-				await remplirFormulaire();
+				await user.type(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' }), 'Jean');
+				await user.type(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }), 'Dupont');
+				await user.type(screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' }), 'jean.dupont@mail.com');
+				await user.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), '0123456789');
+				await user.type(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers…' }), 'Paris');
+				await user.click(await screen.findByRole('option', { name: 'Paris (75006)' }));
+				await user.click(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }));
+				await user.click(screen.getByRole('option', { name: '16 ans' }));
 
 				await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
 
@@ -184,14 +176,13 @@ describe('<DemandeContactCEJ />', () => {
 
 			it('lorsque je clique sur le bouton Fermer, ferme la modale d‘erreur et n‘ouvre pas la modale de formulaire', async () => {
 				const user = userEvent.setup();
-
 				const demandeDeContactService = aDemandeDeContactService();
-				jest.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
-
 				const localisationService = aLocalisationService();
+				jest.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 					résultats: [aCommune({
-						libelle: formulaireContact.ville,
+						codePostal: '75006',
+						ville: 'Paris',
 					})],
 				}));
 
@@ -203,12 +194,19 @@ describe('<DemandeContactCEJ />', () => {
 					</DependenciesProvider>,
 				);
 
-				const boutonFormulaireModale= screen.getByRole('button', { name: 'Demander à être contacté.e' });
-				await user.click(boutonFormulaireModale);
+				await user.click(screen.getByRole('button', { name: 'Demander à être contacté.e' }));
 
-				await remplirFormulaire();
+				await user.type(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' }), 'Jean');
+				await user.type(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }), 'Dupont');
+				await user.type(screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' }), 'jean.dupont@mail.com');
+				await user.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), '0123456789');
+				await user.type(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers…' }), 'Paris');
+				await user.click(await screen.findByRole('option', { name: 'Paris (75006)' }));
+				await user.click(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }));
+				await user.click(screen.getByRole('option', { name: '16 ans' }));
 
 				await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
+
 
 				const modaleErreur = screen.getByRole('dialog', { name: 'Une erreur est survenue lors de l‘envoi du formulaire' });
 				await user.click(within(modaleErreur).getByRole('button', { name: 'Fermer' }));
@@ -220,23 +218,3 @@ describe('<DemandeContactCEJ />', () => {
 	});
 });
 
-async function remplirFormulaire() {
-	const user = userEvent.setup();
-	const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' });
-	await user.type(inputPrenom, formulaireContact.prenom);
-
-	const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
-	await user.type(inputNom, formulaireContact.nom);
-
-	const inputMail = screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' });
-	await user.type(inputMail, formulaireContact.adresseMail);
-
-	await user.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), formulaireContact.telephone);
-
-	await user.type(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers…' }), formulaireContact.ville);
-	const villeOption = await screen.findByText(formulaireContact.ville);
-	await user.click(villeOption);
-
-	await user.click(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }));
-	await user.click(screen.getByRole('option', { name: formulaireContact.age }));
-}

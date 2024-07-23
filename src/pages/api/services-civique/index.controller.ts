@@ -16,7 +16,6 @@ export const missionServiceCiviqueQuerySchema = Joi.object({
 	distanceCommune: Joi.number().optional(),
 	domain: Joi.string().optional().valid('culture-loisirs', 'education', 'environnement', 'humanitaire', 'sante', 'solidarite-insertion', 'sport', 'vivre-ensemble', 'autre'),
 	latitudeCommune: Joi.number().optional(),
-	libelleCommune: Joi.string().optional(),
 	longitudeCommune: Joi.number().optional(),
 	ouvertsAuxMineurs: Joi.boolean().optional(),
 	page: Joi.number().min(1).required(),

@@ -35,7 +35,6 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 					codeCommune: '75056',
 					codePostal: '75006',
 					latitudeCommune: '48.859',
-					libelleCommune: 'Paris (75006)',
 					longitudeCommune: '2.347',
 					ville: 'Paris',
 				}),
@@ -72,7 +71,6 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 					codeCommune: '75056',
 					codePostal: '75006',
 					latitudeCommune: '48.859',
-					libelleCommune: 'Paris (75006)',
 					longitudeCommune: '2.347',
 					ville: 'Paris',
 				}),
@@ -117,7 +115,8 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 
 		const localisationService = aLocalisationService();
 		const commune = aCommune({
-			libelle: 'Paris (75006)',
+			codePostal: '75006',
+			ville: 'Paris',
 		});
 
 		jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(aRésultatsRechercheCommune([commune])));
@@ -141,7 +140,6 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 		const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 		await user.click(buttonRechercher);
 
-		expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleCommune=Paris+%2875006%29') }, undefined, { shallow: true });
 		expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeCommune=75056') }, undefined, { shallow: true });
 		expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('latitudeCommune=48.859&longitudeCommune=2.347') }, undefined, { shallow: true });
 		expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codePostal=75006') }, undefined, { shallow: true });

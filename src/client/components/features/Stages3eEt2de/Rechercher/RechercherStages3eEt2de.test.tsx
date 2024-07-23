@@ -25,7 +25,9 @@ describe('La recherche des stages de 3e et 2de', () => {
 			const stage3eEt2deServiceMock = aStage3eEt2deService();
 			// WHEN
 			const metierStage3eEt2deService = aMetierService();
-			render(<DependenciesProvider stage3eEt2deService={stage3eEt2deServiceMock} localisationService={aLocalisationService()} metierStage3eEt2deService={metierStage3eEt2deService}>
+			render(<DependenciesProvider stage3eEt2deService={stage3eEt2deServiceMock}
+																	 localisationService={aLocalisationService()}
+																	 metierStage3eEt2deService={metierStage3eEt2deService}>
 				<RechercherStages3eEt2de/>
 			</DependenciesProvider>);
 
@@ -65,7 +67,9 @@ describe('La recherche des stages de 3e et 2de', () => {
 			jest.spyOn(stage3eEt2deServiceMock, 'rechercherStage3eEt2de').mockResolvedValue(createSuccess(resultatRecherche));
 
 			// WHEN
-			render(<DependenciesProvider stage3eEt2deService={stage3eEt2deServiceMock} localisationService={aLocalisationService()} metierStage3eEt2deService={aMetierService()}>
+			render(<DependenciesProvider stage3eEt2deService={stage3eEt2deServiceMock}
+																	 localisationService={aLocalisationService()}
+																	 metierStage3eEt2deService={aMetierService()}>
 				<RechercherStages3eEt2de/>
 			</DependenciesProvider>);
 			const messageResultatsRecherche = await screen.findByText('1 entreprise accueillante');
@@ -117,7 +121,9 @@ describe('La recherche des stages de 3e et 2de', () => {
 			jest.spyOn(stage3eEt2deServiceMock, 'rechercherStage3eEt2de').mockResolvedValue(createSuccess(resultatRecherche));
 
 			// WHEN
-			render(<DependenciesProvider stage3eEt2deService={stage3eEt2deServiceMock} localisationService={aLocalisationService()} metierStage3eEt2deService={aMetierService()}>
+			render(<DependenciesProvider stage3eEt2deService={stage3eEt2deServiceMock}
+																	 localisationService={aLocalisationService()}
+																	 metierStage3eEt2deService={aMetierService()}>
 				<RechercherStages3eEt2de/>
 			</DependenciesProvider>);
 			const messageResultatsRecherche = await screen.findByText('2 entreprises accueillantes');
@@ -164,7 +170,9 @@ describe('La recherche des stages de 3e et 2de', () => {
 				jest.spyOn(stage3eEt2deServiceMock, 'rechercherStage3eEt2de').mockResolvedValue(createSuccess(resultatRecherche));
 
 				// WHEN
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deServiceMock} localisationService={aLocalisationService()} metierStage3eEt2deService={aMetierService()}>
+				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deServiceMock}
+																		 localisationService={aLocalisationService()}
+																		 metierStage3eEt2deService={aMetierService()}>
 					<RechercherStages3eEt2de/>
 				</DependenciesProvider>);
 				const messageResultatsRecherche = await screen.findByText('1 entreprise accueillante pour Informatique');
@@ -178,10 +186,18 @@ describe('La recherche des stages de 3e et 2de', () => {
 	describe('étiquettes de recherche', () => {
 		it('je vois la localisation', async () => {
 			mockSmallScreen();
-			mockUseRouter({ query: { ...aCommuneQuery({ libelleCommune: 'Paris' }) } });
-			const stage3eEt2deServiceMock = aStage3eEt2deService();
-
-			render(<DependenciesProvider stage3eEt2deService={stage3eEt2deServiceMock} localisationService={aLocalisationService()} metierStage3eEt2deService={aMetierService()}>
+			mockUseRouter({
+				query: {
+					...aCommuneQuery(
+						{
+							codePostal: '75001',
+							ville: 'Paris',
+						}),
+				},
+			});
+			render(<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}
+																	 localisationService={aLocalisationService()}
+																	 metierStage3eEt2deService={aMetierService()}>
 				<RechercherStages3eEt2de/>
 			</DependenciesProvider>);
 
@@ -189,7 +205,7 @@ describe('La recherche des stages de 3e et 2de', () => {
 
 			const etiquetteList = screen.getByRole('list', { name: 'Filtres de la recherche' });
 			expect(etiquetteList).toBeVisible();
-			expect(within(etiquetteList).getByRole('listitem')).toHaveTextContent('Paris');
+			expect(within(etiquetteList).getByRole('listitem')).toHaveTextContent('Paris (75001)');
 		});
 	});
 });

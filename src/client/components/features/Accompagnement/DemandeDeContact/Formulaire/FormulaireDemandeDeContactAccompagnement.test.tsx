@@ -14,55 +14,37 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import {
 	anEtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/etablissementAccompagnement.fixture';
-import {
-	EtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/etablissementAccompagnement.service';
-import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aDemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact.fixture';
-import { createFailure } from '~/server/errors/either';
+import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { TypeÉtablissement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import {
 	aContactÉtablissementAccompagnement,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
+import { aCommune } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
 
 describe('FormulaireDemandeDeContactAccompagnement', () => {
-	let localisationService: LocalisationService;
-	let établissementAccompagnementService: EtablissementAccompagnementService;
-	const contactÉtablissementAccompagnement = aContactÉtablissementAccompagnement();
-	const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
-	let onSuccess: () => void;
-	let onFailure: () => void;
 	beforeAll(() => {
 		mockScrollIntoView();
-	});
-	beforeEach(() => {
 		mockSmallScreen();
-		localisationService = aLocalisationService();
-		établissementAccompagnementService = anEtablissementAccompagnementService();
-		onSuccess = jest.fn();
-		onFailure = jest.fn();
 	});
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
 
-	function renderComponent() {
-		render(
-			<DependenciesProvider localisationService={localisationService}
-				établissementAccompagnementService={établissementAccompagnementService}>
-				<FormulaireDemandeDeContactAccompagnement
-					contactÉtablissementAccompagnement={contactÉtablissementAccompagnement}
-					onSuccess={onSuccess}
-					onFailure={onFailure}
-				/>
-			</DependenciesProvider>,
-		);
-	}
-
 	describe('champ email', () => {
 		it('a un champ Adresse e-mail facultatif', async () => {
-			renderComponent();
+			render(<DependenciesProvider
+				localisationService={aLocalisationService()}
+				établissementAccompagnementService={anEtablissementAccompagnementService()}>
+				<FormulaireDemandeDeContactAccompagnement
+					contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
+					onSuccess={jest.fn()}
+					onFailure={jest.fn()}
+				/>
+			</DependenciesProvider>,
+			);
 			const inputEmail = screen.getByRole('textbox', { name: 'Adresse e-mail (facultatif) Exemple : jean.dupont@gmail.com' });
 
 			await userEvent.type(inputEmail, 's{backspace}');
@@ -72,7 +54,17 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 
 		it('ne prend pas en compte les espaces avant et après', async () => {
 			// Given
-			renderComponent();
+			render(
+				<DependenciesProvider
+					localisationService={aLocalisationService()}
+					établissementAccompagnementService={anEtablissementAccompagnementService()}>
+					<FormulaireDemandeDeContactAccompagnement
+						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
+						onSuccess={jest.fn()}
+						onFailure={jest.fn()}
+					/>
+				</DependenciesProvider>,
+			);
 
 			//When
 			const inputEmail = screen.getByRole('textbox', { name: 'Adresse e-mail (facultatif) Exemple : jean.dupont@gmail.com' });
@@ -83,10 +75,19 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 		});
 	});
 
-
 	it('a un champ Commentaire facultatif', async () => {
 		// Given
-		renderComponent();
+		render(
+			<DependenciesProvider
+				localisationService={aLocalisationService()}
+				établissementAccompagnementService={anEtablissementAccompagnementService()}>
+				<FormulaireDemandeDeContactAccompagnement
+					contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
+					onSuccess={jest.fn()}
+					onFailure={jest.fn()}
+				/>
+			</DependenciesProvider>,
+		);
 
 		//When
 		const textarea = screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles (facultatif)' });
@@ -98,7 +99,17 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 
 	it('a un champ Age obligatoire', async () => {
 		const user = userEvent.setup();
-		renderComponent();
+		render(
+			<DependenciesProvider
+				localisationService={aLocalisationService()}
+				établissementAccompagnementService={anEtablissementAccompagnementService()}>
+				<FormulaireDemandeDeContactAccompagnement
+					contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
+					onSuccess={jest.fn()}
+					onFailure={jest.fn()}
+				/>
+			</DependenciesProvider>,
+		);
 
 		const combobox = screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' });
 		await user.click(combobox);
@@ -109,51 +120,121 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 
 	describe('quand l’utilisateur souhaite contacter un établissement', () => {
 		it('envoie une demande de contact', async () => {
-			renderComponent();
+			const user = userEvent.setup();
+			const localisationService = aLocalisationService();
+			const établissementAccompagnementService = anEtablissementAccompagnementService();
+			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
+				résultats: [aCommune({
+					codePostal: '75006',
+					ville: 'Paris',
+				})],
+			}));
 
-			await envoyerDemandeContact();
+			render(
+				<DependenciesProvider
+					localisationService={localisationService}
+					établissementAccompagnementService={établissementAccompagnementService}>
+					<FormulaireDemandeDeContactAccompagnement
+						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
+						onSuccess={jest.fn()}
+						onFailure={jest.fn()}
+					/>
+				</DependenciesProvider>,
+			);
 
-			expect(établissementAccompagnementService.envoyerDemandeContact).toHaveBeenCalledWith(demandeDeContactAccompagnement);
+			await user.type(screen.getByRole('textbox', { name: 'Adresse e-mail (facultatif) Exemple : jean.dupont@gmail.com' }), 'john.doe@email.com');
+			await user.type(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }), 'Doe');
+			await user.type(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' }), 'John');
+			await user.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), '0606060606');
+			await user.type(screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles (facultatif)' }), 'Merci de me recontacter');
+
+			await user.click(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }));
+			await user.click(screen.getByRole('option', { name: '23 ans' }));
+
+			await user.type(screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' }), 'Paris');
+			await user.click(await screen.findByRole('option', { name: 'Paris (75006)' }));
+
+			await user.click(screen.getByRole('button', { name: 'Envoyer mes informations afin d‘être rappelé(e)' }));
+
+			expect(établissementAccompagnementService.envoyerDemandeContact).toHaveBeenCalledWith(aDemandeDeContactAccompagnement({
+				age: 23,
+				commentaire: 'Merci de me recontacter',
+				commune: 'Paris (75006)',
+				email: 'john.doe@email.com',
+				nom: 'Doe',
+				prénom: 'John',
+				téléphone: '0606060606',
+				établissement: {
+					email: 'email@missionlocaledeparis.fr',
+					nom: 'Mission locale pour l‘insertion professionnelle et sociale des jeunes (16-25 ans) - Paris - 1er 2e 3e 4e 9e 10e et 11e',
+					type: TypeÉtablissement.MISSION_LOCALE,
+				},
+			}));
 		});
 
 		it('lorsque l‘envoie est un success appelle onSuccess', async () => {
-			renderComponent();
+			const onSuccess = jest.fn();
+			const user = userEvent.setup();
+			render(
+				<DependenciesProvider
+					localisationService={aLocalisationService()}
+					établissementAccompagnementService={anEtablissementAccompagnementService()}>
+					<FormulaireDemandeDeContactAccompagnement
+						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
+						onSuccess={onSuccess}
+						onFailure={jest.fn()}
+					/>
+				</DependenciesProvider>,
+			);
 
-			await envoyerDemandeContact();
+			await user.type(screen.getByRole('textbox', { name: 'Adresse e-mail (facultatif) Exemple : jean.dupont@gmail.com' }), 'john.doe@email.com');
+			await user.type(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }), 'Doe');
+			await user.type(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' }), 'John');
+			await user.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), '0606060606');
+			await user.type(screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles (facultatif)' }), 'Merci de me recontacter');
+
+			await user.click(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }));
+			await user.click(screen.getByRole('option', { name: '23 ans' }));
+
+			await user.type(screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' }), 'Paris');
+			await user.click(await screen.findByRole('option', { name: 'Paris (75006)' }));
+
+			await user.click(screen.getByRole('button', { name: 'Envoyer mes informations afin d‘être rappelé(e)' }));
 
 			expect(onSuccess).toHaveBeenCalledTimes(1);
 		});
 
 		it('lorsque l‘envoie est en erreur appelle onFailure', async () => {
-			renderComponent();
+			const user = userEvent.setup();
+			const onFailure = jest.fn();
+			const établissementAccompagnementService = anEtablissementAccompagnementService();
+			render(
+				<DependenciesProvider
+					localisationService={aLocalisationService()}
+					établissementAccompagnementService={établissementAccompagnementService}>
+					<FormulaireDemandeDeContactAccompagnement
+						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
+						onSuccess={jest.fn()}
+						onFailure={onFailure}
+					/>
+				</DependenciesProvider>,
+			);
 			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
-			await envoyerDemandeContact();
+			await user.type(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }), 'Doe');
+			await user.type(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' }), 'John');
+			await user.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), '0606060606');
+
+			await user.click(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }));
+			await user.click(screen.getByRole('option', { name: '23 ans' }));
+
+			await user.type(screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' }), 'Paris');
+			await user.click(await screen.findByRole('option', { name: 'Paris (75006)' }));
+
+			await user.click(screen.getByRole('button', { name: 'Envoyer mes informations afin d‘être rappelé(e)' }));
 
 			expect(onFailure).toHaveBeenCalledTimes(1);
 		});
 	});
 });
 
-async function envoyerDemandeContact() {
-	const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
-
-	await userEvent.type(screen.getByRole('textbox', { name: 'Adresse e-mail (facultatif) Exemple : jean.dupont@gmail.com' }), demandeDeContactAccompagnement.email || '');
-	await userEvent.type(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }), demandeDeContactAccompagnement.nom);
-	await userEvent.type(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' }), demandeDeContactAccompagnement.prénom);
-	await userEvent.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), demandeDeContactAccompagnement.téléphone);
-	await userEvent.type(screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles (facultatif)' }), demandeDeContactAccompagnement.commentaire || '');
-
-	const selectAge = screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' });
-	await userEvent.click(selectAge);
-	const optionAge = screen.getByRole('option', { name: `${demandeDeContactAccompagnement.age.toString()} ans` });
-	await userEvent.click(optionAge);
-
-	const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
-	await userEvent.type(comboboxCommune, 'Paris');
-	const resultatCommuneList = await screen.findAllByRole('option');
-	await userEvent.click(resultatCommuneList[0]);
-
-	const submitButton = screen.getByRole('button', { name: 'Envoyer mes informations afin d‘être rappelé(e)' });
-	await userEvent.click(submitButton);
-}

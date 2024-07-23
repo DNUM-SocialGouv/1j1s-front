@@ -32,7 +32,6 @@ describe('RechercherCommuneUseCase', () => {
       			latitude: 48.859,
       			longitude: 2.347,
       		},
-      		libelle: 'Paris (75006)',
       		ville: 'Paris',
       	},
       	{
@@ -42,7 +41,6 @@ describe('RechercherCommuneUseCase', () => {
       			latitude: 48.863367,
       			longitude: 2.397152,
       		},
-      		libelle: 'Paris 15e Arrondissement (75015)',
       		ville: 'Paris 15e Arrondissement',
       	}],
       } };

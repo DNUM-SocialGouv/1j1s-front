@@ -46,7 +46,7 @@ context('Parcours formation LBA', () => {
 				JSON.stringify(aRésultatRechercheFormationList()),
 			).as('recherche-metiers');
 
-			cy.visit('/formations/apprentissage' + '?libelleMetier=Boulangerie%2C+pâtisserie%2C+chocolaterie&codeRomes=D1102%2CD1104&libelleCommune=Le+Havre+%2876610%29&codeCommune=76351&latitudeCommune=49.507345&longitudeCommune=0.129995&distanceCommune=10');
+			cy.visit('/formations/apprentissage' + '?libelleMetier=Boulangerie%2C+pâtisserie%2C+chocolaterie&codeRomes=D1102%2CD1104&codeCommune=76351&latitudeCommune=49.507345&longitudeCommune=0.129995&distanceCommune=10');
 			cy.wait('@recherche-metiers');
 
 			cy.findByRole('list', { name: /Formations en alternance/i }).children().should('have.length', 2);
@@ -83,7 +83,7 @@ context('Parcours formation LBA', () => {
 						JSON.stringify(aRésultatRechercheFormationList()),
 					).as('recherche-metiers');
 
-					cy.visit('/formations/apprentissage' + '?libelleMetier=Boulangerie%2C+pâtisserie%2C+chocolaterie&codeRomes=D1102%2CD1104&libelleCommune=Le+Havre+%2876610%29&codeCommune=76351&latitudeCommune=49.507345&longitudeCommune=0.129995&distanceCommune=10');
+					cy.visit('/formations/apprentissage' + '?libelleMetier=Boulangerie%2C+pâtisserie%2C+chocolaterie&codeRomes=D1102%2CD1104&codeCommune=76351&latitudeCommune=49.507345&longitudeCommune=0.129995&distanceCommune=10');
 					cy.wait('@recherche-metiers');
 
 					cy.intercept(
@@ -116,7 +116,7 @@ context("quand les paramètres de l'url ne respectent pas le schema de validatio
 			},
 		).as('recherche-formations-failed');
 
-		cy.visit('/formations/apprentissage?libelleMetier=Electronique%2C+informatique+industrielle&codeRomes=H1206%2CH1402%2CH2502%2CI1102%2CH1208%2CH1502%2CH1209%2CH1504%2CI1305%2CI1304%2CI1302%2CH2501%2CH2603%2CH2604%2CH2605&libelleCommune=Paris+20e+Arrondissement+%2875020%29&codeCommune=&latitudeCommune=48.863367&longitudeCommune=2.397152&distanceCommune=10&unwanted-query=not-allowed');
+		cy.visit('/formations/apprentissage?libelleMetier=Electronique%2C+informatique+industrielle&codeRomes=H1206%2CH1402%2CH2502%2CI1102%2CH1208%2CH1502%2CH1209%2CH1504%2CI1305%2CI1304%2CI1302%2CH2501%2CH2603%2CH2604%2CH2605&codeCommune=&latitudeCommune=48.863367&longitudeCommune=2.397152&distanceCommune=10&unwanted-query=not-allowed');
 		cy.wait('@recherche-formations-failed');
 		cy.findByText('Erreur - Demande incorrecte').should('be.visible');
 	});

@@ -102,6 +102,6 @@ describe('FormationService', () => {
 
 		await formationService.rechercherFormation(formationQuery);
 
-		expect(httpClientService.get).not.toHaveBeenCalledWith(expect.stringContaining('libelleCommune'));
+		expect(httpClientService.get).not.toHaveBeenCalledWith(expect.stringContaining('ville'));
 	});
 });

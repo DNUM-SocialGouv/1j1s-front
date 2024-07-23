@@ -221,10 +221,10 @@ describe('RechercherMission', () => {
 				distanceCommune: '10',
 				domain: 'environnement',
 				latitudeCommune: '48.859',
-				libelleCommune: 'Paris (75001)',
 				longitudeCommune: '2.347',
 				page: '1',
 				test: 'test',
+				ville: 'Paris',
 			},
 		});
 		const missionService = aMissionEngagementService();

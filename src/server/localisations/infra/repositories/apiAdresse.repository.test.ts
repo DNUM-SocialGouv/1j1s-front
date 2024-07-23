@@ -106,7 +106,6 @@ describe('ApiAdresseRepository', () => {
 								latitude: 47.336276,
 								longitude: 0.657551,
 							},
-							libelle: 'Joué-lès-Tours (37300)',
 							ville: 'Joué-lès-Tours',
 						},
 						{
@@ -116,7 +115,6 @@ describe('ApiAdresseRepository', () => {
 								latitude: 49.012546,
 								longitude: 2.037578,
 							},
-							libelle: 'Jouy-le-Moutier (95280)',
 							ville: 'Jouy-le-Moutier',
 						},
 					],

@@ -23,7 +23,6 @@ export function FormulaireRechercherFormation() {
 		libelleMetier,
 		codeRomes,
 		codeCommune,
-		libelleCommune,
 		latitudeCommune,
 		longitudeCommune,
 		distanceCommune,
@@ -42,7 +41,6 @@ export function FormulaireRechercherFormation() {
 		codeCommune,
 		codePostal,
 		latitudeCommune,
-		libelleCommune,
 		longitudeCommune,
 		ville,
 	});

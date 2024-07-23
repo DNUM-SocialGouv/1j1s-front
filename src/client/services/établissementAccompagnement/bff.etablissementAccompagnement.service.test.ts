@@ -19,7 +19,8 @@ describe('établissementAccompagnementService', () => {
 				typeAccompagnement: 'cij',
 				...aCommuneQuery({
 					codeCommune: '41600',
-					libelleCommune: 'Lamotte-Beuvron',
+					codePostal: '41600',
+					ville: 'Lamotte-Beuvron',
 				}),
 			};
 
@@ -27,7 +28,8 @@ describe('établissementAccompagnementService', () => {
 
 			expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('etablissements-accompagnement?'));
 			expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('codeCommune=41600'));
-			expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('libelleCommune=Lamotte-Beuvron'));
+			expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('codePostal=41600'));
+			expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('ville=Lamotte-Beuvron'));
 			expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('typeAccompagnement=cij'));
 			expect(actual).toEqual(createSuccess(anEtablissementAccompagnementList()));
 		});

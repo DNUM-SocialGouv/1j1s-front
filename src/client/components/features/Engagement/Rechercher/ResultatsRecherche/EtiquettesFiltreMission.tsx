@@ -12,8 +12,8 @@ export function EtiquettesFiltreMission() {
 
 	useEffect(() => {
 		const filtres = [];
-		if (missionEngagementQuery.ouvertsAuxMineurs ) filtres.push('Dès 16 ans');
-		if (missionEngagementQuery.libelleCommune) filtres.push(missionEngagementQuery.libelleCommune);
+		if (missionEngagementQuery.ouvertsAuxMineurs) filtres.push('Dès 16 ans');
+		if (missionEngagementQuery.ville && missionEngagementQuery.codePostal) filtres.push(`${missionEngagementQuery.ville} (${missionEngagementQuery.codePostal})`);
 		setFiltreList(filtres);
 	}, [missionEngagementQuery]);
 

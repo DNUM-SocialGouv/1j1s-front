@@ -141,12 +141,13 @@ describe('RechercherAlternance', () => {
 			mockUseRouter({
 				query: {
 					codeCommune: '75056',
+					codePostal: '75001',
 					codeRomes: ['D1102', 'D1104'],
 					distanceCommune: '10',
 					latitudeCommune: '48.859',
-					libelleCommune: 'Paris (75001)',
 					libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
 					longitudeCommune: '2.347',
+					ville: 'Paris',
 				},
 			});
 		});
