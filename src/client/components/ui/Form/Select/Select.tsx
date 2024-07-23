@@ -50,13 +50,13 @@ export function Select(props: SelectProps) {
 				</Champ.Label>
 				{isSelectSimpleProps(rest) && <Champ.Input render={SelectSimple} labelledBy={labelledBy} {...rest}>
 					{optionList.map((option) =>
-						<SelectSimple.Option key={option.libellé} option={option}/>,
+						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 					)}
 				</Champ.Input>}
 
 				{isSelectMultipleProps(rest) && <Champ.Input render={SelectMultiple} labelledBy={labelledBy} {...rest}>
 					{optionList.map((option) =>
-						<SelectMultiple.Option key={option.libellé} option={option}/>,
+						<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 					)}
 				</Champ.Input>}
 
