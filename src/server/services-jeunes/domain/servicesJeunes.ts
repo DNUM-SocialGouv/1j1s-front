@@ -14,5 +14,7 @@ export namespace ServiceJeune {
 		AIDES_FINANCIERES = 'Aides financières',
 		ORIENTATION_FORMATION = 'Orientation et formation',
 		ENTREE_VIE_PROFESSIONELLE = 'Entrée dans la vie professionnelle',
+		LOGEMENT = 'Logement',
+		ENGAGEMENT = 'Engagement',
 	}
 }

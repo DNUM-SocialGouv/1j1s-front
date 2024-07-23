@@ -48,6 +48,14 @@ export function anUnorderedAndNotFilterServiceJeuneList(): Array<ServiceJeune> {
 			categorie: ServiceJeune.Categorie.ENTREE_VIE_PROFESSIONELLE,
 			titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
 		}),
+		aServiceJeune({
+			categorie: ServiceJeune.Categorie.ENGAGEMENT,
+			titre: 'Le Service Militaire Volontaire',
+		}),
+		aServiceJeune({
+			categorie: ServiceJeune.Categorie.LOGEMENT,
+			titre: 'Logement',
+		}),
 	];
 }
 
