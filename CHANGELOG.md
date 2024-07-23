@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.328.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.328.0...v3.328.1) (2024-07-23)
+
+
+### Bug Fixes
+
+* **accompagnement:** pouvoir rechercher des villes avec apostrophe ([#3179](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3179)) ([f25f45c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f25f45c203b45373ab024982ec12d5cb08470e1b))
+
 ## [3.328.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.327.0...v3.328.0) (2024-07-22)
 
 
