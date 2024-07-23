@@ -31,7 +31,12 @@ describe('mapToServicesJeunes', () => {
 			vieProfessionnelle: [aStrapiMesureJeune({
 				titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
 			})],
-
+			logement: [aStrapiMesureJeune({
+				titre: 'Logement',
+			})],
+			engagement: [aStrapiMesureJeune({
+				titre: 'Le Service Militaire Volontaire',
+			})],
 		});
 
 		// WHEN
