@@ -8,6 +8,8 @@ export namespace StrapiMesuresJeunes {
 		orienterFormer: Array<StrapiMesuresJeunes.MesureJeune>
 		accompagnement: Array<StrapiMesuresJeunes.MesureJeune>
 		aidesFinancieres: Array<StrapiMesuresJeunes.MesureJeune>
+		logement: Array<StrapiMesuresJeunes.MesureJeune>
+		engagement: Array<StrapiMesuresJeunes.MesureJeune>
 	}
 	export interface MesureJeune {
 		titre: string
@@ -18,5 +20,5 @@ export namespace StrapiMesuresJeunes {
 		pourQui: string
 	}
 
-	export type Categorie = 'accompagnement' | 'orienterFormer' | 'vieProfessionnelle' | 'aidesFinancieres'
+	export type Categorie = 'accompagnement' | 'orienterFormer' | 'vieProfessionnelle' | 'aidesFinancieres' | 'logement' | 'engagement'
 }

@@ -18,6 +18,12 @@ export function aStrapiMesuresJeunesParCategorie(overrides?: Partial<StrapiMesur
 		vieProfessionnelle: [aStrapiMesureJeune({
 			titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
 		})],
+		logement: [aStrapiMesureJeune({
+			titre: 'Logement',
+		})],
+		engagement: [aStrapiMesureJeune({
+			titre: 'Le Service Militaire Volontaire',
+		})],
 		...overrides,
 	};
 }
@@ -28,6 +34,8 @@ export function aStrapiMesuresJeunesParCategorieSansResultat(overrides?: Partial
 		aidesFinancieres: [],
 		orienterFormer: [],
 		vieProfessionnelle: [],
+		logement: [],
+		engagement: [],
 		...overrides,
 	};
 }
@@ -49,6 +57,12 @@ export function aStrapiUnorderedMesuresJeunesParCategorie(): StrapiMesuresJeunes
 		})],
 		vieProfessionnelle: [aStrapiMesureJeune({
 			titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
+		})],
+		logement: [aStrapiMesureJeune({
+			titre: 'logement',
+		})],
+		engagement: [aStrapiMesureJeune({
+			titre: 'Le Service Militaire Volontaire',
 		})],
 	};
 }
