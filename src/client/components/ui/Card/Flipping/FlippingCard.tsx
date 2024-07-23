@@ -67,7 +67,7 @@ export function FlippingCard(props: FlippingCardProps) {
 
 	return (
 		<div className={classNames(styles.cardWrapper, { [styles.flipped]: isAnimationOn }, className)} {...rest}>
-			<div className={classNames(styles.card, styles.cardRecto)}>
+			<div className={classNames(styles.card, styles.recto)}>
 				<Image src={imageUrl ?? '/images/image-par-defaut-carte.webp'} alt="" width={360} height={180}/>
 				{category && <div className={classNames(styles.category, categoryClass)}>{category}</div>}
 
@@ -89,7 +89,7 @@ export function FlippingCard(props: FlippingCardProps) {
 					</div>
 				</div>
 			</div>
-			<div ref={cardFlipRef} className={classNames(styles.card, styles.cardVerso)}>
+			<div ref={cardFlipRef} className={classNames(styles.card, styles.verso)}>
 				<button
 					onClick={() => flipCard(true)}
 					aria-label="masquer la section pour qui">

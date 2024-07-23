@@ -1,17 +1,26 @@
 @use "@styles/utilities";
 
 $transition-duration: 700ms;
+$transition-visibility: visibility 0ms $transition-duration linear;
 
-.flipped {
-  --rotate-y: 180deg;
+.cardWrapper.flipped .recto, .cardWrapper:not(.flipped) .verso {
+  transition: $transition-visibility;
+  visibility: hidden;
+}
+
+.cardWrapper.flipped {
+  --flipped: 1;
 }
 
 .cardWrapper {
+  --flipped: 0;
   transform-style: preserve-3d;
   transition: transform $transition-duration ease-in-out;
-  transform: rotateY(var(--rotate-y, 0));
+  transform: rotateY(calc(180deg * var(--flipped)));
+}
 
-  .card {
+.cardWrapper {
+  & .card {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -20,11 +29,6 @@ $transition-duration: 700ms;
     background-color: utilities.$color-background-primary;
     border: 1px solid utilities.$color-background-border;
     overflow: hidden;
-
-    .flipped & {
-      transition: visibility 0ms $transition-duration linear;
-      visibility: var(--visibility);
-    }
 
     > img {
       object-fit: cover;
@@ -63,49 +67,38 @@ $transition-duration: 700ms;
       padding: 1rem;
 
       & .bodyTitle {
+        @include utilities.text-medium;
         $lineHeight: 1.2;
-        @include utilities.line-clamp(3, $lineHeight);
-        font-size: 1rem;
-        font-weight: bold;
         line-height: $lineHeight;
+        @include utilities.line-clamp(3, $lineHeight);
+        font-weight: bold;
         margin-bottom: 0.75rem;
       }
     }
 
     & .actionWrapper {
       display: flex;
+      width: 100%;
+      justify-content: space-between;
 
       & > button {
-        @include utilities.text-small
-      }
-
-      & > :last-child {
-        margin-left: auto;
+        @include utilities.text-small;
       }
     }
   }
 
-  & .cardRecto {
-    .cardWrapperWithVersoVisible & {
-      --visibility: hidden;
-    }
-
-    backface-visibility: hidden;
+  & .recto {
+    backface-visibility: visible;
   }
 
-  & .cardVerso {
+  & .verso {
     position: absolute;
     inset: 0;
-    backface-visibility: hidden;
+    backface-visibility: visible;
     background-color: utilities.$color-background-secondary;
     transform: rotateY(180deg) translateZ(1px);
     color: utilities.$color-text-primary-inverse;
     padding: 1rem;
-    --visibility: hidden;
-
-    .cardWrapperWithVersoVisible & {
-      --visibility: visible;
-    }
 
     & button {
       background-color: utilities.$color-background-primary;
@@ -139,7 +132,7 @@ $transition-duration: 700ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cardWrapper, .cardVerso {
+  .cardWrapper, .verso {
     transform: none;
   }
 }
