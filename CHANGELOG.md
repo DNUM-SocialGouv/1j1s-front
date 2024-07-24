@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.329.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.328.1...v3.329.0) (2024-07-24)
+
+
+### Features
+
+* **UI:** zoom 200% sur la flipping card ([#3201](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3201)) ([65fa8df](https://github.com/DNUM-SocialGouv/1j1s-front/commit/65fa8df874ab99137f27ad8c5bed10166352cf52))
+
 ## [3.328.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.328.0...v3.328.1) (2024-07-23)
 
 
