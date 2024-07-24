@@ -220,10 +220,9 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				}));
 			});
 		});
-		
+
 		describe('lorsque plusieurs pays et/ou villes sont renseignées', () => {
-			it('liste les différents pays / villes' , () =>
-			{
+			it('liste les différents pays / villes', () => {
 				// Given
 				const apiEuresEmploiEuropeRechercheResponse = {
 					data: {
@@ -532,15 +531,22 @@ describe('apiEuresEmploiEuropeMapper', () => {
 
 		describe('niveau d’études', () => {
 			describe('si le niveau d’études est fourni', () => {
-				// TODO Généraliser avec un it.each
-				// Vérifier front que ça fonctionne (test & fonctionnel)
-				// Possiblement refacto
-				it('retourne un emploi avec le niveau d’études en français selon le référentiel', () => {
+				it.each([
+					[NiveauEtudeAPIEures.ENSEIGNEMENT_PRESCOLAIRE, NiveauDEtudesLibelle.SANS_DIPLOME_OU_BREVET],
+					[NiveauEtudeAPIEures.ENSEIGNEMENT_PRIMAIRE, NiveauDEtudesLibelle.SANS_DIPLOME_OU_BREVET],
+					[NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_INFERIEUR, NiveauDEtudesLibelle.SANS_DIPLOME_OU_BREVET],
+					[NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_SUPERIEUR, NiveauDEtudesLibelle.LYCEE_FORMATION_PRO],
+					[NiveauEtudeAPIEures.ENSEIGNEMENT_POST_SECONDAIRE_NON_SUPERIEUR, NiveauDEtudesLibelle.LYCEE_FORMATION_PRO],
+					[NiveauEtudeAPIEures.ENSEIGNEMENT_SUPERIEUR_CYCLE_COURT, NiveauDEtudesLibelle.SUPERIEUR_COURT],
+					[NiveauEtudeAPIEures.NIVEAU_LICENCE_OU_EQUIVALENT, NiveauDEtudesLibelle.LICENCE],
+					[NiveauEtudeAPIEures.NIVEAU_MAITRISE_OU_EQUIVALENT, NiveauDEtudesLibelle.MASTER],
+					[NiveauEtudeAPIEures.NIVEAU_DOCTORAT_OU_EQUIVALENT, NiveauDEtudesLibelle.DOCTORAT],
+					[NiveauEtudeAPIEures.AUTRE, NiveauDEtudesLibelle.AUTRE],
+				])('retourne un emploi avec le niveau d’études en français selon le référentiel', (niveauEtudesEures, expectedNiveauEtudes) => {
 					// GIVEN
-					const educationLevelCode = NiveauEtudeAPIEures.ENSEIGNEMENT_PRESCOLAIRE;
 					const handle = 'eures-offer-id';
 					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse({
-						educationLevelCode: educationLevelCode,
+						educationLevelCode: niveauEtudesEures,
 					});
 					const aDetailItemWithContractTypeApprenticeship = anApiEuresEmploiEuropeDetailItem(
 						{
@@ -558,8 +564,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					const result = mapper.mapDetailOffre(handle, aDetailItemWithContractTypeApprenticeship);
 
 					// THEN
-					expect(result.niveauEtudes).toBe(NiveauDEtudesLibelle.SANS_DIPLOME_OU_BREVET);
+					expect(result.niveauEtudes).toBe(expectedNiveauEtudes);
 				});
+
+
 				it('retourne un emploi avec le niveau d’études à undefined quand le type de niveau d’études n’est pas connu du référentiel', () => {
 					// GIVEN
 					const educationLevelCode = 9999999999;

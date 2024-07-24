@@ -1,5 +1,5 @@
 import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixture';
-import { NiveauDEtude } from '~/server/emplois-europe/domain/niveauDEtudes';
+import { NiveauDEtudeValue } from '~/server/emplois-europe/domain/niveauDEtudes';
 import {
 	ApiEuresEmploiEuropeDetailResponse,
 	ApiEuresEmploiEuropeDetailXML,
@@ -157,13 +157,13 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 
 		describe('quand un ou plusieurs niveaux d’études sont fournis', () => {
 			it.each([
-				[NiveauDEtude.SANS_DIPLOME_OU_BREVET, [NiveauEtudeAPIEures.ENSEIGNEMENT_PRESCOLAIRE, NiveauEtudeAPIEures.ENSEIGNEMENT_PRIMAIRE, NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_INFERIEUR]],
-				[NiveauDEtude.LYCEE_FORMATION_PRO, [NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_SUPERIEUR, NiveauEtudeAPIEures.ENSEIGNEMENT_POST_SECONDAIRE_NON_SUPERIEUR]],
-				[NiveauDEtude.SUPERIEUR_COURT, [NiveauEtudeAPIEures.ENSEIGNEMENT_SUPERIEUR_CYCLE_COURT]],
-				[NiveauDEtude.LICENCE, [NiveauEtudeAPIEures.NIVEAU_LICENCE_OU_EQUIVALENT]],
-				[NiveauDEtude.MASTER, [NiveauEtudeAPIEures.NIVEAU_MAITRISE_OU_EQUIVALENT]],
-				[NiveauDEtude.DOCTORAT, [NiveauEtudeAPIEures.NIVEAU_DOCTORAT_OU_EQUIVALENT]],
-				[NiveauDEtude.AUTRE, [NiveauEtudeAPIEures.AUTRE]],
+				[NiveauDEtudeValue.SANS_DIPLOME_OU_BREVET, [NiveauEtudeAPIEures.ENSEIGNEMENT_PRESCOLAIRE, NiveauEtudeAPIEures.ENSEIGNEMENT_PRIMAIRE, NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_INFERIEUR]],
+				[NiveauDEtudeValue.LYCEE_FORMATION_PRO, [NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_SUPERIEUR, NiveauEtudeAPIEures.ENSEIGNEMENT_POST_SECONDAIRE_NON_SUPERIEUR]],
+				[NiveauDEtudeValue.SUPERIEUR_COURT, [NiveauEtudeAPIEures.ENSEIGNEMENT_SUPERIEUR_CYCLE_COURT]],
+				[NiveauDEtudeValue.LICENCE, [NiveauEtudeAPIEures.NIVEAU_LICENCE_OU_EQUIVALENT]],
+				[NiveauDEtudeValue.MASTER, [NiveauEtudeAPIEures.NIVEAU_MAITRISE_OU_EQUIVALENT]],
+				[NiveauDEtudeValue.DOCTORAT, [NiveauEtudeAPIEures.NIVEAU_DOCTORAT_OU_EQUIVALENT]],
+				[NiveauDEtudeValue.AUTRE, [NiveauEtudeAPIEures.AUTRE]],
 			])('appelle l’api Eures avec les niveaux d’études correspondants', (filtreRecherche, expectedNiveauApiEures) => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
@@ -213,7 +213,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 
 			  // When
 				repository.search({
-					niveauEtude: [NiveauDEtude.SANS_DIPLOME_OU_BREVET, NiveauDEtude.AUTRE],
+					niveauEtude: [NiveauDEtudeValue.SANS_DIPLOME_OU_BREVET, NiveauDEtudeValue.AUTRE],
 					page: 1,
 				});
 

@@ -1,6 +1,5 @@
 import { EmploiEurope, ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEurope.repository';
-import { NiveauDEtude } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailItem,
@@ -1092,7 +1091,6 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							nomEntreprise: 'Nom Entreprise',
 							titre: 'Nom Offre aaaaa',
 							typeContrat: undefined,
-							
 						}),
 					},
 					related: {

@@ -1,5 +1,5 @@
 // TODO (BRUJ 24/07/2024): Le select devrait accepter des valeurs en nombre à supprimer après les travaux sur le select
-export enum NiveauDEtude {
+export enum NiveauDEtudeValue {
 	SANS_DIPLOME_OU_BREVET = '0',
 	LYCEE_FORMATION_PRO = '1',
 	SUPERIEUR_COURT = '2',
@@ -22,30 +22,30 @@ export enum NiveauDEtudesLibelle {
 export const niveauDEtudes = [
 	{
 		libellé: NiveauDEtudesLibelle.SANS_DIPLOME_OU_BREVET,
-		valeur: NiveauDEtude.SANS_DIPLOME_OU_BREVET,
+		valeur: NiveauDEtudeValue.SANS_DIPLOME_OU_BREVET,
 	},
 	{
 		libellé: NiveauDEtudesLibelle.LYCEE_FORMATION_PRO,
-		valeur: NiveauDEtude.LYCEE_FORMATION_PRO,
+		valeur: NiveauDEtudeValue.LYCEE_FORMATION_PRO,
 	},
 	{
 		libellé: NiveauDEtudesLibelle.SUPERIEUR_COURT,
-		valeur: NiveauDEtude.SUPERIEUR_COURT,
+		valeur: NiveauDEtudeValue.SUPERIEUR_COURT,
 	},
 	{
 		libellé:NiveauDEtudesLibelle.LICENCE,
-		valeur: NiveauDEtude.LICENCE,
+		valeur: NiveauDEtudeValue.LICENCE,
 	},
 	{
 		libellé: NiveauDEtudesLibelle.MASTER,
-		valeur: NiveauDEtude.MASTER,
+		valeur: NiveauDEtudeValue.MASTER,
 	},
 	{
 		libellé: NiveauDEtudesLibelle.DOCTORAT,
-		valeur: NiveauDEtude.DOCTORAT,
+		valeur: NiveauDEtudeValue.DOCTORAT,
 	},
 	{
 		libellé: NiveauDEtudesLibelle.AUTRE,
-		valeur: NiveauDEtude.AUTRE,
+		valeur: NiveauDEtudeValue.AUTRE,
 	},
 ];

@@ -16,7 +16,7 @@ import {
 	anEmploiEurope,
 	aResultatRechercheEmploiEuropeList,
 } from '~/server/emplois-europe/domain/emploiEurope.fixture';
-import { NiveauDEtude, NiveauDEtudesLibelle } from '~/server/emplois-europe/domain/niveauDEtudes';
+import { NiveauDEtudesLibelle,NiveauDEtudeValue } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { SecteurActiviteCode } from '~/server/emplois-europe/infra/secteurActiviteEures';
 import { EURES_CONTRACT_TYPE } from '~/server/emplois-europe/infra/typesContratEures';
 import { createSuccess } from '~/server/errors/either';
@@ -551,7 +551,7 @@ describe('RechercherEmploisEurope', () => {
 			const query: EmploiEuropeQueryParams = {
 				codePays: 'ES',
 				libellePays: 'Espagne',
-				niveauEtude: NiveauDEtude.MASTER,
+				niveauEtude: NiveauDEtudeValue.MASTER,
 				page: '1',
 				secteurActivite: SecteurActiviteCode.AGRICULTURE,
 				tempsDeTravail: `${EURES_POSITION_SCHEDULE_TYPE.FullTime},${EURES_POSITION_SCHEDULE_TYPE.NonSpecified}`,

@@ -4,10 +4,11 @@ import {
 	ResultatRechercheEmploiEurope,
 } from '~/server/emplois-europe/domain/emploiEurope';
 import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEurope.repository';
-import { NiveauDEtude } from '~/server/emplois-europe/domain/niveauDEtudes';
+import { NiveauDEtudeValue } from '~/server/emplois-europe/domain/niveauDEtudes';
 import {
 	ApiEuresEmploiEuropeDetailItem,
-	ApiEuresEmploiEuropeDetailResponse, ApiEuresEmploiEuropeDetailXML,
+	ApiEuresEmploiEuropeDetailResponse,
+	ApiEuresEmploiEuropeDetailXML,
 	ApiEuresEmploiEuropeRechercheRequestBody,
 	ApiEuresEmploiEuropeRechercheResponse,
 	EMPLOIS_EUROPE_ITEMS_PER_PAGE,
@@ -30,22 +31,22 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 	private buildSearchBody(filtre: EmploiEuropeFiltre): ApiEuresEmploiEuropeRechercheRequestBody {
 		const facetCriteria = [];
 
-		function mapNiveauEtude(niveauEtudeList: Array<NiveauDEtude>): Array<NiveauEtudeAPIEures> {
-			function getNiveauEtudeApiEures(niveauEtude: NiveauDEtude) {
+		function mapNiveauEtude(niveauEtudeList: Array<NiveauDEtudeValue>): Array<NiveauEtudeAPIEures> {
+			function getNiveauEtudeApiEures(niveauEtude: NiveauDEtudeValue) {
 				switch (niveauEtude) {
-					case NiveauDEtude.SANS_DIPLOME_OU_BREVET:
+					case NiveauDEtudeValue.SANS_DIPLOME_OU_BREVET:
 						return [NiveauEtudeAPIEures.ENSEIGNEMENT_PRESCOLAIRE, NiveauEtudeAPIEures.ENSEIGNEMENT_PRIMAIRE, NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_INFERIEUR];
-					case NiveauDEtude.LYCEE_FORMATION_PRO:
+					case NiveauDEtudeValue.LYCEE_FORMATION_PRO:
 						return [NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_SUPERIEUR, NiveauEtudeAPIEures.ENSEIGNEMENT_POST_SECONDAIRE_NON_SUPERIEUR];
-					case NiveauDEtude.SUPERIEUR_COURT:
+					case NiveauDEtudeValue.SUPERIEUR_COURT:
 						return [NiveauEtudeAPIEures.ENSEIGNEMENT_SUPERIEUR_CYCLE_COURT];
-					case NiveauDEtude.LICENCE:
+					case NiveauDEtudeValue.LICENCE:
 						return [NiveauEtudeAPIEures.NIVEAU_LICENCE_OU_EQUIVALENT];
-					case NiveauDEtude.MASTER:
+					case NiveauDEtudeValue.MASTER:
 						return [NiveauEtudeAPIEures.NIVEAU_MAITRISE_OU_EQUIVALENT];
-					case NiveauDEtude.DOCTORAT:
+					case NiveauDEtudeValue.DOCTORAT:
 						return [NiveauEtudeAPIEures.NIVEAU_DOCTORAT_OU_EQUIVALENT];
-					case NiveauDEtude.AUTRE:
+					case NiveauDEtudeValue.AUTRE:
 						return [NiveauEtudeAPIEures.AUTRE];
 				}
 			}

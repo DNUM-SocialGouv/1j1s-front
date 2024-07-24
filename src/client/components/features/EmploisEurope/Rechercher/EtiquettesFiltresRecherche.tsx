@@ -12,15 +12,17 @@ function mapContratListToLibelle(typeContratList: string[]) {
 		.filter((typeContrat) => typesContratEures.find((typeContratEures) => typeContratEures.valeur === typeContrat)?.libellé)
 		.map((typeContrat) => typesContratEures.find((typeContratEures) => typeContratEures.valeur === typeContrat)!.libellé);
 }
+
 function mapTempsDeTravailListToLibelle(tempsDeTravailList: string[]) {
 	return tempsDeTravailList
 		.filter((tempsDeTravail) => tempsDeTravailEures.find((tempsDeTravailEures) => tempsDeTravailEures.valeur === tempsDeTravail)?.libellé)
 		.map((tempsDeTravail) => tempsDeTravailEures.find((tempsDeTravailEures) => tempsDeTravailEures.valeur === tempsDeTravail)!.libellé);
 }
-function mapNiveauEtudesListToLibelle(niveauEtudesList: string[]) {
-	return niveauEtudesList
-		.filter((niveauEtudes) => niveauDEtudes.find((niveauEtudesEures) => niveauEtudesEures.valeur.toString() === niveauEtudes)?.libellé)
-		.map((niveauEtudes) => niveauDEtudes.find((niveauEtudesEures) => niveauEtudesEures.valeur.toString() === niveauEtudes)!.libellé);
+
+function mapNiveauEtudesListToLibelle(niveauEtudesValueList: string[]) {
+	return niveauEtudesValueList
+		.filter((niveauEtudesValue) => niveauDEtudes.find((niveauEtudes) => niveauEtudes.valeur === niveauEtudesValue)?.libellé)
+		.map((niveauEtudesValue) => niveauDEtudes.find((niveauEtudes) => niveauEtudes.valeur === niveauEtudesValue)!.libellé);
 }
 
 function mapSecteurActiviteListToLibelle(secteurActiviteList: string[]) {
@@ -66,7 +68,7 @@ export const EtiquettesFiltresRecherche = () => {
 		return filtreList;
 	}, [emploiEuropeQuery.typeContrat, emploiEuropeQuery.tempsDeTravail, emploiEuropeQuery.libellePays, emploiEuropeQuery.niveauEtude, emploiEuropeQuery.secteurActivite]);
 
-	if(filtreList.length === 0) return ;
+	if (filtreList.length === 0) return;
 
-	return <TagList list={filtreList} aria-label="Filtres de la recherche" />;
+	return <TagList list={filtreList} aria-label="Filtres de la recherche"/>;
 };
