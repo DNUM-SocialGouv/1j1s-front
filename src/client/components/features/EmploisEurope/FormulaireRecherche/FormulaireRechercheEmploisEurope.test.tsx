@@ -11,6 +11,7 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { EURES_POSITION_SCHEDULE_TYPE } from '~/client/domain/codesTempsTravailEures';
+import { NiveauDEtude } from '~/client/domain/niveauEtudesEures';
 import { EURES_CONTRACT_TYPE } from '~/server/emplois-europe/infra/typesContratEures';
 
 describe('FormulaireRechercheEmploisEurope', () => {
@@ -148,7 +149,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				// WHEN
 				await user.click(buttonFiltresAvances);
 				const modalComponent = screen.getByRole('dialog');
-				const checkboxNiveauEtude = within(modalComponent).getByRole('checkbox', { name: 'Niveau maîtrise (Master) ou équivalent' });
+				const checkboxNiveauEtude = within(modalComponent).getByRole('checkbox', { name: 'Master (Bac+5)' });
 				await user.click(checkboxNiveauEtude);
 				const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
 				await user.click(buttonAppliquerFiltres);
@@ -157,7 +158,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 
 				// THEN
 
-				expect(routerPush).toHaveBeenCalledWith({ query: 'niveauEtude=7&page=1' }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: `niveauEtude=${NiveauDEtude.MASTER}&page=1` }, undefined, { shallow: true });
 			});
 		});
 
@@ -264,8 +265,8 @@ describe('FormulaireRechercheEmploisEurope', () => {
 			});
 		});
 
-		describe('quand on recherche par niveau d\'étude', () => {
-			it('ajoute les niveaux d\'étude aux query params', async () => {
+		describe('quand on recherche par niveau d‘étude', () => {
+			it('ajoute les niveaux d‘étude aux query params', async () => {
 				// GIVEN
 				const routerPush = jest.fn();
 				const user = userEvent.setup();
@@ -279,7 +280,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				const button = screen.getByRole('combobox', { name: 'Niveau d‘études demandé Exemple : Master, Bachelor' });
 				await user.click(button);
 
-				const checkboxNiveauEtude = screen.getByRole('option', { name: 'Niveau maîtrise (Master) ou équivalent' });
+				const checkboxNiveauEtude = screen.getByRole('option', { name: 'Master (Bac+5)' });
 				await user.click(checkboxNiveauEtude);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
@@ -287,7 +288,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 
 				// THEN
 
-				expect(routerPush).toHaveBeenCalledWith({ query: 'niveauEtude=7&page=1' }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: `niveauEtude=${NiveauDEtude.MASTER}&page=1` }, undefined, { shallow: true });
 			});
 		});
 

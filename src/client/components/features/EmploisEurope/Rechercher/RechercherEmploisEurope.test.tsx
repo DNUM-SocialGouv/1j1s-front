@@ -551,7 +551,7 @@ describe('RechercherEmploisEurope', () => {
 			const query: EmploiEuropeQueryParams = {
 				codePays: 'ES',
 				libellePays: 'Espagne',
-				niveauEtude: NiveauDEtude.NIVEAU_MAITRISE_OU_EQUIVALENT.toString(),
+				niveauEtude: NiveauDEtude.MASTER,
 				page: '1',
 				secteurActivite: SecteurActiviteCode.AGRICULTURE,
 				tempsDeTravail: `${EURES_POSITION_SCHEDULE_TYPE.FullTime},${EURES_POSITION_SCHEDULE_TYPE.NonSpecified}`,
@@ -581,7 +581,7 @@ describe('RechercherEmploisEurope', () => {
 			expect(etiquettes[2]).toHaveTextContent('Apprentissage');
 			expect(etiquettes[3]).toHaveTextContent('Temps plein');
 			expect(etiquettes[4]).toHaveTextContent('Temps de travail non spécifié');
-			expect(etiquettes[5]).toHaveTextContent('Niveau maîtrise (Master) ou équivalent');
+			expect(etiquettes[5]).toHaveTextContent('Master (Bac+5)');
 			expect(etiquettes[6]).toHaveTextContent('Agriculture');
 		});
 		it('quand il n‘y a pas d‘étiquette, n‘affiche pas la liste d‘étiquette', async () => {
