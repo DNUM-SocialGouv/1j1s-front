@@ -43,7 +43,7 @@ export default function RechercherEmploisEurope() {
 		if (!empty(emploiEuropeQuery)) {
 			setIsLoading(true);
 			setErreurRecherche(undefined);
-
+			// TODO (BRUJ 24/07/2024): Devrait être en SSR
 			emploiEuropeService.rechercherEmploiEurope(emploiEuropeQuery)
 				.then((response) => {
 					if (isSuccess(response)) {

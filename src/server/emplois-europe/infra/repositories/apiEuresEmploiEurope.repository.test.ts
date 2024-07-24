@@ -1,3 +1,5 @@
+import { EURES_EDUCATION_LEVEL } from '~/client/domain/niveauEtudesEures';
+import { NiveauEtudeAPIEures } from '~/server/emplois-europe/domain/emploiEurope';
 import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixture';
 import { ApiEuresEmploiEuropeDetailResponse } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import {
@@ -16,6 +18,7 @@ import { anErrorManagementService } from '~/server/services/error/errorManagemen
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 import { FastXmlParserService } from '~/server/services/xml/fastXmlParser.service';
+import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode';
 
 let apiEuresEmploiEuropeMapper: ApiEuresEmploiEuropeMapper;
 describe('ApiEuresEmploiEuropeRepository', () => {
@@ -168,12 +171,14 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 		});
 
 		describe('quand un niveauEtude est fourni', () => {
-			it('appelle l’api Eures avec le niveauEtude', () => {
+			it.each([
+				[EURES_EDUCATION_LEVEL.SANS_DIPLOME_OU_BREVET, [NiveauEtudeAPIEures.ENSEIGNEMENT_PRESCOLAIRE, NiveauEtudeAPIEures.ENSEIGNEMENT_PRIMAIRE, NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_INFERIEUR]],
+			])('appelle l’api Eures avec le niveauEtude', (filtreRecherche, expectedNiveauApiEures) => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
 				
-				const body = {
+				const body = anApiEuresRechercheBody({
 					dataSetRequest: {
 						excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
 						pageNumber: '1',
@@ -184,15 +189,15 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 						facetCriteria: [
 							{
 								facetName: 'EDUCATION_LEVEL',
-								facetValues: ['7'],
+								facetValues: expectedNiveauApiEures,
 							},
 						],
 					},
-				};
+				});
 				
 				// When
 				repository.search({
-					niveauEtude: ['7'],
+					niveauEtude: [filtreRecherche],
 					page: 1,
 				});
 				

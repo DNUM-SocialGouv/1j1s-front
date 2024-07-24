@@ -1,56 +1,41 @@
-export enum EURES_EDUCATION_LEVEL_CODES_TYPE {
-	ENSEIGNEMENT_PRESCOLAIRE = 0,
-	ENSEIGNEMENT_PRIMAIRE = 1,
-	ENSEIGNEMENT_SECONDAIRE_INFERIEUR = 2,
-	ENSEIGNEMENT_SECONDAIRE_SUPERIEUR = 3,
-	ENSEIGNEMENT_POST_SECONDAIRE_NON_SUPERIEUR = 4,
-	ENSEIGNEMENT_SUPERIEUR_CYCLE_COURT = 5,
-	NIVEAU_LICENCE_OU_EQUIVALENT = 6,
-	NIVEAU_MAITRISE_OU_EQUIVALENT = 7,
-	NIVEAU_DOCTORAT_OU_EQUIVALENT = 8,
-	AUTRE = 9,
+// TODO (BRUJ 24/07/2024): Le select devrait accepter des valeurs en nombre à supprimer après les travaux sur le select
+export enum EURES_EDUCATION_LEVEL {
+	SANS_DIPLOME_OU_BREVET = '0',
+	LYCEE_FORMATION_PRO = '1',
+	SUPERIEUR_COURT = '2',
+	LICENSE = '3',
+	MASTER = '4',
+	DOCTORAT = '5',
+	AUTRE = '6',
 }
 
-export type NiveauEtudes = (typeof niveauEtudesEures)[number]['libellé']
 export const niveauEtudesEures = [
 	{
-		libellé: 'Enseignement préscolaire',
-		valeur: EURES_EDUCATION_LEVEL_CODES_TYPE.ENSEIGNEMENT_PRESCOLAIRE.toString(),
+		libellé: 'Sans diplôme ou brevet des collèges',
+		valeur: EURES_EDUCATION_LEVEL.SANS_DIPLOME_OU_BREVET,
 	},
 	{
-		libellé: 'Enseignement primaire',
-		valeur: EURES_EDUCATION_LEVEL_CODES_TYPE.ENSEIGNEMENT_PRIMAIRE.toString(),
+		libellé: 'Lycée / Formation professionnelle',
+		valeur: EURES_EDUCATION_LEVEL.LYCEE_FORMATION_PRO,
 	},
 	{
-		libellé: 'Enseignement secondaire inférieur',
-		valeur: EURES_EDUCATION_LEVEL_CODES_TYPE.ENSEIGNEMENT_SECONDAIRE_INFERIEUR.toString(),
+		libellé: 'Supérieur court (Bac+2 maximum)',
+		valeur: EURES_EDUCATION_LEVEL.SUPERIEUR_COURT,
 	},
 	{
-		libellé: 'Enseignement secondaire supérieur',
-		valeur: EURES_EDUCATION_LEVEL_CODES_TYPE.ENSEIGNEMENT_SECONDAIRE_SUPERIEUR.toString(),
+		libellé: 'Licence (Bac+3)',
+		valeur: EURES_EDUCATION_LEVEL.LICENSE,
 	},
 	{
-		libellé: 'Enseignement post-secondaire non supérieur',
-		valeur: EURES_EDUCATION_LEVEL_CODES_TYPE.ENSEIGNEMENT_POST_SECONDAIRE_NON_SUPERIEUR.toString(),
+		libellé: 'Master (Bac+5)',
+		valeur: EURES_EDUCATION_LEVEL.MASTER,
 	},
 	{
-		libellé: 'Enseignement supérieur de cycle court',
-		valeur: EURES_EDUCATION_LEVEL_CODES_TYPE.ENSEIGNEMENT_SUPERIEUR_CYCLE_COURT.toString(),
-	},
-	{
-		libellé: 'Niveau licence (Bachelor) ou équivalent',
-		valeur: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT.toString(),
-	},
-	{
-		libellé: 'Niveau maîtrise (Master) ou équivalent',
-		valeur: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_MAITRISE_OU_EQUIVALENT.toString(),
-	},
-	{
-		libellé: 'Niveau doctorat ou équivalent',
-		valeur: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_DOCTORAT_OU_EQUIVALENT.toString(),
+		libellé: 'Doctorat (Bac+8)',
+		valeur: EURES_EDUCATION_LEVEL.DOCTORAT,
 	},
 	{
 		libellé: 'Autre niveau d’étude',
-		valeur: EURES_EDUCATION_LEVEL_CODES_TYPE.AUTRE.toString(),
+		valeur: EURES_EDUCATION_LEVEL.AUTRE,
 	},
 ];

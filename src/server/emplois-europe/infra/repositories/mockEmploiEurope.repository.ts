@@ -1,4 +1,4 @@
-import { EURES_EDUCATION_LEVEL_CODES_TYPE } from '~/client/domain/niveauEtudesEures';
+import { EURES_EDUCATION_LEVEL } from '~/client/domain/niveauEtudesEures';
 import { EmploiEurope, ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEurope.repository';
 import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
@@ -1043,7 +1043,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 						},
 						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
 							codeLangueDeLOffre: 'nl',
-							educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_DOCTORAT_OU_EQUIVALENT,
+							educationLevelCode: EURES_EDUCATION_LEVEL.NIVEAU_DOCTORAT_OU_EQUIVALENT,
 							experiencesNecessaires: [{
 								duree: 1,
 								unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
