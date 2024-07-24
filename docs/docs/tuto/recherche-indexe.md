@@ -5,11 +5,11 @@ sidebar_position: 3
 
 # la recherche indexée
 
-_20 Avril 2023_
+_20 Avril 2023 (mis à jour le 24 Juillet 2024)_
 
-## Introduction 
-
+:::info Introduction
 Les pages permettant de rechercher des résultats indexés présentent un formulaire qui, une fois soumis, met à jour les paramètres de recherche dans l'url et requête les données indexées dans Meilisearch.
+:::
 
 ## Comment ça marche ?
 
@@ -17,6 +17,8 @@ Les pages permettant de rechercher des résultats indexés s'appuient sur la lib
 et son composant `InstantSearch`. Les résultats récupérés proviennent de Meilisearch, des objets chargés par
 l'[ETL](https://github.com/DNUM-SocialGouv/1j1s-etl) à partir d'un flux. L'URL est complètement manipulée par la
 librairie. Chaque changement dans un filtre lance une requête HTTP pour mettre à jour les résultats en conséquence. 
+
+![Recherche indexee](../assets/1j1s-recherche-indexee.png)
 
 ## Les pages concernées 
 

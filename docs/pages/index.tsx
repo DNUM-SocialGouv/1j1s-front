@@ -17,8 +17,8 @@ function HomepageHeader() {
 				<div className={styles.buttons}>
 					<Link
 						className="button button--secondary button--lg"
-						to="/">
-            Commencer à contribuer - 30min ⏱️
+						to="https://www.1jeune1solution.gouv.fr/">
+            Aller sur 1Jeune1Solution
 					</Link>
 				</div>
 			</div>

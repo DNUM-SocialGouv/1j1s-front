@@ -15,6 +15,7 @@ Afin de garder une base de code homogène, merci de respecter ces quelques stand
 ### Convention
 
 Nous allons nous baser sur la convention "[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)".
+![1J1S git convention](../assets/1j1s-git-convention.png)
 
 ### Langue
 

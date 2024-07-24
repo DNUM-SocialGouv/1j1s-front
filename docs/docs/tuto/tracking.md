@@ -1,15 +1,15 @@
 ---
 sidebar_label: Le tracking, comment ça marche ?
-sidebar_position: 1
+sidebar_position: 4
 ---
 
 # Le tracking
 
-_28 Avril 2023 (mis à jour le 05 septembre 2023)_
+_28 Avril 2023 (mis à jour le 24 Juillet 2024)_
 
-## Introduction 
-
+:::info Introduction
 Le tracking est un suivi et une analyse du comportement et des centres d'intérêts des utilisateurs sur notre produit.
+:::
 
 ## Comment ça marche ?
 
