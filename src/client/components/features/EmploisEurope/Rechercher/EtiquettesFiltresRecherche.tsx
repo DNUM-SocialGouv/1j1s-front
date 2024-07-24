@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
-import { niveauEtudesEures } from '~/client/domain/niveauEtudesEures';
+import { niveauDEtudes } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
 import { secteurActiviteEures } from '~/server/emplois-europe/infra/secteurActiviteEures';
 import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
@@ -19,8 +19,8 @@ function mapTempsDeTravailListToLibelle(tempsDeTravailList: string[]) {
 }
 function mapNiveauEtudesListToLibelle(niveauEtudesList: string[]) {
 	return niveauEtudesList
-		.filter((niveauEtudes) => niveauEtudesEures.find((niveauEtudesEures) => niveauEtudesEures.valeur.toString() === niveauEtudes)?.libellé)
-		.map((niveauEtudes) => niveauEtudesEures.find((niveauEtudesEures) => niveauEtudesEures.valeur.toString() === niveauEtudes)!.libellé);
+		.filter((niveauEtudes) => niveauDEtudes.find((niveauEtudesEures) => niveauEtudesEures.valeur.toString() === niveauEtudes)?.libellé)
+		.map((niveauEtudes) => niveauDEtudes.find((niveauEtudesEures) => niveauEtudesEures.valeur.toString() === niveauEtudes)!.libellé);
 }
 
 function mapSecteurActiviteListToLibelle(secteurActiviteList: string[]) {

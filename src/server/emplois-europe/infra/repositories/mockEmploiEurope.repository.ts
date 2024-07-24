@@ -1,4 +1,4 @@
-import { NiveauDEtude } from '~/client/domain/niveauEtudesEures';
+import { NiveauDEtude } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { EmploiEurope, ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEurope.repository';
 import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';

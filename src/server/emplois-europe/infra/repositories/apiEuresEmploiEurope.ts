@@ -125,9 +125,22 @@ export namespace ApiEuresEmploiEuropeDetailXML {
 		}
 	}
 
+export enum NiveauEtudeAPIEures {
+		ENSEIGNEMENT_PRESCOLAIRE = 0,
+		ENSEIGNEMENT_PRIMAIRE = 1,
+		ENSEIGNEMENT_SECONDAIRE_INFERIEUR = 2,
+		ENSEIGNEMENT_SECONDAIRE_SUPERIEUR = 3,
+		ENSEIGNEMENT_POST_SECONDAIRE_NON_SUPERIEUR = 4,
+		ENSEIGNEMENT_SUPERIEUR_CYCLE_COURT = 5,
+		NIVEAU_LICENCE_OU_EQUIVALENT = 6,
+		NIVEAU_MAITRISE_OU_EQUIVALENT = 7,
+		NIVEAU_DOCTORAT_OU_EQUIVALENT = 8,
+		AUTRE = 9,
+	}
+	
 	export interface EducationRequirement {
 		EducationLevelCode?: {
-			'textContent': number
+			'textContent': NiveauEtudeAPIEures
 		};
 	}
 

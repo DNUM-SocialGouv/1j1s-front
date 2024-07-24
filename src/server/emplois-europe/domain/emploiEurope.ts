@@ -1,4 +1,4 @@
-import { NiveauDEtude } from '~/client/domain/niveauEtudesEures';
+import { NiveauDEtude, NiveauDEtudesLibelle } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { LEVEL_CODE, LEVEL_NAME } from '~/server/emplois-europe/infra/langageEures';
 import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 
@@ -15,26 +15,13 @@ export interface EmploiEurope {
 	typeContrat?: string;
 	urlCandidature?: string;
 	tempsDeTravail?: string;
-	niveauEtudes?: NiveauEtudeAPIEures;
+	niveauEtudes?: NiveauDEtudesLibelle;
 	description?: string;
 	listePermis: Array<string>;
 	langueDeTravail: Array<string>;
 	competencesLinguistiques: Array<CompetenceLinguistique>
 	laPlusLongueExperienceNecessaire?: ExperienceNecessaire
 	codeLangueDeLOffre?: string
-}
-
-export enum NiveauEtudeAPIEures {
-	ENSEIGNEMENT_PRESCOLAIRE = '0',
-	ENSEIGNEMENT_PRIMAIRE = '1',
-	ENSEIGNEMENT_SECONDAIRE_INFERIEUR = '2',
-	ENSEIGNEMENT_SECONDAIRE_SUPERIEUR = '3',
-	ENSEIGNEMENT_POST_SECONDAIRE_NON_SUPERIEUR = '4',
-	ENSEIGNEMENT_SUPERIEUR_CYCLE_COURT = '5',
-	NIVEAU_LICENCE_OU_EQUIVALENT = '6',
-	NIVEAU_MAITRISE_OU_EQUIVALENT = '7',
-	NIVEAU_DOCTORAT_OU_EQUIVALENT = '8',
-	AUTRE = '9',
 }
 
 export interface ExperienceNecessaire {

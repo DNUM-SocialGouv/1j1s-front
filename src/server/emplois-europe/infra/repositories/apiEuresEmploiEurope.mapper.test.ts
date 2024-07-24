@@ -1,11 +1,14 @@
 import { EURES_POSITION_SCHEDULE_TYPE } from '~/client/domain/codesTempsTravailEures';
-import { NiveauDEtude } from '~/client/domain/niveauEtudesEures';
 import {
 	anEmploiEurope,
 	aResultatRechercheEmploiEuropeList,
 } from '~/server/emplois-europe/domain/emploiEurope.fixture';
+import { NiveauDEtudesLibelle } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { LEVEL_CODE, LEVEL_NAME } from '~/server/emplois-europe/infra/langageEures';
-import { ApiEuresEmploiEuropeDetailResponse } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
+import {
+	ApiEuresEmploiEuropeDetailResponse,
+	ApiEuresEmploiEuropeDetailXML,
+} from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import {
 	anApiEuresEmploiEuropeDetailItem,
 	anApiEuresEmploiEuropeDetailJobVacancy,
@@ -17,6 +20,7 @@ import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/reposi
 import { EURES_CONTRACT_TYPE } from '~/server/emplois-europe/infra/typesContratEures';
 import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 import { FastXmlParserService } from '~/server/services/xml/fastXmlParser.service';
+import NiveauEtudeAPIEures = ApiEuresEmploiEuropeDetailXML.NiveauEtudeAPIEures;
 
 describe('apiEuresEmploiEuropeMapper', () => {
 	describe('mapRechercheEmploiEurope', () => {
@@ -294,7 +298,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 						{
 							codeLangueDeLOffre: 'fr',
 							description: 'Je suis la description',
-							educationLevelCode: NiveauDEtude.NIVEAU_LICENCE_OU_EQUIVALENT,
+							educationLevelCode: NiveauEtudeAPIEures.NIVEAU_LICENCE_OU_EQUIVALENT,
 							experiencesNecessaires: [{ duree: 3, unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR }],
 							listeLangueDeTravail: ['FR', 'EN'],
 							listePermis: ['B', 'C'],
@@ -329,7 +333,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					pays: 'France',
 					ville: 'Paris',
 				}],
-				niveauEtudes: 'Niveau licence (Bachelor) ou équivalent',
+				niveauEtudes: NiveauDEtudesLibelle.LICENCE,
 				nomEntreprise: 'La Boulangerie',
 				tempsDeTravail: 'Temps plein',
 				titre: 'Boulanger (H/F)',
@@ -528,9 +532,12 @@ describe('apiEuresEmploiEuropeMapper', () => {
 
 		describe('niveau d’études', () => {
 			describe('si le niveau d’études est fourni', () => {
+				// TODO Généraliser avec un it.each
+				// Vérifier front que ça fonctionne (test & fonctionnel)
+				// Possiblement refacto
 				it('retourne un emploi avec le niveau d’études en français selon le référentiel', () => {
 					// GIVEN
-					const educationLevelCode = NiveauDEtude.ENSEIGNEMENT_PRESCOLAIRE;
+					const educationLevelCode = NiveauEtudeAPIEures.ENSEIGNEMENT_PRESCOLAIRE;
 					const handle = 'eures-offer-id';
 					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse({
 						educationLevelCode: educationLevelCode,
@@ -551,7 +558,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					const result = mapper.mapDetailOffre(handle, aDetailItemWithContractTypeApprenticeship);
 
 					// THEN
-					expect(result.niveauEtudes).toBe('Enseignement préscolaire');
+					expect(result.niveauEtudes).toBe(NiveauDEtudesLibelle.SANS_DIPLOME_OU_BREVET);
 				});
 				it('retourne un emploi avec le niveau d’études à undefined quand le type de niveau d’études n’est pas connu du référentiel', () => {
 					// GIVEN

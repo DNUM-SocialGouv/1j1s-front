@@ -1,4 +1,4 @@
-import { NiveauDEtude } from '~/client/domain/niveauEtudesEures';
+import { NiveauDEtude } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { NiveauEtudeAPIEures } from '~/server/emplois-europe/domain/emploiEurope';
 import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixture';
 import { ApiEuresEmploiEuropeDetailResponse } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';

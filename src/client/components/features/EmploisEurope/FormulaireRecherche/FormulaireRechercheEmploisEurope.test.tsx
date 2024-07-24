@@ -11,7 +11,7 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { EURES_POSITION_SCHEDULE_TYPE } from '~/client/domain/codesTempsTravailEures';
-import { NiveauDEtude } from '~/client/domain/niveauEtudesEures';
+import { NiveauDEtude } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { EURES_CONTRACT_TYPE } from '~/server/emplois-europe/infra/typesContratEures';
 
 describe('FormulaireRechercheEmploisEurope', () => {

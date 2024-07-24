@@ -10,7 +10,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { EURES_POSITION_SCHEDULE_TYPE } from '~/client/domain/codesTempsTravailEures';
-import { NiveauDEtude } from '~/client/domain/niveauEtudesEures';
+import { NiveauDEtude } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { EmploiEuropeQueryParams } from '~/client/hooks/useEmploiEuropeQuery';
 import { anEmploiEuropeService } from '~/client/services/europe/emploiEurope.service.fixture';
 import {

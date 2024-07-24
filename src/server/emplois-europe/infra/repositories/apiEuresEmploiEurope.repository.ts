@@ -1,4 +1,4 @@
-import { NiveauDEtude } from '~/client/domain/niveauEtudesEures';
+import { NiveauDEtude } from '~/server/emplois-europe/domain/niveauDEtudes';
 import {
 	EmploiEurope,
 	EmploiEuropeFiltre,

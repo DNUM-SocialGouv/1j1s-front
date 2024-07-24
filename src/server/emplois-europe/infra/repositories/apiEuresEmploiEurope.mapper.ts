@@ -1,5 +1,4 @@
 import { tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
-import { niveauEtudesEures } from '~/client/domain/niveauEtudesEures';
 import { paysEuropeList } from '~/client/domain/pays';
 import {
 	CompetenceLinguistique,
@@ -14,21 +13,21 @@ import {
 	LEVEL_CODE,
 	niveauLangage,
 } from '~/server/emplois-europe/infra/langageEures';
-import {
-	ApiEuresEmploiEuropeDetailItem,
-	ApiEuresEmploiEuropeDetailResponse,
-	ApiEuresEmploiEuropeDetailXML,
-	ApiEuresEmploiEuropeRechercheResponse,
-} from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
-import { EURES_CONTRACT_TYPE, typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
 import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 import { XmlService } from '~/server/services/xml/xml.service';
-import CompetencyDimension = ApiEuresEmploiEuropeDetailXML.CompetencyDimension
-import WorkingLanguageCode = ApiEuresEmploiEuropeDetailXML.WorkingLanguageCode
-import PositionProfile = ApiEuresEmploiEuropeDetailXML.PositionProfile
-import PositionQualifications = ApiEuresEmploiEuropeDetailXML.PositionQualifications
-import PositionOrganization = ApiEuresEmploiEuropeDetailXML.PositionOrganization
-import ExperienceCategory = ApiEuresEmploiEuropeDetailXML.ExperienceCategory
+import {
+	ApiEuresEmploiEuropeDetailItem, ApiEuresEmploiEuropeDetailResponse, ApiEuresEmploiEuropeDetailXML,
+	ApiEuresEmploiEuropeRechercheResponse,
+} from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
+import PositionOrganization = ApiEuresEmploiEuropeDetailXML.PositionOrganization;
+import PositionProfile = ApiEuresEmploiEuropeDetailXML.PositionProfile;
+import { EURES_CONTRACT_TYPE, typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
+import PositionQualifications = ApiEuresEmploiEuropeDetailXML.PositionQualifications;
+import NiveauEtudeAPIEures = ApiEuresEmploiEuropeDetailXML.NiveauEtudeAPIEures;
+import { NiveauDEtudesLibelle } from '~/server/emplois-europe/domain/niveauDEtudes';
+import WorkingLanguageCode = ApiEuresEmploiEuropeDetailXML.WorkingLanguageCode;
+import CompetencyDimension = ApiEuresEmploiEuropeDetailXML.CompetencyDimension;
+import ExperienceCategory = ApiEuresEmploiEuropeDetailXML.ExperienceCategory;
 
 
 export class ApiEuresEmploiEuropeMapper {
@@ -153,8 +152,28 @@ export class ApiEuresEmploiEuropeMapper {
 
 	private getNiveauEtude(positionQualifications?: PositionQualifications) {
 		function mapNiveauEtudes(educationLevelCode?: number) {
-			return niveauEtudesEures.find(
-				(niveauEtudes) => niveauEtudes.valeur === educationLevelCode?.toString())?.libellé;
+			// return niveauEtudesEures.find(
+			// 	(niveauEtudes) => niveauEtudes.valeur === educationLevelCode?.toString())?.libellé;
+			switch (educationLevelCode) {
+				case NiveauEtudeAPIEures.ENSEIGNEMENT_PRESCOLAIRE:
+				case NiveauEtudeAPIEures.ENSEIGNEMENT_PRIMAIRE:
+				case NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_INFERIEUR:
+					return NiveauDEtudesLibelle.SANS_DIPLOME_OU_BREVET;
+				case NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_SUPERIEUR:
+				case NiveauEtudeAPIEures.ENSEIGNEMENT_POST_SECONDAIRE_NON_SUPERIEUR:
+					return NiveauDEtudesLibelle.LYCEE_FORMATION_PRO;
+				case NiveauEtudeAPIEures.ENSEIGNEMENT_SUPERIEUR_CYCLE_COURT:
+					return NiveauDEtudesLibelle.SUPERIEUR_COURT;
+				case NiveauEtudeAPIEures.NIVEAU_LICENCE_OU_EQUIVALENT:
+					return NiveauDEtudesLibelle.LICENCE;
+				case NiveauEtudeAPIEures.NIVEAU_MAITRISE_OU_EQUIVALENT:
+					return NiveauDEtudesLibelle.MASTER;
+				case NiveauEtudeAPIEures.NIVEAU_DOCTORAT_OU_EQUIVALENT:
+					return NiveauDEtudesLibelle.DOCTORAT;
+				case NiveauEtudeAPIEures.AUTRE:
+					return NiveauDEtudesLibelle.AUTRE;
+				default: break;
+			}
 		}
 
 		const educationRequirement = this.getElementOrFirstElementInArray(positionQualifications?.EducationRequirement);
