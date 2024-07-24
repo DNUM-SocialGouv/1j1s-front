@@ -13,12 +13,12 @@ import {
 	LEVEL_CODE,
 	niveauLangage,
 } from '~/server/emplois-europe/infra/langageEures';
-import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
-import { XmlService } from '~/server/services/xml/xml.service';
 import {
 	ApiEuresEmploiEuropeDetailItem, ApiEuresEmploiEuropeDetailResponse, ApiEuresEmploiEuropeDetailXML,
 	ApiEuresEmploiEuropeRechercheResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
+import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
+import { XmlService } from '~/server/services/xml/xml.service';
 import PositionOrganization = ApiEuresEmploiEuropeDetailXML.PositionOrganization;
 import PositionProfile = ApiEuresEmploiEuropeDetailXML.PositionProfile;
 import { EURES_CONTRACT_TYPE, typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
@@ -152,8 +152,6 @@ export class ApiEuresEmploiEuropeMapper {
 
 	private getNiveauEtude(positionQualifications?: PositionQualifications) {
 		function mapNiveauEtudes(educationLevelCode?: number) {
-			// return niveauEtudesEures.find(
-			// 	(niveauEtudes) => niveauEtudes.valeur === educationLevelCode?.toString())?.libellé;
 			switch (educationLevelCode) {
 				case NiveauEtudeAPIEures.ENSEIGNEMENT_PRESCOLAIRE:
 				case NiveauEtudeAPIEures.ENSEIGNEMENT_PRIMAIRE:

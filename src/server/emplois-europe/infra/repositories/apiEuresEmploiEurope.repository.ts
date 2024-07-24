@@ -1,14 +1,13 @@
-import { NiveauDEtude } from '~/server/emplois-europe/domain/niveauDEtudes';
 import {
 	EmploiEurope,
 	EmploiEuropeFiltre,
-	NiveauEtudeAPIEures,
 	ResultatRechercheEmploiEurope,
 } from '~/server/emplois-europe/domain/emploiEurope';
 import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEurope.repository';
+import { NiveauDEtude } from '~/server/emplois-europe/domain/niveauDEtudes';
 import {
 	ApiEuresEmploiEuropeDetailItem,
-	ApiEuresEmploiEuropeDetailResponse,
+	ApiEuresEmploiEuropeDetailResponse, ApiEuresEmploiEuropeDetailXML,
 	ApiEuresEmploiEuropeRechercheRequestBody,
 	ApiEuresEmploiEuropeRechercheResponse,
 	EMPLOIS_EUROPE_ITEMS_PER_PAGE,
@@ -18,6 +17,7 @@ import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
+import NiveauEtudeAPIEures = ApiEuresEmploiEuropeDetailXML.NiveauEtudeAPIEures;
 
 export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 	constructor(

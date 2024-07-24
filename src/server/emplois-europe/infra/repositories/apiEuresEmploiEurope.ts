@@ -1,5 +1,6 @@
 import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
+import NiveauEtudeAPIEures = ApiEuresEmploiEuropeDetailXML.NiveauEtudeAPIEures;
 
 export const EMPLOIS_EUROPE_ITEMS_PER_PAGE = 15;
 const EMPLOIS_EUROPE_MAX_VISIBLE_ITEMS = 10_000;
@@ -187,7 +188,7 @@ export interface ApiEuresEmploiEuropeRechercheRequestBody {
 	searchCriteria: {
 		facetCriteria?: Array<{
 			facetName: string;
-			facetValues: Array<string>;
+			facetValues: Array<string | number>;
 		}>;
 		keywordCriteria?: {
 			keywordLanguageCode: string;

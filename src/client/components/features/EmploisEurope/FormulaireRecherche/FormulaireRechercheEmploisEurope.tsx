@@ -12,10 +12,10 @@ import { Input } from '~/client/components/ui/Form/Input';
 import { Select } from '~/client/components/ui/Form/Select/Select';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
-import { niveauDEtudes } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { paysEuropeList } from '~/client/domain/pays';
 import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
+import { niveauDEtudes } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { secteurActiviteEures } from '~/server/emplois-europe/infra/secteurActiviteEures';
 import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
 

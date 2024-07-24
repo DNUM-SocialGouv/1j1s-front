@@ -1,3 +1,6 @@
-export function queryToArray(query: string | string[], separator = ','): string[] {
-	return query.toString().split(separator);
+export function queryToArray(query: string | Array<string>, separator = ','): Array<string> {
+	if (Array.isArray(query)) {
+		return query;
+	}
+	return query.split(separator);
 }

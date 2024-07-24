@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
-import { niveauDEtudes } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
+import { niveauDEtudes } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { secteurActiviteEures } from '~/server/emplois-europe/infra/secteurActiviteEures';
 import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
 

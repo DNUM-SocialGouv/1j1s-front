@@ -10,13 +10,13 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { EURES_POSITION_SCHEDULE_TYPE } from '~/client/domain/codesTempsTravailEures';
-import { NiveauDEtude } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { EmploiEuropeQueryParams } from '~/client/hooks/useEmploiEuropeQuery';
 import { anEmploiEuropeService } from '~/client/services/europe/emploiEurope.service.fixture';
 import {
 	anEmploiEurope,
 	aResultatRechercheEmploiEuropeList,
 } from '~/server/emplois-europe/domain/emploiEurope.fixture';
+import { NiveauDEtude, NiveauDEtudesLibelle } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { SecteurActiviteCode } from '~/server/emplois-europe/infra/secteurActiviteEures';
 import { EURES_CONTRACT_TYPE } from '~/server/emplois-europe/infra/typesContratEures';
 import { createSuccess } from '~/server/errors/either';
@@ -860,7 +860,7 @@ describe('RechercherEmploisEurope', () => {
 				const emploiEuropeServiceMock = anEmploiEuropeService();
 				const resultatsService = aResultatRechercheEmploiEuropeList({
 					nombreResultats: 1,
-					offreList: [anEmploiEurope({ niveauEtudes: 'Enseignement supérieur de cycle court' })],
+					offreList: [anEmploiEurope({ niveauEtudes: NiveauDEtudesLibelle.SUPERIEUR_COURT })],
 				});
 				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
@@ -884,7 +884,7 @@ describe('RechercherEmploisEurope', () => {
 				const premierResultat = (await within(listeDesResultats).findAllByRole('listitem'))[0];
 
 				// THEN
-				const tagTypeContrat = within(premierResultat).getByText('Enseignement supérieur de cycle court');
+				const tagTypeContrat = within(premierResultat).getByText('Supérieur court (Bac+2 maximum)');
 				expect(tagTypeContrat).toBeVisible();
 			});
 			it('si le niveau d’études est "Autre", n’affiche pas le niveau d’études', async () => {
@@ -892,7 +892,7 @@ describe('RechercherEmploisEurope', () => {
 				const emploiEuropeServiceMock = anEmploiEuropeService();
 				const resultatsService = aResultatRechercheEmploiEuropeList({
 					nombreResultats: 1,
-					offreList: [anEmploiEurope({ niveauEtudes: 'Autre' })],
+					offreList: [anEmploiEurope({ niveauEtudes: NiveauDEtudesLibelle.AUTRE })],
 				});
 				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 

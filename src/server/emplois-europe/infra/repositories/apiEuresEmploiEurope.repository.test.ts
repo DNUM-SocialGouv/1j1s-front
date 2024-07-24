@@ -1,7 +1,9 @@
-import { NiveauDEtude } from '~/server/emplois-europe/domain/niveauDEtudes';
-import { NiveauEtudeAPIEures } from '~/server/emplois-europe/domain/emploiEurope';
 import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixture';
-import { ApiEuresEmploiEuropeDetailResponse } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
+import { NiveauDEtude } from '~/server/emplois-europe/domain/niveauDEtudes';
+import {
+	ApiEuresEmploiEuropeDetailResponse,
+	ApiEuresEmploiEuropeDetailXML,
+} from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import {
 	anApiEuresEmploiEuropeDetailItem,
 	anApiEuresEmploiEuropeDetailJobVacancy,
@@ -18,6 +20,7 @@ import { anErrorManagementService } from '~/server/services/error/errorManagemen
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 import { FastXmlParserService } from '~/server/services/xml/fastXmlParser.service';
+import NiveauEtudeAPIEures = ApiEuresEmploiEuropeDetailXML.NiveauEtudeAPIEures;
 
 let apiEuresEmploiEuropeMapper: ApiEuresEmploiEuropeMapper;
 describe('ApiEuresEmploiEuropeRepository', () => {
@@ -386,6 +389,5 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				expect(errorType).toEqual(errorReturnedByErrorManagementService);
 			});
 		});
-	})
-	;
+	});
 });

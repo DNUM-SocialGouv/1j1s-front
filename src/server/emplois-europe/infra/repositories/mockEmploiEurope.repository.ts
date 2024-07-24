@@ -1,10 +1,10 @@
-import { NiveauDEtude } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { EmploiEurope, ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEurope.repository';
+import { NiveauDEtude } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailItem,
-	ApiEuresEmploiEuropeDetailResponse,
+	ApiEuresEmploiEuropeDetailResponse, ApiEuresEmploiEuropeDetailXML,
 	ApiEuresEmploiEuropeRechercheResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import {
@@ -14,6 +14,7 @@ import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/reposi
 import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import NiveauEtudeAPIEures = ApiEuresEmploiEuropeDetailXML.NiveauEtudeAPIEures;
 
 export class MockEmploiEuropeRepository implements EmploiEuropeRepository {
 	constructor(
@@ -1043,7 +1044,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 						},
 						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
 							codeLangueDeLOffre: 'nl',
-							educationLevelCode: NiveauDEtude.NIVEAU_DOCTORAT_OU_EQUIVALENT,
+							educationLevelCode: NiveauEtudeAPIEures.NIVEAU_DOCTORAT_OU_EQUIVALENT,
 							experiencesNecessaires: [{
 								duree: 1,
 								unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,

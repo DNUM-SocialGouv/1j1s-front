@@ -6,6 +6,7 @@ import { withValidation } from '~/pages/api/middlewares/validation/validation.mi
 import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
 import { EmploiEuropeFiltre } from '~/server/emplois-europe/domain/emploiEurope';
+import { NiveauDEtude } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { EMPLOIS_EUROPE_LAST_VISIBLE_PAGE_ALLOWED } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import { dependencies } from '~/server/start';
 
@@ -32,7 +33,8 @@ export function emploiEuropeFiltreMapper(request: NextApiRequest): EmploiEuropeF
 	return {
 		codePays: query.codePays as string | undefined,
 		motCle: query.motCle as string | undefined,
-		niveauEtude: query.niveauEtude ? queryToArray(query.niveauEtude) : [],
+		// TODO (BRUJ 24/07/2024): trouver un moyen pour ne pas mettre de as
+		niveauEtude: query.niveauEtudes ? queryToArray(query.niveauEtudes) as Array<NiveauDEtude> : [],
 		page: Number(query.page),
 		secteurActivite: query.secteurActivite ? queryToArray(query.secteurActivite) : [],
 		tempsDeTravail: query.tempsDeTravail ? queryToArray(query.tempsDeTravail) : [],
