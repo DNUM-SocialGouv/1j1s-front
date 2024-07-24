@@ -37,7 +37,6 @@ export function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
 					<li key={`${entreprise.id}-${index}`}>
 						<ResultatRechercherSolution
 							lienOffre={entreprise.candidaturePossible ? `/apprentissage/entreprise/${entreprise.id}` : undefined}
-							logo={'/images/logos/fallback.svg'}
 							intituléOffre={entreprise.nom}
 							intituléLienOffre={'Candidater'}
 							étiquetteOffreList={getTags(entreprise)}
