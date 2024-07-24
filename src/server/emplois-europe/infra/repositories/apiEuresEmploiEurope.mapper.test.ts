@@ -1,5 +1,5 @@
 import { EURES_POSITION_SCHEDULE_TYPE } from '~/client/domain/codesTempsTravailEures';
-import { EURES_EDUCATION_LEVEL } from '~/client/domain/niveauEtudesEures';
+import { NiveauDEtude } from '~/client/domain/niveauEtudesEures';
 import {
 	anEmploiEurope,
 	aResultatRechercheEmploiEuropeList,
@@ -294,7 +294,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 						{
 							codeLangueDeLOffre: 'fr',
 							description: 'Je suis la description',
-							educationLevelCode: EURES_EDUCATION_LEVEL.NIVEAU_LICENCE_OU_EQUIVALENT,
+							educationLevelCode: NiveauDEtude.NIVEAU_LICENCE_OU_EQUIVALENT,
 							experiencesNecessaires: [{ duree: 3, unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR }],
 							listeLangueDeTravail: ['FR', 'EN'],
 							listePermis: ['B', 'C'],
@@ -530,7 +530,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 			describe('si le niveau d’études est fourni', () => {
 				it('retourne un emploi avec le niveau d’études en français selon le référentiel', () => {
 					// GIVEN
-					const educationLevelCode = EURES_EDUCATION_LEVEL.ENSEIGNEMENT_PRESCOLAIRE;
+					const educationLevelCode = NiveauDEtude.ENSEIGNEMENT_PRESCOLAIRE;
 					const handle = 'eures-offer-id';
 					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse({
 						educationLevelCode: educationLevelCode,

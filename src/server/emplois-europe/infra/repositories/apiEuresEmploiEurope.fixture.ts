@@ -8,7 +8,7 @@ import {
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 
-export function anApiEuresRechercheBody(motCle = 'boulanger'): ApiEuresEmploiEuropeRechercheRequestBody {
+export function anApiEuresRechercheBody(override: Partial<ApiEuresEmploiEuropeRechercheRequestBody>): ApiEuresEmploiEuropeRechercheRequestBody {
 	return {
 		dataSetRequest: {
 			excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
@@ -21,10 +21,11 @@ export function anApiEuresRechercheBody(motCle = 'boulanger'): ApiEuresEmploiEur
 			keywordCriteria:
 				{
 					keywordLanguageCode: 'fr', keywords: [
-						{ keywordScope: 'EVERYWHERE', keywordText: motCle },
+						{ keywordScope: 'EVERYWHERE', keywordText: 'boulanger' },
 					],
 				},
 		},
+		...override,
 	};
 }
 

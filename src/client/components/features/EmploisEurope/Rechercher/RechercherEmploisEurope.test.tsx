@@ -10,7 +10,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { EURES_POSITION_SCHEDULE_TYPE } from '~/client/domain/codesTempsTravailEures';
-import { EURES_EDUCATION_LEVEL } from '~/client/domain/niveauEtudesEures';
+import { NiveauDEtude } from '~/client/domain/niveauEtudesEures';
 import { EmploiEuropeQueryParams } from '~/client/hooks/useEmploiEuropeQuery';
 import { anEmploiEuropeService } from '~/client/services/europe/emploiEurope.service.fixture';
 import {
@@ -551,7 +551,7 @@ describe('RechercherEmploisEurope', () => {
 			const query: EmploiEuropeQueryParams = {
 				codePays: 'ES',
 				libellePays: 'Espagne',
-				niveauEtude: EURES_EDUCATION_LEVEL.NIVEAU_MAITRISE_OU_EQUIVALENT.toString(),
+				niveauEtude: NiveauDEtude.NIVEAU_MAITRISE_OU_EQUIVALENT.toString(),
 				page: '1',
 				secteurActivite: SecteurActiviteCode.AGRICULTURE,
 				tempsDeTravail: `${EURES_POSITION_SCHEDULE_TYPE.FullTime},${EURES_POSITION_SCHEDULE_TYPE.NonSpecified}`,

@@ -1,4 +1,4 @@
-import { EURES_EDUCATION_LEVEL } from '~/client/domain/niveauEtudesEures';
+import { NiveauDEtude } from '~/client/domain/niveauEtudesEures';
 import { LEVEL_CODE, LEVEL_NAME } from '~/server/emplois-europe/infra/langageEures';
 import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 
@@ -58,7 +58,7 @@ export interface LanguageSpecificationCompetence {
 export interface EmploiEuropeFiltre {
 	codePays?: string;
 	typeContrat?: string[];
-	niveauEtude?: Array<EURES_EDUCATION_LEVEL>;
+	niveauEtude?: Array<NiveauDEtude>;
 	motCle?: string;
 	page: number;
 	secteurActivite?: string[]

@@ -1,4 +1,4 @@
-import { EURES_EDUCATION_LEVEL } from '~/client/domain/niveauEtudesEures';
+import { NiveauDEtude } from '~/client/domain/niveauEtudesEures';
 import {
 	EmploiEurope,
 	EmploiEuropeFiltre,
@@ -30,22 +30,22 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 	private buildSearchBody(filtre: EmploiEuropeFiltre): ApiEuresEmploiEuropeRechercheRequestBody {
 		const facetCriteria = [];
 
-		function mapNiveauEtude(niveauEtudeList: Array<EURES_EDUCATION_LEVEL>): Array<NiveauEtudeAPIEures> {
-			function getNiveauEtudeApiEures(niveauEtude: EURES_EDUCATION_LEVEL) {
+		function mapNiveauEtude(niveauEtudeList: Array<NiveauDEtude>): Array<NiveauEtudeAPIEures> {
+			function getNiveauEtudeApiEures(niveauEtude: NiveauDEtude) {
 				switch (niveauEtude) {
-					case EURES_EDUCATION_LEVEL.SANS_DIPLOME_OU_BREVET:
+					case NiveauDEtude.SANS_DIPLOME_OU_BREVET:
 						return [NiveauEtudeAPIEures.ENSEIGNEMENT_PRESCOLAIRE, NiveauEtudeAPIEures.ENSEIGNEMENT_PRIMAIRE, NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_INFERIEUR];
-					case EURES_EDUCATION_LEVEL.LYCEE_FORMATION_PRO:
+					case NiveauDEtude.LYCEE_FORMATION_PRO:
 						return [NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_SUPERIEUR, NiveauEtudeAPIEures.ENSEIGNEMENT_POST_SECONDAIRE_NON_SUPERIEUR];
-					case EURES_EDUCATION_LEVEL.SUPERIEUR_COURT:
+					case NiveauDEtude.SUPERIEUR_COURT:
 						return [NiveauEtudeAPIEures.ENSEIGNEMENT_SUPERIEUR_CYCLE_COURT];
-					case EURES_EDUCATION_LEVEL.LICENSE:
+					case NiveauDEtude.LICENCE:
 						return [NiveauEtudeAPIEures.NIVEAU_LICENCE_OU_EQUIVALENT];
-					case EURES_EDUCATION_LEVEL.MASTER:
+					case NiveauDEtude.MASTER:
 						return [NiveauEtudeAPIEures.NIVEAU_MAITRISE_OU_EQUIVALENT];
-					case EURES_EDUCATION_LEVEL.DOCTORAT:
+					case NiveauDEtude.DOCTORAT:
 						return [NiveauEtudeAPIEures.NIVEAU_DOCTORAT_OU_EQUIVALENT];
-					case EURES_EDUCATION_LEVEL.AUTRE:
+					case NiveauDEtude.AUTRE:
 						return [NiveauEtudeAPIEures.AUTRE];
 				}
 			}

@@ -1,4 +1,4 @@
-import { EURES_EDUCATION_LEVEL } from '~/client/domain/niveauEtudesEures';
+import { NiveauDEtude } from '~/client/domain/niveauEtudesEures';
 import { NiveauEtudeAPIEures } from '~/server/emplois-europe/domain/emploiEurope';
 import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixture';
 import { ApiEuresEmploiEuropeDetailResponse } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
@@ -18,7 +18,6 @@ import { anErrorManagementService } from '~/server/services/error/errorManagemen
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 import { FastXmlParserService } from '~/server/services/xml/fastXmlParser.service';
-import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode';
 
 let apiEuresEmploiEuropeMapper: ApiEuresEmploiEuropeMapper;
 describe('ApiEuresEmploiEuropeRepository', () => {
@@ -31,7 +30,14 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
-				const body = anApiEuresRechercheBody('boulanger');
+				const body = anApiEuresRechercheBody({ searchCriteria: {
+					facetCriteria: [],
+					keywordCriteria:
+					{
+						keywordLanguageCode: 'fr', keywords: [
+							{ keywordScope: 'EVERYWHERE', keywordText: 'boulanger' },
+						],
+					} } });
 
 				// When
 				repository.search({
@@ -49,17 +55,11 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
-				const body = {
-					dataSetRequest: {
-						excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
-						pageNumber: '1',
-						resultsPerPage: '15',
-						sortBy: 'BEST_MATCH',
-					},
+				const body = anApiEuresRechercheBody({
 					searchCriteria: {
 						facetCriteria: [],
 					},
-				};
+				});
 
 				// When
 				repository.search({
@@ -76,13 +76,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
-				const body = {
-					dataSetRequest: {
-						excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
-						pageNumber: '1',
-						resultsPerPage: '15',
-						sortBy: 'BEST_MATCH',
-					},
+				const body = anApiEuresRechercheBody( {
 					searchCriteria: {
 						facetCriteria: [
 							{
@@ -91,7 +85,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 							},
 						],
 					},
-				};
+				});
 
 				// When
 				repository.search({
@@ -109,13 +103,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
-				const body = {
-					dataSetRequest: {
-						excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
-						pageNumber: '1',
-						resultsPerPage: '15',
-						sortBy: 'BEST_MATCH',
-					},
+				const body = anApiEuresRechercheBody( {
 					searchCriteria: {
 						facetCriteria: [
 							{
@@ -124,7 +112,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 							},
 						],
 					},
-				};
+				});
 
 				// When
 				repository.search({
@@ -142,13 +130,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
-				const body = {
-					dataSetRequest: {
-						excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
-						pageNumber: '1',
-						resultsPerPage: '15',
-						sortBy: 'BEST_MATCH',
-					},
+				const body = anApiEuresRechercheBody( {
 					searchCriteria: {
 						facetCriteria: [
 							{
@@ -157,7 +139,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 							},
 						],
 					},
-				};
+				});
 
 				// When
 				repository.search({
@@ -170,21 +152,21 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 			});
 		});
 
-		describe('quand un niveauEtude est fourni', () => {
+		describe('quand un ou plusieurs niveaux d’études sont fournis', () => {
 			it.each([
-				[EURES_EDUCATION_LEVEL.SANS_DIPLOME_OU_BREVET, [NiveauEtudeAPIEures.ENSEIGNEMENT_PRESCOLAIRE, NiveauEtudeAPIEures.ENSEIGNEMENT_PRIMAIRE, NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_INFERIEUR]],
-			])('appelle l’api Eures avec le niveauEtude', (filtreRecherche, expectedNiveauApiEures) => {
+				[NiveauDEtude.SANS_DIPLOME_OU_BREVET, [NiveauEtudeAPIEures.ENSEIGNEMENT_PRESCOLAIRE, NiveauEtudeAPIEures.ENSEIGNEMENT_PRIMAIRE, NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_INFERIEUR]],
+				[NiveauDEtude.LYCEE_FORMATION_PRO, [NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_SUPERIEUR, NiveauEtudeAPIEures.ENSEIGNEMENT_POST_SECONDAIRE_NON_SUPERIEUR]],
+				[NiveauDEtude.SUPERIEUR_COURT, [NiveauEtudeAPIEures.ENSEIGNEMENT_SUPERIEUR_CYCLE_COURT]],
+				[NiveauDEtude.LICENCE, [NiveauEtudeAPIEures.NIVEAU_LICENCE_OU_EQUIVALENT]],
+				[NiveauDEtude.MASTER, [NiveauEtudeAPIEures.NIVEAU_MAITRISE_OU_EQUIVALENT]],
+				[NiveauDEtude.DOCTORAT, [NiveauEtudeAPIEures.NIVEAU_DOCTORAT_OU_EQUIVALENT]],
+				[NiveauDEtude.AUTRE, [NiveauEtudeAPIEures.AUTRE]],
+			])('appelle l’api Eures avec les niveaux d’études correspondants', (filtreRecherche, expectedNiveauApiEures) => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
 				
 				const body = anApiEuresRechercheBody({
-					dataSetRequest: {
-						excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
-						pageNumber: '1',
-						resultsPerPage: '15',
-						sortBy: 'BEST_MATCH',
-					},
 					searchCriteria: {
 						facetCriteria: [
 							{
@@ -204,6 +186,37 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				// Then
 				expect(httpClientService.post).toHaveBeenCalledWith('/search', body);
 			});
+
+			it('concatène les niveaux d’études en cas de recherche avec plusieurs niveaux d’études', () => {
+			  // Given
+				const httpClientService = aPublicHttpClientService();
+				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
+
+				const body = anApiEuresRechercheBody({
+					searchCriteria: {
+						facetCriteria: [
+							{
+								facetName: 'EDUCATION_LEVEL',
+								facetValues: [
+									NiveauEtudeAPIEures.ENSEIGNEMENT_PRESCOLAIRE,
+									NiveauEtudeAPIEures.ENSEIGNEMENT_PRIMAIRE,
+									NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_INFERIEUR,
+									NiveauEtudeAPIEures.AUTRE,
+								],
+							},
+						],
+					},
+				});
+
+			  // When
+				repository.search({
+					niveauEtude: [NiveauDEtude.SANS_DIPLOME_OU_BREVET, NiveauDEtude.AUTRE],
+					page: 1,
+				});
+
+			  // Then
+				expect(httpClientService.post).toHaveBeenCalledWith('/search', body);
+			});
 		});
 
 		describe('quand un secteur d‘activité est fourni', () => {
@@ -212,13 +225,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				const httpClientService = aPublicHttpClientService();
 				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
 
-				const body = {
-					dataSetRequest: {
-						excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
-						pageNumber: '1',
-						resultsPerPage: '15',
-						sortBy: 'BEST_MATCH',
-					},
+				const body = anApiEuresRechercheBody( {
 					searchCriteria: {
 						facetCriteria: [
 							{
@@ -227,7 +234,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 							},
 						],
 					},
-				};
+				});
 
 				// When
 				repository.search({
