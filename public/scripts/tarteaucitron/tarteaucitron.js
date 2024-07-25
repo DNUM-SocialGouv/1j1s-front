@@ -356,7 +356,7 @@ var tarteaucitron = {
                 html += '         <div id="tarteaucitronInfo">';
                 html += '         ' + tarteaucitron.lang.disclaimer;
                 if (tarteaucitron.parameters.privacyUrl !== "") {
-                    html += '   <br/><br/>';
+                    /** Ne pas remettre les br en cas de mise à jour du script **/
                     html += '   <button type="button" id="tarteaucitronPrivacyUrlDialog" role="link">';
                     html += '       ' + tarteaucitron.lang.privacyUrl;
                     html += '   </button>';
@@ -390,7 +390,8 @@ var tarteaucitron = {
                     html += '<li class="tarteaucitronLine">';
                     html += '   <div class="tarteaucitronName">';
                     html += '       <span class="tarteaucitronH3" role="heading" aria-level="3">' + tarteaucitron.lang.mandatoryText + '</span>';
-                    html += '       <span class="tarteaucitronListCookies" aria-hidden="true"></span><br/>';
+                    /** Ne pas remettre les br en cas de mise à jour du script **/
+                    html += '       <span class="tarteaucitronListCookies" aria-hidden="true"></span>';
                     html += '   </div>';
                     if (tarteaucitron.parameters.mandatoryCta == true) {
                         html += '   <div class="tarteaucitronAsk">';
@@ -642,7 +643,8 @@ var tarteaucitron = {
                         if (tarteaucitronNoAdBlocker === false) {
                             html = '<div id="tarteaucitronAlertBig" class="tarteaucitronAlertBig' + orientation + ' tarteaucitron-display-block" role="alert" aria-live="polite">';
                             html += '   <p id="tarteaucitronDisclaimerAlert">';
-                            html += '       ' + tarteaucitron.lang.adblock + '<br/>';
+                            /** Ne pas remettre les br en cas de mise à jour du script **/
+                            html += '       ' + tarteaucitron.lang.adblock;
                             html += '       <strong>' + tarteaucitron.lang.adblock_call + '</strong>';
                             html += '   </p>';
                             html += '   <button type="button" class="tarteaucitronCTAButton" id="tarteaucitronCTAButton">';
