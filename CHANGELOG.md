@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.333.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.332.0...v3.333.0) (2024-07-26)
+
+
+### Features
+
+* **emplois europe:** fusionner les niveaux d'études ([#3210](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3210)) ([d362f99](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d362f9900b7a9a437cb89ff8d8c525ab18cbc54d))
+
 ## [3.332.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.331.0...v3.332.0) (2024-07-26)
 
 
