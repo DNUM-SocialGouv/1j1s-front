@@ -3,8 +3,6 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import AutresBesoins
 	from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/AutresBesoins';
-import AutresBesoins26ans
-	from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/AutresBesoins26ans';
 import BesoinAide from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide';
 import BesoinAide26ans
 	from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide26ans';
@@ -36,7 +34,7 @@ export type Formulaires =
 	| 'AutresBesoins26ans';
 
 export interface FormulairesProps {
-	setTypeFormulaireAffiché: Dispatch<SetStateAction<Formulaires>>;
+	onBackButton: Dispatch<SetStateAction<Formulaires>>;
 	setIsFranceTravailModalOpen: Dispatch<SetStateAction<boolean>>;
 	setIsInscriptionFranceTravailModalOpen: Dispatch<SetStateAction<boolean>>;
 	setIsMissionLocaleModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -97,39 +95,39 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
 	switch (typeFormulaireÀAfficher) {
 		case 'PasDAccompagnement':
 			return <PasDAccompagnement
-				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+				onBackButton={setTypeFormulaireAffiché}
 				setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
 			/>;
 		case 'BesoinAide':
 			return <BesoinAide
-				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+				onBackButton={setTypeFormulaireAffiché}
 				setIsDispositifsReferencesModalOpen={setIsDispositifsReferencesModalOpen}
 			/>;
 		case 'BesoinAide26ans':
 			return <BesoinAide26ans
-				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+				onBackButton={setTypeFormulaireAffiché}
 				setIsDispositifsReferencesModalOpen={setIsDispositifsReferencesModalOpen}
 			/>;
 		case 'AutresBesoins':
 			return <AutresBesoins
-				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+				onBackButton={setTypeFormulaireAffiché}
 				setIsInscriptionFranceTravailModalOpen={setIsInscriptionFranceTravailModalOpen}
 				setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
 			/>;
 		case 'Handicap':
 			return <Handicap
-				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+				onBackButton={setTypeFormulaireAffiché}
 				setIsInscriptionFranceTravailModalOpen={setIsInscriptionFranceTravailModalOpen}
 			/>;
 		case 'AutresBesoins26ans':
-			return <AutresBesoins26ans
-				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+			return <AutresBesoins
+				onBackButton={setTypeFormulaireAffiché}
 				setIsInscriptionFranceTravailModalOpen={setIsInscriptionFranceTravailModalOpen}
 				setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
 			/>;
 		default:
 			return <Démarrage
-				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+				onBackButton={setTypeFormulaireAffiché}
 				setIsFranceTravailModalOpen={setIsFranceTravailModalOpen}
 				setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
 			/>;

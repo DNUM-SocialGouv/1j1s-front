@@ -4,8 +4,8 @@ import { FormulairesProps } from '~/client/components/features/ContratEngagement
 
 import styles from './AccompagnementFormulaireCommon.module.scss';
 
-type DemarrageProps = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsFranceTravailModalOpen' | 'setIsMissionLocaleModalOpen'>
-export default function Démarrage({ setTypeFormulaireAffiché, setIsFranceTravailModalOpen, setIsMissionLocaleModalOpen }: DemarrageProps) {
+type DemarrageProps = Pick<FormulairesProps, 'onBackButton' | 'setIsFranceTravailModalOpen' | 'setIsMissionLocaleModalOpen'>
+export default function Démarrage({ onBackButton, setIsFranceTravailModalOpen, setIsMissionLocaleModalOpen }: DemarrageProps) {
 
 	return <>
 		<p className={styles.question}>Bénéficiez-vous actuellement d‘un accompagnement ?</p>

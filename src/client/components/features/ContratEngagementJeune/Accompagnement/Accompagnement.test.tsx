@@ -144,20 +144,47 @@ describe('<Accompagnement />', () => {
 				await user.click(screen.getByRole('button', { name: 'Entre 18 et 25 ans' }));
 				await user.click(screen.getByRole('button', { name: 'Oui' }));
 
+
 				expect(screen.getByText('Rencontrez-vous d’autres besoins ?')).toBeVisible();
-				// TODO (BRUJ 04/06/2024): ne devrait pas être des boutons mais des checkbox
-				expect(screen.getByRole('button', { name: 'Logement' })).toBeVisible();
-				expect(screen.getByRole('button', { name: 'Santé' })).toBeVisible();
-				expect(screen.getByRole('button', { name: 'Difficultés administratives ou juridiques' })).toBeVisible();
-				expect(screen.getByRole('button', { name: 'Problématique d‘accès aux droits' })).toBeVisible();
-				expect(screen.getByRole('button', { name: 'Maîtrise de français' })).toBeVisible();
-				expect(screen.getByRole('button', { name: 'Contraintes familiales' })).toBeVisible();
+				expect(screen.getByRole('checkbox', { name: 'Logement' })).toBeVisible();
+				expect(screen.getByRole('checkbox', { name: 'Santé' })).toBeVisible();
+				expect(screen.getByRole('checkbox', { name: 'Difficultés administratives ou juridiques' })).toBeVisible();
+				expect(screen.getByRole('checkbox', { name: 'Problématique d‘accès aux droits' })).toBeVisible();
+				expect(screen.getByRole('checkbox', { name: 'Maîtrise de français' })).toBeVisible();
+				expect(screen.getByRole('checkbox', { name: 'Contraintes familiales' })).toBeVisible();
+			});
+
+			it('lorsque l‘on valide sans séléctionner de besoin, affiche la modale de redirection vers france travail', async () => {
+				const user = userEvent.setup();
+
+				renderComponent();
+
+				await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
+				await user.click(screen.getByRole('button', { name: 'Entre 18 et 25 ans' }));
+				await user.click(screen.getByRole('button', { name: 'Oui' }));
+				await user.click(screen.getByRole('button', { name: 'Valider' }));
+
+				expect(screen.getByRole('dialog', { name: 'Vous pouvez bénéficier des services de France Travail' })).toBeVisible();
+			});
+
+			it('lorsque l‘on valide avec au moins un besoin séléctionné, affiche la modale avec le formulaire d‘accompagnement mission locale', async () => {
+				const user = userEvent.setup();
+
+				renderComponent();
+
+				await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
+				await user.click(screen.getByRole('button', { name: 'Entre 18 et 25 ans' }));
+				await user.click(screen.getByRole('button', { name: 'Oui' }));
+				await user.click(screen.getByRole('checkbox', { name: 'Logement' }));
+				await user.click(screen.getByRole('button', { name: 'Valider' }));
+
+				expect(screen.getByRole('dialog', { name: 'Vous pouvez bénéficier d’un accompagnement répondant à vos besoins auprès de votre Mission Locale' })).toBeVisible();
 			});
 		});
 
 		describe('quand on clique sur Plus de 25 ans', () => {
 			describe('et qu‘on souhaite être orienté', () => {
-				it('affiche le formulaire sur le handicao', async () => {
+				it('affiche le formulaire sur le handicap', async () => {
 					// Given
 					const user = userEvent.setup();
 					const contenuModal = 'Êtes-vous en situation de handicap (RQTH) ?';
@@ -174,24 +201,55 @@ describe('<Accompagnement />', () => {
 					expect(screen.getByRole('button', { name: 'Non' })).toBeVisible();
 				});
 
-				it('et qu‘on est en situation de handicap, affiche le formulaire autre besoin', async () => {
-					const user = userEvent.setup();
+				describe('et qu‘on est en situation de handicap', () => {
+					it('affiche le formulaire autre besoin', async () => {
+						const user = userEvent.setup();
 
-					renderComponent();
+						renderComponent();
 
-					await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
-					await user.click(screen.getByRole('button', { name: 'Plus de 25 ans' }));
-					await user.click(screen.getByRole('button', { name: 'Oui' }));
-					await user.click(screen.getByRole('button', { name: 'Oui' }));
+						await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
+						await user.click(screen.getByRole('button', { name: 'Plus de 25 ans' }));
+						await user.click(screen.getByRole('button', { name: 'Oui' }));
+						await user.click(screen.getByRole('button', { name: 'Oui' }));
 
-					expect(screen.getByText('Rencontrez-vous d’autres besoins ?')).toBeVisible();
-					// TODO (BRUJ 04/06/2024): ne devrait pas être des boutons mais des checkbox
-					expect(screen.getByRole('button', { name: 'Logement' })).toBeVisible();
-					expect(screen.getByRole('button', { name: 'Santé' })).toBeVisible();
-					expect(screen.getByRole('button', { name: 'Difficultés administratives ou juridiques' })).toBeVisible();
-					expect(screen.getByRole('button', { name: 'Problématique d‘accès aux droits' })).toBeVisible();
-					expect(screen.getByRole('button', { name: 'Maîtrise de français' })).toBeVisible();
-					expect(screen.getByRole('button', { name: 'Contraintes familiales' })).toBeVisible();				});
+						expect(screen.getByText('Rencontrez-vous d’autres besoins ?')).toBeVisible();
+						expect(screen.getByRole('checkbox', { name: 'Logement' })).toBeVisible();
+						expect(screen.getByRole('checkbox', { name: 'Santé' })).toBeVisible();
+						expect(screen.getByRole('checkbox', { name: 'Difficultés administratives ou juridiques' })).toBeVisible();
+						expect(screen.getByRole('checkbox', { name: 'Problématique d‘accès aux droits' })).toBeVisible();
+						expect(screen.getByRole('checkbox', { name: 'Maîtrise de français' })).toBeVisible();
+						expect(screen.getByRole('checkbox', { name: 'Contraintes familiales' })).toBeVisible();
+					});
+
+					it('lorsque l‘on valide sans séléctionner de besoin, affiche la modale de redirection vers france travail', async () => {
+						const user = userEvent.setup();
+
+						renderComponent();
+
+						await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
+						await user.click(screen.getByRole('button', { name: 'Plus de 25 ans' }));
+						await user.click(screen.getByRole('button', { name: 'Oui' }));
+						await user.click(screen.getByRole('button', { name: 'Oui' }));
+						await user.click(screen.getByRole('button', { name: 'Valider' }));
+
+						expect(screen.getByRole('dialog', { name: 'Vous pouvez bénéficier des services de France Travail' })).toBeVisible();
+					});
+
+					it('lorsque l‘on valide avec au moins un besoin séléctionné, affiche la modale avec le formulaire d‘accompagnement mission locale', async () => {
+						const user = userEvent.setup();
+
+						renderComponent();
+
+						await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
+						await user.click(screen.getByRole('button', { name: 'Plus de 25 ans' }));
+						await user.click(screen.getByRole('button', { name: 'Oui' }));
+						await user.click(screen.getByRole('button', { name: 'Oui' }));
+						await user.click(screen.getByRole('checkbox', { name: 'Logement' }));
+						await user.click(screen.getByRole('button', { name: 'Valider' }));
+
+						expect(screen.getByRole('dialog', { name: 'Vous pouvez bénéficier d’un accompagnement répondant à vos besoins auprès de votre Mission Locale' })).toBeVisible();
+					});
+				});
 
 				it('et qu‘on n‘est pas en situation de handicap, affiche la modale de redirection vers france travail', async () => {
 					const user = userEvent.setup();
@@ -209,6 +267,7 @@ describe('<Accompagnement />', () => {
 					expect(linkFranceTravail).toHaveAttribute('href', 'https://candidat.francetravail.fr/inscription-en-ligne/accueil');
 				});
 			});
+
 			it('et qu‘on ne souhaite pas être orienté, affiche le formulaire des dispositifs', async () => {
 				const user = userEvent.setup();
 				renderComponent();

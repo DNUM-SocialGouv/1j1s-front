@@ -7,8 +7,8 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from './AccompagnementFormulaireCommon.module.scss';
 
 
-type BesoinAideProps = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsDispositifsReferencesModalOpen'>
-export default function BesoinAide26ans({ setTypeFormulaireAffiché, setIsDispositifsReferencesModalOpen }: BesoinAideProps ) {
+type BesoinAideProps = Pick<FormulairesProps, 'onBackButton' | 'setIsDispositifsReferencesModalOpen'>
+export default function BesoinAide26ans({ onBackButton, setIsDispositifsReferencesModalOpen }: BesoinAideProps ) {
 	return <>
 		<ButtonComponent
 			appearance={'quaternary'}

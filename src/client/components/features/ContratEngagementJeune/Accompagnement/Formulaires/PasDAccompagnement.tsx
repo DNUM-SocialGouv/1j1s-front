@@ -6,9 +6,9 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './AccompagnementFormulaireCommon.module.scss';
 
-type PasDAccompagnementProps = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsMissionLocaleModalOpen'>
+type PasDAccompagnementProps = Pick<FormulairesProps, 'onBackButton' | 'setIsMissionLocaleModalOpen'>
 
-export default function PasDAccompagnement({ setTypeFormulaireAffiché, setIsMissionLocaleModalOpen }: PasDAccompagnementProps) {
+export default function PasDAccompagnement({ onBackButton, setIsMissionLocaleModalOpen }: PasDAccompagnementProps) {
 
 	return <>
 		<ButtonComponent

@@ -8,6 +8,37 @@
 
 .question {
   @extend %bold;
+
+  > span {
+    display: inline-block;
+  }
+}
+
+.fieldset .checkbox input[type=checkbox] + label {
+  @extend %text-regular;
+  display: block;
+  text-align: center;
+  height: 100%;
+  border-radius: 20px;
+  border: 1px solid utilities-deprecated.$color-primary;
+  padding: 12px;
+  @include utilities.media(large) {
+    padding: 20px;
+  }
+
+  &::before {
+    display: none;
+  }
+}
+
+.fieldset input[type=checkbox]:focus + label {
+  outline: 2px solid utilities-deprecated.$color-primary;
+  outline-offset: 2px;
+}
+
+.fieldset input[type=checkbox]:checked + label {
+  color: utilities.$color-text-primary-inverse;
+  background-color: utilities.$color-background-secondary;
 }
 
 .optionBouton {
@@ -28,16 +59,17 @@
 }
 
 .accompagnementValider {
-  text-align: center;
-  margin-top: 2rem;
+  display: flex;
+  margin: 2rem auto 0 auto;
 }
 
 .autresBesoinsContainer {
+  margin-top: 1.5rem;
   display: grid;
+  gap: 1rem;
   grid-template-rows: 1fr;
-  @include utilities-deprecated.media(large) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+  @include utilities.media(large) {
+    grid-template-columns: repeat(2, min(240px));
   }
 }
 

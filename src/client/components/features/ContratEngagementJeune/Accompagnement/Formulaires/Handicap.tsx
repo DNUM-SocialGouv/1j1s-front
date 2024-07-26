@@ -6,8 +6,8 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './AccompagnementFormulaireCommon.module.scss';
 
-type HandicapProps = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsInscriptionFranceTravailModalOpen'>
-export default function Handicap({ setTypeFormulaireAffiché, setIsInscriptionFranceTravailModalOpen }: HandicapProps) {
+type HandicapProps = Pick<FormulairesProps, 'onBackButton' | 'setIsInscriptionFranceTravailModalOpen'>
+export default function Handicap({ onBackButton, setIsInscriptionFranceTravailModalOpen }: HandicapProps) {
 	return <>
 		<ButtonComponent
 			appearance={'quaternary'}
