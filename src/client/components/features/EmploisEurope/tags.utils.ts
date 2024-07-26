@@ -1,4 +1,5 @@
 import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
+import { NiveauDEtudesLibelle } from '~/server/emplois-europe/domain/niveauDEtudes';
 
 export const LIBELLE_TAG_MULTI_LOCALISATIONS = 'Multi-localisation';
 
@@ -28,8 +29,8 @@ export const getTagsFromAnnonce = (emploiEurope: EmploiEurope): string[] => {
 	if (emploiEurope.tempsDeTravail) {
 		tags.push(emploiEurope.tempsDeTravail);
 	}
-	
-	if (emploiEurope.niveauEtudes && emploiEurope.niveauEtudes !== 'Autre') {
+
+	if (emploiEurope.niveauEtudes && emploiEurope.niveauEtudes !== NiveauDEtudesLibelle.AUTRE) {
 		tags.push(emploiEurope.niveauEtudes);
 	}
 

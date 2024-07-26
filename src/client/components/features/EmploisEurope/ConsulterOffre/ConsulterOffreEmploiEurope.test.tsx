@@ -9,6 +9,7 @@ import {
 } from '~/client/components/features/EmploisEurope/ConsulterOffre/ConsulterOffreEmploiEurope';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixture';
+import { NiveauDEtudesLibelle } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { LEVEL_CODE, LEVEL_NAME } from '~/server/emplois-europe/infra/langageEures';
 import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 import { queries } from '~/test-utils';
@@ -134,20 +135,20 @@ describe('DetailOffreEmploiEurope', () => {
 
 		it('si le niveau d‘etudes est présent, affiche le niveau d‘etudes', () => {
 			// GIVEN
-			const offreEmploiEurope = anEmploiEurope({ niveauEtudes: 'Niveau maîtrise (Master) ou équivalent' });
+			const offreEmploiEurope = anEmploiEurope({ niveauEtudes: NiveauDEtudesLibelle.MASTER });
 
 			// WHEN
 			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
 
 			// THEN
 			const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
-			const tagTypeContrat = within(listTags).getByText('Niveau maîtrise (Master) ou équivalent');
+			const tagTypeContrat = within(listTags).getByText('Master (Bac+5)');
 			expect(tagTypeContrat).toBeVisible();
 		});
 
 		it('si le niveau d‘etudes est "Autre", n‘affiche pas le niveau d‘etudes', () => {
 			// GIVEN
-			const offreEmploiEurope = anEmploiEurope({ niveauEtudes: 'Autre' });
+			const offreEmploiEurope = anEmploiEurope({ niveauEtudes: NiveauDEtudesLibelle.AUTRE });
 
 			// WHEN
 			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);

@@ -12,10 +12,10 @@ import { Input } from '~/client/components/ui/Form/Input';
 import { Select } from '~/client/components/ui/Form/Select/Select';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
-import { niveauEtudesEures } from '~/client/domain/niveauEtudesEures';
 import { paysEuropeList } from '~/client/domain/pays';
 import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
+import { niveauDEtudes } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { secteurActiviteEures } from '~/server/emplois-europe/infra/secteurActiviteEures';
 import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
 
@@ -164,7 +164,7 @@ export function FormulaireRechercheEmploisEurope() {
 				<Select
 					className={classNames(styles.filtreDesktopOnly, styles.niveauEtudes)}
 					multiple
-					optionList={niveauEtudesEures}
+					optionList={niveauDEtudes}
 					onChange={(option) => onChangeMultipleSelect(option, setInputNiveauEtude)}
 					label="Niveau d‘études demandé"
 					value={inputNiveauEtude}

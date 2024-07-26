@@ -1,4 +1,4 @@
-import { NiveauEtudes } from '~/client/domain/niveauEtudesEures';
+import { NiveauDEtudesLibelle,NiveauDEtudeValue } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { LEVEL_CODE, LEVEL_NAME } from '~/server/emplois-europe/infra/langageEures';
 import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 
@@ -15,7 +15,7 @@ export interface EmploiEurope {
 	typeContrat?: string;
 	urlCandidature?: string;
 	tempsDeTravail?: string;
-	niveauEtudes?: NiveauEtudes;
+	niveauEtudes?: NiveauDEtudesLibelle;
 	description?: string;
 	listePermis: Array<string>;
 	langueDeTravail: Array<string>;
@@ -45,7 +45,7 @@ export interface LanguageSpecificationCompetence {
 export interface EmploiEuropeFiltre {
 	codePays?: string;
 	typeContrat?: string[];
-	niveauEtude?: string[];
+	niveauEtude?: Array<NiveauDEtudeValue>;
 	motCle?: string;
 	page: number;
 	secteurActivite?: string[]

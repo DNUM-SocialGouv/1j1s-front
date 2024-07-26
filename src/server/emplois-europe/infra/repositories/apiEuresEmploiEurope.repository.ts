@@ -4,9 +4,11 @@ import {
 	ResultatRechercheEmploiEurope,
 } from '~/server/emplois-europe/domain/emploiEurope';
 import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEurope.repository';
+import { NiveauDEtudeValue } from '~/server/emplois-europe/domain/niveauDEtudes';
 import {
 	ApiEuresEmploiEuropeDetailItem,
 	ApiEuresEmploiEuropeDetailResponse,
+	ApiEuresEmploiEuropeDetailXML,
 	ApiEuresEmploiEuropeRechercheRequestBody,
 	ApiEuresEmploiEuropeRechercheResponse,
 	EMPLOIS_EUROPE_ITEMS_PER_PAGE,
@@ -16,18 +18,44 @@ import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
+import NiveauEtudeAPIEures = ApiEuresEmploiEuropeDetailXML.NiveauEtudeAPIEures;
 
 export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 	constructor(
 		private readonly httpClientService: PublicHttpClientService,
 		private readonly errorManagementService: ErrorManagementService,
 		private readonly apiEuresEmploiEuropeMapper: ApiEuresEmploiEuropeMapper,
-	) {}
+	) {
+	}
 
 	private buildSearchBody(filtre: EmploiEuropeFiltre): ApiEuresEmploiEuropeRechercheRequestBody {
 		const facetCriteria = [];
+
+		function mapNiveauEtude(niveauEtudeList: Array<NiveauDEtudeValue>): Array<NiveauEtudeAPIEures> {
+			function getNiveauEtudeApiEures(niveauEtude: NiveauDEtudeValue) {
+				switch (niveauEtude) {
+					case NiveauDEtudeValue.SANS_DIPLOME_OU_BREVET:
+						return [NiveauEtudeAPIEures.ENSEIGNEMENT_PRESCOLAIRE, NiveauEtudeAPIEures.ENSEIGNEMENT_PRIMAIRE, NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_INFERIEUR];
+					case NiveauDEtudeValue.LYCEE_FORMATION_PRO:
+						return [NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_SUPERIEUR, NiveauEtudeAPIEures.ENSEIGNEMENT_POST_SECONDAIRE_NON_SUPERIEUR];
+					case NiveauDEtudeValue.SUPERIEUR_COURT:
+						return [NiveauEtudeAPIEures.ENSEIGNEMENT_SUPERIEUR_CYCLE_COURT];
+					case NiveauDEtudeValue.LICENCE:
+						return [NiveauEtudeAPIEures.NIVEAU_LICENCE_OU_EQUIVALENT];
+					case NiveauDEtudeValue.MASTER:
+						return [NiveauEtudeAPIEures.NIVEAU_MAITRISE_OU_EQUIVALENT];
+					case NiveauDEtudeValue.DOCTORAT:
+						return [NiveauEtudeAPIEures.NIVEAU_DOCTORAT_OU_EQUIVALENT];
+					case NiveauDEtudeValue.AUTRE:
+						return [NiveauEtudeAPIEures.AUTRE];
+				}
+			}
+
+			return niveauEtudeList.flatMap((niveauEtude) => getNiveauEtudeApiEures(niveauEtude));
+		}
+
 		if (filtre.codePays !== undefined) {
-			facetCriteria.push({ facetName: 'LOCATION', facetValues: [ filtre.codePays ] });
+			facetCriteria.push({ facetName: 'LOCATION', facetValues: [filtre.codePays] });
 		}
 		if (filtre.typeContrat !== undefined && filtre.typeContrat.length > 0) {
 			facetCriteria.push({ facetName: 'POSITION_OFFERING', facetValues: filtre.typeContrat });
@@ -36,15 +64,15 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 			facetCriteria.push({ facetName: 'POSITION_SCHEDULE', facetValues: filtre.tempsDeTravail });
 		}
 		if (filtre.niveauEtude !== undefined && filtre.niveauEtude.length > 0) {
-			facetCriteria.push({ facetName: 'EDUCATION_LEVEL', facetValues: filtre.niveauEtude });
+			facetCriteria.push({ facetName: 'EDUCATION_LEVEL', facetValues: mapNiveauEtude(filtre.niveauEtude) });
 		}
-		if (filtre.secteurActivite !== undefined && filtre.secteurActivite.length > 0){
+		if (filtre.secteurActivite !== undefined && filtre.secteurActivite.length > 0) {
 			facetCriteria.push({ facetName: 'SECTOR', facetValues: filtre.secteurActivite });
 		}
 
 		return {
 			dataSetRequest: {
-				excludedDataSources:  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
+				excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
 				pageNumber: `${filtre.page}`,
 				resultsPerPage: `${EMPLOIS_EUROPE_ITEMS_PER_PAGE}`,
 				sortBy: 'BEST_MATCH',
@@ -54,7 +82,7 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 				keywordCriteria:
 					filtre.motCle !== undefined ? {
 						keywordLanguageCode: 'fr',
-						keywords: [ { keywordScope : 'EVERYWHERE', keywordText : filtre.motCle } ],
+						keywords: [{ keywordScope: 'EVERYWHERE', keywordText: filtre.motCle }],
 					} : undefined,
 			},
 		};
@@ -84,7 +112,7 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 			const response: { data: ApiEuresEmploiEuropeDetailResponse } = await this.httpClientService.post(endpoint, body);
 
 			const itemDetail = this.findItemByHandle(response.data.data.items, handle);
-			if(!itemDetail) return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
+			if (!itemDetail) return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 
 			const detailOffre = this.apiEuresEmploiEuropeMapper.mapDetailOffre(handle, itemDetail);
 

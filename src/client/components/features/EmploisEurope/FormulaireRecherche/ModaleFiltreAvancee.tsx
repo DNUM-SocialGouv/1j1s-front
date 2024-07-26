@@ -8,7 +8,7 @@ import { FilterAccordion } from '~/client/components/ui/FilterAccordion/FilterAc
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
-import { niveauEtudesEures } from '~/client/domain/niveauEtudesEures';
+import { niveauDEtudes } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { secteurActiviteEures } from '~/server/emplois-europe/infra/secteurActiviteEures';
 import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
 
@@ -75,7 +75,7 @@ export function ModaleFiltreAvancee(props: {
 						Niveau d‘études demandé
 					</FilterAccordion.Title>
 					<FilterAccordion.Content>
-						{niveauEtudesEures.map((niveauEtude) => (
+						{niveauDEtudes.map((niveauEtude) => (
 							<Checkbox
 								key={niveauEtude.libellé}
 								label={niveauEtude.libellé}

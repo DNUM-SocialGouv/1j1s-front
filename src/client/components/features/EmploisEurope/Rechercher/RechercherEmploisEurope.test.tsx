@@ -10,13 +10,13 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { EURES_POSITION_SCHEDULE_TYPE } from '~/client/domain/codesTempsTravailEures';
-import { EURES_EDUCATION_LEVEL_CODES_TYPE } from '~/client/domain/niveauEtudesEures';
 import { EmploiEuropeQueryParams } from '~/client/hooks/useEmploiEuropeQuery';
 import { anEmploiEuropeService } from '~/client/services/europe/emploiEurope.service.fixture';
 import {
 	anEmploiEurope,
 	aResultatRechercheEmploiEuropeList,
 } from '~/server/emplois-europe/domain/emploiEurope.fixture';
+import { NiveauDEtudesLibelle,NiveauDEtudeValue } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { SecteurActiviteCode } from '~/server/emplois-europe/infra/secteurActiviteEures';
 import { EURES_CONTRACT_TYPE } from '~/server/emplois-europe/infra/typesContratEures';
 import { createSuccess } from '~/server/errors/either';
@@ -551,7 +551,7 @@ describe('RechercherEmploisEurope', () => {
 			const query: EmploiEuropeQueryParams = {
 				codePays: 'ES',
 				libellePays: 'Espagne',
-				niveauEtude: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_MAITRISE_OU_EQUIVALENT.toString(),
+				niveauEtude: NiveauDEtudeValue.MASTER,
 				page: '1',
 				secteurActivite: SecteurActiviteCode.AGRICULTURE,
 				tempsDeTravail: `${EURES_POSITION_SCHEDULE_TYPE.FullTime},${EURES_POSITION_SCHEDULE_TYPE.NonSpecified}`,
@@ -577,11 +577,11 @@ describe('RechercherEmploisEurope', () => {
 			const etiquettes = within(etiquettesRecherche).getAllByRole('listitem');
 			expect(etiquettes).toHaveLength(7);
 			expect(etiquettes[0]).toHaveTextContent('Espagne');
-			expect(etiquettes[1]).toHaveTextContent('Contrat');
-			expect(etiquettes[2]).toHaveTextContent('Apprentissage');
+			expect(etiquettes[1]).toHaveTextContent('Apprentissage');
+			expect(etiquettes[2]).toHaveTextContent('Contrat déterminé');
 			expect(etiquettes[3]).toHaveTextContent('Temps plein');
 			expect(etiquettes[4]).toHaveTextContent('Temps de travail non spécifié');
-			expect(etiquettes[5]).toHaveTextContent('Niveau maîtrise (Master) ou équivalent');
+			expect(etiquettes[5]).toHaveTextContent('Master (Bac+5)');
 			expect(etiquettes[6]).toHaveTextContent('Agriculture');
 		});
 		it('quand il n‘y a pas d‘étiquette, n‘affiche pas la liste d‘étiquette', async () => {
@@ -860,7 +860,7 @@ describe('RechercherEmploisEurope', () => {
 				const emploiEuropeServiceMock = anEmploiEuropeService();
 				const resultatsService = aResultatRechercheEmploiEuropeList({
 					nombreResultats: 1,
-					offreList: [anEmploiEurope({ niveauEtudes: 'Enseignement supérieur de cycle court' })],
+					offreList: [anEmploiEurope({ niveauEtudes: NiveauDEtudesLibelle.SUPERIEUR_COURT })],
 				});
 				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
@@ -884,7 +884,7 @@ describe('RechercherEmploisEurope', () => {
 				const premierResultat = (await within(listeDesResultats).findAllByRole('listitem'))[0];
 
 				// THEN
-				const tagTypeContrat = within(premierResultat).getByText('Enseignement supérieur de cycle court');
+				const tagTypeContrat = within(premierResultat).getByText('Supérieur court (Bac+2 maximum)');
 				expect(tagTypeContrat).toBeVisible();
 			});
 			it('si le niveau d’études est "Autre", n’affiche pas le niveau d’études', async () => {
@@ -892,7 +892,7 @@ describe('RechercherEmploisEurope', () => {
 				const emploiEuropeServiceMock = anEmploiEuropeService();
 				const resultatsService = aResultatRechercheEmploiEuropeList({
 					nombreResultats: 1,
-					offreList: [anEmploiEurope({ niveauEtudes: 'Autre' })],
+					offreList: [anEmploiEurope({ niveauEtudes: NiveauDEtudesLibelle.AUTRE })],
 				});
 				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
