@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.331.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.330.1...v3.331.0) (2024-07-26)
+
+
+### Features
+
+* **a11y:** supprimer les balises br dans le script tarte au citron ([#3213](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3213)) ([432a61b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/432a61b8d712fc54c24caa64e9130edf0a3fa467))
+
 ## [3.330.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.330.0...v3.330.1) (2024-07-26)
 
 
