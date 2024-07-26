@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.332.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.331.0...v3.332.0) (2024-07-26)
+
+
+### Features
+
+* **UI:** passer le select en composition ([#3204](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3204)) ([c575388](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c575388dda8bc587747f9a9d3728b9fcee6cac4e))
+
 ## [3.331.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.330.1...v3.331.0) (2024-07-26)
 
 
