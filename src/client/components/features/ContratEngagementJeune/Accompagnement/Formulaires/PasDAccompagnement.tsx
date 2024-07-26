@@ -6,15 +6,15 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './AccompagnementFormulaireCommon.module.scss';
 
-type PasDAccompagnementProps = Pick<FormulairesProps, 'onBackButton' | 'setIsMissionLocaleModalOpen'>
+type PasDAccompagnementProps = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsMissionLocaleModalOpen' | 'onBackButton'>
 
-export default function PasDAccompagnement({ onBackButton, setIsMissionLocaleModalOpen }: PasDAccompagnementProps) {
+export default function PasDAccompagnement({ setTypeFormulaireAffiché, setIsMissionLocaleModalOpen, onBackButton }: PasDAccompagnementProps) {
 
 	return <>
 		<ButtonComponent
 			appearance={'quaternary'}
 			className={styles.boutonRetour}
-			onClick={() => setTypeFormulaireAffiché('Démarrage')}
+			onClick={onBackButton}
 			label="Retour"
 			icon={<Icon name={'angle-left'}/>}
 			iconPosition={'left'}
