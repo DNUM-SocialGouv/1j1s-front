@@ -1,25 +1,22 @@
-import React, { useContext } from 'react';
+import { createContext, useContext } from 'react';
 
 import NoProviderError from '~/client/Errors/NoProviderError';
 
 
-type ContextContent = {
+type SelectContext = {
 	activeDescendant: string | undefined,
 	onOptionSelection: (optionId: string) => void,
 	isCurrentItemSelected: (optionValue: string) => boolean
 }
 
-const Context = React.createContext<ContextContent | undefined>(undefined);
-Context.displayName = 'SelectContext';
+export const SelectContext = createContext<SelectContext | null>(null);
 
-export const SelectProvider = Context.Provider;
+export function useSelectContext() {
+	const selectContext = useContext(SelectContext);
 
-export function useSelect() {
-	const context = useContext(Context);
-
-	if (context == null) {
-		throw new NoProviderError(Context);
+	if (selectContext == null) {
+		throw new NoProviderError(SelectContext);
 	}
 
-	return context;
+	return selectContext;
 }

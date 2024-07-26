@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import debounce from 'lodash.debounce';
 import React, {
 	FocusEvent,
@@ -16,11 +15,11 @@ import React, {
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
-import { SelectProvider } from '~/client/components/ui/Form/Select/SelectContext';
+import { SelectContext } from '~/client/components/ui/Form/Select/SelectContext';
+import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './Select.module.scss';
-import { SelectOption } from './SelectOption';
 import { getOptionsElement, SelectSimpleAction, SelectSimpleReducer } from './SelectReducer';
 
 const ERROR_LABEL_REQUIRED_SIMPLE = 'Séléctionnez un élément de la liste';
@@ -226,52 +225,48 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 	}, [closeList, handlefocusOnTypeLetterDebounce, selectOption, state]);
 
 	return (
-		<SelectProvider value={{
+		<SelectContext.Provider value={{
 			activeDescendant: state.activeDescendant,
 			isCurrentItemSelected,
 			onOptionSelection: selectOption,
 		}}>
-			<div>
-				<div className={styles.container}>
-					<Input
-						ref={inputHiddenRef}
-						className={styles.inputHiddenValue}
-						tabIndex={-1}
-						required={required}
-						aria-hidden={'true'}
-						name={name}
-						onInvalid={onInvalidProps}
-						value={optionSelectedValue}
-					/>
-					<div
-						className={classNames(styles.combobox)}
-						role="combobox"
-						aria-controls={listboxId}
-						aria-haspopup="listbox"
-						aria-expanded={state.isListOptionsOpen}
-						aria-labelledby={labelledBy}
-						data-touched={touched}
-						tabIndex={0}
-						onClick={() => dispatch(new SelectSimpleAction.ToggleList())}
-						aria-activedescendant={state.activeDescendant}
-						onKeyDown={onKeyDown}
-						onBlur={onBlur}
-						{...rest}
-					>
-						{placeholder}
-						{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
-					</div>
-					<ul
-						role="listbox"
-						ref={listboxRef}
-						aria-labelledby={labelledBy}
-						id={listboxId}
-						hidden={!state.isListOptionsOpen}>
-						{children}
-					</ul>
+			<div className={styles.container}>
+				<Input
+					ref={inputHiddenRef}
+					tabIndex={-1}
+					required={required}
+					aria-hidden={'true'}
+					name={name}
+					onInvalid={onInvalidProps}
+					value={optionSelectedValue}
+				/>
+				<div
+					role="combobox"
+					aria-controls={listboxId}
+					aria-haspopup="listbox"
+					aria-expanded={state.isListOptionsOpen}
+					aria-labelledby={labelledBy}
+					data-touched={touched}
+					tabIndex={0}
+					onClick={() => dispatch(new SelectSimpleAction.ToggleList())}
+					aria-activedescendant={state.activeDescendant}
+					onKeyDown={onKeyDown}
+					onBlur={onBlur}
+					{...rest}
+				>
+					{placeholder}
+					<Icon name={'angle-down'}/>
 				</div>
+				<ul
+					role="listbox"
+					ref={listboxRef}
+					aria-labelledby={labelledBy}
+					id={listboxId}
+					hidden={!state.isListOptionsOpen}>
+					{children}
+				</ul>
 			</div>
-		</SelectProvider>
+		</SelectContext.Provider>
 	);
 }
 
@@ -285,8 +280,4 @@ function doNothing() {
 	return;
 }
 
-function SelectSimpleOption(props: React.ComponentPropsWithoutRef<typeof SelectOption>) {
-	return <SelectOption {...props} className={classNames(props.className, styles.optionComboboxSimple)}/>;
-}
-
-SelectSimple.Option = SelectSimpleOption;
+SelectSimple.Option = SelectOption;

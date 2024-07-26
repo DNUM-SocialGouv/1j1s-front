@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import debounce from 'lodash.debounce';
 import React, {
 	FocusEvent,
@@ -15,11 +14,11 @@ import React, {
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
-import { SelectProvider } from '~/client/components/ui/Form/Select/SelectContext';
 import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './Select.module.scss';
+import { SelectContext } from './SelectContext';
 import { SelectMultipleAction, SelectMultipleReducer } from './SelectReducer';
 
 const SELECT_PLACEHOLDER_MULTIPLE = 'Sélectionnez vos choix';
@@ -212,61 +211,56 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 	}
 
 	return (
-		<SelectProvider value={{
+		<SelectContext.Provider value={{
 			activeDescendant: state.activeDescendant,
 			isCurrentItemSelected,
 			onOptionSelection: selectOption,
 		}}>
-			<div>
-				<div className={styles.container}>
+			<div className={styles.container}>
+				<Input
+					ref={firstInputHiddenRef}
+					onInvalid={onInvalidProps}
+					tabIndex={-1}
+					required={required}
+					aria-hidden="true"
+					name={name}
+					value={optionsSelectedValues[0] || ''}/>
+				{optionsSelectedValues.slice(1).map((optionValue) => (
 					<Input
-						ref={firstInputHiddenRef}
-						onInvalid={onInvalidProps}
 						tabIndex={-1}
-						className={styles.inputHiddenValue}
-						required={required}
+						key={optionValue}
 						aria-hidden="true"
 						name={name}
-						value={optionsSelectedValues[0] || ''}/>
-					{optionsSelectedValues.slice(1).map((optionValue) => {
-						return <Input
-							tabIndex={-1}
-							className={styles.inputHiddenValue}
-							key={optionValue}
-							aria-hidden="true"
-							name={name}
-							value={optionValue}
-						/>;
-					})}
-					<div
-						role="combobox"
-						className={classNames(styles.combobox)}
-						aria-controls={listboxId}
-						aria-haspopup="listbox"
-						aria-expanded={state.isListOptionsOpen}
-						aria-labelledby={labelledBy}
-						data-touched={touched}
-						tabIndex={0}
-						onClick={() => dispatch(new SelectMultipleAction.ToggleList())}
-						aria-activedescendant={state.activeDescendant}
-						onKeyDown={onKeyDown}
-						onBlur={onBlur}
-						{...rest}
-					>
-						<PlaceholderSelectedOptions/>
-						{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
-					</div>
-					<ul
-						role="listbox"
-						ref={listboxRef}
-						aria-labelledby={labelledBy}
-						id={listboxId}
-						hidden={!state.isListOptionsOpen}>
-						{children}
-					</ul>
+						value={optionValue}/>
+				))}
+				<div
+					role="combobox"
+					aria-controls={listboxId}
+					aria-haspopup="listbox"
+					aria-expanded={state.isListOptionsOpen}
+					aria-labelledby={labelledBy}
+					data-touched={touched}
+					tabIndex={0}
+					onClick={() => dispatch(new SelectMultipleAction.ToggleList())}
+					aria-activedescendant={state.activeDescendant}
+					onKeyDown={onKeyDown}
+					onBlur={onBlur}
+					{...rest}
+				>
+					<PlaceholderSelectedOptions/>
+					<Icon name={'angle-down'}/>
 				</div>
+				<ul
+					aria-multiselectable="true"
+					role="listbox"
+					ref={listboxRef}
+					aria-labelledby={labelledBy}
+					id={listboxId}
+					hidden={!state.isListOptionsOpen}>
+					{children}
+				</ul>
 			</div>
-		</SelectProvider>
+		</SelectContext.Provider>
 	);
 }
 
@@ -279,8 +273,4 @@ function doNothing() {
 	return;
 }
 
-function SelectMultipleOption(props: React.ComponentPropsWithoutRef<typeof SelectOption>) {
-	return <SelectOption {...props} className={classNames(props.className, styles.optionComboboxMultiple)}/>;
-}
-
-SelectMultiple.Option = SelectMultipleOption;
+SelectMultiple.Option = SelectOption;

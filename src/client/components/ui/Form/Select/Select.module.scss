@@ -34,7 +34,7 @@ $border-width: inputStyles.$border-width;
   position: relative;
   border-radius: $border-radius;
 
-  & .combobox {
+  & [role="combobox"] {
     cursor: pointer;
     @extend %outlined;
     @include utilities.text-interactive-medium;
@@ -44,9 +44,14 @@ $border-width: inputStyles.$border-width;
     border-radius: $border-radius;
     padding: 0.5rem 1rem;
     background-color: transparent;
+
+    &[aria-expanded="true"] svg {
+      transform: rotate(-180deg);
+      transition: transform 200ms linear;
+    }
   }
 
-  input:invalid + .combobox[data-touched="true"] {
+  input:invalid + [role="combobox"][data-touched="true"] {
     border-color: $color-error;
     border-width: $error-border-width;
   }
@@ -63,42 +68,44 @@ $border-width: inputStyles.$border-width;
     max-height: 10em;
     overflow-y: scroll;
 
-    & li {
+    li[role="option"] {
       display: grid;
       grid-template-columns: auto 1fr;
       align-items: center;
       padding: .5rem 1ch;
+      cursor: pointer;
 
-      &[role="option"] {
-        cursor: pointer;
-      }
-
-      &.optionComboboxSimple::before {
-        @extend %radio;
-        margin-right: 0.5rem;
-      }
-
-      &[role="option"][aria-selected="true"].optionComboboxSimple::before {
-        @extend %radio-checked;
-      }
-
-      &.optionComboboxMultiple::before {
-        @extend %checkbox;
-      }
-
-      &[role="option"][aria-selected="true"].optionComboboxMultiple::before {
-        @extend %checkbox-checked;
-      }
-
-      &[role="option"]:hover,
-      &[role="option"].optionVisuallyFocus {
+      &:hover,
+      &.optionVisuallyFocus {
         background-color: $color-option-hover;
         font-weight: bold;
       }
     }
+
+    &:not([aria-multiselectable="true"]) {
+      li[role="option"]::before {
+        @extend %radio;
+        margin-right: 0.5rem;
+      }
+
+      li[role="option"][aria-selected="true"]::before {
+        @extend %radio-checked;
+      }
+    }
+
+
+    &[aria-multiselectable="true"] {
+      li[role="option"]::before {
+        @extend %checkbox;
+      }
+
+      li[role="option"][aria-selected="true"]::before {
+        @extend %checkbox-checked;
+      }
+    }
   }
 
-  & .inputHiddenValue {
+  & input[aria-hidden="true"] {
     position: absolute;
     pointer-events: none;
     opacity: 0;
