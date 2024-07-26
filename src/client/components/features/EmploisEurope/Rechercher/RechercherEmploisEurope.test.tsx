@@ -577,8 +577,8 @@ describe('RechercherEmploisEurope', () => {
 			const etiquettes = within(etiquettesRecherche).getAllByRole('listitem');
 			expect(etiquettes).toHaveLength(7);
 			expect(etiquettes[0]).toHaveTextContent('Espagne');
-			expect(etiquettes[1]).toHaveTextContent('Contrat');
-			expect(etiquettes[2]).toHaveTextContent('Apprentissage');
+			expect(etiquettes[1]).toHaveTextContent('Apprentissage');
+			expect(etiquettes[2]).toHaveTextContent('Contrat déterminé');
 			expect(etiquettes[3]).toHaveTextContent('Temps plein');
 			expect(etiquettes[4]).toHaveTextContent('Temps de travail non spécifié');
 			expect(etiquettes[5]).toHaveTextContent('Master (Bac+5)');
