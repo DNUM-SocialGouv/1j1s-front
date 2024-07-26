@@ -5,7 +5,8 @@ import { anErrorManagementService } from '~/server/services/error/errorManagemen
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { aServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes.fixture';
 import {
-	aStrapiMesuresJeunesParCategorie,
+	aStrapiMesureJeune,
+	aStrapiMesuresJeunesParCategorie, aStrapiMesuresJeunesParCategorieSansResultat,
 	aStrapiUnorderedMesuresJeunesParCategorie,
 } from '~/server/services-jeunes/infra/strapiMesuresJeunes.fixture';
 import { StrapiServicesJeunesRepository } from '~/server/services-jeunes/infra/strapiServicesJeunes.repository';
@@ -66,6 +67,27 @@ describe('strapiMesuresJeunesRepository', () => {
 					}),
 				];
 				expect(result).toEqual(createSuccess(orderedServicesJeunes));
+			});
+
+			it('ne retourne pas les services sans article ni url', async () => {
+				// Given
+				const strapiService = aStrapiService();
+				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(
+					createSuccess(aStrapiMesuresJeunesParCategorieSansResultat({
+						accompagnement: [
+							aStrapiMesureJeune({ titre: 'un-service-sans-link', article: undefined, url: undefined }),
+							aStrapiMesureJeune({ titre: 'un-service-avec-link' }),
+						]
+					}))
+				);
+
+				const strapiServicesJeunesRepository = new StrapiServicesJeunesRepository(strapiService, anErrorManagementService());
+
+				// When
+				const result = await strapiServicesJeunesRepository.getServicesJeunesList();
+
+				// Then
+				expect(result).toEqual(createSuccess([aServiceJeune({ titre: 'un-service-avec-link' })]));
 			});
 		});
 

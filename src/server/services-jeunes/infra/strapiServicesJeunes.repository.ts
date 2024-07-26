@@ -20,7 +20,8 @@ export class StrapiServicesJeunesRepository implements ServicesJeunesRepository 
 			return strapiMesuresJeunes;
 
 		try {
-			const servicesJeunes = mapToServicesJeunes(strapiMesuresJeunes.result);
+			const strapiMesuresJeunesFiltrees = filterStrapiMesuresJeunes(strapiMesuresJeunes.result);
+			const servicesJeunes = mapToServicesJeunes(strapiMesuresJeunesFiltrees);
 			servicesJeunes.sort((a, b) => a.titre.localeCompare(b.titre));
 			return createSuccess(servicesJeunes);
 		} catch (error) {
@@ -33,3 +34,18 @@ export class StrapiServicesJeunesRepository implements ServicesJeunesRepository 
 	}
 }
 
+function filterStrapiMesuresJeunes(strapiMesuresJeunes: StrapiMesuresJeunes.MesuresJeunesParCategorie): StrapiMesuresJeunes.MesuresJeunesParCategorie {
+	const mesuresJeunesParCategorie = {
+		accompagnement: strapiMesuresJeunes.accompagnement.filter(contientUnLink),
+		aidesFinancieres: strapiMesuresJeunes.aidesFinancieres.filter(contientUnLink),
+		engagement: strapiMesuresJeunes.engagement.filter(contientUnLink),
+		logement: strapiMesuresJeunes.logement.filter(contientUnLink),
+		orienterFormer: strapiMesuresJeunes.orienterFormer.filter(contientUnLink),
+		vieProfessionnelle: strapiMesuresJeunes.vieProfessionnelle.filter(contientUnLink),
+	};
+	return mesuresJeunesParCategorie;
+}
+
+function contientUnLink(mesure: StrapiMesuresJeunes.MesureJeune): boolean {
+	return Boolean(mesure.article?.data || mesure.url);
+}
