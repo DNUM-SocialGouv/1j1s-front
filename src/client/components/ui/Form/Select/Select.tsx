@@ -16,6 +16,7 @@ export interface OptionSelect {
 type SelectProps = {
 	label: string;
 	labelComplement?: string
+	optionList: OptionSelect[]
 } & (
 	SelectSimpleProps & { multiple?: false }
 	| SelectMultipleProps & { multiple: true }
@@ -27,6 +28,7 @@ export function Select(props: SelectProps) {
 		label,
 		labelComplement,
 		multiple,
+		optionList,
 		...rest
 	} = props;
 	const labelledBy = useId();
@@ -46,8 +48,18 @@ export function Select(props: SelectProps) {
 					{label}
 					{labelComplement && <Champ.Label.Complement>{labelComplement}</Champ.Label.Complement>}
 				</Champ.Label>
-				{isSelectSimpleProps(rest) && <Champ.Input render={SelectSimple} labelledBy={labelledBy} {...rest}/>}
-				{isSelectMultipleProps(rest) && <Champ.Input render={SelectMultiple} labelledBy={labelledBy} {...rest}/>}
+				{isSelectSimpleProps(rest) && <Champ.Input render={SelectSimple} labelledBy={labelledBy} {...rest}>
+					{optionList.map((option) =>
+						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
+					)}
+				</Champ.Input>}
+
+				{isSelectMultipleProps(rest) && <Champ.Input render={SelectMultiple} labelledBy={labelledBy} {...rest}>
+					{optionList.map((option) =>
+						<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
+					)}
+				</Champ.Input>}
+
 				<Champ.Error/>
 			</Champ>
 		</div>

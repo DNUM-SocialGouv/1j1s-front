@@ -9,7 +9,7 @@ export type SelectSimpleState = {
 	valueTypedByUser: string
 }
 
-function getOptionsElement(refListOption: RefObject<HTMLUListElement>) {
+export function getOptionsElement(refListOption: RefObject<HTMLUListElement>) {
 	return Array.from(refListOption.current?.querySelectorAll('[role="option"]') ?? []);
 }
 
@@ -167,7 +167,7 @@ export namespace SelectSimpleAction {
 	}
 }
 
-export function SelectReducer(state: SelectSimpleState, action: SelectSimpleAction): SelectSimpleState {
+export function SelectSimpleReducer(state: SelectSimpleState, action: SelectSimpleAction): SelectSimpleState {
 	return action.execute(state);
 }
 

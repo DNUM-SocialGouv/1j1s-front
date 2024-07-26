@@ -9,6 +9,7 @@ import React, { FormEvent } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard.fixture';
 import { Select } from '~/client/components/ui/Form/Select/Select';
+import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
 import { mockScrollIntoView } from '~/client/components/window.mock';
 
 const SELECT_SIMPLE_LABEL_DEFAULT_OPTION = 'Sélectionnez votre choix';
@@ -1671,6 +1672,26 @@ describe('<Select />', () => {
 				expect(onTouch).toHaveBeenCalledWith(true);
 				expect(combobox).toHaveAttribute('data-touched', 'true');
 			});
+		});
+	});
+
+	describe('SelectOption', () => {
+		it('accepte un id et le passe à l‘option', () => {
+			render(<SelectSimple labelledBy={'id'}>
+				<SelectSimple.Option value="1" id="id1">option 1</SelectSimple.Option>
+				<SelectSimple.Option value="2">option 2</SelectSimple.Option>
+			</SelectSimple>);
+
+			expect(screen.getByRole('option', { hidden: true, name:'option 1' })).toHaveAttribute('id', 'id1');
+		});
+
+		it('accepte une value et la passe à l‘option', () => {
+			render(<SelectSimple labelledBy={'id'}>
+				<SelectSimple.Option value="1">option 1</SelectSimple.Option>
+				<SelectSimple.Option value="2">option 2</SelectSimple.Option>
+			</SelectSimple>);
+
+			expect(screen.getByRole('option', { hidden: true, name:'option 1' })).toHaveAttribute('data-value', '1');
 		});
 	});
 });

@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import debounce from 'lodash.debounce';
 import React, {
 	FocusEvent,
@@ -15,10 +14,11 @@ import React, {
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
-import { OptionSelect } from '~/client/components/ui/Form/Select/Select';
+import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './Select.module.scss';
+import { SelectContext } from './SelectContext';
 import { SelectMultipleAction, SelectMultipleReducer } from './SelectReducer';
 
 const SELECT_PLACEHOLDER_MULTIPLE = 'Sélectionnez vos choix';
@@ -26,7 +26,6 @@ const ERROR_LABEL_REQUIRED_MULTIPLE = 'Séléctionnez au moins un élément de l
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
 export type SelectMultipleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
-	optionList: OptionSelect[];
 	value?: Array<string>;
 	onChange?: (value: HTMLElement) => void;
 	defaultValue?: Array<string>;
@@ -35,7 +34,7 @@ export type SelectMultipleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onCha
 
 export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 	const {
-		optionList,
+		children,
 		value,
 		placeholder,
 		name,
@@ -50,7 +49,6 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 	const listboxRef = useRef<HTMLUListElement>(null);
 	const firstInputHiddenRef = useRef<HTMLInputElement>(null);
 
-	const optionsId = useId();
 	const listboxId = useId();
 
 	const [touched, setTouched] = useState<boolean>(false);
@@ -92,11 +90,6 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 			document.getElementById(state.activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 		}
 	}, [state.activeDescendant]);
-
-	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
-	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
-		event.preventDefault();
-	}, []);
 
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLDivElement>) {
 		const newFocusStillInCombobox = event.currentTarget.contains(event.relatedTarget);
@@ -218,30 +211,30 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 	}
 
 	return (
-		<div>
+		<SelectContext.Provider value={{
+			activeDescendant: state.activeDescendant,
+			isCurrentItemSelected,
+			onOptionSelection: selectOption,
+		}}>
 			<div className={styles.container}>
 				<Input
 					ref={firstInputHiddenRef}
 					onInvalid={onInvalidProps}
 					tabIndex={-1}
-					className={styles.inputHiddenValue}
 					required={required}
 					aria-hidden="true"
 					name={name}
 					value={optionsSelectedValues[0] || ''}/>
-				{optionsSelectedValues.slice(1).map((optionValue) => {
-					return <Input
+				{optionsSelectedValues.slice(1).map((optionValue) => (
+					<Input
 						tabIndex={-1}
-						className={styles.inputHiddenValue}
 						key={optionValue}
 						aria-hidden="true"
 						name={name}
-						value={optionValue}
-					/>;
-				})}
+						value={optionValue}/>
+				))}
 				<div
 					role="combobox"
-					className={classNames(styles.combobox)}
 					aria-controls={listboxId}
 					aria-haspopup="listbox"
 					aria-expanded={state.isListOptionsOpen}
@@ -255,31 +248,19 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 					{...rest}
 				>
 					<PlaceholderSelectedOptions/>
-					{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+					<Icon name={'angle-down'}/>
 				</div>
 				<ul
+					aria-multiselectable="true"
 					role="listbox"
 					ref={listboxRef}
 					aria-labelledby={labelledBy}
 					id={listboxId}
 					hidden={!state.isListOptionsOpen}>
-					{optionList.map((option, index) => {
-						const optionId = `${optionsId}-${index}`;
-						return <li
-							className={classNames(styles.optionComboboxMultiple, state.activeDescendant === optionId ? styles.optionVisuallyFocus : '')}
-							id={optionId}
-							role="option"
-							key={index}
-							onMouseDown={onMouseDown}
-							data-value={option.valeur}
-							onClick={() => selectOption(optionId)}
-							aria-selected={isCurrentItemSelected(option.valeur)}>
-							<div className={styles.option}>{option.libellé}</div>
-						</li>;
-					})}
+					{children}
 				</ul>
 			</div>
-		</div>
+		</SelectContext.Provider>
 	);
 }
 
@@ -291,3 +272,5 @@ function cancelEvent(event: SyntheticEvent) {
 function doNothing() {
 	return;
 }
+
+SelectMultiple.Option = SelectOption;
