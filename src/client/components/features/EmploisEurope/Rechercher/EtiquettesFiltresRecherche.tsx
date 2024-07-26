@@ -8,27 +8,27 @@ import { secteurActiviteEures } from '~/server/emplois-europe/infra/secteurActiv
 import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
 
 function mapContratListToLibelle(typeContratList: string[]) {
-	return typeContratList
-		.filter((typeContrat) => typesContratEures.find((typeContratEures) => typeContratEures.valeur === typeContrat)?.libellé)
-		.map((typeContrat) => typesContratEures.find((typeContratEures) => typeContratEures.valeur === typeContrat)!.libellé);
+	return typesContratEures
+		.filter((typeDeContrat) => typeContratList.includes(typeDeContrat.valeur))
+		.map((typeDeContrat) => typeDeContrat.libellé);
 }
 
 function mapTempsDeTravailListToLibelle(tempsDeTravailList: string[]) {
-	return tempsDeTravailList
-		.filter((tempsDeTravail) => tempsDeTravailEures.find((tempsDeTravailEures) => tempsDeTravailEures.valeur === tempsDeTravail)?.libellé)
-		.map((tempsDeTravail) => tempsDeTravailEures.find((tempsDeTravailEures) => tempsDeTravailEures.valeur === tempsDeTravail)!.libellé);
+	return tempsDeTravailEures
+		.filter((tempsDeTravail) => tempsDeTravailList.includes(tempsDeTravail.valeur))
+		.map((tempsDeTravail) => tempsDeTravail.libellé);
 }
 
 function mapNiveauEtudesListToLibelle(niveauEtudesValueList: string[]) {
-	return niveauEtudesValueList
-		.filter((niveauEtudesValue) => niveauDEtudes.find((niveauEtudes) => niveauEtudes.valeur === niveauEtudesValue)?.libellé)
-		.map((niveauEtudesValue) => niveauDEtudes.find((niveauEtudes) => niveauEtudes.valeur === niveauEtudesValue)!.libellé);
+	return niveauDEtudes
+		.filter((niveauDEtude) => niveauEtudesValueList.includes(niveauDEtude.valeur))
+		.map((niveauEtudes) => niveauEtudes.libellé);
 }
 
 function mapSecteurActiviteListToLibelle(secteurActiviteList: string[]) {
-	return secteurActiviteList
-		.filter((secteurActivite) => secteurActiviteEures.find((secteurActiviteEures) => secteurActiviteEures.valeur.toString() === secteurActivite)?.libellé)
-		.map((secteurActivite) => secteurActiviteEures.find((secteurActiviteEures) => secteurActiviteEures.valeur.toString() === secteurActivite)!.libellé);
+	return secteurActiviteEures
+		.filter((secteurActivite) => secteurActiviteList.includes(secteurActivite.valeur))
+		.map((secteurActivite) => secteurActivite.libellé);
 }
 
 function mapQueryParamToLibelle(queryParam: string, mapValeurListToLibelle: (valeurList: string[]) => string[]): string[] {
