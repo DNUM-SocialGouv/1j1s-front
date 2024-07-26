@@ -8,10 +8,10 @@ export function mapToServicesJeunes(strapiMesuresJeunes: StrapiMesuresJeunes.Mes
 	const mesuresJeunesParCategorie = {
 		accompagnement: strapiMesuresJeunes.accompagnement,
 		aidesFinancieres: strapiMesuresJeunes.aidesFinancieres,
-		orienterFormer: strapiMesuresJeunes.orienterFormer,
-		vieProfessionnelle: strapiMesuresJeunes.vieProfessionnelle,
 		engagement: strapiMesuresJeunes.engagement,
 		logement: strapiMesuresJeunes.logement,
+		orienterFormer: strapiMesuresJeunes.orienterFormer,
+		vieProfessionnelle: strapiMesuresJeunes.vieProfessionnelle,
 	};
 	return Object.entries(mesuresJeunesParCategorie).flatMap(([categorie, mesuresJeunes]) => {
 		return mesuresJeunes.map((strapiMesureJeune: StrapiMesuresJeunes.MesureJeune) => {

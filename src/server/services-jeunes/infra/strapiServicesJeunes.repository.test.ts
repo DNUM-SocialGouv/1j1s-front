@@ -58,7 +58,7 @@ describe('strapiMesuresJeunesRepository', () => {
 					}),
 					aServiceJeune({
 						categorie: ServiceJeune.Categorie.LOGEMENT,
-						titre: 'logement',
+						titre: 'Un logement',
 					}),
 					aServiceJeune({
 						categorie: ServiceJeune.Categorie.ACCOMPAGNEMENT,

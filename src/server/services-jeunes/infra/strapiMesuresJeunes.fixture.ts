@@ -12,18 +12,24 @@ export function aStrapiMesuresJeunesParCategorie(overrides?: Partial<StrapiMesur
 			article: undefined,
 			titre: 'Des aides pour financer son permis de conduire',
 		})],
+		engagement: [aStrapiMesureJeune({
+			titre: 'Le Service Militaire Volontaire',
+		})],
+		logement: [aStrapiMesureJeune({
+			titre: 'Un Logement',
+		})],
 		orienterFormer: [aStrapiMesureJeune({
 			titre: 'Les Junior Entreprises',
 		})],
 		vieProfessionnelle: [aStrapiMesureJeune({
 			titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
 		})],
-		logement: [aStrapiMesureJeune({
+		/*logement: [aStrapiMesureJeune({
 			titre: 'Logement',
 		})],
 		engagement: [aStrapiMesureJeune({
 			titre: 'Le Service Militaire Volontaire',
-		})],
+		})], ok test, linter not*/
 		...overrides,
 	};
 }
@@ -32,10 +38,10 @@ export function aStrapiMesuresJeunesParCategorieSansResultat(overrides?: Partial
 	return {
 		accompagnement: [],
 		aidesFinancieres: [],
+		engagement: [],
+		logement: [],
 		orienterFormer: [],
 		vieProfessionnelle: [],
-		logement: [],
-		engagement: [],
 		...overrides,
 	};
 }
@@ -52,17 +58,17 @@ export function aStrapiUnorderedMesuresJeunesParCategorie(): StrapiMesuresJeunes
 			article: undefined,
 			titre: 'Des aides pour financer son permis de conduire',
 		})],
+		engagement: [aStrapiMesureJeune({
+			titre: 'Le Service Militaire Volontaire',
+		})],
+		logement: [aStrapiMesureJeune({
+			titre: 'Un logement',
+		})],
 		orienterFormer: [aStrapiMesureJeune({
 			titre: 'Les Junior Entreprises',
 		})],
 		vieProfessionnelle: [aStrapiMesureJeune({
 			titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
-		})],
-		logement: [aStrapiMesureJeune({
-			titre: 'logement',
-		})],
-		engagement: [aStrapiMesureJeune({
-			titre: 'Le Service Militaire Volontaire',
 		})],
 	};
 }

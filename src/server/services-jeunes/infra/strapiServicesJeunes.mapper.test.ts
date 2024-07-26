@@ -25,17 +25,17 @@ describe('mapToServicesJeunes', () => {
 			aidesFinancieres: [aStrapiMesureJeune({
 				titre: 'Des aides pour financer son permis de conduire',
 			})],
+			engagement: [aStrapiMesureJeune({
+				titre: 'Le Service Militaire Volontaire',
+			})],
+			logement: [aStrapiMesureJeune({
+				titre: 'Un Logement',
+			})],
 			orienterFormer: [aStrapiMesureJeune({
 				titre: 'Les Junior Entreprises',
 			})],
 			vieProfessionnelle: [aStrapiMesureJeune({
 				titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
-			})],
-			logement: [aStrapiMesureJeune({
-				titre: 'Logement',
-			})],
-			engagement: [aStrapiMesureJeune({
-				titre: 'Le Service Militaire Volontaire',
 			})],
 		});
 
