@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.330.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.330.0...v3.330.1) (2024-07-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pino to v9.3.2 ([#3214](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3214)) ([b99115f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b99115fb03e02a8d62e9f99fe5a9125647edb010))
+
+## [3.330.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.329.0...v3.330.0) (2024-07-25)
+
+
+### Features
+
+* **alternance:** Supprimer les logos dans les résultats de recherche de l'onglet Entreprises  ([#3195](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3195)) ([1650ca2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1650ca2a1137ea2050162300ee4c08df20cb3606))
+
 ## [3.329.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.328.1...v3.329.0) (2024-07-24)
 
 
