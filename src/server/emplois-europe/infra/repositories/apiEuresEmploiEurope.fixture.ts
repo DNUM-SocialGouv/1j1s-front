@@ -1,12 +1,13 @@
 import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailItem,
-	ApiEuresEmploiEuropeDetailResponse,
+	ApiEuresEmploiEuropeDetailResponse, ApiEuresEmploiEuropeDetailXML,
 	ApiEuresEmploiEuropeRechercheRequestBody,
 	ApiEuresEmploiEuropeResponseJobVacancy,
 	ApiEuresEmploiEuropeResponseRelated,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
+import NiveauEtudeAPIEures = ApiEuresEmploiEuropeDetailXML.NiveauEtudeAPIEures;
 
 export function anApiEuresRechercheBody(override: Partial<ApiEuresEmploiEuropeRechercheRequestBody>): ApiEuresEmploiEuropeRechercheRequestBody {
 	return {
@@ -148,7 +149,7 @@ interface ApiEuresEmploiEuropeDetailXMLResponseFixture {
 	listeCompetencesLinguistiques?: Array<languageCompetency>
 	listeLangueDeTravail?: Array<string>
 	tempsDeTravail?: string,
-	educationLevelCode?: number,
+	educationLevelCode?: NiveauEtudeAPIEures,
 	experiencesNecessaires?: Array<{
 		duree: number,
 		unite?: UNITE_EXPERIENCE_NECESSAIRE

@@ -151,7 +151,7 @@ export class ApiEuresEmploiEuropeMapper {
 	}
 
 	private getNiveauEtude(positionQualifications?: PositionQualifications) {
-		function mapNiveauEtudes(educationLevelCode?: number) {
+		function mapNiveauEtudes(educationLevelCode?: NiveauEtudeAPIEures) {
 			switch (educationLevelCode) {
 				case NiveauEtudeAPIEures.ENSEIGNEMENT_PRESCOLAIRE:
 				case NiveauEtudeAPIEures.ENSEIGNEMENT_PRIMAIRE:
@@ -168,8 +168,8 @@ export class ApiEuresEmploiEuropeMapper {
 					return NiveauDEtudesLibelle.MASTER;
 				case NiveauEtudeAPIEures.NIVEAU_DOCTORAT_OU_EQUIVALENT:
 					return NiveauDEtudesLibelle.DOCTORAT;
-				case NiveauEtudeAPIEures.AUTRE:
-					return NiveauDEtudesLibelle.AUTRE;
+				case NiveauEtudeAPIEures.NON_SPECIFIE:
+					return NiveauDEtudesLibelle.NON_SPECIFIE;
 				default: break;
 			}
 		}

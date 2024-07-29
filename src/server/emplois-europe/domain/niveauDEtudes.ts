@@ -16,7 +16,7 @@ export enum NiveauDEtudesLibelle {
 	LICENCE =  'Licence (Bac+3)',
 	MASTER = 'Master (Bac+5)',
 	DOCTORAT = 'Doctorat (Bac+8)',
-	AUTRE = 'Autre niveau d’étude',
+	NON_SPECIFIE = 'Non spécifié',
 }
 
 export const niveauDEtudes = [
@@ -45,7 +45,7 @@ export const niveauDEtudes = [
 		valeur: NiveauDEtudeValue.DOCTORAT,
 	},
 	{
-		libellé: NiveauDEtudesLibelle.AUTRE,
+		libellé: NiveauDEtudesLibelle.NON_SPECIFIE,
 		valeur: NiveauDEtudeValue.AUTRE,
 	},
 ];
