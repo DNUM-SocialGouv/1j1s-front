@@ -154,6 +154,12 @@ const config = {
 						target: '_self',
 					},
 					{
+						href: 'https://dnum-socialgouv.github.io/1j1s-main-cms/docs/architecture',
+						label: 'CMS',
+						position: 'left',
+						target: '_self',
+					},
+					{
 						label: 'Design System',
 						position: 'left',
 						// Avoid optimisation for external application on same domain

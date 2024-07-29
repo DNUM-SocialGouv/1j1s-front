@@ -1,11 +1,14 @@
 ---
 sidebar_label: Aide au développement
-sidebar_position: 100
+sidebar_position: 1
 ---
 
 # Que faire si...
-_20 Avril 2023_
+_20 Avril 2023 (mis à jour le 24 Juillet 2024)_
 
+:::info Introduction
+Différentes anomalies peuvent survenir lorsque vous essayez de lancer votre projet.
+:::
 
 ## Les pages de contenu ne s'affichent pas
 Votre projet CMS en local est-il lancé et correctement configuré ?

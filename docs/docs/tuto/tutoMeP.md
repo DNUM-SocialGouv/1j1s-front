@@ -8,11 +8,12 @@ sidebar_position: 1000
 
   
 
-_12 Juillet 2024_
+_12 Juillet 2024 (mis à jour le 24 Juillet 2024)_
 
 
+:::info Introduction
 Terraform est un outil d'Infrastructure as Code (IaC) développé par HashiCorp qui permet de définir, provisionner et gérer des infrastructures de manière déclarative. Associé aux github actions, il nous permet de pousser automatiquement du code en Production. 
-
+:::
 
 ## Fonctionnement
 
@@ -33,6 +34,7 @@ Les actions ci-dessous sont à réaliser pour chaque projet présent sur Github 
 * 1j1s-etl
 * 1j1s-main-cms
 
+Les différentes actions à réaliser pour <code>1j1s-front</code>: 
 * Sélectionner le projet à publier
 * Sélectionner "Actions"
 * Sélectionner "Mise en production"

@@ -1,15 +1,15 @@
 ---
 sidebar_label: Une campagne de com' Adform, comment on fait ?
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 # Le marketing avec Adform
 
-_05 septembre 2023_
+_05 septembre 2023 (mis à jour le 24 Juillet 2024)_
 
-## Introduction
-
+:::info Introduction
 Quand on fait une campagne de com, on veut tracker où les utilisateurs arrivent, d'où ils viennent, etc.
+:::
 
 ## Comment ça marche ?
 
