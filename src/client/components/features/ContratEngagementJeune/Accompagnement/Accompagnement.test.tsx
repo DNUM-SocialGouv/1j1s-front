@@ -48,15 +48,11 @@ describe('<Accompagnement />', () => {
 	}
 
 	it('on voit le formulaire sur l‘accompagnement', () => {
-		// Given
 		renderComponent();
-		const premierBouton = screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par la Mission Locale' });
-		const deuxiemeBouton = screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par France Travail' });
-		const troisiemeBouton = screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' });
-		// Then
-		expect(premierBouton).toBeVisible();
-		expect(deuxiemeBouton).toBeVisible();
-		expect(troisiemeBouton).toBeVisible();
+
+		expect(screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par la Mission Locale' })).toBeVisible();
+		expect(screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par France Travail' })).toBeVisible();
+		expect(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' })).toBeVisible();
 	});
 
 	describe('quand je clique sur "Oui je suis accompagné par la Mission Locale"', () => {
@@ -70,8 +66,7 @@ describe('<Accompagnement />', () => {
 				</DependenciesProvider>,
 			);
 
-			const boutonFormulaireMissionLocale = screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par la Mission Locale' });
-			await user.click(boutonFormulaireMissionLocale);
+			await user.click(screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par la Mission Locale' }));
 
 			expect(screen.getByRole('dialog', { name: 'Vous pouvez bénéficier d’un accompagnement répondant à vos besoins auprès de votre Mission Locale' })).toBeVisible();
 			expect(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' })).toBeVisible();
@@ -104,8 +99,7 @@ describe('<Accompagnement />', () => {
 						<Accompagnement/>
 					</DependenciesProvider>,
 				);
-				const boutonFormulaireMissionLocale = screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par la Mission Locale' });
-				await user.click(boutonFormulaireMissionLocale);
+				await user.click(screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par la Mission Locale' }));
 
 				await remplirFormulaire();
 
@@ -233,18 +227,13 @@ describe('<Accompagnement />', () => {
 	});
 
 	it('quand on clique sur "Oui je suis accompagné(e) par France Travail", ouvre une modale avec la redirection vers France Travail', async () => {
-		// Given
 		const user = userEvent.setup();
-		const franceTravail = 'Oui, je suis accompagné(e) par France Travail';
-		const jeContacteMonConseiller = 'Contacter mon conseiller';
 		renderComponent();
 
-		// When
-		await user.click(screen.getByText(franceTravail));
+		await user.click(screen.getByText('Oui, je suis accompagné(e) par France Travail'));
 
-		// Then
 		expect(screen.getByRole('dialog', { name: 'Vous pouvez bénéficier d’informations sur le Contrat d’Engagement Jeune auprès de votre conseiller France Travail' })).toBeVisible();
-		const link = screen.getByRole('link', { name: `${jeContacteMonConseiller} - nouvelle fenêtre` });
+		const link = screen.getByRole('link', { name: 'Contacter mon conseiller - nouvelle fenêtre' });
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', expect.stringContaining('francetravail.fr'));
 		expect(link).toHaveAttribute('target', '_blank');
@@ -254,17 +243,14 @@ describe('<Accompagnement />', () => {
 		it('ça affiche le formulaire sur l‘âge', async () => {
 			// Given
 			const user = userEvent.setup();
-			const pasDAccompagnement = 'Non, je ne bénéficie d‘aucun accompagnement';
-			const quelÂgeAvezVous = 'Quel âge avez-vous ?';
-
 			renderComponent();
-			const troisièmeBouton = screen.getByText(pasDAccompagnement);
+			const troisièmeBouton = screen.getByText('Non, je ne bénéficie d‘aucun accompagnement');
 
 			// When
 			await user.click(troisièmeBouton);
 
 			// Then
-			const preuveDExistence = screen.getByText(quelÂgeAvezVous);
+			const preuveDExistence = screen.getByText('Quel âge avez-vous ?');
 			expect(troisièmeBouton).not.toBeVisible();
 			expect(preuveDExistence).toBeVisible();
 		});
@@ -450,8 +436,6 @@ describe('<Accompagnement />', () => {
 				it('affiche le formulaire sur le handicap', async () => {
 					// Given
 					const user = userEvent.setup();
-					const contenuModal = 'Êtes-vous en situation de handicap (RQTH) ?';
-
 					renderComponent();
 
 					// When
@@ -459,7 +443,7 @@ describe('<Accompagnement />', () => {
 					await user.click(screen.getByRole('button', { name: 'Plus de 25 ans' }));
 					await user.click(screen.getByRole('button', { name: 'Oui' }));
 
-					expect(screen.getByText(contenuModal)).toBeVisible();
+					expect(screen.getByText('Êtes-vous en situation de handicap (RQTH) ?')).toBeVisible();
 					expect(screen.getByRole('button', { name: 'Oui' })).toBeVisible();
 					expect(screen.getByRole('button', { name: 'Non' })).toBeVisible();
 				});
