@@ -18,14 +18,6 @@ Ce document relate les différents prérequis permettant l'installation du proje
 * [docker-compose](https://docs.docker.com/compose/)
 * [CMS principal](https://github.com/DNUM-SocialGouv/1j1s-main-cms)
 
-
-## Pour aller plus loin dans l'écosystème 1j1s (optionnel)
-
-* [Projet test de performances](https://github.com/DNUM-SocialGouv/1j1s-test-charge)
-* [Projet test lighthouse automatisé](https://github.com/DNUM-SocialGouv/1j1s-front-lighthouse-report)
-* [Projet chargement de données](https://github.com/DNUM-SocialGouv/1j1s-stage-orchestrateur-transform-load)
-
-
 ## Pré-requis pour avoir un environnement local pleinement fonctionnel 
 
 Il faut avoir :
