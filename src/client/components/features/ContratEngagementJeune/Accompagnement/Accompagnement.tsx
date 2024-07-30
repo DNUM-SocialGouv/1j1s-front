@@ -3,8 +3,6 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import AutresBesoins
 	from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/AutresBesoins';
-import AutresBesoins26ans
-	from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/AutresBesoins26ans';
 import BesoinAide from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide';
 import BesoinAide26ans
 	from '~/client/components/features/ContratEngagementJeune/Accompagnement/Formulaires/BesoinAide26ans';
@@ -41,6 +39,7 @@ export interface FormulairesProps {
 	setIsInscriptionFranceTravailModalOpen: Dispatch<SetStateAction<boolean>>;
 	setIsMissionLocaleModalOpen: Dispatch<SetStateAction<boolean>>;
 	setIsDispositifsReferencesModalOpen: Dispatch<SetStateAction<boolean>>;
+	onBackButton: () => void
 }
 
 
@@ -97,33 +96,37 @@ function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeF
 	switch (typeFormulaireÀAfficher) {
 		case 'PasDAccompagnement':
 			return <PasDAccompagnement
+				onBackButton={() => setTypeFormulaireAffiché('Démarrage')}
 				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
 				setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
 			/>;
 		case 'BesoinAide':
 			return <BesoinAide
+				onBackButton={() => setTypeFormulaireAffiché('PasDAccompagnement')}
 				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
 				setIsDispositifsReferencesModalOpen={setIsDispositifsReferencesModalOpen}
 			/>;
 		case 'BesoinAide26ans':
 			return <BesoinAide26ans
+				onBackButton={() => setTypeFormulaireAffiché('PasDAccompagnement')}
 				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
 				setIsDispositifsReferencesModalOpen={setIsDispositifsReferencesModalOpen}
 			/>;
 		case 'AutresBesoins':
 			return <AutresBesoins
-				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+				onBackButton={() => setTypeFormulaireAffiché('BesoinAide')}
 				setIsInscriptionFranceTravailModalOpen={setIsInscriptionFranceTravailModalOpen}
 				setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
 			/>;
 		case 'Handicap':
 			return <Handicap
+				onBackButton={() => setTypeFormulaireAffiché('BesoinAide26ans')}
 				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
 				setIsInscriptionFranceTravailModalOpen={setIsInscriptionFranceTravailModalOpen}
 			/>;
 		case 'AutresBesoins26ans':
-			return <AutresBesoins26ans
-				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+			return <AutresBesoins
+				onBackButton={() => setTypeFormulaireAffiché('Handicap')}
 				setIsInscriptionFranceTravailModalOpen={setIsInscriptionFranceTravailModalOpen}
 				setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
 			/>;

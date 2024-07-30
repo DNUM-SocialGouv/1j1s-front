@@ -1,5 +1,17 @@
 @use "@styles/utilities";
-@use "@styles/utilities-deprecated";
+
+%action {
+  @include utilities.text-medium;
+  padding: 12px;
+  border-radius: 20px;
+  border: 1px solid utilities.$color-cta-background-primary;
+  width: 100%;
+  height: 100%;
+
+  @include utilities.media(large) {
+    padding: 1.7rem;
+  }
+}
 
 .boutonRetour {
   margin-bottom: 20px;
@@ -8,63 +20,58 @@
 
 .question {
   @extend %bold;
+
+  > span {
+    display: inline-block;
+  }
 }
 
 .optionBouton {
-  @extend %text-regular;
-  padding: 12px;
   text-align: start;
-  line-height: 1.25rem;
-  border-radius: 20px;
-  border: 1px solid utilities-deprecated.$color-primary;
   margin-top: 20px;
-  width: 100%;
+  @extend %action;
 
-  @include utilities.media(large) {
-    padding: 20px;
+  @include utilities.media(large){
     min-width: 460px;
-    line-height: 2.5rem;
   }
 }
 
-.accompagnementValider {
-  text-align: center;
-  margin-top: 2rem;
-}
-
-.autresBesoinsContainer {
-  display: grid;
-  grid-template-rows: 1fr;
-  @include utilities-deprecated.media(large) {
-    grid-template-columns: repeat(2, 1fr);
+.autresBesoins {
+  .autresBesoinsReponsesWrapper {
+    margin-top: 1.5rem;
+    display: grid;
     gap: 1rem;
+    grid-template-rows: 1fr;
+    @include utilities.media(large) {
+      grid-template-columns: repeat(2, min(240px));
+    }
+  }
+
+  fieldset .autresBesoinsReponsesWrapper input[type=checkbox] + label {
+    display: block;
+    text-align: center;
+    @extend %action;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  fieldset .autresBesoinsReponsesWrapper input[type=checkbox]:focus + label {
+    outline: 2px solid utilities.$color-cta-background-primary;
+    outline-offset: 2px;
+  }
+
+  fieldset .autresBesoinsReponsesWrapper input[type=checkbox]:checked + label {
+    color: utilities.$color-text-primary-inverse;
+    background-color: utilities.$color-cta-background-primary;
+  }
+
+  > button {
+    display: flex;
+    margin: 2rem auto 0 auto;
   }
 }
 
-.accompagnementIsActive {
-  display: grid;
-  gap: 1rem;
-  text-align: center;
-  min-width: 230px;
-  border-radius: 20px;
-  border: 1px solid utilities-deprecated.$color-primary;
-  margin-top: 15px;
-  width: 100%;
-  min-height: 3.375rem;
-  padding: 1rem;
-  background-color: utilities-deprecated.$color-primary;
-  color: utilities-deprecated.$color-on-primary;
-}
 
-.accompagnementDesactive {
-  display: grid;
-  gap: 1rem;
-  text-align: center;
-  min-width: 230px;
-  border-radius: 20px;
-  border: 1px solid utilities-deprecated.$color-primary;
-  margin-top: 15px;
-  width: 100%;
-  min-height: 3.375rem;
-  padding: 1rem;
-}
+

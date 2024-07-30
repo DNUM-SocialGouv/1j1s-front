@@ -6,13 +6,13 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './AccompagnementFormulaireCommon.module.scss';
 
-type BesoinAideProps = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsDispositifsReferencesModalOpen' >
-export default function BesoinAide({ setTypeFormulaireAffiché, setIsDispositifsReferencesModalOpen }: BesoinAideProps ) {
+type BesoinAideProps = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsDispositifsReferencesModalOpen' | 'onBackButton' >
+export default function BesoinAide({ setTypeFormulaireAffiché, setIsDispositifsReferencesModalOpen, onBackButton }: BesoinAideProps ) {
 	return <>
 		<ButtonComponent
 			appearance={'quaternary'}
 			className={styles.boutonRetour}
-			onClick={() => setTypeFormulaireAffiché('PasDAccompagnement')}
+			onClick={onBackButton}
 			label="Retour"
 			icon={<Icon name={'angle-left'}/>}
 			iconPosition={'left'}

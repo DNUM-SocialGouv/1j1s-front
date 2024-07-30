@@ -22,7 +22,7 @@
 .checkbox {
   position: relative;
 
-  .label {
+  label {
     display: block;
     color: utilities-deprecated.$color-on-surface;
     @extend %label-champ;

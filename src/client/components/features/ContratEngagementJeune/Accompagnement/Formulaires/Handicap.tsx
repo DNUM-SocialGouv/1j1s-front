@@ -6,13 +6,13 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './AccompagnementFormulaireCommon.module.scss';
 
-type HandicapProps = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsInscriptionFranceTravailModalOpen'>
-export default function Handicap({ setTypeFormulaireAffiché, setIsInscriptionFranceTravailModalOpen }: HandicapProps) {
+type HandicapProps = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsInscriptionFranceTravailModalOpen' | 'onBackButton'>
+export default function Handicap({ setTypeFormulaireAffiché, setIsInscriptionFranceTravailModalOpen, onBackButton }: HandicapProps) {
 	return <>
 		<ButtonComponent
 			appearance={'quaternary'}
 			className={styles.boutonRetour}
-			onClick={() => setTypeFormulaireAffiché('BesoinAide26ans')}
+			onClick={onBackButton}
 			label="Retour"
 			icon={<Icon name={'angle-left'}/>}
 			iconPosition={'left'}

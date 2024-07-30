@@ -11,7 +11,6 @@ export function Radio({ id: propsId, label, className, ...rest } : RadioProps) {
 	const generatedId = useId();
 	const id = propsId ?? generatedId;
 
-
 	return (
 		<div className={classNames(styles.radioButton, className)}>
 			<input
