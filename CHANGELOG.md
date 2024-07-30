@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.334.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.333.1...v3.334.0) (2024-07-30)
+
+
+### Features
+
+* **services jeunes:** Modifier le single types des mesures jeunes en ajoutant les categories engagement et logement ([#3215](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3215)) ([81bc106](https://github.com/DNUM-SocialGouv/1j1s-front/commit/81bc106c8edf37b8f83751ac90f88e1787e71133))
+
 ## [3.333.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.333.0...v3.333.1) (2024-07-29)
 
 
