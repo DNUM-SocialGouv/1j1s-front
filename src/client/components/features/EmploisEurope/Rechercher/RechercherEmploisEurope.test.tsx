@@ -887,7 +887,7 @@ describe('RechercherEmploisEurope', () => {
 				const tagTypeContrat = within(premierResultat).getByText('Supérieur court (Bac+2 maximum)');
 				expect(tagTypeContrat).toBeVisible();
 			});
-			it('si le niveau d’études est "Non spécifié", n’affiche pas le niveau d’études', async () => {
+			it('si le niveau d’études est "Niveau d‘études non spécifié", n’affiche pas le niveau d’études', async () => {
 				// GIVEN
 				const emploiEuropeServiceMock = anEmploiEuropeService();
 				const resultatsService = aResultatRechercheEmploiEuropeList({
@@ -916,7 +916,7 @@ describe('RechercherEmploisEurope', () => {
 				const premierResultat = (await within(listeDesResultats).findAllByRole('listitem'))[0];
 
 				// THEN
-				const tagTypeContrat = within(premierResultat).queryByText('Non spécifié');
+				const tagTypeContrat = within(premierResultat).queryByText('Niveau d‘études non spécifié');
 				expect(tagTypeContrat).not.toBeInTheDocument();
 			});
 		});
