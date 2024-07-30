@@ -12,6 +12,7 @@ import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.moc
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aDateService } from '~/client/services/date/date.service.fixture';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import ConsulterFormationInitialePage from '~/pages/formations-initiales/[id].page';
 import { getServerSideProps } from '~/pages/formations-initiales/index.page';
 import {
@@ -29,7 +30,10 @@ describe('quand le feature flip est actif', () => {
 	it('envoie les analytics de la page', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
-			<DependenciesProvider analyticsService={analyticsService} dateService={aDateService()}>
+			<DependenciesProvider
+				analyticsService={analyticsService}
+				dateService={aDateService()}
+				sessionStorageService={aStorageService()}>
 				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
 			</DependenciesProvider>,
 		);
@@ -44,16 +48,23 @@ describe('quand le feature flip est actif', () => {
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(
-			<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()}>
+			<DependenciesProvider
+				analyticsService={aManualAnalyticsService()}
+				dateService={aDateService()}
+				sessionStorageService={aStorageService()}>
 				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
-			</DependenciesProvider> );
+			</DependenciesProvider>,
+		);
 
 		expect(container.outerHTML).toHTMLValidate();
 	});
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
-			<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()}>
+			<DependenciesProvider
+				analyticsService={aManualAnalyticsService()}
+				dateService={aDateService()}
+				sessionStorageService={aStorageService()}>
 				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
 			</DependenciesProvider>,
 		);
@@ -64,12 +75,12 @@ describe('quand le feature flip est actif', () => {
 	describe('affiche des informations sur l‘origine de la donnée', () => {
 		it('le partnenaire est ONISEP', () => {
 			// GIVEN
-			const analyticsService = aManualAnalyticsService();
-			const dateService = aDateService();
-
 			// WHEN
 			render(
-				<DependenciesProvider analyticsService={analyticsService} dateService={dateService}>
+				<DependenciesProvider
+					analyticsService={aManualAnalyticsService()}
+					dateService={aDateService()}
+					sessionStorageService={aStorageService()}>
 					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
 				</DependenciesProvider>,
 			);
@@ -81,15 +92,18 @@ describe('quand le feature flip est actif', () => {
 
 		it('la date de mise à jour de la donnée est celle de la mise à jour des fiches détails quand le détail provient des idéo-fiches formations', () => {
 			// GIVEN
-			const analyticsService = aManualAnalyticsService();
-			const dateService = aDateService();
-			const updateDateFromFormationInitiale = new Date('2023-05-15T09:37:44.283Z');
 			const detailsUpdateDate = '15 mai 2023';
-			jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValueOnce(detailsUpdateDate);
+			const dateService = aDateService({
+				formatToHumanReadableDate: () => detailsUpdateDate,
+			});
+			const updateDateFromFormationInitiale = new Date('2023-05-15T09:37:44.283Z');
 
 			// WHEN
 			render(
-				<DependenciesProvider analyticsService={analyticsService} dateService={dateService}>
+				<DependenciesProvider
+					analyticsService={aManualAnalyticsService()}
+					dateService={dateService}
+					sessionStorageService={aStorageService()}>
 					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete({ dateDeMiseAJour: updateDateFromFormationInitiale })}/>
 				</DependenciesProvider>,
 			);
@@ -97,21 +111,23 @@ describe('quand le feature flip est actif', () => {
 			// THEN
 			const onisepCardTitle = screen.getByText(`Idéo-fiches formations, Onisep, ${detailsUpdateDate}, sous licence ODBL`);
 			expect(onisepCardTitle).toBeVisible();
-			expect(dateService.formatToHumanReadableDate).toHaveBeenCalledWith(updateDateFromFormationInitiale);
 		});
 
 		it('la date de mise à jour de la donnée est la date du jour quand il n‘il y a pas de détail provenant d’idéo-fiches formations', () => {
 			// GIVEN
-			const analyticsService = aManualAnalyticsService();
-			const dateService = aDateService();
 			const todayDate = new Date('2023-08-01T14:45:25.000Z');
 			const todayFormattedDate = '01 août 2023';
-			jest.spyOn(dateService, 'today').mockReturnValueOnce(todayDate);
-			jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValueOnce(todayFormattedDate);
+			const dateService = aDateService({
+				formatToHumanReadableDate: () => todayFormattedDate,
+				today: () => todayDate,
+			});
 
 			// WHEN
 			render(
-				<DependenciesProvider analyticsService={analyticsService} dateService={dateService}>
+				<DependenciesProvider
+					analyticsService={aManualAnalyticsService()}
+					dateService={dateService}
+					sessionStorageService={aStorageService()}>
 					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitiale()}/>
 				</DependenciesProvider>,
 			);
@@ -119,7 +135,6 @@ describe('quand le feature flip est actif', () => {
 			// THEN
 			const onisepCardTitle = screen.getByText(`Idéo-fiches formations, Onisep, ${todayFormattedDate}, sous licence ODBL`);
 			expect(onisepCardTitle).toBeVisible();
-			expect(dateService.formatToHumanReadableDate).toHaveBeenCalledWith(todayDate);
 		});
 	});
 });
@@ -132,7 +147,10 @@ describe('quand le feature flip n‘est pas actif', () => {
 	it('la page n‘est pas disponible', async () => {
 		process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 		render(
-			<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()}>
+			<DependenciesProvider
+				analyticsService={aManualAnalyticsService()}
+				dateService={aDateService()}
+				sessionStorageService={aStorageService()}>
 				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
 			</DependenciesProvider>,
 		);

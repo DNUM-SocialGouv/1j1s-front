@@ -7,6 +7,8 @@ import { render, screen } from '@testing-library/react';
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSessionStorage } from '~/client/components/window.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 
 describe('BackButton', () => {
 	beforeEach(() => {
@@ -22,7 +24,7 @@ describe('BackButton', () => {
 			});
 
 			// When
-			render(<BackButton />);
+			render(<DependenciesProvider sessionStorageService={aStorageService({ get: jest.fn().mockReturnValue(true) })}><BackButton/></DependenciesProvider>);
 
 			// Then
 			expect(screen.getByRole('link', { name: 'Retour vers la page précédente' })).toBeInTheDocument();
@@ -37,7 +39,7 @@ describe('BackButton', () => {
 			});
 
 			// When
-			render(<BackButton />);
+			render(<DependenciesProvider sessionStorageService={aStorageService()}><BackButton/></DependenciesProvider>);
 
 			// Then
 			expect(screen.queryByRole('link', { name: 'Retour vers la page précédente' })).not.toBeInTheDocument();

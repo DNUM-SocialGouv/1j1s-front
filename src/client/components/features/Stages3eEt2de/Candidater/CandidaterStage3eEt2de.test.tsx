@@ -13,6 +13,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockScrollIntoView, mockSessionStorage } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aStage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service.fixture';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
@@ -46,7 +47,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 		// WHEN
 		render(
-			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+			<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={aStage3eEt2deService()}>
 				<CandidaterStage3eEt2de
 					donneesEntreprise={donneesEntreprise}
 				/>
@@ -77,7 +78,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 			// WHEN
 			render(
-				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+				<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={aStage3eEt2deService()}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise}
 					/>
@@ -110,7 +111,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 			// WHEN
 			render(
-				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+				<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={aStage3eEt2deService()}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise}
 					/>
@@ -135,7 +136,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 			// WHEN
 			render(
-				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+				<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={aStage3eEt2deService()}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise}
 					/>
@@ -174,7 +175,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider sessionStorageService={aStorageService({ get: jest.fn().mockReturnValue(true) })} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -205,7 +206,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -232,7 +233,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -271,7 +272,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -299,7 +300,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider sessionStorageService={aStorageService({ get: jest.fn().mockReturnValue(true) })} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -321,7 +322,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -343,7 +344,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -375,7 +376,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -396,7 +397,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -434,7 +435,7 @@ En vous remerciant,
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -469,7 +470,7 @@ En vous remerciant,
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -507,7 +508,7 @@ En vous remerciant,
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -551,7 +552,7 @@ En vous remerciant,
 					);
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -598,7 +599,7 @@ En vous remerciant,
 					);
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -649,7 +650,7 @@ En vous remerciant,
 					);
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -696,7 +697,7 @@ En vous remerciant,
 					);
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -748,7 +749,7 @@ En vous remerciant,
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
 					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -801,7 +802,7 @@ En vous remerciant,
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
 					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -859,7 +860,7 @@ En vous remerciant,
 					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 
 					// WHEN
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -907,7 +908,7 @@ En vous remerciant,
 					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 
 					// WHEN
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -952,7 +953,7 @@ En vous remerciant,
 				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 
 				// WHEN
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+				render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise}
 					/>
@@ -1000,7 +1001,7 @@ En vous remerciant,
 				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 
 				// WHEN
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+				render(<DependenciesProvider sessionStorageService={aStorageService({ get: jest.fn().mockReturnValue(true) })} stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise}
 					/>
@@ -1044,7 +1045,7 @@ En vous remerciant,
 					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.CONFLIT_D_IDENTIFIANT));
 
 					// WHEN
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -1086,7 +1087,7 @@ En vous remerciant,
 					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 					// WHEN
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -1127,7 +1128,7 @@ En vous remerciant,
 				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 				// WHEN
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+				render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise}
 					/>
@@ -1178,7 +1179,7 @@ En vous remerciant,
 				});
 
 				// WHEN
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+				render(<DependenciesProvider sessionStorageService={aStorageService({ get: jest.fn().mockReturnValue(true) })} stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise}
 					/>
@@ -1222,7 +1223,7 @@ En vous remerciant,
 					siret: '12345678912345',
 				});
 
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+				render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise}
 					/>

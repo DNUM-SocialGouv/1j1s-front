@@ -10,6 +10,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import ConsulterOffreEmploiPage from '~/pages/emplois/[id].page';
 import { anOffreEmploi } from '~/server/offres/domain/offre.fixture';
 
@@ -19,9 +20,11 @@ describe('<ConsulterOffreEmploiPage />', () => {
 		mockSmallScreen();
 		const offre = anOffreEmploi();
 
-		const { container } =			render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<ConsulterOffreEmploiPage offreEmploi={offre}/>
-		</DependenciesProvider> );
+		const { container } = render(
+			<DependenciesProvider analyticsService={aManualAnalyticsService()} sessionStorageService={aStorageService()}>
+				<ConsulterOffreEmploiPage offreEmploi={offre}/>
+			</DependenciesProvider>,
+		);
 
 		expect(container.outerHTML).toHTMLValidate();
 	});
@@ -32,9 +35,7 @@ describe('<ConsulterOffreEmploiPage />', () => {
 		const offre = anOffreEmploi();
 
 		const { container } = render(
-			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+			<DependenciesProvider analyticsService={aManualAnalyticsService()} sessionStorageService={aStorageService()}>
 				<ConsulterOffreEmploiPage offreEmploi={offre} />);
 			</DependenciesProvider>);
 

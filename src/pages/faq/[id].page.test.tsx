@@ -7,6 +7,8 @@ import '~/test-utils';
 import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import ConsulterArticlePage from '~/pages/faq/[id].page';
 import { FAQ } from '~/server/faq/domain/FAQ';
 import { aQuestionEtReponse } from '~/server/faq/domain/FAQ.fixture';
@@ -24,7 +26,10 @@ describe('<ConsulterArticlePage />', () => {
 		});
 
 		const { container } = render(
-			<ConsulterArticlePage faqRéponse={faqRéponse}/>);
+			<DependenciesProvider sessionStorageService={aStorageService()}>
+				<ConsulterArticlePage faqRéponse={faqRéponse}/>
+			</DependenciesProvider>,
+		);
 
 		expect(container.outerHTML).toHTMLValidate();
 	});
@@ -36,7 +41,9 @@ describe('<ConsulterArticlePage />', () => {
 		});
 
 		const { container } = render(
-			<ConsulterArticlePage faqRéponse={faqRéponse}/>,
+			<DependenciesProvider sessionStorageService={aStorageService()}>
+				<ConsulterArticlePage faqRéponse={faqRéponse}/>
+			</DependenciesProvider>,
 		);
 
 		await expect(container).toBeAccessible();

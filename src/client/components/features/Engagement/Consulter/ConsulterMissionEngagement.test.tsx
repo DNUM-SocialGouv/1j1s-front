@@ -7,6 +7,8 @@ import React from 'react';
 import { ConsulterMissionEngagement } from '~/client/components/features/Engagement/Consulter/ConsulterMissionEngagement';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import { anAmbassadeurDuDonDeVêtementMission } from '~/server/engagement/domain/missionEngagement.fixture';
 
 describe('ConsulterMission', () => {
@@ -23,7 +25,7 @@ describe('ConsulterMission', () => {
 		it('affiche l‘offre de mission', async () => {
 			const offreMission = anAmbassadeurDuDonDeVêtementMission();
 
-			render(<ConsulterMissionEngagement missionEngagement={offreMission} />);
+			render(<DependenciesProvider sessionStorageService={aStorageService()}><ConsulterMissionEngagement missionEngagement={offreMission}/></DependenciesProvider>);
 
 			const nomAssociation = screen.getByText('Ebs le relais val de seine');
 			const tagList = screen.getByRole('list', {
@@ -37,7 +39,7 @@ describe('ConsulterMission', () => {
 		it('affiche un lien pour s’engager sur la mission', async () => {
 			const offreMission = anAmbassadeurDuDonDeVêtementMission();
 
-			render(<ConsulterMissionEngagement missionEngagement={offreMission} />);
+			render(<DependenciesProvider sessionStorageService={aStorageService()}><ConsulterMissionEngagement missionEngagement={offreMission}/></DependenciesProvider>);
 
 			const lienPostuler = screen.getByRole('link', { name: 'S’engager - nouvelle fenêtre' });
 			expect(lienPostuler).toBeVisible();

@@ -6,6 +6,8 @@ import { render, screen } from '@testing-library/react';
 
 import { ConsulterFormation } from '~/client/components/features/Formation/Consulter/ConsulterFormation';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import { Formation } from '~/server/formations/domain/formation';
 import { aFormation } from '~/server/formations/domain/formation.fixture';
 
@@ -28,7 +30,7 @@ describe('ConsulterFormation', () => {
 			titre: 'Développeur web',
 		});
 
-		render(<ConsulterFormation formation={formation}/>);
+		render(<DependenciesProvider sessionStorageService={aStorageService()}><ConsulterFormation formation={formation}/></DependenciesProvider>);
 
 		const titre = screen.getByRole('heading', { level: 1, name: formation.titre });
 		expect(titre).toBeVisible();
@@ -61,7 +63,7 @@ describe('ConsulterFormation', () => {
 			titre: 'Développeur web',
 		});
 
-		render(<ConsulterFormation formation={formation}/>);
+		render(<DependenciesProvider sessionStorageService={aStorageService()}><ConsulterFormation formation={formation}/></DependenciesProvider>);
 
 		const link = screen.getByRole('link', { name: 'Contacter l’établissement - nouvelle fenêtre' });
 		expect(link).toBeVisible();
@@ -81,7 +83,7 @@ describe('ConsulterFormation', () => {
 			titre: 'Développeur web',
 		});
 
-		render(<ConsulterFormation formation={formation}/>);
+		render(<DependenciesProvider sessionStorageService={aStorageService()}><ConsulterFormation formation={formation}/></DependenciesProvider>);
 
 		const link = screen.queryByRole('link', { name: 'Contacter l’établissement - nouvelle fenêtre' });
 		expect(link).not.toBeInTheDocument();
