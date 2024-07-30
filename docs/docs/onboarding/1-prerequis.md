@@ -1,5 +1,5 @@
 ---
-sidebar_label: Prérequis d'installation
+sidebar_label: 1 - Prérequis d'installation
 sidebar_position: 1
 ---
 

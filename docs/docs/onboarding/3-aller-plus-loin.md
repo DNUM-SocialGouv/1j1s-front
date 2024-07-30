@@ -1,5 +1,5 @@
 ---
-sidebar_label: Pour aller plus loin
+sidebar_label:  3 - Pour aller plus loin
 sidebar_position: 3
 ---
 
