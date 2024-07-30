@@ -41,6 +41,14 @@ export function anUnorderedAndNotFilterServiceJeuneList(): Array<ServiceJeune> {
 			titre: 'Des aides pour financer son permis de conduire',
 		}),
 		aServiceJeune({
+			categorie: ServiceJeune.Categorie.ENGAGEMENT,
+			titre: 'Le Service Militaire Volontaire',
+		}),
+		aServiceJeune({
+			categorie: ServiceJeune.Categorie.LOGEMENT,
+			titre: 'Un Logement',
+		}),
+		aServiceJeune({
 			categorie: ServiceJeune.Categorie.ORIENTATION_FORMATION,
 			titre: 'Les Junior Entreprises',
 		}),
@@ -48,6 +56,7 @@ export function anUnorderedAndNotFilterServiceJeuneList(): Array<ServiceJeune> {
 			categorie: ServiceJeune.Categorie.ENTREE_VIE_PROFESSIONELLE,
 			titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
 		}),
+
 	];
 }
 

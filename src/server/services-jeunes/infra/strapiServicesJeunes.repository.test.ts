@@ -49,8 +49,16 @@ describe('strapiMesuresJeunesRepository', () => {
 						titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
 					}),
 					aServiceJeune({
+						categorie: ServiceJeune.Categorie.ENGAGEMENT,
+						titre: 'Le Service Militaire Volontaire',
+					}),
+					aServiceJeune({
 						categorie: ServiceJeune.Categorie.ORIENTATION_FORMATION,
 						titre: 'Les Junior Entreprises',
+					}),
+					aServiceJeune({
+						categorie: ServiceJeune.Categorie.LOGEMENT,
+						titre: 'Un logement',
 					}),
 					aServiceJeune({
 						categorie: ServiceJeune.Categorie.ACCOMPAGNEMENT,

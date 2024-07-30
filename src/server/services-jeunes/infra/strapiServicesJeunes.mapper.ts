@@ -8,6 +8,8 @@ export function mapToServicesJeunes(strapiMesuresJeunes: StrapiMesuresJeunes.Mes
 	const mesuresJeunesParCategorie = {
 		accompagnement: strapiMesuresJeunes.accompagnement,
 		aidesFinancieres: strapiMesuresJeunes.aidesFinancieres,
+		engagement: strapiMesuresJeunes.engagement,
+		logement: strapiMesuresJeunes.logement,
 		orienterFormer: strapiMesuresJeunes.orienterFormer,
 		vieProfessionnelle: strapiMesuresJeunes.vieProfessionnelle,
 	};
@@ -44,5 +46,9 @@ function mapServiceJeuneCategorie(mesureJeuneKey: keyof StrapiMesuresJeunes.Mesu
 			return ServiceJeune.Categorie.ENTREE_VIE_PROFESSIONELLE;
 		case 'aidesFinancieres':
 			return ServiceJeune.Categorie.AIDES_FINANCIERES;
+		case 'engagement':
+			return ServiceJeune.Categorie.ENGAGEMENT;
+		case 'logement':
+			return ServiceJeune.Categorie.LOGEMENT;
 	}
 }

@@ -61,6 +61,14 @@ $transition-visibility: visibility 0ms $transition-duration linear;
       background-color: utilities.$color-groupe-3-green;
     }
 
+    & .categoryEngagement {
+      background-color: utilities.$color-groupe-3-blue;
+    }
+
+    & .categoryLogement {
+      background-color: utilities.$color-groupe-3-pink;
+    }
+
     & .body {
       display: grid;
       grid-template-rows: auto 1fr;

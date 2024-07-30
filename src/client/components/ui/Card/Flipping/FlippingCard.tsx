@@ -40,6 +40,10 @@ export function FlippingCard(props: FlippingCardProps) {
 				return styles.categoryVieProfessionnelle;
 			case ServiceJeune.Categorie.AIDES_FINANCIERES:
 				return styles.categoryAidesFinancieres;
+			case ServiceJeune.Categorie.ENGAGEMENT:
+				return styles.categoryEngagement;
+			case ServiceJeune.Categorie.LOGEMENT:
+				return styles.categoryLogement;
 		}
 	}, [category]);
 
