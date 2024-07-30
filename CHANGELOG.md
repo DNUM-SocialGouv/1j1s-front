@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.335.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.334.0...v3.335.0) (2024-07-30)
+
+
+### Features
+
+* **a11y:** CEJ autres besoins formulaire remplacer les boutons par des checkbox ([#3217](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3217)) ([ff7b4f5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ff7b4f595b24320032ea5c9c49745d526845ae55))
+
 ## [3.334.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.333.1...v3.334.0) (2024-07-30)
 
 
