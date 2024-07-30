@@ -18,12 +18,12 @@ type BackButtonProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonComponen
 
 export function BackButton({ className, label= 'Retour', ...rest }: BackButtonProps) {
 	const router = useRouter();
-	const sessionStorage = useSessionStorage<boolean>(IS_PREVIOUS_PAGE_LOCAL);
+	const isPreviousPageLocal = useSessionStorage<boolean>(IS_PREVIOUS_PAGE_LOCAL);
 
 	const [displayBackButton, setDisplayBackButton] = useState(false);
 	useEffect(() => {
-		setDisplayBackButton(!!sessionStorage.get());
-	}, [sessionStorage]);
+		setDisplayBackButton(!!isPreviousPageLocal.get());
+	}, [isPreviousPageLocal]);
 
 	return (
 		displayBackButton && (
