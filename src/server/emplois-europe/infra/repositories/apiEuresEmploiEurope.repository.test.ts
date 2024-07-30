@@ -163,7 +163,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				[NiveauDEtudeValue.LICENCE, [NiveauEtudeAPIEures.NIVEAU_LICENCE_OU_EQUIVALENT]],
 				[NiveauDEtudeValue.MASTER, [NiveauEtudeAPIEures.NIVEAU_MAITRISE_OU_EQUIVALENT]],
 				[NiveauDEtudeValue.DOCTORAT, [NiveauEtudeAPIEures.NIVEAU_DOCTORAT_OU_EQUIVALENT]],
-				[NiveauDEtudeValue.AUTRE, [NiveauEtudeAPIEures.AUTRE]],
+				[NiveauDEtudeValue.AUTRE, [NiveauEtudeAPIEures.NON_SPECIFIE]],
 			])('appelle l’api Eures avec les niveaux d’études correspondants', (filtreRecherche, expectedNiveauApiEures) => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
@@ -204,7 +204,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 									NiveauEtudeAPIEures.ENSEIGNEMENT_PRESCOLAIRE,
 									NiveauEtudeAPIEures.ENSEIGNEMENT_PRIMAIRE,
 									NiveauEtudeAPIEures.ENSEIGNEMENT_SECONDAIRE_INFERIEUR,
-									NiveauEtudeAPIEures.AUTRE,
+									NiveauEtudeAPIEures.NON_SPECIFIE,
 								],
 							},
 						],

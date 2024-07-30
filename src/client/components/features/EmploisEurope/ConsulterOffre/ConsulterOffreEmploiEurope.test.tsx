@@ -146,16 +146,16 @@ describe('DetailOffreEmploiEurope', () => {
 			expect(tagTypeContrat).toBeVisible();
 		});
 
-		it('si le niveau d‘etudes est "Autre", n‘affiche pas le niveau d‘etudes', () => {
+		it('si le niveau d‘etudes est "Niveau d‘études non spécifié", n‘affiche pas le niveau d‘etudes', () => {
 			// GIVEN
-			const offreEmploiEurope = anEmploiEurope({ niveauEtudes: NiveauDEtudesLibelle.AUTRE });
+			const offreEmploiEurope = anEmploiEurope({ niveauEtudes: NiveauDEtudesLibelle.NON_SPECIFIE });
 
 			// WHEN
 			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
 
 			// THEN
 			const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
-			const tagTypeContrat = within(listTags).queryByText('Autre');
+			const tagTypeContrat = within(listTags).queryByText('Niveau d‘études non spécifié');
 			expect(tagTypeContrat).not.toBeInTheDocument();
 		});
 

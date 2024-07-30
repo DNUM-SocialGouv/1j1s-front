@@ -541,7 +541,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					[NiveauEtudeAPIEures.NIVEAU_LICENCE_OU_EQUIVALENT, NiveauDEtudesLibelle.LICENCE],
 					[NiveauEtudeAPIEures.NIVEAU_MAITRISE_OU_EQUIVALENT, NiveauDEtudesLibelle.MASTER],
 					[NiveauEtudeAPIEures.NIVEAU_DOCTORAT_OU_EQUIVALENT, NiveauDEtudesLibelle.DOCTORAT],
-					[NiveauEtudeAPIEures.AUTRE, NiveauDEtudesLibelle.AUTRE],
+					[NiveauEtudeAPIEures.NON_SPECIFIE, NiveauDEtudesLibelle.NON_SPECIFIE],
 				])('retourne un emploi avec le niveau d’études en français selon le référentiel', (niveauEtudesEures, expectedNiveauEtudes) => {
 					// GIVEN
 					const handle = 'eures-offer-id';
@@ -574,6 +574,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					const handle = 'eures-offer-id';
 					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(
 						{
+							// @ts-expect-error
 							educationLevelCode: educationLevelCode,
 						});
 					const aDetailItemWithContractTypeApprenticeship = anApiEuresEmploiEuropeDetailItem(

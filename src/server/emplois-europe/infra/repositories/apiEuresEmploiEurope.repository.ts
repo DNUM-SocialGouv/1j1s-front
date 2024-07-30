@@ -47,7 +47,7 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 					case NiveauDEtudeValue.DOCTORAT:
 						return [NiveauEtudeAPIEures.NIVEAU_DOCTORAT_OU_EQUIVALENT];
 					case NiveauDEtudeValue.AUTRE:
-						return [NiveauEtudeAPIEures.AUTRE];
+						return [NiveauEtudeAPIEures.NON_SPECIFIE];
 				}
 			}
 

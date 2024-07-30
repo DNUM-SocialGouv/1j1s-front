@@ -2,11 +2,13 @@ import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailItem,
 	ApiEuresEmploiEuropeDetailResponse,
+	ApiEuresEmploiEuropeDetailXML,
 	ApiEuresEmploiEuropeRechercheRequestBody,
 	ApiEuresEmploiEuropeResponseJobVacancy,
 	ApiEuresEmploiEuropeResponseRelated,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
+import NiveauEtudeAPIEures = ApiEuresEmploiEuropeDetailXML.NiveauEtudeAPIEures;
 
 export function anApiEuresRechercheBody(override: Partial<ApiEuresEmploiEuropeRechercheRequestBody>): ApiEuresEmploiEuropeRechercheRequestBody {
 	return {
@@ -58,7 +60,7 @@ export function anApiEuresEmploiEuropeDetailResponse(itemsToAdd?: Array<ApiEures
 								titre: 'Pâtissier (H/F)',
 							}),
 					}),
-					related: anApiEuresEmploiEuropeDetailRelated({ urls: [ { urlValue: 'https://urlDeCandidature2.com' } ] }),
+					related: anApiEuresEmploiEuropeDetailRelated({ urls: [{ urlValue: 'https://urlDeCandidature2.com' }] }),
 				}),
 			],
 		},
@@ -141,14 +143,14 @@ ${competenceInfo.competenciesDimensions?.map((competencyInfo) =>
 interface ApiEuresEmploiEuropeDetailXMLResponseFixture {
 	titre?: string,
 	nomEntreprise?: string,
-	localisations?: Array<{pays?: string, ville?: string}>
+	localisations?: Array<{ pays?: string, ville?: string }>
 	typeContrat?: string,
 	description?: string,
 	listePermis?: Array<string>,
 	listeCompetencesLinguistiques?: Array<languageCompetency>
 	listeLangueDeTravail?: Array<string>
 	tempsDeTravail?: string,
-	educationLevelCode?: number,
+	educationLevelCode?: NiveauEtudeAPIEures,
 	experiencesNecessaires?: Array<{
 		duree: number,
 		unite?: UNITE_EXPERIENCE_NECESSAIRE
@@ -156,18 +158,18 @@ interface ApiEuresEmploiEuropeDetailXMLResponseFixture {
 	codeLangueDeLOffre?: string
 }
 
-function anXMLLicenseDriving(listePermis?: Array<string>){
-	if(!listePermis){
+function anXMLLicenseDriving(listePermis?: Array<string>) {
+	if (!listePermis) {
 		return '<LicenseTypeCode>B</LicenseTypeCode>';
 	}
-	return `${listePermis.map((permis)=> (`<LicenseTypeCode>${permis}</LicenseTypeCode>`) )}`;
+	return `${listePermis.map((permis) => (`<LicenseTypeCode>${permis}</LicenseTypeCode>`))}`;
 }
 
-function anXMLWorkingLanguage(listeLangueDeTravail?: Array<string>){
-	if(!listeLangueDeTravail){
+function anXMLWorkingLanguage(listeLangueDeTravail?: Array<string>) {
+	if (!listeLangueDeTravail) {
 		return '<WorkingLanguageCode>nl</WorkingLanguageCode>';
 	}
-	return `${listeLangueDeTravail.map((langueDeTravail)=> (`<WorkingLanguageCode>${langueDeTravail}</WorkingLanguageCode>`) )}`;
+	return `${listeLangueDeTravail.map((langueDeTravail) => (`<WorkingLanguageCode>${langueDeTravail}</WorkingLanguageCode>`))}`;
 }
 
 function anXMLPositionLocation(localisations: ApiEuresEmploiEuropeDetailXMLResponseFixture['localisations']) {
@@ -186,7 +188,20 @@ function anXMLPositionLocation(localisations: ApiEuresEmploiEuropeDetailXMLRespo
 }
 
 
-export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, localisations, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode, experiencesNecessaires, codeLangueDeLOffre }: ApiEuresEmploiEuropeDetailXMLResponseFixture): string {
+export function anApiEuresEmploiEuropeDetailXMLResponse({
+	titre,
+	nomEntreprise,
+	localisations,
+	typeContrat,
+	description,
+	listePermis,
+	listeCompetencesLinguistiques,
+	listeLangueDeTravail,
+	tempsDeTravail,
+	educationLevelCode,
+	experiencesNecessaires,
+	codeLangueDeLOffre,
+}: ApiEuresEmploiEuropeDetailXMLResponseFixture): string {
 
 	return ` 
         <PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
@@ -327,7 +342,7 @@ function buildExperienceSummary(experiencesNecessaires: ApiEuresEmploiEuropeDeta
 				<CategoryCode listName="ESCO_Occupations" listURI="https://ec.europa.eu/esco/portal" listVersionID="ESCOv1">
 					http://data.europa.eu/esco/occupation/uuid-4
 				</CategoryCode>
-				<Measure unitCode=${experienceNecessaire.unite ? `"${experienceNecessaire.unite}"`: undefined}>${experienceNecessaire.duree}</Measure>
+				<Measure unitCode=${experienceNecessaire.unite ? `"${experienceNecessaire.unite}"` : undefined}>${experienceNecessaire.duree}</Measure>
 				<ns2:Description>description de l‘experience demandée</ns2:Description>
 			</ExperienceCategory>`;
 	});

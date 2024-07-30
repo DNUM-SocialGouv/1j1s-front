@@ -30,7 +30,7 @@ export const getTagsFromAnnonce = (emploiEurope: EmploiEurope): string[] => {
 		tags.push(emploiEurope.tempsDeTravail);
 	}
 
-	if (emploiEurope.niveauEtudes && emploiEurope.niveauEtudes !== NiveauDEtudesLibelle.AUTRE) {
+	if (emploiEurope.niveauEtudes && emploiEurope.niveauEtudes !== NiveauDEtudesLibelle.NON_SPECIFIE) {
 		tags.push(emploiEurope.niveauEtudes);
 	}
 

@@ -135,7 +135,7 @@ export enum NiveauEtudeAPIEures {
 		NIVEAU_LICENCE_OU_EQUIVALENT = 6,
 		NIVEAU_MAITRISE_OU_EQUIVALENT = 7,
 		NIVEAU_DOCTORAT_OU_EQUIVALENT = 8,
-		AUTRE = 9,
+		NON_SPECIFIE = 'NS',
 	}
 	
 	export interface EducationRequirement {
