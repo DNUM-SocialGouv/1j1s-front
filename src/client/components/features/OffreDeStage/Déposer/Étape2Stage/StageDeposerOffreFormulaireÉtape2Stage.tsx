@@ -3,9 +3,6 @@ import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 
 import { InputDateDeDebut } from '~/client/components/features/OffreDeStage/Déposer/Étape2Stage/InputDateDeDebut';
-import {
-	ChampRemuneration,
-} from '~/client/components/features/OffreDeStage/Déposer/Étape2Stage/InputRemuneration';
 import { RadioIsDatePrecise } from '~/client/components/features/OffreDeStage/Déposer/Étape2Stage/RadioIsDatePrecise';
 import {
 	StageDeposerOffreFormulaireLayout,
@@ -16,6 +13,7 @@ import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEt
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
+import { InputWithUnit } from '~/client/components/ui/Form/InputWithUnit/InputWithUnit';
 import { OptionSelect } from '~/client/components/ui/Form/Select/Select';
 import { TextArea } from '~/client/components/ui/Form/TextArea/TextArea';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -155,7 +153,23 @@ function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposee.Stage 
 			optionList={domaineStage}
 		/>
 
-		<ChampRemuneration defaultValue={props.informationsStage?.remunerationStage}/>
+		<Champ>
+			<Champ.Label>
+				Rémunération par mois
+				<Champ.Label.Complement>Exemple : 560</Champ.Label.Complement>
+			</Champ.Label>
+			<Champ.Input
+				render={InputWithUnit}
+				nomDeLUnite={'Euro'}
+				unite={'€'}
+				type="number"
+				name={StageEnum.REMUNERATION}
+				min={0}
+				defaultValue={props.informationsStage?.remunerationStage}
+			/>
+			<Champ.Error/>
+		</Champ>
+
 		<div>
 			<fieldset className={styles.contenuTeletravail}>
 				<legend>Télétravail possible</legend>

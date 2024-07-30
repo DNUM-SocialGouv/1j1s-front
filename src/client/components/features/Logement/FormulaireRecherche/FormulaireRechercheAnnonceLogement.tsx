@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 
 import styles
 	from '~/client/components/features/Logement/FormulaireRecherche/FormulaireRechercheAnnonceLogement.module.scss';
@@ -13,7 +13,9 @@ import { MeilisearchRange } from '~/client/components/ui/Meilisearch/Meilisearch
 import {
 	MeilisearchRangeForModal,
 } from '~/client/components/ui/Meilisearch/MeilisearchRange/MeilisearchRangeForModal';
-import { MeilisearchSelectMultiple } from '~/client/components/ui/Meilisearch/MeilisearchSelectMultiple/MeilisearchSelectMultiple';
+import {
+	MeilisearchSelectMultiple,
+} from '~/client/components/ui/Meilisearch/MeilisearchSelectMultiple/MeilisearchSelectMultiple';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
 export const PRIX_MINIMUM = 0;
@@ -25,6 +27,10 @@ export const UNITE_SURFACE = 'm²';
 
 export function FormulaireRechercheAnnonceLogement() {
 	const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
+	const idTypeOffreTitre = useId();
+	const idTypeBienTitre = useId();
+	const idPrixTitre = useId();
+	const idSurfaceTitre = useId();
 
 	return (
 		<form
@@ -89,30 +95,36 @@ export function FormulaireRechercheAnnonceLogement() {
 					</ModalComponent.Title>
 					<ModalComponent.Content className={styles.filtresAvancésModalContenu}>
 						<FilterAccordion open>
-							<FilterAccordion.Title>Type d‘offre</FilterAccordion.Title>
+							<FilterAccordion.Title id={idTypeOffreTitre}>Type d‘offre</FilterAccordion.Title>
 							<FilterAccordion.Content>
-								<MeilisearchCheckboxList
-									attribute="type"
-									label="Type d‘offre"
-									sortBy={['name:asc']}
-								/>
+								<fieldset aria-labelledby={idTypeOffreTitre}>
+									<MeilisearchCheckboxList
+										attribute="type"
+										label="Type d‘offre"
+										sortBy={['name:asc']}
+									/>
+								</fieldset>
 							</FilterAccordion.Content>
 						</FilterAccordion>
 						<FilterAccordion>
-							<FilterAccordion.Title>Type de bien</FilterAccordion.Title>
+							<FilterAccordion.Title id={idTypeBienTitre}>Type de bien</FilterAccordion.Title>
 							<FilterAccordion.Content>
-								<MeilisearchCheckboxList
-									attribute="typeBien"
-									label="Type de bien"
-									sortBy={['name:asc']}
-								/>
+								<fieldset aria-labelledby={idTypeBienTitre}>
+									<MeilisearchCheckboxList
+										attribute="typeBien"
+										label="Type de bien"
+										sortBy={['name:asc']}
+									/>
+								</fieldset>
 							</FilterAccordion.Content>
 						</FilterAccordion>
 						<FilterAccordion>
-							<FilterAccordion.Title>Prix</FilterAccordion.Title>
+							<FilterAccordion.Title id={idPrixTitre}>Prix</FilterAccordion.Title>
 							<FilterAccordion.Content>
 								<MeilisearchRangeForModal
+									aria-labelledby={idPrixTitre}
 									attribute="prix"
+									nomDeLUnite="Euro"
 									unite="€"
 									min={PRIX_MINIMUM}
 									max={PRIX_MAXIMUM}
@@ -120,10 +132,12 @@ export function FormulaireRechercheAnnonceLogement() {
 							</FilterAccordion.Content>
 						</FilterAccordion>
 						<FilterAccordion>
-							<FilterAccordion.Title>Surface</FilterAccordion.Title>
+							<FilterAccordion.Title id={idSurfaceTitre}>Surface</FilterAccordion.Title>
 							<FilterAccordion.Content>
 								<MeilisearchRangeForModal
+									aria-labelledby={idSurfaceTitre}
 									attribute="surface"
+									nomDeLUnite="Mètre carré"
 									unite="m²"
 									min={SURFACE_MINIMUM}
 									max={SURFACE_MAXIMUM}

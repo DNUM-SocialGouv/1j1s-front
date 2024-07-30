@@ -66,12 +66,14 @@ export function MeilisearchRange(props: UseRangeProps & MeilisearchRangeProps) {
 
   const onMaxInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
   	const value = event.target.value;
-  	setMaxValue(value === '' ? value : Number(value));
+  	if(!value) setMaxValue('');
+  	else setMaxValue(Number(value));
   }, []);
 
   const onMinInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
   	const value = event.target.value;
-  	setMinValue(value === '' ? value : Number(value));
+  	if(!value) setMinValue('');
+  	else setMinValue(Number(value));
   }, []);
 
   function refineRange() {
@@ -114,7 +116,7 @@ export function MeilisearchRange(props: UseRangeProps & MeilisearchRangeProps) {
   			/>
   			<span>{unite}</span>
   		</span>
-  		<ButtonComponent type="submit" label={BUTTON_LABEL} onClick={refineRange}/>
+  		<ButtonComponent label={BUTTON_LABEL} onClick={refineRange}/>
   	</fieldset>
   );
 
