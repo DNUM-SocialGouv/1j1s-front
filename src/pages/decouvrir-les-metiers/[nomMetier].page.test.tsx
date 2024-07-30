@@ -9,6 +9,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import ConsulterFicheMetierPage from '~/pages/decouvrir-les-metiers/[nomMetier].page';
 import { aFicheMetier } from '~/server/fiche-metier/domain/ficheMetier.fixture';
 
@@ -23,9 +24,11 @@ describe('Page consulter fiche métier', () => {
 	});
 
 	it('doit rendre du HTML respectant la specification', () => {
-		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<ConsulterFicheMetierPage ficheMetier={aFicheMetier()}/>
-		</DependenciesProvider> );
+		const { container } = render(
+			<DependenciesProvider analyticsService={aManualAnalyticsService()} sessionStorageService={aStorageService()}>
+				<ConsulterFicheMetierPage ficheMetier={aFicheMetier()}/>
+			</DependenciesProvider>,
+		);
 		
 		expect(container.outerHTML).toHTMLValidate();
 	});
@@ -36,6 +39,7 @@ describe('Page consulter fiche métier', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
+				sessionStorageService={aStorageService()}
 			>
 				<ConsulterFicheMetierPage ficheMetier={ficheMetier}/>
 			</DependenciesProvider>,
@@ -48,6 +52,7 @@ describe('Page consulter fiche métier', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider
+				sessionStorageService={aStorageService()}
 				analyticsService={analyticsService}
 			>
 				<ConsulterFicheMetierPage ficheMetier={ficheMetier}/>
@@ -67,6 +72,7 @@ describe('Page consulter fiche métier', () => {
 		render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
+				sessionStorageService={aStorageService()}
 			>
 				<ConsulterFicheMetierPage ficheMetier={ficheMetier}/>
 			</DependenciesProvider>,

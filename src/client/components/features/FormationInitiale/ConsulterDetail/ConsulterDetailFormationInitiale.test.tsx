@@ -9,6 +9,8 @@ import {
 	ConsulterDetailFormationInitiale,
 } from '~/client/components/features/FormationInitiale/ConsulterDetail/ConsulterDetailFormationInitiale';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import {
 	aFormationInitiale,
 	aFormationInitialeDetailComplete,
@@ -37,7 +39,11 @@ describe('ConsulterDetailFormationInitiale', () => {
 				niveauDeSortie: 'Bac + 2',
 			});
 
-			render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>);
+			render(
+				<DependenciesProvider sessionStorageService={aStorageService()}>
+					<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>
+				</DependenciesProvider>,
+			);
 
 			const tagsList = within(screen.getByRole('list')).getAllByRole('listitem');
 			expect(tagsList).toHaveLength(3);
@@ -53,7 +59,11 @@ describe('ConsulterDetailFormationInitiale', () => {
 				niveauDeSortie: 'Bac + 2',
 			});
 
-			render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>);
+			render(
+				<DependenciesProvider sessionStorageService={aStorageService()}>
+					<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>
+				</DependenciesProvider>,
+			);
 
 			const tagsList = within(screen.getByRole('list')).getAllByRole('listitem');
 			expect(tagsList).toHaveLength(2);
@@ -68,9 +78,11 @@ describe('ConsulterDetailFormationInitiale', () => {
 		const formationInitialeDetail = aFormationInitialeDetailComplete({ url_formation: 'https://www.onisep.fr/fiche-formation' });
 
 		// When
-		render(<ConsulterDetailFormationInitiale
-			formationInitialeDetail={formationInitialeDetail}
-		/>);
+		render(
+			<DependenciesProvider sessionStorageService={aStorageService()}>
+				<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>
+			</DependenciesProvider>,
+		);
 
 		// Then
 		const lienVersSitePartenaire = screen.getByRole('link', { name: /Consulter les établissements/ });
@@ -84,8 +96,12 @@ describe('ConsulterDetailFormationInitiale', () => {
 		it('si la description est disponible, je la vois', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ description: descriptionText });
 
-			const { getByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}/>, { queries });
+			const { getByDescriptionTerm } = render(
+				<DependenciesProvider sessionStorageService={aStorageService()}>
+					<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>
+				</DependenciesProvider>,
+				{ queries },
+			);
 
 			const description = getByDescriptionTerm('Description');
 			expect(description).toBeVisible();
