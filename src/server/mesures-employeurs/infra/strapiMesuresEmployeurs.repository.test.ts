@@ -1,8 +1,11 @@
 import { aStrapiService } from '~/server/cms/infra/repositories/strapi.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import { aMesuresEmployeursList } from '~/server/mesures-employeurs/domain/mesureEmployeur.fixture';
-import { aStrapiMesuresEmployeursList } from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs.fixture';
+import { aMesureEmployeur, aMesuresEmployeursList } from '~/server/mesures-employeurs/domain/mesureEmployeur.fixture';
+import {
+	aStrapiMesureEmployeur,
+	aStrapiMesuresEmployeursList,
+} from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs.fixture';
 import {
 	StrapiMesuresEmployeursRepository,
 } from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs.repository';
@@ -25,6 +28,33 @@ describe('StrapiMesuresEmployeursRepository', () => {
 		});
 
 		describe('quand la récupération est en succès', () => {
+			it('ne renvoie pas les mesures employeurs sans link', async () => {
+				// Given
+				const strapiService = aStrapiService();
+				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresEmployeursList({
+					dispositifs: [
+						aStrapiMesureEmployeur({
+							titre: 'une-mesure-sans-link',
+							article: undefined,
+							url: undefined,
+						}),
+						aStrapiMesureEmployeur({
+							titre: 'une-mesure-avec-link',
+						}),
+					],
+				})));
+
+				// When
+				const strapiMesuresEmployeurs = new StrapiMesuresEmployeursRepository(strapiService, anErrorManagementService());
+				const result = await strapiMesuresEmployeurs.getMesuresEmployeurs();
+
+				// Then
+				const resultExpected = createSuccess([aMesureEmployeur({
+					titre: 'une-mesure-avec-link',
+				})]);
+				expect(result).toStrictEqual(resultExpected);
+			});
+
 			it('quand le mapping vers les mesures employeurs est en succès, renvoie la liste des mesures employeurs', async () => {
 				const strapiService = aStrapiService();
 				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresEmployeursList()));

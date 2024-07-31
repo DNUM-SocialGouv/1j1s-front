@@ -16,7 +16,8 @@ export class StrapiMesuresEmployeursRepository implements MesuresEmployeursRepos
 			const strapiMesuresEmployeurs = await this.strapiService.getSingleType<StrapiMesuresEmployeurs.MesuresEmployeurs>(RESOURCE_MESURES_EMPLOYEURS, query);
 			if(isFailure(strapiMesuresEmployeurs)) return strapiMesuresEmployeurs;
 
-			const mesuresEmployeurs = mapMesuresEmployeurs(strapiMesuresEmployeurs.result);
+			const strapiMesuresEmployeursFiltrees = filterStrapiMesuresEmployeurs(strapiMesuresEmployeurs.result);
+			const mesuresEmployeurs = mapMesuresEmployeurs(strapiMesuresEmployeursFiltrees);
 			return createSuccess(mesuresEmployeurs);
 
 		} catch (error) {
@@ -29,3 +30,12 @@ export class StrapiMesuresEmployeursRepository implements MesuresEmployeursRepos
 	}
 }
 
+function filterStrapiMesuresEmployeurs(strapiMesuresEmployeurs: StrapiMesuresEmployeurs.MesuresEmployeurs): StrapiMesuresEmployeurs.MesuresEmployeurs {
+	return {
+		dispositifs: strapiMesuresEmployeurs.dispositifs.filter(contientUnLink),
+	};
+}
+
+function contientUnLink(mesure: StrapiMesuresEmployeurs.Dispositif): boolean {
+	return Boolean(mesure.article?.data || mesure.url);
+}
