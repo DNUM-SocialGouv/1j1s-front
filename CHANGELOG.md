@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.336.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.335.0...v3.336.0) (2024-07-31)
+
+
+### Features
+
+* **emplois europe:** transformer le niveau d'étude autre en non spécifié ([#3223](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3223)) ([3dfc9a9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3dfc9a91b60800994bc8174a5075f7417aa1c95b))
+
+
+### Bug Fixes
+
+* **deps:** update dependency redis to v4.7.0 ([#3224](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3224)) ([0353c4b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0353c4bb30d67b9f9aceffdac32b98b957d43058))
+
 ## [3.335.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.334.0...v3.335.0) (2024-07-30)
 
 
