@@ -131,7 +131,7 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 			case KeyBoard.IE_ARROW_UP:
 				if (state.isListOptionsOpen) {
 					if (altKey) {
-						state.activeDescendant && selectOption(state.activeDescendant);
+						if (state.activeDescendant) { selectOption(state.activeDescendant); };
 						dispatch(new SelectMultipleAction.CloseList());
 					} else {
 						dispatch(new SelectMultipleAction.PreviousOption());

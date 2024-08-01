@@ -36,7 +36,7 @@ export function MeilisearchComboboxLocalisation(props: UseRefinementListProps) {
 			const activeDescendantId = comboboxRef.current?.getAttribute('aria-activedescendant');
 			if (activeDescendantId) {
 				const selectedElement = document.getElementById(activeDescendantId);
-				selectedElement?.textContent && onOptionSelected(selectedElement.textContent);
+				if (selectedElement?.textContent) { onOptionSelected(selectedElement.textContent); };
 			} else {
 				const inputValue = document.querySelector<HTMLInputElement>(`input[name=${INPUT_VALUE_NAME}]`)?.value;
 				if (inputValue) {
@@ -47,7 +47,7 @@ export function MeilisearchComboboxLocalisation(props: UseRefinementListProps) {
 	}
 
 	function onClickOnOption(event: React.MouseEvent<HTMLLIElement>) {
-		event.currentTarget.textContent && onOptionSelected(event.currentTarget.textContent);
+		if (event.currentTarget.textContent) { onOptionSelected(event.currentTarget.textContent); };
 	}
 
 	return (
