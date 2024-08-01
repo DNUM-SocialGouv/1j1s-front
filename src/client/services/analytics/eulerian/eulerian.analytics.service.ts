@@ -72,7 +72,7 @@ export class EulerianAnalyticsService implements ManualAnalyticsService {
 			};
 			this.cookiesService.addService(EulerianAnalyticsService.EULERIAN_ANALYTICS_SERVICE, config);
 			return window.EA_push;
-		} catch (e) {
+		} catch {
 			return fallbackPushDatalayer;
 		}
 	}

@@ -64,7 +64,7 @@ export const InputChamp: <Props extends ComponentChildrenPropsNecessary>(props: 
 		const { errorId, hintId, inputId, setInputId, setErrorMessage, errorMessage } = useChampContext();
 
 		useEffect(() => {
-			id && setInputId(id);
+			if (id) { setInputId(id); }
 		}, [id, setInputId]);
 
 		const onChange = useCallback<ChangeFunction>((event, ...args) => {
@@ -97,7 +97,7 @@ function ErrorChamp({ id, ...rest }: Omit<ComponentPropsWithoutRef<typeof Error>
 	const { errorId, setErrorId, errorMessage } = useChampContext();
 
 	useEffect(() => {
-		id && setErrorId(id);
+		if (id) { setErrorId(id); }
 	}, [id, setErrorId]);
 
 	return (errorMessage && <Error id={id ?? errorId} {...rest} >{errorMessage}</Error>);
@@ -107,7 +107,7 @@ function HintChamp({ id, ...rest }: ComponentPropsWithoutRef<typeof Hint>) {
 	const { hintId, setHintId } = useChampContext();
 
 	useEffect(() => {
-		id && setHintId(id);
+		if (id) { setHintId(id); }
 	}, [id, setHintId]);
 
 	return (<Hint id={id ?? hintId} {...rest}/>);
