@@ -1,9 +1,8 @@
 import { aStrapiService } from '~/server/cms/infra/repositories/strapi.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import { aMesureEmployeur, aMesuresEmployeursList } from '~/server/mesures-employeurs/domain/mesureEmployeur.fixture';
+import { aMesuresEmployeursList } from '~/server/mesures-employeurs/domain/mesureEmployeur.fixture';
 import {
-	aStrapiMesureEmployeur,
 	aStrapiMesuresEmployeursList,
 } from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs.fixture';
 import {
@@ -28,34 +27,7 @@ describe('StrapiMesuresEmployeursRepository', () => {
 		});
 
 		describe('quand la récupération est en succès', () => {
-			it('ne renvoie pas les mesures employeurs sans link', async () => {
-				// Given
-				const strapiService = aStrapiService();
-				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresEmployeursList({
-					dispositifs: [
-						aStrapiMesureEmployeur({
-							titre: 'une-mesure-sans-link',
-							article: undefined,
-							url: undefined,
-						}),
-						aStrapiMesureEmployeur({
-							titre: 'une-mesure-avec-link',
-						}),
-					],
-				})));
-
-				// When
-				const strapiMesuresEmployeurs = new StrapiMesuresEmployeursRepository(strapiService, anErrorManagementService());
-				const result = await strapiMesuresEmployeurs.getMesuresEmployeurs();
-
-				// Then
-				const resultExpected = createSuccess([aMesureEmployeur({
-					titre: 'une-mesure-avec-link',
-				})]);
-				expect(result).toStrictEqual(resultExpected);
-			});
-
-			it('quand le mapping vers les mesures employeurs est en succès, renvoie la liste des mesures employeurs', async () => {
+			it('quand filter et map vers les mesures employeurs sont en succès, renvoie la liste des mesures employeurs', async () => {
 				const strapiService = aStrapiService();
 				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresEmployeursList()));
 				const strapiMesuresEmployeurs = new StrapiMesuresEmployeursRepository(strapiService, anErrorManagementService());
@@ -66,7 +38,7 @@ describe('StrapiMesuresEmployeursRepository', () => {
 				expect(result).toStrictEqual(resultExpected);
 			});
 
-			it('quand le mapping vers les mesures employeurs est en échec, appelle le service de management d‘erreur avec l‘erreur et le contexte', async () => {
+			it('quand filter ou map vers les mesures employeurs est échec, appelle le service de management d‘erreur avec l‘erreur et le contexte', async () => {
 				const strapiService = aStrapiService();
 				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess({ someNonExistentField: '' }));
 
@@ -81,7 +53,7 @@ describe('StrapiMesuresEmployeursRepository', () => {
 					aLogInformation({
 						apiSource: 'Strapi - Mesures Employeurs',
 						contexte: 'récupérer les mesures employeurs',
-						message: 'impossible de mapper vers les mesures employeurs',
+						message: 'impossible de transformer vers les mesures employeurs',
 					}));
 				expect(result).toStrictEqual(failureFromErrorManagement);
 			});

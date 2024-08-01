@@ -15,3 +15,12 @@ export function mapMesuresEmployeurs(strapiLesMesuresEmployeurs: StrapiMesuresEm
 	});
 }
 
+export function filterStrapiMesuresEmployeurs(strapiMesuresEmployeurs: StrapiMesuresEmployeurs.MesuresEmployeurs): StrapiMesuresEmployeurs.MesuresEmployeurs {
+	return {
+		dispositifs: strapiMesuresEmployeurs.dispositifs.filter(contientUnLink),
+	};
+}
+
+function contientUnLink(mesure: StrapiMesuresEmployeurs.Dispositif): boolean {
+	return Boolean(mesure.article?.data || mesure.url);
+}

@@ -4,7 +4,10 @@ import { ErrorManagementService } from '~/server/services/error/errorManagement.
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { ServicesJeunesRepository } from '~/server/services-jeunes/domain/servicesJeunes.repository';
 import { StrapiMesuresJeunes } from '~/server/services-jeunes/infra/strapiMesuresJeunes';
-import { mapToServicesJeunes } from '~/server/services-jeunes/infra/strapiServicesJeunes.mapper';
+import {
+	filterStrapiMesuresJeunes,
+	mapToServicesJeunes,
+} from '~/server/services-jeunes/infra/strapiServicesJeunes.service';
 
 const RESOURCE_MESURE_JEUNE = 'mesure-jeune';
 
@@ -28,24 +31,8 @@ export class StrapiServicesJeunesRepository implements ServicesJeunesRepository 
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'Strapi - Services Jeunes',
 				contexte: 'récupérer les services jeunes',
-				message: 'impossible de mapper vers les services jeunes',
+				message: 'impossible de transformer vers les services jeunes',
 			});
 		}
 	}
-}
-
-function filterStrapiMesuresJeunes(strapiMesuresJeunes: StrapiMesuresJeunes.MesuresJeunesParCategorie): StrapiMesuresJeunes.MesuresJeunesParCategorie {
-	const mesuresJeunesParCategorie = {
-		accompagnement: strapiMesuresJeunes.accompagnement.filter(contientUnLink),
-		aidesFinancieres: strapiMesuresJeunes.aidesFinancieres.filter(contientUnLink),
-		engagement: strapiMesuresJeunes.engagement.filter(contientUnLink),
-		logement: strapiMesuresJeunes.logement.filter(contientUnLink),
-		orienterFormer: strapiMesuresJeunes.orienterFormer.filter(contientUnLink),
-		vieProfessionnelle: strapiMesuresJeunes.vieProfessionnelle.filter(contientUnLink),
-	};
-	return mesuresJeunesParCategorie;
-}
-
-function contientUnLink(mesure: StrapiMesuresJeunes.MesureJeune): boolean {
-	return Boolean(mesure.article?.data || mesure.url);
 }

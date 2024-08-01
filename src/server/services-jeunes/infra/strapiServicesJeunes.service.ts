@@ -52,3 +52,19 @@ function mapServiceJeuneCategorie(mesureJeuneKey: keyof StrapiMesuresJeunes.Mesu
 			return ServiceJeune.Categorie.LOGEMENT;
 	}
 }
+
+export function filterStrapiMesuresJeunes(strapiMesuresJeunes: StrapiMesuresJeunes.MesuresJeunesParCategorie): StrapiMesuresJeunes.MesuresJeunesParCategorie {
+	const mesuresJeunesParCategorie = {
+		accompagnement: strapiMesuresJeunes.accompagnement.filter(contientUnLink),
+		aidesFinancieres: strapiMesuresJeunes.aidesFinancieres.filter(contientUnLink),
+		engagement: strapiMesuresJeunes.engagement.filter(contientUnLink),
+		logement: strapiMesuresJeunes.logement.filter(contientUnLink),
+		orienterFormer: strapiMesuresJeunes.orienterFormer.filter(contientUnLink),
+		vieProfessionnelle: strapiMesuresJeunes.vieProfessionnelle.filter(contientUnLink),
+	};
+	return mesuresJeunesParCategorie;
+}
+
+function contientUnLink(mesure: StrapiMesuresJeunes.MesureJeune): boolean {
+	return Boolean(mesure.article?.data || mesure.url);
+}

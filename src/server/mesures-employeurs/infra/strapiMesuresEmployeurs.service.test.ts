@@ -6,7 +6,10 @@ import {
 	aStrapiMesureEmployeur,
 	aStrapiMesuresEmployeursList,
 } from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs.fixture';
-import { mapMesuresEmployeurs } from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs.mapper';
+import {
+	filterStrapiMesuresEmployeurs,
+	mapMesuresEmployeurs,
+} from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs.service';
 
 describe('mapMesuresEmployeurs', () => {
 	it('map les mesures employeurs', async () => {
@@ -100,5 +103,34 @@ describe('mapMesuresEmployeurs', () => {
 				alt: '',
 			}),
 		})]);
+	});
+});
+
+describe('filterStrapiMesuresEmployeurs', () => {
+	it('ne renvoie pas les mesures employeurs sans link', async () => {
+		// Given
+		const mesureEmployeurSansLink = aStrapiMesureEmployeur({
+			titre: 'mesure-sans-link',
+			article: undefined,
+			url: undefined,
+		});
+		const mesureEmployeurAvecLink = aStrapiMesureEmployeur({
+			titre: 'mesure-avec-link',
+		});
+		const mesureEmployeurList = aStrapiMesuresEmployeursList({
+			dispositifs: [
+				mesureEmployeurSansLink,
+				mesureEmployeurAvecLink,
+			],
+		});
+
+		// When
+		const result = filterStrapiMesuresEmployeurs(mesureEmployeurList);
+
+		// Then
+		const resultExpected = aStrapiMesuresEmployeursList({
+			dispositifs: [ mesureEmployeurAvecLink ],
+		});
+		expect(result).toStrictEqual(resultExpected);
 	});
 });

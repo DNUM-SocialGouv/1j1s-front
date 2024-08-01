@@ -5,8 +5,7 @@ import { anErrorManagementService } from '~/server/services/error/errorManagemen
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { aServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes.fixture';
 import {
-	aStrapiMesureJeune,
-	aStrapiMesuresJeunesParCategorie, aStrapiMesuresJeunesParCategorieSansResultat,
+	aStrapiMesuresJeunesParCategorie,
 	aStrapiUnorderedMesuresJeunesParCategorie,
 } from '~/server/services-jeunes/infra/strapiMesuresJeunes.fixture';
 import { StrapiServicesJeunesRepository } from '~/server/services-jeunes/infra/strapiServicesJeunes.repository';
@@ -69,29 +68,9 @@ describe('strapiMesuresJeunesRepository', () => {
 				expect(result).toEqual(createSuccess(orderedServicesJeunes));
 			});
 
-			it('ne retourne pas les services sans article ni url', async () => {
-				// Given
-				const strapiService = aStrapiService();
-				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(
-					createSuccess(aStrapiMesuresJeunesParCategorieSansResultat({
-						accompagnement: [
-							aStrapiMesureJeune({ titre: 'un-service-sans-link', article: undefined, url: undefined }),
-							aStrapiMesureJeune({ titre: 'un-service-avec-link' }),
-						]
-					}))
-				);
-
-				const strapiServicesJeunesRepository = new StrapiServicesJeunesRepository(strapiService, anErrorManagementService());
-
-				// When
-				const result = await strapiServicesJeunesRepository.getServicesJeunesList();
-
-				// Then
-				expect(result).toEqual(createSuccess([aServiceJeune({ titre: 'un-service-avec-link' })]));
-			});
 		});
 
-		describe('si le mapping vers les services jeunes est en erreur', () => {
+		describe('si filter ou map vers les services jeunes est en erreur', () => {
 			it('appelle le service de gestion d’erreur avec l’erreur et le contexte', async () => {
 				const strapiService = aStrapiService();
 				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess({
@@ -107,7 +86,7 @@ describe('strapiMesuresJeunesRepository', () => {
 					{
 						apiSource: 'Strapi - Services Jeunes',
 						contexte: 'récupérer les services jeunes',
-						message: 'impossible de mapper vers les services jeunes',
+						message: 'impossible de transformer vers les services jeunes',
 					});
 			});
 		});

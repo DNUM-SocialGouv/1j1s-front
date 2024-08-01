@@ -10,7 +10,14 @@ import {
 	aStrapiMesuresJeunesParCategorie,
 	aStrapiMesuresJeunesParCategorieSansResultat,
 } from '~/server/services-jeunes/infra/strapiMesuresJeunes.fixture';
-import { mapToServicesJeunes } from '~/server/services-jeunes/infra/strapiServicesJeunes.mapper';
+import {
+	filterStrapiMesuresJeunes,
+	mapToServicesJeunes,
+} from '~/server/services-jeunes/infra/strapiServicesJeunes.service';
+import {
+	aStrapiMesureEmployeur,
+	aStrapiMesuresEmployeursList,
+} from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs.fixture';
 
 describe('mapToServicesJeunes', () => {
 	it('renvoie la liste des services jeunes', () => {
@@ -97,5 +104,34 @@ describe('mapToServicesJeunes', () => {
 				alt: '',
 			}),
 		})]);
+	});
+});
+
+describe('filterStrapiMesuresJeunes', () => {
+	it('ne renvoie pas les mesures jeunes sans link', async () => {
+		// Given
+		const mesureJeuneSansLink = aStrapiMesureJeune({
+			titre: 'mesure-sans-link',
+			article: undefined,
+			url: undefined,
+		});
+		const mesureJeuneAvecLink = aStrapiMesureJeune({
+			titre: 'mesure-avec-link',
+		});
+		const mesureJeuneList = aStrapiMesuresJeunesParCategorie({
+			accompagnement: [
+				mesureJeuneSansLink,
+				mesureJeuneAvecLink,
+			],
+		});
+
+		// When
+		const result = filterStrapiMesuresJeunes(mesureJeuneList);
+
+		// Then
+		const resultExpected = aStrapiMesuresJeunesParCategorie({
+			accompagnement: [ mesureJeuneAvecLink ],
+		});
+		expect(result).toStrictEqual(resultExpected);
 	});
 });
