@@ -19,7 +19,7 @@ export class EnvoyerDemandeDeContactCEJUseCase {
 		try {
 			const demandeDeContactCEJ = Joi.attempt<Joi.Schema<DemandeDeContactCEJ>>(command, DemandeDeContactCEJValidator);
 			return this.demandeDeContactRepository.envoyer(demandeDeContactCEJ);
-		} catch (e) {
+		} catch {
 			return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 		}
 	}

@@ -158,7 +158,7 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 			case KeyBoard.IE_ARROW_UP:
 				if (state.isListOptionsOpen) {
 					if (altKey) {
-						state.activeDescendant && selectOption(state.activeDescendant);
+						if (state.activeDescendant) { selectOption(state.activeDescendant); };
 					} else {
 						dispatch(new SelectSimpleAction.PreviousOption());
 					}
