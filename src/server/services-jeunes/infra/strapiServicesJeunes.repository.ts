@@ -4,10 +4,7 @@ import { ErrorManagementService } from '~/server/services/error/errorManagement.
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { ServicesJeunesRepository } from '~/server/services-jeunes/domain/servicesJeunes.repository';
 import { StrapiMesuresJeunes } from '~/server/services-jeunes/infra/strapiMesuresJeunes';
-import {
-	filterStrapiMesuresJeunes,
-	mapToServicesJeunes,
-} from '~/server/services-jeunes/infra/strapiServicesJeunes.service';
+import { mapToServicesJeunes } from '~/server/services-jeunes/infra/strapiServicesJeunes.mapper';
 
 const RESOURCE_MESURE_JEUNE = 'mesure-jeune';
 
@@ -23,15 +20,14 @@ export class StrapiServicesJeunesRepository implements ServicesJeunesRepository 
 			return strapiMesuresJeunes;
 
 		try {
-			const strapiMesuresJeunesFiltrees = filterStrapiMesuresJeunes(strapiMesuresJeunes.result);
-			const servicesJeunes = mapToServicesJeunes(strapiMesuresJeunesFiltrees);
+			const servicesJeunes = mapToServicesJeunes(strapiMesuresJeunes.result);
 			servicesJeunes.sort((a, b) => a.titre.localeCompare(b.titre));
 			return createSuccess(servicesJeunes);
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'Strapi - Services Jeunes',
 				contexte: 'récupérer les services jeunes',
-				message: 'impossible de transformer vers les services jeunes',
+				message: 'impossible de mapper vers les services jeunes',
 			});
 		}
 	}

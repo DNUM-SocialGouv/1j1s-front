@@ -10,7 +10,6 @@ import {
 } from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs.repository';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 
-
 describe('StrapiMesuresEmployeursRepository', () => {
 	describe('getMesuresEmployeurs', () => {
 		it('appelle le service strapi avec les bons paramètres', async () => {
@@ -27,7 +26,7 @@ describe('StrapiMesuresEmployeursRepository', () => {
 		});
 
 		describe('quand la récupération est en succès', () => {
-			it('quand filter et map vers les mesures employeurs sont en succès, renvoie la liste des mesures employeurs', async () => {
+			it('quand map vers les mesures employeurs est en succès, renvoie la liste des mesures employeurs', async () => {
 				const strapiService = aStrapiService();
 				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresEmployeursList()));
 				const strapiMesuresEmployeurs = new StrapiMesuresEmployeursRepository(strapiService, anErrorManagementService());
@@ -38,7 +37,7 @@ describe('StrapiMesuresEmployeursRepository', () => {
 				expect(result).toStrictEqual(resultExpected);
 			});
 
-			it('quand filter ou map vers les mesures employeurs est échec, appelle le service de management d‘erreur avec l‘erreur et le contexte', async () => {
+			it('quand map vers les mesures employeurs est échec, appelle le service de management d‘erreur avec l‘erreur et le contexte', async () => {
 				const strapiService = aStrapiService();
 				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess({ someNonExistentField: '' }));
 
@@ -53,7 +52,7 @@ describe('StrapiMesuresEmployeursRepository', () => {
 					aLogInformation({
 						apiSource: 'Strapi - Mesures Employeurs',
 						contexte: 'récupérer les mesures employeurs',
-						message: 'impossible de transformer vers les mesures employeurs',
+						message: 'impossible de mapper vers les mesures employeurs',
 					}));
 				expect(result).toStrictEqual(failureFromErrorManagement);
 			});

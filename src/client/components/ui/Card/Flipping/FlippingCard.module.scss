@@ -13,6 +13,7 @@ $transition-visibility: visibility 0ms $transition-duration linear;
 }
 
 .cardWrapper {
+  height: 100%;
   --flipped: 0;
   transform-style: preserve-3d;
   transition: transform $transition-duration ease-in-out;

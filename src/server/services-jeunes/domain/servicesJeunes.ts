@@ -5,7 +5,7 @@ export interface ServiceJeune {
 	categorie?: string
 	banniere?: Image
 	concerne: string
-	link: string
+	link?: string
 }
 
 export namespace ServiceJeune {

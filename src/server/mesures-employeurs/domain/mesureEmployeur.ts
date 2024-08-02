@@ -4,6 +4,6 @@ export interface MesureEmployeur {
   titre: string
   banniere?: Image
   pourQui: string
-  link: string
+  link?: string
 }
 

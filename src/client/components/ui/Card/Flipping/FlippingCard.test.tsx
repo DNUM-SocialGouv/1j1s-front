@@ -32,4 +32,12 @@ describe('<FlippingCard>', () => {
 		const image = screen.getByRole('presentation');
 		expect(image).toHaveAttribute('src', expect.stringContaining('image-par-defaut-carte.webp'));
 	});
+
+	it('cache le lien lorsqu’il n’est pas fourni', async () => {
+	  // When
+	  render(<FlippingCard title="test" flippingCardContent="pour qui" />);
+
+	  // Then
+	 expect(screen.queryByRole('link')).not.toBeInTheDocument();
+	});
 });

@@ -4,7 +4,7 @@ import { ErrorManagementService } from '../../services/error/errorManagement.ser
 import { MesureEmployeur } from '../domain/mesureEmployeur';
 import { MesuresEmployeursRepository } from '../domain/mesuresEmployeurs.repository';
 import { StrapiMesuresEmployeurs } from './strapiMesuresEmployeurs';
-import { filterStrapiMesuresEmployeurs, mapMesuresEmployeurs } from './strapiMesuresEmployeurs.service';
+import { mapMesuresEmployeurs } from './strapiMesuresEmployeurs.mapper';
 
 const RESOURCE_MESURES_EMPLOYEURS = 'les-mesures-employeurs';
 export class StrapiMesuresEmployeursRepository implements MesuresEmployeursRepository {
@@ -16,15 +16,14 @@ export class StrapiMesuresEmployeursRepository implements MesuresEmployeursRepos
 			const strapiMesuresEmployeurs = await this.strapiService.getSingleType<StrapiMesuresEmployeurs.MesuresEmployeurs>(RESOURCE_MESURES_EMPLOYEURS, query);
 			if(isFailure(strapiMesuresEmployeurs)) return strapiMesuresEmployeurs;
 
-			const strapiMesuresEmployeursFiltrees = filterStrapiMesuresEmployeurs(strapiMesuresEmployeurs.result);
-			const mesuresEmployeurs = mapMesuresEmployeurs(strapiMesuresEmployeursFiltrees);
+			const mesuresEmployeurs = mapMesuresEmployeurs(strapiMesuresEmployeurs.result);
 			return createSuccess(mesuresEmployeurs);
 
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'Strapi - Mesures Employeurs',
 				contexte: 'récupérer les mesures employeurs',
-				message: 'impossible de transformer vers les mesures employeurs',
+				message: 'impossible de mapper vers les mesures employeurs',
 			});
 		}
 	}

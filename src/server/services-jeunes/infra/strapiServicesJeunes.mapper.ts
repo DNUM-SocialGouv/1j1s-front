@@ -20,9 +20,8 @@ export function mapToServicesJeunes(strapiMesuresJeunes: StrapiMesuresJeunes.Mes
 	});
 }
 
-function mapServiceJeune(response: StrapiMesuresJeunes.MesureJeune, categorie: StrapiMesuresJeunes.Categorie): ServiceJeune {
-	const article = response.article && flatMapSingleRelation<StrapiArticle>(response.article);
-	const banniere = flatMapSingleRelation<Strapi.Image>(response.banniere);
+function mapServiceJeune(strapiMesureJeune: StrapiMesuresJeunes.MesureJeune, categorie: StrapiMesuresJeunes.Categorie): ServiceJeune {
+	const banniere = flatMapSingleRelation<Strapi.Image>(strapiMesureJeune.banniere);
 
 	return {
 		banniere: banniere && {
@@ -30,9 +29,9 @@ function mapServiceJeune(response: StrapiMesuresJeunes.MesureJeune, categorie: S
 			src: banniere.url,
 		},
 		categorie: mapServiceJeuneCategorie(categorie),
-		concerne: response.pourQui,
-		link: article ? `/articles/${article.slug}` : response.url,
-		titre: response.titre,
+		concerne: strapiMesureJeune.pourQui,
+		link: mapServiceJeuneLink(strapiMesureJeune),
+		titre: strapiMesureJeune.titre,
 	};
 }
 
@@ -53,18 +52,10 @@ function mapServiceJeuneCategorie(mesureJeuneKey: keyof StrapiMesuresJeunes.Mesu
 	}
 }
 
-export function filterStrapiMesuresJeunes(strapiMesuresJeunes: StrapiMesuresJeunes.MesuresJeunesParCategorie): StrapiMesuresJeunes.MesuresJeunesParCategorie {
-	const mesuresJeunesParCategorie = {
-		accompagnement: strapiMesuresJeunes.accompagnement.filter(contientUnLink),
-		aidesFinancieres: strapiMesuresJeunes.aidesFinancieres.filter(contientUnLink),
-		engagement: strapiMesuresJeunes.engagement.filter(contientUnLink),
-		logement: strapiMesuresJeunes.logement.filter(contientUnLink),
-		orienterFormer: strapiMesuresJeunes.orienterFormer.filter(contientUnLink),
-		vieProfessionnelle: strapiMesuresJeunes.vieProfessionnelle.filter(contientUnLink),
-	};
-	return mesuresJeunesParCategorie;
-}
-
-function contientUnLink(mesure: StrapiMesuresJeunes.MesureJeune): boolean {
-	return Boolean(mesure.article?.data || mesure.url);
+function mapServiceJeuneLink(mesure: StrapiMesuresJeunes.MesureJeune) {
+	const article = mesure.article && flatMapSingleRelation<StrapiArticle>(mesure.article);
+	if(!article && !mesure.url) {
+		return undefined;
+	}
+	return article ? `/articles/${article.slug}` : mesure.url;
 }
