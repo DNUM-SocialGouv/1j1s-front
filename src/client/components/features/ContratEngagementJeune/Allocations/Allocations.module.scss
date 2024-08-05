@@ -43,6 +43,10 @@
     ul, strong, button {
       color: utilities-deprecated.$color-on-primary;
     }
+
+    button {
+      outline-color: utilities-deprecated.$color-background-white-lilac;
+    }
   }
 }
 
