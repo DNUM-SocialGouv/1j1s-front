@@ -1,4 +1,5 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .allocations {
   @extend %background-surface;
@@ -45,7 +46,7 @@
     }
 
     button {
-      outline-color: utilities-deprecated.$color-background-white-lilac;
+      outline-color: utilities.$color-background-primary-alternative;
     }
   }
 }
