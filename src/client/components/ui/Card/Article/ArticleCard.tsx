@@ -1,10 +1,10 @@
 import classNames from 'classnames';
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { HtmlHeadingTag } from '~/client/components/props';
 import styles from '~/client/components/ui/Card/Article/ArticleCard.module.scss';
 import { Card } from '~/client/components/ui/Card/Card';
-import { Icon, IconName } from '~/client/components/ui/Icon/Icon';
+import { IconName } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 
 interface ArticleCardProps {
