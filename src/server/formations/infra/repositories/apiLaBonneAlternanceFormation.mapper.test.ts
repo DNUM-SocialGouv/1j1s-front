@@ -1,4 +1,4 @@
-import { NiveauRequis, RésultatRechercheFormation } from '~/server/formations/domain/formation';
+import { NiveauRequisLibelle, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { aFormation } from '~/server/formations/domain/formation.fixture';
 import {
 	ApiLaBonneAlternanceFormationRechercheResponse,
@@ -40,7 +40,7 @@ describe('mapRésultatRechercheFormation', () => {
 				codePostal: '75001',
 				id: '123__',
 				nomEntreprise: 'ECOLE DE TRAVAIL ORT',
-				tags: [undefined, NiveauRequis['NIVEAU_3']],
+				tags: [undefined, NiveauRequisLibelle['NIVEAU_3']],
 				titre: 'Monteur / Monteuse en chauffage (H/F)',
 			},
 			{
@@ -48,7 +48,7 @@ describe('mapRésultatRechercheFormation', () => {
 				codePostal: undefined,
 				id: '456__',
 				nomEntreprise: 'ECOLE DE TRAVAIL ORTY',
-				tags: ['PARIS 5', NiveauRequis['NIVEAU_7_8']],
+				tags: ['PARIS 5', NiveauRequisLibelle['NIVEAU_7_8']],
 				titre: 'Monteur / Monteuse en plomberie (H/F)',
 			},
 		];

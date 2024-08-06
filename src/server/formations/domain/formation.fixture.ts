@@ -1,4 +1,4 @@
-import { Formation, NiveauRequis, RésultatRechercheFormation } from '~/server/formations/domain/formation';
+import { Formation, NiveauRequisLibelle, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 
 export const aRésultatRechercheFormationList = (): Array<RésultatRechercheFormation> => [
 	aResultatRechercheFormation(),
@@ -19,7 +19,7 @@ export const aResultatRechercheFormation = (override?: Partial<RésultatRecherch
 	latitude: 1,
 	longitude: 2,
 	nomEntreprise: 'La Bonne Alternance',
-	tags: ['Paris', NiveauRequis['NIVEAU_4']],
+	tags: ['Paris', NiveauRequisLibelle['NIVEAU_4']],
 	titre: 'Développeur web',
 	...override,
 });

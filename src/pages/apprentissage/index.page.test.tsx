@@ -173,7 +173,7 @@ describe('Page rechercher une alternance', () => {
 						const result = await getServerSideProps(context);
 
 						// THEN
-						expect(result).toEqual({ props: { erreurRecherche: 'DEMANDE_INCORRECTE' } });
+						expect(result).toEqual({ props: { erreurRecherche: ErreurMetier.DEMANDE_INCORRECTE } });
 						expect(dependencies.alternanceDependencies.rechercherAlternance.handle).not.toHaveBeenCalled();
 					});
 				});

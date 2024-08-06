@@ -1,8 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { FormEvent } from 'react';
 
-import styles
-	from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercheFormation.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { ComboboxMetiers } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
@@ -17,7 +15,14 @@ import { MetierService } from '~/client/services/metiers/metier.service';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { Formation } from '~/server/formations/domain/formation';
 
-export function FormulaireRechercherFormation() {
+import styles
+	from './FormulaireRechercheFormationAlternance.module.scss';
+
+interface FormulaireRechercheFormationAlternanceProps {
+	onSubmit?: () => void;
+}
+
+export function FormulaireRechercherFormationAlternance({ onSubmit: onSubmitProps = doNothing }: FormulaireRechercheFormationAlternanceProps) {
 	const queryParams = useFormationQuery();
 	const {
 		libelleMetier,
@@ -47,9 +52,10 @@ export function FormulaireRechercherFormation() {
 	const router = useRouter();
 
 	async function updateRechercherFormationQueryParams(event: FormEvent<HTMLFormElement>) {
+		onSubmitProps();
 		event.preventDefault();
 		const formEntries = getFormAsQuery(event.currentTarget, queryParams, false);
-		return router.push({ query: new URLSearchParams(formEntries).toString() }, undefined, { shallow: true });
+		return router.push({ query: new URLSearchParams(formEntries).toString() }, undefined, { scroll: true });
 	}
 
 	return (
@@ -95,4 +101,8 @@ export function FormulaireRechercherFormation() {
 			</form>
 		</>
 	);
+}
+
+function doNothing() {
+	return;
 }

@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import { GetServerSidePropsContext } from 'next';
 
-import { ConsulterFormation } from '~/client/components/features/Formation/Consulter/ConsulterFormation';
+import { ConsulterFormationAlternance } from '~/client/components/features/FormationAlternance/Consulter/ConsulterFormationAlternance';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import { queryToArray } from '~/pages/api/utils/queryToArray.util';
@@ -30,7 +30,7 @@ export default function ConsulterFormationPage(props: ConsulterFormationPageProp
 				title={`${formation.titre} | 1jeune1solution`}
 				robots="noindex"
 			/>
-			<ConsulterFormation formation={formation} statistiques={statistiques} />
+			<ConsulterFormationAlternance formation={formation} statistiques={statistiques} />
 		</>
 	);
 }

@@ -5,9 +5,9 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { Statistique } from '~/server/formations/domain/statistique';
 
-import styles from './StatistiquesFormation.module.scss';
+import styles from './StatistiquesFormationAlternance.module.scss';
 
-export function StatistiquesFormation({ statistiques }: { statistiques?: Statistique }) {
+export function StatistiquesFormationAlternance({ statistiques }: { statistiques?: Statistique }) {
 	if (!statistiques) return null;
 	return (
 		<div className={styles.section}>

@@ -2,7 +2,7 @@ export interface RésultatRechercheFormation {
 	adresse?: string
 	titre: string
 	nomEntreprise?: string
-	tags: [ localisation: string | undefined, niveauRequis: NiveauRequis | 'Autre' ]
+	tags: [ localisation: string | undefined, niveauRequis: NiveauRequisLibelle | 'Autre' ]
 	id: string
 	codePostal?: string
 	longitude?: number
@@ -22,12 +22,21 @@ export type Formation = {
 	lienDemandeRendezVous?: string
 }
 
-export enum NiveauRequis {
+export enum NiveauRequisLibelle {
 	NIVEAU_3 = 'CAP, autres formations niveau 3',
 	NIVEAU_4 = 'Bac, autres formations niveau 4',
 	NIVEAU_5 = 'BTS, DEUST, autres formations niveau 5 (Bac + 2)',
 	NIVEAU_6 = 'Licence, BUT, autres formations niveau 6 (Bac + 3)',
 	NIVEAU_7_8 = 'Master, titre ingénieur, autres formations niveau 7 ou 8 (Bac + 5)',
+}
+
+export enum NiveauRequisValeur {
+	NIVEAU_3 = '3',
+	NIVEAU_4 = '4',
+	NIVEAU_5 = '5',
+	NIVEAU_6 = '6',
+	NIVEAU_7_8 = '7',
+	NIVEAU_INDIFFERENT = 'indifférent',
 }
 
 export interface FormationFiltre {
@@ -45,42 +54,41 @@ export namespace FormationFiltre {
 	}
 }
 
-export namespace Formation {
-	type niveauEtudes = '3' | '4' | '5' | '6' | '7' | 'indifférent'
 
+export namespace Formation {
 	export interface NiveauRequisFiltreRecherche {
 		libellé: string
-		valeur: niveauEtudes
+		valeur: NiveauRequisValeur
 	}
 
 	export const NIVEAU_3: NiveauRequisFiltreRecherche = {
-		libellé: NiveauRequis.NIVEAU_3,
-		valeur: '3',
+		libellé: NiveauRequisLibelle.NIVEAU_3,
+		valeur: NiveauRequisValeur.NIVEAU_3,
 	};
 
 	export const NIVEAU_4: NiveauRequisFiltreRecherche = {
-		libellé: NiveauRequis.NIVEAU_4,
-		valeur: '4',
+		libellé: NiveauRequisLibelle.NIVEAU_4,
+		valeur: NiveauRequisValeur.NIVEAU_4,
 	};
 
 	export const NIVEAU_5: NiveauRequisFiltreRecherche = {
-		libellé: NiveauRequis.NIVEAU_5,
-		valeur: '5',
+		libellé: NiveauRequisLibelle.NIVEAU_5,
+		valeur: NiveauRequisValeur.NIVEAU_5,
 	};
 
 	export const NIVEAU_6: NiveauRequisFiltreRecherche = {
-		libellé: NiveauRequis.NIVEAU_6,
-		valeur: '6',
+		libellé: NiveauRequisLibelle.NIVEAU_6,
+		valeur: NiveauRequisValeur.NIVEAU_6,
 	};
 
 	export const NIVEAU_7: NiveauRequisFiltreRecherche = {
-		libellé: NiveauRequis.NIVEAU_7_8,
-		valeur: '7',
+		libellé: NiveauRequisLibelle.NIVEAU_7_8,
+		valeur: NiveauRequisValeur.NIVEAU_7_8,
 	};
 
 	export const NIVEAU_INDIFFERENT: NiveauRequisFiltreRecherche = {
 		libellé: 'Indifférent',
-		valeur: 'indifférent',
+		valeur: NiveauRequisValeur.NIVEAU_INDIFFERENT,
 	};
 
 	export const NIVEAU_ETUDES: NiveauRequisFiltreRecherche[] = [

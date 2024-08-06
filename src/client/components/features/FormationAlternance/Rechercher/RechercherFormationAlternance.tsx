@@ -3,9 +3,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
-	FormulaireRechercherFormation,
-} from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercherFormation';
-import { EtiquettesFiltreFormation } from '~/client/components/features/Formation/Rechercher/EtiquettesFiltreFormation';
+	FormulaireRechercherFormationAlternance,
+} from '~/client/components/features/FormationAlternance/FormulaireRecherche/FormulaireRechercherFormationAlternance';
+import { EtiquettesFiltreFormationAlternance } from '~/client/components/features/FormationAlternance/Rechercher/EtiquettesFiltreFormationAlternance';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { CarifOrefPartner } from '~/client/components/features/ServiceCard/CarifOrefPartner';
 import { DecouvrirApprentissage } from '~/client/components/features/ServiceCard/DecouvrirApprentissage';
@@ -23,63 +23,53 @@ import {
 } from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
-import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useFormationQuery } from '~/client/hooks/useFormationQuery';
-import { FormationService } from '~/client/services/formation/formation.service';
 import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
-import { isSuccess } from '~/server/errors/either';
 import { Erreur } from '~/server/errors/erreur.types';
 import { RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { transformObjectToQueryString } from '~/server/services/utils/urlParams.util';
 
 const PREFIX_TITRE_PAGE = 'Rechercher une formation en apprentissage';
 
-export default function RechercherFormation() {
+interface RechercherFormationProps {
+	erreurRecherche?: Erreur
+	resultats?: Array<RésultatRechercheFormation>
+}
+
+export default function RechercherFormationAlternance(props: RechercherFormationProps) {
+	const formationQuery = useFormationQuery();
 	const router = useRouter();
 
-	const formationQuery = useFormationQuery();
-	const formationService = useDependency<FormationService>('formationService');
-	const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
-	const [formationList, setFormationList] = useState<RésultatRechercheFormation[]>([]);
+	const formationAlternanceList = props.resultats || [];
+	const nombreResultats = props.resultats?.length || 0;
+	const erreurRecherche = props.erreurRecherche;
 	const [isLoading, setIsLoading] = useState(false);
-	const [nombreRésultats, setNombreRésultats] = useState(0);
-	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 
-	useEffect(() => {
-		if (!empty(formationQuery)) {
-			setIsLoading(true);
-			setErreurRecherche(undefined);
-
-			formationService.rechercherFormation(formationQuery)
-				.then((response) => {
-					if (isSuccess(response)) {
-						setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.length === 0 ? ' - Aucun résultat' : ''}`));
-						setFormationList(response.result);
-						setNombreRésultats(response.result.length);
-					} else {
-						setTitle(formatRechercherSolutionDocumentTitle(PREFIX_TITRE_PAGE, response.errorType));
-						setErreurRecherche(response.errorType);
-					}
-					setIsLoading(false);
-				});
-		}
-	}, [formationQuery, formationService]);
+	const title = formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${nombreResultats === 0 ? ' - Aucun résultat' : ''}`);
 
 	const messageRésultatRecherche: string = useMemo(() => {
-		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
-		if (nombreRésultats > 1) {
+		const messageRésultatRechercheSplit: string[] = [`${nombreResultats}`];
+		if (nombreResultats > 1) {
 			messageRésultatRechercheSplit.push('formations en alternance');
-		} else if (nombreRésultats === 1) {
+		} else if (nombreResultats === 1) {
 			messageRésultatRechercheSplit.push('formation en alternance');
 		} else {
 			return '';
 		}
-		if (router.query.libelleMetier) {
-			messageRésultatRechercheSplit.push(`pour ${router.query.libelleMetier}`);
+		if (formationQuery.libelleMetier) {
+			messageRésultatRechercheSplit.push(`pour ${formationQuery.libelleMetier}`);
 		}
 		return messageRésultatRechercheSplit.join(' ');
-	}, [nombreRésultats, router.query.libelleMetier]);
+	}, [nombreResultats, formationQuery.libelleMetier]);
+
+	useEffect(() => {
+		setIsLoading(false);
+	}, [router]);
+
+	function onSubmit() {
+		setIsLoading(true);
+	}
 
 	return <>
 		<Head
@@ -90,16 +80,16 @@ export default function RechercherFormation() {
 			<RechercherSolutionLayout
 				banniere={<BannièreFormation/>}
 				erreurRecherche={erreurRecherche}
-				etiquettesRecherche={<EtiquettesFiltreFormation/>}
-				formulaireRecherche={<FormulaireRechercherFormation/>}
+				etiquettesRecherche={<EtiquettesFiltreFormationAlternance/>}
+				formulaireRecherche={<FormulaireRechercherFormationAlternance onSubmit={onSubmit}/>}
 				isChargement={isLoading}
 				isEtatInitial={empty(formationQuery)}
 				messageResultatRecherche={messageRésultatRecherche}
-				nombreTotalSolutions={formationList.length}
+				nombreTotalSolutions={nombreResultats}
 				listeSolutionElement={<ListeFormation
-					résultatList={formationList}
+					résultatList={formationAlternanceList}
 					queryParams={transformObjectToQueryString({
-						...router.query,
+						...formationQuery,
 						libelleMetier: undefined,
 					})}
 				/>
@@ -147,6 +137,7 @@ function ListeFormation({ résultatList, queryParams }: ListeRésultatProps) {
 					<ResultatRechercherSolution
 						lienOffre={getLienOffre(formation, queryParams)}
 						intituléOffre={formation.titre}
+						// TODO (BRUJ 05/08/2024): les tags devraient être constitués côté client
 						étiquetteOffreList={formation.tags as string[]}
 					>
 						<section>
@@ -160,6 +151,7 @@ function ListeFormation({ résultatList, queryParams }: ListeRésultatProps) {
 	);
 }
 
+// TODO (BRUJ 05/08/2024): Le lien devrait être construit côté serveur
 function getLienOffre(formation: RésultatRechercheFormation, queryParams: string) {
 	return `/formations/apprentissage/${encodeURIComponent(formation.id)}?${queryParams}&codeCertification=${formation.codeCertification}`;
 }
