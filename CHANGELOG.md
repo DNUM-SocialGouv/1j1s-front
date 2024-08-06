@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.337.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.336.0...v3.337.0) (2024-08-06)
+
+
+### Features
+
+* **a11y:** CEJ visibilité focus ([#3236](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3236)) ([f3151a8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f3151a800b34232a9f23b541d4b9daa7ca61b5f5))
+
 ## [3.336.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.335.0...v3.336.0) (2024-07-31)
 
 
