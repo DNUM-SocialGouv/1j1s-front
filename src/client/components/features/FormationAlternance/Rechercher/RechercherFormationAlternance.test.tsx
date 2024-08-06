@@ -91,7 +91,8 @@ describe('RechercherFormation', () => {
 			);
 
 			const formationsAlternances = screen.getByRole('list', { name: 'Formations en alternance' });
-			const formationsAlternancesListCards: NodeListOf<HTMLElement> = formationsAlternances?.querySelectorAll(':scope > li');
+			// eslint-disable-next-line testing-library/no-node-access
+			const formationsAlternancesListCards= formationsAlternances?.querySelectorAll<HTMLElement>(':scope > li');
 			expect(formationsAlternancesListCards).toHaveLength(2);
 
 			const firstCard = formationsAlternancesListCards[0];

@@ -13,7 +13,7 @@ import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import { aMetier, aMetierService, aMetiersList } from '~/client/services/metiers/metier.fixture';
+import { aMetier, aMetierService } from '~/client/services/metiers/metier.fixture';
 import { createSuccess } from '~/server/errors/either';
 import { Formation } from '~/server/formations/domain/formation';
 import { aCommune } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';

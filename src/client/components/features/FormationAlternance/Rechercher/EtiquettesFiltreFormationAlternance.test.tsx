@@ -7,7 +7,6 @@ import React from 'react';
 
 import { EtiquettesFiltreFormationAlternance } from '~/client/components/features/FormationAlternance/Rechercher/EtiquettesFiltreFormationAlternance';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 
 describe('EtiquettesFiltreFormation', () => {
 	afterEach(() => {
