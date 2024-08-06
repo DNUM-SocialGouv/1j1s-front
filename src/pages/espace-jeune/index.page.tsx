@@ -11,11 +11,12 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/espace-jeune/index.analytics';
-import styles from '~/pages/espace-jeune/index.module.scss';
 import { Actualité } from '~/server/actualites/domain/actualite';
 import { isFailure } from '~/server/errors/either';
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { dependencies } from '~/server/start';
+
+import styles from './index.module.scss';
 
 interface EspaceJeunePageProps {
 	cartesActualites: Actualité[]
@@ -30,8 +31,8 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 	const getCarteActualiteLinkLabel = useCallback(({ article }: Actualité): string | undefined => {
 		if (!article) return 'En savoir plus';
 	}, []);
-	const getCarteActualiteLinkIcon = useCallback(({ article }: Actualité): React.ReactNode | undefined => {
-		if (!article) return <Icon name={'external-redirection'}/>;
+	const getCarteActualiteLinkIcon = useCallback(({ article }: Actualité) => {
+		if (!article) return 'external-redirection';
 	}, []);
 
 	const articleCardList: React.ReactNode[] = useMemo(() => {
@@ -43,7 +44,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 				titleLabel={carte.titre}
 				link={carte.link}
 				linkLabel={getCarteActualiteLinkLabel(carte)}
-				icon={getCarteActualiteLinkIcon(carte)}
+				iconName={getCarteActualiteLinkIcon(carte)}
 				titleHeadingTag={'h3'}
 			>
 				<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
@@ -92,7 +93,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<EspaceJeunePageProps>> {
-	const isEspaceJeuneVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE == '1';
+	const isEspaceJeuneVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
 	if (!isEspaceJeuneVisible) {
 		return { notFound: true };
 	}

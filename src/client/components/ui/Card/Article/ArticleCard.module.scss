@@ -20,45 +20,59 @@
 }
 
 
-.illustration {
-  height: 180px;
+.card {
+  position: relative;
 
-  img {
-    object-fit: cover;
-  }
+  .illustration {
+    height: 180px;
 
-  &Contain {
     img {
-      object-fit: contain;
+      object-fit: cover;
+    }
+
+    &Contain {
+      img {
+        object-fit: contain;
+      }
     }
   }
-}
 
-.content {
-  @extend %text-regular;
-  padding-block: 1.25rem;
-  padding-inline: 1.5rem;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-}
-
-.title {
-  @extend %text-medium;
-  @include utilities-deprecated.line-clamp(2);
-  margin-bottom: 0.5rem;
-}
-
-.cta {
-  margin-top: 1.25rem;
-  align-self: flex-end;
-
-  @include utilities-deprecated.media(large) {
-    margin-top: 1rem;
+  .content {
+    @extend %text-regular;
+    padding-block: 1.25rem;
+    padding-inline: 1.5rem;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
   }
-}
 
-.link {
-  display: inline-block;
-  width: 100%;
+  .title {
+    @extend %text-medium;
+    @include utilities-deprecated.line-clamp(2);
+    margin-bottom: 0.5rem;
+  }
+
+  & a {
+    margin-top: 1.25rem;
+    align-self: flex-end;
+
+    @include utilities-deprecated.media(large) {
+      margin-top: 1rem;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0);
+    }
+
+    & svg {
+      height: 1em;
+      width: 1em;
+    }
+  }
 }
