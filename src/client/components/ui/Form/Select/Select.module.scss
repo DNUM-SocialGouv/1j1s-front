@@ -19,22 +19,13 @@ $color-category-separator: $color-border;
 $border-radius: inputStyles.$border-radius;
 $border-width: inputStyles.$border-width;
 
-.selectWrapper {
-  position: relative;
-  flex-shrink: 0;
-
-  & .selectLabel {
-    @extend %label-champ;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-}
-
 .container {
   position: relative;
   border-radius: $border-radius;
 
   & [role="combobox"] {
+    width: 100%;
+    text-align: left;
     cursor: pointer;
     @extend %outlined;
     @include utilities.text-interactive-medium;
