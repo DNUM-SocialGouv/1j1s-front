@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useId } from 'react';
+import React from 'react';
 
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { SelectMultiple, SelectMultipleProps } from '~/client/components/ui/Form/Select/SelectMultiple';
@@ -31,7 +31,6 @@ export function Select(props: SelectProps) {
 		optionList,
 		...rest
 	} = props;
-	const labelledBy = useId();
 
 	function isSelectMultipleProps(rest: SelectSimpleProps | SelectMultipleProps): rest is SelectMultipleProps {
 		return multiple === true;
@@ -42,24 +41,23 @@ export function Select(props: SelectProps) {
 	}
 
 	return (
-		<div className={classNames(styles.selectWrapper, className)}>
+		<div className={classNames(className)}>
 			<Champ>
-				<Champ.Label id={labelledBy}>
+				<Champ.Label>
 					{label}
 					{labelComplement && <Champ.Label.Complement>{labelComplement}</Champ.Label.Complement>}
 				</Champ.Label>
-				{isSelectSimpleProps(rest) && <Champ.Input render={SelectSimple} labelledBy={labelledBy} {...rest}>
+				{isSelectSimpleProps(rest) && <Champ.Input render={SelectSimple} {...rest}>
 					{optionList.map((option) =>
 						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 					)}
 				</Champ.Input>}
 
-				{isSelectMultipleProps(rest) && <Champ.Input render={SelectMultiple} labelledBy={labelledBy} {...rest}>
+				{isSelectMultipleProps(rest) && <Champ.Input render={SelectMultiple} {...rest}>
 					{optionList.map((option) =>
 						<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 					)}
 				</Champ.Input>}
-
 				<Champ.Error/>
 			</Champ>
 		</div>
