@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import React, { FocusEvent,useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FocusEvent,useCallback, useEffect, useRef, useState } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -10,9 +10,9 @@ import { isNavigationItem, NavigationItemWithChildren } from './NavigationStruct
 import { NavItem } from './NavItem/NavItem';
 
 interface NavItemWithSubItemsProps {
-	onClick?: () => void;
-	navigationItemWithChildren: NavigationItemWithChildren;
-	isMobile?: boolean
+  onClick?: () => void;
+  navigationItemWithChildren: NavigationItemWithChildren;
+  isMobile?: boolean
 }
 
 export function NavItemWithSubItems({
@@ -25,44 +25,50 @@ export function NavItemWithSubItems({
 	const router = useRouter();
 	const [isExpanded, setIsExpanded] = useState(false);
 
-	const isNavItemHasOneOfTheseChildrenActive = useCallback(function isItemHasOneOfTheseChildrenActive(item: NavigationItemWithChildren): boolean {
-		return item.children.some((subItem) => {
-			return isNavigationItem(subItem) ? subItem.link === router.pathname : isItemHasOneOfTheseChildrenActive(subItem);
-		});
+	const isItemActive = useCallback((item: NavigationItemWithChildren): boolean => {
+		return item.children.some((subItem) => 
+			isNavigationItem(subItem) 
+				? subItem.link === router.pathname 
+				: isItemActive(subItem),
+		);
 	}, [router.pathname]);
 
-	const isNavItemActive = useMemo(() => isNavItemHasOneOfTheseChildrenActive(navigationItemWithChildren), [isNavItemHasOneOfTheseChildrenActive, navigationItemWithChildren]);
+	useEffect(() => {
+		setIsExpanded(isItemActive(navigationItemWithChildren) && isMobile);
+	}, [isItemActive, navigationItemWithChildren, isMobile]);
 
-	useEffect(() => { // initialisation de l'état côté client, une fois le router dispo
-		setIsExpanded(isNavItemActive && isMobile);
-	}, [isNavItemActive, isMobile]);
-
-	const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
+	const handleOutsideClick = useCallback((event: MouseEvent) => {
 		if (!optionRef.current?.contains(event.target as Node)) {
 			setIsExpanded(false);
 		}
 	}, []);
 
-	const closeOptionsOnSpaceOutside = useCallback((event: KeyboardEvent) => {
+	const handleKeyPress = useCallback((event: KeyboardEvent) => {
 		if (!optionRef.current?.contains(event.target as Node) && event.key === KeyBoard.SPACE) {
 			setIsExpanded(false);
 		}
+
+		if (event.key === KeyBoard.ESCAPE) {
+			setIsExpanded(false);
+		}
 	}, []);
 
+	useEffect(() => {
+		document.addEventListener('mouseup', handleOutsideClick);
+		document.addEventListener('keyup', handleKeyPress);
+
+		return () => {
+			document.removeEventListener('mouseup', handleOutsideClick);
+			document.removeEventListener('keyup', handleKeyPress);
+		};
+	}, [handleOutsideClick, handleKeyPress]);
 
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLLIElement>) {
 		const newFocusStillInSubItems = event.currentTarget.contains(event.relatedTarget);
-		
+        
 		if (!newFocusStillInSubItems) {
 			setIsExpanded(false);
 			return;
-		}
-		
-	}, []);
-
-	const closeMenuOnEscape = useCallback((event: KeyboardEvent) => {
-		if (event.key === KeyBoard.ESCAPE) {
-			setIsExpanded(false);
 		}
 	}, []);
 
@@ -72,18 +78,6 @@ export function NavItemWithSubItems({
 			onClick();
 		}
 	}
-
-	useEffect(function setEventListenerOnMount() {
-		document.addEventListener('mouseup', closeOptionsOnClickOutside);
-		document.addEventListener('keyup', closeMenuOnEscape);
-		document.addEventListener('keyup', closeOptionsOnSpaceOutside);
-
-		return () => {
-			document.removeEventListener('mouseup', closeOptionsOnClickOutside);
-			document.removeEventListener('keyup', closeMenuOnEscape);
-			document.removeEventListener('keyup', closeOptionsOnSpaceOutside);
-		};
-	}, [closeMenuOnEscape, closeOptionsOnClickOutside, closeOptionsOnSpaceOutside]);
 
 	const subNav = navigationItemWithChildren.children.map((subItem) => {
 		if (isNavigationItem(subItem)) {
@@ -110,11 +104,15 @@ export function NavItemWithSubItems({
 			<button
 				className={classNames(styles.subNavItemButton)}
 				onClick={() => setIsExpanded(!isExpanded)}
-				aria-expanded={isExpanded}>
-				<span className={styles.subNavItemButtonLabel} aria-current={isNavItemActive}>
+				aria-expanded={isExpanded}
+			>
+				<span className={styles.subNavItemButtonLabel} aria-current={isItemActive(navigationItemWithChildren)}>
 					{navigationItemWithChildren.label}
 				</span>
-				<Icon className={isExpanded ? styles.subNavItemButtonIconExpanded : styles.subNavItemButtonIcon} name="angle-down"/>
+				<Icon 
+					className={isExpanded ? styles.subNavItemButtonIconExpanded : styles.subNavItemButtonIcon} 
+					name="angle-down"
+				/>
 			</button>
 			{isExpanded && <ul className={styles.subNavItemList}>{subNav}</ul>}
 		</li>
