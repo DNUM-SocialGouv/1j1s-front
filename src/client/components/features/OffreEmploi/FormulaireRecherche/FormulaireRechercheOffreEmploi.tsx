@@ -159,7 +159,6 @@ export function FormulaireRechercheOffreEmploi() {
 							</Champ.Label>
 							<Champ.Input
 								render={SelectMultiple}
-								required
 								optionsAriaLabel={'Types de contrats'}
 								name={'typeDeContrats'}
 								onChange={(option) => onChangeMultipleSelect(option, setInputTypeDeContrat)}
@@ -180,7 +179,6 @@ export function FormulaireRechercheOffreEmploi() {
 							</Champ.Label>
 							<Champ.Input
 								render={SelectSimple}
-								required
 								optionsAriaLabel={'Temps de travail'}
 								name={'tempsDeTravail'}
 								onChange={(option) => setInputTempsDeTravail(getValueSelected(option))}
@@ -192,7 +190,6 @@ export function FormulaireRechercheOffreEmploi() {
 							</Champ.Input>
 							<Champ.Error/>
 						</Champ>
-
 
 						<Champ className={styles.niveau}>
 							<Champ.Label>

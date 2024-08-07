@@ -85,7 +85,6 @@ export function FormulaireRechercherFormationAlternance() {
 						</Champ.Label>
 						<Champ.Input
 							render={SelectSimple}
-							required
 							optionsAriaLabel={'Niveau d‘études'}
 							name="niveauEtudes"
 							defaultValue={niveauEtudes}

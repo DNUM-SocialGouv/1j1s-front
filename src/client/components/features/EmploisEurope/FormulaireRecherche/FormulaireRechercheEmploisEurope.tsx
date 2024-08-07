@@ -149,7 +149,6 @@ export function FormulaireRechercheEmploisEurope() {
 					</Champ.Label>
 					<Champ.Input
 						render={SelectMultiple}
-						required
 						optionsAriaLabel={'type de contrat'}
 						onChange={(option) => onChangeMultipleSelect(option, setInputTypeContrat)}
 						name="typeContrat"
@@ -169,7 +168,6 @@ export function FormulaireRechercheEmploisEurope() {
 					</Champ.Label>
 					<Champ.Input
 						render={SelectMultiple}
-						required
 						optionsAriaLabel={'temps de travail'}
 						onChange={(option) => onChangeMultipleSelect(option, setInputTempsDeTravail)}
 						name="tempsDeTravail"
@@ -189,7 +187,6 @@ export function FormulaireRechercheEmploisEurope() {
 					</Champ.Label>
 					<Champ.Input
 						render={SelectMultiple}
-						required
 						optionsAriaLabel={'niveau d‘études'}
 						onChange={(option) => onChangeMultipleSelect(option, setInputNiveauEtude)}
 						name="niveauEtude"
@@ -209,7 +206,6 @@ export function FormulaireRechercheEmploisEurope() {
 					</Champ.Label>
 					<Champ.Input
 						render={SelectMultiple}
-						required
 						optionsAriaLabel={'secteur d‘activité'}
 						onChange={(option) => onChangeMultipleSelect(option, setInputSecteurActivite)}
 						name="secteurActivite"
