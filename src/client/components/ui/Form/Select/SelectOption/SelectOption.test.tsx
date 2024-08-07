@@ -7,7 +7,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
+import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple/SelectSimple';
 import { mockScrollIntoView } from '~/client/components/window.mock';
 
 describe('<Select />', () => {

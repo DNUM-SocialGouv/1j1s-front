@@ -17,11 +17,11 @@ import React, {
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
 import { SelectContext } from '~/client/components/ui/Form/Select/SelectContext';
-import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption';
+import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption/SelectOption';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
-import styles from './Select.module.scss';
-import { getOptionsElement, SelectSimpleAction, SelectSimpleReducer } from './SelectReducer';
+import styles from '../Select.module.scss';
+import { getOptionsElement, SelectSimpleAction, SelectSimpleReducer } from '../SelectReducer';
 
 const ERROR_LABEL_REQUIRED_SIMPLE = 'Séléctionnez un élément de la liste';
 const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
