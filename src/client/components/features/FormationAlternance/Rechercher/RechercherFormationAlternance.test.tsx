@@ -111,6 +111,7 @@ describe('RechercherFormation', () => {
 			expect(formationLienCandidature).toHaveAttribute('href', expect.stringContaining('longitudeCommune=2.347'));
 			expect(formationLienCandidature).toHaveAttribute('href', expect.stringContaining('ville=Paris'));
 			expect(formationLienCandidature).toHaveAttribute('href', expect.stringContaining('codeCertification=999'));
+			expect(formationLienCandidature).toHaveAttribute('href', expect.stringContaining('codeRomes=D1102%2CD1104'));
 		});
 
 		it('lorsqu‘il n‘y a pas de résultat affiche un message', () => {

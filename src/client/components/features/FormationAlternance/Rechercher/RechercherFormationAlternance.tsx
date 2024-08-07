@@ -89,7 +89,7 @@ export default function RechercherFormationAlternance(props: RechercherFormation
 				listeSolutionElement={<ListeFormation
 					résultatList={formationAlternanceList}
 					queryParams={transformObjectToQueryString({
-						...formationQuery,
+						...router.query,
 						libelleMetier: undefined,
 					})}
 				/>
