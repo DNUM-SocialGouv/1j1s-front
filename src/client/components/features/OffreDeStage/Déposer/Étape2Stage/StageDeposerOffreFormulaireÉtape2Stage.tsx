@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 
@@ -158,7 +157,6 @@ function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposee.Stage 
 				<Champ.Label.Complement>Exemple : Agriculture</Champ.Label.Complement>
 			</Champ.Label>
 			<Champ.Input
-				className={styles.dureeStage}
 				render={SelectSimple}
 				optionsAriaLabel={'Domaine'}
 				name={StageEnum.DOMAINE}

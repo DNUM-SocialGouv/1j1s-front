@@ -5,7 +5,7 @@ import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple/SelectMultiple';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 
-type MeilisearchSelectMultipleProps = Pick<HTMLElement, 'className'> & {
+type MeilisearchSelectMultipleProps = Partial<Pick<HTMLElement, 'className'>> & {
 	label: string
 }
 

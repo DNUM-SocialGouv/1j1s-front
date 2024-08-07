@@ -62,7 +62,6 @@ export function FormulaireRechercheJobEte() {
 					</Champ.Label>
 					<Champ.Input
 						render={SelectMultiple}
-						required
 						optionsAriaLabel={'Domaines'}
 						name="grandDomaine"
 						defaultValue={queryParams.grandDomaine?.split(',')}
