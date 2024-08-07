@@ -2,7 +2,6 @@ import { createContext, useContext } from 'react';
 
 import NoProviderError from '~/client/Errors/NoProviderError';
 
-
 type SelectContext = {
 	activeDescendant: string | undefined,
 	onOptionSelection: (optionId: string) => void,

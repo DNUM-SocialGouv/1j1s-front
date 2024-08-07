@@ -21,7 +21,7 @@ import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption/Se
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from '../Select.module.scss';
-import { getOptionsElement, SelectSimpleAction, SelectSimpleReducer } from '../SelectReducer';
+import { getOptionsElement, SelectSimpleAction, SelectSimpleReducer } from './SelectSimpleReducer';
 
 const ERROR_LABEL_REQUIRED_SIMPLE = 'Séléctionnez un élément de la liste';
 const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
