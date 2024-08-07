@@ -5,9 +5,6 @@ import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { SelectMultiple, SelectMultipleProps } from '~/client/components/ui/Form/Select/SelectMultiple';
 import { SelectSimple, SelectSimpleProps } from '~/client/components/ui/Form/Select/SelectSimple';
 
-import styles from './Select.module.scss';
-
-
 export interface OptionSelect {
 	libellé: string;
 	valeur: string;
