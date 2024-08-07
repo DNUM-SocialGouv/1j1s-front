@@ -9,7 +9,7 @@ import React, { FormEvent } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard.fixture';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
-import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple';
+import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple/SelectMultiple';
 import { mockScrollIntoView } from '~/client/components/window.mock';
 
 const SELECT_MULTIPLE_LABEL_DEFAULT_OPTION = 'Sélectionnez vos choix';

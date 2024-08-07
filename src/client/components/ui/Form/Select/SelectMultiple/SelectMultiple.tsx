@@ -15,12 +15,12 @@ import React, {
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
-import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption';
+import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption/SelectOption';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
-import styles from './Select.module.scss';
-import { SelectContext } from './SelectContext';
-import { SelectMultipleAction, SelectMultipleReducer } from './SelectReducer';
+import styles from '../Select.module.scss';
+import { SelectContext } from '../SelectContext';
+import { SelectMultipleAction, SelectMultipleReducer } from '../SelectReducer';
 
 const SELECT_PLACEHOLDER_MULTIPLE = 'Sélectionnez vos choix';
 const ERROR_LABEL_REQUIRED_MULTIPLE = 'Séléctionnez au moins un élément de la liste';

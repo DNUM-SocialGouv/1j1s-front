@@ -9,7 +9,7 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxPays } from '~/client/components/ui/Form/Combobox/ComboboxPays';
 import { Input } from '~/client/components/ui/Form/Input';
-import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple';
+import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple/SelectMultiple';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
 import { paysEuropeList } from '~/client/domain/pays';

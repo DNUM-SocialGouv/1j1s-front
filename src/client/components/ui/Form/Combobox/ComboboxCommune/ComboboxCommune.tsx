@@ -2,7 +2,7 @@ import debounce from 'lodash.debounce';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
-import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
+import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple/SelectSimple';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { isSuccess } from '~/server/errors/either';

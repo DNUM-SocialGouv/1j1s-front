@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import React, { useCallback, useId } from 'react';
 
-import styles from './Select.module.scss';
-import { useSelectContext } from './SelectContext';
+import styles from '../Select.module.scss';
+import { useSelectContext } from '../SelectContext';
 
 type SelectOptionProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'value'> & {
 	value: { toString: () => string },

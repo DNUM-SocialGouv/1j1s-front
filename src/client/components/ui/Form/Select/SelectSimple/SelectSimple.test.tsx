@@ -9,7 +9,7 @@ import React from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard.fixture';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
-import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
+import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple/SelectSimple';
 import { mockScrollIntoView } from '~/client/components/window.mock';
 
 const SELECT_SIMPLE_LABEL_DEFAULT_OPTION = 'Sélectionnez votre choix';
