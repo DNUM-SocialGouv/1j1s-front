@@ -1,9 +1,10 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import React, { FocusEvent,useCallback, useEffect, useRef, useState } from 'react';
+import React, { FocusEvent, useCallback, useEffect, useRef, useState } from 'react';
 
-import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { useKeyPress } from '~/client/hooks/useKeyPress';
+import { useOutsideClick } from '~/client/hooks/useOutsideClick';
 
 import styles from './Nav.module.scss';
 import { isNavigationItem, NavigationItemWithChildren } from './NavigationStructure';
@@ -37,52 +38,28 @@ export function NavItemWithSubItems({
 		setIsExpanded(isItemActive(navigationItemWithChildren) && isMobile);
 	}, [isItemActive, navigationItemWithChildren, isMobile]);
 
-	const handleOutsideClick = useCallback((event: MouseEvent) => {
-		if (!optionRef.current?.contains(event.target as Node)) {
-			setIsExpanded(false);
-		}
-	}, []);
+	const closeMenu = useCallback(() => setIsExpanded(false), []);
 
-	const handleKeyPress = useCallback((event: KeyboardEvent) => {
-		if (!optionRef.current?.contains(event.target as Node) && event.key === KeyBoard.SPACE) {
-			setIsExpanded(false);
-		}
+	useOutsideClick(optionRef, closeMenu);
+	useKeyPress(closeMenu);
 
-		if (event.key === KeyBoard.ESCAPE) {
-			setIsExpanded(false);
-		}
-	}, []);
-
-	useEffect(() => {
-		document.addEventListener('mouseup', handleOutsideClick);
-		document.addEventListener('keyup', handleKeyPress);
-
-		return () => {
-			document.removeEventListener('mouseup', handleOutsideClick);
-			document.removeEventListener('keyup', handleKeyPress);
-		};
-	}, [handleOutsideClick, handleKeyPress]);
-
-	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLLIElement>) {
+	const onBlur = useCallback((event: FocusEvent<HTMLLIElement>) => {
 		const newFocusStillInSubItems = event.currentTarget.contains(event.relatedTarget);
-        
 		if (!newFocusStillInSubItems) {
 			setIsExpanded(false);
-			return;
 		}
 	}, []);
 
 	function onNavItemSelected() {
 		setIsExpanded(false);
-		if (onClick) {
-			onClick();
-		}
+		onClick?.();
 	}
 
 	const subNav = navigationItemWithChildren.children.map((subItem) => {
 		if (isNavigationItem(subItem)) {
 			return (
-				<NavItem className={styles.subNavItem}
+				<NavItem 
+					className={styles.subNavItem}
 					key={subItem.label?.toString()}
 					label={subItem.label}
 					link={subItem.link}
@@ -91,12 +68,15 @@ export function NavItemWithSubItems({
 				/>
 			);
 		}
-		return <NavItemWithSubItems
-			key={subItem.label?.toString()}
-			className={styles.navItem}
-			navigationItemWithChildren={subItem}
-			onClick={onClick}
-			isMobile/>;
+		return (
+			<NavItemWithSubItems
+				key={subItem.label?.toString()}
+				className={styles.navItem}
+				navigationItemWithChildren={subItem}
+				onClick={onClick}
+				isMobile
+			/>
+		);
 	});
 
 	return (
