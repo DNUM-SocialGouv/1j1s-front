@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { NavItem } from '~/client/components/layouts/Header/Navigation/NavItem/NavItem';
 
@@ -20,19 +20,34 @@ export function NavMobile({ toggleModal }: { toggleModal: () => void }) {
 		logementsNav,
 	} = navigationItemList();
 	const router = useRouter();
+	const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
+
+	const handleSubMenuToggle = (subNavItemLabel: string) => {
+		setOpenSubMenu((prevOpenSubMenu) => prevOpenSubMenu === subNavItemLabel ? null : subNavItemLabel);
+	};
 
 	return (
 		<Container>
 			<nav role="navigation" aria-label="menu principal" data-testid="navigation-mobile">
 				<ul className={styles.modalNavigationList}>
-					<NavItem className={styles.navItem}  label={accueil.label} link={accueil.link} isActive={router.pathname === accueil.link} onClick={toggleModal}/>
-					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={offresNav} onClick={toggleModal} isMobile/>
-					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={orientationNav} onClick={toggleModal} isMobile/>
-					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={engagementNav} onClick={toggleModal} isMobile/>
-					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={logementsNav} onClick={toggleModal} isMobile/>
-					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={accompagnementNav} onClick={toggleModal} isMobile/>
-					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={aidesEtOutilsNav} onClick={toggleModal} isMobile/>
-					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={employeurNav} onClick={toggleModal} isMobile/>
+					<NavItem
+						className={styles.navItem}
+						label={accueil.label}
+						link={accueil.link}
+						isActive={router.pathname === accueil.link}
+						onClick={toggleModal}
+					/>
+					{[offresNav, orientationNav, engagementNav, logementsNav, accompagnementNav, aidesEtOutilsNav, employeurNav].map((navItem) => (
+						<NavItemWithSubItems
+							key={navItem.label}
+							className={styles.navItem}
+							navigationItemWithChildren={navItem}
+							onClick={toggleModal}
+							isMobile
+							isOpen={openSubMenu === navItem.label}
+							onToggle={() => handleSubMenuToggle(navItem.label)}
+						/>
+					))}
 				</ul>
 			</nav>
 		</Container>

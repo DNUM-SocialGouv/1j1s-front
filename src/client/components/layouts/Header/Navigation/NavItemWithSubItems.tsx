@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import React, { FocusEvent, useCallback, useEffect, useRef, useState } from 'react';
+import React from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { useKeyPress } from '~/client/hooks/useKeyPress';
-import { useOutsideClick } from '~/client/hooks/useOutsideClick';
+import { useActiveNavItem } from '~/client/hooks/useActiveNavItem';
+import { useNavItemEvents } from '~/client/hooks/useNavItemEvents';
 
 import styles from './Nav.module.scss';
 import { isNavigationItem, NavigationItemWithChildren } from './NavigationStructure';
@@ -13,7 +13,9 @@ import { NavItem } from './NavItem/NavItem';
 interface NavItemWithSubItemsProps {
   onClick?: () => void;
   navigationItemWithChildren: NavigationItemWithChildren;
-  isMobile?: boolean
+  isMobile?: boolean;
+  isOpen?: boolean;
+  onToggle?: () => void;
 }
 
 export function NavItemWithSubItems({
@@ -21,37 +23,16 @@ export function NavItemWithSubItems({
 	onClick,
 	navigationItemWithChildren,
 	isMobile = false,
+	isOpen,
+	onToggle,
 }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
-	const optionRef = useRef<HTMLLIElement>(null);
 	const router = useRouter();
-	const [isExpanded, setIsExpanded] = useState(false);
+	const { isExpanded, isNavItemActive, setIsExpanded } = useActiveNavItem(navigationItemWithChildren, isMobile);
+	const { optionRef, onBlur } = useNavItemEvents(() => {});
 
-	const isItemActive = useCallback((item: NavigationItemWithChildren): boolean => {
-		return item.children.some((subItem) => 
-			isNavigationItem(subItem) 
-				? subItem.link === router.pathname 
-				: isItemActive(subItem),
-		);
-	}, [router.pathname]);
-
-	useEffect(() => {
-		setIsExpanded(isItemActive(navigationItemWithChildren) && isMobile);
-	}, [isItemActive, navigationItemWithChildren, isMobile]);
-
-	const closeMenu = useCallback(() => setIsExpanded(false), []);
-
-	useOutsideClick(optionRef, closeMenu);
-	useKeyPress(closeMenu);
-
-	const onBlur = useCallback((event: FocusEvent<HTMLLIElement>) => {
-		const newFocusStillInSubItems = event.currentTarget.contains(event.relatedTarget);
-		if (!newFocusStillInSubItems) {
-			setIsExpanded(false);
-		}
-	}, []);
+	const isMenuOpen = isOpen !== undefined ? isOpen : isExpanded;
 
 	function onNavItemSelected() {
-		setIsExpanded(false);
 		onClick?.();
 	}
 
@@ -83,18 +64,18 @@ export function NavItemWithSubItems({
 		<li ref={optionRef} className={className} onBlur={onBlur}>
 			<button
 				className={classNames(styles.subNavItemButton)}
-				onClick={() => setIsExpanded(!isExpanded)}
-				aria-expanded={isExpanded}
+				onClick={onToggle || (() => setIsExpanded(!isExpanded))}
+				aria-expanded={isMenuOpen}
 			>
-				<span className={styles.subNavItemButtonLabel} aria-current={isItemActive(navigationItemWithChildren)}>
+				<span className={styles.subNavItemButtonLabel} aria-current={isNavItemActive}>
 					{navigationItemWithChildren.label}
 				</span>
 				<Icon 
-					className={isExpanded ? styles.subNavItemButtonIconExpanded : styles.subNavItemButtonIcon} 
+					className={isMenuOpen ? styles.subNavItemButtonIconExpanded : styles.subNavItemButtonIcon} 
 					name="angle-down"
 				/>
 			</button>
-			{isExpanded && <ul className={styles.subNavItemList}>{subNav}</ul>}
+			{isMenuOpen && <ul className={styles.subNavItemList}>{subNav}</ul>}
 		</li>
 	);
 }
