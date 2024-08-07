@@ -1,5 +1,5 @@
 ---
-sidebar_label: Lancer le front
+sidebar_label: 2 - Lancer le front
 sidebar_position: 2
 ---
 
