@@ -14,7 +14,7 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
 import { InputWithUnit } from '~/client/components/ui/Form/InputWithUnit/InputWithUnit';
-import { OptionSelect } from '~/client/components/ui/Form/Select/Select';
+import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
 import { TextArea } from '~/client/components/ui/Form/TextArea/TextArea';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Radio } from '~/client/components/ui/Radio/Radio';
@@ -31,9 +31,6 @@ import { emailRegex } from '~/shared/emailRegex';
 import { urlRegex } from '~/shared/urlRegex';
 
 import styles from './StageDeposerOffreFormulaireÉtape2Stage.module.scss';
-
-// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au select et son contenu on désactive le srr sur ce composant, à supprimer après refonte du select cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
-const Select = dynamic(() => import('~/client/components/ui/Form/Select/Select').then((mod) => mod.Select), { ssr: false });
 
 const EMAIL_OR_URL_REGEX = `${emailRegex}|${urlRegex}`;
 const DUREE_MOIS_EN_JOUR = 30;
@@ -62,7 +59,7 @@ export enum IsDateDeDebutPrecise {
 	NON = 'false',
 }
 
-const dureeStageList: OptionSelect[] = [
+const dureeStageList = [
 	{ libellé: '1 mois', valeur: DUREE_MOIS_EN_JOUR.toString() },
 	{ libellé: '2 mois', valeur: (2 * DUREE_MOIS_EN_JOUR).toString() },
 	{ libellé: '3 mois', valeur: (3 * DUREE_MOIS_EN_JOUR).toString() },
@@ -130,28 +127,49 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 				informationsStage={props.informationsStage}
 			/>
 		</fieldset>
-		<Select
-			label="Durée du stage"
-			name={StageEnum.DUREE}
-			defaultValue={props.informationsStage?.dureeStage}
-			labelComplement="Exemple : 3 mois"
-			optionList={dureeStageList}
-			className={styles.dureeStage}
-			required
-		/>
+
+		<Champ>
+			<Champ.Label>
+				Durée du stage
+				<Champ.Label.Complement>Exemple : 3 mois</Champ.Label.Complement>
+			</Champ.Label>
+			<Champ.Input
+				className={styles.dureeStage}
+				render={SelectSimple}
+				required
+				optionsAriaLabel={'Durée'}
+				name={StageEnum.DUREE}
+				defaultValue={props.informationsStage?.dureeStage}
+			>
+				{dureeStageList.map((option) =>
+					<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
+				)}
+			</Champ.Input>
+			<Champ.Error/>
+		</Champ>
 	</>;
 }
 
 function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposee.Stage | null }) {
 	return <>
-		<Select
-			label="Domaine de l’offre de stage"
-			labelComplement="Exemple : Agriculture"
-			name={StageEnum.DOMAINE}
-			defaultValue={props.informationsStage?.domaineStage}
-			placeholder="Sélectionnez un domaine"
-			optionList={domaineStage}
-		/>
+		<Champ>
+			<Champ.Label>
+				Domaine de l’offre de stage
+				<Champ.Label.Complement>Exemple : Agriculture</Champ.Label.Complement>
+			</Champ.Label>
+			<Champ.Input
+				className={styles.dureeStage}
+				render={SelectSimple}
+				optionsAriaLabel={'Domaine'}
+				name={StageEnum.DOMAINE}
+				defaultValue={props.informationsStage?.domaineStage}
+			>
+				{domaineStage.map((option) =>
+					<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
+				)}
+			</Champ.Input>
+			<Champ.Error/>
+		</Champ>
 
 		<Champ>
 			<Champ.Label>

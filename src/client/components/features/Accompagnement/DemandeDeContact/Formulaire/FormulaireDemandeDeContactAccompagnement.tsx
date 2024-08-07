@@ -7,7 +7,6 @@ import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { Input } from '~/client/components/ui/Form/Input';
-import { Select } from '~/client/components/ui/Form/Select/Select';
 import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
 import { TextArea } from '~/client/components/ui/Form/TextArea/TextArea';
 import { Link } from '~/client/components/ui/Link/Link';
@@ -124,7 +123,6 @@ export function FormulaireDemandeDeContactAccompagnement({
 				</Champ.Input>
 				<Champ.Error/>
 			</Champ>
-			
 
 			<ComboboxCommune required/>
 			<Champ className={styles.commentaireDemandeDeContact}>

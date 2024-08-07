@@ -19,7 +19,6 @@ import { MissionEngagementService } from '~/client/services/missionEngagement/mi
 import empty from '~/client/utils/empty';
 import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
-import { recupererLibelleDepuisValeur } from '~/client/utils/recupererLibelleDepuisValeur.utils';
 import {
 	bénévolatDomaineList,
 	Mission,
@@ -33,12 +32,23 @@ interface RechercherMissionProps {
 	category: EngagementCategory.BENEVOLAT | EngagementCategory.SERVICE_CIVIQUE
 }
 
+interface Option {
+	libellé: string;
+	valeur: string;
+}
+
 export function RechercherMission(props: RechercherMissionProps) {
 	const { category } = props;
 	const missionEngagementService = useDependency<MissionEngagementService>('missionEngagementService');
 	const missionEngagementQuery = useMissionEngagementQuery();
 	const [missionList, setMissionList] = useState<Mission[]>([]);
 	const [nombreResultats, setNombreResultats] = useState(0);
+
+
+	function recupererLibelleDepuisValeur(optionList: Array<Option>, valeur: string): string {
+		const optionTrouvée = optionList.find((option) => option.valeur === valeur);
+		return optionTrouvée?.libellé || '';
+	}
 
 	const isServiceCivique = useMemo(() => {
 		return category === EngagementCategory.SERVICE_CIVIQUE;
