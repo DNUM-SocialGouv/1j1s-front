@@ -8,7 +8,7 @@ import {
 	mapToDefaultLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/defaultLocalisation/mapToDefaultLocalisation';
 import { Input } from '~/client/components/ui/Form/Input';
-import { Select } from '~/client/components/ui/Form/Select/Select';
+import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
@@ -55,15 +55,24 @@ export function FormulaireRechercheJobEte() {
 
 				<ComboboxLocalisation defaultValue={inputLocalisation}/>
 
-				<Select
-					className={styles.domaine}
-					multiple
-					optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
-					label="Domaines"
-					labelComplement="Exemple : Commerce, Immobilier…"
-					defaultValue={queryParams.grandDomaine?.split(',')}
-					name="grandDomaine"
-				/>
+				<Champ className={styles.domaine}>
+					<Champ.Label>
+						Domaines
+						<Champ.Label.Complement>Exemple : Commerce, Immobilier…</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input
+						render={SelectMultiple}
+						required
+						optionsAriaLabel={'Domaines'}
+						name="grandDomaine"
+						defaultValue={queryParams.grandDomaine?.split(',')}
+					>
+						{mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList).map((option) =>
+							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
+						)}
+					</Champ.Input>
+					<Champ.Error/>
+				</Champ>
 			</div>
 			<div className={styles.buttonRechercher}>
 				<ButtonComponent

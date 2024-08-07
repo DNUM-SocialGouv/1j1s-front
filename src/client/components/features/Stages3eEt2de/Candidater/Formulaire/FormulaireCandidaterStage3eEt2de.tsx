@@ -5,16 +5,13 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
-import { Select } from '~/client/components/ui/Form/Select/Select';
+import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
 import { TextArea } from '~/client/components/ui/Form/TextArea/TextArea';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { Stage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service';
 import { isFailure, isSuccess } from '~/server/errors/either';
 import { Erreur } from '~/server/errors/erreur.types';
-import {
-	CandidatureStage3eEt2de,
-	ModeDeContact,
-} from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
+import { CandidatureStage3eEt2de, ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { MetierStage3eEt2de } from '~/server/stage-3e-et-2de/domain/metierStage3eEt2de';
 import { emailRegex } from '~/shared/emailRegex';
 import { telFrRegex } from '~/shared/telRegex';
@@ -213,14 +210,23 @@ function FormulaireContactParTelephone(props: {
 				</Champ>
 				{ /* FIXME (DORO 22-01-2024: Ajouter la gestion de readonly dans Select */}
 				{isMoreThanOneMetier ?
-					<Select
-						optionList={props.metiersStage3eEt2de.map((metier) => ({ libellé: metier.label, valeur: metier.code }))}
-						label="Métier sur lequel porte la demande d’immersion"
-						name="metierCode"
-						required
-						labelComplement="Un ou plusieurs métiers ont été renseignés par l’entreprise"
-					/>
-					:
+					<Champ>
+						<Champ.Label>
+							Métier sur lequel porte la demande d’immersion
+							<Champ.Label.Complement>Un ou plusieurs métiers ont été renseignés par l’entreprise</Champ.Label.Complement>
+						</Champ.Label>
+						<Champ.Input
+							render={SelectSimple}
+							required
+							optionsAriaLabel={'metiers'}
+							name={'metierCode'}
+						>
+							{props.metiersStage3eEt2de.map((metier) =>
+								<SelectSimple.Option key={metier.label} value={metier.code}>{metier.label}</SelectSimple.Option>,
+							)}
+						</Champ.Input>
+						<Champ.Error/>
+					</Champ> :
 					<Champ>
 						<Champ.Label>
 							Métier sur lequel porte la demande d’immersion
@@ -324,14 +330,23 @@ function FormulaireContactParEmail(props: {
 				</Champ>
 				{ /* FIXME (DORO 22-01-2024: Ajouter la gestion de readonly dans Select */}
 				{isMoreThanOneMetier ?
-					<Select
-						optionList={props.metiersStage3eEt2de.map((metier) => ({ libellé: metier.label, valeur: metier.code }))}
-						label="Métier sur lequel porte la demande d’immersion"
-						name="metierCode"
-						required
-						labelComplement="Un ou plusieurs métiers ont été renseignés par l’entreprise"
-					/>
-					:
+					<Champ>
+						<Champ.Label>
+							Métier sur lequel porte la demande d’immersion
+							<Champ.Label.Complement>Un ou plusieurs métiers ont été renseignés par l’entreprise</Champ.Label.Complement>
+						</Champ.Label>
+						<Champ.Input
+							render={SelectSimple}
+							required
+							optionsAriaLabel={'metiers'}
+							name={'metierCode'}
+						>
+							{props.metiersStage3eEt2de.map((metier) =>
+								<SelectSimple.Option key={metier.label} value={metier.code}>{metier.label}</SelectSimple.Option>,
+							)}
+						</Champ.Input>
+						<Champ.Error/>
+					</Champ> :
 					<Champ>
 						<Champ.Label>
 							Métier sur lequel porte la demande d’immersion
