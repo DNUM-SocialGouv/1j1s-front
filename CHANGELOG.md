@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.338.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.337.1...v3.338.0) (2024-08-08)
+
+
+### Features
+
+* **UI:** ajout d'un composant input avec une unité ([#3235](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3235)) ([b4a0227](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b4a022731aeb745a82209a22fc2017229d77753e))
+
 ## [3.337.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.337.0...v3.337.1) (2024-08-08)
 
 
