@@ -1,7 +1,7 @@
 import { Article } from '~/server/articles/domain/article';
 import { Image } from '~/server/cms/domain/image';
 
-export interface Actualité {
+export interface Actualite {
 	article?: Article
 	bannière?: Image
 	extraitContenu: string

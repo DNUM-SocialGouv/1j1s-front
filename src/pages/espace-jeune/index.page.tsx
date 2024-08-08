@@ -7,17 +7,18 @@ import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
-import { Icon } from '~/client/components/ui/Icon/Icon';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/espace-jeune/index.analytics';
-import styles from '~/pages/espace-jeune/index.module.scss';
-import { Actualité } from '~/server/actualites/domain/actualite';
+import { Actualite } from '~/server/actualites/domain/actualite';
+import { isFailure } from '~/server/errors/either';
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { dependencies } from '~/server/start';
 
+import styles from './index.module.scss';
+
 interface EspaceJeunePageProps {
-	cartesActualites: Actualité[]
+	cartesActualites: Actualite[]
 	serviceJeuneList: Array<ServiceJeune>
 }
 
@@ -26,11 +27,11 @@ const MAX_VISIBLE_ACTUALITES_LENGTH = 3;
 export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: EspaceJeunePageProps) {
 	useAnalytics(analytics);
 
-	const getCarteActualiteLinkLabel = useCallback(({ article }: Actualité): string | undefined => {
+	const getCarteActualiteLinkLabel = useCallback(({ article }: Actualite): string | undefined => {
 		if (!article) return 'En savoir plus';
 	}, []);
-	const getCarteActualiteLinkIcon = useCallback(({ article }: Actualité): React.ReactNode | undefined => {
-		if (!article) return <Icon name={'external-redirection'}/>;
+	const getCarteActualiteLinkIcon = useCallback(({ article }: Actualite) => {
+		if (!article) return 'external-redirection';
 	}, []);
 
 	const articleCardList: React.ReactNode[] = useMemo(() => {
@@ -42,7 +43,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 				titleLabel={carte.titre}
 				link={carte.link}
 				linkLabel={getCarteActualiteLinkLabel(carte)}
-				icon={getCarteActualiteLinkIcon(carte)}
+				iconName={getCarteActualiteLinkIcon(carte)}
 				titleHeadingTag={'h3'}
 			>
 				<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
@@ -56,7 +57,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 				title="Actualités et services jeunes | 1jeune1solution"
 				robots="index,follow"
 			/>
-			<main id='contenu'>
+			<main id="contenu">
 
 				<h1 className={styles.title}>Actualités et services jeune</h1>
 				<section className={classNames(styles.section, styles.actualitesSection)} aria-label="les actualités">
@@ -68,10 +69,10 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 					</LightHero>
 					<Container className={styles.cartesActualitesList}>
 						<SeeMoreItemList className={styles.seeMoreButton}
-							seeLessAriaLabel={'Voir moins de résultats sur les actualités'}
-							seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}
-							numberOfVisibleItems={MAX_VISIBLE_ACTUALITES_LENGTH}
-							itemList={articleCardList} />
+														 seeLessAriaLabel={'Voir moins de résultats sur les actualités'}
+														 seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}
+														 numberOfVisibleItems={MAX_VISIBLE_ACTUALITES_LENGTH}
+														 itemList={articleCardList}/>
 					</Container>
 				</section>
 				<section className={classNames(styles.section, styles.mesuresJeunesSection)} aria-label="les services jeunes">
@@ -79,7 +80,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 						<h2>
 							<LightHeroPrimaryText>Services jeunes, retrouvez les services conçus pour vous :</LightHeroPrimaryText>
 							<LightHeroSecondaryText>
-							entrée dans la vie professionnelle, orientation, formation, accompagnement
+								entrée dans la vie professionnelle, orientation, formation, accompagnement
 							</LightHeroSecondaryText>
 						</h2>
 					</LightHero>
@@ -91,10 +92,15 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<EspaceJeunePageProps>> {
+	const isEspaceJeuneVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
+	if (!isEspaceJeuneVisible) {
+		return { notFound: true };
+	}
+	
 	const serviceJeuneList = await dependencies.servicesJeunesDependencies.consulterLesServicesJeunesUseCase.handle();
 	const cartesActualitesResponse = await dependencies.actualitesDependencies.consulterActualitesUseCase.handle();
 
-	if (serviceJeuneList.instance === 'failure' || cartesActualitesResponse.instance === 'failure') {
+	if (isFailure(serviceJeuneList) || isFailure(cartesActualitesResponse)) {
 		return { notFound: true, revalidate: 1 };
 	}
 

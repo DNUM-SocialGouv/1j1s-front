@@ -46,6 +46,28 @@ describe('Page d‘accueil', () => {
 		await expect(container).toBeAccessible();
 	});
 
+	describe('redirection vers la page espace jeune', () => {
+		it('quand le feature flip permet d‘acceder à la page espace jeune, affiche la redirection', () => {
+			process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '1';
+			render(
+				<DependenciesProvider analyticsService={analyticsService}>
+					<Accueil/>
+				</DependenciesProvider>,
+			);
+			expect(screen.getByRole('link', { name: /Découvrir les actualités et services jeunes/ })).toBeVisible();
+		});
+
+		it('quand le feature flip ne permet pas d‘acceder à la page espace jeune, n‘affiche pas la redirection', () => {
+			process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
+			render(
+				<DependenciesProvider analyticsService={analyticsService}>
+					<Accueil/>
+				</DependenciesProvider>,
+			);
+			expect(screen.queryByRole('link', { name: /Découvrir les actualités et services jeunes/ })).not.toBeInTheDocument();
+		});
+	});
+
 	describe('la section offres', () => {
 		it('contient une carte de redirection vers les stages d’études', () => {
 			// WHEN
@@ -129,8 +151,8 @@ describe('Page d‘accueil', () => {
 				expect(screen.queryByText('Des milliers d‘offres de jobs d‘été sélectionnées pour vous (durée maximale de 2 mois)')).toBeVisible();
 			});
 		});
-
 	});
+
 	describe('formations initiales', () => {
 		describe('quand le feature flip des formations initales n‘est pas actif', () => {
 			it('je ne vois pas la carte de redirection vers les formations initiales', () => {
@@ -159,6 +181,7 @@ describe('Page d‘accueil', () => {
 			});
 		});
 	});
+
 	describe('1jeune1permis', () => {
 		describe('quand le feature flip 1jeune1permis n‘est pas actif', () => {
 			it('je ne vois pas la carte de redirection vers les aides au permis de conduire', () => {
@@ -187,6 +210,7 @@ describe('Page d‘accueil', () => {
 			});
 		});
 	});
+
 	describe('stages de seconde', () => {
 		describe('quand le feature flip stages seconde n‘est pas actif', () => {
 			it('l’utilisateur ne voit pas la bannière des stages de seconde', () => {

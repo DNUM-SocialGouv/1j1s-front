@@ -2,7 +2,7 @@ import { CmsService } from '~/server/cms/domain/cmsService';
 import { createSuccess, Either, isFailure } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 
-import { Actualité } from '../domain/actualite';
+import { Actualite } from '../domain/actualite';
 import { ActualitesRepository } from '../domain/actualites.repository';
 import { StrapiListeActualites } from './strapiActualites';
 import { mapStrapiListeActualites } from './strapiActualites.mapper';
@@ -13,7 +13,7 @@ export class StrapiActualitesRepository implements ActualitesRepository {
 	constructor(private readonly strapiService: CmsService, private readonly errorManagementService: ErrorManagementService) {
 	}
 
-	async getActualitesList(): Promise<Either<Array<Actualité>>> {
+	async getActualitesList(): Promise<Either<Array<Actualite>>> {
 		const query = 'populate=deep';
 		const strapiActualitesList = await this.strapiService.getSingleType<StrapiListeActualites.ListeActualites>(RESOURCE_ACTUALITE, query);
 

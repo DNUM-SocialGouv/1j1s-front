@@ -1,0 +1,27 @@
+@use "@styles/utilities";
+
+.actualites {
+  padding-inline: 1rem;
+  padding-bottom: 3rem;
+
+  & ul {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+
+    @include utilities.media(medium) {
+      margin-top: 2rem;
+    }
+
+    & > li {
+      max-width: 22.5rem;
+
+      & .carteActualiteDescription {
+        @include utilities.line-clamp(3);
+      }
+    }
+  }
+}
+
+

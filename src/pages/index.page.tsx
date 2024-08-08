@@ -34,6 +34,8 @@ export default function Accueil() {
 	const urlDepotOffreStagesSeconde = process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL ?? '';
 	const urlHomePageStageDeSeconde = process.env.NEXT_PUBLIC_STAGES_SECONDE_HOMEPAGE_URL ?? '';
 
+	const isVisibleCtaRedirectionEspaceJeune = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
+
 	const offreCardListContent: CardContent[] = [
 		{
 			children: <p>Plus de 300 000 offres d’emplois sélectionnées spécialement pour vous</p>,
@@ -225,6 +227,7 @@ export default function Accueil() {
 		));
 	};
 
+
 	return (
 		<>
 			<Head
@@ -237,11 +240,14 @@ export default function Accueil() {
 					<HeroSecondaryText>
 						Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !
 					</HeroSecondaryText>
-					<Link href={'/espace-jeune'} appearance={'asSecondaryButton'} className={styles.heroButton}>
-						<span className={styles.heroButtonLargeScreenText}>Découvrir les actualités et services jeunes</span>
-						<span className={styles.heroButtonSmallMediumScreenText}>Actualités et services jeunes</span>
-						<Link.Icon/>
-					</Link>
+					{
+						isVisibleCtaRedirectionEspaceJeune &&
+						<Link href={'/espace-jeune'} appearance={'asSecondaryButton'} className={styles.heroButton}>
+							<span className={styles.heroButtonLargeScreenText}>Découvrir les actualités et services jeunes</span>
+							<span className={styles.heroButtonSmallMediumScreenText}>Actualités et services jeunes</span>
+							<Link.Icon/>
+						</Link>
+					}
 				</HeroWithIllustration>
 
 				{isBanniereStagesSecondeVisible
