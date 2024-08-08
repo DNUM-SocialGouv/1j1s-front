@@ -34,7 +34,7 @@ export default function Accueil() {
 	const urlDepotOffreStagesSeconde = process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL ?? '';
 	const urlHomePageStageDeSeconde = process.env.NEXT_PUBLIC_STAGES_SECONDE_HOMEPAGE_URL ?? '';
 
-	const isCtaRedirectionEspaceJeuneVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
+	const isVisibleCtaRedirectionEspaceJeune = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
 
 	const offreCardListContent: CardContent[] = [
 		{
@@ -241,7 +241,7 @@ export default function Accueil() {
 						Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !
 					</HeroSecondaryText>
 					{
-						isCtaRedirectionEspaceJeuneVisible &&
+						isVisibleCtaRedirectionEspaceJeune &&
 						<Link href={'/espace-jeune'} appearance={'asSecondaryButton'} className={styles.heroButton}>
 							<span className={styles.heroButtonLargeScreenText}>Découvrir les actualités et services jeunes</span>
 							<span className={styles.heroButtonSmallMediumScreenText}>Actualités et services jeunes</span>

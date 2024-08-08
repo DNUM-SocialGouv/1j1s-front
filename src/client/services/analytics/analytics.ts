@@ -3,6 +3,7 @@ type PageGroup =
 	| 'accompagnement'
 	| 'accompagnement_detail'
 	| 'accompagnement_liste'
+	| 'actualites_liste'
 	| 'aides_logement'
 	| 'apprentissage'
 	| 'apprentissage_entreprises'

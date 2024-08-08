@@ -50,7 +50,7 @@ describe('Page Actualités', () => {
 			process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
 		});
 
-		it('appel le serveur pour récupérer les actualités', async () => {
+		it('appelle le serveur pour récupérer les actualités', async () => {
 			jest.spyOn(dependencies.actualitesDependencies.consulterActualitesUseCase, 'handle').mockResolvedValue(createSuccess(anActualiteList()));
 
 			await getStaticProps();
@@ -91,7 +91,7 @@ describe('Page Actualités', () => {
 
 				expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 					page_template: 'contenu_liste_niv_1',
-					pagegroup: 'service_jeune_liste',
+					pagegroup: 'actualites_liste',
 					pagelabel: 'contenu_liste_niv_1',
 					'segment-site': 'contenu_liste',
 				});

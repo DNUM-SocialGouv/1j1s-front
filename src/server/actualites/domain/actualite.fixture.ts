@@ -1,8 +1,8 @@
-import { Actualité } from '~/server/actualites/domain/actualite';
+import { Actualite } from '~/server/actualites/domain/actualite';
 import { anArticle } from '~/server/articles/domain/article.fixture';
 import { anImage } from '~/server/cms/domain/image.fixture';
 
-export function anActualite(override?: Partial<Actualité>) {
+export function anActualite(override?: Partial<Actualite>) {
 	return {
 		article: anArticle(),
 		bannière: anImage(),

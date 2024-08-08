@@ -7,7 +7,7 @@ import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import { Actualité } from '~/server/actualites/domain/actualite';
+import { Actualite } from '~/server/actualites/domain/actualite';
 import { isFailure } from '~/server/errors/either';
 import { dependencies } from '~/server/start';
 
@@ -15,10 +15,10 @@ import analytics from './index.analytics';
 import styles from './index.module.scss';
 
 interface ActualitesPageProps {
-	cartesActualites: Array<Actualité>
+	cartesActualites: Array<Actualite>
 }
 
-const MAX_VISIBLE_ACTUALITES_LENGTH = 3;
+const MAX_VISIBLE_ACTUALITES = 3;
 export default function ActualitesPage({ cartesActualites }: ActualitesPageProps) {
 	useAnalytics(analytics);
 
@@ -56,7 +56,7 @@ export default function ActualitesPage({ cartesActualites }: ActualitesPageProps
 					<SeeMoreItemList
 						seeLessAriaLabel={'Voir moins de résultats sur les actualités'}
 						seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}
-						numberOfVisibleItems={MAX_VISIBLE_ACTUALITES_LENGTH}
+						numberOfVisibleItems={MAX_VISIBLE_ACTUALITES}
 						itemList={articleCardList}/>
 				</Container>
 			</main>

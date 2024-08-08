@@ -10,7 +10,7 @@ import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/clien
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/espace-jeune/index.analytics';
-import { Actualité } from '~/server/actualites/domain/actualite';
+import { Actualite } from '~/server/actualites/domain/actualite';
 import { isFailure } from '~/server/errors/either';
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { dependencies } from '~/server/start';
@@ -18,7 +18,7 @@ import { dependencies } from '~/server/start';
 import styles from './index.module.scss';
 
 interface EspaceJeunePageProps {
-	cartesActualites: Actualité[]
+	cartesActualites: Actualite[]
 	serviceJeuneList: Array<ServiceJeune>
 }
 
@@ -27,10 +27,10 @@ const MAX_VISIBLE_ACTUALITES_LENGTH = 3;
 export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: EspaceJeunePageProps) {
 	useAnalytics(analytics);
 
-	const getCarteActualiteLinkLabel = useCallback(({ article }: Actualité): string | undefined => {
+	const getCarteActualiteLinkLabel = useCallback(({ article }: Actualite): string | undefined => {
 		if (!article) return 'En savoir plus';
 	}, []);
-	const getCarteActualiteLinkIcon = useCallback(({ article }: Actualité) => {
+	const getCarteActualiteLinkIcon = useCallback(({ article }: Actualite) => {
 		if (!article) return 'external-redirection';
 	}, []);
 
