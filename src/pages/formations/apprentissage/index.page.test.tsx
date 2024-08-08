@@ -9,23 +9,57 @@ import { render } from '@testing-library/react';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import { aFormationService } from '~/client/services/formation/formation.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import FormationAlternancePage, { getServerSideProps } from '~/pages/formations/apprentissage/index.page';
+import { aGetServerSidePropsContext } from '~/server/aGetServerSidePropsContext.fixture';
+import { createFailure, createSuccess } from '~/server/errors/either';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { aRésultatRechercheFormationList } from '~/server/formations/domain/formation.fixture';
+import { dependencies } from '~/server/start';
+
+jest.mock('~/server/start', () => ({
+	dependencies: {
+		formationDependencies: {
+			rechercherFormation: {
+				handle: jest.fn(),
+			},
+		},
+	},
+}));
+
+function rechercheFormationAlternanceQuery(override?: Record<string, unknown>) {
+	return {
+		...aCommuneQuery({
+			codeCommune: '75056',
+			codePostal: '75001',
+			latitudeCommune: '48.859',
+			longitudeCommune: '2.347',
+			ville: 'Paris',
+		}),
+		codeRomes: 'D1102,D1104',
+		distanceCommune: '10',
+		libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+		niveauEtudes: '4',
+		...override,
+	};
+}
 
 describe('Page Formations en Apprentissage', () => {
+	beforeEach(() => {
+		mockSmallScreen();
+	});
 	describe('quand le feature flip n‘est pas actif', () => {
 		beforeEach(() => {
-			mockSmallScreen();
 			process.env = {
 				...process.env,
 				NEXT_PUBLIC_FORMATION_LBA_FEATURE: '0',
 			};
 		});
 		it('retourne une page 404', async () => {
-			const value = await getServerSideProps();
+			const value = await getServerSideProps(aGetServerSidePropsContext());
 
 			expect(value).toEqual({ notFound: true });
 		});
@@ -33,16 +67,10 @@ describe('Page Formations en Apprentissage', () => {
 
 	describe('quand le feature flip est actif', () => {
 		beforeEach(() => {
-			mockSmallScreen();
 			process.env = {
 				...process.env,
 				NEXT_PUBLIC_FORMATION_LBA_FEATURE: '1',
 			};
-		});
-		it('retourne les props de la page', async () => {
-			const value = await getServerSideProps();
-
-			expect(value).toEqual({ props: {} });
 		});
 
 		it('envoie les analytics de la page à son affichage', () => {
@@ -52,11 +80,10 @@ describe('Page Formations en Apprentissage', () => {
 			render(
 				<DependenciesProvider
 					analyticsService={analyticsService}
-					formationService={aFormationService()}
 					metierLbaService={aMetierService()}
 					localisationService={aLocalisationService()}
 				>
-					<FormationAlternancePage />
+					<FormationAlternancePage/>
 				</DependenciesProvider>,
 			);
 
@@ -69,21 +96,104 @@ describe('Page Formations en Apprentissage', () => {
 		});
 
 		it('n‘a pas de défaut d‘accessibilité', async () => {
-			const analyticsService = aManualAnalyticsService();
-			mockUseRouter({});
+			mockUseRouter(
+				{
+					query: rechercheFormationAlternanceQuery(),
+				},
+			);
+			const resultats = aRésultatRechercheFormationList();
 
 			const { container } = render(
 				<DependenciesProvider
-					analyticsService={analyticsService}
-					formationService={aFormationService()}
+					analyticsService={aManualAnalyticsService()}
 					metierLbaService={aMetierService()}
 					localisationService={aLocalisationService()}
 				>
-					<FormationAlternancePage />
+					<FormationAlternancePage resultats={resultats}/>
 				</DependenciesProvider>,
 			);
 
 			await expect(container).toBeAccessible();
 		});
+
+		it('lorsque la page est affichée sans query params, retourne des props vide', async () => {
+			const result = await getServerSideProps(aGetServerSidePropsContext());
+			expect(result).toEqual({ props: {} });
+		});
+
+		describe('lorsque la page est affichée avec des query params', () => {
+
+			describe.each([{ queryInvalide: '75056' },
+				rechercheFormationAlternanceQuery({ niveauEtudes: 'pas un niveau correcte' }),
+				rechercheFormationAlternanceQuery({ codeRomes: undefined }),
+				rechercheFormationAlternanceQuery({ distanceCommune: undefined }),
+			])('et qu‘ils sont invalides', () => {
+				it('retourne une erreur et ne fait pas de recherche', async () => {
+					const context = aGetServerSidePropsContext({ query: { queryInvalide: '75056' } });
+
+					const result = await getServerSideProps(context);
+
+					expect(result).toEqual({ props: { erreurRecherche: ErreurMetier.DEMANDE_INCORRECTE } });
+					expect(dependencies.formationDependencies.rechercherFormation.handle).not.toHaveBeenCalled();
+				});
+			});
+
+			describe('et qu‘ils sont valides', () => {
+				it('fait une recherche avec les query params', async () => {
+					jest.spyOn(dependencies.formationDependencies.rechercherFormation, 'handle').mockResolvedValue(createSuccess(aRésultatRechercheFormationList()));
+
+					const context = aGetServerSidePropsContext({
+						query: {
+							codeCommune: '75056',
+							codeRomes: 'D1102,D1104',
+							distanceCommune: '10',
+							latitudeCommune: '48.859',
+							libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+							longitudeCommune: '2.347',
+							niveauEtudes: '4',
+							ville: 'Paris',
+						},
+					});
+
+					await getServerSideProps(context);
+
+					expect(dependencies.formationDependencies.rechercherFormation.handle).toHaveBeenCalledWith({
+						codeCommune: '75056',
+						codeRomes: ['D1102', 'D1104'],
+						distanceCommune: '10',
+						latitudeCommune: '48.859',
+						longitudeCommune: '2.347',
+						niveauEtudes: '4',
+					});
+				});
+
+				it('lorsque la recherche est en erreur, retourne l‘erreur et change le status de la page', async () => {
+					jest.spyOn(dependencies.formationDependencies.rechercherFormation, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+					const defaultStatusCode = 200;
+
+					const context = aGetServerSidePropsContext({
+						query: rechercheFormationAlternanceQuery(),
+						res: { statusCode: defaultStatusCode },
+					});
+
+					const result = await getServerSideProps(context);
+
+					expect(result).toEqual({ props: { erreurRecherche: ErreurMetier.SERVICE_INDISPONIBLE } });
+					expect(context.res.statusCode).toEqual(500);
+				});
+
+				it('lorsque la recherche retourne un résultat, renvoie les formations en apprentissage', async () => {
+					jest.spyOn(dependencies.formationDependencies.rechercherFormation, 'handle').mockResolvedValue(createSuccess(aRésultatRechercheFormationList()));
+					const context = aGetServerSidePropsContext({
+						query: rechercheFormationAlternanceQuery(),
+					});
+
+					const result = await getServerSideProps(context);
+
+					expect(result).toEqual({ props: { resultats: aRésultatRechercheFormationList() } });
+				});
+			});
+		});
+
 	});
 });

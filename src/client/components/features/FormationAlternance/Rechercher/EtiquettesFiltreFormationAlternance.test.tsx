@@ -5,7 +5,7 @@
 import { render, screen, within } from '@testing-library/react';
 import React from 'react';
 
-import { EtiquettesFiltreFormation } from '~/client/components/features/Formation/Rechercher/EtiquettesFiltreFormation';
+import { EtiquettesFiltreFormationAlternance } from '~/client/components/features/FormationAlternance/Rechercher/EtiquettesFiltreFormationAlternance';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 
 describe('EtiquettesFiltreFormation', () => {
@@ -27,7 +27,7 @@ describe('EtiquettesFiltreFormation', () => {
 					ville: 'Paris 20e Arrondissement',
 				},
 			});
-			render(<EtiquettesFiltreFormation/>);
+			render(<EtiquettesFiltreFormationAlternance/>);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 			expect(filtresRecherche).toBeVisible();
@@ -48,7 +48,7 @@ describe('EtiquettesFiltreFormation', () => {
 					ville: 'Paris 20e Arrondissement',
 				},
 			});
-			render(<EtiquettesFiltreFormation/>);
+			render(<EtiquettesFiltreFormationAlternance/>);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 
@@ -74,7 +74,7 @@ describe('EtiquettesFiltreFormation', () => {
 						ville: 'Paris 20e Arrondissement',
 					},
 				});
-				render(<EtiquettesFiltreFormation/>);
+				render(<EtiquettesFiltreFormationAlternance/>);
 
 				const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 
@@ -103,7 +103,7 @@ describe('EtiquettesFiltreFormation', () => {
 					},
 				});
 				
-				render(<EtiquettesFiltreFormation/>);
+				render(<EtiquettesFiltreFormationAlternance/>);
 
 				const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 

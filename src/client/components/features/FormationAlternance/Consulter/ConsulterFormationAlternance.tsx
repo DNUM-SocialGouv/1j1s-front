@@ -1,14 +1,15 @@
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
-import {
-	StatistiquesFormation,
-} from '~/client/components/features/Formation/Consulter/Statistiques/StatistiquesFormation';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { Formation } from '~/server/formations/domain/formation';
 import { Statistique } from '~/server/formations/domain/statistique';
 
-export function ConsulterFormation({ formation, statistiques }: { formation: Formation, statistiques?: Statistique }) {
+import {
+	StatistiquesFormationAlternance,
+} from './Statistiques/StatistiquesFormationAlternance';
+
+export function ConsulterFormationAlternance({ formation, statistiques }: { formation: Formation, statistiques?: Statistique }) {
 	const displayInformationCentreFormation = !!formation.adresse.adresseComplete;
 	return (
 		<>
@@ -54,7 +55,7 @@ export function ConsulterFormation({ formation, statistiques }: { formation: For
 					}
 				</section>
 			</ConsulterOffreLayout>
-			<StatistiquesFormation statistiques={statistiques}/>
+			<StatistiquesFormationAlternance statistiques={statistiques}/>
 		</>
 	);
 }

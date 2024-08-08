@@ -4,7 +4,7 @@
 
 import { render, screen } from '@testing-library/react';
 
-import { ConsulterFormation } from '~/client/components/features/Formation/Consulter/ConsulterFormation';
+import { ConsulterFormationAlternance } from '~/client/components/features/FormationAlternance/Consulter/ConsulterFormationAlternance';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { Formation } from '~/server/formations/domain/formation';
 import { aFormation } from '~/server/formations/domain/formation.fixture';
@@ -28,7 +28,7 @@ describe('ConsulterFormation', () => {
 			titre: 'Développeur web',
 		});
 
-		render(<ConsulterFormation formation={formation}/>);
+		render(<ConsulterFormationAlternance formation={formation}/>);
 
 		const titre = screen.getByRole('heading', { level: 1, name: formation.titre });
 		expect(titre).toBeVisible();
@@ -61,7 +61,7 @@ describe('ConsulterFormation', () => {
 			titre: 'Développeur web',
 		});
 
-		render(<ConsulterFormation formation={formation}/>);
+		render(<ConsulterFormationAlternance formation={formation}/>);
 
 		const link = screen.getByRole('link', { name: 'Contacter l’établissement - nouvelle fenêtre' });
 		expect(link).toBeVisible();
@@ -81,7 +81,7 @@ describe('ConsulterFormation', () => {
 			titre: 'Développeur web',
 		});
 
-		render(<ConsulterFormation formation={formation}/>);
+		render(<ConsulterFormationAlternance formation={formation}/>);
 
 		const link = screen.queryByRole('link', { name: 'Contacter l’établissement - nouvelle fenêtre' });
 		expect(link).not.toBeInTheDocument();

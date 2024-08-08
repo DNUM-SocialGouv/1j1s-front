@@ -24,7 +24,7 @@ export default function RechercherAlternancePage(props: RechercherAlternancePage
 	return <RechercherAlternance {...props} />;
 }
 
-export const alternancesQuerySchema = Joi.object({
+const alternancesQuerySchema = Joi.object({
 	codeCommune: Joi.string().required(),
 	codeRomes: Joi.string().required(),
 	distanceCommune: Joi.string().required(),

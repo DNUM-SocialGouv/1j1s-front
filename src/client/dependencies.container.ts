@@ -23,8 +23,6 @@ import {
 } from '~/client/services/établissementAccompagnement/etablissementAccompagnement.service';
 import { BffEmploiEuropeService } from '~/client/services/europe/bff.emploiEurope.service';
 import { EmploiEuropeService } from '~/client/services/europe/emploiEurope.service';
-import { BffFormationService } from '~/client/services/formation/bff.formation.service';
-import { FormationService } from '~/client/services/formation/formation.service';
 import {
 	FormationInitialeInterface,
 	FormationInitialeService,
@@ -81,7 +79,6 @@ export type Dependencies = {
 	cookiesService: CookiesService
 	analyticsService: ManualAnalyticsService
 	demandeDeContactService: DemandeDeContactService
-	formationService: FormationService
 	formationInitialeService: FormationInitialeInterface
 	localisationService: LocalisationService
 	metierLbaService: MetierService
@@ -119,7 +116,6 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 	const httpClientService = new BffHttpClientService(sessionId, loggerService);
 	const metierLbaService = new BffAlternanceMetierService(httpClientService);
 	const metierStage3eEt2deService = new BffStage3eEt2deMetierService(httpClientService);
-	const formationService = new BffFormationService(httpClientService);
 	const formationInitialeService = new FormationInitialeService(httpClientService);
 	const localisationService = new BffLocalisationService(httpClientService);
 	const missionEngagementService = new BffMissionEngagementService(httpClientService);
@@ -191,7 +187,6 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		demandeDeContactService,
 		emploiEuropeService,
 		formationInitialeService,
-		formationService,
 		localStorageService,
 		localisationService,
 		marketingService,
