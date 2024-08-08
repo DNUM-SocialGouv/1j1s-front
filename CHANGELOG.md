@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.337.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.337.0...v3.337.1) (2024-08-08)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#3228](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3228)) ([479d901](https://github.com/DNUM-SocialGouv/1j1s-front/commit/479d901427190f012082e9ce5f3fc1141ad778e7))
+
 ## [3.337.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.336.0...v3.337.0) (2024-08-06)
 
 
