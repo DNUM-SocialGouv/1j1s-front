@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.339.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.338.0...v3.339.0) (2024-08-08)
+
+
+### Features
+
+* **actualites:** créer une page d'actualités ([#3239](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3239)) ([c699fa8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c699fa8da18e353279e0c845ca04353468f3daad))
+* **formation alternance:** passer en ssr la page de recherche ([#3237](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3237)) ([5b97c8b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5b97c8b4962cfba9bdb039cc994f762f93becff8))
+
 ## [3.338.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.337.1...v3.338.0) (2024-08-08)
 
 
