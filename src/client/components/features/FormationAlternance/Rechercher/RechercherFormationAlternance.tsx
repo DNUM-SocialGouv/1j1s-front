@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
@@ -50,8 +50,6 @@ export default function RechercherFormationAlternance({ resultats: formationAlte
 	const router = useRouter();
 	const nombreResultats = formationAlternanceList.length;
 
-	const [isLoading, setIsLoading] = useState(false);
-
 	const title = formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${nombreResultats === 0 ? ' - Aucun résultat' : ''}`);
 
 	const messageRésultatRecherche: string = useMemo(() => {
@@ -69,14 +67,6 @@ export default function RechercherFormationAlternance({ resultats: formationAlte
 		return messageRésultatRechercheSplit.join(' ');
 	}, [nombreResultats, formationQuery.libelleMetier]);
 
-	useEffect(() => {
-		setIsLoading(false);
-	}, [router]);
-
-	function onSubmit() {
-		setIsLoading(true);
-	}
-
 	return <>
 		<Head
 			title={title}
@@ -87,8 +77,8 @@ export default function RechercherFormationAlternance({ resultats: formationAlte
 				banniere={<BannièreFormation/>}
 				erreurRecherche={erreurRecherche}
 				etiquettesRecherche={<EtiquettesFiltreFormationAlternance/>}
-				formulaireRecherche={<FormulaireRechercherFormationAlternance onSubmit={onSubmit}/>}
-				isChargement={isLoading}
+				formulaireRecherche={<FormulaireRechercherFormationAlternance/>}
+				isChargement={false}
 				isEtatInitial={empty(formationQuery)}
 				messageResultatRecherche={messageRésultatRecherche}
 				nombreTotalSolutions={nombreResultats}

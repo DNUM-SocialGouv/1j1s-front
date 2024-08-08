@@ -18,11 +18,7 @@ import { Formation } from '~/server/formations/domain/formation';
 import styles
 	from './FormulaireRechercheFormationAlternance.module.scss';
 
-interface FormulaireRechercheFormationAlternanceProps {
-	onSubmit?: () => void;
-}
-
-export function FormulaireRechercherFormationAlternance({ onSubmit: onSubmitProps = doNothing }: FormulaireRechercheFormationAlternanceProps) {
+export function FormulaireRechercherFormationAlternance() {
 	const queryParams = useFormationQuery();
 	const {
 		libelleMetier,
@@ -52,7 +48,6 @@ export function FormulaireRechercherFormationAlternance({ onSubmit: onSubmitProp
 	const router = useRouter();
 
 	async function updateRechercherFormationQueryParams(event: FormEvent<HTMLFormElement>) {
-		onSubmitProps();
 		event.preventDefault();
 		const formEntries = getFormAsQuery(event.currentTarget, queryParams, false);
 		return router.push({ query: new URLSearchParams(formEntries).toString() });
@@ -101,8 +96,4 @@ export function FormulaireRechercherFormationAlternance({ onSubmit: onSubmitProp
 			</form>
 		</>
 	);
-}
-
-function doNothing() {
-	return;
 }
