@@ -20,13 +20,19 @@ import {
 	NiveauRequisValeur,
 	RésultatRechercheFormation,
 } from '~/server/formations/domain/formation';
+import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 import { dependencies } from '~/server/start';
 
-interface RechercherFormationApprentissagePageProps {
-	resultats?: Array<RésultatRechercheFormation>
-	erreurRecherche?: Erreur
+type RechercherFormationApprentissagePageProps = {
+	erreurRecherche?: never
+	resultats: Array<RésultatRechercheFormation>
+} | {
+	erreurRecherche: Erreur
+	resultats?: never
+} | {
+	erreurRecherche?: never
+	resultats?: never
 }
-
 
 export default function FormationAlternancePage(props: RechercherFormationApprentissagePageProps) {
 	useAnalytics(analytics);
@@ -94,7 +100,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 
 	return {
 		props: {
-			resultats: JSON.parse(JSON.stringify(resultatsRecherche.result)),
+			resultats: removeUndefinedKeys(resultatsRecherche.result),
 		},
 	};
 }

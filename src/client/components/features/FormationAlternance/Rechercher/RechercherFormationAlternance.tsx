@@ -5,7 +5,9 @@ import { v4 as uuidv4 } from 'uuid';
 import {
 	FormulaireRechercherFormationAlternance,
 } from '~/client/components/features/FormationAlternance/FormulaireRecherche/FormulaireRechercherFormationAlternance';
-import { EtiquettesFiltreFormationAlternance } from '~/client/components/features/FormationAlternance/Rechercher/EtiquettesFiltreFormationAlternance';
+import {
+	EtiquettesFiltreFormationAlternance,
+} from '~/client/components/features/FormationAlternance/Rechercher/EtiquettesFiltreFormationAlternance';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { CarifOrefPartner } from '~/client/components/features/ServiceCard/CarifOrefPartner';
 import { DecouvrirApprentissage } from '~/client/components/features/ServiceCard/DecouvrirApprentissage';
@@ -32,18 +34,22 @@ import { transformObjectToQueryString } from '~/server/services/utils/urlParams.
 
 const PREFIX_TITRE_PAGE = 'Rechercher une formation en apprentissage';
 
-interface RechercherFormationProps {
-	erreurRecherche?: Erreur
-	resultats?: Array<RésultatRechercheFormation>
+type RechercherFormationProps = {
+	erreurRecherche?: never
+	resultats: Array<RésultatRechercheFormation>
+} | {
+	erreurRecherche: Erreur
+	resultats?: never
+} | {
+	erreurRecherche?: never
+	resultats?: never
 }
 
-export default function RechercherFormationAlternance(props: RechercherFormationProps) {
+export default function RechercherFormationAlternance({ resultats: formationAlternanceList = [], erreurRecherche }: RechercherFormationProps) {
 	const formationQuery = useFormationQuery();
 	const router = useRouter();
+	const nombreResultats = formationAlternanceList.length;
 
-	const formationAlternanceList = props.resultats || [];
-	const nombreResultats = props.resultats?.length || 0;
-	const erreurRecherche = props.erreurRecherche;
 	const [isLoading, setIsLoading] = useState(false);
 
 	const title = formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${nombreResultats === 0 ? ' - Aucun résultat' : ''}`);

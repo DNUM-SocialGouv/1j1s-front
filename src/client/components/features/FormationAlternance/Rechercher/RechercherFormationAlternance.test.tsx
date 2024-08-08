@@ -91,6 +91,7 @@ describe('RechercherFormation', () => {
 			);
 
 			const formationsAlternances = screen.getByRole('list', { name: 'Formations en alternance' });
+			// NOTE (BRUJ 08-08-2024): getByRole renvoie aussi les descendant indirectes
 			// eslint-disable-next-line testing-library/no-node-access
 			const formationsAlternancesListCards= formationsAlternances?.querySelectorAll<HTMLElement>(':scope > li');
 			expect(formationsAlternancesListCards).toHaveLength(2);

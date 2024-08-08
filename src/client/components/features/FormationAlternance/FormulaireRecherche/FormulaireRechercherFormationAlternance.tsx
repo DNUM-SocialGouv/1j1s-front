@@ -55,7 +55,7 @@ export function FormulaireRechercherFormationAlternance({ onSubmit: onSubmitProp
 		onSubmitProps();
 		event.preventDefault();
 		const formEntries = getFormAsQuery(event.currentTarget, queryParams, false);
-		return router.push({ query: new URLSearchParams(formEntries).toString() }, undefined, { scroll: true });
+		return router.push({ query: new URLSearchParams(formEntries).toString() });
 	}
 
 	return (

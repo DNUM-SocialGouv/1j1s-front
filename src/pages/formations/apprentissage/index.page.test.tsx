@@ -122,17 +122,20 @@ describe('Page Formations en Apprentissage', () => {
 		});
 
 		describe('lorsque la page est affichée avec des query params', () => {
-			it.each([{ queryInvalide: '75056' },
+
+			describe.each([{ queryInvalide: '75056' },
 				rechercheFormationAlternanceQuery({ niveauEtudes: 'pas un niveau correcte' }),
 				rechercheFormationAlternanceQuery({ codeRomes: undefined }),
 				rechercheFormationAlternanceQuery({ distanceCommune: undefined }),
-			])('et qu‘ils sont invalides, retourne une erreur et ne fait pas de recherche', async () => {
-				const context = aGetServerSidePropsContext({ query: { queryInvalide: '75056' } });
+			])('et qu‘ils sont invalides', () => {
+				it('retourne une erreur et ne fait pas de recherche', async () => {
+					const context = aGetServerSidePropsContext({ query: { queryInvalide: '75056' } });
 
-				const result = await getServerSideProps(context);
+					const result = await getServerSideProps(context);
 
-				expect(result).toEqual({ props: { erreurRecherche: ErreurMetier.DEMANDE_INCORRECTE } });
-				expect(dependencies.formationDependencies.rechercherFormation.handle).not.toHaveBeenCalled();
+					expect(result).toEqual({ props: { erreurRecherche: ErreurMetier.DEMANDE_INCORRECTE } });
+					expect(dependencies.formationDependencies.rechercherFormation.handle).not.toHaveBeenCalled();
+				});
 			});
 
 			describe('et qu‘ils sont valides', () => {

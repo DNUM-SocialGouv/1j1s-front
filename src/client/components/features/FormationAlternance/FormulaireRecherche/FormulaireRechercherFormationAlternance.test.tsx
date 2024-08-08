@@ -98,14 +98,14 @@ describe('FormulaireRechercherFormationAlternance', () => {
 
 			await user.click(screen.getByRole('button', { name: 'Rechercher' }));
 
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleMetier=Conduite+de+travaux%2C+direction+de+chantier') }, undefined, { scroll: true });
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeRomes=F1201%2CF1202%2CI1101') }, undefined, { scroll: true });
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeCommune=75056') }, undefined, { scroll: true });
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('latitudeCommune=48.859') }, undefined, { scroll: true });
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('longitudeCommune=2.347') }, undefined, { scroll: true });
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codePostal=75006') }, undefined, { scroll: true });
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('ville=Paris') }, undefined, { scroll: true });
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('distanceCommune=10') }, undefined, { scroll: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleMetier=Conduite+de+travaux%2C+direction+de+chantier') });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeRomes=F1201%2CF1202%2CI1101') });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeCommune=75056') });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('latitudeCommune=48.859') });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('longitudeCommune=2.347') });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codePostal=75006') });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('ville=Paris') });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('distanceCommune=10') });
 		});
 
 		it('lorsqu‘on recherche avec un niveau d’études, le niveau d‘étude est ajouté à l‘url', async () => {
@@ -143,7 +143,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 
 			await user.click(screen.getByRole('button', { name: 'Rechercher' }));
 
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('niveauEtudes=3') }, undefined, { scroll: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('niveauEtudes=3') });
 		});
 	});
 
@@ -177,6 +177,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 			await user.click(submitButton);
 
 			expect(routerPush).not.toHaveBeenCalled();
+			expect(screen.getByRole('form')).toBeInvalid();
 		});
 
 		it('lorsqu‘il manque le métier, n‘effectue pas de recherche', async () => {
