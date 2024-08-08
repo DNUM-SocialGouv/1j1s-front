@@ -32,4 +32,3 @@ export class StrapiServicesJeunesRepository implements ServicesJeunesRepository 
 		}
 	}
 }
-

@@ -2,12 +2,13 @@ import { aStrapiService } from '~/server/cms/infra/repositories/strapi.service.f
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aMesuresEmployeursList } from '~/server/mesures-employeurs/domain/mesureEmployeur.fixture';
-import { aStrapiMesuresEmployeursList } from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs.fixture';
+import {
+	aStrapiMesuresEmployeursList,
+} from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs.fixture';
 import {
 	StrapiMesuresEmployeursRepository,
 } from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs.repository';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
-
 
 describe('StrapiMesuresEmployeursRepository', () => {
 	describe('getMesuresEmployeurs', () => {
@@ -25,7 +26,7 @@ describe('StrapiMesuresEmployeursRepository', () => {
 		});
 
 		describe('quand la récupération est en succès', () => {
-			it('quand le mapping vers les mesures employeurs est en succès, renvoie la liste des mesures employeurs', async () => {
+			it('quand map vers les mesures employeurs est en succès, renvoie la liste des mesures employeurs', async () => {
 				const strapiService = aStrapiService();
 				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresEmployeursList()));
 				const strapiMesuresEmployeurs = new StrapiMesuresEmployeursRepository(strapiService, anErrorManagementService());
@@ -36,7 +37,7 @@ describe('StrapiMesuresEmployeursRepository', () => {
 				expect(result).toStrictEqual(resultExpected);
 			});
 
-			it('quand le mapping vers les mesures employeurs est en échec, appelle le service de management d‘erreur avec l‘erreur et le contexte', async () => {
+			it('quand map vers les mesures employeurs est échec, appelle le service de management d‘erreur avec l‘erreur et le contexte', async () => {
 				const strapiService = aStrapiService();
 				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess({ someNonExistentField: '' }));
 

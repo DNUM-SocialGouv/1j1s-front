@@ -1,8 +1,6 @@
 import { createFailure, Failure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import {
-	DefaultErrorManagementService,
-} from '~/server/services/error/errorManagement.service';
+import { DefaultErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { HttpError } from '~/server/services/http/httpError';
 import { LoggerService } from '~/server/services/logger.service';
 
@@ -10,6 +8,7 @@ export class StrapiErrorManagementService extends DefaultErrorManagementService 
 	constructor(loggerService: LoggerService) {
 		super(loggerService);
 	}
+
 	protected createFailureForHttpError(error: HttpError) {
 		if (error.response?.status === 400 && error?.response?.data?.message === '[API Strapi] 400 Bad request pour la ressource') {
 			return createFailure(ErreurMetier.DEMANDE_INCORRECTE);

@@ -46,45 +46,68 @@ describe('mapMesuresEmployeurs', () => {
 		expect(result).toEqual(expectedMesuresEmployeurs);
 	});
 
-	describe('article', () => {
-		it('lorsqu‘aucun article est relié, renvoie en link l‘url associée à la mesure employeur', () => {
-			// GIVEN
-			const strapiMesuresEmployeurs = aStrapiMesuresEmployeursList({
-				dispositifs: [aStrapiMesureEmployeur({
-					article: undefined,
-					url: 'https://some.example.com/4',
-				})],
-			});
+	describe('link', () => {
+		describe('article non relié, url non relié', () => {
+		 it('laisse link undefined', () => {
+		   // Given
+			 const strapiMesuresEmployeurs = aStrapiMesuresEmployeursList({
+				 dispositifs: [aStrapiMesureEmployeur({
+					 article: undefined,
+					 url: undefined,
+				 })],
+			 });
 
-			// WHEN
-			const result = mapMesuresEmployeurs(strapiMesuresEmployeurs);
+			 // When
+			 const result = mapMesuresEmployeurs(strapiMesuresEmployeurs);
 
-			// THEN
-			expect(result).toStrictEqual([aMesureEmployeur({
-				link: 'https://some.example.com/4',
-			})]);
+		   // Then
+			 const mesureObtenue = result[0];
+			 expect(mesureObtenue.link).toBeUndefined();
+		 });
 		});
 
-		it('lorsqu‘un article est relié, renvoie un lien à partir du slug de l‘article', () => {
-			// GIVEN
-			const strapiMesuresEmployeurs = aStrapiMesuresEmployeursList({
-				dispositifs: [aStrapiMesureEmployeur({
-					article: aStrapiSingleRelation(aStrapiArticle({ slug: 'this-is-a-slug' })),
-				})],
+		describe('article non relié, url relié', () => {
+			it('renvoie en link l‘url associée à la mesure employeur', () => {
+				// GIVEN
+				const urlRelieAttendu = 'https://some.example.com/4';
+				const strapiMesuresEmployeurs = aStrapiMesuresEmployeursList({
+					dispositifs: [aStrapiMesureEmployeur({
+						article: undefined,
+						url: urlRelieAttendu,
+					})],
+				});
+
+				// WHEN
+				const result = mapMesuresEmployeurs(strapiMesuresEmployeurs);
+
+				// THEN
+				const mesureObtenue = result[0];
+				expect(mesureObtenue.link).toStrictEqual(urlRelieAttendu);
 			});
-
-			// WHEN
-			const result = mapMesuresEmployeurs(strapiMesuresEmployeurs);
-
-			// THEN
-			expect(result).toStrictEqual([aMesureEmployeur({
-				link: '/articles/this-is-a-slug',
-			})]);
 		});
+
+		describe('article relié', () => {
+			it('renvoie un lien à partir du slug de l‘article', () => {
+				// GIVEN
+				const slugAttendu = 'this-is-a-slug';
+				const strapiMesuresEmployeurs = aStrapiMesuresEmployeursList({
+					dispositifs: [aStrapiMesureEmployeur({
+						article: aStrapiSingleRelation(aStrapiArticle({ slug: slugAttendu })),
+					})],
+				});
+
+				// WHEN
+				const result = mapMesuresEmployeurs(strapiMesuresEmployeurs);
+
+				// THEN
+				const mesureObtenue = result[0];
+				expect(mesureObtenue.link).toStrictEqual('/articles/' + slugAttendu);
+			});
+		});
+
 	});
 
-
-	it('lorsque je ne fourni pas d‘alternative texte à la bannière, renvoie une string vide', () => {
+	it('lorsque je ne fournis pas d‘alternative texte à la bannière, renvoie une string vide', () => {
 		const strapiMesuresEmployeurs = aStrapiMesuresEmployeursList({
 			dispositifs: [aStrapiMesureEmployeur({
 				banniere: aStrapiSingleRelation(aStrapiImage({

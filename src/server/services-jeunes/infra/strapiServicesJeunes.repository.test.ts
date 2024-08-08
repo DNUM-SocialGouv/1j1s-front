@@ -67,9 +67,10 @@ describe('strapiMesuresJeunesRepository', () => {
 				];
 				expect(result).toEqual(createSuccess(orderedServicesJeunes));
 			});
+
 		});
 
-		describe('si le mapping vers les services jeunes est en erreur', () => {
+		describe('si map vers les services jeunes est en erreur', () => {
 			it('appelle le service de gestion d’erreur avec l’erreur et le contexte', async () => {
 				const strapiService = aStrapiService();
 				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess({

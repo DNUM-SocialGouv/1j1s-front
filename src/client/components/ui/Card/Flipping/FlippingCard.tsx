@@ -13,7 +13,7 @@ import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 
 interface FlippingCardProps {
 	imageUrl?: string
-	link: string
+	link?: string
 	title: string
 	category?: string
 	titleAs?: HtmlHeadingTag
@@ -24,7 +24,7 @@ interface FlippingCardProps {
 export function FlippingCard(props: FlippingCardProps) {
 	const { category, imageUrl, link, title, titleAs, flippingCardContent, className, ...rest } = props;
 	const cardFlipRef = useRef<HTMLDivElement>(null);
-	const isInternalLink = useIsInternalLink(link);
+	const isInternalLink = useIsInternalLink(link ?? '');
 	const [isCardFlipped, setIsCardFlipped] = useState(false);
 	const [isAnimationOn, setIsAnimationOn] = useState(false);
 	const hasFlipCardContent = !!flippingCardContent.length;
@@ -86,10 +86,10 @@ export function FlippingCard(props: FlippingCardProps) {
 								ref={flipButton}
 								onClick={() => flipCard()}/>
 						}
-						<Link href={link} prefetch={false} appearance="asPrimaryButton">
+						{link && <Link href={link} prefetch={false} appearance="asPrimaryButton">
 							{isInternalLink ? 'Lire l‘article' : 'En savoir plus'}
 							<Link.Icon/>
-						</Link>
+						</Link>}
 					</div>
 				</div>
 			</div>

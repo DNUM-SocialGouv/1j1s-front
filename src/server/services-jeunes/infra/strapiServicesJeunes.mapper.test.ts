@@ -46,24 +46,49 @@ describe('mapToServicesJeunes', () => {
 		expect(result).toStrictEqual(anUnorderedAndNotFilterServiceJeuneList());
 	});
 
-	describe('article', () => {
-		it('lorsqu‘aucun article est relié, ne renvoie pas d‘article et renvoie en link l‘url associée à la mesure jeune', () => {
-			// GIVEN
-			const strapiMesuresJeunesParCategorie = aStrapiMesuresJeunesParCategorieSansResultat({
-				accompagnement: [aStrapiMesureJeune({
-					article: undefined,
-				})],
+	describe('link', () => {
+		describe('article non relié, url non relié', () => {
+			it('laisse link undefined', () => {
+				// Given
+				const strapiMesuresJeunesParCategorie = aStrapiMesuresJeunesParCategorieSansResultat({
+					accompagnement: [aStrapiMesureJeune({
+						article: undefined,
+						url: undefined,
+					})],
+				});
+
+				// When
+				const result = mapToServicesJeunes(strapiMesuresJeunesParCategorie);
+
+				// Then
+				const mesureObtenue = result[0];
+				expect(mesureObtenue.link).toBeUndefined();
 			});
-
-			// WHEN
-			const result = mapToServicesJeunes(strapiMesuresJeunesParCategorie);
-
-			// THEN
-			expect(result).toStrictEqual([aServiceJeune({
-				link: 'Une belle url de carte',
-			})]);
 		});
-		it('lorsqu‘un article est relié, renvoie les informations relatives à l‘article et un lien à partir du slug de l‘article', () => {
+
+		describe('article non relié, url relié', () => {
+			it('ne renvoie pas d‘article et renvoie en link l’url associée à la mesure jeune', () => {
+				// Given
+				const urlRelieAttendu = 'mon-url-relié';
+				const strapiMesuresJeunesParCategorie = aStrapiMesuresJeunesParCategorieSansResultat({
+					accompagnement: [aStrapiMesureJeune({
+						article: undefined,
+						url: urlRelieAttendu,
+					})],
+				});
+
+				// When
+				const result = mapToServicesJeunes(strapiMesuresJeunesParCategorie);
+
+				// Then
+				const mesureObtenue = result[0];
+				expect(mesureObtenue.link).toStrictEqual(urlRelieAttendu);
+			});
+		});
+	});
+
+	describe('article relié', () => {
+		it('renvoie les informations relatives à l’article et un lien à partir du slug de l’article', () => {
 			// GIVEN
 			const strapiMesuresJeunesParCategorie = aStrapiMesuresJeunesParCategorieSansResultat({
 				accompagnement: [aStrapiMesureJeune({
@@ -81,7 +106,7 @@ describe('mapToServicesJeunes', () => {
 		});
 	});
 
-	it('lorsque je ne fourni pas d‘alternative texte à la bannière, renvoie une string vide', () => {
+	it('lorsque je ne fournis pas d‘alternative texte à la bannière, renvoie une string vide', () => {
 		const strapiMesuresJeunesParCategorie = aStrapiMesuresJeunesParCategorieSansResultat({
 			accompagnement: [aStrapiMesureJeune({
 				banniere: aStrapiSingleRelation(aStrapiImage({
