@@ -6,7 +6,7 @@ import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { ComboboxMetiers } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
 import { Metier } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/Metier';
-import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple/SelectSimple';
+import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MetierDependenciesProvider } from '~/client/context/metier.context';

@@ -9,7 +9,7 @@ import React, { FormEvent } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard.fixture';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
-import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple/SelectMultiple';
+import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple';
 import { mockScrollIntoView } from '~/client/components/window.mock';
 
 const SELECT_MULTIPLE_LABEL_DEFAULT_OPTION = 'Sélectionnez vos choix';
@@ -32,123 +32,76 @@ describe('<SelectMultiple/>', () => {
 
 			expect(screen.getByRole('combobox', { name: 'label' })).toBeVisible();
 		});
+	});
 
-		it('accepte un complément label et le lie au select', () => {
-			render(<Champ>
-				<Champ.Label>label<Champ.Label.Complement>complement label</Champ.Label.Complement></Champ.Label>
-				<Champ.Input render={SelectMultiple} optionsAriaLabel={'options'}>
-					<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
-					<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
-				</Champ.Input>
-			</Champ>);
+	describe('gestion erreur', () => {
+		it('lorsque le select est requis mais pas touché, n‘appelle pas onInvalid', () => {
+			const onInvalid = jest.fn();
+			render(<SelectMultiple optionsAriaLabel={'options'} required onInvalid={onInvalid}>
+				<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
+				<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
+			</SelectMultiple>,
+			);
 
-			expect(screen.getByRole('combobox', { name: 'label complement label' })).toBeVisible();
+			expect(onInvalid).not.toHaveBeenCalled();
 		});
 
-		describe('erreur', () => {
-			it('lorsque le champ est requis mais pas touché, je ne vois pas le message d‘erreur', () => {
-				render(<Champ>
-					<Champ.Input render={SelectMultiple} optionsAriaLabel={'options'} required>
-						<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
-						<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
-					</Champ.Input>
-					<Champ.Error/>
-				</Champ>);
+		it('lorsque le select est requis et que l‘utilisateur n‘a pas séléctionné d‘option, il ne peux pas soumettre le formulaire', async () => {
+			const onSubmit = jest.fn();
+			const user = userEvent.setup();
 
-				expect(screen.queryByText('Séléctionnez au moins un élément de la liste')).not.toBeInTheDocument();
-				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('');
-			});
+			render(<form onSubmit={onSubmit} aria-label={'form'}>
+				<SelectMultiple optionsAriaLabel={'options'} required>
+					<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
+					<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
+				</SelectMultiple>
+				<button>Submit</button>
+			</form>);
 
-			it('lorsque le champ est requis et que l‘utilisateur n‘a pas séléctionné d‘option, il ne peux pas soumettre le formulaire', async () => {
-				const onSubmit = jest.fn();
-				const user = userEvent.setup();
+			await user.click(screen.getByRole('button', { name: 'Submit' }));
+			expect(onSubmit).not.toHaveBeenCalled();
+		});
 
-				render(<form onSubmit={onSubmit}>
-					<Champ>
-						<Champ.Input render={SelectMultiple} optionsAriaLabel={'options'} required>
-							<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
-							<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
-						</Champ.Input>
-						<Champ.Error/>
-					</Champ>
-					<button>Submit</button>
-				</form>);
+		it('lorsque le select est requis et que l‘utilisateur ouvre puis ferme le select sans selectionner d‘option, appelle onInvalid et affiche le message d‘erreur', async () => {
+			const user = userEvent.setup();
+			const onInvalid = jest.fn();
 
-				await user.click(screen.getByRole('button', { name: 'Submit' }));
-				expect(onSubmit).not.toHaveBeenCalled();
-			});
+			render(<SelectMultiple optionsAriaLabel={'options'} required onInvalid={onInvalid}>
+				<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
+				<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
+			</SelectMultiple>,
+			);
 
-			it('lorsque le champ est requis et que l‘utilisateur ouvre puis ferme le select sans selectionner d‘option, appelle onInvalid et affiche le message d‘erreur', async () => {
-				const user = userEvent.setup();
-				const onInvalid = jest.fn();
+			await user.tab();
+			await user.keyboard(KeyBoard.ENTER);
+			await user.keyboard(KeyBoard.ESCAPE);
+			expect(onInvalid).toHaveBeenCalledTimes(1);
+		});
 
-				render(<Champ>
-					<Champ.Input render={SelectMultiple} optionsAriaLabel={'options'} required onInvalid={onInvalid}>
-						<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
-						<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
-					</Champ.Input>
-					<Champ.Error/>
-				</Champ>);
+		it('lorsque le select est requis et en erreur, lorsque l‘utilisateur séléctionne une option le select n‘est plus en erreur', async () => {
+			const onInvalid = jest.fn();
+			const user = userEvent.setup();
 
-				await user.tab();
-				await user.keyboard(KeyBoard.ENTER);
-				await user.keyboard(KeyBoard.ESCAPE);
-				expect(screen.getByText('Séléctionnez au moins un élément de la liste')).toBeVisible();
-				expect(onInvalid).toHaveBeenCalledTimes(1);
-			});
+			render(<>
+				<SelectMultiple
+					optionsAriaLabel={'options'}
+					required
+					onInvalid={onInvalid}>
+					<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
+					<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
+				</SelectMultiple>
+			</>);
 
-			it('lorsque le champ est requis et en erreur, le message d‘erreur est fusionné avec la description accessible', async () => {
-				const user = userEvent.setup();
+			await user.tab();
+			await user.keyboard(KeyBoard.ENTER);
+			await user.keyboard(KeyBoard.ESCAPE);
 
-				render(<>
-					<Champ>
-						<Champ.Input render={SelectMultiple} optionsAriaLabel={'options'} required aria-describedby={'id1'}>
-							<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
-							<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
-						</Champ.Input>
-						<Champ.Error/>
-					</Champ>
-					<p id={'id1'}>La description accessible</p>
-				</>);
+			await user.keyboard(KeyBoard.ENTER);
+			await user.keyboard(KeyBoard.ARROW_DOWN);
+			await user.keyboard(KeyBoard.ENTER);
 
-				await user.tab();
-				await user.keyboard(KeyBoard.ENTER);
-				await user.keyboard(KeyBoard.ESCAPE);
-
-				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('La description accessible Séléctionnez au moins un élément de la liste');
-			});
-
-			it('lorsque le champ est requis et en erreur, lorsque l‘utilisateur séléctionne une option le champ n‘est plus en erreur', async () => {
-				const onInvalid = jest.fn();
-				const user = userEvent.setup();
-
-				render(<>
-					<Champ>
-						<Champ.Input
-							render={SelectMultiple}
-							optionsAriaLabel={'options'}
-							required
-							aria-describedby={'id1'}
-							onInvalid={onInvalid}>
-							<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
-							<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
-						</Champ.Input>
-						<Champ.Error/>
-					</Champ>
-					<p id={'id1'}>La description accessible</p>
-				</>);
-
-				await user.tab();
-				await user.keyboard(KeyBoard.ENTER);
-				await user.keyboard(KeyBoard.ESCAPE);
-
-				await user.keyboard(KeyBoard.ENTER);
-				await user.keyboard(KeyBoard.ARROW_DOWN);
-				await user.keyboard(KeyBoard.ENTER);
-
-				expect(screen.queryByText('Séléctionnez au moins un élément de la liste')).not.toBeInTheDocument();
-				expect(onInvalid).toHaveBeenCalledTimes(1);
-			});
+			expect(onInvalid).toHaveBeenCalledTimes(1);
+			expect(screen.getByRole('textbox', { hidden: true })).toBeValid();
 		});
 	});
 
@@ -345,7 +298,7 @@ describe('<SelectMultiple/>', () => {
 			});
 
 			describe('lorsque l‘utilisateur tape des caractères', () => {
-				it('lorsque l‘utilisateur tape un seul caractère, la liste d‘options s‘ouvre, reste ouverte et déplace le focus visuel sur la première option qui match le caractère', async () => {
+				it('lorsque l‘utilisateur tape un seul caractère, la liste d‘options s‘ouvre et déplace le focus visuel sur la première option qui match le caractère', async () => {
 					const user = userEvent.setup();
 
 					render(<SelectMultiple optionsAriaLabel={'options label'}>
@@ -360,6 +313,19 @@ describe('<SelectMultiple/>', () => {
 					expect(screen.getByRole('listbox', { name: 'options label' })).toBeVisible();
 					const option2Id = screen.getByRole('option', { name: 'ha' }).id;
 					expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option2Id);
+				});
+
+				it('lorsque l‘utilisateur tape un caractère attend et retape un caractère, la liste d‘options s‘ouvre et déplace le focus visuel sur la première option qui match le deuxième caractère', async () => {
+					const user = userEvent.setup();
+
+					render(<SelectMultiple optionsAriaLabel={'options label'}>
+						<SelectMultiple.Option value="1">ab</SelectMultiple.Option>
+						<SelectMultiple.Option value="2">ha</SelectMultiple.Option>
+						<SelectMultiple.Option value="3">bj</SelectMultiple.Option>
+					</SelectMultiple>);
+
+					await user.tab();
+					await user.keyboard('h');
 
 					await act(() => delay(DEFAULT_DEBOUNCE_TIMEOUT));
 					await user.keyboard('a');
@@ -702,20 +668,13 @@ describe('<SelectMultiple/>', () => {
 			describe('lorsque l‘utilisateur fait "PageUp"', () => {
 				it('s‘il y a plus de 10 options précédentes, déplace le focus visuel de 10 options plus haut', async () => {
 					const user = userEvent.setup();
-
+					const NUMBRE_OF_OPTIONS = 12;
+					const optionsArray = new Array(NUMBRE_OF_OPTIONS).fill('');
 					render(<SelectMultiple optionsAriaLabel={'options'} name="select">
-						<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
-						<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
-						<SelectMultiple.Option value="3">options 3</SelectMultiple.Option>
-						<SelectMultiple.Option value="4">options 4</SelectMultiple.Option>
-						<SelectMultiple.Option value="5">options 5</SelectMultiple.Option>
-						<SelectMultiple.Option value="6">options 6</SelectMultiple.Option>
-						<SelectMultiple.Option value="7">options 7</SelectMultiple.Option>
-						<SelectMultiple.Option value="8">options 8</SelectMultiple.Option>
-						<SelectMultiple.Option value="9">options 9</SelectMultiple.Option>
-						<SelectMultiple.Option value="10">options 10</SelectMultiple.Option>
-						<SelectMultiple.Option value="11">options 11</SelectMultiple.Option>
-						<SelectMultiple.Option value="12">options 12</SelectMultiple.Option>
+						{optionsArray.map((_, index) => (
+							<SelectMultiple.Option key={index} value={index + 1}>options {index + 1}</SelectMultiple.Option>
+						))
+						}
 					</SelectMultiple>);
 
 					await user.tab();
@@ -882,27 +841,21 @@ describe('<SelectMultiple/>', () => {
 
 		it('lorsque la value change, le select prend la valeur de value mise à jour', async () => {
 			const user = userEvent.setup();
-			const valueThatCanChange = ['1'];
 			let selectValues;
-			const { rerender } = render(<form role="form">
-				<SelectMultiple optionsAriaLabel={'options'} value={valueThatCanChange}
-					name="name">
-					<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
-					<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
-				</SelectMultiple>
-			</form>);
 
-			valueThatCanChange.push('2');
-
-			rerender(<form role="form" aria-label={'test'} onSubmit={(formEvent) => {
+			const component = (value: Array<string>) => <form role="form" aria-label={'test'} onSubmit={(formEvent) => {
 				selectValues = getAllFormData(formEvent, 'name');
 			}}>
-				<SelectMultiple optionsAriaLabel={'options'} value={valueThatCanChange} name="name">
+				<SelectMultiple optionsAriaLabel={'options'} value={value} name="name">
 					<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 					<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
 				</SelectMultiple>
 				<button>Submit</button>
-			</form>);
+			</form>;
+
+			const { rerender } = render(component(['1']));
+
+			rerender(component(['1', '2']));
 			await user.click(screen.getByRole('button', { name: 'Submit' }));
 
 			expect(selectValues).toEqual(['1', '2']);

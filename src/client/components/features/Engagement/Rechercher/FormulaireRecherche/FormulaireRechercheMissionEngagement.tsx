@@ -7,7 +7,7 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
-import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple/SelectSimple';
+import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';

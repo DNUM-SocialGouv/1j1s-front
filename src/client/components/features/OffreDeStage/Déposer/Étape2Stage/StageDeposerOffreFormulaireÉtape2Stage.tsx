@@ -13,7 +13,7 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
 import { InputWithUnit } from '~/client/components/ui/Form/InputWithUnit/InputWithUnit';
-import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple/SelectSimple';
+import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
 import { TextArea } from '~/client/components/ui/Form/TextArea/TextArea';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Radio } from '~/client/components/ui/Radio/Radio';

@@ -9,7 +9,7 @@ import React from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard.fixture';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
-import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple/SelectSimple';
+import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
 import { mockScrollIntoView } from '~/client/components/window.mock';
 
 const SELECT_SIMPLE_LABEL_DEFAULT_OPTION = 'Sélectionnez votre choix';
@@ -32,123 +32,76 @@ describe('<SelectSimpleSimple/>', () => {
 
 			expect(screen.getByRole('combobox', { name: 'label' })).toBeVisible();
 		});
+	});
 
-		it('accepte un complément label et le lie au select', () => {
-			render(<Champ>
-				<Champ.Label>label<Champ.Label.Complement>complement label</Champ.Label.Complement></Champ.Label>
-				<Champ.Input render={SelectSimple} optionsAriaLabel={'options'}>
-					<SelectSimple.Option value="1">options 1</SelectSimple.Option>
-					<SelectSimple.Option value="2">options 2</SelectSimple.Option>
-				</Champ.Input>
-			</Champ>);
+	describe('gestion erreur', () => {
+		it('lorsque le select est requis mais pas touché, n‘appelle pas onInvalid', () => {
+			const onInvalid = jest.fn();
+			render(<SelectSimple optionsAriaLabel={'options'} required onInvalid={onInvalid}>
+				<SelectSimple.Option value="1">options 1</SelectSimple.Option>
+				<SelectSimple.Option value="2">options 2</SelectSimple.Option>
+			</SelectSimple>,
+			);
 
-			expect(screen.getByRole('combobox', { name: 'label complement label' })).toBeVisible();
+			expect(onInvalid).not.toHaveBeenCalled();
 		});
 
-		describe('erreur', () => {
-			it('lorsque le champ est requis mais pas touché, je ne vois pas le message d‘erreur', () => {
-				render(<Champ>
-					<Champ.Input render={SelectSimple} optionsAriaLabel={'options'} required>
-						<SelectSimple.Option value="1">options 1</SelectSimple.Option>
-						<SelectSimple.Option value="2">options 2</SelectSimple.Option>
-					</Champ.Input>
-					<Champ.Error/>
-				</Champ>);
+		it('lorsque le select est requis et que l‘utilisateur n‘a pas séléctionné d‘option, il ne peux pas soumettre le formulaire', async () => {
+			const onSubmit = jest.fn();
+			const user = userEvent.setup();
 
-				expect(screen.queryByText('Séléctionnez un élément de la liste')).not.toBeInTheDocument();
-				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('');
-			});
+			render(<form onSubmit={onSubmit} aria-label={'form'}>
+				<SelectSimple optionsAriaLabel={'options'} required>
+					<SelectSimple.Option value="1">options 1</SelectSimple.Option>
+					<SelectSimple.Option value="2">options 2</SelectSimple.Option>
+				</SelectSimple>
+				<button>Submit</button>
+			</form>);
 
-			it('lorsque le champ est requis et que l‘utilisateur n‘a pas séléctionné d‘option, il ne peux pas soumettre le formulaire', async () => {
-				const onSubmit = jest.fn();
-				const user = userEvent.setup();
+			await user.click(screen.getByRole('button', { name: 'Submit' }));
+			expect(onSubmit).not.toHaveBeenCalled();
+		});
 
-				render(<form onSubmit={onSubmit}>
-					<Champ>
-						<Champ.Input render={SelectSimple} optionsAriaLabel={'options'} required>
-							<SelectSimple.Option value="1">options 1</SelectSimple.Option>
-							<SelectSimple.Option value="2">options 2</SelectSimple.Option>
-						</Champ.Input>
-						<Champ.Error/>
-					</Champ>
-					<button>Submit</button>
-				</form>);
+		it('lorsque le select est requis et que l‘utilisateur ouvre puis ferme le select sans selectionner d‘option, appelle onInvalid et affiche le message d‘erreur', async () => {
+			const user = userEvent.setup();
+			const onInvalid = jest.fn();
 
-				await user.click(screen.getByRole('button', { name: 'Submit' }));
-				expect(onSubmit).not.toHaveBeenCalled();
-			});
+			render(<SelectSimple optionsAriaLabel={'options'} required onInvalid={onInvalid}>
+				<SelectSimple.Option value="1">options 1</SelectSimple.Option>
+				<SelectSimple.Option value="2">options 2</SelectSimple.Option>
+			</SelectSimple>,
+			);
 
-			it('lorsque le champ est requis et que l‘utilisateur ouvre puis ferme le select sans selectionner d‘option, appelle onInvalid et affiche le message d‘erreur', async () => {
-				const user = userEvent.setup();
-				const onInvalid = jest.fn();
+			await user.tab();
+			await user.keyboard(KeyBoard.ENTER);
+			await user.keyboard(KeyBoard.ESCAPE);
+			expect(onInvalid).toHaveBeenCalledTimes(1);
+		});
 
-				render(<Champ>
-					<Champ.Input render={SelectSimple} optionsAriaLabel={'options'} required onInvalid={onInvalid}>
-						<SelectSimple.Option value="1">options 1</SelectSimple.Option>
-						<SelectSimple.Option value="2">options 2</SelectSimple.Option>
-					</Champ.Input>
-					<Champ.Error/>
-				</Champ>);
+		it('lorsque le select est requis et en erreur, lorsque l‘utilisateur séléctionne une option le select n‘est plus en erreur', async () => {
+			const onInvalid = jest.fn();
+			const user = userEvent.setup();
 
-				await user.tab();
-				await user.keyboard(KeyBoard.ENTER);
-				await user.keyboard(KeyBoard.ESCAPE);
-				expect(screen.getByText('Séléctionnez un élément de la liste')).toBeVisible();
-				expect(onInvalid).toHaveBeenCalledTimes(1);
-			});
+			render(<>
+				<SelectSimple
+					optionsAriaLabel={'options'}
+					required
+					onInvalid={onInvalid}>
+					<SelectSimple.Option value="1">options 1</SelectSimple.Option>
+					<SelectSimple.Option value="2">options 2</SelectSimple.Option>
+				</SelectSimple>
+			</>);
 
-			it('lorsque le champ est requis et en erreur, le message d‘erreur est fusionné avec la description accessible', async () => {
-				const user = userEvent.setup();
+			await user.tab();
+			await user.keyboard(KeyBoard.ENTER);
+			await user.keyboard(KeyBoard.ESCAPE);
 
-				render(<>
-					<Champ>
-						<Champ.Input render={SelectSimple} optionsAriaLabel={'options'} required aria-describedby={'id1'}>
-							<SelectSimple.Option value="1">options 1</SelectSimple.Option>
-							<SelectSimple.Option value="2">options 2</SelectSimple.Option>
-						</Champ.Input>
-						<Champ.Error/>
-					</Champ>
-					<p id={'id1'}>La description accessible</p>
-				</>);
+			await user.keyboard(KeyBoard.ENTER);
+			await user.keyboard(KeyBoard.ARROW_DOWN);
+			await user.keyboard(KeyBoard.ENTER);
 
-				await user.tab();
-				await user.keyboard(KeyBoard.ENTER);
-				await user.keyboard(KeyBoard.ESCAPE);
-
-				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('La description accessible Séléctionnez un élément de la liste');
-			});
-
-			it('lorsque le champ est requis et en erreur, lorsque l‘utilisateur séléctionne une option le champ n‘est plus en erreur', async () => {
-				const onInvalid = jest.fn();
-				const user = userEvent.setup();
-
-				render(<>
-					<Champ>
-						<Champ.Input
-							render={SelectSimple}
-							optionsAriaLabel={'options'}
-							required
-							aria-describedby={'id1'}
-							onInvalid={onInvalid}>
-							<SelectSimple.Option value="1">options 1</SelectSimple.Option>
-							<SelectSimple.Option value="2">options 2</SelectSimple.Option>
-						</Champ.Input>
-						<Champ.Error/>
-					</Champ>
-					<p id={'id1'}>La description accessible</p>
-				</>);
-
-				await user.tab();
-				await user.keyboard(KeyBoard.ENTER);
-				await user.keyboard(KeyBoard.ESCAPE);
-
-				await user.keyboard(KeyBoard.ENTER);
-				await user.keyboard(KeyBoard.ARROW_DOWN);
-				await user.keyboard(KeyBoard.ENTER);
-
-				expect(screen.queryByText('Séléctionnez un élément de la liste')).not.toBeInTheDocument();
-				expect(onInvalid).toHaveBeenCalledTimes(1);
-			});
+			expect(onInvalid).toHaveBeenCalledTimes(1);
+			expect(screen.getByRole('textbox', { hidden: true })).toBeValid();
 		});
 	});
 
@@ -640,20 +593,14 @@ describe('<SelectSimpleSimple/>', () => {
 			describe('lorsque l‘utilisateur fait "PageUp"', () => {
 				it('s‘il y a plus de 10 options précédentes, déplace le focus visuel de 10 options plus haut', async () => {
 					const user = userEvent.setup();
-				
+					const NUMBRE_OF_OPTIONS = 12;
+					const optionsArray = new Array(NUMBRE_OF_OPTIONS).fill('');
+
 					render(<SelectSimple optionsAriaLabel={'options'} name="select">
-						<SelectSimple.Option value="1">options 1</SelectSimple.Option>
-						<SelectSimple.Option value="2">options 2</SelectSimple.Option>
-						<SelectSimple.Option value="3">options 3</SelectSimple.Option>
-						<SelectSimple.Option value="4">options 4</SelectSimple.Option>
-						<SelectSimple.Option value="5">options 5</SelectSimple.Option>
-						<SelectSimple.Option value="6">options 6</SelectSimple.Option>
-						<SelectSimple.Option value="7">options 7</SelectSimple.Option>
-						<SelectSimple.Option value="8">options 8</SelectSimple.Option>
-						<SelectSimple.Option value="9">options 9</SelectSimple.Option>
-						<SelectSimple.Option value="10">options 10</SelectSimple.Option>
-						<SelectSimple.Option value="11">options 11</SelectSimple.Option>
-						<SelectSimple.Option value="12">options 12</SelectSimple.Option>
+						{ optionsArray.map((_, index) => (
+							<SelectSimple.Option key={index} value={index + 1}>options {index + 1}</SelectSimple.Option>
+						))
+						}
 					</SelectSimple>);
 
 					await user.tab();
@@ -810,23 +757,17 @@ describe('<SelectSimpleSimple/>', () => {
 		});
 
 		it('lorsque la value change, le select prend la valeur de value mise à jour', async () => {
-			let valueThatCanChange = '1';
-
-			const { rerender } = render(<form role="form">
-				<SelectSimple optionsAriaLabel={'options'} value={valueThatCanChange} name="name">
+			const component = (value: string) => <form role="form" aria-label={'test'}>
+				<SelectSimple optionsAriaLabel={'options'} value={value} name="name">
 					<SelectSimple.Option value="1">options 1</SelectSimple.Option>
 					<SelectSimple.Option value="2">options 2</SelectSimple.Option>
 				</SelectSimple>
-			</form>);
+			</form>;
 
-			valueThatCanChange = '2';
+			const { rerender } = render(component('1'));
 
-			rerender(<form role="form" aria-label={'test'}>
-				<SelectSimple optionsAriaLabel={'options'} value={valueThatCanChange} name="name">
-					<SelectSimple.Option value="1">options 1</SelectSimple.Option>
-					<SelectSimple.Option value="2">options 2</SelectSimple.Option>
-				</SelectSimple>
-			</form>);
+
+			rerender(component('2'));
 
 			expect(screen.getByRole('combobox')).toHaveTextContent('options 2');
 			expect(screen.getByRole('form', { name: 'test' })).toHaveFormValues({ name: '2' });
