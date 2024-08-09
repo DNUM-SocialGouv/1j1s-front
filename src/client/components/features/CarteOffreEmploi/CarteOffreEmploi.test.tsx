@@ -6,14 +6,17 @@ import '@testing-library/jest-dom';
 import { render, screen, within } from '@testing-library/react';
 import React from 'react';
 
-import { RechercherJobEte } from '~/client/components/features/JobEte/Rechercher/RechercherJobEte';
+import { CarteOffreEmploi } from '~/client/components/features/CarteOffreEmploi/CarteOffreEmploi';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { anOffreEmploi, aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
+import {
+	FormulaireRechercheOffreEmploi
+} from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi';
 
-describe('RechercherJobEte', () => {
+describe('CarteOffreEmploi', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 	});
@@ -24,7 +27,8 @@ describe('RechercherJobEte', () => {
 
 	// NOTE (DORO 13/02/2024): Ce describe intervient entre le chargement de la page sans query params page=1 et la redirection vers la page avec query params page=1
 	describe('quand le composant est affiché sans query params', () => {
-		it('affiche un formulaire pour la recherche de jobs d’été, sans échantillon de résultat', async () => {
+		it('affiche un formulaire pour la recherche d’offres d’emplois, sans échantillon de résultat', async () => {
+
 			// GIVEN
 			const localisationServiceMock = aLocalisationService();
 			mockUseRouter({});
@@ -32,7 +36,14 @@ describe('RechercherJobEte', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherJobEte />
+					<CarteOffreEmploi
+						type={'emplois'}
+						prefixTitrePage={'Rechercher un emploi'}
+						FormulaireDeRechercheComposant={<FormulaireRechercheOffreEmploi/>}
+						headDescription={'Des milliers d’offres d’emplois sélectionnées pour vous'}
+						premierTexteBanniere={'Des milliers d’offres d’emplois'}
+						ariaLabelListeOffres={'Offres d’emplois'}
+					/>
 				</DependenciesProvider>,
 			);
 
@@ -46,8 +57,8 @@ describe('RechercherJobEte', () => {
 		});
 	});
 
-	describe('quand le composant est affiché avec seulement le query param page=1', () => {
-		it('affiche un formulaire pour la recherche de jobs d’été, avec un échantillon de résultat', async () => {
+	describe('quand le composant est affiché sans recherche', () => {
+		it('affiche un formulaire pour la recherche d’offres d’emplois, avec un échantillon de résultat', async () => {
 			// GIVEN
 			const localisationServiceMock = aLocalisationService();
 			mockUseRouter({ query: { page: '1' } });
@@ -55,13 +66,21 @@ describe('RechercherJobEte', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherJobEte resultats={aRésultatsRechercheOffre()}/>
+					<CarteOffreEmploi
+						type={'emplois'}
+						resultats={aRésultatsRechercheOffre()}
+						prefixTitrePage={'Rechercher un emploi'}
+						FormulaireDeRechercheComposant={<FormulaireRechercheOffreEmploi/>}
+						headDescription={'Des milliers d’offres d’emplois sélectionnées pour vous'}
+						premierTexteBanniere={'Des milliers d’offres d’emplois'}
+						ariaLabelListeOffres={'Offres d’emplois'}
+					/>
 				</DependenciesProvider>,
 			);
 
 			// WHEN
 			const formulaireRechercheOffreEmploi = screen.getByRole('search');
-			expect(await screen.findByText('3 offres de jobs d’été')).toBeInTheDocument();
+			expect(await screen.findByText('3 offres d’emplois')).toBeInTheDocument();
 			const errorMessage = screen.queryByText('0 résultat');
 
 			// THEN
@@ -89,13 +108,21 @@ describe('RechercherJobEte', () => {
 						<DependenciesProvider
 							localisationService={localisationServiceMock}
 						>
-							<RechercherJobEte resultats={aRésultatsRechercheOffre()}/>
+							<CarteOffreEmploi
+								type={'emplois'}
+								resultats={aRésultatsRechercheOffre()}
+								prefixTitrePage={'Rechercher un emploi'}
+								FormulaireDeRechercheComposant={<FormulaireRechercheOffreEmploi/>}
+								headDescription={'Des milliers d’offres d’emplois sélectionnées pour vous'}
+								premierTexteBanniere={'Des milliers d’offres d’emplois'}
+								ariaLabelListeOffres={'Offres d’emplois'}
+							/>
 						</DependenciesProvider>,
 					);
 
 					// THEN
-					expect(await screen.findByText('3 offres de jobs d’été')).toBeInTheDocument();
-					const filtresRecherche = screen.getByRole('list', { name: 'Filtres de la recherche' });
+					expect(await screen.findByText('3 offres d’emplois')).toBeInTheDocument();
+					const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 					expect(filtresRecherche).toBeInTheDocument();
 					expect(within(filtresRecherche).getByText('BOURG LES VALENCE (26)')).toBeInTheDocument();
 				});
@@ -118,17 +145,25 @@ describe('RechercherJobEte', () => {
 						<DependenciesProvider
 							localisationService={localisationServiceMock}
 						>
-							<RechercherJobEte resultats={aRésultatsRechercheOffre()}/>
+							<CarteOffreEmploi
+								type={'emplois'}
+								resultats={aRésultatsRechercheOffre()}
+								prefixTitrePage={'Rechercher un emploi'}
+								FormulaireDeRechercheComposant={<FormulaireRechercheOffreEmploi/>}
+								headDescription={'Des milliers d’offres d’emplois sélectionnées pour vous'}
+								premierTexteBanniere={'Des milliers d’offres d’emplois'}
+								ariaLabelListeOffres={'Offres d’emplois'}
+							/>
 						</DependenciesProvider>,
 					);
 
 					// THEN
-					expect(await screen.findByText('3 offres de jobs d’été')).toBeInTheDocument();
-					const filtresRecherche = screen.getByRole('list', { name: 'Filtres de la recherche' });
+					expect(await screen.findByText('3 offres d’emplois')).toBeInTheDocument();
+					const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 					expect(filtresRecherche).toBeInTheDocument();
 					expect(within(filtresRecherche).getByText('BOURG LES VALENCE (26500)')).toBeInTheDocument();
 				});
-				it('quand il n’y a pas de code postal dans la query, affiche seulement le nom de la localisation dans l’étiquette', async () => {
+				it('quand il n‘y a pas de code postal dans la query, affiche seulement le nom de la localisation dans l‘étiquette', async () => {
 					// GIVEN
 					const localisationServiceMock = aLocalisationService();
 					mockUseRouter({
@@ -144,7 +179,7 @@ describe('RechercherJobEte', () => {
 						<DependenciesProvider
 							localisationService={localisationServiceMock}
 						>
-							<RechercherJobEte resultats={aRésultatsRechercheOffre()}/>
+							<CarteOffreEmploi resultats={aRésultatsRechercheOffre()}/>
 						</DependenciesProvider>,
 					);
 
@@ -166,14 +201,23 @@ describe('RechercherJobEte', () => {
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
 					>
-						<RechercherJobEte resultats={aRésultatsRechercheOffre()}/>
+						<CarteOffreEmploi
+							type={'emplois'}
+							resultats={aRésultatsRechercheOffre()}
+							prefixTitrePage={'Rechercher un emploi'}
+							FormulaireDeRechercheComposant={<FormulaireRechercheOffreEmploi/>}
+							headDescription={'Des milliers d’offres d’emplois sélectionnées pour vous'}
+							premierTexteBanniere={'Des milliers d’offres d’emplois'}
+							ariaLabelListeOffres={'Offres d’emplois'}
+						/>
 					</DependenciesProvider>,
 				);
 
 				// WHEN
+				const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois' });
 				// eslint-disable-next-line testing-library/no-node-access
-				const resultatRechercheOffreEmploiList = (await screen.findAllByRole('list', { name: 'Offres de jobs d’été' }))[0].children;
-				const rechercheOffreEmploiNombreRésultats = await screen.findByText('3 offres de jobs d’été pour boulanger');
+				const resultatRechercheOffreEmploiList = resultatsUl[0].children;
+				const rechercheOffreEmploiNombreRésultats = await screen.findByText('3 offres d’emplois pour boulanger');
 
 				// THEN
 				expect(resultatRechercheOffreEmploiList).toHaveLength(3);
@@ -198,12 +242,20 @@ describe('RechercherJobEte', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherJobEte resultats={expected}/>
+					<CarteOffreEmploi
+						type={'emplois'}
+						resultats={expected}
+						prefixTitrePage={'Rechercher un emploi'}
+						FormulaireDeRechercheComposant={<FormulaireRechercheOffreEmploi/>}
+						headDescription={'Des milliers d’offres d’emplois sélectionnées pour vous'}
+						premierTexteBanniere={'Des milliers d’offres d’emplois'}
+						ariaLabelListeOffres={'Offres d’emplois'}
+					/>
 				</DependenciesProvider>,
 			);
 
 			// WHEN
-			const errorMessage = await screen.findByText('1 offre de job d’été pour barman');
+			const errorMessage = await screen.findByText('1 offre d’emploi pour barman');
 
 			// THEN
 			expect(errorMessage).toBeInTheDocument();
@@ -224,7 +276,7 @@ describe('RechercherJobEte', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherJobEte resultats={expected}/>
+					<CarteOffreEmploi resultats={expected}/>
 				</DependenciesProvider>,
 			);
 
@@ -248,11 +300,19 @@ describe('RechercherJobEte', () => {
 				<DependenciesProvider
 					localisationService={aLocalisationService()}
 				>
-					<RechercherJobEte resultats={offre}/>
+					<CarteOffreEmploi
+						type={'emplois'}
+						resultats={offre}
+						prefixTitrePage={'Rechercher un emploi'}
+						FormulaireDeRechercheComposant={<FormulaireRechercheOffreEmploi/>}
+						headDescription={'Des milliers d’offres d’emplois sélectionnées pour vous'}
+						premierTexteBanniere={'Des milliers d’offres d’emplois'}
+						ariaLabelListeOffres={'Offres d’emplois'}
+					/>
 				</DependenciesProvider>,
 			);
 
-			const messageNombreRésultats = await screen.findByText('1 offre de job d’été pour barman');
+			const messageNombreRésultats = await screen.findByText('1 offre d’emploi pour barman');
 
 			expect(messageNombreRésultats).toBeInTheDocument();
 			const item = screen.getAllByRole('listitem')[0];
@@ -272,11 +332,19 @@ describe('RechercherJobEte', () => {
 				<DependenciesProvider
 					localisationService={aLocalisationService()}
 				>
-					<RechercherJobEte resultats={offre}/>
+					<CarteOffreEmploi
+						type={'emplois'}
+						resultats={offre}
+						prefixTitrePage={'Rechercher un emploi'}
+						FormulaireDeRechercheComposant={<FormulaireRechercheOffreEmploi/>}
+						headDescription={'Des milliers d’offres d’emplois sélectionnées pour vous'}
+						premierTexteBanniere={'Des milliers d’offres d’emplois'}
+						ariaLabelListeOffres={'Offres d’emplois'}
+					/>
 				</DependenciesProvider>,
 			);
 
-			const messageNombreRésultats = await screen.findByText('1 offre de job d’été pour barman');
+			const messageNombreRésultats = await screen.findByText('1 offre d’emploi pour barman');
 
 			expect(messageNombreRésultats).toBeInTheDocument();
 			const item = screen.getAllByRole('listitem')[0];

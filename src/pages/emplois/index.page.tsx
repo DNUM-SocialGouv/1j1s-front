@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
 import React, { useEffect } from 'react';
 
-import { RechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import empty from '~/client/utils/empty';
 import { transformQueryToArray } from '~/pages/api/utils/joi/joi.util';
@@ -21,6 +20,10 @@ import { changeStatusCodeWhenErrorOcurred } from '~/server/errors/handleGetServe
 import { DomaineCode, MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
 import { dependencies } from '~/server/start';
+import { CarteOffreEmploi } from '~/client/components/features/CarteOffreEmploi/CarteOffreEmploi';
+import {
+	FormulaireRechercheOffreEmploi
+} from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi';
 
 interface RechercherOffreEmploiPageProps {
 	erreurRecherche?: Erreur
@@ -38,7 +41,18 @@ export default function RechercherOffreEmploiPage(props: RechercherOffreEmploiPa
 		}
 	}, [router]);
 
-	return <RechercherOffreEmploi resultats={props.resultats} erreurRecherche={props.erreurRecherche} />;
+	return (
+		<CarteOffreEmploi
+			type='emplois'
+			prefixTitrePage={'Rechercher un emploi'}
+			FormulaireDeRechercheComposant={<FormulaireRechercheOffreEmploi/>}
+			headDescription={'Des milliers d’offres d’emplois sélectionnées pour vous'}
+			premierTexteBanniere={'Des milliers d’offres d’emplois'}
+			resultats={props.resultats}
+			erreurRecherche={props.erreurRecherche}
+			ariaLabelListeOffres={'Offres d’emplois'}
+		/>
+	);
 }
 
 const emploisQuerySchema = Joi.object({
