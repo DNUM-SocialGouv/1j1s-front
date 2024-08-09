@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useRefinementList, UseRefinementListProps } from 'react-instantsearch';
 
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
-import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple/SelectMultiple';
+import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 
 type MeilisearchSelectMultipleProps = Partial<Pick<HTMLElement, 'className'>> & {

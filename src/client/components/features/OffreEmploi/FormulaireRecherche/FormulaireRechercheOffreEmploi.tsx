@@ -21,8 +21,8 @@ import {
 	mapToDefaultLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/defaultLocalisation/mapToDefaultLocalisation';
 import { Input } from '~/client/components/ui/Form/Input';
-import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple/SelectMultiple';
-import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple/SelectSimple';
+import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple';
+import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Radio } from '~/client/components/ui/Radio/Radio';
