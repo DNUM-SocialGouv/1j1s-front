@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import React, { FocusEvent,useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FocusEvent, KeyboardEvent,useCallback, useEffect, useState  } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -10,9 +10,9 @@ import { isNavigationItem, NavigationItemWithChildren } from './NavigationStruct
 import { NavItem } from './NavItem/NavItem';
 
 interface NavItemWithSubItemsProps {
-	onClick?: () => void;
-	navigationItemWithChildren: NavigationItemWithChildren;
-	isMobile?: boolean
+  onClick?: () => void;
+  navigationItemWithChildren: NavigationItemWithChildren;
+  isMobile?: boolean
 }
 
 export function NavItemWithSubItems({
@@ -21,74 +21,50 @@ export function NavItemWithSubItems({
 	navigationItemWithChildren,
 	isMobile = false,
 }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
-	const optionRef = useRef<HTMLLIElement>(null);
 	const router = useRouter();
 	const [isExpanded, setIsExpanded] = useState(false);
+	const [isFocused, setIsFocused] = useState(false);
 
-	const isNavItemHasOneOfTheseChildrenActive = useCallback(function isItemHasOneOfTheseChildrenActive(item: NavigationItemWithChildren): boolean {
+	const isItemActive = useCallback((item: NavigationItemWithChildren): boolean => {
 		return item.children.some((subItem) => {
-			return isNavigationItem(subItem) ? subItem.link === router.pathname : isItemHasOneOfTheseChildrenActive(subItem);
+			const toto = isNavigationItem(subItem) 
+				? subItem.link === router.pathname 
+				: isItemActive(subItem);
+			return toto;
 		});
 	}, [router.pathname]);
 
-	const isNavItemActive = useMemo(() => isNavItemHasOneOfTheseChildrenActive(navigationItemWithChildren), [isNavItemHasOneOfTheseChildrenActive, navigationItemWithChildren]);
+	useEffect(() => {
+		setIsExpanded(isItemActive(navigationItemWithChildren) && isMobile);
+	}, [isItemActive, navigationItemWithChildren, isMobile]);
 
-	useEffect(() => { // initialisation de l'état côté client, une fois le router dispo
-		setIsExpanded(isNavItemActive && isMobile);
-	}, [isNavItemActive, isMobile]);
+	const handleToggle = () => setIsExpanded(!isExpanded);
 
-	const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
-		if (!optionRef.current?.contains(event.target as Node)) {
-			setIsExpanded(false);
-		}
-	}, []);
-
-	const closeOptionsOnSpaceOutside = useCallback((event: KeyboardEvent) => {
-		if (!optionRef.current?.contains(event.target as Node) && event.key === KeyBoard.SPACE) {
-			setIsExpanded(false);
-		}
-	}, []);
-
+	const handleFocus = () => setIsFocused(true);
 
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLLIElement>) {
-		const newFocusStillInSubItems = event.currentTarget.contains(event.relatedTarget);
-		
-		if (!newFocusStillInSubItems) {
+		if (!event.currentTarget.contains(event.relatedTarget)) {
+			setIsFocused(false);
 			setIsExpanded(false);
-			return;
 		}
-		
 	}, []);
 
-	const closeMenuOnEscape = useCallback((event: KeyboardEvent) => {
-		if (event.key === KeyBoard.ESCAPE) {
+	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLLIElement>) {
+		if (event.key === KeyBoard.ESCAPE || (!isFocused && event.key === KeyBoard.SPACE)) {
 			setIsExpanded(false);
 		}
-	}, []);
+	}, [isFocused]);
 
 	function onNavItemSelected() {
 		setIsExpanded(false);
-		if (onClick) {
-			onClick();
-		}
+		onClick?.();
 	}
-
-	useEffect(function setEventListenerOnMount() {
-		document.addEventListener('mouseup', closeOptionsOnClickOutside);
-		document.addEventListener('keyup', closeMenuOnEscape);
-		document.addEventListener('keyup', closeOptionsOnSpaceOutside);
-
-		return () => {
-			document.removeEventListener('mouseup', closeOptionsOnClickOutside);
-			document.removeEventListener('keyup', closeMenuOnEscape);
-			document.removeEventListener('keyup', closeOptionsOnSpaceOutside);
-		};
-	}, [closeMenuOnEscape, closeOptionsOnClickOutside, closeOptionsOnSpaceOutside]);
 
 	const subNav = navigationItemWithChildren.children.map((subItem) => {
 		if (isNavigationItem(subItem)) {
 			return (
-				<NavItem className={styles.subNavItem}
+				<NavItem 
+					className={styles.subNavItem}
 					key={subItem.label?.toString()}
 					label={subItem.label}
 					link={subItem.link}
@@ -97,24 +73,37 @@ export function NavItemWithSubItems({
 				/>
 			);
 		}
-		return <NavItemWithSubItems
-			key={subItem.label?.toString()}
-			className={styles.navItem}
-			navigationItemWithChildren={subItem}
-			onClick={onClick}
-			isMobile/>;
+
+		return (
+			<NavItemWithSubItems
+				key={subItem.label?.toString()}
+				className={styles.navItem}
+				navigationItemWithChildren={subItem}
+				onClick={onClick}
+				isMobile
+			/>
+		);
 	});
 
 	return (
-		<li ref={optionRef} className={className} onBlur={onBlur}>
+		<li 
+			className={className} 
+			onBlur={onBlur}
+			onFocus={handleFocus}
+			onKeyDown={onKeyDown}
+		>
 			<button
 				className={classNames(styles.subNavItemButton)}
-				onClick={() => setIsExpanded(!isExpanded)}
-				aria-expanded={isExpanded}>
-				<span className={styles.subNavItemButtonLabel} aria-current={isNavItemActive}>
+				onClick={handleToggle}
+				aria-expanded={isExpanded}
+			>
+				<span className={styles.subNavItemButtonLabel} aria-current={isItemActive(navigationItemWithChildren)}>
 					{navigationItemWithChildren.label}
 				</span>
-				<Icon className={isExpanded ? styles.subNavItemButtonIconExpanded : styles.subNavItemButtonIcon} name="angle-down"/>
+				<Icon 
+					className={isExpanded ? styles.subNavItemButtonIconExpanded : styles.subNavItemButtonIcon} 
+					name="angle-down"
+				/>
 			</button>
 			{isExpanded && <ul className={styles.subNavItemList}>{subNav}</ul>}
 		</li>
