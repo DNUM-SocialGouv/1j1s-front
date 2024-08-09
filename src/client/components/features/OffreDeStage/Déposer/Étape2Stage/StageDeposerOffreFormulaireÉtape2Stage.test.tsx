@@ -10,6 +10,7 @@ import { userEvent } from '@testing-library/user-event';
 import Stage
 	from '~/client/components/features/OffreDeStage/Déposer/Étape2Stage/StageDeposerOffreFormulaireÉtape2Stage';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockScrollIntoView } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
 	aStageDeposerOffreEtape1PersistenceService,
@@ -26,7 +27,9 @@ const LABEL_REMUNERATION = 'Rémunération par mois Exemple : 560';
 describe('<Stage />', () => {
 	beforeEach(() => {
 		mockUseRouter({});
+		mockScrollIntoView();
 	});
+	
 	describe('quand l’utilisateur arrive sur la page Stage', () => {
 		it('il peut cliquer sur le bouton Retour pour retourner vers l’étape 1', async () => {
 			render(<DependenciesProvider
@@ -288,11 +291,13 @@ describe('<Stage />', () => {
 					.slice(0, 200);
 
 				// When
-				render(<DependenciesProvider
-					stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
-					stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage/></DependenciesProvider>);
-				const inputTextTitreOffreDeStage = screen
-					.getByRole('textbox', { name: LABEL_NOM_STAGE });
+				render(
+					<DependenciesProvider
+						stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
+						stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}>
+						<Stage/>
+					</DependenciesProvider>);
+				const inputTextTitreOffreDeStage = screen.getByRole('textbox', { name: LABEL_NOM_STAGE });
 				await userEvent.type(inputTextTitreOffreDeStage, shortTextToType);
 
 				// Then

@@ -1,6 +1,7 @@
 import debounce from 'lodash.debounce';
 import React, {
 	FocusEvent,
+	FormEventHandler,
 	KeyboardEvent,
 	SyntheticEvent,
 	useCallback,
@@ -16,25 +17,30 @@ import React, {
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
 import { SelectContext } from '~/client/components/ui/Form/Select/SelectContext';
-import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption';
+import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption/SelectOption';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
-import styles from './Select.module.scss';
-import { getOptionsElement, SelectSimpleAction, SelectSimpleReducer } from './SelectReducer';
+import styles from '../Select.module.scss';
+import { getOptionsElement, SelectSimpleAction, SelectSimpleReducer } from './SelectSimpleReducer';
 
 const ERROR_LABEL_REQUIRED_SIMPLE = 'Séléctionnez un élément de la liste';
 const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
-export type SelectSimpleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
+export type SelectSimpleProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onChange' | 'onInvalid'> & {
 	value?: string;
 	onChange?: (value: HTMLElement) => void;
 	defaultValue?: string;
 	onTouch?: (touched: boolean) => void,
+	placeholder?: string,
+	required?: boolean,
+	onInvalid?: FormEventHandler<HTMLInputElement>,
+	optionsAriaLabel: string;
 }
 
-export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
+export function SelectSimple(props: SelectSimpleProps) {
 	const {
+		optionsAriaLabel,
 		children,
 		value,
 		placeholder: placeholderProps,
@@ -42,7 +48,6 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 		onChange: onChangeProps = doNothing,
 		onInvalid: onInvalidProps = doNothing,
 		onTouch: onTouchProps = doNothing,
-		labelledBy,
 		defaultValue,
 		required,
 		...rest
@@ -106,7 +111,7 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 		}
 	}, [state.activeDescendant]);
 
-	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLDivElement>) {
+	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLButtonElement>) {
 		const newFocusStillInSelect = event.currentTarget.contains(event.relatedTarget);
 		if (newFocusStillInSelect) {
 			cancelEvent(event);
@@ -128,7 +133,7 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 		return debounce(resetValueTypedByUser, DEFAULT_DEBOUNCE_TIMEOUT);
 	}, [resetValueTypedByUser]);
 
-	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
 		const { key, altKey, ctrlKey, metaKey } = event;
 
 		const isUserTypeLetter = event.key.length === 1 && event.key !== KeyBoard.SPACE && !altKey && !ctrlKey && !metaKey;
@@ -240,14 +245,13 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 					onInvalid={onInvalidProps}
 					value={optionSelectedValue}
 				/>
-				<div
+				<button
+					type="button"
 					role="combobox"
 					aria-controls={listboxId}
 					aria-haspopup="listbox"
 					aria-expanded={state.isListOptionsOpen}
-					aria-labelledby={labelledBy}
 					data-touched={touched}
-					tabIndex={0}
 					onClick={() => dispatch(new SelectSimpleAction.ToggleList())}
 					aria-activedescendant={state.activeDescendant}
 					onKeyDown={onKeyDown}
@@ -256,11 +260,11 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 				>
 					{placeholder}
 					<Icon name={'angle-down'}/>
-				</div>
+				</button>
 				<ul
 					role="listbox"
 					ref={listboxRef}
-					aria-labelledby={labelledBy}
+					aria-label={optionsAriaLabel}
 					id={listboxId}
 					hidden={!state.isListOptionsOpen}>
 					{children}

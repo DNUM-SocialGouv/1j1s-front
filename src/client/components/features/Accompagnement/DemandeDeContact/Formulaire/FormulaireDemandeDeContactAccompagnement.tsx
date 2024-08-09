@@ -7,7 +7,7 @@ import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { Input } from '~/client/components/ui/Form/Input';
-import { Select } from '~/client/components/ui/Form/Select/Select';
+import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
 import { TextArea } from '~/client/components/ui/Form/TextArea/TextArea';
 import { Link } from '~/client/components/ui/Link/Link';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -109,13 +109,20 @@ export function FormulaireDemandeDeContactAccompagnement({
 				<Champ.Error/>
 			</Champ>
 
-			<Select
-				required
-				label="Age"
-				name="age"
-				optionList={ageOptions}
-				labelComplement="Exemple : 16 ans"
-			/>
+			<Champ>
+				<Champ.Label>Age<Champ.Label.Complement>Exemple : 16 ans</Champ.Label.Complement></Champ.Label>
+				<Champ.Input
+					render={SelectSimple}
+					required
+					optionsAriaLabel={'années'}
+					name="age"
+				>
+					{ageOptions.map((option) =>
+						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
+					)}
+				</Champ.Input>
+				<Champ.Error/>
+			</Champ>
 
 			<ComboboxCommune required/>
 			<Champ className={styles.commentaireDemandeDeContact}>
