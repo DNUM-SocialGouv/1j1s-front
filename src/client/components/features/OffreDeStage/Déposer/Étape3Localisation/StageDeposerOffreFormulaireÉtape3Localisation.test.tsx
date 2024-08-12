@@ -184,7 +184,7 @@ describe('<Localisation />', () => {
 
 			const user = userEvent.setup();
 			const stageService = aStageService();
-			jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(new Promise(() => {})),
+			jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(new Promise(() => {}));
 
 			render(
 				<DependenciesProvider
@@ -254,7 +254,7 @@ describe('<Localisation />', () => {
 
 				const user = userEvent.setup();
 				const stageService = aStageService({ enregistrerOffreDeStage: jest.fn() });
-				jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE)),
+				jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 
 				render(
 					<DependenciesProvider
@@ -284,7 +284,7 @@ describe('<Localisation />', () => {
 
 				const user = userEvent.setup();
 				const stageService = aStageService({ enregistrerOffreDeStage: jest.fn() });
-				jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE)),
+				jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 
 				render(
 					<DependenciesProvider
@@ -318,7 +318,7 @@ describe('<Localisation />', () => {
 
 				const user = userEvent.setup();
 				const stageService = aStageService({ enregistrerOffreDeStage: jest.fn() });
-				jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE)),
+				jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 
 				render(
 					<DependenciesProvider
