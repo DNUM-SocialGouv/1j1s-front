@@ -1,7 +1,7 @@
 import { NextRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const useRouter = jest.spyOn(require('next/router'), 'useRouter');
 
 interface MockUseRouter {

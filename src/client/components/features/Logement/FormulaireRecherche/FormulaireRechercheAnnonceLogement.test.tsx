@@ -13,7 +13,7 @@ import {
 } from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const spyed = jest.spyOn(require('react-instantsearch'), 'useRefinementList');
 
 describe('FormulaireRechercheAnnonceLogement', () => {

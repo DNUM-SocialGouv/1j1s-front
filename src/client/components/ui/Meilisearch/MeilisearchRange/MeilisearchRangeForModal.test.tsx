@@ -10,7 +10,7 @@ import React from 'react';
 import { MeilisearchRangeForModal } from '~/client/components/ui/Meilisearch/MeilisearchRange/MeilisearchRangeForModal';
 import { mockUseRangeInput } from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const spyOnUseRange = jest.spyOn(require('react-instantsearch'), 'useRange');
 
 let refineMock: jest.Mock<string>;

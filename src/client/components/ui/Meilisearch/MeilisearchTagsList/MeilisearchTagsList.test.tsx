@@ -16,7 +16,7 @@ import {
 	mockUseCurrentRefinements,
 } from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const spyOnUseCurrentRefinements = jest.spyOn(require('react-instantsearch'), 'useCurrentRefinements');
 
 let refineMock: jest.Mock<string>;

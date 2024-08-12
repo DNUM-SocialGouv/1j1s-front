@@ -29,10 +29,10 @@ describe('isStorageAvailabe', () => {
 	});
 	it('retourne false quand accéder au storage renvoie une erreur', () => {
 		// Given
-		clear.mockImplementation(() => {throw new Error();}),
-		getItem.mockImplementation(() => {throw new Error();}),
-		removeItem.mockImplementation(() => {throw new Error();}),
-		setItem.mockImplementation(() => {throw new Error();}),
+		clear.mockImplementation(() => {throw new Error();});
+		getItem.mockImplementation(() => {throw new Error();});
+		removeItem.mockImplementation(() => {throw new Error();});
+		setItem.mockImplementation(() => {throw new Error();});
 
 		// When Then
 		expect(isStorageAvailable('localStorage')).toBeFalsy();

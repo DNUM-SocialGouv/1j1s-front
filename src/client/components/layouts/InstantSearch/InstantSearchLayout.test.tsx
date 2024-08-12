@@ -16,7 +16,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const instantsearch = require('react-instantsearch');
 
 const spyOnUseStats = jest.spyOn(instantsearch, 'useStats');
