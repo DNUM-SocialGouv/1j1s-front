@@ -97,17 +97,8 @@ describe('Link', () => {
 		});
 			
 		describe('lorsque c‘est une ancre', () => {
-			let MockLinkNext: jest.Mock;
-
-			jest.mock('next/link', () => {
-				return jest.fn(({ children, ...props }) => {
-					return <a {...props}>{children}</a>;
-				});
-			});
-
 			beforeEach(() => {
-				MockLinkNext = require('next/link');
-				MockLinkNext.mockClear();
+				jest.mock('next/link', () => jest.fn());
 			});
 			
 			it('doit rendre un élément <a> sans utiliser LinkNext', () => {
@@ -116,9 +107,9 @@ describe('Link', () => {
 				render(<Link href={monAncre} />);
 	
 				const linkComponent = screen.getByRole('link');
-
 				expect(linkComponent).toBeVisible();
-				expect(MockLinkNext).not.toHaveBeenCalled();
+				// eslint-disable-next-line @typescript-eslint/no-require-imports
+				expect(require('next/link')).not.toHaveBeenCalled();
 			});
 		});
 	});

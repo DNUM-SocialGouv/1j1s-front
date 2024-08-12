@@ -14,7 +14,7 @@ import { MeiliSearchPagination } from '~/client/components/ui/Meilisearch/Meilis
 import { mockUsePagination } from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 import { mockLargeScreen } from '~/client/components/window.mock';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const spyedPagination = jest.spyOn(require('react-instantsearch'), 'usePagination');
 
 const TestComponent = () => {

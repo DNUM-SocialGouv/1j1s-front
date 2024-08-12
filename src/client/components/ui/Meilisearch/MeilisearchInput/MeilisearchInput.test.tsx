@@ -10,7 +10,7 @@ import { userEvent } from '@testing-library/user-event';
 
 import { MeilisearchInput } from '~/client/components/ui/Meilisearch/MeilisearchInput/MeilisearchInput';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 jest.spyOn(require('react-instantsearch'), 'useSearchBox');
 
 describe('<MeilisearchInput/>', () => {
