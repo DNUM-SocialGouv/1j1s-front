@@ -30,7 +30,7 @@ export function NavItemWithSubItems({
 	const { isExpanded, isNavItemActive, setIsExpanded } = useActiveNavItem(navigationItemWithChildren, isMobile);
 	const { optionRef, onBlur } = useNavItemEvents(() => {});
 
-	const isMenuOpen = isOpen !== undefined ? isOpen : isExpanded;
+	const isMenuOpen = isOpen ? isOpen : isExpanded;
 
 	function onNavItemSelected() {
 		onClick?.();

@@ -20,11 +20,13 @@ export function NavMobile({ toggleModal }: { toggleModal: () => void }) {
 		logementsNav,
 	} = navigationItemList();
 	const router = useRouter();
-	const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
+	const [labelOfOpenSubMenu, setLabelOfOpenSubMenu] = useState<string | null>(null);
 
 	const handleSubMenuToggle = (subNavItemLabel: string) => {
-		setOpenSubMenu((prevOpenSubMenu) => prevOpenSubMenu === subNavItemLabel ? null : subNavItemLabel);
+		setLabelOfOpenSubMenu((prevOpenSubMenu) => prevOpenSubMenu === subNavItemLabel ? null : subNavItemLabel);
 	};
+
+	const navItems = [offresNav, orientationNav, engagementNav, logementsNav, accompagnementNav, aidesEtOutilsNav, employeurNav];
 
 	return (
 		<Container>
@@ -37,14 +39,14 @@ export function NavMobile({ toggleModal }: { toggleModal: () => void }) {
 						isActive={router.pathname === accueil.link}
 						onClick={toggleModal}
 					/>
-					{[offresNav, orientationNav, engagementNav, logementsNav, accompagnementNav, aidesEtOutilsNav, employeurNav].map((navItem) => (
+					{navItems.map((navItem) => (
 						<NavItemWithSubItems
 							key={navItem.label}
 							className={styles.navItem}
 							navigationItemWithChildren={navItem}
 							onClick={toggleModal}
 							isMobile
-							isOpen={openSubMenu === navItem.label}
+							isOpen={labelOfOpenSubMenu === navItem.label}
 							onToggle={() => handleSubMenuToggle(navItem.label)}
 						/>
 					))}
