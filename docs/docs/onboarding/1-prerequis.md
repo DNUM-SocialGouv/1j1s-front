@@ -12,8 +12,8 @@ Ce document relate les différents prérequis permettant l'installation du proje
 
 ## Pré-requis
 
-* [npm](https://www.npmjs.com/) version 9, [nvm](https://github.com/nvm-sh/nvm) recommandé
-* [NodeJS](https://nodejs.org/fr/), version 18
+* [npm](https://www.npmjs.com/) version 10, [nvm](https://github.com/nvm-sh/nvm) recommandé
+* [NodeJS](https://nodejs.org/fr/), version LTS
 * [Docker](https://docs.docker.com/desktop/)
 * [docker-compose](https://docs.docker.com/compose/)
 * [CMS principal](https://github.com/DNUM-SocialGouv/1j1s-main-cms)
