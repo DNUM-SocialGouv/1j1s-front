@@ -4,8 +4,14 @@
 $colorHeroButtonOutline: utilities.$color-cta-background-secondary;
 $gap-between-sections: 1.5rem;
 $color-background-stages-seconde: #51BCB3;
+$color-background-world-skills: #2E1651;
+
+.accueil > :not(:last-child)  {
+  margin-bottom: $gap-between-sections;
+}
 
 .hero {
+
   &Button {
     margin-top: 1.5rem;
     outline-color: $colorHeroButtonOutline;
@@ -32,22 +38,26 @@ $color-background-stages-seconde: #51BCB3;
   &Title {
     @extend %bold;
   }
-}
 
-.stageSecondeBanner {
-  background-color: $color-background-stages-seconde;
-  margin-top: $gap-between-sections;
+  &.stageSecondeBanner {
+    background-color: $color-background-stages-seconde;
 
-  img {
-    object-fit: cover;
-    object-position: 90% 0;
-    display: none;
+    img {
+      object-fit: cover;
+      object-position: 90% 0;
+      display: none;
 
-    @include utilities.media(xlarge) {
-      display: unset;
+      @include utilities.media(xlarge) {
+        display: unset;
+      }
     }
   }
+  &.worldSkills{
+    background-color: $color-background-world-skills;
+  }
 }
+
+
 
 .card {
   max-width: 22.5rem;
@@ -60,11 +70,6 @@ $color-background-stages-seconde: #51BCB3;
 
 .section {
   padding: 1.5rem;
-  margin-bottom: $gap-between-sections;
-
-  &:first-of-type {
-    margin-top: $gap-between-sections;
-  }
 
   &Header {
     text-align: center;

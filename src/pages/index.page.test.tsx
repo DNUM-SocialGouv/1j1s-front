@@ -278,4 +278,57 @@ describe('Page d‘accueil', () => {
 			});
 		});
 	});
+
+	describe('World Skills', () => {
+		describe('feature flip', () => {
+			it('affiche la bannière si le feature flip est activé', () => {
+				// Given
+				process.env.NEXT_PUBLIC_WORLD_SKILLS_FEATURE = '1';
+
+				// When
+				render(
+					<DependenciesProvider analyticsService={analyticsService}>
+						<Accueil/>
+					</DependenciesProvider>,
+				);
+
+				// Then
+				expect(screen.getByText('WorldSkills Lyon 2024, la Compétition Mondiale des Métiers.')).toBeVisible();
+			});
+
+			it('n’affiche pas la bannière si le feature flip est désactivé', () => {
+			  // Given
+				process.env.NEXT_PUBLIC_WORLD_SKILLS_FEATURE = '0';
+
+			  // When
+				render(
+					<DependenciesProvider analyticsService={analyticsService}>
+						<Accueil/>
+					</DependenciesProvider>,
+				);
+
+			  // Then
+				expect(screen.queryByText('WorldSkills Lyon 2024, la Compétition Mondiale des Métiers.')).not.toBeInTheDocument();
+			});
+		});
+
+		it('la bannière contient les wording de la campagne World Skills', () => {
+			// Given
+			process.env.NEXT_PUBLIC_WORLD_SKILLS_FEATURE = '1';
+
+			// When
+			render(
+				<DependenciesProvider analyticsService={analyticsService}>
+					<Accueil/>
+				</DependenciesProvider>,
+			);
+
+			// Then
+			const headingStage2nd = screen.getByRole('heading', { level: 2, name: 'WorldSkills Lyon 2024, la Compétition Mondiale des Métiers.' });
+			expect(headingStage2nd).toBeVisible();
+			const voirStageSecondeButton = screen.getByRole('link', { name: 'Plus d’infos - nouvelle fenêtre' });
+			expect(voirStageSecondeButton).toBeVisible();
+			expect(voirStageSecondeButton).toHaveAttribute('href', 'https://worldskills2024.com');
+		});
+	});
 });
