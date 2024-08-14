@@ -36,7 +36,7 @@ $outline-offset-focus-last-child: -4px;
 .navItem {
   position: relative;
   @extend %text-regular;
-
+  
   &:hover > a.navItemLabel, &:hover > button > .subNavItemButtonLabel {
     @include underline;
   }
@@ -67,6 +67,8 @@ $outline-offset-focus-last-child: -4px;
   &:not(:last-child) {
     color: utilities.$color-text-primary;
   }
+
+  
 }
 
 .subNavItemList {
@@ -114,23 +116,19 @@ $outline-offset-focus-last-child: -4px;
   width: 100%;
   outline-offset: $outline-offset-focus;
 
-
   svg {
+    transition: transform 0.2s;
     vertical-align: text-top;
+  }
+
+  & [aria-expanded="true"] {
+    transition: transform 0.2s;
+    transform: rotate(180deg);
   }
 
   & .subNavItemButtonLabel {
     margin-right: 0.2rem;
     display: inline-block;
-  }
-
-  & .subNavItemButtonIcon {
-    transition: transform 0.2s;
-
-    &Expanded {
-      transform: rotate(-180deg);
-      transition: transform 0.2s;
-    }
   }
 }
 

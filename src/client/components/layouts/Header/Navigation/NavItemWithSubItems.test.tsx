@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 
 import { fireEvent,render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import React from 'react';
+import React, { act } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -126,6 +126,7 @@ describe('NavItemWithSubItems', () => {
 	describe('lorsque le focus n‘est plus dans le sous menu', () => {
 		it('doit le fermer', async () => {
 			const user = userEvent.setup();
+			const debounceTimeout = 0;
 
 			render(<NavItemWithSubItems navigationItemWithChildren={mockNavigationItemWithChildren} />);
 
@@ -133,8 +134,10 @@ describe('NavItemWithSubItems', () => {
 			await user.click(button);
 
 			expect(screen.getByRole('link', { name: /Sub Item 1/i })).toBeVisible();
-
+			
 			fireEvent.blur(button);
+
+			await act(() => delay(debounceTimeout));
 
 			expect(screen.queryByText('Sub Item 1')).not.toBeInTheDocument();
 		});
@@ -189,4 +192,21 @@ describe('NavItemWithSubItems', () => {
 			expect(screen.queryByText('Sub Item 1')).not.toBeInTheDocument();
 		});
 	});
+
+	describe('lorsque j‘appuis sur la touche ESPACE', () => {
+		it('doit fermer le sous-menu', async () => {
+			const user = userEvent.setup();
+			render(<NavItemWithSubItems navigationItemWithChildren={mockNavigationItemWithChildren} />);
+			
+			await user.click(screen.getByRole('button', { name: 'Test Menu' }));
+			expect(screen.getByRole('link', { name: /Sub Item 1/i })).toBeVisible();
+      
+			await user.keyboard(`{${KeyBoard.SPACE}}`);
+			expect(screen.queryByText('Sub Item 1')).not.toBeInTheDocument();
+		});
+	});
 });
+
+function delay(ms: number): Promise<void> {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}

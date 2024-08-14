@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
 
 import { NavItem } from '~/client/components/layouts/Header/Navigation/NavItem/NavItem';
 
@@ -20,12 +19,6 @@ export function NavMobile({ toggleModal }: { toggleModal: () => void }) {
 		logementsNav,
 	} = navigationItemList();
 	const router = useRouter();
-	const [labelOfOpenSubMenu, setLabelOfOpenSubMenu] = useState<string | null>(null);
-
-	const handleSubMenuToggle = (subNavItemLabel: string) => {
-		setLabelOfOpenSubMenu((prevOpenSubMenu) => prevOpenSubMenu === subNavItemLabel ? null : subNavItemLabel);
-	};
-
 	const navItems = [offresNav, orientationNav, engagementNav, logementsNav, accompagnementNav, aidesEtOutilsNav, employeurNav];
 
 	return (
@@ -46,8 +39,6 @@ export function NavMobile({ toggleModal }: { toggleModal: () => void }) {
 							navigationItemWithChildren={navItem}
 							onClick={toggleModal}
 							isMobile
-							isOpen={labelOfOpenSubMenu === navItem.label}
-							onToggle={() => handleSubMenuToggle(navItem.label)}
 						/>
 					))}
 				</ul>
