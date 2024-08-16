@@ -12,16 +12,13 @@ $error-border-width: inputStyles.$error-border-width;
 $color-background-disabled: inputStyles.$color-background-disabled;
 $color-error: inputStyles.$color-error;
 $border-width-compensation: inputStyles.$border-width-compensation;
-$color-list-border: $color-border;
-$color-list-background: utilities.$color-background-primary;
 $color-option-hover: utilities.$color-background-primary-alternative;
 $color-category-separator: $color-border;
 $border-radius: inputStyles.$border-radius;
 $border-width: inputStyles.$border-width;
 
 .container {
-  position: relative;
-  border-radius: $border-radius;
+  @extend %comboboxes;
 
   & [role="combobox"] {
     width: 100%;
@@ -48,23 +45,8 @@ $border-width: inputStyles.$border-width;
   }
 
   ul[role="listbox"] {
-    z-index: 1;
-    position: absolute;
-    top: 100%;
-    width: 100%;
-    border: 1px solid $color-list-border;
-    border-radius: $border-radius;
-    background-color: $color-list-background;
-    margin-top: 1px;
-    max-height: 10em;
-    overflow-y: scroll;
-
     li[role="option"] {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      align-items: center;
       padding: .5rem 1ch;
-      cursor: pointer;
 
       &:hover,
       &.optionVisuallyFocus {
@@ -73,23 +55,24 @@ $border-width: inputStyles.$border-width;
       }
     }
 
+    li[role="option"] {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+    }
     &:not([aria-multiselectable="true"]) {
       li[role="option"]::before {
         @extend %radio;
         margin-right: 0.5rem;
       }
-
       li[role="option"][aria-selected="true"]::before {
         @extend %radio-checked;
       }
     }
-
-
     &[aria-multiselectable="true"] {
       li[role="option"]::before {
         @extend %checkbox;
       }
-
       li[role="option"][aria-selected="true"]::before {
         @extend %checkbox-checked;
       }

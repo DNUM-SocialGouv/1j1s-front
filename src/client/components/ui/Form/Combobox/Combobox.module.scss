@@ -9,14 +9,13 @@
   $color-background-disabled: inputStyles.$color-background-disabled;
   $color-error: inputStyles.$color-error;
   $border-width-compensation: inputStyles.$border-width-compensation;
-  $color-list-border: $color-border;
-  $color-list-background: utilities.$color-background-primary;
   $color-option-hover: utilities.$color-background-primary-alternative;
   $color-category-separator: $color-border;
   $border-radius: inputStyles.$border-radius;
   $border-width: inputStyles.$border-width;
 
-  position: relative;
+  @extend %comboboxes;
+
   display: grid;
   grid-template-columns: 1fr auto;
   color: $color-text;
@@ -84,24 +83,9 @@
   }
 
   & ul[role="listbox"] {
-    z-index: 1;
-    position: absolute;
-    top: 100%;
-    width: 100%;
-    border: 1px solid $color-list-border;
-    border-radius: $border-radius;
-    background-color: $color-list-background;
-    margin-top: 4px;
-
-    max-height: 10em;
-    overflow-y: scroll;
-
     & li {
       padding: .25rem 1ch;
 
-      &[role="option"] {
-        cursor: pointer;
-      }
       &[role="option"]:hover,
       &[role="option"][aria-selected="true"] {
         background-color: $color-option-hover;
