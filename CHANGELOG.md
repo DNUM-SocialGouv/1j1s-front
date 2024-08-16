@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.340.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.339.4...v3.340.0) (2024-08-16)
+
+
+### Features
+
+* **UI:** utiliser le nouveau composant Select dans les pages ([#3242](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3242)) ([120887b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/120887b3639982bf87066873356fabf3a7a8516b))
+
 ## [3.339.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.339.3...v3.339.4) (2024-08-16)
 
 
