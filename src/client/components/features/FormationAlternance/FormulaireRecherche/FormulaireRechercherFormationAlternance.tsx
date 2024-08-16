@@ -2,10 +2,11 @@ import { useRouter } from 'next/router';
 import React, { FormEvent } from 'react';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { ComboboxMetiers } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
 import { Metier } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/Metier';
-import { Select } from '~/client/components/ui/Form/Select/Select';
+import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MetierDependenciesProvider } from '~/client/context/metier.context';
@@ -76,14 +77,24 @@ export function FormulaireRechercherFormationAlternance() {
 						defaultDistance={distanceCommune}
 						required
 					/>
-					<Select
-						name="niveauEtudes"
-						optionList={Formation.NIVEAU_ETUDES}
-						defaultValue={niveauEtudes}
-						label="Niveau d’études visé (facultatif)"
-						className={styles.inputNiveauEtudes}
-						labelComplement="Exemples : CAP, Bac..."
-					/>
+
+					<Champ>
+						<Champ.Label>
+							Niveau d’études visé (facultatif)
+							<Champ.Label.Complement>Exemples : CAP, Bac...</Champ.Label.Complement>
+						</Champ.Label>
+						<Champ.Input
+							render={SelectSimple}
+							optionsAriaLabel={'Niveau d‘études'}
+							name="niveauEtudes"
+							defaultValue={niveauEtudes}
+						>
+							{Formation.NIVEAU_ETUDES.map((option) =>
+								<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
+							)}
+						</Champ.Input>
+						<Champ.Error/>
+					</Champ>
 				</div>
 				<div className={styles.buttonRechercher}>
 					<ButtonComponent

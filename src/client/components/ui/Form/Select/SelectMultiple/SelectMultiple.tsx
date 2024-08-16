@@ -1,6 +1,7 @@
 import debounce from 'lodash.debounce';
 import React, {
 	FocusEvent,
+	FormEventHandler,
 	KeyboardEvent,
 	SyntheticEvent,
 	useCallback,
@@ -14,26 +15,34 @@ import React, {
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
-import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption';
+import {
+	SelectMultipleAction,
+	SelectMultipleReducer,
+} from '~/client/components/ui/Form/Select/SelectMultiple/SelectMultipleReducer';
+import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption/SelectOption';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
-import styles from './Select.module.scss';
-import { SelectContext } from './SelectContext';
-import { SelectMultipleAction, SelectMultipleReducer } from './SelectReducer';
+import styles from '../Select.module.scss';
+import { SelectContext } from '../SelectContext';
 
 const SELECT_PLACEHOLDER_MULTIPLE = 'Sélectionnez vos choix';
 const ERROR_LABEL_REQUIRED_MULTIPLE = 'Séléctionnez au moins un élément de la liste';
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
-export type SelectMultipleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
+export type SelectMultipleProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onChange' | 'onInvalid'> & {
 	value?: Array<string>;
 	onChange?: (value: HTMLElement) => void;
 	defaultValue?: Array<string>;
 	onTouch?: (touched: boolean) => void,
+	placeholder?: string,
+	required?: boolean,
+	onInvalid?: FormEventHandler<HTMLInputElement>,
+	optionsAriaLabel: string;
 }
 
-export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
+export function SelectMultiple(props: SelectMultipleProps) {
 	const {
+		optionsAriaLabel,
 		children,
 		value,
 		placeholder,
@@ -41,7 +50,6 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 		onChange: onChangeProps = doNothing,
 		onInvalid: onInvalidProps = doNothing,
 		onTouch: onTouchProps = doNothing,
-		labelledBy,
 		defaultValue,
 		required,
 		...rest
@@ -91,7 +99,7 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 		}
 	}, [state.activeDescendant]);
 
-	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLDivElement>) {
+	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLButtonElement>) {
 		const newFocusStillInCombobox = event.currentTarget.contains(event.relatedTarget);
 		if (newFocusStillInCombobox) {
 			cancelEvent(event);
@@ -113,7 +121,7 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 		return debounce(resetValueTypedByUser, DEFAULT_DEBOUNCE_TIMEOUT);
 	}, [resetValueTypedByUser]);
 
-	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
 		const { key, altKey, ctrlKey, metaKey } = event;
 
 		const isUserTypeLetter = event.key.length === 1 && event.key !== KeyBoard.SPACE && !altKey && !ctrlKey && !metaKey;
@@ -233,14 +241,13 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 						name={name}
 						value={optionValue}/>
 				))}
-				<div
+				<button
+					type="button"
 					role="combobox"
 					aria-controls={listboxId}
 					aria-haspopup="listbox"
 					aria-expanded={state.isListOptionsOpen}
-					aria-labelledby={labelledBy}
 					data-touched={touched}
-					tabIndex={0}
 					onClick={() => dispatch(new SelectMultipleAction.ToggleList())}
 					aria-activedescendant={state.activeDescendant}
 					onKeyDown={onKeyDown}
@@ -249,12 +256,12 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 				>
 					<PlaceholderSelectedOptions/>
 					<Icon name={'angle-down'}/>
-				</div>
+				</button>
 				<ul
 					aria-multiselectable="true"
 					role="listbox"
 					ref={listboxRef}
-					aria-labelledby={labelledBy}
+					aria-label={optionsAriaLabel}
 					id={listboxId}
 					hidden={!state.isListOptionsOpen}>
 					{children}

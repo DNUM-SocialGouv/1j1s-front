@@ -11,7 +11,6 @@ $color-message-champs-obligatoires: utilities.$color-primary;
   & .filtresRechercherFormation {
     display: grid;
     grid-gap: variables.$form-vertical-gap-mobile;
-
     @include utilities.media(medium) {
       grid-template-columns: repeat(2, 1fr);
       grid-gap: variables.$form-vertical-gap-desktop;

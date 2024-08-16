@@ -9,7 +9,7 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxPays } from '~/client/components/ui/Form/Combobox/ComboboxPays';
 import { Input } from '~/client/components/ui/Form/Input';
-import { Select } from '~/client/components/ui/Form/Select/Select';
+import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
 import { paysEuropeList } from '~/client/domain/pays';
@@ -123,6 +123,7 @@ export function FormulaireRechercheEmploisEurope() {
 					/>
 					<Champ.Error/>
 				</Champ>
+
 				<ComboboxPays
 					className={styles.localisation}
 					paysList={paysEuropeList}
@@ -141,46 +142,81 @@ export function FormulaireRechercheEmploisEurope() {
 					onClick={() => setIsFiltresAvancesMobileOpen(!isFiltresAvancesMobileOpen)}
 				/>
 
-				<Select
-					className={classNames(styles.filtreDesktopOnly, styles.typeContrat)}
-					multiple
-					optionList={typesContratEures}
-					onChange={(option) => onChangeMultipleSelect(option, setInputTypeContrat)}
-					label="Type de contrat"
-					value={inputTypeContrat}
-					name="typeContrat"
-					labelComplement="Exemple : Alternance, Contrat déterminé"
-				/>
-				<Select
-					className={classNames(styles.filtreDesktopOnly, styles.tempsTravail)}
-					multiple
-					optionList={tempsDeTravailEures}
-					onChange={(option) => onChangeMultipleSelect(option, setInputTempsDeTravail)}
-					label="Temps de travail"
-					value={inputTempsDeTravail}
-					name="tempsDeTravail"
-					labelComplement="Exemple : Temps plein, temps partiel"
-				/>
-				<Select
-					className={classNames(styles.filtreDesktopOnly, styles.niveauEtudes)}
-					multiple
-					optionList={niveauDEtudes}
-					onChange={(option) => onChangeMultipleSelect(option, setInputNiveauEtude)}
-					label="Niveau d‘études demandé"
-					value={inputNiveauEtude}
-					name="niveauEtude"
-					labelComplement="Exemple : Master, Bachelor"
-				/>
-				<Select
-					className={classNames(styles.filtreDesktopOnly, styles.domaines)}
-					multiple
-					optionList={secteurActiviteEures}
-					onChange={(option) => onChangeMultipleSelect(option, setInputSecteurActivite)}
-					label="Domaines"
-					value={inputSecteurActivite}
-					name="secteurActivite"
-					labelComplement="Exemple : Agriculture, Communication"
-				/>
+				<Champ className={classNames(styles.filtreDesktopOnly, styles.typeContrat)}>
+					<Champ.Label>
+						Type de contrat
+						<Champ.Label.Complement>Exemple : Alternance, Contrat déterminé</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input
+						render={SelectMultiple}
+						optionsAriaLabel={'type de contrat'}
+						onChange={(option) => onChangeMultipleSelect(option, setInputTypeContrat)}
+						name="typeContrat"
+						value={inputTypeContrat}
+					>
+						{typesContratEures.map((option) =>
+							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
+						)}
+					</Champ.Input>
+					<Champ.Error/>
+				</Champ>
+
+				<Champ className={classNames(styles.filtreDesktopOnly, styles.tempsTravail)}>
+					<Champ.Label>
+						Temps de travail
+						<Champ.Label.Complement>Exemple : Temps plein, temps partiel</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input
+						render={SelectMultiple}
+						optionsAriaLabel={'temps de travail'}
+						onChange={(option) => onChangeMultipleSelect(option, setInputTempsDeTravail)}
+						name="tempsDeTravail"
+						value={inputTempsDeTravail}
+					>
+						{tempsDeTravailEures.map((option) =>
+							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
+						)}
+					</Champ.Input>
+					<Champ.Error/>
+				</Champ>
+
+				<Champ className={classNames(styles.filtreDesktopOnly, styles.niveauEtudes)}>
+					<Champ.Label>
+						Niveau d‘études demandé
+						<Champ.Label.Complement>Exemple : Master, Bachelor</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input
+						render={SelectMultiple}
+						optionsAriaLabel={'niveau d‘études'}
+						onChange={(option) => onChangeMultipleSelect(option, setInputNiveauEtude)}
+						name="niveauEtude"
+						value={inputNiveauEtude}
+					>
+						{niveauDEtudes.map((option) =>
+							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
+						)}
+					</Champ.Input>
+					<Champ.Error/>
+				</Champ>
+
+				<Champ className={classNames(styles.filtreDesktopOnly, styles.domaines)}>
+					<Champ.Label>
+						Domaines
+						<Champ.Label.Complement>Exemple : Agriculture, Communication</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input
+						render={SelectMultiple}
+						optionsAriaLabel={'secteur d‘activité'}
+						onChange={(option) => onChangeMultipleSelect(option, setInputSecteurActivite)}
+						name="secteurActivite"
+						value={inputSecteurActivite}
+					>
+						{secteurActiviteEures.map((option) =>
+							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
+						)}
+					</Champ.Input>
+					<Champ.Error/>
+				</Champ>
 			</div>
 			<div className={styles.buttonRechercher}>
 				<ButtonComponent

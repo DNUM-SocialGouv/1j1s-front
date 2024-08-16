@@ -16,14 +16,13 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { FilterAccordion } from '~/client/components/ui/FilterAccordion/FilterAccordion';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
-import {
-	ComboboxLocalisation,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
+import { ComboboxLocalisation } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
 import {
 	mapToDefaultLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/defaultLocalisation/mapToDefaultLocalisation';
 import { Input } from '~/client/components/ui/Form/Input';
-import { Select } from '~/client/components/ui/Form/Select/Select';
+import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple';
+import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Radio } from '~/client/components/ui/Radio/Radio';
@@ -153,44 +152,82 @@ export function FormulaireRechercheOffreEmploi() {
 
 				{!isSmallScreen && (
 					<>
-						<Select
-							className={styles.typeContrat}
-							multiple
-							optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
-							onChange={(option) => onChangeMultipleSelect(option, setInputTypeDeContrat)}
-							value={inputTypeDeContrat}
-							label="Types de contrats"
-							labelComplement="Exemple : CDI, CDD…"
-							name="typeDeContrats"
-						/>
-						<Select
-							className={styles.tempsTravail}
-							name="tempsDeTravail"
-							onChange={(option) => setInputTempsDeTravail(getValueSelected(option))}
-							value={inputTempsDeTravail}
-							optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
-							label="Temps de travail"
-							labelComplement="Exemple : temps plein, temps partiel…"
-						/>
-						<Select
-							className={styles.niveau}
-							name="experienceExigence"
-							optionList={Offre.EXPÉRIENCE}
-							onChange={(option) => setInputExpérience(getValueSelected(option))}
-							value={inputExpérience}
-							label="Niveau demandé"
-							labelComplement="Exemple : De 1 à 3 ans"
-						/>
-						<Select
-							multiple
-							className={styles.domaines}
-							optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
-							onChange={(option) => onChangeMultipleSelect(option, setInputDomaine)}
-							value={inputDomaine}
-							name="grandDomaine"
-							label="Domaines"
-							labelComplement="Exemple : Commerce, Immobilier…"
-						/>
+						<Champ className={styles.typeContrat}>
+							<Champ.Label>
+								Types de contrats
+								<Champ.Label.Complement>Exemple : CDI, CDD…</Champ.Label.Complement>
+							</Champ.Label>
+							<Champ.Input
+								render={SelectMultiple}
+								optionsAriaLabel={'Types de contrats'}
+								name={'typeDeContrats'}
+								onChange={(option) => onChangeMultipleSelect(option, setInputTypeDeContrat)}
+								value={inputTypeDeContrat}
+
+							>
+								{mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST).map((option) =>
+									<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
+								)}
+							</Champ.Input>
+							<Champ.Error/>
+						</Champ>
+
+						<Champ className={styles.tempsTravail}>
+							<Champ.Label>
+								Temps de travail
+								<Champ.Label.Complement>Exemple : temps plein, temps partiel…</Champ.Label.Complement>
+							</Champ.Label>
+							<Champ.Input
+								render={SelectSimple}
+								optionsAriaLabel={'Temps de travail'}
+								name={'tempsDeTravail'}
+								onChange={(option) => setInputTempsDeTravail(getValueSelected(option))}
+								value={inputTempsDeTravail}
+							>
+								{Offre.TEMPS_DE_TRAVAIL_LIST.map((option) =>
+									<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
+								)}
+							</Champ.Input>
+							<Champ.Error/>
+						</Champ>
+
+						<Champ className={styles.niveau}>
+							<Champ.Label>
+								Niveau demandé
+								<Champ.Label.Complement>Exemple : De 1 à 3 ans</Champ.Label.Complement>
+							</Champ.Label>
+							<Champ.Input
+								render={SelectSimple}
+								optionsAriaLabel={'Niveau demandé'}
+								name={'experienceExigence'}
+								onChange={(option) => setInputExpérience(getValueSelected(option))}
+								value={inputExpérience}
+							>
+								{Offre.EXPÉRIENCE.map((option) =>
+									<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
+								)}
+							</Champ.Input>
+							<Champ.Error/>
+						</Champ>
+
+						<Champ className={styles.domaines}>
+							<Champ.Label>
+								Domaines
+								<Champ.Label.Complement>Exemple : Commerce, Immobilier…</Champ.Label.Complement>
+							</Champ.Label>
+							<Champ.Input
+								render={SelectMultiple}
+								optionsAriaLabel={'Domaines'}
+								name={'grandDomaine'}
+								onChange={(option) => onChangeMultipleSelect(option, setInputDomaine)}
+								value={inputDomaine}
+							>
+								{mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList).map((option) =>
+									<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
+								)}
+							</Champ.Input>
+							<Champ.Error/>
+						</Champ>
 					</>
 				)}
 			</div>
