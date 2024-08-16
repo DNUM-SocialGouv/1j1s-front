@@ -39,6 +39,7 @@ $border-width-compensation: calc($error-border-width - $border-width);
 %comboboxes {
   $color-list-border: $color-border;
   $color-list-background: utilities.$color-background-primary;
+  $color-option-hover: utilities.$color-background-primary-alternative;
 
   position: relative;
   & [role="listbox"] {
@@ -62,5 +63,10 @@ $border-width-compensation: calc($error-border-width - $border-width);
 
   & [role="option"] {
     cursor: pointer;
+  }
+
+  %hovered-option {
+    background-color: $color-option-hover;
+    font-weight: bold;
   }
 }

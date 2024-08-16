@@ -9,7 +9,6 @@
   $color-background-disabled: inputStyles.$color-background-disabled;
   $color-error: inputStyles.$color-error;
   $border-width-compensation: inputStyles.$border-width-compensation;
-  $color-option-hover: utilities.$color-background-primary-alternative;
   $color-category-separator: $color-border;
   $border-radius: inputStyles.$border-radius;
   $border-width: inputStyles.$border-width;
@@ -88,8 +87,7 @@
 
       &[role="option"]:hover,
       &[role="option"][aria-selected="true"] {
-        background-color: $color-option-hover;
-        font-weight: bold;
+        @extend %hovered-option;
       }
     }
 
