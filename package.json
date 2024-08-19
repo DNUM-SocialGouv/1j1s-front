@@ -4,7 +4,7 @@
     "node": "20",
     "npm": "10"
   },
-  "version": "3.340.0",
+  "version": "3.340.1",
   "private": true,
   "scripts": {
     "prepare": "npm dedupe && ./setup.sh",
@@ -27,7 +27,7 @@
   "dependencies": {
     "@meilisearch/instant-meilisearch": "0.19.3",
     "@next/bundle-analyzer": "14.2.5",
-    "@sentry/nextjs": "7.119.0",
+    "@sentry/nextjs": "7.118.0",
     "axios": "1.7.3",
     "axios-cache-interceptor": "1.5.3",
     "classnames": "2.5.1",
