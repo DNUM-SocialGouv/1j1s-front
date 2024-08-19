@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.340.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.340.1...v3.340.2) (2024-08-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/nextjs to v7.119.0 ([#3266](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3266)) ([60080a2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/60080a2959e3560c73bb748df598b76a419164fc))
+* **deps:** update dependency axios to v1.7.4 [security] ([#3252](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3252)) ([de2655f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/de2655f9464998f39ac6687342858b2972f2424e))
+
 ## [3.340.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.340.0...v3.340.1) (2024-08-19)
 
 
