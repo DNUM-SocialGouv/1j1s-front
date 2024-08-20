@@ -2,7 +2,6 @@
 @use "../TextboxShared.module" as inputStyles;
 
 .combobox {
-  $color-text: inputStyles.$color-text;
   $color-border: inputStyles.$color-border;
   $color-text-disabled: inputStyles.$color-text-disabled;
   $error-border-width: inputStyles.$error-border-width;
@@ -17,7 +16,6 @@
 
   display: grid;
   grid-template-columns: 1fr auto;
-  color: $color-text;
 
   & input {
     background-color: transparent;

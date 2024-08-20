@@ -5,7 +5,6 @@
 @use "src/client/components/ui/Checkbox/Checkbox.module";
 @use "src/client/components/ui/Radio/Radio.module";
 
-$color-text: inputStyles.$color-text;
 $color-border: inputStyles.$color-border;
 $color-text-disabled: inputStyles.$color-text-disabled;
 $error-border-width: inputStyles.$error-border-width;
