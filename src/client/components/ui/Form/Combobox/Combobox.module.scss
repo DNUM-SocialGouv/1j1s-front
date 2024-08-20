@@ -20,7 +20,6 @@
   color: $color-text;
 
   & input {
-    @include utilities.text-interactive-medium;
     background-color: transparent;
     padding: 0.5rem 1rem;
   }

@@ -40,6 +40,7 @@ $border-width-compensation: calc($error-border-width - $border-width);
   $color-list-border: $color-border;
   $color-list-background: utilities.$color-background-primary;
   $color-option-hover: utilities.$color-background-primary-alternative;
+  @include utilities.text-interactive-medium;
 
   position: relative;
   & [role="listbox"] {
