@@ -90,13 +90,5 @@
         @extend %hovered-option;
       }
     }
-
-    & li[role="none"] {
-      font-weight: bold;
-
-      & * {
-        font-weight: initial;
-      }
-    }
   }
 }

@@ -69,4 +69,11 @@ $border-width-compensation: calc($error-border-width - $border-width);
     background-color: $color-option-hover;
     font-weight: bold;
   }
+
+  & li[role="none"]:has([role="group"]) {
+    font-weight: bold;
+    & > * {
+      font-weight: initial;
+    }
+  }
 }
