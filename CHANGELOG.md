@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.341.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.341.0...v3.341.1) (2024-08-21)
+
+
+### Bug Fixes
+
+* **wskills:** retire le texte de l'image ([#3271](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3271)) ([b5a8a39](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b5a8a3967d71a1e445bc2d9dfa59df2723a7e4bf))
+
 ## [3.341.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.340.2...v3.341.0) (2024-08-21)
 
 
