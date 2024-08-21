@@ -41,22 +41,19 @@
   }
 
   // NOTE (GAFI 27-06-2023): Impossible de changer la couleur de la bordure quand disabled si elle est sur la div parent
-  & input {
+  & input[role="combobox"] {
     border: $border-width solid $color-border;
     border-right: none;
-    border-radius: $border-radius 0 0 $border-radius;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
   }
-  & button {
+  & input[role="combobox"] ~ button {
     border: $border-width solid $color-border;
     border-left: none;
     border-radius: 0 $border-radius $border-radius 0;
   }
-  & input:disabled,
-  & input:read-only,
   & button:disabled {
-    color: $color-text-disabled;
-    background-color: $color-background-disabled;
-    cursor: not-allowed;
+    @extend %disabled;
   }
 
   & input[role="combobox"][data-touched="true"]:invalid,

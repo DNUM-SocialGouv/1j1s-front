@@ -10,6 +10,12 @@ $border-radius: 1.25rem;
 $border-width: 1px;
 $border-width-compensation: calc($error-border-width - $border-width);
 
+%disabled {
+  color: $color-text-disabled;
+  background-color: $color-background-disabled;
+  cursor: not-allowed;
+}
+
 %input {
   color: $color-text;
   background-color: transparent;
@@ -19,17 +25,14 @@ $border-width-compensation: calc($error-border-width - $border-width);
   @include utilities.text-interactive-medium;
 
   &:disabled,
-  &:read-only {
-    color: $color-text-disabled;
-    background-color: $color-background-disabled;
-    cursor: not-allowed;
+  &:not(button):read-only {
+    @extend %disabled;
   }
 
   &[data-touched="true"]:invalid {
     border-color: $color-error;
     border-width: $error-border-width;
   }
-
   &:valid,
   &:not([data-touched="true"]) {
     margin: $border-width-compensation;
@@ -41,6 +44,9 @@ $border-width-compensation: calc($error-border-width - $border-width);
   $color-list-background: utilities.$color-background-primary;
   $color-option-hover: utilities.$color-background-primary-alternative;
   @include utilities.text-interactive-medium;
+  & [role="combobox"] {
+    @extend %input;
+  }
 
   position: relative;
   & [role="listbox"] {
