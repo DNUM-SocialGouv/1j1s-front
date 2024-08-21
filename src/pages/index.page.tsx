@@ -36,6 +36,8 @@ export default function Accueil() {
 
 	const isVisibleCtaRedirectionEspaceJeune = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
 
+	const isBannerWorldSkillsVisible = process.env.NEXT_PUBLIC_WORLD_SKILLS_FEATURE === '1';
+
 	const offreCardListContent: CardContent[] = [
 		{
 			children: <p>Plus de 300 000 offres d’emplois sélectionnées spécialement pour vous</p>,
@@ -234,7 +236,7 @@ export default function Accueil() {
 				title="Toutes les solutions pour l'avenir des jeunes | 1jeune1solution"
 				robots="index,follow"
 			/>
-			<main id="contenu">
+			<main id="contenu" className={styles.accueil}>
 				<HeroWithIllustration image="/images/portraits-verticaux.webp">
 					<h1><HeroPrimaryText className={styles.heroTitle}>À chacun sa solution.</HeroPrimaryText></h1>
 					<HeroSecondaryText>
@@ -252,7 +254,7 @@ export default function Accueil() {
 
 				{isBanniereStagesSecondeVisible
 					&& <HeroWithIllustration image="/images/stages-seconde/banniere-stages-seconde.webp"
-																	 className={styles.stageSecondeBanner}>
+																	 className={classNames(styles.hero, styles.stageSecondeBanner)}>
 						{isBanniereStagesSecondePourCampagneDu25Mars ?
 							<>
 								<h2>
@@ -284,6 +286,23 @@ export default function Accueil() {
 								</Link>
 							</>
 						}
+					</HeroWithIllustration>
+				}
+
+				{isBannerWorldSkillsVisible
+					&& <HeroWithIllustration image="/images/campagne-world-skills-2024.webp" className={classNames(styles.hero, styles.worldSkills)}>
+						<h2>
+							<HeroPrimaryText className={styles.heroTitle}>
+								WorldSkills Lyon 2024, la Compétition Mondiale des Métiers.
+							</HeroPrimaryText>
+						</h2>
+						<HeroSecondaryText>
+							1jeune1solution s’engage en faveur de la jeunesse, venez nous rencontrer du 10 au 15 septembre lors de la compétition WorldSkills Lyon 2024.
+						</HeroSecondaryText>
+						<Link href="https://worldskills2024.com" appearance={'asSecondaryButton'} className={styles.heroButton}>
+							Plus d’infos
+							<Link.Icon/>
+						</Link>
 					</HeroWithIllustration>
 				}
 
