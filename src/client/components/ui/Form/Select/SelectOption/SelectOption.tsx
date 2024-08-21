@@ -5,6 +5,7 @@ import styles from '../Select.module.scss';
 import { useSelectContext } from '../SelectContext';
 
 type SelectOptionProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'value'> & {
+	// FIXME (GAFI 21-08-2024): Ça peut pas être optionnel ?
 	value: { toString: () => string },
 };
 
