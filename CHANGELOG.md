@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.341.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.340.2...v3.341.0) (2024-08-21)
+
+
+### Features
+
+* **header:** modifier la bannière d'accueil ([#3269](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3269)) ([c6873e8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c6873e8c7badfdb64dc032a1fb0a15fc37caec7b))
+* **wskills:** flip la bannière world skills ([#3257](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3257)) ([3c13000](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3c1300033f49da42e89d657dca3f6cd23b237bf1))
+
 ## [3.340.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.340.1...v3.340.2) (2024-08-19)
 
 
