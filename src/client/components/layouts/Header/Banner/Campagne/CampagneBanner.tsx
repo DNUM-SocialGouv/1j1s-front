@@ -5,7 +5,7 @@ import { Link } from '~/client/components/ui/Link/Link';
 import styles from './CampagneBanner.module.scss';
 
 export const ENCART_CAMPAGNE_URL = 'https://www.1jeune1solution.gouv.fr/articles/competition-mondiale-des-metiers-world-skills-lyon-2024';
-const TITRE = 'Retrouvez le programme de la 47e édition des WorldSkills Lyon 2024\u00A0?';
+const TITRE = 'Retrouvez le programme de la 47e édition des WorldSkills Lyon 2024';
 //const SOUS_TITRE = 'Faites la différence et déposez facilement une offre de stage.';
 
 export function CampagneBannerMobile() {
