@@ -8,7 +8,7 @@ resource "cloudflare_record" "domaine" {
 
   zone_id = data.cloudflare_zone.zone.id
   name    = trimsuffix(var.nom_de_domaine, ".1jeune1solution.gouv.fr")
-  value   = module.front_app.origin_domain
+  content   = module.front_app.origin_domain
   type    = "CNAME"
   ttl     = 1
   proxied = contains(["default", "production"], terraform.workspace) ? true : false
@@ -20,7 +20,7 @@ resource "cloudflare_record" "domaine_racine" {
 
   zone_id = data.cloudflare_zone.zone.id
   name    = "1jeune1solution.gouv.fr"
-  value   = module.front_app.origin_domain
+  content   = module.front_app.origin_domain
   type    = "CNAME"
   ttl     = 1
   proxied = true
@@ -32,7 +32,7 @@ resource "cloudflare_record" "domaine_analytics_eulerian" {
 
   zone_id = data.cloudflare_zone.zone.id
   name    = trimsuffix(var.nom_de_domaine_analytics, ".1jeune1solution.gouv.fr")
-  value   = var.eulerian_domaine
+  content   = var.eulerian_domaine
   type    = "CNAME"
   ttl     = 1
   proxied = false
