@@ -310,6 +310,13 @@ export default function Accueil() {
 					)
 				}
 
+				{!isOldEspaceJeuneActif
+					&& <section className={styles.section}>
+						<h2 id="actualites" className={styles.sectionHeader}>
+							Actualités
+						</h2>
+					</section>
+				}
 				<section className={styles.section}>
 					<h2 id="offres" className={styles.sectionHeader}>
 						<Icon name="brief-case" className={styles.headerIcon} />

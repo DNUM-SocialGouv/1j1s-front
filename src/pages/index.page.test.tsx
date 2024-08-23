@@ -188,10 +188,42 @@ describe('Page d’accueil', () => {
 				expect(voirStageSecondeButton).toHaveAttribute('href', 'https://worldskills2024.com');
 			});
 		});
-
 	});
 
 	describe('Sections', () => {
+		
+		describe('Actualités', () => {
+		  it('n’affiche pas la section si le feature flip est activé', async () => {
+		    // Given
+				process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '1';
+
+				// When
+				render(
+					<DependenciesProvider analyticsService={analyticsService}>
+						<Accueil/>
+					</DependenciesProvider>,
+				);
+
+		    // Then
+				const headingActualites = screen.queryByRole('heading', { level: 2, name: 'Actualités' });
+				expect(headingActualites).not.toBeInTheDocument();
+		  });
+			it('affiche la section si le feature flip est désactivé', async () => {
+			  // Given
+				process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
+
+				// When
+				render(
+					<DependenciesProvider analyticsService={analyticsService}>
+						<Accueil/>
+					</DependenciesProvider>,
+				);
+
+			  // Then
+				const headingActualites = screen.getByRole('heading', { level: 2, name: 'Actualités' });
+				expect(headingActualites).toBeVisible();
+			});
+		});
 
 		describe('Offres', () => {
 			it('contient une carte de redirection vers les stages d’études', () => {
