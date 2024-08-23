@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.342.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.341.2...v3.342.0) (2024-08-23)
+
+
+### Features
+
+* **campagne:** modification de l'url de campagne ([#3277](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3277)) ([88ed8a9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/88ed8a960382fbea56097e251cfc96c9a0a63b82))
+
 ## [3.341.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.341.1...v3.341.2) (2024-08-22)
 
 
