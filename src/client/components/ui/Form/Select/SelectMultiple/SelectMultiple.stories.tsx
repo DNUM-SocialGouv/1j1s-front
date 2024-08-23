@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
+
 import { SelectMultiple } from './SelectMultiple';
 
 const meta: Meta<typeof SelectMultiple> = {
