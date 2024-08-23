@@ -16,12 +16,16 @@ $border-width-compensation: calc($error-border-width - $border-width);
   cursor: not-allowed;
 }
 
+%bordered {
+  border-radius: $border-radius;
+  border: $border-width solid $color-border;
+}
+
 %input {
   color: $color-text;
   background-color: transparent;
   padding: 0.5rem 1rem;
-  border-radius: $border-radius;
-  border: $border-width solid $color-border;
+  @extend %bordered;
   @include utilities.text-interactive-medium;
 
   &:disabled,

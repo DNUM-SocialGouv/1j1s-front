@@ -2,15 +2,10 @@
 @use "../TextboxShared.module" as inputStyles;
 
 .combobox {
-  $color-border: inputStyles.$color-border;
-  $color-text-disabled: inputStyles.$color-text-disabled;
   $error-border-width: inputStyles.$error-border-width;
-  $color-background-disabled: inputStyles.$color-background-disabled;
   $color-error: inputStyles.$color-error;
   $border-width-compensation: inputStyles.$border-width-compensation;
-  $color-category-separator: $color-border;
-  $border-radius: inputStyles.$border-radius;
-  $border-width: inputStyles.$border-width;
+  $color-category-separator: inputStyles.$color-border;
 
   @extend %comboboxes;
 
@@ -33,7 +28,6 @@
     }
   }
 
-  border-radius: $border-radius;
   @extend %outlined;
   & input,
   & button {
@@ -42,15 +36,15 @@
 
   // NOTE (GAFI 27-06-2023): Impossible de changer la couleur de la bordure quand disabled si elle est sur la div parent
   & input[role="combobox"] {
-    border: $border-width solid $color-border;
     border-right: none;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
   }
   & input[role="combobox"] ~ button {
-    border: $border-width solid $color-border;
+    @extend %bordered;
     border-left: none;
-    border-radius: 0 $border-radius $border-radius 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
   }
   & button:disabled {
     @extend %disabled;

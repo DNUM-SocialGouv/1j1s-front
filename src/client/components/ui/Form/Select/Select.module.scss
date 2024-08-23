@@ -5,15 +5,9 @@
 @use "src/client/components/ui/Checkbox/Checkbox.module";
 @use "src/client/components/ui/Radio/Radio.module";
 
-$color-border: inputStyles.$color-border;
-$color-text-disabled: inputStyles.$color-text-disabled;
 $error-border-width: inputStyles.$error-border-width;
-$color-background-disabled: inputStyles.$color-background-disabled;
 $color-error: inputStyles.$color-error;
 $border-width-compensation: inputStyles.$border-width-compensation;
-$color-category-separator: $color-border;
-$border-radius: inputStyles.$border-radius;
-$border-width: inputStyles.$border-width;
 
 .container {
   @extend %comboboxes;
@@ -27,8 +21,6 @@ $border-width: inputStyles.$border-width;
     line-height: inherit;
     display: grid;
     grid-template-columns: 1fr auto;
-    border: $border-width solid $color-border;
-    border-radius: $border-radius;
     padding: 0.5rem 1rem;
     background-color: transparent;
 
