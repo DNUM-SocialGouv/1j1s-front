@@ -313,6 +313,7 @@ export default function Accueil() {
 				{!isOldEspaceJeuneActif
 					&& <section className={styles.section}>
 						<h2 id="actualites" className={styles.sectionHeader}>
+							<Icon name="newspaper" className={styles.headerIcon}/>
 							Actualités
 						</h2>
 					</section>

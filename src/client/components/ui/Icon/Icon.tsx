@@ -38,6 +38,7 @@ import { MapPinIcon } from '~/client/components/ui/Icon/map-pin.icon';
 import { MarkPenIcon } from '~/client/components/ui/Icon/mark-pen.icon';
 import { MenuIcon } from '~/client/components/ui/Icon/menu.icon';
 import { MicrowaveIcon } from '~/client/components/ui/Icon/microwave.icon';
+import { NewspaperIcon } from '~/client/components/ui/Icon/newspaper.icon';
 import { PhoneIcon } from '~/client/components/ui/Icon/phone.icon';
 import { PlantIcon } from '~/client/components/ui/Icon/plant.icon';
 import { PlayCircleIcon } from '~/client/components/ui/Icon/play-circle.icon';
@@ -199,6 +200,8 @@ export function Icon({ name, className, ...rest }: IconProps) {
 				return <MicrowaveIcon className={className} aria-hidden={true} {...rest} />;
 			case 'mail':
 				return <MailIcon className={className} aria-hidden={true} {...rest} />;
+			case 'newspaper':
+				return <NewspaperIcon className={className} aria-hidden={true} {...rest} />;
 			case 'phone':
 				return <PhoneIcon className={className} aria-hidden={true} {...rest} />;
 			case 'plant':
