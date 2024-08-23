@@ -776,6 +776,21 @@ describe('<SelectMultiple/>', () => {
 				expect(option.scrollIntoView).toHaveBeenCalledWith(expect.objectContaining({ block: 'nearest' }));
 			});
 		});
+
+		it('ne donne pas le focus à la liste quand elle est ouverte et scrollable', () => {
+			// NOTE (GAFI 23-08-2024): Un élément scrollable est automatiquement ajouté au taborder
+			render(
+				<SelectMultiple optionsAriaLabel={'options'}>
+					<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
+					<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
+				</SelectMultiple>,
+			);
+
+			const list = screen.getByRole('listbox', { hidden: true });
+			// NOTE (GAFI 23-08-2024): Pas mal lié à l'implémentation, mais on ne peut pas tester le comportement réel puisque
+			//	testing-library ne permet pas d'importer le CSS ou d'émuler le rendu
+			expect(list).toHaveAttribute('tabindex', '-1');
+		});
 	});
 
 	describe('label options séléctionnées (placeholder)', () => {

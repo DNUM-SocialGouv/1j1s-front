@@ -770,6 +770,21 @@ describe('<Combobox />', () => {
 			const button = screen.getByRole('button');
 			expect(button).not.toHaveFocus();
 		});
+		it('ne donne pas le focus à la liste quand elle est ouverte et scrollable', () => {
+			// NOTE (GAFI 23-08-2024): Un élément scrollable est automatiquement ajouté au taborder
+			render(
+				<Combobox optionsAriaLabel="Pays">
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const list = screen.getByRole('listbox', { hidden: true });
+			// NOTE (GAFI 23-08-2024): Pas mal lié à l'implémentation, mais on ne peut pas tester le comportement réel puisque
+			//	testing-library ne permet pas d'importer le CSS ou d'émuler le rendu
+			expect(list).toHaveAttribute('tabindex', '-1');
+		});
 	});
 
 	describe('Interactions', () => {
