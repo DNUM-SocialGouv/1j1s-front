@@ -193,36 +193,58 @@ describe('Page d’accueil', () => {
 	describe('Sections', () => {
 		
 		describe('Actualités', () => {
-		  it('n’affiche pas la section si le feature flip est activé', async () => {
-		    // Given
-				process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '1';
+			describe('quand la feature old espace jeune est activée', () => {
+				it('n’affiche pas la section', async () => {
+					// Given
+					process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '1';
 
-				// When
-				render(
-					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil/>
-					</DependenciesProvider>,
-				);
+					// When
+					render(
+						<DependenciesProvider analyticsService={analyticsService}>
+							<Accueil/>
+						</DependenciesProvider>,
+					);
 
-		    // Then
-				const headingActualites = screen.queryByRole('heading', { level: 2, name: 'Actualités' });
-				expect(headingActualites).not.toBeInTheDocument();
-		  });
-			it('affiche la section si le feature flip est désactivé', async () => {
-			  // Given
-				process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
-
-				// When
-				render(
-					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil/>
-					</DependenciesProvider>,
-				);
-
-			  // Then
-				const headingActualites = screen.getByRole('heading', { level: 2, name: 'Actualités' });
-				expect(headingActualites).toBeVisible();
+					// Then
+					const headingActualites = screen.queryByRole('heading', { level: 2, name: 'Actualités' });
+					expect(headingActualites).not.toBeInTheDocument();
+				});
 			});
+
+			describe('quand la feature old espace jeune est désactivée', () => {
+				it('affiche le titre', async () => {
+					// Given
+					process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
+
+					// When
+					render(
+						<DependenciesProvider analyticsService={analyticsService}>
+							<Accueil/>
+						</DependenciesProvider>,
+					);
+
+					// Then
+					const headingActualites = screen.getByRole('heading', { level: 2, name: 'Actualités' });
+					expect(headingActualites).toBeVisible();
+				});
+				it('affiche un CTA qui redirige vers la page actualités', async () => {
+					// Given
+					process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
+
+					// When
+					render(
+						<DependenciesProvider analyticsService={analyticsService}>
+							<Accueil/>
+						</DependenciesProvider>,
+					);
+
+					// Then
+					const ctaActualites = screen.getByRole('link', { name: 'Voir toutes les actualités' });
+					expect(ctaActualites).toBeVisible();
+					expect(ctaActualites).toHaveAttribute('href', '/actualites');
+				});
+			});
+
 		});
 
 		describe('Offres', () => {

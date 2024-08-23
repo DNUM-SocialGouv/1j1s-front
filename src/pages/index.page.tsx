@@ -316,6 +316,10 @@ export default function Accueil() {
 							<Icon name="newspaper" className={styles.headerIcon}/>
 							Actualités
 						</h2>
+						<Link href={'/actualites'} appearance={'asSecondaryButton'}>
+								Voir toutes les actualités
+							<Link.Icon/>
+						</Link>
 					</section>
 				}
 				<section className={styles.section}>
