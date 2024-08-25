@@ -37,7 +37,7 @@
     "joi": "17.13.3",
     "lodash.debounce": "4.0.8",
     "markdown-it": "14.1.0",
-    "markdown-it-anchor": "9.0.1",
+    "markdown-it-anchor": "9.1.0",
     "next": "14.2.6",
     "next-joi": "2.2.1",
     "phone": "3.1.50",
