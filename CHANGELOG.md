@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.342.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.342.1...v3.342.2) (2024-08-26)
+
+
+### Bug Fixes
+
+* Fix id dupliqué quand plusieurs select ont une value en commun ([#3280](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3280)) ([42a440e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/42a440e2f66a52ce3e983e93dce804a2b6b68f0b))
+
 ## [3.342.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.342.0...v3.342.1) (2024-08-26)
 
 
