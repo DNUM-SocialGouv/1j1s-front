@@ -87,4 +87,13 @@ $border-width-compensation: calc($error-border-width - $border-width);
       font-weight: initial;
     }
   }
+
+  & [role="combobox"] > svg,
+  & [role="combobox"] ~ button > svg{
+    transition: transform 200ms linear;
+  }
+  & [role="combobox"][aria-expanded="true"] > svg,
+  & [role="combobox"][aria-expanded="true"] ~ button > svg {
+    transform: rotate(-180deg);
+  }
 }

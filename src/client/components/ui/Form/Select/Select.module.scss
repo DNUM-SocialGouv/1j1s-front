@@ -23,13 +23,6 @@ $border-width-compensation: inputStyles.$border-width-compensation;
     grid-template-columns: 1fr auto;
     padding: 0.5rem 1rem;
     background-color: transparent;
-
-    & svg {
-      transition: transform 200ms linear;
-    }
-    &[aria-expanded="true"] svg {
-      transform: rotate(-180deg);
-    }
   }
 
   input:invalid + [role="combobox"][data-touched="true"] {
