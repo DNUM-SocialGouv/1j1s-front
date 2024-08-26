@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.342.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.342.2...v3.342.3) (2024-08-26)
+
+
+### Bug Fixes
+
+* Fix la perte de focus dans les comboboxes avec liste scrollable ([#3279](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3279)) ([9237bf9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9237bf9599f4c3617abfc67ac07ccf28bcb3478e))
+
 ## [3.342.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.342.1...v3.342.2) (2024-08-26)
 
 
