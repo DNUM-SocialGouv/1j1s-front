@@ -11,7 +11,7 @@ type SelectOptionProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'value'> & {
 export function SelectOption({ className, value: valueProps, id: idProps, ...rest }: SelectOptionProps) {
 	const value = valueProps.toString();
 	const defaultId = useId();
-	const id = idProps ?? value ?? defaultId;
+	const id = idProps ?? defaultId;
 	const { onOptionSelection, activeDescendant, isCurrentItemSelected } = useSelectContext();
 
 	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
