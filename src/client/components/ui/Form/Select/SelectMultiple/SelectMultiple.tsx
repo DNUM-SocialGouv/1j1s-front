@@ -263,6 +263,7 @@ export function SelectMultiple(props: SelectMultipleProps) {
 					ref={listboxRef}
 					aria-label={optionsAriaLabel}
 					id={listboxId}
+					tabIndex={-1}
 					hidden={!state.isListOptionsOpen}>
 					{children}
 				</ul>

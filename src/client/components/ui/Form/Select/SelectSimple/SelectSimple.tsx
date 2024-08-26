@@ -266,6 +266,7 @@ export function SelectSimple(props: SelectSimpleProps) {
 					ref={listboxRef}
 					aria-label={optionsAriaLabel}
 					id={listboxId}
+					tabIndex={-1}
 					hidden={!state.isListOptionsOpen}>
 					{children}
 				</ul>

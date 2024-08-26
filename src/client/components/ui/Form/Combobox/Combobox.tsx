@@ -235,6 +235,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					id={listboxId}
 					hidden={!open}
 					ref={listboxRef}
+					tabIndex={-1}
 					aria-label={optionsAriaLabel}>
 					{children}
 				</ul>

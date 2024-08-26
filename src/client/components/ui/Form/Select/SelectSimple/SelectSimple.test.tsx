@@ -701,6 +701,21 @@ describe('<SelectSimpleSimple/>', () => {
 				expect(option.scrollIntoView).toHaveBeenCalledWith(expect.objectContaining({ block: 'nearest' }));
 			});
 		});
+		
+		it('ne donne pas le focus à la liste quand elle est ouverte et scrollable', () => {
+			// NOTE (GAFI 23-08-2024): Un élément scrollable est automatiquement ajouté au taborder
+			render(
+				<SelectSimple optionsAriaLabel={'options'}>
+					<SelectSimple.Option value="1">options 1</SelectSimple.Option>
+					<SelectSimple.Option value="2">options 2</SelectSimple.Option>
+				</SelectSimple>,
+			);
+
+			const list = screen.getByRole('listbox', { hidden: true });
+			// NOTE (GAFI 23-08-2024): Pas mal lié à l'implémentation, mais on ne peut pas tester le comportement réel puisque
+			//	testing-library ne permet pas d'importer le CSS ou d'émuler le rendu
+			expect(list).toHaveAttribute('tabindex', '-1');
+		});
 	});
 
 	describe('label de l‘option séléctionné (placeholder)', () => {
