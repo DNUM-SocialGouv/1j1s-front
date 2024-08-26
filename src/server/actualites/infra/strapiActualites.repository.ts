@@ -8,6 +8,7 @@ import { StrapiListeActualites } from './strapiActualites';
 import { mapStrapiListeActualites } from './strapiActualites.mapper';
 
 const RESOURCE_ACTUALITE = 'actualite';
+const MAX_ACTUALITES_ACCUEIL = 3;
 
 export class StrapiActualitesRepository implements ActualitesRepository {
 	constructor(private readonly strapiService: CmsService, private readonly errorManagementService: ErrorManagementService) {
@@ -30,6 +31,26 @@ export class StrapiActualitesRepository implements ActualitesRepository {
 				message: 'impossible de mapper vers les actualités',
 			});
 		}
+	}
+
+	async getActualitesAccueilList(): Promise<Either<Array<Actualite>>> {
+		const query = 'populate=deep';
+		const strapiActualitesList = await this.strapiService.getSingleType<StrapiListeActualites.ListeActualites>(RESOURCE_ACTUALITE, query);
+
+		if (isFailure(strapiActualitesList))
+			return strapiActualitesList;
+
+		try {
+			const actualitesList = mapStrapiListeActualites(strapiActualitesList.result).slice(0, MAX_ACTUALITES_ACCUEIL);
+			return createSuccess(actualitesList);
+		} catch (error) {
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: 'Strapi - Actualités',
+				contexte: 'récupérer les actualités',
+				message: 'impossible de mapper vers les actualités',
+			});
+		}
+		return Promise.resolve(createSuccess([]));
 	}
 }
 

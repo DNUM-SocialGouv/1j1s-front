@@ -5,7 +5,7 @@
 
 import '~/test-utils';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
@@ -14,7 +14,11 @@ import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import Accueil from '~/pages/index.page';
+import Accueil, { getStaticProps } from '~/pages/index.page';
+import { anActualiteList, anActualiteLongList } from '~/server/actualites/domain/actualite.fixture';
+import { createFailure, createSuccess } from '~/server/errors/either';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { dependencies } from '~/server/start';
 
 describe('Page d’accueil', () => {
 	let analyticsService: ManualAnalyticsService;
@@ -30,7 +34,7 @@ describe('Page d’accueil', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<Accueil />
+				<Accueil cartesActualites={anActualiteList()} />
 			</DependenciesProvider>);
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -39,7 +43,7 @@ describe('Page d’accueil', () => {
 	it('n’a pas de défaut d’accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<Accueil />
+				<Accueil cartesActualites={anActualiteList()} />
 			</DependenciesProvider>,
 		);
 
@@ -52,7 +56,7 @@ describe('Page d’accueil', () => {
 				process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '1';
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil />
+						<Accueil cartesActualites={anActualiteList()} />
 					</DependenciesProvider>,
 				);
 				expect(screen.getByRole('link', { name: /Découvrir les actualités et services jeunes/ })).toBeVisible();
@@ -61,7 +65,7 @@ describe('Page d’accueil', () => {
 				process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil />
+						<Accueil cartesActualites={anActualiteList()} />
 					</DependenciesProvider>,
 				);
 				expect(screen.queryByRole('link', { name: /Découvrir les actualités et services jeunes/ })).not.toBeInTheDocument();
@@ -71,14 +75,13 @@ describe('Page d’accueil', () => {
 		describe('Stages de seconde', () => {
 			describe('quand le feature flip stages seconde n’est pas actif', () => {
 				it('l’utilisateur ne voit pas la bannière des stages de seconde', () => {
->>>>>>> 908ef38cf (refactor(accueil): hiérarchise les tests)
 					// GIVEN
 					process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE = '0';
 
 					// WHEN
 					render(
 						<DependenciesProvider analyticsService={analyticsService}>
-							<Accueil />
+							<Accueil cartesActualites={anActualiteList()} />
 						</DependenciesProvider>,
 					);
 
@@ -98,7 +101,7 @@ describe('Page d’accueil', () => {
 						// WHEN
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil/>
+								<Accueil cartesActualites={anActualiteList()}/>
 							</DependenciesProvider>,
 						);
 
@@ -122,7 +125,7 @@ describe('Page d’accueil', () => {
 						// WHEN
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil/>
+								<Accueil cartesActualites={anActualiteList()}/>
 							</DependenciesProvider>,
 						);
 
@@ -146,7 +149,7 @@ describe('Page d’accueil', () => {
 					// When
 					render(
 						<DependenciesProvider analyticsService={analyticsService}>
-							<Accueil />
+							<Accueil cartesActualites={anActualiteList()} />
 						</DependenciesProvider>,
 					);
 
@@ -160,7 +163,7 @@ describe('Page d’accueil', () => {
 					// When
 					render(
 						<DependenciesProvider analyticsService={analyticsService}>
-							<Accueil/>
+							<Accueil cartesActualites={anActualiteList()}/>
 						</DependenciesProvider>,
 					);
 
@@ -176,7 +179,7 @@ describe('Page d’accueil', () => {
 				// When
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil />
+						<Accueil cartesActualites={anActualiteList()} />
 					</DependenciesProvider>,
 				);
 
@@ -201,7 +204,7 @@ describe('Page d’accueil', () => {
 					// When
 					render(
 						<DependenciesProvider analyticsService={analyticsService}>
-							<Accueil/>
+							<Accueil cartesActualites={anActualiteList()}/>
 						</DependenciesProvider>,
 					);
 
@@ -210,38 +213,85 @@ describe('Page d’accueil', () => {
 					expect(headingActualites).not.toBeInTheDocument();
 				});
 			});
-
 			describe('quand la feature old espace jeune est désactivée', () => {
-				it('affiche le titre', async () => {
+				it('appelle le serveur pour récupérer les 3 dernières actualités', async () => {
 					// Given
 					process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
+					jest.spyOn(dependencies.actualitesDependencies.consulterActualitesAccueilUseCase, 'handle').mockResolvedValue(createSuccess(anActualiteList()));
 
 					// When
-					render(
-						<DependenciesProvider analyticsService={analyticsService}>
-							<Accueil/>
-						</DependenciesProvider>,
-					);
+					await getStaticProps();
 
 					// Then
-					const headingActualites = screen.getByRole('heading', { level: 2, name: 'Actualités' });
-					expect(headingActualites).toBeVisible();
+					expect(dependencies.actualitesDependencies.consulterActualitesAccueilUseCase.handle).toHaveBeenCalledTimes(1);
 				});
-				it('affiche un CTA qui redirige vers la page actualités', async () => {
-					// Given
-					process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
+				describe('lorsque la récupération des actualités est un succès', () => {
+					it('affiche le titre', async () => {
+						// Given
+						process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
 
-					// When
-					render(
-						<DependenciesProvider analyticsService={analyticsService}>
-							<Accueil/>
-						</DependenciesProvider>,
-					);
+						// When
+						render(
+							<DependenciesProvider analyticsService={analyticsService}>
+								<Accueil cartesActualites={anActualiteList()}/>
+							</DependenciesProvider>,
+						);
 
-					// Then
-					const ctaActualites = screen.getByRole('link', { name: 'Voir toutes les actualités' });
-					expect(ctaActualites).toBeVisible();
-					expect(ctaActualites).toHaveAttribute('href', '/actualites');
+						// Then
+						const headingActualites = screen.getByRole('heading', { level: 2, name: 'Actualités' });
+						expect(headingActualites).toBeVisible();
+					});
+					it('affiche un CTA qui redirige vers la page actualités', async () => {
+						// Given
+						process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
+
+						// When
+						render(
+							<DependenciesProvider analyticsService={analyticsService}>
+								<Accueil cartesActualites={anActualiteList()}/>
+							</DependenciesProvider>,
+						);
+
+						// Then
+						const ctaActualites = screen.getByRole('link', { name: 'Voir toutes les actualités' });
+						expect(ctaActualites).toBeVisible();
+						expect(ctaActualites).toHaveAttribute('href', '/actualites');
+					});
+					it('affiche les cartes d’actualités dans une liste', async () => {
+						// Given
+						process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
+						const actualiteListServer = anActualiteLongList().slice(0, 3);
+
+						// When
+						render(
+							<DependenciesProvider analyticsService={analyticsService}>
+								<Accueil cartesActualites={actualiteListServer}/>
+							</DependenciesProvider>,
+						);
+
+						// Then
+						const actualiteListRendered = screen.getAllByRole('list')[0];
+						expect(actualiteListRendered).toBeVisible();
+
+						const actualiteListItemsRendered = within(actualiteListRendered).getAllByRole('listitem');
+						expect(actualiteListItemsRendered).toHaveLength(actualiteListServer.length);
+
+						const premiereActualite = actualiteListItemsRendered[0];
+						expect(within(premiereActualite).getByRole('heading', { level: 3, name: 'Titre 1' })).toBeVisible();
+						expect(within(premiereActualite).getByText('Contenu 1')).toBeVisible();
+					});
+				});
+				describe('lorsque la récupération des actualités est un échec', () => {
+					it('redirige vers la page 404', async () => {
+						// Given
+						jest.spyOn(dependencies.actualitesDependencies.consulterActualitesAccueilUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+
+						// When
+						const result = await getStaticProps();
+
+						// Then
+						expect(result).toEqual({ notFound: true, revalidate: 1 });
+					});
 				});
 			});
 
@@ -252,7 +302,7 @@ describe('Page d’accueil', () => {
 				// WHEN
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil />
+						<Accueil cartesActualites={anActualiteList()} />
 					</DependenciesProvider>,
 				);
 
@@ -268,7 +318,7 @@ describe('Page d’accueil', () => {
 						process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '0';
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil/>
+								<Accueil cartesActualites={anActualiteList()}/>
 							</DependenciesProvider>,
 						);
 						expect(screen.queryByText('Jobs d’été')).not.toBeInTheDocument();
@@ -281,7 +331,7 @@ describe('Page d’accueil', () => {
 
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil/>
+								<Accueil cartesActualites={anActualiteList()}/>
 							</DependenciesProvider>,
 						);
 
@@ -303,7 +353,7 @@ describe('Page d’accueil', () => {
 						// WHEN
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil/>
+								<Accueil cartesActualites={anActualiteList()}/>
 							</DependenciesProvider>,
 						);
 
@@ -322,7 +372,7 @@ describe('Page d’accueil', () => {
 						// WHEN
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil/>
+								<Accueil cartesActualites={anActualiteList()}/>
 							</DependenciesProvider>,
 						);
 
@@ -332,7 +382,6 @@ describe('Page d’accueil', () => {
 					});
 				});
 			});
-
 		});
 
 		describe('Formations et orientation', () => {
@@ -342,7 +391,7 @@ describe('Page d’accueil', () => {
 						process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil/>
+								<Accueil cartesActualites={anActualiteList()}/>
 							</DependenciesProvider>,
 						);
 						expect(screen.queryByText('Formations initiales')).not.toBeInTheDocument();
@@ -354,7 +403,7 @@ describe('Page d’accueil', () => {
 
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil/>
+								<Accueil cartesActualites={anActualiteList()}/>
 							</DependenciesProvider>,
 						);
 
@@ -373,7 +422,7 @@ describe('Page d’accueil', () => {
 						process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '0';
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil/>
+								<Accueil cartesActualites={anActualiteList()}/>
 							</DependenciesProvider>,
 						);
 						expect(screen.queryByText('Aides au permis de conduire')).not.toBeInTheDocument();
@@ -385,7 +434,7 @@ describe('Page d’accueil', () => {
 
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil/>
+								<Accueil cartesActualites={anActualiteList()}/>
 							</DependenciesProvider>,
 						);
 

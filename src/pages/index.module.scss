@@ -111,6 +111,25 @@ $color-background-world-skills: #2E1651;
       color: utilities-deprecated.$color-coral;
     }
   }
+
+  &ListeActualites {
+    ul {
+      scroll-margin-top: 4rem;
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+
+      @include utilities-deprecated.media(medium) {
+        margin-bottom: 2rem;
+      }
+    }
+
+    a {
+      margin: auto;
+    }
+  }
 }
 
 @include utilities-deprecated.media(medium) {

@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { GetStaticPropsResult } from 'next';
 import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
@@ -11,6 +12,9 @@ import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/index.analytics';
 import styles from '~/pages/index.module.scss';
+import { Actualite } from '~/server/actualites/domain/actualite';
+import { isFailure } from '~/server/errors/either';
+import { dependencies } from '~/server/start';
 
 
 interface CardContent {
@@ -21,7 +25,11 @@ interface CardContent {
 	title: string
 }
 
-export default function Accueil() {
+interface AccueilPageProps {
+	cartesActualites: Array<Actualite>
+}
+
+export default function Accueil(accueilProps: AccueilPageProps) {
 	useAnalytics(analytics);
 
 	const isJobEteCardVisible = process.env.NEXT_PUBLIC_JOB_ETE_FEATURE === '1';
@@ -37,6 +45,16 @@ export default function Accueil() {
 	const isOldEspaceJeuneActif = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
 
 	const isBannerWorldSkillsVisible = process.env.NEXT_PUBLIC_WORLD_SKILLS_FEATURE === '1';
+
+	const actualitesCardListContent: CardContent[] = accueilProps.cartesActualites.map((carte: Actualite): CardContent => {
+		return {
+			children: <p>{carte.extraitContenu}</p>,
+			imageUrl: carte.bannière?.src || '',
+			link: carte.link,
+			linkLabel: 'Lire l’actualité',
+			title: carte.titre,
+		};
+	});
 
 	const offreCardListContent: CardContent[] = [
 		{
@@ -316,10 +334,17 @@ export default function Accueil() {
 							<Icon name="newspaper" className={styles.headerIcon}/>
 							Actualités
 						</h2>
-						<Link href={'/actualites'} appearance={'asSecondaryButton'}>
+						<Container className={styles.sectionListeActualites}>
+							<ul>
+								{getCardList(actualitesCardListContent).map((carte, index) => {
+									return ( <li key={index}>{carte}</li> );},
+								)}
+							</ul>
+							<Link href={'/actualites'} appearance={'asSecondaryButton'}>
 								Voir toutes les actualités
-							<Link.Icon/>
-						</Link>
+								<Link.Icon/>
+							</Link>
+						</Container>
 					</section>
 				}
 				<section className={styles.section}>
@@ -404,3 +429,21 @@ export default function Accueil() {
 		</>
 	);
 };
+
+export async function getStaticProps(): Promise<GetStaticPropsResult<AccueilPageProps>> {
+	const isEspaceJeuneVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0';
+	if (!isEspaceJeuneVisible) {
+		return { notFound: true };
+	}
+
+	const cartesActualitesResponse = await dependencies.actualitesDependencies.consulterActualitesAccueilUseCase.handle();
+
+	if (isFailure(cartesActualitesResponse)) {
+		return { notFound: true, revalidate: 1 };
+	}
+
+	return {
+		props: { cartesActualites: JSON.parse(JSON.stringify(cartesActualitesResponse.result)) },
+		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
+	};
+}

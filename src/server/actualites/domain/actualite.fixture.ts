@@ -26,3 +26,48 @@ export function anActualiteList() {
 			titre: 'Titre 2',
 		})];
 }
+
+export function anActualiteLongList() {
+	return [
+		anActualite({
+			article: anArticle({ slug: 'slug-1' }),
+			bannière: anImage(),
+			contenu: 'Contenu 1',
+			extraitContenu: 'Contenu 1',
+			link: '/articles/slug-1',
+			titre: 'Titre 1',
+		}),
+		anActualite({
+			article: anArticle({ slug: 'slug-2' }),
+			bannière: anImage(),
+			contenu: 'Contenu 2',
+			extraitContenu: 'Contenu 2',
+			link: '/articles/slug-2',
+			titre: 'Titre 2',
+		}),
+		anActualite({
+			article: anArticle({ slug: 'slug-3' }),
+			bannière: anImage(),
+			contenu: 'Contenu 3',
+			extraitContenu: 'Contenu 3',
+			link: '/articles/slug-3',
+			titre: 'Titre 3',
+		}),
+		anActualite({
+			article: anArticle({ slug: 'slug-4' }),
+			bannière: anImage(),
+			contenu: 'Contenu 4',
+			extraitContenu: 'Contenu 4',
+			link: '/articles/slug-4',
+			titre: 'Titre 4',
+		}),
+		anActualite({
+			article: anArticle({ slug: 'slug-5' }),
+			bannière: anImage(),
+			contenu: 'Contenu 5',
+			extraitContenu: 'Contenu 5',
+			link: '/articles/slug-5',
+			titre: 'Titre 5',
+		}),
+	];
+}
