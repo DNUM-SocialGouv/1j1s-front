@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.342.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.342.0...v3.342.1) (2024-08-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.7.5 ([#3281](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3281)) ([2c754c2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2c754c2ac67e758ccab79908191f0a98e241de4b))
+* **deps:** update dependency markdown-it-anchor to v9.1.0 ([#3285](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3285)) ([bdfb6ec](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bdfb6ec326d42360f0661a0b8d0b2e7d416c87bf))
+
 ## [3.342.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.341.2...v3.342.0) (2024-08-23)
 
 
