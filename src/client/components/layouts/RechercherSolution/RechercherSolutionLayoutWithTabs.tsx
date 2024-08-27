@@ -74,17 +74,18 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 					</Container>
 				</div>
 
-				{hasRouterQuery &&
-            <>
+				{hasRouterQuery && (
+					<>
             	{erreurRecherche ? <ErrorComponent errorType={erreurRecherche}/>
-            		: <>
+            		: (
+								<>
             			<Container className={styles.informationResultat}>
             				{étiquettesRecherche}
-            				{(hasSolutionsInCurrentTab || isLoading) &&
-                        <Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
+            				{(hasSolutionsInCurrentTab || isLoading) && (
+											<Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
                         	<h2>{messageResultatRechercheCurrentTab}</h2>
-                        </Skeleton>
-            				}
+											</Skeleton>
+										)}
             			</Container>
 
             			<div>
@@ -97,7 +98,8 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             										key={solutionElement.label}
             									>
             										{solutionElement.label}
-            									</Tab>))}
+            									</Tab>
+														))}
             							</TabsLabel>
             							{listeSolutionElementTab.map((solutionElement) => (
             								<TabPanel key={solutionElement.label}>
@@ -110,20 +112,21 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             						</Tabs>
             					</>
             				</Skeleton>
-            				{shouldDisplayPagination &&
-                        <div className={styles.pagination}>
+            				{shouldDisplayPagination && (
+											<div className={styles.pagination}>
                         	<Pagination
                         		numberOfResult={listeSolutionElementTab[currentTab].nombreDeSolutions}
                         		numberOfResultPerPage={paginationOffset}
                         		maxPage={maxPage}
                         	/>
-                        </div>
-            				}
+											</div>
+										)}
             			</div>
             		</>
+							)
             	}
-            </>
-				}
+					</>
+				)}
 			</div>
 		</>
 	);

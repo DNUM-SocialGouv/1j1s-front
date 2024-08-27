@@ -136,13 +136,15 @@ export function FormulaireDemandeDeContactAccompagnement({
 
 			{isLoading
 				? <LoadingButton className={styles.formulaireValidateButton}/>
-				: <>
-					<ButtonComponent
-						type="submit"
-						className={styles.formulaireValidateButton}
-						label={<>Envoyer mes informations <span className={styles.desktopOnly}>afin d‘être rappelé(e)</span></>}
-					/>
-				</>
+				: (
+					<>
+						<ButtonComponent
+							type="submit"
+							className={styles.formulaireValidateButton}
+							label={<>Envoyer mes informations <span className={styles.desktopOnly}>afin d‘être rappelé(e)</span></>}
+						/>
+					</>
+				)
 			}
 			<div className={styles.formulaireDécharge}>
 				<p>

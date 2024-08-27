@@ -32,13 +32,15 @@ function CardContent({ children, className, ...rest }: React.ComponentPropsWitho
 
 function CardButton(props: React.ComponentPropsWithoutRef<typeof ButtonComponent>) {
 	const { appearance = 'tertiary', className, icon, label, ...rest } = props;
-	return <ButtonComponent
-		className={className}
-		appearance={appearance}
-		label={label || ''}
-		icon={icon}
-		iconPosition={'right'} {...rest}
-	       />;
+	return (
+		<ButtonComponent
+			className={className}
+			appearance={appearance}
+			label={label || ''}
+			icon={icon}
+			iconPosition={'right'} {...rest}
+		/>
+	);
 }
 
 type CardCallToActionProps = Required<Pick<ButtonComponentProps, 'appearance' | 'label'>>

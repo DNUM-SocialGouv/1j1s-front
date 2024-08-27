@@ -65,15 +65,17 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 		<li key={uuidv4()}>
 			<ResultatRechercherSolution
 				intituléOffre={stage3eEt2de.nomEntreprise}
-				sousTitreOffre={<>
-					<p>{stage3eEt2de.domaine}</p>
-					<p>{stage3eEt2de.adresse.rueEtNumero}, {stage3eEt2de.adresse.codePostal} {stage3eEt2de.adresse.ville}</p>
-					<ul className={styles.listeMetiers} aria-label="Métiers proposés">
-						{stage3eEt2de.appellationLibelle.map((appellationLibelle) =>
-							<li key={appellationLibelle}><p>{appellationLibelle}</p></li>,
-						)}
-					</ul>
-				</>}
+				sousTitreOffre={(
+					<>
+						<p>{stage3eEt2de.domaine}</p>
+						<p>{stage3eEt2de.adresse.rueEtNumero}, {stage3eEt2de.adresse.codePostal} {stage3eEt2de.adresse.ville}</p>
+						<ul className={styles.listeMetiers} aria-label="Métiers proposés">
+							{stage3eEt2de.appellationLibelle.map((appellationLibelle) =>
+								<li key={appellationLibelle}><p>{appellationLibelle}</p></li>,
+							)}
+						</ul>
+					</>
+				)}
 				étiquetteOffreList={étiquetteOffreList}
 				lienOffre={lienOffre}
 				intituléLienOffre={intituleLienOffre}

@@ -18,44 +18,46 @@ interface ModaleMissionLocaleProps {
 
 export function ModaleMissionLocale({ isMissionLocaleModaleOpen, setIsMissionLocaleModaleOpen }: ModaleMissionLocaleProps) {
 	const [statusForm, setStatusForm] = useState<formulaireStatus>('notSubmitted');
-	return <>
-		<ModalComponent
-			isOpen={isMissionLocaleModaleOpen}
-			close={() => setIsMissionLocaleModaleOpen(false)}
-			aria-labelledby={'dialog_label'}
-		>
-			<ModalComponent.Title className={styles.title} id="dialog_label">
+	return (
+		<>
+			<ModalComponent
+				isOpen={isMissionLocaleModaleOpen}
+				close={() => setIsMissionLocaleModaleOpen(false)}
+				aria-labelledby={'dialog_label'}
+			>
+				<ModalComponent.Title className={styles.title} id="dialog_label">
 				Vous pouvez bénéficier d’un accompagnement répondant à vos besoins auprès de votre Mission Locale
-			</ModalComponent.Title>
-			<ModalComponent.Content>
-				<small className={styles.subtitle}>(Tous les champs sont obligatoires)</small>
-				<FormulaireDeContactCEJ
-					onSuccess={() => {
-						setIsMissionLocaleModaleOpen(false);
-						setStatusForm('success');
-					}}
-					onFailure={() => {
-						setIsMissionLocaleModaleOpen(false);
-						setStatusForm('error');
-					}}
-				/>
-			</ModalComponent.Content>
-		</ModalComponent>
+				</ModalComponent.Title>
+				<ModalComponent.Content>
+					<small className={styles.subtitle}>(Tous les champs sont obligatoires)</small>
+					<FormulaireDeContactCEJ
+						onSuccess={() => {
+							setIsMissionLocaleModaleOpen(false);
+							setStatusForm('success');
+						}}
+						onFailure={() => {
+							setIsMissionLocaleModaleOpen(false);
+							setStatusForm('error');
+						}}
+					/>
+				</ModalComponent.Content>
+			</ModalComponent>
 
-		<ModaleSuccessSubmission isOpen={statusForm === 'success'} onClose={() => {
-			setIsMissionLocaleModaleOpen(false);
-			setStatusForm('notSubmitted');
-		}}
-		/>
-
-		<ModalErrorSubmission isOpen={statusForm === 'error'} 
-			onClose={() => {
-				setStatusForm('notSubmitted');
-			}}		
-			onBackToForm={() => {
-				setIsMissionLocaleModaleOpen(true);
+			<ModaleSuccessSubmission isOpen={statusForm === 'success'} onClose={() => {
+				setIsMissionLocaleModaleOpen(false);
 				setStatusForm('notSubmitted');
 			}}
-		/>
-	</>;
+			/>
+
+			<ModalErrorSubmission isOpen={statusForm === 'error'} 
+				onClose={() => {
+					setStatusForm('notSubmitted');
+				}}		
+				onBackToForm={() => {
+					setIsMissionLocaleModaleOpen(true);
+					setStatusForm('notSubmitted');
+				}}
+			/>
+		</>
+	);
 }

@@ -28,11 +28,11 @@ export default function Entreprendre() {
 			/>
 			<main id="contenu">
 				<HeroComponent
-					titlePrimaryText={
+					titlePrimaryText={(
 						<span>
 							<b>Je découvre les solutions qui s’offrent à moi</b>, pour créer mon entreprise…
 						</span>
-					}
+					)}
 					titleSecondaryText={<>…quel que soit le stade de mon projet de création !</>}
 					imgSrc="/images/entrepreneurs.webp"
 				>

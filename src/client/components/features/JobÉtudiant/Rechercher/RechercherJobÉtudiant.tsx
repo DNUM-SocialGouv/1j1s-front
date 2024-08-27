@@ -66,13 +66,15 @@ export function RechercherJobÉtudiant(props: RechercherJobEtudiantProps) {
 
 	const étiquettesRecherche = useMemo(() => {
 		if (offreEmploiQuery.nomLocalisation) {
-			return <TagList list={[
-				formatLibelleLocalisation(
-					offreEmploiQuery.nomLocalisation,
-					getCodeLibelleLocalisation(offreEmploiQuery.codeLocalisation, offreEmploiQuery.codePostalLocalisation, offreEmploiQuery.typeLocalisation) || '',
-				),
-			]} aria-label="Filtres de la recherche"
-			       />;
+			return (
+				<TagList list={[
+					formatLibelleLocalisation(
+						offreEmploiQuery.nomLocalisation,
+						getCodeLibelleLocalisation(offreEmploiQuery.codeLocalisation, offreEmploiQuery.codePostalLocalisation, offreEmploiQuery.typeLocalisation) || '',
+					),
+				]} aria-label="Filtres de la recherche"
+				/>
+			);
 		} else {
 			return undefined;
 		}

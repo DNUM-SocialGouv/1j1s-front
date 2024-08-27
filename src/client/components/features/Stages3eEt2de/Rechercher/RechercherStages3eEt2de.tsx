@@ -74,26 +74,28 @@ export default function RechercherStages3eEt2de() {
 		return <TagList list={filtreList} aria-label="Filtres de la recherche"/>;
 	}, [stage3eEt2deQuery.codePostal, stage3eEt2deQuery.ville]);
 
-	return <>
-		<Head
-			title={title}
-			description="Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3e et 2de"
-			robots="index,follow"
-		/>
-		<main id="contenu">
-			<RechercherSolutionLayout
-				banniere={<BaniereStages3eEt2de/>}
-				erreurRecherche={erreurRecherche}
-				etiquettesRecherche={etiquettesRecherche}
-				formulaireRecherche={<FormulaireRechercheStages3eEt2de/>}
-				isChargement={isLoading}
-				isEtatInitial={empty(stage3eEt2deQuery)}
-				listeSolutionElement={<ListeResultatsStage3eEt2de resultatList={stage3eEt2deList}/>}
-				messageResultatRecherche={messageResultatsRecherche}
-				nombreTotalSolutions={stage3eEt2deList?.nombreDeResultats ?? 0}
+	return (
+		<>
+			<Head
+				title={title}
+				description="Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3e et 2de"
+				robots="index,follow"
 			/>
-		</main>
-	</>;
+			<main id="contenu">
+				<RechercherSolutionLayout
+					banniere={<BaniereStages3eEt2de/>}
+					erreurRecherche={erreurRecherche}
+					etiquettesRecherche={etiquettesRecherche}
+					formulaireRecherche={<FormulaireRechercheStages3eEt2de/>}
+					isChargement={isLoading}
+					isEtatInitial={empty(stage3eEt2deQuery)}
+					listeSolutionElement={<ListeResultatsStage3eEt2de resultatList={stage3eEt2deList}/>}
+					messageResultatRecherche={messageResultatsRecherche}
+					nombreTotalSolutions={stage3eEt2deList?.nombreDeResultats ?? 0}
+				/>
+			</main>
+		</>
+	);
 }
 
 function BaniereStages3eEt2de() {

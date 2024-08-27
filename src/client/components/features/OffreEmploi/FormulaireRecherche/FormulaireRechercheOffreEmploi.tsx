@@ -136,19 +136,21 @@ export function FormulaireRechercheOffreEmploi() {
 					<ComboboxLocalisation defaultValue={inputLocalisation}/>
 				</div>
 
-				{isSmallScreen && <div>
-					<ButtonComponent
-						appearance="quaternary"
-						icon={<Icon name="filter"/>}
-						iconPosition="right"
-						label="Filtrer ma recherche"
-						onClick={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
-					/>
-					<input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
-					<input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
-					<input type="hidden" name="experienceExigence" value={inputExpérience}/>
-					<input type="hidden" name="grandDomaine" value={inputDomaine}/>
-				</div>}
+				{isSmallScreen && (
+					<div>
+						<ButtonComponent
+							appearance="quaternary"
+							icon={<Icon name="filter"/>}
+							iconPosition="right"
+							label="Filtrer ma recherche"
+							onClick={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
+						/>
+						<input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
+						<input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
+						<input type="hidden" name="experienceExigence" value={inputExpérience}/>
+						<input type="hidden" name="grandDomaine" value={inputDomaine}/>
+					</div>
+				)}
 
 				{!isSmallScreen && (
 					<>

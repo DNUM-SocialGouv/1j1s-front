@@ -25,17 +25,19 @@ export default function ActualitesPage({ cartesActualites }: ActualitesPageProps
 	const articleCardList = useMemo(() => {
 		return cartesActualites.map((carte, index) => {
 			const isExternalLink = !carte.article;
-			return <ArticleCard
-				key={index}
-				imageSrc={carte.bannière?.src || ''}
-				titleLabel={carte.titre}
-				link={carte.link}
-				linkLabel={isExternalLink ? 'En savoir plus' : undefined}
-				iconName={isExternalLink ? 'external-redirection' : undefined}
-				titleHeadingTag={'h2'}
-			>
-				<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
-			</ArticleCard>;
+			return (
+				<ArticleCard
+					key={index}
+					imageSrc={carte.bannière?.src || ''}
+					titleLabel={carte.titre}
+					link={carte.link}
+					linkLabel={isExternalLink ? 'En savoir plus' : undefined}
+					iconName={isExternalLink ? 'external-redirection' : undefined}
+					titleHeadingTag={'h2'}
+				>
+					<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
+				</ArticleCard>
+			);
 		});
 	}, [cartesActualites]);
 

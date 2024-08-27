@@ -49,23 +49,25 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 			return <div role={'alert'}><ErrorComponent errorType={erreurRecherche}/></div>;
 		}
 		if (isChargement) {
-			return <>
-				<div className={'separator'}>
-					<Container className={styles.informationResultat}>
-						<Skeleton type="line" isLoading={true} className={styles.nombreResultats}>
-						</Skeleton>
-					</Container>
-				</div>
+			return (
+				<>
+					<div className={'separator'}>
+						<Container className={styles.informationResultat}>
+							<Skeleton type="line" isLoading={true} className={styles.nombreResultats}>
+							</Skeleton>
+						</Container>
+					</div>
 
-				<div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
-					<Container>
-						<Skeleton type="card" isLoading={true} repeat={2}
-							className={styles.listeSolutions}
-						>
-						</Skeleton>
-					</Container>
-				</div>
-			</>;
+					<div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
+						<Container>
+							<Skeleton type="card" isLoading={true} repeat={2}
+								className={styles.listeSolutions}
+							>
+							</Skeleton>
+						</Container>
+					</div>
+				</>
+			);
 		}
 
 		if (nombreTotalSolutions === 0) {
@@ -78,32 +80,34 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 
 		const isRechercheEnCoursOuPlusieursResultats = nombreTotalSolutions !== undefined && nombreTotalSolutions > 0;
 		if (isRechercheEnCoursOuPlusieursResultats) {
-			return <>
-				<div className={'separator'}>
-					<Container className={styles.informationResultat}>
-						{etiquettesRecherche}
-						<div role={'status'}>
-							<h2>{messageResultatRecherche}</h2>
-						</div>
-					</Container>
-				</div>
-
-				<div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
-					<Container>
-						{listeSolutionElement}
-						{footnote && <div className={styles.footnote}>{footnote}</div>}
-						{paginationOffset && nombreTotalSolutions && nombreTotalSolutions > paginationOffset &&
-							<div className={styles.pagination}>
-								<Pagination
-									numberOfResult={nombreTotalSolutions}
-									numberOfResultPerPage={paginationOffset}
-									maxPage={maxPage}
-								/>
+			return (
+				<>
+					<div className={'separator'}>
+						<Container className={styles.informationResultat}>
+							{etiquettesRecherche}
+							<div role={'status'}>
+								<h2>{messageResultatRecherche}</h2>
 							</div>
-						}
-					</Container>
-				</div>
-			</>;
+						</Container>
+					</div>
+
+					<div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
+						<Container>
+							{listeSolutionElement}
+							{footnote && <div className={styles.footnote}>{footnote}</div>}
+							{paginationOffset && nombreTotalSolutions && nombreTotalSolutions > paginationOffset && (
+								<div className={styles.pagination}>
+									<Pagination
+										numberOfResult={nombreTotalSolutions}
+										numberOfResultPerPage={paginationOffset}
+										maxPage={maxPage}
+									/>
+								</div>
+							)}
+						</Container>
+					</div>
+				</>
+			);
 		}
 	}
 

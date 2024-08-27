@@ -48,14 +48,16 @@ export function DetailAlternance({ annonce }: { annonce: Alternance }) {
 		if (isOfferCanceled) {
 			return <div className={styles.offerFilled}>offre déjà pourvue</div>;
 		}
-		return annonce.id && <ButtonComponent
-			appearance={'primary'}
-			icon={<Icon name="arrow-right"/>}
-			iconPosition="right"
-			className={styles.postuler}
-			label={'Postuler'}
-			onClick={() => toggleModal()}
-		                     />;
+		return annonce.id && (
+			<ButtonComponent
+				appearance={'primary'}
+				icon={<Icon name="arrow-right"/>}
+				iconPosition="right"
+				className={styles.postuler}
+				label={'Postuler'}
+				onClick={() => toggleModal()}
+			/>
+		);
 	}
 
 	return (
@@ -64,10 +66,10 @@ export function DetailAlternance({ annonce }: { annonce: Alternance }) {
 				<h1>{annonce.titre}</h1>
 				{annonce.entreprise.nom && <p className={styles.sousTitre}>{annonce.entreprise.nom}</p>}
 				<TagList aria-label="mots clés de l‘offre" className={styles.tags} list={getTags()}/>
-				{isFranceTravail(annonce.source) && annonce.lienPostuler &&
+				{isFranceTravail(annonce.source) && annonce.lienPostuler && (
 					<Link appearance={'asPrimaryButton'} href={annonce.lienPostuler} className={styles.postuler}>Postuler sur
 						France Travail<Link.Icon/></Link>
-				}
+				)}
 				{isMatcha(annonce.source) && <StatusOffreMatcha/>
 				}
 			</header>
@@ -77,12 +79,14 @@ export function DetailAlternance({ annonce }: { annonce: Alternance }) {
 						<div className={styles.description}>
 							<dt>Description du poste</dt>
 							<dd dangerouslySetInnerHTML={{ __html: description }}/>
-						</div>)}
+						</div>
+					)}
 					{annonce.descriptionEmployeur && (
 						<div className={styles.descriptionEmployeur}>
 							<dt>Description de l’entreprise</dt>
 							<dd dangerouslySetInnerHTML={{ __html: descriptionEmployeur }}/>
-						</div>)}
+						</div>
+					)}
 					{annonce.compétences && annonce.compétences.length > 0 && (
 						<div className={styles.competences}>
 							<dt>Compétences types du métier</dt>

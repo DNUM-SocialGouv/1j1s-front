@@ -15,14 +15,16 @@ export function FormulaireÉtapeLayout(props: FormulaireEtapeLayoutProps) {
 	return (
 		<Container className={styles.container}>
 			<ÉtapeFormulaire étape={étape} />
-			{ urlÉtapePrécédente && <Link
-				href={urlÉtapePrécédente}
-				appearance="asSecondaryButton"
-				className={styles.boutonRetour}
-			>
-				<Link.Icon name="angle-left"/>
+			{ urlÉtapePrécédente && (
+				<Link
+					href={urlÉtapePrécédente}
+					appearance="asSecondaryButton"
+					className={styles.boutonRetour}
+				>
+					<Link.Icon name="angle-left"/>
         Retour à l’étape précédente
-			</Link>}
+				</Link>
+			)}
 			{ children }
 		</Container>
 	);

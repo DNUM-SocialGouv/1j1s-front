@@ -13,23 +13,25 @@ export function EchecEnvoyerCandidatureStage3eEt2de(props: {
 	etatSoumission: EtatSoumission,
 	retourFormulaire: () => void,
 }) {
-	return <Container className={styles.container}>
-		<h1 className={styles.titre}>Une erreur est survenue</h1>
-		{props.etatSoumission === ErreurMetier.CONFLIT_D_IDENTIFIANT ? DESCRIPTION_ERREUR_CONFLIT_D_IDENTIFIANT : DESCRIPTION_ERREUR_AUTRE}
-		<div className={styles.boutonsCTA}>
-			<ButtonComponent
-				appearance="primary"
-				label="Retour au formulaire"
-				onClick={props.retourFormulaire}
-				className={styles.boutonRetourFormulaire}
-			/>
-			<BackButton
-				label="Retour à la recherche"
-				aria-label="Retour à la recherche"
-				icon={undefined}
-				className={styles.boutonRetourRecherche}
-				appearance="secondary"
-			/>
-		</div>
-	</Container>;
+	return (
+		<Container className={styles.container}>
+			<h1 className={styles.titre}>Une erreur est survenue</h1>
+			{props.etatSoumission === ErreurMetier.CONFLIT_D_IDENTIFIANT ? DESCRIPTION_ERREUR_CONFLIT_D_IDENTIFIANT : DESCRIPTION_ERREUR_AUTRE}
+			<div className={styles.boutonsCTA}>
+				<ButtonComponent
+					appearance="primary"
+					label="Retour au formulaire"
+					onClick={props.retourFormulaire}
+					className={styles.boutonRetourFormulaire}
+				/>
+				<BackButton
+					label="Retour à la recherche"
+					aria-label="Retour à la recherche"
+					icon={undefined}
+					className={styles.boutonRetourRecherche}
+					appearance="secondary"
+				/>
+			</div>
+		</Container>
+	);
 }

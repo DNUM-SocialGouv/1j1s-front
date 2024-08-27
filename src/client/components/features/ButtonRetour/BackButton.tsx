@@ -26,20 +26,21 @@ export function BackButton({ className, label= 'Retour', ...rest }: BackButtonPr
 	}, []);
 
 	return (
-		displayBackButton &&
-		<div className={className}>
-			<Container>
-				<ButtonComponent
-					role="link"
-					appearance="secondary"
-					aria-label={'Retour vers la page précédente'}
-					icon={<Icon name="angle-left" />}
-					iconPosition="left"
-					label={label}
-					onClick={() => router.back()}
-					{...rest}
-				/>
-			</Container>
-		</div>
+		displayBackButton && (
+			<div className={className}>
+				<Container>
+					<ButtonComponent
+						role="link"
+						appearance="secondary"
+						aria-label={'Retour vers la page précédente'}
+						icon={<Icon name="angle-left" />}
+						iconPosition="left"
+						label={label}
+						onClick={() => router.back()}
+						{...rest}
+					/>
+				</Container>
+			</div>
+		)
 	);
 }

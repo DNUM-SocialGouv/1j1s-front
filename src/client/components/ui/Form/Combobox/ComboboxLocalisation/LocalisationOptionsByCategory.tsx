@@ -13,7 +13,7 @@ type LocalisationOptionsByCategoryProps = {
 
 export const LocalisationOptionsByCategory = ({ localisations, optionMessage }: LocalisationOptionsByCategoryProps) => (
 	<>
-		{localisations.regionList.length > 0 &&
+		{localisations.regionList.length > 0 && (
 			<Combobox.Category name="Régions">
 				{localisations.regionList.map((suggestion) =>
 					(
@@ -22,9 +22,9 @@ export const LocalisationOptionsByCategory = ({ localisations, optionMessage }: 
 						</Combobox.Option>
 					))}
 			</Combobox.Category>
-		}
+		)}
 
-		{localisations.departementList.length > 0 &&
+		{localisations.departementList.length > 0 && (
 			<Combobox.Category name="Départements">
 				{localisations.departementList.map((suggestion) =>
 					(
@@ -33,9 +33,9 @@ export const LocalisationOptionsByCategory = ({ localisations, optionMessage }: 
 						</Combobox.Option>
 					))}
 			</Combobox.Category>
-		}
+		)}
 
-		{localisations.communeList.length > 0 &&
+		{localisations.communeList.length > 0 && (
 			<Combobox.Category name="Communes">
 				{localisations.communeList.map((suggestion) =>
 					(
@@ -44,7 +44,7 @@ export const LocalisationOptionsByCategory = ({ localisations, optionMessage }: 
 						</Combobox.Option>
 					))}
 			</Combobox.Category>
-		}
+		)}
 		<Combobox.AsyncMessage>
 			{optionMessage}
 		</Combobox.AsyncMessage>

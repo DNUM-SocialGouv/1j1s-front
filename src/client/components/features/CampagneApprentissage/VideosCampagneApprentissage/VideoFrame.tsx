@@ -44,50 +44,52 @@ function useYoutubeService(): [boolean, VideoService['allow']] {
 export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 	const [youtubeAllowed, allowYoutube] = useYoutubeService();
 
-	return <div className={classNames(styles.video, className)}>
-		{youtubeAllowed ? (
-			<iframe
-				width="326"
-				height="180"
-				src={`https://www.youtube-nocookie.com/embed/${videoToDisplay.videoId}`}
-				title={videoToDisplay.titre}
-				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-				allowFullScreen
-				className={styles.iframe}
-			/>
-		) : (
-			<>
-				<Image
-					src={`${YOUTUBE_THUMBNAIL_URL}${videoToDisplay.videoId}/0.jpg`}
-					alt={''}
+	return (
+		<div className={classNames(styles.video, className)}>
+			{youtubeAllowed ? (
+				<iframe
 					width="326"
 					height="180"
-					className={styles.placeholderThumbnail}
+					src={`https://www.youtube-nocookie.com/embed/${videoToDisplay.videoId}`}
+					title={videoToDisplay.titre}
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen
+					className={styles.iframe}
 				/>
-				<div className={styles.placeholderContainer}>
-					<div className={styles.placeholderContent}>
-						<p>
+			) : (
+				<>
+					<Image
+						src={`${YOUTUBE_THUMBNAIL_URL}${videoToDisplay.videoId}/0.jpg`}
+						alt={''}
+						width="326"
+						height="180"
+						className={styles.placeholderThumbnail}
+					/>
+					<div className={styles.placeholderContainer}>
+						<div className={styles.placeholderContent}>
+							<p>
 							Cette vidéo est hébergée par <Link href="https://www.youtube.com/t/terms" className={styles.linkToYoutubeTerms}>
 							youtube.com
-								<Link.Icon/>
-							</Link>
-						</p>
-						<p>
+									<Link.Icon/>
+								</Link>
+							</p>
+							<p>
 							En l’affichant, vous acceptez ses conditions d’utilisation et les potentiels cookies déposés
 							par ce site.
-						</p>
-						<ButtonComponent
-							label={'Accepter les cookies'}
-							onClick={allowYoutube}
-							appearance={'secondary'}
-							className={styles.buttonAcceptCookies}
-							icon={<Icon name="check-line"/>}
-							iconPosition="right"
-						/>
+							</p>
+							<ButtonComponent
+								label={'Accepter les cookies'}
+								onClick={allowYoutube}
+								appearance={'secondary'}
+								className={styles.buttonAcceptCookies}
+								icon={<Icon name="check-line"/>}
+								iconPosition="right"
+							/>
+						</div>
 					</div>
-				</div>
-			</>
-		)
-		}
-	</div>;
+				</>
+			)
+			}
+		</div>
+	);
 }

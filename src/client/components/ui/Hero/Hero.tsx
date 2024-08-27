@@ -9,11 +9,13 @@ interface HeroIllustrationProps extends React.ComponentPropsWithoutRef<'div'> {
 }
 
 export function Hero({ children, className, ...rest }: React.ComponentPropsWithoutRef<'div'>) {
-	return <div className={classNames(styles.hero, className)} {...rest}>
-		<div className={styles.heroTextWrapper}>
-			{ children }
+	return (
+		<div className={classNames(styles.hero, className)} {...rest}>
+			<div className={styles.heroTextWrapper}>
+				{ children }
+			</div>
 		</div>
-	</div>;
+	);
 }
 
 export function HeroWithIllustration({ children, className, image, ...rest }: HeroIllustrationProps) {
@@ -30,13 +32,17 @@ export function HeroWithIllustration({ children, className, image, ...rest }: He
 }
 
 export function HeroPrimaryText({ children, className, ...rest }: React.ComponentPropsWithoutRef<'span'>) {
-	return <span className={classNames(styles.heroPrimaryText, className)} {...rest}>
-		{children}
-	</span>;
+	return (
+		<span className={classNames(styles.heroPrimaryText, className)} {...rest}>
+			{children}
+		</span>
+	);
 }
 
 export function HeroSecondaryText({ children, className, ...rest }: React.ComponentPropsWithoutRef<'p'>) {
-	return <p className={classNames(styles.heroSecondaryText, className)} {...rest}>
-		{children}
-	</p>;
+	return (
+		<p className={classNames(styles.heroSecondaryText, className)} {...rest}>
+			{children}
+		</p>
+	);
 }

@@ -49,20 +49,24 @@ export function Services({ inclus, optionnels }: ServicesProps) {
 			<h2>Équipements et services inclus</h2>
 			<ul>
 				{inclus.map((service) => (
-					service !== Service.NON_RENSEIGNE && <li key={service}>
-						<Icon name={Icônes[service]}/>
-						{service}
-					</li>
+					service !== Service.NON_RENSEIGNE && (
+						<li key={service}>
+							<Icon name={Icônes[service]}/>
+							{service}
+						</li>
+					)
 				))}
 			</ul>
 			{hasServiceInclus && <p>Aucun service inclus</p>}
 			<h2>Équipements et services optionnels</h2>
 			<ul>
 				{optionnels.map((service) => (
-					service !== Service.NON_RENSEIGNE && <li key={service}>
-						<Icon name={Icônes[service]} />
-						{service}
-					</li>
+					service !== Service.NON_RENSEIGNE && (
+						<li key={service}>
+							<Icon name={Icônes[service]} />
+							{service}
+						</li>
+					)
 				))}
 			</ul>
 			{hasServiceOptionnels && <p>Aucun service optionnel</p>}

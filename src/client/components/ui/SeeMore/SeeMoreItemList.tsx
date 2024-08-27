@@ -60,7 +60,7 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 	if (!itemList || itemList.length <= 0) return null;
 	return (
 		<>
-			{itemListToDisplay.length > 0 &&
+			{itemListToDisplay.length > 0 && (
 				<div
 					id={`section-${ariaId}`}
 					{...rest}
@@ -71,8 +71,8 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 						)}
 					</ul>
 				</div>
-			}
-			{itemList.length > numberOfVisibleItems &&
+			)}
+			{itemList.length > numberOfVisibleItems && (
 				<ButtonComponent className={classNames(styles.seeMoreButton, className)}
 												 appearance={'quaternary'}
 												 label={buttonLabel}
@@ -85,7 +85,7 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 												 aria-label={buttonAriaLabel}
 				>
 				</ButtonComponent>
-			}
+			)}
 		</>
 	);
 }

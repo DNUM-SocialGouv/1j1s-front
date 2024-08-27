@@ -25,52 +25,54 @@ export default function AutresBesoins26ans(
 		isMoreThanOneCheckboxSelected ? setIsMissionLocaleModalOpen(true) : setIsInscriptionFranceTravailModalOpen(true);
 	}
 
-	return <>
-		<ButtonComponent
-			appearance={'quaternary'}
-			className={styles.boutonRetour}
-			onClick={onBackButton}
-			label="Retour"
-			icon={<Icon name={'angle-left'}/>}
-			iconPosition={'left'}
-		/>
-		<form onSubmit={onSubmit} className={styles.autresBesoins}>
-			<fieldset>
-				<legend className={styles.question}>Rencontrez-vous d’autres besoins ?</legend>
-				<div className={styles.autresBesoinsReponsesWrapper}>
-					<Checkbox
-						className={styles.reponse}
-						name={NAME_CHECKBOX}
-						label="Logement"
-					/>
-					<Checkbox
-						className={styles.reponse}
-						name={NAME_CHECKBOX}
-						label="Santé"
-					/>
-					<Checkbox
-						className={styles.reponse}
-						name={NAME_CHECKBOX}
-						label="Difficultés administratives ou juridiques"
-					/>
-					<Checkbox
-						className={styles.reponse}
-						name={NAME_CHECKBOX}
-						label="Problématique d‘accès aux droits"
-					/>
-					<Checkbox
-						className={styles.reponse}
-						name={NAME_CHECKBOX}
-						label="Maîtrise de français"
-					/>
-					<Checkbox
-						className={styles.reponse}
-						name={NAME_CHECKBOX}
-						label="Contraintes familiales"
-					/>
-				</div>
-			</fieldset>
-			<ButtonComponent label="Valider"/>
-		</form>
-	</>;
+	return (
+		<>
+			<ButtonComponent
+				appearance={'quaternary'}
+				className={styles.boutonRetour}
+				onClick={onBackButton}
+				label="Retour"
+				icon={<Icon name={'angle-left'}/>}
+				iconPosition={'left'}
+			/>
+			<form onSubmit={onSubmit} className={styles.autresBesoins}>
+				<fieldset>
+					<legend className={styles.question}>Rencontrez-vous d’autres besoins ?</legend>
+					<div className={styles.autresBesoinsReponsesWrapper}>
+						<Checkbox
+							className={styles.reponse}
+							name={NAME_CHECKBOX}
+							label="Logement"
+						/>
+						<Checkbox
+							className={styles.reponse}
+							name={NAME_CHECKBOX}
+							label="Santé"
+						/>
+						<Checkbox
+							className={styles.reponse}
+							name={NAME_CHECKBOX}
+							label="Difficultés administratives ou juridiques"
+						/>
+						<Checkbox
+							className={styles.reponse}
+							name={NAME_CHECKBOX}
+							label="Problématique d‘accès aux droits"
+						/>
+						<Checkbox
+							className={styles.reponse}
+							name={NAME_CHECKBOX}
+							label="Maîtrise de français"
+						/>
+						<Checkbox
+							className={styles.reponse}
+							name={NAME_CHECKBOX}
+							label="Contraintes familiales"
+						/>
+					</div>
+				</fieldset>
+				<ButtonComponent label="Valider"/>
+			</form>
+		</>
+	);
 }

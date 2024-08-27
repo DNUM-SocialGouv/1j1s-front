@@ -70,13 +70,17 @@ function CardImage(props: { imageSrcList: ImageSrcListProps }) {
 	const hasNoImage = imageSrcList.length === 0;
 	const hasOnlyOneImage = imageSrcList.length === 1;
 
-	if (hasNoImage) return <div className={styles.CardImageWrapper}>
-		<Image src={'/images/image-par-defaut-carte.webp'} alt="" width={360} height={180}/>
-	</div>;
+	if (hasNoImage) return (
+		<div className={styles.CardImageWrapper}>
+			<Image src={'/images/image-par-defaut-carte.webp'} alt="" width={360} height={180}/>
+		</div>
+	);
 
-	if (hasOnlyOneImage) return <div className={styles.CardImageWrapper}>
-		<Image src={imageSrcList[0]} alt="" width={360} height={180}/>
-	</div>;
+	if (hasOnlyOneImage) return (
+		<div className={styles.CardImageWrapper}>
+			<Image src={imageSrcList[0]} alt="" width={360} height={180}/>
+		</div>
+	);
 
 	return <CardAnnonceCarousel imageSrcList={imageSrcList}/>;
 }

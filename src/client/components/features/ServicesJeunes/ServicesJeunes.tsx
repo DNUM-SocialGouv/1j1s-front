@@ -51,12 +51,14 @@ function ServiceJeuneCard({ serviceJeune }: ServiceJeuneCardProps) {
 	} = serviceJeune;
 	const titre = useSanitize(dirtyTitre);
 
-	return <FlippingCard
-		className={styles.card}
-		category={categorie}
-		imageUrl={banniere?.src}
-		link={link}
-		title={titre}
-		flippingCardContent={concerne}
-	       />;
+	return (
+		<FlippingCard
+			className={styles.card}
+			category={categorie}
+			imageUrl={banniere?.src}
+			link={link}
+			title={titre}
+			flippingCardContent={concerne}
+		/>
+	);
 }

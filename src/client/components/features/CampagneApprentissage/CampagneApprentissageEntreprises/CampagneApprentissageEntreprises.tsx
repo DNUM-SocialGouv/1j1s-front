@@ -59,13 +59,13 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 			</header>
 			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage :" raisons={raisons}/>
 			<EnSavoirPlusApprentissageEntreprises/>
-			{ videos.length > 0 &&
+			{ videos.length > 0 && (
 				<VideosCampagneApprentissage
 					titre={'Ils ont choisi d’embaucher un apprenti ! Pourquoi pas vous ?'}
 					description={'Découvrez les témoignages des maîtres d’apprentissage et des apprentis qu’ils accompagnent au quotidien.'}
 					videos={videos}
 				/>
-			}
+			)}
 			<InformationSurEmbaucheApprenti/>
 		</>
 	);

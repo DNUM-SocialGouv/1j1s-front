@@ -70,7 +70,8 @@ export default function Footer() {
 										{link.title}
 										<Link.Icon/>
 									</Link>
-								</li>))}
+								</li>
+							))}
 						</ul>
 					</div>
 				</div>

@@ -150,23 +150,25 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 				<input type="hidden" name="longitudeCommune" value={matchingOption?.coordonnées.longitude ?? ''}/>
 				<input type="hidden" name="codePostal" value={matchingOption?.codePostal ?? ''}/>
 			</div>
-			{showRadiusInput && isCommuneValid && userInput && 	<Champ>
-				<Champ.Label>
+			{showRadiusInput && isCommuneValid && userInput && 	(
+				<Champ>
+					<Champ.Label>
 					Rayon
-					<Champ.Label.Complement>Exemple : 30 km</Champ.Label.Complement>
-				</Champ.Label>
-				<Champ.Input
-					render={SelectSimple}
-					optionsAriaLabel={'Rayons'}
-					name={'distanceCommune'}
-					defaultValue={defaultDistanceProps || DEFAULT_RADIUS_VALUE}
-				>
-					{radiusList.map((option) =>
-						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
-					)}
-				</Champ.Input>
-				<Champ.Error/>
-			</Champ>}
+						<Champ.Label.Complement>Exemple : 30 km</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input
+						render={SelectSimple}
+						optionsAriaLabel={'Rayons'}
+						name={'distanceCommune'}
+						defaultValue={defaultDistanceProps || DEFAULT_RADIUS_VALUE}
+					>
+						{radiusList.map((option) =>
+							<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
+						)}
+					</Champ.Input>
+					<Champ.Error/>
+				</Champ>
+			)}
 		</>
 	);
 });

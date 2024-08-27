@@ -45,35 +45,36 @@ export function FormulaireRechercheStages3eEt2de() {
 		return router.push({ query }, undefined, { shallow: true });
 	}
 
-	return (<>
-		<p className={styles.champsInformation}>Tous les champs sont obligatoires sauf mention contraire</p>
-		<form
-			ref={rechercheStage3eEt2deForm}
-			role="search"
-			className={styles.rechercheOffreForm}
-			aria-label="Rechercher un stage de 3e et 2de"
-			onSubmit={updateRechercherStage3eEt2deQueryParams}
-		>
-			<div className={styles.filtresRechercherOffre}>
-				<MetierDependenciesProvider metierService={metierService}>
-					<ComboboxMetiers
-						defaultValue={metierDefaultValue}
-						placeholder={'Exemples : boulanger, styliste...'}
-						label={'Métier (facultatif)'}
-						valueName={'codeMetier'}
+	return (
+		<>
+			<p className={styles.champsInformation}>Tous les champs sont obligatoires sauf mention contraire</p>
+			<form
+				ref={rechercheStage3eEt2deForm}
+				role="search"
+				className={styles.rechercheOffreForm}
+				aria-label="Rechercher un stage de 3e et 2de"
+				onSubmit={updateRechercherStage3eEt2deQueryParams}
+			>
+				<div className={styles.filtresRechercherOffre}>
+					<MetierDependenciesProvider metierService={metierService}>
+						<ComboboxMetiers
+							defaultValue={metierDefaultValue}
+							placeholder={'Exemples : boulanger, styliste...'}
+							label={'Métier (facultatif)'}
+							valueName={'codeMetier'}
+						/>
+					</MetierDependenciesProvider>
+					<ComboboxCommune required showRadiusInput defaultCommune={defaultCommuneValue} defaultDistance={distanceCommune}/>
+				</div>
+				<div className={styles.buttonRechercher}>
+					<ButtonComponent
+						label="Rechercher"
+						icon={<Icon name="magnifying-glass"/>}
+						iconPosition="right"
+						type="submit"
 					/>
-				</MetierDependenciesProvider>
-				<ComboboxCommune required showRadiusInput defaultCommune={defaultCommuneValue} defaultDistance={distanceCommune}/>
-			</div>
-			<div className={styles.buttonRechercher}>
-				<ButtonComponent
-					label="Rechercher"
-					icon={<Icon name="magnifying-glass"/>}
-					iconPosition="right"
-					type="submit"
-				/>
-			</div>
-		</form>
-	</>
+				</div>
+			</form>
+		</>
 	);
 }

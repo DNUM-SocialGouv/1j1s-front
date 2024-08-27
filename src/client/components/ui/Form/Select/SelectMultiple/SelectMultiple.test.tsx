@@ -865,16 +865,18 @@ describe('<SelectMultiple/>', () => {
 			const user = userEvent.setup();
 			let selectValues;
 
-			const component = (value: Array<string>) => <form role="form" aria-label={'test'} onSubmit={(formEvent) => {
-				selectValues = getAllFormData(formEvent, 'name');
-			}}
-			>
-				<SelectMultiple optionsAriaLabel={'options'} value={value} name="name">
-					<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
-					<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
-				</SelectMultiple>
-				<button>Submit</button>
-			</form>;
+			const component = (value: Array<string>) => (
+				<form role="form" aria-label={'test'} onSubmit={(formEvent) => {
+					selectValues = getAllFormData(formEvent, 'name');
+				}}
+				>
+					<SelectMultiple optionsAriaLabel={'options'} value={value} name="name">
+						<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
+						<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
+					</SelectMultiple>
+					<button>Submit</button>
+				</form>
+			);
 
 			const { rerender } = render(component(['1']));
 

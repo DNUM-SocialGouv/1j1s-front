@@ -99,15 +99,17 @@ export function InformationsGénérales({
 					</tr>
 				</tbody>
 			</table>
-			{localisationAffichable && <table className={styles.localisation}>
-				<caption><Icon name='roadmap' aria-hidden={false} aria-label="Localisation"/></caption>
-				<tbody>
-					<tr>
-						<th scope="row">Localisation</th>
-						<td>{localisationAffichable}</td>
-					</tr>
-				</tbody>
-			</table>}
+			{localisationAffichable && (
+				<table className={styles.localisation}>
+					<caption><Icon name='roadmap' aria-hidden={false} aria-label="Localisation"/></caption>
+					<tbody>
+						<tr>
+							<th scope="row">Localisation</th>
+							<td>{localisationAffichable}</td>
+						</tr>
+					</tbody>
+				</table>
+			)}
 			<table className={styles.disponibilite}>
 				<caption><Icon name='suitcase' aria-hidden={false} aria-label="Disponibilité"/></caption>
 				<tbody>

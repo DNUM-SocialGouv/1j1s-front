@@ -145,10 +145,12 @@ const AfficherResultatDeRecherche = React.forwardRef(function AfficherResultatDe
 				ref={ref}
 				resultats={<Hits hitComponent={resultatDeRecherche}/>}
 				skeletonRepeat={nombreDeSkeleton}
-				pagination={<MeiliSearchPagination numberOfResultPerPage={nombreDeResultatParPage}
+				pagination={(
+					<MeiliSearchPagination numberOfResultPerPage={nombreDeResultatParPage}
 																					 className={styles.pagination}
 																					 onPageChange={scrollToTopOfListeDesResultats}
-				            />}
+					/>
+				)}
 				isLoading={isInstantSearchLoading}
 				isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow}
 			/>

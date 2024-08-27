@@ -82,16 +82,18 @@ export const InputChamp: <Props extends ComponentChildrenPropsNecessary>(props: 
 			onInvalidProps(event, ...args);
 		}, [onInvalidProps, setErrorMessage]);
 
-		return (<Render
-			onTouch={onTouch}
-			aria-describedby={`${ariaDescribedby} ${errorMessage ? errorId : ''} ${hintId}`}
-			aria-invalid={errorMessage !== ''}
-			id={inputId}
-			onInvalid={onInvalid}
-			onChange={onChange}
-			ref={outerRef}
-			{...rest}
-		        />);
+		return (
+			<Render
+				onTouch={onTouch}
+				aria-describedby={`${ariaDescribedby} ${errorMessage ? errorId : ''} ${hintId}`}
+				aria-invalid={errorMessage !== ''}
+				id={inputId}
+				onInvalid={onInvalid}
+				onChange={onChange}
+				ref={outerRef}
+				{...rest}
+			/>
+		);
 	});
 
 function ErrorChamp({ id, ...rest }: Omit<ComponentPropsWithoutRef<typeof Error>, 'children'>) {

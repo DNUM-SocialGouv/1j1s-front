@@ -61,13 +61,15 @@ export function RechercherJobEte(props: RechercherJobEteProps) {
 
 	const etiquettesRecherche = useMemo(() => {
 		if (offreEmploiQuery.nomLocalisation) {
-			return <TagList list={[
-				formatLibelleLocalisation(
-					offreEmploiQuery.nomLocalisation,
-					getCodeLibelleLocalisation(offreEmploiQuery.codeLocalisation, offreEmploiQuery.codePostalLocalisation, offreEmploiQuery.typeLocalisation) || '',
-				),
-			]} aria-label="Filtres de la recherche"
-			       />;
+			return (
+				<TagList list={[
+					formatLibelleLocalisation(
+						offreEmploiQuery.nomLocalisation,
+						getCodeLibelleLocalisation(offreEmploiQuery.codeLocalisation, offreEmploiQuery.codePostalLocalisation, offreEmploiQuery.typeLocalisation) || '',
+					),
+				]} aria-label="Filtres de la recherche"
+				/>
+			);
 		} else {
 			return undefined;
 		}

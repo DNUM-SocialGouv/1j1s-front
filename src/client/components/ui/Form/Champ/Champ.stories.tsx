@@ -30,7 +30,8 @@ export const Required: Story = {
 				<Champ.Label>Pays <Champ.Label.Complement>(requis)</Champ.Label.Complement></Champ.Label>
 				<Champ.Input render={Input} defaultValue="France" required={true}/>
 				<Champ.Error/>
-			</Champ>);
+			</Champ>
+		);
 	},
 };
 
@@ -71,7 +72,8 @@ export const ComposantNonInput: Story = {
 					<Combobox.Option>Italie</Combobox.Option>
 				</Champ.Input>
 				<Champ.Error/>
-			</Champ>);
+			</Champ>
+		);
 	},
 };
 

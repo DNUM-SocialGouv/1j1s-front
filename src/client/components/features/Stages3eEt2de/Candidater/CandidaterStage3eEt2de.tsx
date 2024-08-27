@@ -25,23 +25,27 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 	const [etatSoumission, setEtatSoumission] =
 		useState<EtatSoumission>('initial');
 
-	return <>
-		{etatSoumission === 'initial' && <FormulaireCandidaterStage3eEt2de
-			nomEntreprise={nomEntreprise}
-			metiersStage3eEt2de={appellations}
-			siret={siret}
-			modeDeContact={modeDeContact}
-			onSuccess={() => setEtatSoumission('succes')}
-			onFailure={(erreur: Erreur) => setEtatSoumission(erreur)}
-		                                 />}
+	return (
+		<>
+			{etatSoumission === 'initial' && (
+				<FormulaireCandidaterStage3eEt2de
+					nomEntreprise={nomEntreprise}
+					metiersStage3eEt2de={appellations}
+					siret={siret}
+					modeDeContact={modeDeContact}
+					onSuccess={() => setEtatSoumission('succes')}
+					onFailure={(erreur: Erreur) => setEtatSoumission(erreur)}
+				/>
+			)}
 
-		<div role={'status'}>
-			{etatSoumission === 'succes' && <SuccesEnvoyerCandidatureStage3eEt2de />}
-		</div>
+			<div role={'status'}>
+				{etatSoumission === 'succes' && <SuccesEnvoyerCandidatureStage3eEt2de />}
+			</div>
 
-		<div role={'alert'}>
-			{isErreur(etatSoumission) && <EchecEnvoyerCandidatureStage3eEt2de etatSoumission={etatSoumission} retourFormulaire={() => setEtatSoumission('initial')} />}
-		</div>
-	</>;
+			<div role={'alert'}>
+				{isErreur(etatSoumission) && <EchecEnvoyerCandidatureStage3eEt2de etatSoumission={etatSoumission} retourFormulaire={() => setEtatSoumission('initial')} />}
+			</div>
+		</>
+	);
 }
 

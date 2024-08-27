@@ -41,5 +41,6 @@ export default function PreparationApprentissage() {
 					</Link>
 				</section>
 			</Container>
-		</div>);
+		</div>
+	);
 }

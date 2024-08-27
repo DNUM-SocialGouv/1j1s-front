@@ -14,24 +14,28 @@ interface ModaleErrorSubmissionProps {
 }
 
 export function ModalErrorSubmission({ isOpen, onClose, description, onBackToForm }: ModaleErrorSubmissionProps) {
-	return <ModalComponent isOpen={isOpen} close={onClose} aria-labelledby={'error_title'}>
-		<ModalComponent.Content className={styles.content}>
-			<ModalComponent.Title className={styles.title} id={'error_title'}>
+	return (
+		<ModalComponent isOpen={isOpen} close={onClose} aria-labelledby={'error_title'}>
+			<ModalComponent.Content className={styles.content}>
+				<ModalComponent.Title className={styles.title} id={'error_title'}>
 				Une erreur est survenue lors de l‘envoi du formulaire
-			</ModalComponent.Title>
-			{
-				description && <div className={styles.description}>
-					{description}
-				</div>
-			}
-			<span className={styles.redirections}>
-				<ButtonComponent appearance={'primary'} onClick={onBackToForm} label={'Retour au formulaire'}/>
-				<Link appearance={'asSecondaryButton'} href="/">
+				</ModalComponent.Title>
+				{
+					description && (
+						<div className={styles.description}>
+							{description}
+						</div>
+					)
+				}
+				<span className={styles.redirections}>
+					<ButtonComponent appearance={'primary'} onClick={onBackToForm} label={'Retour au formulaire'}/>
+					<Link appearance={'asSecondaryButton'} href="/">
 					Aller à l‘accueil
-					<Link.Icon/>
-				</Link>
-			</span>
-		</ModalComponent.Content>
-	</ModalComponent>;
+						<Link.Icon/>
+					</Link>
+				</span>
+			</ModalComponent.Content>
+		</ModalComponent>
+	);
 }
 

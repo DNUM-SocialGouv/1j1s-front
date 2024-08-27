@@ -35,17 +35,19 @@ describe('ModalComponent', () => {
 
 		function ButtonWithModale() {
 			const [isModaleOpen, setIsModaleOpen] = useState<boolean>(false);
-			return <>
-				<button onClick={() => setIsModaleOpen(true)}>Ouvrir la modale</button>
-				<ModalComponent
-					aria-label="label"
-					isOpen={isModaleOpen}
-					closeLabel={'Fermer'}
-					close={() => setIsModaleOpen(false)}
-				>
-					<ModalComponent.Content>Ceci est le contenu de la modale</ModalComponent.Content>
-				</ModalComponent>
-			</>;
+			return (
+				<>
+					<button onClick={() => setIsModaleOpen(true)}>Ouvrir la modale</button>
+					<ModalComponent
+						aria-label="label"
+						isOpen={isModaleOpen}
+						closeLabel={'Fermer'}
+						close={() => setIsModaleOpen(false)}
+					>
+						<ModalComponent.Content>Ceci est le contenu de la modale</ModalComponent.Content>
+					</ModalComponent>
+				</>
+			);
 		}
 
 		render(<ButtonWithModale/>);

@@ -67,41 +67,45 @@ export default function RechercherFormationAlternance({ resultats: formationAlte
 		return messageRésultatRechercheSplit.join(' ');
 	}, [nombreResultats, formationQuery.libelleMetier]);
 
-	return <>
-		<Head
-			title={title}
-			robots="index,follow"
-		/>
-		<main id="contenu">
-			<RechercherSolutionLayout
-				banniere={<BannièreFormation/>}
-				erreurRecherche={erreurRecherche}
-				etiquettesRecherche={<EtiquettesFiltreFormationAlternance/>}
-				formulaireRecherche={<FormulaireRechercherFormationAlternance/>}
-				isChargement={false}
-				isEtatInitial={empty(formationQuery)}
-				messageResultatRecherche={messageRésultatRecherche}
-				nombreTotalSolutions={nombreResultats}
-				listeSolutionElement={<ListeFormation
-					résultatList={formationAlternanceList}
-					queryParams={transformObjectToQueryString({
-						...router.query,
-						libelleMetier: undefined,
-					})}
-				                      />
-				}
+	return (
+		<>
+			<Head
+				title={title}
+				robots="index,follow"
 			/>
-			<EnTete heading="Découvrez des services faits pour vous"/>
-			<ServiceCardList>
-				<DecouvrirApprentissage/>
-				<MonCompteFormationPartner/>
-				<ParcourSupPartner/>
-				<CarifOrefPartner/>
-				<PixPartner/>
-				<MétierDuSoinPartner/>
-			</ServiceCardList>
-		</main>
-	</>;
+			<main id="contenu">
+				<RechercherSolutionLayout
+					banniere={<BannièreFormation/>}
+					erreurRecherche={erreurRecherche}
+					etiquettesRecherche={<EtiquettesFiltreFormationAlternance/>}
+					formulaireRecherche={<FormulaireRechercherFormationAlternance/>}
+					isChargement={false}
+					isEtatInitial={empty(formationQuery)}
+					messageResultatRecherche={messageRésultatRecherche}
+					nombreTotalSolutions={nombreResultats}
+					listeSolutionElement={(
+						<ListeFormation
+							résultatList={formationAlternanceList}
+							queryParams={transformObjectToQueryString({
+								...router.query,
+								libelleMetier: undefined,
+							})}
+						/>
+					)
+					}
+				/>
+				<EnTete heading="Découvrez des services faits pour vous"/>
+				<ServiceCardList>
+					<DecouvrirApprentissage/>
+					<MonCompteFormationPartner/>
+					<ParcourSupPartner/>
+					<CarifOrefPartner/>
+					<PixPartner/>
+					<MétierDuSoinPartner/>
+				</ServiceCardList>
+			</main>
+		</>
+	);
 }
 
 function BannièreFormation() {

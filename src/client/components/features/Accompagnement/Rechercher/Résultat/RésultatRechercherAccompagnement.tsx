@@ -41,21 +41,23 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 
 	function ContactButton() {
 		const label = 'Je souhaite être contacté(e)';
-		return <>
-			<ButtonComponent
-				className={classNames(styles.contactFormulaireÉtablissement, styles.contactFormulaireÉtablissementDesktopOnly)}
-				label={label}
-				appearance={'quaternary'}
-				onClick={openContactÉtablissementModal}
-			/>
+		return (
+			<>
+				<ButtonComponent
+					className={classNames(styles.contactFormulaireÉtablissement, styles.contactFormulaireÉtablissementDesktopOnly)}
+					label={label}
+					appearance={'quaternary'}
+					onClick={openContactÉtablissementModal}
+				/>
 
-			<ButtonComponent
-				className={classNames(styles.contactFormulaireÉtablissement, styles.contactFormulaireÉtablissementMobileOnly)}
-				label={label}
-				appearance={'primary'}
-				onClick={openContactÉtablissementModal}
-			/>
-		</>;
+				<ButtonComponent
+					className={classNames(styles.contactFormulaireÉtablissement, styles.contactFormulaireÉtablissementMobileOnly)}
+					label={label}
+					appearance={'primary'}
+					onClick={openContactÉtablissementModal}
+				/>
+			</>
+		);
 	}
 
 	function MailLink(props: { établissement: EtablissementAccompagnement }) {
@@ -63,26 +65,28 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 		const mailTo = `mailto:${props.établissement.email}`;
 		const title = `${label} - adresse mail`;
 
-		return <>
-			<Link
-				appearance={'asQuaternaryButton'}
-				href={mailTo}
-				className={classNames(styles.contactMailÉtablissement, styles.contactMailÉtablissementDesktop)}
-				title={title}
-			>
-				{label}
-				<Link.Icon name="mail"/>
-			</Link>
-			<Link
-				appearance={'asPrimaryButton'}
-				href={mailTo}
-				className={classNames(styles.contactMailÉtablissement, styles.contactMailÉtablissementMobile)}
-				title={title}
-			>
-				{label}
-				<Link.Icon name="mail"/>
-			</Link>
-		</>;
+		return (
+			<>
+				<Link
+					appearance={'asQuaternaryButton'}
+					href={mailTo}
+					className={classNames(styles.contactMailÉtablissement, styles.contactMailÉtablissementDesktop)}
+					title={title}
+				>
+					{label}
+					<Link.Icon name="mail"/>
+				</Link>
+				<Link
+					appearance={'asPrimaryButton'}
+					href={mailTo}
+					className={classNames(styles.contactMailÉtablissement, styles.contactMailÉtablissementMobile)}
+					title={title}
+				>
+					{label}
+					<Link.Icon name="mail"/>
+				</Link>
+			</>
+		);
 	}
 
 	const Address = ({ address, className }: { address: EtablissementAccompagnement.Adresse} & React.HTMLAttributes<HTMLSpanElement>) => {
@@ -102,7 +106,7 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 					</div>
 					<RésultatRechercherAccompagnementTagsList etablissement={etablissement}/>
 
-					{etablissement.horaires && etablissement.horaires.length > 0 &&
+					{etablissement.horaires && etablissement.horaires.length > 0 && (
 						<details className={styles.details}>
 							<summary className={styles.summary}>Voir les horaires d‘ouverture</summary>
 							<div className={styles.horaireBackground}>
@@ -115,7 +119,7 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 								</ol>
 							</div>
 						</details>
-					}
+					)}
 
 					{
 						etablissement.email && (isMissionLocale ? <ContactButton/>
@@ -124,17 +128,17 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 				</Card.Content>
 			</Card>
 			{
-				isMissionLocale && etablissement.email &&
-				<ModalDemandeDeContactAccompagnement
-					contactÉtablissementAccompagnement={{
-						email: etablissement.email,
-						nom: etablissement.nom,
-						type: etablissement.type,
-					}}
-					isOpen={isPopInOpen}
-					setIsOpen={setIsPopInOpen}
-				/>
-			}
+				isMissionLocale && etablissement.email && (
+					<ModalDemandeDeContactAccompagnement
+						contactÉtablissementAccompagnement={{
+							email: etablissement.email,
+							nom: etablissement.nom,
+							type: etablissement.type,
+						}}
+						isOpen={isPopInOpen}
+						setIsOpen={setIsPopInOpen}
+					/>
+				)}
 		</>
 	);
 }

@@ -80,18 +80,20 @@ export function FlippingCard(props: FlippingCardProps) {
 					<div
 						className={styles.actionWrapper}
 					>
-						{hasFlipCardContent &&
+						{hasFlipCardContent && (
 							<ButtonComponent
 								label="Pour qui ?"
 								appearance={'quaternary'}
 								ref={flipButton}
 								onClick={() => flipCard()}
 							/>
-						}
-						{link && <Link href={link} prefetch={false} appearance="asPrimaryButton">
-							{isInternalLink ? 'Lire l‘article' : 'En savoir plus'}
-							<Link.Icon/>
-						</Link>}
+						)}
+						{link && (
+							<Link href={link} prefetch={false} appearance="asPrimaryButton">
+								{isInternalLink ? 'Lire l‘article' : 'En savoir plus'}
+								<Link.Icon/>
+							</Link>
+						)}
 					</div>
 				</div>
 			</div>

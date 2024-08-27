@@ -43,12 +43,14 @@ export function OffreDeStage(props: HitProps<OffreDeStageIndexée>) {
 		listeEtiquettes.push(formatDate(stage.dateDeDebutMin, stage.dateDeDebutMax));
 	}
 
-	return <ResultatRechercherSolution
-		lienOffre={`/stages/${stage.slug}`}
-		intituléOffre={stage.titre}
-		logo={IMAGE_FIXE}
-		sousTitreOffre={stage.nomEmployeur}
-		étiquetteOffreList={listeEtiquettes || []}
-		key={stage.slug}
-	       />;
+	return (
+		<ResultatRechercherSolution
+			lienOffre={`/stages/${stage.slug}`}
+			intituléOffre={stage.titre}
+			logo={IMAGE_FIXE}
+			sousTitreOffre={stage.nomEmployeur}
+			étiquetteOffreList={listeEtiquettes || []}
+			key={stage.slug}
+		/>
+	);
 }

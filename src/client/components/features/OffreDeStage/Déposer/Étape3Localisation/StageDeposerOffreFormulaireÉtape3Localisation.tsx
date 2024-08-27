@@ -77,106 +77,114 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 	}, [router, informationsEntreprise, informationsStage]);
 
 	function ChampsObligatoires() {
-		return <>
-			<ComboboxPays
-				paysList={paysList}
-				defaultValue={paysDefaultValue}
-				label={'Pays'}
-				labelComplement={'Exemple : France'}
-				valueName={LocalisationInputName.PAYS}
-				required
-			/>
-			<Champ>
-				<Champ.Label>
+		return (
+			<>
+				<ComboboxPays
+					paysList={paysList}
+					defaultValue={paysDefaultValue}
+					label={'Pays'}
+					labelComplement={'Exemple : France'}
+					valueName={LocalisationInputName.PAYS}
+					required
+				/>
+				<Champ>
+					<Champ.Label>
 					Ville
-					<Champ.Label.Complement>Exemple : Paris</Champ.Label.Complement>
-				</Champ.Label>
-				<Champ.Input
-					render={Input}
-					name={LocalisationInputName.VILLE}
-					required
-					defaultValue={informationsLocalisation?.ville}
-				/>
-				<Champ.Error/>
-			</Champ>
-			<Champ>
-				<Champ.Label>
+						<Champ.Label.Complement>Exemple : Paris</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input
+						render={Input}
+						name={LocalisationInputName.VILLE}
+						required
+						defaultValue={informationsLocalisation?.ville}
+					/>
+					<Champ.Error/>
+				</Champ>
+				<Champ>
+					<Champ.Label>
 					Adresse
-					<Champ.Label.Complement>Exemple : 127 rue de Grenelle</Champ.Label.Complement>
-				</Champ.Label>
-				<Champ.Input
-					render={Input}
-					name={LocalisationInputName.ADRESSE}
-					required
-					defaultValue={informationsLocalisation?.adresse}
-				/>
-				<Champ.Error/>
-			</Champ>
-			<Champ>
-				<Champ.Label>
+						<Champ.Label.Complement>Exemple : 127 rue de Grenelle</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input
+						render={Input}
+						name={LocalisationInputName.ADRESSE}
+						required
+						defaultValue={informationsLocalisation?.adresse}
+					/>
+					<Champ.Error/>
+				</Champ>
+				<Champ>
+					<Champ.Label>
 					Code postal
-					<Champ.Label.Complement>Exemple : 75007</Champ.Label.Complement>
-				</Champ.Label>
-				<Champ.Input
-					render={Input}
-					name={LocalisationInputName.CODE_POSTAL}
-					required
-					defaultValue={informationsLocalisation?.codePostal}
-				/>
-				<Champ.Error/>
-			</Champ>
-		</>;
+						<Champ.Label.Complement>Exemple : 75007</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input
+						render={Input}
+						name={LocalisationInputName.CODE_POSTAL}
+						required
+						defaultValue={informationsLocalisation?.codePostal}
+					/>
+					<Champ.Error/>
+				</Champ>
+			</>
+		);
 	}
 
 	function ChampsFacultatifs() {
-		return <>
-			<Champ>
-				<Champ.Label>
+		return (
+			<>
+				<Champ>
+					<Champ.Label>
 					Région
-					<Champ.Label.Complement>Exemple : Île-De-France</Champ.Label.Complement>
-				</Champ.Label>
-				<Champ.Input
-					render={Input}
-					name={LocalisationInputName.REGION}
-					defaultValue={informationsLocalisation?.region}
-				/>
-				<Champ.Error/>
-			</Champ>
-			<Champ>
-				<Champ.Label>
+						<Champ.Label.Complement>Exemple : Île-De-France</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input
+						render={Input}
+						name={LocalisationInputName.REGION}
+						defaultValue={informationsLocalisation?.region}
+					/>
+					<Champ.Error/>
+				</Champ>
+				<Champ>
+					<Champ.Label>
 					Département
-					<Champ.Label.Complement>Exemple : Yvelines</Champ.Label.Complement>
-				</Champ.Label>
-				<Champ.Input
-					render={Input}
-					name={LocalisationInputName.DEPARTEMENT}
-					defaultValue={informationsLocalisation?.departement}
-				/>
-				<Champ.Error/>
-			</Champ>
-		</>;
+						<Champ.Label.Complement>Exemple : Yvelines</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input
+						render={Input}
+						name={LocalisationInputName.DEPARTEMENT}
+						defaultValue={informationsLocalisation?.departement}
+					/>
+					<Champ.Error/>
+				</Champ>
+			</>
+		);
 	}
 
 	function BoutonValidation() {
 		return isLoading
 			? <LoadingButton/>
-			: <ButtonComponent
-				icon={<Icon name="angle-right"/>}
-				iconPosition="right"
-				label="Envoyer ma demande de dépôt d’offre"
-				type="submit"
-				disabled={isLoading}
-			  />;
+			: (
+				<ButtonComponent
+					icon={<Icon name="angle-right"/>}
+					iconPosition="right"
+					label="Envoyer ma demande de dépôt d’offre"
+					type="submit"
+					disabled={isLoading}
+				/>
+			);
 	}
 
 	function FormulaireLocalisation() {
-		return <StageDeposerOffreFormulaireLayout
-			inputsObligatoires={<ChampsObligatoires/>}
-			inputsFacultatifs={<ChampsFacultatifs/>}
-			formRef={formRef}
-			handleFormSubmit={handleFormSubmit}
-			boutonValidation={<BoutonValidation/>}
-		       />;
+		return (
+			<StageDeposerOffreFormulaireLayout
+				inputsObligatoires={<ChampsObligatoires/>}
+				inputsFacultatifs={<ChampsFacultatifs/>}
+				formRef={formRef}
+				handleFormSubmit={handleFormSubmit}
+				boutonValidation={<BoutonValidation/>}
+			/>
+		);
 	}
 
 	async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {

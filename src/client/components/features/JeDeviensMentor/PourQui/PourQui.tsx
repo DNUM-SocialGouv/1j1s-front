@@ -40,5 +40,6 @@ export function PourQui() {
 					<Link href="/les-entreprises-s-engagent" appearance="asSecondaryButton">Engager mon entreprise<Link.Icon/></Link>
 				</div>
 			</Container>
-		</div>);
+		</div>
+	);
 }

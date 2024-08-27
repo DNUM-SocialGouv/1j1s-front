@@ -42,39 +42,42 @@ interface BilanEnergetiqueLogementProps {
 
 export function BilanEnergetiqueLogement(props: BilanEnergetiqueLogementProps) {
 	const { consommationEnergetique, emissionDeGaz } = props;
-	return <section className={classNames(styles.energy, cardStyles.card)} aria-label="bilan énergétique du logement">
-		<figure>
-			<figcaption>
-				<h2>Classe énergie</h2>
-			</figcaption>
-			<TipDisclosure disclosureAriaLabel='informations supplémentaires' tipId='informations-supplementaires-classe-energie'>
-				{consommationTexte}
-			</TipDisclosure>
-			<div role="img" aria-label={consommationEnergetique ?? 'Non renseigné'}
+	return (
+		<section className={classNames(styles.energy, cardStyles.card)} aria-label="bilan énergétique du logement">
+			<figure>
+				<figcaption>
+					<h2>Classe énergie</h2>
+				</figcaption>
+				<TipDisclosure disclosureAriaLabel='informations supplémentaires' tipId='informations-supplementaires-classe-energie'>
+					{consommationTexte}
+				</TipDisclosure>
+				<div role="img" aria-label={consommationEnergetique ?? 'Non renseigné'}
 				 aria-describedby={consommationEnergetique && 'consommation-energetique'}
-				className={styles.tag}
-				style={{
-					'--color': `var(--color-${consommationEnergetique?.toLowerCase()})`,
-					'--text-color': `var(--text-color-${consommationEnergetique?.toLowerCase()})`,
-				} as React.CSSProperties}
-			>{consommationEnergetique ?? 'Non renseigné'}</div>
-			{consommationEnergetique && (<p id="consommation-energetique">
-				{CONSOMMATION_ENERGETIQUE[consommationEnergetique] } </p>
-			)}
-		</figure>
-		<figure>
-			<figcaption><h2>Émissions de <abbr title="Gaz à Effet de Serre">GES</abbr></h2></figcaption>
-			<TipDisclosure disclosureAriaLabel='informations supplémentaires' tipId='informations-supplementaires-gaz-effet-serre'>
-				{emissionTexte}
-			</TipDisclosure>
-			<div role="img" aria-label={emissionDeGaz ?? 'Non renseigné'} aria-describedby={emissionDeGaz && 'emission-de-gaz'}
-				className={styles.tag}
-				style={{
-					'--color': `var(--color-${emissionDeGaz?.toLowerCase()})`,
-					'--text-color': `var(--text-color-${emissionDeGaz?.toLowerCase()})`,
-				} as React.CSSProperties}
-			>{emissionDeGaz ?? 'Non renseigné'}</div>
-			{emissionDeGaz && <p id="emission-de-gaz">{EMISSION_DE_GAZ[emissionDeGaz] } </p>}
-		</figure>
-	</section>;
+					className={styles.tag}
+					style={{
+						'--color': `var(--color-${consommationEnergetique?.toLowerCase()})`,
+						'--text-color': `var(--text-color-${consommationEnergetique?.toLowerCase()})`,
+					} as React.CSSProperties}
+				>{consommationEnergetique ?? 'Non renseigné'}</div>
+				{consommationEnergetique && (
+					<p id="consommation-energetique">
+						{CONSOMMATION_ENERGETIQUE[consommationEnergetique] } </p>
+				)}
+			</figure>
+			<figure>
+				<figcaption><h2>Émissions de <abbr title="Gaz à Effet de Serre">GES</abbr></h2></figcaption>
+				<TipDisclosure disclosureAriaLabel='informations supplémentaires' tipId='informations-supplementaires-gaz-effet-serre'>
+					{emissionTexte}
+				</TipDisclosure>
+				<div role="img" aria-label={emissionDeGaz ?? 'Non renseigné'} aria-describedby={emissionDeGaz && 'emission-de-gaz'}
+					className={styles.tag}
+					style={{
+						'--color': `var(--color-${emissionDeGaz?.toLowerCase()})`,
+						'--text-color': `var(--text-color-${emissionDeGaz?.toLowerCase()})`,
+					} as React.CSSProperties}
+				>{emissionDeGaz ?? 'Non renseigné'}</div>
+				{emissionDeGaz && <p id="emission-de-gaz">{EMISSION_DE_GAZ[emissionDeGaz] } </p>}
+			</figure>
+		</section>
+	);
 }

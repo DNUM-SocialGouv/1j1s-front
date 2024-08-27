@@ -773,12 +773,14 @@ describe('<SelectSimpleSimple/>', () => {
 		});
 
 		it('lorsque la value change, le select prend la valeur de value mise à jour', async () => {
-			const component = (value: string) => <form role="form" aria-label={'test'}>
-				<SelectSimple optionsAriaLabel={'options'} value={value} name="name">
-					<SelectSimple.Option value="1">options 1</SelectSimple.Option>
-					<SelectSimple.Option value="2">options 2</SelectSimple.Option>
-				</SelectSimple>
-			</form>;
+			const component = (value: string) => (
+				<form role="form" aria-label={'test'}>
+					<SelectSimple optionsAriaLabel={'options'} value={value} name="name">
+						<SelectSimple.Option value="1">options 1</SelectSimple.Option>
+						<SelectSimple.Option value="2">options 2</SelectSimple.Option>
+					</SelectSimple>
+				</form>
+			);
 
 			const { rerender } = render(component('1'));
 

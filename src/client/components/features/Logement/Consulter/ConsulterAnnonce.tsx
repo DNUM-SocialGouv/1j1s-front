@@ -82,15 +82,17 @@ const AnnonceCarousel = ({ imageUrlList }: { imageUrlList: Array<ImageProps> | [
 	const MAX_IMAGE_WIDTH = 720;
 	const MAX_IMAGE_HEIGHT = 400;
 
-	return <div className={styles.carouselWrapper}>
-		<Carousel
-			imageList={imageUrlList}
-			className={styles.carousel}
-			hideIndicators
-			imagesSize={{ height: MAX_IMAGE_HEIGHT, width: MAX_IMAGE_WIDTH }}
-			aria-label="Photos du logement"
-		/>
-	</div>;
+	return (
+		<div className={styles.carouselWrapper}>
+			<Carousel
+				imageList={imageUrlList}
+				className={styles.carousel}
+				hideIndicators
+				imagesSize={{ height: MAX_IMAGE_HEIGHT, width: MAX_IMAGE_WIDTH }}
+				aria-label="Photos du logement"
+			/>
+		</div>
+	);
 };
 
 type AnnonceSourceProps = {

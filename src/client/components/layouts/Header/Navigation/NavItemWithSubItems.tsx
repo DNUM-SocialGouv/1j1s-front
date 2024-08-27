@@ -97,13 +97,15 @@ export function NavItemWithSubItems({
 				/>
 			);
 		}
-		return <NavItemWithSubItems
-			key={subItem.label?.toString()}
-			className={styles.navItem}
-			navigationItemWithChildren={subItem}
-			onClick={onClick}
-			isMobile
-		       />;
+		return (
+			<NavItemWithSubItems
+				key={subItem.label?.toString()}
+				className={styles.navItem}
+				navigationItemWithChildren={subItem}
+				onClick={onClick}
+				isMobile
+			/>
+		);
 	});
 
 	return (

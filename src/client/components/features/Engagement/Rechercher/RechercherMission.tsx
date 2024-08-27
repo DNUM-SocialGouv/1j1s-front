@@ -98,7 +98,7 @@ export function RechercherMission(props: RechercherMissionProps) {
 					formulaireRecherche={<FormulaireRechercheMissionEngagement domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
 					isChargement={isLoading}
 					isEtatInitial={empty(missionEngagementQuery)}
-					messageResultatRecherche={
+					messageResultatRecherche={(
 						<>
 							{messageNombreResultats({
 								domaine: domaine,
@@ -107,15 +107,15 @@ export function RechercherMission(props: RechercherMissionProps) {
 							})}
 							<Footnote.Reference to="partenaires" id="partenaires-reference" />
 						</>
-					}
+					)}
 					nombreTotalSolutions={nombreResultats}
 					paginationOffset={NOMBRE_RÉSULTATS_MISSION_PAR_PAGE}
 					listeSolutionElement={<ListeMissions resultatList={missionList} isServiceCivique={isServiceCivique}/>}
-					footnote={
+					footnote={(
 						<Footnote htmlFor="partenaires-reference" id="partenaires" >
 							les annonces listées ci-dessus nous sont fournies par nos partenaires (<a href="/cgu#3.-services">liste disponible dans les <abbr title="Conditions Générales d'Utilisation">CGU</abbr></a>)
 						</Footnote>
-					}
+					)}
 				/>
 				<EnTete heading="Consultez nos articles et découvrez des services faits pour vous" />
 				{isServiceCivique ? (

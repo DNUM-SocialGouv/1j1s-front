@@ -46,33 +46,36 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: {
 				<Link.Icon/>
 			</Link>
 
-			{isFormationInitialeWithCMSDetails && <section>
-				<dl className={styles.contenu}>
-					{formationInitialeDetail.description && (
-						<div>
-							<dt>Description</dt>
-							<dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }}/>
-						</div>)}
-					{formationInitialeDetail.attendusParcoursup && (
-						<div>
-							<dt>Attendus Parcoursup</dt>
-							<dd dangerouslySetInnerHTML={{ __html: attendusParcoursupSanitized }}/>
-						</div>
-					)}
-					{formationInitialeDetail.conditionsAcces && (
-						<div>
-							<dt>Conditions d‘accès</dt>
-							<dd dangerouslySetInnerHTML={{ __html: conditionsAccesSanitized }}/>
-						</div>
-					)}
-					{formationInitialeDetail.poursuiteEtudes && (
-						<div>
-							<dt>Poursuite d‘études</dt>
-							<dd dangerouslySetInnerHTML={{ __html: poursuiteEtudesSanitized }}/>
-						</div>
-					)}
-				</dl>
-			</section>}
+			{isFormationInitialeWithCMSDetails && (
+				<section>
+					<dl className={styles.contenu}>
+						{formationInitialeDetail.description && (
+							<div>
+								<dt>Description</dt>
+								<dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }}/>
+							</div>
+						)}
+						{formationInitialeDetail.attendusParcoursup && (
+							<div>
+								<dt>Attendus Parcoursup</dt>
+								<dd dangerouslySetInnerHTML={{ __html: attendusParcoursupSanitized }}/>
+							</div>
+						)}
+						{formationInitialeDetail.conditionsAcces && (
+							<div>
+								<dt>Conditions d‘accès</dt>
+								<dd dangerouslySetInnerHTML={{ __html: conditionsAccesSanitized }}/>
+							</div>
+						)}
+						{formationInitialeDetail.poursuiteEtudes && (
+							<div>
+								<dt>Poursuite d‘études</dt>
+								<dd dangerouslySetInnerHTML={{ __html: poursuiteEtudesSanitized }}/>
+							</div>
+						)}
+					</dl>
+				</section>
+			)}
 			{!isFormationInitialeWithCMSDetails && (
 				<p className={styles.mentionFormationNonDocumentee}>L‘ONISEP ne fournit pas de description pour cette formation.
 					Vous pouvez consulter les établissements pour plus d‘informations.</p>

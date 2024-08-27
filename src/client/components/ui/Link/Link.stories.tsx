@@ -20,7 +20,8 @@ export const LinkWithDefaultIcon: Story = {
 			<Link {...args}>
 				Cliquez ici
 				<Link.Icon/>
-			</Link>);
+			</Link>
+		);
 	},
 };
 
@@ -33,7 +34,8 @@ export const QuaternaryLinkWithCustomizedIcon: IconStory = {
 			<Link href="#emplois" appearance={'asQuaternaryButton'}>
 				Cliquez ici
 				<Link.Icon {...args}/>
-			</Link>);
+			</Link>
+		);
 	},
 };
 
@@ -46,7 +48,8 @@ export const LinkPrimaryWithLeftIcon: IconStory = {
 			<Link href="#emplois" appearance={'asPrimaryButton'}>
 				<Link.Icon {...args}/>
 				Cliquez ici
-			</Link>);
+			</Link>
+		);
 	},
 };
 
@@ -59,6 +62,7 @@ export const LinkWithLeftIcon: IconStory = {
 			<Link href="#emplois">
 				<Link.Icon {...args}/>
 				Cliquez ici
-			</Link>);
+			</Link>
+		);
 	},
 };

@@ -39,109 +39,117 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 	const informationsEntreprise = persistenceEntreprise.getInformationsEtape1();
 
 	function ChampsObligatoires() {
-		return <>
-			<Champ className={styles.nomEntreprise}>
-				<Champ.Label>Nom de l’entreprise ou de l’employeur
-					<Champ.Label.Complement>Exemples : Crédit Agricole, SNCF…</Champ.Label.Complement>
-				</Champ.Label>
-				<Champ.Input
-					render={Input}
-					name={InputName.NOM}
-					required
-					type="text"
-					maxLength={255}
-					defaultValue={informationsEntreprise?.nomEmployeur}
-					autoComplete="organization"
-				/>
-				<Champ.Error/>
-				<Champ.Hint>255 caractères maximum</Champ.Hint>
-			</Champ>
-			<Champ>
-				<Champ.Label>Adresse mail de contact
-					<Champ.Label.Complement>Exemple : contactRH@example.com</Champ.Label.Complement>
-				</Champ.Label>
-				<Champ.Input
-					render={Input}
-					name={InputName.EMAIL}
-					pattern={emailRegex}
-					defaultValue={informationsEntreprise?.emailEmployeur}
-					required
-					type="email"
-					autoComplete="email"
-				/>
-				<Champ.Error/>
-				<Champ.Hint>
+		return (
+			<>
+				<Champ className={styles.nomEntreprise}>
+					<Champ.Label>Nom de l’entreprise ou de l’employeur
+						<Champ.Label.Complement>Exemples : Crédit Agricole, SNCF…</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input
+						render={Input}
+						name={InputName.NOM}
+						required
+						type="text"
+						maxLength={255}
+						defaultValue={informationsEntreprise?.nomEmployeur}
+						autoComplete="organization"
+					/>
+					<Champ.Error/>
+					<Champ.Hint>255 caractères maximum</Champ.Hint>
+				</Champ>
+				<Champ>
+					<Champ.Label>Adresse mail de contact
+						<Champ.Label.Complement>Exemple : contactRH@example.com</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input
+						render={Input}
+						name={InputName.EMAIL}
+						pattern={emailRegex}
+						defaultValue={informationsEntreprise?.emailEmployeur}
+						required
+						type="email"
+						autoComplete="email"
+					/>
+					<Champ.Error/>
+					<Champ.Hint>
 					Cette adresse de contact sera utilisée dans le cas où
 					il manquerait des informations pour valider votre demande, ou pour vous informer du statut de cette dernière.
 					Cette adresse peut donc être différente de l’adresse sur laquelle il faudra candidater.
-				</Champ.Hint>
-			</Champ>
-			<Champ className={styles.textareaWrapper}>
-				<Champ.Label>Courte description de l’entreprise (500 caractères maximum)
-					<Champ.Label.Complement>Informations sur votre entreprise : son histoire, des objectifs, des
+					</Champ.Hint>
+				</Champ>
+				<Champ className={styles.textareaWrapper}>
+					<Champ.Label>Courte description de l’entreprise (500 caractères maximum)
+						<Champ.Label.Complement>Informations sur votre entreprise : son histoire, des objectifs, des
 						enjeux...</Champ.Label.Complement>
-				</Champ.Label>
-				<Champ.Input
-					render={TextArea}
-					name={InputName.DESCRIPTION}
-					onChange={(event) => event.currentTarget}
-					defaultValue={informationsEntreprise?.descriptionEmployeur}
-					required
-					rows={10}
-					maxLength={500}
-				/>
-				<Champ.Error/>
-			</Champ>
-		</>;
+					</Champ.Label>
+					<Champ.Input
+						render={TextArea}
+						name={InputName.DESCRIPTION}
+						onChange={(event) => event.currentTarget}
+						defaultValue={informationsEntreprise?.descriptionEmployeur}
+						required
+						rows={10}
+						maxLength={500}
+					/>
+					<Champ.Error/>
+				</Champ>
+			</>
+		);
 	}
 
 	function ChampsFacultatifs() {
-		return <>
-			<Champ>
-				<Champ.Label>Logo de l’entreprise - lien/URL
-					<Champ.Label.Complement>Exemple :
+		return (
+			<>
+				<Champ>
+					<Champ.Label>Logo de l’entreprise - lien/URL
+						<Champ.Label.Complement>Exemple :
 						https://www.1jeune1solution.gouv.fr/images/logos/r%C3…</Champ.Label.Complement>
-				</Champ.Label>
-				<Champ.Input render={Input}
+					</Champ.Label>
+					<Champ.Input render={Input}
 										 type="url"
 										 name={InputName.LOGO}
 										 defaultValue={informationsEntreprise?.logoEmployeur}
 										 pattern={URL_REGEX}
-				/>
-				<Champ.Error/>
-			</Champ>
-			<Champ>
-				<Champ.Label>Lien du site de l’entreprise - lien/URL
-					<Champ.Label.Complement>Exemple : https://1jeune1solution.gouv.fr</Champ.Label.Complement>
-				</Champ.Label>
-				<Champ.Input render={Input}
+					/>
+					<Champ.Error/>
+				</Champ>
+				<Champ>
+					<Champ.Label>Lien du site de l’entreprise - lien/URL
+						<Champ.Label.Complement>Exemple : https://1jeune1solution.gouv.fr</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input render={Input}
 										 type="url"
 										 name={InputName.SITE}
 										 defaultValue={informationsEntreprise?.siteEmployeur}
 										 pattern={URL_REGEX}
-				/>
-				<Champ.Error/>
-			</Champ>
-		</>;
+					/>
+					<Champ.Error/>
+				</Champ>
+			</>
+		);
 	}
 
 	function BoutonValidation() {
-		return <ButtonComponent
-			icon={<Icon name="angle-right"/>}
-			iconPosition="right"
-			label="Suivant"
-			type="submit"
-		       />;
+		return (
+			<ButtonComponent
+				icon={<Icon name="angle-right"/>}
+				iconPosition="right"
+				label="Suivant"
+				type="submit"
+			/>
+		);
 	}
 
 	function FormulaireEntreprise() {
-		return <StageDeposerOffreFormulaireLayout
-			inputsObligatoires={<ChampsObligatoires/>}
-			inputsFacultatifs={<ChampsFacultatifs/>}
-			formRef={formRef}
-			handleFormSubmit={handleFormSubmit}
-			boutonValidation={<BoutonValidation/>}
-		       />;
+		return (
+			<StageDeposerOffreFormulaireLayout
+				inputsObligatoires={<ChampsObligatoires/>}
+				inputsFacultatifs={<ChampsFacultatifs/>}
+				formRef={formRef}
+				handleFormSubmit={handleFormSubmit}
+				boutonValidation={<BoutonValidation/>}
+			/>
+		);
 	}
 
 	function handleFormSubmit(event: FormEvent<HTMLFormElement>) {

@@ -59,32 +59,12 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 	const currentDate = new Date();
 	const placeholderDate = `Exemple : ${currentDate.toISOString().slice(0, 10)}`;
 
-	return <>
-		{props.displayDateDeDebutPrecise ?
-			<Champ>
-				<Champ.Label>
-					Date précise du début de stage
-				</Champ.Label>
-				<Champ.Input
-					render={Input}
-					type="date"
-					name={StageEnum.DATE_DE_DEBUT_MIN}
-					defaultValue={dateDeDebutMin}
-					required
-					min={disableBeforeToday}
-					max={'9999-12-31'}
-					onChange={(event) => setDateDeDebutMin(event.target.value)}
-					validation={(event) => validationDateDeDebutMin(event as string)}
-					pattern={patternDate}
-					placeholder={placeholderDate}
-				/>
-				<Champ.Error/>
-			</Champ>
-			:
-			<div className={styles.contenuDateDeDebutInputDate}>
+	return (
+		<>
+			{props.displayDateDeDebutPrecise ? (
 				<Champ>
 					<Champ.Label>
-						Date de début du stage au plus tôt
+					Date précise du début de stage
 					</Champ.Label>
 					<Champ.Input
 						render={Input}
@@ -101,26 +81,49 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 					/>
 					<Champ.Error/>
 				</Champ>
-				<Champ>
-					<Champ.Label>
+			)
+				: (
+					<div className={styles.contenuDateDeDebutInputDate}>
+						<Champ>
+							<Champ.Label>
+						Date de début du stage au plus tôt
+							</Champ.Label>
+							<Champ.Input
+								render={Input}
+								type="date"
+								name={StageEnum.DATE_DE_DEBUT_MIN}
+								defaultValue={dateDeDebutMin}
+								required
+								min={disableBeforeToday}
+								max={'9999-12-31'}
+								onChange={(event) => setDateDeDebutMin(event.target.value)}
+								validation={(event) => validationDateDeDebutMin(event as string)}
+								pattern={patternDate}
+								placeholder={placeholderDate}
+							/>
+							<Champ.Error/>
+						</Champ>
+						<Champ>
+							<Champ.Label>
 						Date de début du stage au plus tard
-					</Champ.Label>
-					<Champ.Input
-						render={Input}
-						type="date"
-						name={StageEnum.DATE_DE_DEBUT_MAX}
-						defaultValue={dateDeDebutMax}
-						required
-						min={dateDeDebutMin}
-						max={'9999-12-31'}
-						onChange={(event) => setDateDeDebutMax(event.target.value)}
-						validation={(event) => validationDateDeDebutMax(event as string)}
-						pattern={patternDate}
-						placeholder={placeholderDate}
-					/>
-					<Champ.Error/>
-				</Champ>
-			</div>
-		}
-	</>;
+							</Champ.Label>
+							<Champ.Input
+								render={Input}
+								type="date"
+								name={StageEnum.DATE_DE_DEBUT_MAX}
+								defaultValue={dateDeDebutMax}
+								required
+								min={dateDeDebutMin}
+								max={'9999-12-31'}
+								onChange={(event) => setDateDeDebutMax(event.target.value)}
+								validation={(event) => validationDateDeDebutMax(event as string)}
+								pattern={patternDate}
+								placeholder={placeholderDate}
+							/>
+							<Champ.Error/>
+						</Champ>
+					</div>
+				)}
+		</>
+	);
 }

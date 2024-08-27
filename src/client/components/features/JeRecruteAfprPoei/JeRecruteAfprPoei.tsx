@@ -6,10 +6,12 @@ import BanniereRejoindreLaMobilisation
 	from '~/client/components/ui/Baniere/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation';
 
 export default function JeRecruteAfprPoei() {
-	return <div className={styles.jeRecruteAfprPoei}>
-		<RecrutementCandidatFranceTravail/>
-		<Avantages/>
-		<CommentCaMarche/>
-		<BanniereRejoindreLaMobilisation/>
-	</div>;
+	return (
+		<div className={styles.jeRecruteAfprPoei}>
+			<RecrutementCandidatFranceTravail/>
+			<Avantages/>
+			<CommentCaMarche/>
+			<BanniereRejoindreLaMobilisation/>
+		</div>
+	);
 }

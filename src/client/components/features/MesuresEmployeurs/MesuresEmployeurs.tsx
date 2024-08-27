@@ -48,12 +48,14 @@ function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {
 	} = carte;
 	const titre = useSanitize(dirtyTitre);
 
-	return <FlippingCard
-		imageUrl={banniere?.src}
-		link={link}
-		titleAs={'h2'}
-		title={titre}
-		flippingCardContent={pourQui}
-		className={styles.carteMesureEmployeur}
-	       />;
+	return (
+		<FlippingCard
+			imageUrl={banniere?.src}
+			link={link}
+			titleAs={'h2'}
+			title={titre}
+			flippingCardContent={pourQui}
+			className={styles.carteMesureEmployeur}
+		/>
+	);
 }

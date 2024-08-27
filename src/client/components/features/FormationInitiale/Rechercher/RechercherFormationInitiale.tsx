@@ -100,12 +100,14 @@ export function RechercherFormationInitiale() {
 
 
 function banniere() {
-	return (<LightHero>
-		<h1>
-			<LightHeroPrimaryText>Des milliers de formations pour vous permettre</LightHeroPrimaryText>
-			<LightHeroSecondaryText>de réaliser votre projet professionnel</LightHeroSecondaryText>
-		</h1>
-	</LightHero>);
+	return (
+		<LightHero>
+			<h1>
+				<LightHeroPrimaryText>Des milliers de formations pour vous permettre</LightHeroPrimaryText>
+				<LightHeroSecondaryText>de réaliser votre projet professionnel</LightHeroSecondaryText>
+			</h1>
+		</LightHero>
+	);
 }
 
 interface ListResultatProps {

@@ -89,7 +89,7 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 				<TagList list={listeEtiquettes} aria-label="Caractéristiques de l‘offre de stage"/>
 				<div className={commonStyles.buttonAsLinkWrapper}>
 					<div className={commonStyles.buttonAsLink}>
-						{offreDeStage.urlDeCandidature &&
+						{offreDeStage.urlDeCandidature && (
 							<Link
 								href={offreDeStage.urlDeCandidature}
 								appearance="asPrimaryButton"
@@ -97,31 +97,34 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 								Postuler
 								<Link.Icon/>
 							</Link>
-						}
+						)}
 					</div>
 				</div>
 			</header>
 			<section className={commonStyles.contenu}>
 				<dl>
-					{offreDeStage.employeur?.description &&
+					{offreDeStage.employeur?.description && (
 						<div>
 							<dt>Description de l‘employeur :</dt>
 							<dd dangerouslySetInnerHTML={{ __html: descriptionEmployeurHtmlSanitiezd }}/>
-						</div>}
-					{offreDeStage.description &&
+						</div>
+					)}
+					{offreDeStage.description && (
 						<div>
 							<dt>Description du poste :</dt>
 							<dd dangerouslySetInnerHTML={{ __html: descriptionHtmlSanitized }}/>
 						</div>
-					}
+					)}
 					<div>
 						<dt>Rémunération :</dt>
 						<dd>{remuneration}</dd>
 					</div>
-					{doitAfficherPeriodeDePaiment && <div>
-						<dt>Période de paiement :</dt>
-						<dd>{periodeDePaiementLabel}</dd>
-					</div>}
+					{doitAfficherPeriodeDePaiment && (
+						<div>
+							<dt>Période de paiement :</dt>
+							<dd>{periodeDePaiementLabel}</dd>
+						</div>
+					)}
 				</dl>
 			</section>
 		</ConsulterOffreLayout>

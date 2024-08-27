@@ -35,7 +35,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 	}, []);
 
 	const articleCardList: React.ReactNode[] = useMemo(() => {
-		return cartesActualites.map((carte, index) =>
+		return cartesActualites.map((carte, index) => (
 			<ArticleCard
 				className={styles.carteActualite}
 				key={index}
@@ -47,7 +47,8 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 				titleHeadingTag={'h3'}
 			>
 				<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
-			</ArticleCard>,
+			</ArticleCard>
+		),
 		);
 	}, [cartesActualites, getCarteActualiteLinkIcon, getCarteActualiteLinkLabel]);
 
