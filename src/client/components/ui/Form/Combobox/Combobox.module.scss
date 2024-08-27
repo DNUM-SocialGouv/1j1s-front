@@ -12,12 +12,12 @@
   display: grid;
   grid-template-columns: 1fr auto;
 
-  & input {
+  & > input {
     background-color: transparent;
     padding: 0.5rem 1rem;
   }
 
-  & button {
+  & > button {
     vertical-align: middle;
     & svg {
       vertical-align: bottom;
@@ -36,7 +36,7 @@
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
   }
-  & input[role="combobox"] ~ button {
+  & input[role="combobox"] + button {
     @extend %bordered;
     border-left: none;
     border-bottom-left-radius: 0;

@@ -88,12 +88,12 @@ $border-width-compensation: calc($error-border-width - $border-width);
     }
   }
 
-  & [role="combobox"] > svg,
-  & [role="combobox"] ~ button > svg{
+  & button[role="combobox"] > svg,
+  & [role="combobox"] + button > svg{
     transition: transform 200ms linear;
   }
-  & [role="combobox"][aria-expanded="true"] > svg,
-  & [role="combobox"][aria-expanded="true"] ~ button > svg {
+  & button[role="combobox"][aria-expanded="true"] > svg,
+  & [role="combobox"][aria-expanded="true"] + button > svg {
     transform: rotate(-180deg);
   }
 }
