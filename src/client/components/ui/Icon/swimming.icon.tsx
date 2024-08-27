@@ -8,10 +8,14 @@ export const SwimmingIcon = React.forwardRef<SVGSVGElement, SvgProps>(function S
 	color = 'currentColor', className, ...rest
 }, ref) {
 	return (
-		<svg width="32" height="32" viewBox="0 0 32 32"
-			className={classNames(className, styles.size)} fill={color}
+		<svg width="32"
+			height="32"
+			viewBox="0 0 32 32"
+			className={classNames(className, styles.size)}
+			fill={color}
 			xmlns="http://www.w3.org/2000/svg"
-			{...rest} ref={ref}
+			{...rest}
+			ref={ref}
 		>
 			<rect width="32" height="32" fill="url(#pattern-swimming)" />
 			<defs>

@@ -75,6 +75,10 @@
       "beforeSelfClosing": "always",
       "afterOpening": "never",
       "beforeClosing": "never"
+    }],
+    "react/jsx-max-props-per-line": ["error", {
+      "maximum": 1,
+      "when": "multiline"
     }]
   },
   "overrides": [

@@ -95,7 +95,9 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 			</div>
 
 			<div className={styles.rechercherMissionEngagementButton}>
-				<ButtonComponent label="Rechercher" icon={<Icon name="magnifying-glass" />} iconPosition="right"
+				<ButtonComponent label="Rechercher"
+					icon={<Icon name="magnifying-glass" />}
+					iconPosition="right"
 								 type="submit"
 				/>
 			</div>

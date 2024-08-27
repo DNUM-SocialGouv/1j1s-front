@@ -43,10 +43,11 @@ export function ModaleMissionLocale({ isMissionLocaleModaleOpen, setIsMissionLoc
 				</ModalComponent.Content>
 			</ModalComponent>
 
-			<ModaleSuccessSubmission isOpen={statusForm === 'success'} onClose={() => {
-				setIsMissionLocaleModaleOpen(false);
-				setStatusForm('notSubmitted');
-			}}
+			<ModaleSuccessSubmission isOpen={statusForm === 'success'}
+				onClose={() => {
+					setIsMissionLocaleModaleOpen(false);
+					setStatusForm('notSubmitted');
+				}}
 			/>
 
 			<ModalErrorSubmission isOpen={statusForm === 'error'} 

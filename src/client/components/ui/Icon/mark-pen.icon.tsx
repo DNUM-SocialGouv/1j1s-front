@@ -8,10 +8,14 @@ export const MarkPenIcon = React.forwardRef<SVGSVGElement, SvgProps>(function Ma
 	color = 'currentColor', className, ...rest
 }, ref) {
 	return (
-		<svg width="45" height="42" viewBox="0 0 45 42"
-		     className={classNames(className, styles.size)} fill={color} 
+		<svg width="45"
+			height="42"
+			viewBox="0 0 45 42"
+		     className={classNames(className, styles.size)}
+			fill={color} 
 		     xmlns="http://www.w3.org/2000/svg"
-		     {...rest} ref={ref}
+		     {...rest}
+			ref={ref}
 		>
 			<path fillRule="evenodd"
 				clipRule="evenodd"

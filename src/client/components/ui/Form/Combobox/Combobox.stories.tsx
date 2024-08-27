@@ -175,10 +175,14 @@ export const async: Story = {
 		return (
 			<>
 				<label htmlFor="pays">Pays</label>
-				<Combobox id="pays" filter={Combobox.noFilter} value={value} onChange={(_, newValue) => {
-					onChange(_, newValue);
-					setValue(newValue);
-				}} {...args}
+				<Combobox id="pays"
+					filter={Combobox.noFilter}
+					value={value}
+					onChange={(_, newValue) => {
+						onChange(_, newValue);
+						setValue(newValue);
+					}}
+					{...args}
 				>
 					{!loading && apiResults.map((result, index) => <Combobox.Option value={index} key={index}>{result}</Combobox.Option>)}
 					<Combobox.AsyncMessage>{loading ? 'Chargement ...' : `${apiResults.length} résultats trouvés`}</Combobox.AsyncMessage>

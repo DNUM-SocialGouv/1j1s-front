@@ -96,7 +96,8 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 				{annonceEmploiEurope.titre ? <h1 lang={codeLangueDeLOffre}>{annonceEmploiEurope.titre}</h1>
 					: <h1>Offre d’emploi sans titre</h1>}
 				{annonceEmploiEurope.nomEntreprise && <p className={styles.sousTitre}>{annonceEmploiEurope.nomEntreprise}</p>}
-				<TagList className={styles.tags} list={getTagsFromAnnonce(annonceEmploiEurope)}
+				<TagList className={styles.tags}
+					list={getTagsFromAnnonce(annonceEmploiEurope)}
 								 aria-label="Caractéristiques de l‘offre d‘emploi"
 				/>
 			</header>

@@ -44,10 +44,11 @@ export function ModaleDemandeContactCEJ({ isOpen, setIsOpen }: ModalDemandeDeCon
 				</ModalComponent.Content>
 			</ModalComponent>
 
-			<ModaleSuccessSubmission isOpen={statusForm === 'success'} onClose={() => {
-				setIsOpen(false);
-				setStatusForm('notSubmitted');
-			}}
+			<ModaleSuccessSubmission isOpen={statusForm === 'success'}
+				onClose={() => {
+					setIsOpen(false);
+					setStatusForm('notSubmitted');
+				}}
 			/>
 
 			<ModalErrorSubmission

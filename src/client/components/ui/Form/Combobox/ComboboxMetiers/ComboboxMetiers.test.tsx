@@ -287,7 +287,8 @@ describe('<ComboboxMetiers />', () => {
 						defaultValue={{
 							code: 'I1234,J5678',
 							label: 'Ingénieur en ingénierie',
-						}} debounceTimeout={0}
+						}}
+						debounceTimeout={0}
 					/>
 				</form>
 			</MetierDependenciesProvider>,

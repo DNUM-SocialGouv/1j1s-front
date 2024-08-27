@@ -23,7 +23,9 @@ describe('<MessageResultatRecherche />', () => {
 
 	describe('lorsqu‘il n‘y a pas de résultat', () => {
 		it('affiche un message d’erreur et l‘annonce au lecteur d‘écran en tant qu‘alerte', () => {
-			render(<MessageResultatRecherche labelSingulier={'résultat'} labelPluriel={'résultats'} isLoading={false}
+			render(<MessageResultatRecherche labelSingulier={'résultat'}
+				labelPluriel={'résultats'}
+				isLoading={false}
 																			 numberOfResult={0}
 			       />);
 

@@ -8,10 +8,14 @@ export const BikeIcon = React.forwardRef<SVGSVGElement, SvgProps>(function BikeI
 	color = 'currentColor', className, ...rest
 }, ref) {
 	return (
-		<svg width="22" height="18" viewBox="0 0 22 18"
-			className={classNames(className, styles.size)} fill={color}
+		<svg width="22"
+			height="18"
+			viewBox="0 0 22 18"
+			className={classNames(className, styles.size)}
+			fill={color}
 			xmlns="http://www.w3.org/2000/svg"
-			{...rest} ref={ref}
+			{...rest}
+			ref={ref}
 		>
 			<path fillRule="evenodd"
 				clipRule="evenodd"

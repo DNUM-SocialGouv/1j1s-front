@@ -193,10 +193,14 @@ function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposee.Stage 
 				<fieldset className={styles.contenuTeletravail}>
 					<legend>Télétravail possible</legend>
 					<div className={styles.inputTeletravail}>
-						<Radio name={StageEnum.TELETRAVAIL} value="true" label="Oui"
+						<Radio name={StageEnum.TELETRAVAIL}
+							value="true"
+							label="Oui"
 								 defaultChecked={props.informationsStage?.teletravail === Teletravail.OUI}
 						/>
-						<Radio name={StageEnum.TELETRAVAIL} value="false" label="Non"
+						<Radio name={StageEnum.TELETRAVAIL}
+							value="false"
+							label="Non"
 								 defaultChecked={props.informationsStage?.teletravail === Teletravail.NON}
 						/>
 					</div>

@@ -41,7 +41,8 @@ describe('Carousel', () => {
 			render(<Carousel imageList={[{
 				alt: 'une seule image',
 				src: '/une-seule-image.webp',
-			}]} imagesSize={{ height: 200, width: 400 }}
+			}]}
+			imagesSize={{ height: 200, width: 400 }}
 			       />);
 
 			const listDeSlides = screen.queryByRole('list');
@@ -54,7 +55,8 @@ describe('Carousel', () => {
 			render(<Carousel imageList={[{
 				alt: undefined,
 				src: '/une-seule-image.webp',
-			}]} imagesSize={{ height: 200, width: 400 }}
+			}]}
+			imagesSize={{ height: 200, width: 400 }}
 			       />);
 
 			expect(screen.getByRole('img', { name: '1 sur 1' })).toBeVisible();
@@ -63,7 +65,8 @@ describe('Carousel', () => {
 			render(<Carousel imageList={[{
 				alt: '',
 				src: '/une-seule-image.webp',
-			}]} imagesSize={{ height: 200, width: 400 }}
+			}]}
+			imagesSize={{ height: 200, width: 400 }}
 			       />);
 
 			expect(screen.getByRole('img', { name: '1 sur 1' })).toBeVisible();
@@ -113,7 +116,8 @@ describe('Carousel', () => {
 				alt: '',
 				src: '/image3.jpg',
 			},
-		]} imagesSize={{ height: 200, width: 400 }}
+		]}
+		imagesSize={{ height: 200, width: 400 }}
 		       />);
 
 		expect(screen.getByRole('img', { hidden: true, name: '1 sur 3' })).toBeVisible();

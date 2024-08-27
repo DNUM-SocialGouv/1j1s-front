@@ -19,7 +19,8 @@ export function ConsulterFormationAlternance({ formation, statistiques }: { form
 					{formation.nomEntreprise && <h2>{formation.nomEntreprise}</h2>}
 					<TagList list={formation.tags} />
 					{formation.lienDemandeRendezVous && (
-						<Link href={formation.lienDemandeRendezVous} className={commonStyles.postuler}
+						<Link href={formation.lienDemandeRendezVous}
+							className={commonStyles.postuler}
 							appearance={'asPrimaryButton'}
 						>
 							Contacter l’établissement
