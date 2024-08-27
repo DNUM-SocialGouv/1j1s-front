@@ -2,10 +2,6 @@
 @use "../TextboxShared.module" as inputStyles;
 
 .combobox {
-  $error-border-width: inputStyles.$error-border-width;
-  $border-width-compensation: inputStyles.$border-width-compensation;
-  $color-category-separator: inputStyles.$color-border;
-
   @extend %comboboxes;
 
   display: grid;
@@ -52,15 +48,12 @@
   }
   & input[role="combobox"]:valid,
   & input[role="combobox"]:not([data-touched="true"]) {
-    // NOTE (GAFI 06-07-2023): Compense la bordure plus épaisse quand en erreur
+    @extend %compensate-border-width;
     margin-right: 0;
 
     & ~ button {
-      margin:
-              $border-width-compensation
-              $border-width-compensation
-              $border-width-compensation
-              0;
+      @extend %compensate-border-width;
+      margin-left: 0;
     }
   }
 

@@ -5,9 +5,6 @@
 @use "src/client/components/ui/Checkbox/Checkbox.module";
 @use "src/client/components/ui/Radio/Radio.module";
 
-$error-border-width: inputStyles.$error-border-width;
-$border-width-compensation: inputStyles.$border-width-compensation;
-
 .container {
   @extend %comboboxes;
 
@@ -23,6 +20,10 @@ $border-width-compensation: inputStyles.$border-width-compensation;
     background-color: transparent;
   }
 
+  input:valid + [role="combobox"],
+  [role="combobox"]:not([data-touched="true"]) {
+    @extend %compensate-border-width;
+  }
   input:invalid + [role="combobox"][data-touched="true"] {
     @extend %error;
   }

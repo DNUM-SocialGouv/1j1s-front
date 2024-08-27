@@ -26,6 +26,9 @@ $border-width-compensation: calc($error-border-width - $border-width);
   border-color: $color-error;
   border-width: $error-border-width;
 }
+%compensate-border-width {
+  margin: $border-width-compensation;
+}
 
 %input {
   color: $color-text;
@@ -43,7 +46,7 @@ $border-width-compensation: calc($error-border-width - $border-width);
   }
   &:valid,
   &:not([data-touched="true"]) {
-    margin: $border-width-compensation;
+    @extend %compensate-border-width;
   }
 }
 
