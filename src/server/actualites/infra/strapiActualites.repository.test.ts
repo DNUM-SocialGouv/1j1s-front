@@ -1,5 +1,5 @@
-import {anActualiteList, anActualiteLongList} from '~/server/actualites/domain/actualite.fixture';
-import {aStrapiListeActualites, aStrapiLongueListeActualites} from '~/server/actualites/infra/strapiActualites.fixture';
+import { anActualiteList, anActualiteLongList } from '~/server/actualites/domain/actualite.fixture';
+import { aStrapiListeActualites, aStrapiLongueListeActualites } from '~/server/actualites/infra/strapiActualites.fixture';
 import { StrapiActualitesRepository } from '~/server/actualites/infra/strapiActualites.repository';
 import { aStrapiService } from '~/server/cms/infra/repositories/strapi.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';

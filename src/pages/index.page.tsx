@@ -329,23 +329,25 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 				}
 
 				{!isOldEspaceJeuneActif
-					&& <section className={styles.section}>
-						<h2 id="actualites" className={styles.sectionHeader}>
-							<Icon name="newspaper" className={styles.headerIcon}/>
+					&& (
+						<section className={styles.section}>
+							<h2 id="actualites" className={styles.sectionHeader}>
+								<Icon name="newspaper" className={styles.headerIcon} />
 							Actualités
-						</h2>
-						<Container className={styles.sectionListeActualites}>
-							<ul>
-								{getCardList(actualitesCardListContent).map((carte, index) => {
-									return ( <li key={index}>{carte}</li> );},
-								)}
-							</ul>
-							<Link href={'/actualites'} appearance={'asSecondaryButton'}>
+							</h2>
+							<Container className={styles.sectionListeActualites}>
+								<ul>
+									{getCardList(actualitesCardListContent).map((carte, index) => {
+										return ( <li key={index}>{carte}</li> );},
+									)}
+								</ul>
+								<Link href={'/actualites'} appearance={'asSecondaryButton'}>
 								Voir toutes les actualités
-								<Link.Icon/>
-							</Link>
-						</Container>
-					</section>
+									<Link.Icon />
+								</Link>
+							</Container>
+						</section>
+					)
 				}
 				<section className={styles.section}>
 					<h2 id="offres" className={styles.sectionHeader}>

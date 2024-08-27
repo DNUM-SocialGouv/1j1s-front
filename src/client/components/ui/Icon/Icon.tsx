@@ -97,6 +97,7 @@ export type IconName =
     | 'mark-pen'
     | 'menu'
     | 'microwave'
+		| 'newspaper'
     | 'phone'
     | 'plant'
     | 'play-circle'

@@ -4,7 +4,7 @@ import { ConsulterActualitesAccueilUseCase } from '../useCases/consulterActualit
 
 export interface ActualitesDependencies {
 	consulterActualitesUseCase: ConsulterActualitesUseCase
-	consulterActualitesAccueilUseCase: ConsulterActualitesUseCase
+	consulterActualitesAccueilUseCase: ConsulterActualitesAccueilUseCase
 }
 
 export function actualitesDependenciesContainer(actualitesRepository: StrapiActualitesRepository): ActualitesDependencies {

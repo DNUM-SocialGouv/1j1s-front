@@ -101,7 +101,7 @@ describe('Page d’accueil', () => {
 						// WHEN
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()}/>
+								<Accueil cartesActualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 
@@ -125,7 +125,7 @@ describe('Page d’accueil', () => {
 						// WHEN
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()}/>
+								<Accueil cartesActualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 
@@ -163,7 +163,7 @@ describe('Page d’accueil', () => {
 					// When
 					render(
 						<DependenciesProvider analyticsService={analyticsService}>
-							<Accueil cartesActualites={anActualiteList()}/>
+							<Accueil cartesActualites={anActualiteList()} />
 						</DependenciesProvider>,
 					);
 
@@ -204,7 +204,7 @@ describe('Page d’accueil', () => {
 					// When
 					render(
 						<DependenciesProvider analyticsService={analyticsService}>
-							<Accueil cartesActualites={anActualiteList()}/>
+							<Accueil cartesActualites={anActualiteList()} />
 						</DependenciesProvider>,
 					);
 
@@ -233,7 +233,7 @@ describe('Page d’accueil', () => {
 						// When
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()}/>
+								<Accueil cartesActualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 
@@ -248,7 +248,7 @@ describe('Page d’accueil', () => {
 						// When
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()}/>
+								<Accueil cartesActualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 
@@ -265,7 +265,7 @@ describe('Page d’accueil', () => {
 						// When
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={actualiteListServer}/>
+								<Accueil cartesActualites={actualiteListServer} />
 							</DependenciesProvider>,
 						);
 
@@ -318,7 +318,7 @@ describe('Page d’accueil', () => {
 						process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '0';
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()}/>
+								<Accueil cartesActualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 						expect(screen.queryByText('Jobs d’été')).not.toBeInTheDocument();
@@ -331,7 +331,7 @@ describe('Page d’accueil', () => {
 
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()}/>
+								<Accueil cartesActualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 
@@ -353,7 +353,7 @@ describe('Page d’accueil', () => {
 						// WHEN
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()}/>
+								<Accueil cartesActualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 
@@ -372,7 +372,7 @@ describe('Page d’accueil', () => {
 						// WHEN
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()}/>
+								<Accueil cartesActualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 
@@ -391,7 +391,7 @@ describe('Page d’accueil', () => {
 						process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()}/>
+								<Accueil cartesActualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 						expect(screen.queryByText('Formations initiales')).not.toBeInTheDocument();
@@ -403,7 +403,7 @@ describe('Page d’accueil', () => {
 
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()}/>
+								<Accueil cartesActualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 
@@ -422,7 +422,7 @@ describe('Page d’accueil', () => {
 						process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '0';
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()}/>
+								<Accueil cartesActualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 						expect(screen.queryByText('Aides au permis de conduire')).not.toBeInTheDocument();
@@ -434,7 +434,7 @@ describe('Page d’accueil', () => {
 
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()}/>
+								<Accueil cartesActualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 

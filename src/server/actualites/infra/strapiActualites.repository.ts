@@ -50,7 +50,6 @@ export class StrapiActualitesRepository implements ActualitesRepository {
 				message: 'impossible de mapper vers les actualités',
 			});
 		}
-		return Promise.resolve(createSuccess([]));
 	}
 }
 
