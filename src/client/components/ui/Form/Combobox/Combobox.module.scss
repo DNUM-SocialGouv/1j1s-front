@@ -3,7 +3,6 @@
 
 .combobox {
   $error-border-width: inputStyles.$error-border-width;
-  $color-error: inputStyles.$color-error;
   $border-width-compensation: inputStyles.$border-width-compensation;
   $color-category-separator: inputStyles.$color-border;
 
@@ -49,8 +48,7 @@
 
   & input[role="combobox"][data-touched="true"]:invalid,
   & input[role="combobox"][data-touched="true"]:invalid ~ button {
-    border-color: $color-error;
-    border-width: $error-border-width;
+    @extend %error;
   }
   & input[role="combobox"]:valid,
   & input[role="combobox"]:not([data-touched="true"]) {

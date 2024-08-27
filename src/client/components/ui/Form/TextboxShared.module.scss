@@ -22,6 +22,11 @@ $border-width-compensation: calc($error-border-width - $border-width);
   padding: 0.5rem 1rem;
 }
 
+%error {
+  border-color: $color-error;
+  border-width: $error-border-width;
+}
+
 %input {
   color: $color-text;
   background-color: transparent;
@@ -34,8 +39,7 @@ $border-width-compensation: calc($error-border-width - $border-width);
   }
 
   &[data-touched="true"]:invalid {
-    border-color: $color-error;
-    border-width: $error-border-width;
+    @extend %error;
   }
   &:valid,
   &:not([data-touched="true"]) {
