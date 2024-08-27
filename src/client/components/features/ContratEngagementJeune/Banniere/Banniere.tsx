@@ -16,8 +16,7 @@ export function Banniere() {
 					<Link
 						className={styles.cta}
 						href="#accompagnement"
-						appearance={'asSecondaryButton'}
-					>
+						appearance={'asSecondaryButton'}>
 						Trouver son accompagnement CEJ
 						<Link.Icon name="angle-right" />
 					</Link>
@@ -29,8 +28,7 @@ export function Banniere() {
 				src={banniereImage}
 				alt={'Contrat d‘engagement jeune, finie la galère, trouvez un métier qui va vous plaire.'}
 				width={800}
-				height={400}
-			/>
+				height={400} />
 		</div>
 	);
 }

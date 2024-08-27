@@ -34,15 +34,13 @@ export default function Document() {
 				{ process.env.NODE_ENV === 'production' && (
 					// eslint-disable-next-line @next/next/no-sync-scripts
 					<script
-						src={`/scripts/tarteaucitron/tarteaucitron.js?v=${encodeURI(process.env.NEXT_PUBLIC_APPLICATION_VERSION)}`}
-					/>
+						src={`/scripts/tarteaucitron/tarteaucitron.js?v=${encodeURI(process.env.NEXT_PUBLIC_APPLICATION_VERSION)}`} />
    			)}
 				{ process.env.NEXT_PUBLIC_ANALYTICS_EULERIAN_FEATURE === '1' && (
 					<Script
           	id="eulerianAnalytics"
           	src={`/scripts/eulerian.${process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN}.js`}
-          	strategy="beforeInteractive"
-					/>
+          	strategy="beforeInteractive" />
 				)}
 			</body>
 		</Html>

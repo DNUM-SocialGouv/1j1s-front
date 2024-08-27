@@ -66,8 +66,7 @@ export function RechercherOffreEmploi(props: RechercherOffreEmploiProps) {
 			<Head
 				title={title}
 				description="Plus de 400 000 offres d‘emplois et d‘alternances sélectionnées pour vous"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<RechercherSolutionLayout
 					banniere={<BannièreOffreEmploi />}
@@ -80,8 +79,7 @@ export function RechercherOffreEmploi(props: RechercherOffreEmploiProps) {
 					nombreTotalSolutions={nombreRésultats}
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
 					maxPage={MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL - 1}
-					listeSolutionElement={<ListeOffreEmploi résultatList={offreEmploiList} />}
-				/>
+					listeSolutionElement={<ListeOffreEmploi résultatList={offreEmploiList} />} />
 				<EnTete heading="Découvrez des services faits pour vous" />
 				<ServiceCardList>
 					<LaBonneBoitePartner />
@@ -112,8 +110,7 @@ function ListeOffreEmploi({ résultatList }: ListeRésultatProps) {
 						lienOffre={`/emplois/${offreEmploi.id}`}
 						logo={offreEmploi.entreprise.logo || LOGO_FRANCE_TRAVAIL}
 						logoAlt={offreEmploi.entreprise.logo ? '' : 'France travail'}
-						sousTitreOffre={offreEmploi.entreprise.nom}
-					/>
+						sousTitreOffre={offreEmploi.entreprise.nom} />
 				</li>
 			))}
 		</ListeRésultatsRechercherSolution>

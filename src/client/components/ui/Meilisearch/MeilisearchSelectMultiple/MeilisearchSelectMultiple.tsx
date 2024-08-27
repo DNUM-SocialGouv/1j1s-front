@@ -32,8 +32,7 @@ export function MeilisearchSelectMultiple(props: UseRefinementListProps & Meilis
 				render={SelectMultiple}
 				onChange={onOptionSelected}
 				value={valuesSelected}
-				optionsAriaLabel={label}
-			>
+				optionsAriaLabel={label}>
 				{items.map((option) =>
 					<SelectMultiple.Option key={option.value} value={option.value}>{getCapitalizedItems(option.label)}</SelectMultiple.Option>,
 				)}

@@ -145,24 +145,21 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 					nomEntreprise={nomEntreprise}
 					envoyerCandidature={envoyerCandidature}
 					metiersStage3eEt2de={metiersStage3eEt2de}
-					isLoading={isLoading}
-				/>
+					isLoading={isLoading} />
 			)}
 			{modeDeContact === ModeDeContact.IN_PERSON && (
 				<FormulaireContactEnPersonne
 					nomEntreprise={nomEntreprise}
 					envoyerCandidature={envoyerCandidature}
 					metiersStage3eEt2de={metiersStage3eEt2de}
-					isLoading={isLoading}
-				/>
+					isLoading={isLoading} />
 			)}
 			{modeDeContact === ModeDeContact.EMAIL && (
 				<FormulaireContactParEmail
 					nomEntreprise={nomEntreprise}
 					envoyerCandidature={envoyerCandidature}
 					metiersStage3eEt2de={metiersStage3eEt2de}
-					isLoading={isLoading}
-				/>
+					isLoading={isLoading} />
 			)}
 		</>
 	);
@@ -189,8 +186,7 @@ function FormulaireContactParTelephone(props: {
 				<form
 					aria-label={`Candidater à l’offre de stage de 3e et 2de de l’entreprise ${props.nomEntreprise}`}
 					onSubmit={props.envoyerCandidature}
-					className={styles.formulaireEtapeUnique}
-				>
+					className={styles.formulaireEtapeUnique}>
 					<Champ>
 						<Champ.Label>Prénom
 							<Champ.Label.Complement>Exemple : Alexis</Champ.Label.Complement>
@@ -199,8 +195,7 @@ function FormulaireContactParTelephone(props: {
 											 name="prenom"
 											 required
 											 type="text"
-											 autoComplete="given-name"
-						/>
+											 autoComplete="given-name" />
 						<Champ.Error />
 					</Champ>
 					<Champ>
@@ -211,8 +206,7 @@ function FormulaireContactParTelephone(props: {
 											 name="nom"
 											 required
 											 type="text"
-											 autoComplete="family-name"
-						/>
+											 autoComplete="family-name" />
 						<Champ.Error />
 					</Champ>
 					<Champ>
@@ -224,8 +218,7 @@ function FormulaireContactParTelephone(props: {
 											 required
 											 type="email"
 											 autoComplete="email"
-											 pattern={emailRegex}
-						/>
+											 pattern={emailRegex} />
 						<Champ.Error />
 					</Champ>
 					{ /* FIXME (DORO 22-01-2024: Ajouter la gestion de readonly dans Select */}
@@ -239,8 +232,7 @@ function FormulaireContactParTelephone(props: {
 								render={SelectSimple}
 								required
 								optionsAriaLabel={'metiers'}
-								name={'metierCode'}
-							>
+								name={'metierCode'}>
 								{props.metiersStage3eEt2de.map((metier) =>
 									<SelectSimple.Option key={metier.label} value={metier.code}>{metier.label}</SelectSimple.Option>,
 								)}
@@ -259,8 +251,7 @@ function FormulaireContactParTelephone(props: {
 												 required
 												 value={props.metiersStage3eEt2de[0].label}
 												 readOnly
-												 type="text"
-							/>
+												 type="text" />
 							<Champ.Error />
 						</Champ>
 					)}
@@ -268,8 +259,7 @@ function FormulaireContactParTelephone(props: {
 						className={styles.boutonSoumission}
 						label="Envoyer les informations"
 						type="submit"
-						disabled={props.isLoading}
-					/>
+						disabled={props.isLoading} />
 				</form>
 			</Container>
 			{DECHARGE}
@@ -296,8 +286,7 @@ function FormulaireContactParEmail(props: {
 				<form
 					aria-label={`Candidater à l’offre de stage de 3e et 2de de l’entreprise ${props.nomEntreprise}`}
 					onSubmit={props.envoyerCandidature}
-					className={styles.formulaireEtapeUnique}
-				>
+					className={styles.formulaireEtapeUnique}>
 					<Champ>
 						<Champ.Label>Prénom
 							<Champ.Label.Complement>Exemple : Alexis</Champ.Label.Complement>
@@ -306,8 +295,7 @@ function FormulaireContactParEmail(props: {
 											 name="prenom"
 											 required
 											 type="text"
-											 autoComplete="given-name"
-						/>
+											 autoComplete="given-name" />
 						<Champ.Error />
 					</Champ>
 					<Champ>
@@ -318,8 +306,7 @@ function FormulaireContactParEmail(props: {
 											 name="nom"
 											 required
 											 type="text"
-											 autoComplete="family-name"
-						/>
+											 autoComplete="family-name" />
 						<Champ.Error />
 					</Champ>
 					<Champ>
@@ -331,8 +318,7 @@ function FormulaireContactParEmail(props: {
 											 required
 											 type="email"
 											 autoComplete="email"
-											 pattern={emailRegex}
-						/>
+											 pattern={emailRegex} />
 						<Champ.Error />
 					</Champ>
 					<Champ>
@@ -347,8 +333,7 @@ function FormulaireContactParEmail(props: {
 											 required
 											 type="tel"
 											 autoComplete="tel"
-											 pattern={telFrRegex}
-						/>
+											 pattern={telFrRegex} />
 						<Champ.Error />
 					</Champ>
 					{ /* FIXME (DORO 22-01-2024: Ajouter la gestion de readonly dans Select */}
@@ -362,8 +347,7 @@ function FormulaireContactParEmail(props: {
 								render={SelectSimple}
 								required
 								optionsAriaLabel={'metiers'}
-								name={'metierCode'}
-							>
+								name={'metierCode'}>
 								{props.metiersStage3eEt2de.map((metier) =>
 									<SelectSimple.Option key={metier.label} value={metier.code}>{metier.label}</SelectSimple.Option>,
 								)}
@@ -382,8 +366,7 @@ function FormulaireContactParEmail(props: {
 												 required
 												 value={props.metiersStage3eEt2de[0].label}
 												 readOnly
-												 type="text"
-							/>
+												 type="text" />
 							<Champ.Error />
 						</Champ>
 					)}
@@ -400,16 +383,14 @@ function FormulaireContactParEmail(props: {
 							name="message"
 							maxLength={500}
 							required
-							defaultValue={messageContactParDefaut}
-						/>
+							defaultValue={messageContactParDefaut} />
 						<Champ.Error />
 					</Champ>
 					<ButtonComponent
 						className={styles.boutonSoumission}
 						label="Envoyer les informations"
 						type="submit"
-						disabled={props.isLoading}
-					/>
+						disabled={props.isLoading} />
 				</form>
 			</Container>
 			{DECHARGE}

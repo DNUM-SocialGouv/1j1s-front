@@ -23,8 +23,7 @@ export function RésultatRechercherMétier(props: HitProps<Partial<StrapiFicheMe
 		<ResultatRechercherSolution
 			intituléOffre={nomMetier}
 			étiquetteOffreList={[]}
-			lienOffre={`/decouvrir-les-metiers/${encodeURIComponent(ficheMetier.nomMetier)}`}
-		>
+			lienOffre={`/decouvrir-les-metiers/${encodeURIComponent(ficheMetier.nomMetier)}`}>
 			<div className={styles.description} dangerouslySetInnerHTML={{ __html: accrocheMétier || '' }} />
 		</ResultatRechercherSolution>
 	);

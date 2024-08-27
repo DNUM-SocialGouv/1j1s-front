@@ -22,8 +22,7 @@ export function ListeResultatsStage3eEt2de({ resultatList }: ListeResultatsStage
 
 	return (
 		<ListeRésultatsRechercherSolution
-			aria-label={'Stages de 3e et 2de'}
-		>
+			aria-label={'Stages de 3e et 2de'}>
 			{resultatList.resultats.map((stage3eEt2de) => ResultatStage3eEt2de(stage3eEt2de))}
 		</ListeRésultatsRechercherSolution>
 	);
@@ -79,8 +78,7 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 				étiquetteOffreList={étiquetteOffreList}
 				lienOffre={lienOffre}
 				intituléLienOffre={intituleLienOffre}
-				className={styles.carteResultat}
-			/>
+				className={styles.carteResultat} />
 		</li>
 	);
 }

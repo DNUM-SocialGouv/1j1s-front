@@ -95,8 +95,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             							<TabsLabel>
             								{listeSolutionElementTab.map((solutionElement) => (
             									<Tab
-            										key={solutionElement.label}
-            									>
+            										key={solutionElement.label}>
             										{solutionElement.label}
             									</Tab>
 														))}
@@ -117,8 +116,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
                         	<Pagination
                         		numberOfResult={listeSolutionElementTab[currentTab].nombreDeSolutions}
                         		numberOfResultPerPage={paginationOffset}
-                        		maxPage={maxPage}
-                        	/>
+                        		maxPage={maxPage} />
 											</div>
 										)}
             			</div>

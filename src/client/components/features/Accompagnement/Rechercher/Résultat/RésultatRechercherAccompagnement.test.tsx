@@ -189,8 +189,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 			const localisationService = aLocalisationService();
 
 			render(<DependenciesProvider établissementAccompagnementService={établissementAccompagnementService}
-																	 localisationService={localisationService}
-			>
+																	 localisationService={localisationService}>
 				<RésultatRechercherAccompagnement etablissement={établissement} />
 			</DependenciesProvider>);
 
@@ -213,8 +212,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 			render(
 				<DependenciesProvider
 					établissementAccompagnementService={établissementAccompagnementService}
-					localisationService={aLocalisationService()}
-				>
+					localisationService={aLocalisationService()}>
 					<RésultatRechercherAccompagnement etablissement={établissement} />
 				</DependenciesProvider>);
 
@@ -243,8 +241,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 			render(<DependenciesProvider
 				établissementAccompagnementService={établissementAccompagnementService}
-				localisationService={aLocalisationService()}
-			>
+				localisationService={aLocalisationService()}>
 				<RésultatRechercherAccompagnement etablissement={établissement} />
 			</DependenciesProvider>);
 
@@ -271,8 +268,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 				render(<DependenciesProvider
 					établissementAccompagnementService={établissementAccompagnementService}
-					localisationService={aLocalisationService()}
-				>
+					localisationService={aLocalisationService()}>
 					<RésultatRechercherAccompagnement etablissement={établissement} />
 				</DependenciesProvider>);
 
@@ -300,8 +296,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 				render(<DependenciesProvider
 					établissementAccompagnementService={établissementAccompagnementService}
-					localisationService={localisationService}
-				>
+					localisationService={localisationService}>
 					<RésultatRechercherAccompagnement etablissement={établissement} />
 				</DependenciesProvider>);
 
@@ -333,8 +328,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 				render(<DependenciesProvider
 					établissementAccompagnementService={établissementAccompagnementService}
-					localisationService={localisationService}
-				>
+					localisationService={localisationService}>
 					<RésultatRechercherAccompagnement etablissement={établissement} />
 				</DependenciesProvider>);
 

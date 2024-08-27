@@ -44,8 +44,7 @@ export function AnnonceDeLogement(props: HitProps<AnnonceDeLogementIndexee>) {
 				<TextIcon
 					icon="map-pin"
 					iconPosition="left"
-					className={styles.localisation}
-				>
+					className={styles.localisation}>
 					<span>{annonce.localisationAAfficher}</span>
 				</TextIcon>
 				<Link
@@ -53,8 +52,7 @@ export function AnnonceDeLogement(props: HitProps<AnnonceDeLogementIndexee>) {
 					key={annonce.slug}
 					className={styles.CardFooterCallToAction}
 					prefetch={false}
-					appearance={'asQuaternaryButton'}
-				>
+					appearance={'asQuaternaryButton'}>
 					Lire l‘annonce
 					<Link.Icon />
 				</Link>
@@ -97,7 +95,6 @@ const CardAnnonceCarousel = (props: { imageSrcList: ImageSrcListProps }) => {
 			imageList={firstFourthImages}
 			className={styles.CardImageWrapper}
 			imagesSize={{ height: MAX_IMAGE_HEIGHT, width: MAX_IMAGE_WIDTH }}
-			aria-label="Photos du logement"
-		/>
+			aria-label="Photos du logement" />
 	);
 };

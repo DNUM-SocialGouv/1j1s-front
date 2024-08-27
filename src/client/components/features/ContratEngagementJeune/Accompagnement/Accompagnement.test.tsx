@@ -61,8 +61,7 @@ describe('<Accompagnement />', () => {
 			render(
 				<DependenciesProvider
 					demandeDeContactService={aDemandeDeContactService()}
-					localisationService={aLocalisationService()}
-				>
+					localisationService={aLocalisationService()}>
 					<Accompagnement />
 				</DependenciesProvider>,
 			);
@@ -96,8 +95,7 @@ describe('<Accompagnement />', () => {
 				render(
 					<DependenciesProvider
 						demandeDeContactService={demandeDeContactService}
-						localisationService={localisationService}
-					>
+						localisationService={localisationService}>
 						<Accompagnement />
 					</DependenciesProvider>,
 				);
@@ -138,8 +136,7 @@ describe('<Accompagnement />', () => {
 					render(
 						<DependenciesProvider
 							demandeDeContactService={demandeDeContactService}
-							localisationService={localisationService}
-						>
+							localisationService={localisationService}>
 							<Accompagnement />
 						</DependenciesProvider>,
 					);
@@ -171,8 +168,7 @@ describe('<Accompagnement />', () => {
 					render(
 						<DependenciesProvider
 							demandeDeContactService={demandeDeContactService}
-							localisationService={localisationService}
-						>
+							localisationService={localisationService}>
 							<Accompagnement />
 						</DependenciesProvider>,
 					);
@@ -208,8 +204,7 @@ describe('<Accompagnement />', () => {
 					render(
 						<DependenciesProvider
 							demandeDeContactService={demandeDeContactService}
-							localisationService={localisationService}
-						>
+							localisationService={localisationService}>
 							<Accompagnement />
 						</DependenciesProvider>,
 					);
@@ -276,8 +271,7 @@ describe('<Accompagnement />', () => {
 			render(
 				<DependenciesProvider
 					demandeDeContactService={aDemandeDeContactService()}
-					localisationService={aLocalisationService()}
-				>
+					localisationService={aLocalisationService()}>
 					<Accompagnement />
 				</DependenciesProvider>,
 			);

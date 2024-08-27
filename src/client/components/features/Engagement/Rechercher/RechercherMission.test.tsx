@@ -35,8 +35,7 @@ describe('RechercherMission', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
-					missionEngagementService={missionEngagementServiceMock}
-				>
+					missionEngagementService={missionEngagementServiceMock}>
 					<RechercherMission category={EngagementCategory.BENEVOLAT} />
 				</DependenciesProvider>,
 			);
@@ -63,8 +62,7 @@ describe('RechercherMission', () => {
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
-						missionEngagementService={missionEngagementServiceMock}
-					>
+						missionEngagementService={missionEngagementServiceMock}>
 						<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
 					</DependenciesProvider>,
 				);
@@ -89,8 +87,7 @@ describe('RechercherMission', () => {
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
-						missionEngagementService={missionEngagementServiceMock}
-					>
+						missionEngagementService={missionEngagementServiceMock}>
 						<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
 					</DependenciesProvider>,
 				);
@@ -108,8 +105,7 @@ describe('RechercherMission', () => {
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
-						missionEngagementService={missionEngagementServiceMock}
-					>
+						missionEngagementService={missionEngagementServiceMock}>
 						<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
 					</DependenciesProvider>,
 				);
@@ -143,8 +139,7 @@ describe('RechercherMission', () => {
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
-						missionEngagementService={missionEngagementServiceMock}
-					>
+						missionEngagementService={missionEngagementServiceMock}>
 						<RechercherMission category={EngagementCategory.BENEVOLAT} />
 					</DependenciesProvider>,
 				);
@@ -168,8 +163,7 @@ describe('RechercherMission', () => {
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
-						missionEngagementService={missionEngagementServiceMock}
-					>
+						missionEngagementService={missionEngagementServiceMock}>
 						<RechercherMission category={EngagementCategory.BENEVOLAT} />
 					</DependenciesProvider>,
 				);
@@ -187,8 +181,7 @@ describe('RechercherMission', () => {
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
-						missionEngagementService={missionEngagementServiceMock}
-					>
+						missionEngagementService={missionEngagementServiceMock}>
 						<RechercherMission category={EngagementCategory.BENEVOLAT} />
 					</DependenciesProvider>,
 				);
@@ -270,8 +263,7 @@ describe('RechercherMission', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
-					missionEngagementService={missionEngagementServiceMock}
-				>
+					missionEngagementService={missionEngagementServiceMock}>
 					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
 				</DependenciesProvider>,
 			);
@@ -291,8 +283,7 @@ describe('RechercherMission', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
-					missionEngagementService={missionEngagementServiceMock}
-				>
+					missionEngagementService={missionEngagementServiceMock}>
 					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
 				</DependenciesProvider>,
 			);
@@ -312,8 +303,7 @@ describe('RechercherMission', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
-					missionEngagementService={missionEngagementServiceMock}
-				>
+					missionEngagementService={missionEngagementServiceMock}>
 					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
 				</DependenciesProvider>,
 			);
@@ -329,8 +319,7 @@ describe('RechercherMission', () => {
 		it('affiche 2 cartes de services', async () => {
 			render(
 				<DependenciesProvider missionEngagementService={aMissionEngagementService()}
-					localisationService={aLocalisationService()}
-				>
+					localisationService={aLocalisationService()}>
 					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
 				</DependenciesProvider>,
 			);
@@ -354,8 +343,7 @@ describe('RechercherMission', () => {
 		it('affiche 1 carte de service', async () => {
 			render(
 				<DependenciesProvider missionEngagementService={aMissionEngagementService()}
-					localisationService={aLocalisationService()}
-				>
+					localisationService={aLocalisationService()}>
 					<RechercherMission category={EngagementCategory.BENEVOLAT} />
 				</DependenciesProvider>,
 			);

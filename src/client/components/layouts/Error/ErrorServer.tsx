@@ -28,8 +28,7 @@ export default function ErrorServer({ error }: ErrorServerProps) {
 				<>
 					<Head
 						robots="noindex"
-						title="Service indisponible | 1jeune1solution"
-					/>
+						title="Service indisponible | 1jeune1solution" />
 					<ErrorUnavailableService />
 				</>
 			);

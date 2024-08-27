@@ -27,8 +27,7 @@ describe('La recherche des stages de 3e et 2de', () => {
 			const metierStage3eEt2deService = aMetierService();
 			render(<DependenciesProvider stage3eEt2deService={stage3eEt2deServiceMock}
 																	 localisationService={aLocalisationService()}
-																	 metierStage3eEt2deService={metierStage3eEt2deService}
-			>
+																	 metierStage3eEt2deService={metierStage3eEt2deService}>
 				<RechercherStages3eEt2de />
 			</DependenciesProvider>);
 
@@ -70,8 +69,7 @@ describe('La recherche des stages de 3e et 2de', () => {
 			// WHEN
 			render(<DependenciesProvider stage3eEt2deService={stage3eEt2deServiceMock}
 																	 localisationService={aLocalisationService()}
-																	 metierStage3eEt2deService={aMetierService()}
-			>
+																	 metierStage3eEt2deService={aMetierService()}>
 				<RechercherStages3eEt2de />
 			</DependenciesProvider>);
 			const messageResultatsRecherche = await screen.findByText('1 entreprise accueillante');
@@ -125,8 +123,7 @@ describe('La recherche des stages de 3e et 2de', () => {
 			// WHEN
 			render(<DependenciesProvider stage3eEt2deService={stage3eEt2deServiceMock}
 																	 localisationService={aLocalisationService()}
-																	 metierStage3eEt2deService={aMetierService()}
-			>
+																	 metierStage3eEt2deService={aMetierService()}>
 				<RechercherStages3eEt2de />
 			</DependenciesProvider>);
 			const messageResultatsRecherche = await screen.findByText('2 entreprises accueillantes');
@@ -175,8 +172,7 @@ describe('La recherche des stages de 3e et 2de', () => {
 				// WHEN
 				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deServiceMock}
 																		 localisationService={aLocalisationService()}
-																		 metierStage3eEt2deService={aMetierService()}
-				>
+																		 metierStage3eEt2deService={aMetierService()}>
 					<RechercherStages3eEt2de />
 				</DependenciesProvider>);
 				const messageResultatsRecherche = await screen.findByText('1 entreprise accueillante pour Informatique');
@@ -201,8 +197,7 @@ describe('La recherche des stages de 3e et 2de', () => {
 			});
 			render(<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}
 																	 localisationService={aLocalisationService()}
-																	 metierStage3eEt2deService={aMetierService()}
-			>
+																	 metierStage3eEt2deService={aMetierService()}>
 				<RechercherStages3eEt2de />
 			</DependenciesProvider>);
 

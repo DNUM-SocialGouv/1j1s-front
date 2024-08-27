@@ -28,8 +28,7 @@ export function ModalDemandeDeContactAccompagnement({ contactÉtablissementAccom
 			<ModalComponent
 				isOpen={isOpen}
 				close={() => setIsOpen(false)}
-				aria-labelledby={'dialog_label'}
-			>
+				aria-labelledby={'dialog_label'}>
 				<ModalComponent.Title className={styles.modalTitle} id="dialog_label">
 						Je souhaite être contacté(e) par la Mission Locale
 				</ModalComponent.Title>
@@ -44,8 +43,7 @@ export function ModalDemandeDeContactAccompagnement({ contactÉtablissementAccom
 						onFailure={() => {
 							setIsOpen(false);
 							setStatusForm('error');
-						}}
-					/>
+						}} />
 				</ModalComponent.Content>
 			</ModalComponent>
 
@@ -53,8 +51,7 @@ export function ModalDemandeDeContactAccompagnement({ contactÉtablissementAccom
 				onClose={() => {
 					setIsOpen(false);
 					setStatusForm('notSubmitted');
-				}}
-			/>
+				}} />
 
 			<ModalErrorSubmission isOpen={statusForm === 'error'} 
 				onClose={() => {
@@ -63,8 +60,7 @@ export function ModalDemandeDeContactAccompagnement({ contactÉtablissementAccom
 				onBackToForm={() => {
 					setIsOpen(true);
 					setStatusForm('notSubmitted');
-				}}
-			/>
+				}} />
 		</>
 
 	);

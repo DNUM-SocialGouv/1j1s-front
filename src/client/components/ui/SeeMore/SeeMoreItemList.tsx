@@ -63,8 +63,7 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 			{itemListToDisplay.length > 0 && (
 				<div
 					id={`section-${ariaId}`}
-					{...rest}
-				>
+					{...rest}>
 					<ul className={styles.itemList} ref={listRef} tabIndex={-1}>
 						{itemListToDisplay?.map((element, index) =>
 							<li key={index}>{element}</li>,
@@ -82,8 +81,7 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 												 type="button"
 												 aria-expanded={isOpen}
 												 aria-controls={`section-${ariaId}`}
-												 aria-label={buttonAriaLabel}
-				>
+												 aria-label={buttonAriaLabel}>
 				</ButtonComponent>
 			)}
 		</>

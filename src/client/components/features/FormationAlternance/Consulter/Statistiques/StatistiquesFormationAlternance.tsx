@@ -15,8 +15,7 @@ export function StatistiquesFormationAlternance({ statistiques }: { statistiques
 				heading="Et après la formation ?"
 				headingLevel={'h2'}
 				className={styles.entête}
-				description={`Découvrez les chiffres-clés liés à cette formation pour la région ${statistiques.region}`}
-			/>
+				description={`Découvrez les chiffres-clés liés à cette formation pour la région ${statistiques.region}`} />
 			<Container>
 				<article className={styles.layout}>
 					<h3 className={styles.texteQuestion}>Que deviennent les apprenants après cette formation ?</h3>
@@ -41,8 +40,7 @@ export function StatistiquesFormationAlternance({ statistiques }: { statistiques
 						link="/articles/inserjeunes"
 						logo="/images/logos/inserjeunes.svg"
 						title="Découvrez le dispositif InserJeunes"
-						titleAs={'h3'}
-					>
+						titleAs={'h3'}>
 						Inserjeunes est un service d’aide à l’orientation des jeunes qui présente différents indicateurs pour toutes les formations professionnelles.
 					</ServiceCard>
 				</ServiceCardList>

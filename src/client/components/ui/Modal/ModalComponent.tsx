@@ -129,8 +129,7 @@ export function ModalComponent(props: ModalPropsWithAccessibleDescription) {
 					className={classNames(className, styles.modal)}
 					open={isOpen}
 					aria-modal="true"
-					{...rest}
-				>
+					{...rest}>
 					<div className={styles.modalBody}>
 						<div className={styles.modalClose}>
 							<ButtonComponent
@@ -139,8 +138,7 @@ export function ModalComponent(props: ModalPropsWithAccessibleDescription) {
 								iconPosition="right"
 								label={closeLabel}
 								title={closeTitle}
-								onClick={() => close()}
-							/>
+								onClick={() => close()} />
 						</div>
 						{children}
 					</div>

@@ -30,8 +30,7 @@ export default function Bouée({ surface }: { surface: RefObject<HTMLElement> })
 			className={styles.bouée}
 			appearance="asPrimaryButton"
 			hidden={!isDown}
-			href={`#${ID_TOP_ELEMENT}`}
-		>
+			href={`#${ID_TOP_ELEMENT}`}>
 			<Link.Icon name={'angle-up'} aria-hidden={false} aria-label="Remonter en haut de la page" />
 		</Link>
 	);

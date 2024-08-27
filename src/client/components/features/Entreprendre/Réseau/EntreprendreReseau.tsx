@@ -63,8 +63,7 @@ function EntreprendreRéseauList({ réseauList, ...rest }: EntreprendreRéseauLi
 					<EntreprendreReseau
 						entreprise={réseau.entreprise}
 						phases={réseau.phases}
-						publicConcerné={réseau.publicConcerné}
-					/>
+						publicConcerné={réseau.publicConcerné} />
 				</li>
 			))}
 		</ul>
@@ -309,8 +308,7 @@ export function RéseauAccompagnementList() {
 	return (
 		<EntreprendreRéseauList
 			réseauList={RÉSEAU_ACCOMPAGNEMENT}
-			aria-label="Réseaux d‘accompagnement"
-		/>
+			aria-label="Réseaux d‘accompagnement" />
 	);
 }
 
@@ -318,8 +316,7 @@ export function RéseauFinancementList() {
 	return (
 		<EntreprendreRéseauList
 			réseauList={RÉSEAU_FINANCEMENT}
-			aria-label="Réseaux de financement"
-		/>
+			aria-label="Réseaux de financement" />
 	);
 }
 
@@ -327,7 +324,6 @@ export function RéseauÉconomieSocialeEtSolidaireList() {
 	return (
 		<EntreprendreRéseauList
 			réseauList={RÉSEAU_ÉCONOMIE_SOCIALE_ET_SOLIDAIRE}
-			aria-label="Réseaux de projets dans l‘économie sociale et solidaire"
-		/>
+			aria-label="Réseaux de projets dans l‘économie sociale et solidaire" />
 	);
 }

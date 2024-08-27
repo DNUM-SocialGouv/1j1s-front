@@ -77,8 +77,7 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 						onChange={(event) => setDateDeDebutMin(event.target.value)}
 						validation={(event) => validationDateDeDebutMin(event as string)}
 						pattern={patternDate}
-						placeholder={placeholderDate}
-					/>
+						placeholder={placeholderDate} />
 					<Champ.Error />
 				</Champ>
 			)
@@ -99,8 +98,7 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 								onChange={(event) => setDateDeDebutMin(event.target.value)}
 								validation={(event) => validationDateDeDebutMin(event as string)}
 								pattern={patternDate}
-								placeholder={placeholderDate}
-							/>
+								placeholder={placeholderDate} />
 							<Champ.Error />
 						</Champ>
 						<Champ>
@@ -118,8 +116,7 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 								onChange={(event) => setDateDeDebutMax(event.target.value)}
 								validation={(event) => validationDateDeDebutMax(event as string)}
 								pattern={patternDate}
-								placeholder={placeholderDate}
-							/>
+								placeholder={placeholderDate} />
 							<Champ.Error />
 						</Champ>
 					</div>

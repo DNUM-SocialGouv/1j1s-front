@@ -18,8 +18,7 @@ export default function MentoratPage() {
 			<Head
 				title="Mentorat | 1jeune1solution"
 				description="Se rendre utile tout en préparant son avenir grâce aux missions de service civique"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<div className={styles.heading}>
 					<div className={styles.headingContainer}>
@@ -87,8 +86,7 @@ export default function MentoratPage() {
 							  numberOfVisibleItems={0}
 								itemList={[<RaisonParticipationsMentorat key={0} />]}
 								seeLessAriaLabel={'Voir moins de raisons de participer au mentorat'}
-								seeMoreAriaLabel={'Voir plus de raisons de participer au mentorat'}
-							>
+								seeMoreAriaLabel={'Voir plus de raisons de participer au mentorat'}>
 								<RaisonParticipationsMentorat />
 							</SeeMoreMobileOnly>
 						</div>
@@ -96,8 +94,7 @@ export default function MentoratPage() {
 							src="/illustrations/aventure-du-mentorat.svg"
 							alt=""
 							width={490}
-							height={370}
-						/>
+							height={370} />
 					</article>
 				</div>
 			</main>

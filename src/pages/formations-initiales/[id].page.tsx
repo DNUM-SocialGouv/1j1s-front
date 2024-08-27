@@ -70,8 +70,7 @@ export default function ConsulterFormationInitialePage({ formationInitialeDetail
 		<>
 			<Head
 				title={`${formationInitialeDetail.libelle} | 1jeune1solution`}
-				robots="noindex"
-			/>
+				robots="noindex" />
 			<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail} />
 
 			<Container className={styles.container}>

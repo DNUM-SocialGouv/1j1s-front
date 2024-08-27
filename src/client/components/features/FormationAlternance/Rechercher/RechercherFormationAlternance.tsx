@@ -71,8 +71,7 @@ export default function RechercherFormationAlternance({ resultats: formationAlte
 		<>
 			<Head
 				title={title}
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<RechercherSolutionLayout
 					banniere={<BannièreFormation />}
@@ -89,11 +88,9 @@ export default function RechercherFormationAlternance({ resultats: formationAlte
 							queryParams={transformObjectToQueryString({
 								...router.query,
 								libelleMetier: undefined,
-							})}
-						/>
+							})} />
 					)
-					}
-				/>
+					} />
 				<EnTete heading="Découvrez des services faits pour vous" />
 				<ServiceCardList>
 					<DecouvrirApprentissage />
@@ -138,8 +135,7 @@ function ListeFormation({ résultatList, queryParams }: ListeRésultatProps) {
 						lienOffre={getLienOffre(formation, queryParams)}
 						intituléOffre={formation.titre}
 						// TODO (BRUJ 05/08/2024): les tags devraient être constitués côté client
-						étiquetteOffreList={formation.tags as string[]}
-					>
+						étiquetteOffreList={formation.tags as string[]}>
 						<section>
 							<div>{formation.nomEntreprise && formation.nomEntreprise}</div>
 							<div>Adresse : {formation.adresse && formation.adresse}</div>

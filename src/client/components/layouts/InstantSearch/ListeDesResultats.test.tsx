@@ -42,8 +42,7 @@ describe('ListeDesResultats Component', () => {
 					resultats={<TestComponent />}
 					pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null} />}
 					isAffichageListeDeResultatsDesktopDirectionRow={true}
-					skeletonRepeat={2}
-				/>,
+					skeletonRepeat={2} />,
 			);
 
 			const skeletonList = screen.getByLabelText('...En cours de chargement');
@@ -62,8 +61,7 @@ describe('ListeDesResultats Component', () => {
 						resultats={<TestComponent />}
 						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null} />}
 						isAffichageListeDeResultatsDesktopDirectionRow={true}
-						skeletonRepeat={4}
-					/>,
+						skeletonRepeat={4} />,
 				);
 
 				const skeletonList = screen.getByLabelText('...En cours de chargement');
@@ -81,8 +79,7 @@ describe('ListeDesResultats Component', () => {
 						resultats={<TestComponent />}
 						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null} />}
 						isAffichageListeDeResultatsDesktopDirectionRow={true}
-						skeletonRepeat={2}
-					/>,
+						skeletonRepeat={2} />,
 				);
 
 				const skeletonList = screen.getByLabelText('...En cours de chargement');
@@ -102,8 +99,7 @@ describe('ListeDesResultats Component', () => {
 						resultats={<TestComponent />}
 						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null} />}
 						isAffichageListeDeResultatsDesktopDirectionRow={false}
-						skeletonRepeat={3}
-					/>,
+						skeletonRepeat={3} />,
 				);
 
 				const skeletonList = screen.getByLabelText('...En cours de chargement');
@@ -127,8 +123,7 @@ describe('ListeDesResultats Component', () => {
 						resultats={<TestComponent />}
 						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null} />}
 						isAffichageListeDeResultatsDesktopDirectionRow={true}
-						skeletonRepeat={2}
-					/>,
+						skeletonRepeat={2} />,
 				);
 
 				const annoncesDeLogementList = screen.getByLabelText('Résultats de recherche');
@@ -151,8 +146,7 @@ describe('ListeDesResultats Component', () => {
 						resultats={<TestComponent />}
 						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null} />}
 						isAffichageListeDeResultatsDesktopDirectionRow={true}
-						skeletonRepeat={2}
-					/>,
+						skeletonRepeat={2} />,
 				);
 
 				const annoncesDeLogementList = screen.getByLabelText('Résultats de recherche');
@@ -173,8 +167,7 @@ describe('ListeDesResultats Component', () => {
 					resultats={<div />}
 					pagination={<MeiliSearchPagination numberOfResultPerPage={1} onPageChange={() => null} />}
 					isAffichageListeDeResultatsDesktopDirectionRow={true}
-					skeletonRepeat={2}
-				/>,
+					skeletonRepeat={2} />,
 			);
 
 			const mention = screen.getByText(/les annonces listées ci-dessus nous sont fournies par nos partenaires/);
@@ -189,8 +182,7 @@ describe('ListeDesResultats Component', () => {
 					resultats={<div />}
 					pagination={<MeiliSearchPagination numberOfResultPerPage={1} onPageChange={() => null} />}
 					isAffichageListeDeResultatsDesktopDirectionRow={true}
-					skeletonRepeat={2}
-				/>,
+					skeletonRepeat={2} />,
 			);
 
 			const abreviation = screen.getByText('CGU');

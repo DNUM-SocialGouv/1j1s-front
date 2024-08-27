@@ -19,8 +19,7 @@ export function FormulaireÉtapeLayout(props: FormulaireEtapeLayoutProps) {
 				<Link
 					href={urlÉtapePrécédente}
 					appearance="asSecondaryButton"
-					className={styles.boutonRetour}
-				>
+					className={styles.boutonRetour}>
 					<Link.Icon name="angle-left" />
         Retour à l’étape précédente
 				</Link>

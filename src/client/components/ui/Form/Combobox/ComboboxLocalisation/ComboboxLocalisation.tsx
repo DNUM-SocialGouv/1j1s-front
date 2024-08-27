@@ -134,8 +134,7 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 				}
 				requireValidOption
 				filter={Combobox.noFilter}
-				{...rest}
-			>
+				{...rest}>
 				<LocalisationOptionsByCategory localisations={localisationOptions} optionMessage={optionMessage} />
 			</Champ.Input>
 			<Champ.Error />

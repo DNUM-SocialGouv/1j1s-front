@@ -32,8 +32,7 @@ describe('RechercherEmploisEurope', () => {
 			// WHEN
 			render(
 				<DependenciesProvider
-					emploiEuropeService={emploiEuropeServiceMock}
-				>
+					emploiEuropeService={emploiEuropeServiceMock}>
 					<RechercherEmploisEurope />
 				</DependenciesProvider>,
 			);
@@ -80,8 +79,7 @@ describe('RechercherEmploisEurope', () => {
 				// WHEN
 				render(
 					<DependenciesProvider
-						emploiEuropeService={emploiEuropeServiceMock}
-					>
+						emploiEuropeService={emploiEuropeServiceMock}>
 						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
@@ -135,8 +133,7 @@ describe('RechercherEmploisEurope', () => {
 					// WHEN
 					render(
 						<DependenciesProvider
-							emploiEuropeService={emploiEuropeServiceMock}
-						>
+							emploiEuropeService={emploiEuropeServiceMock}>
 							<RechercherEmploisEurope />
 						</DependenciesProvider>,
 					);
@@ -182,8 +179,7 @@ describe('RechercherEmploisEurope', () => {
 					// WHEN
 					render(
 						<DependenciesProvider
-							emploiEuropeService={emploiEuropeServiceMock}
-						>
+							emploiEuropeService={emploiEuropeServiceMock}>
 							<RechercherEmploisEurope />
 						</DependenciesProvider>,
 					);
@@ -229,8 +225,7 @@ describe('RechercherEmploisEurope', () => {
 					// WHEN
 					render(
 						<DependenciesProvider
-							emploiEuropeService={emploiEuropeServiceMock}
-						>
+							emploiEuropeService={emploiEuropeServiceMock}>
 							<RechercherEmploisEurope />
 						</DependenciesProvider>,
 					);
@@ -279,8 +274,7 @@ describe('RechercherEmploisEurope', () => {
 					// WHEN
 					render(
 						<DependenciesProvider
-							emploiEuropeService={emploiEuropeServiceMock}
-						>
+							emploiEuropeService={emploiEuropeServiceMock}>
 							<RechercherEmploisEurope />
 						</DependenciesProvider>,
 					);
@@ -330,8 +324,7 @@ describe('RechercherEmploisEurope', () => {
 					// WHEN
 					render(
 						<DependenciesProvider
-							emploiEuropeService={emploiEuropeServiceMock}
-						>
+							emploiEuropeService={emploiEuropeServiceMock}>
 							<RechercherEmploisEurope />
 						</DependenciesProvider>,
 					);
@@ -373,8 +366,7 @@ describe('RechercherEmploisEurope', () => {
 					// WHEN
 					render(
 						<DependenciesProvider
-							emploiEuropeService={emploiEuropeServiceMock}
-						>
+							emploiEuropeService={emploiEuropeServiceMock}>
 							<RechercherEmploisEurope />
 						</DependenciesProvider>,
 					);
@@ -423,8 +415,7 @@ describe('RechercherEmploisEurope', () => {
 				// WHEN
 				render(
 					<DependenciesProvider
-						emploiEuropeService={emploiEuropeServiceMock}
-					>
+						emploiEuropeService={emploiEuropeServiceMock}>
 						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
@@ -474,8 +465,7 @@ describe('RechercherEmploisEurope', () => {
 				// WHEN
 				render(
 					<DependenciesProvider
-						emploiEuropeService={emploiEuropeServiceMock}
-					>
+						emploiEuropeService={emploiEuropeServiceMock}>
 						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
@@ -511,8 +501,7 @@ describe('RechercherEmploisEurope', () => {
 			// WHEN
 			render(
 				<DependenciesProvider
-					emploiEuropeService={emploiEuropeServiceMock}
-				>
+					emploiEuropeService={emploiEuropeServiceMock}>
 					<RechercherEmploisEurope />
 				</DependenciesProvider>,
 			);
@@ -565,8 +554,7 @@ describe('RechercherEmploisEurope', () => {
 			// WHEN
 			render(
 				<DependenciesProvider
-					emploiEuropeService={emploiEuropeServiceMock}
-				>
+					emploiEuropeService={emploiEuropeServiceMock}>
 					<RechercherEmploisEurope />
 				</DependenciesProvider>,
 			);
@@ -613,8 +601,7 @@ describe('RechercherEmploisEurope', () => {
 
 			render(
 				<DependenciesProvider
-					emploiEuropeService={emploiEuropeServiceMock}
-				>
+					emploiEuropeService={emploiEuropeServiceMock}>
 					<RechercherEmploisEurope />
 				</DependenciesProvider>,
 			);
@@ -654,8 +641,7 @@ describe('RechercherEmploisEurope', () => {
 				// WHEN
 				render(
 					<DependenciesProvider
-						emploiEuropeService={emploiEuropeServiceMock}
-					>
+						emploiEuropeService={emploiEuropeServiceMock}>
 						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
@@ -692,8 +678,7 @@ describe('RechercherEmploisEurope', () => {
 					// WHEN
 					render(
 						<DependenciesProvider
-							emploiEuropeService={emploiEuropeServiceMock}
-						>
+							emploiEuropeService={emploiEuropeServiceMock}>
 							<RechercherEmploisEurope />
 						</DependenciesProvider>,
 					);
@@ -730,8 +715,7 @@ describe('RechercherEmploisEurope', () => {
 					// WHEN
 					render(
 						<DependenciesProvider
-							emploiEuropeService={emploiEuropeServiceMock}
-						>
+							emploiEuropeService={emploiEuropeServiceMock}>
 							<RechercherEmploisEurope />
 						</DependenciesProvider>,
 					);
@@ -770,8 +754,7 @@ describe('RechercherEmploisEurope', () => {
 				// WHEN
 				render(
 					<DependenciesProvider
-						emploiEuropeService={emploiEuropeServiceMock}
-					>
+						emploiEuropeService={emploiEuropeServiceMock}>
 						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
@@ -810,8 +793,7 @@ describe('RechercherEmploisEurope', () => {
 				// WHEN
 				render(
 					<DependenciesProvider
-						emploiEuropeService={emploiEuropeServiceMock}
-					>
+						emploiEuropeService={emploiEuropeServiceMock}>
 						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
@@ -843,8 +825,7 @@ describe('RechercherEmploisEurope', () => {
 				// WHEN
 				render(
 					<DependenciesProvider
-						emploiEuropeService={emploiEuropeServiceMock}
-					>
+						emploiEuropeService={emploiEuropeServiceMock}>
 						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
@@ -875,8 +856,7 @@ describe('RechercherEmploisEurope', () => {
 				// WHEN
 				render(
 					<DependenciesProvider
-						emploiEuropeService={emploiEuropeServiceMock}
-					>
+						emploiEuropeService={emploiEuropeServiceMock}>
 						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
@@ -907,8 +887,7 @@ describe('RechercherEmploisEurope', () => {
 				// WHEN
 				render(
 					<DependenciesProvider
-						emploiEuropeService={emploiEuropeServiceMock}
-					>
+						emploiEuropeService={emploiEuropeServiceMock}>
 						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);

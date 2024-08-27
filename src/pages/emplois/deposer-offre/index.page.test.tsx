@@ -27,8 +27,7 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<DéposerUneOffreDEmploi />
 			</DependenciesProvider>,
 		);
@@ -41,8 +40,7 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<DéposerUneOffreDEmploi />
 			</DependenciesProvider>,
 		);
@@ -60,8 +58,7 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<DéposerUneOffreDEmploi />
 			</DependenciesProvider>,
 		);
@@ -76,8 +73,7 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<DéposerUneOffreDEmploi />
 			</DependenciesProvider>,
 		);

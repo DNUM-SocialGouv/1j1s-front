@@ -33,8 +33,7 @@ describe('<ConsulterOffreEmploiPage />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<ConsulterOffreEmploiPage offreEmploi={offre} />);
 			</DependenciesProvider>);
 

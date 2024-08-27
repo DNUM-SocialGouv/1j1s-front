@@ -5,8 +5,7 @@ export const UnavailableServiceErrorMessage = () => {
 		<ErrorMessageComponent
 			title="Service indisponible"
 			explanationText="Désolé, le service est temporairement inaccessible, la page demandée ne peut pas être affichée."
-			solutionText="Merci de réessayer plus tard, vous serez bientôt en mesure de réutiliser le service. Si vous avez besoin d’une aide immédiate, merci de nous contacter."
-		/>
+			solutionText="Merci de réessayer plus tard, vous serez bientôt en mesure de réutiliser le service. Si vous avez besoin d’une aide immédiate, merci de nous contacter." />
 	);
 };
 

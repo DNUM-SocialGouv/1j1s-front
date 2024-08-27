@@ -24,8 +24,7 @@ export function CommentCaMarche() {
 					className={styles.illustration}
 					alt=""
 					width={500}
-					height={300}
-				/>
+					height={300} />
 			</Container>
 		</section>
 	);

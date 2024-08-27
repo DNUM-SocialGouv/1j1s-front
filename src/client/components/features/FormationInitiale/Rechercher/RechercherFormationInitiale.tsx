@@ -77,8 +77,7 @@ export function RechercherFormationInitiale() {
 			<Head
 				title={title}
 				description="Des milliers de formations pour vous permettre de réaliser votre projet professionnel"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<RechercherSolutionLayout
 					banniere={banniere()}
@@ -89,8 +88,7 @@ export function RechercherFormationInitiale() {
 					messageResultatRecherche={messageResultatRecherche}
 					nombreTotalSolutions={nombreDeResultat}
 					paginationOffset={NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE}
-					listeSolutionElement={<ListeFormationInitiale resultatList={resultatList} />}
-				/>
+					listeSolutionElement={<ListeFormationInitiale resultatList={resultatList} />} />
 
 				<ListeDesServicesInteressants />
 			</main>
@@ -139,8 +137,7 @@ function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 						étiquetteOffreList={getTags(formation)}
 						intituléOffre={formation.libelle}
 						logo={'/images/logos/fallback.svg'}
-						lienOffre={getLienOffre(formation.identifiant)}
-					/>
+						lienOffre={getLienOffre(formation.identifiant)} />
 				</li>
 			))}
 		</ListeRésultatsRechercherSolution>

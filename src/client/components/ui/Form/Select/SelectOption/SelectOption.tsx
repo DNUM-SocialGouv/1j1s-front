@@ -29,8 +29,7 @@ export function SelectOption({ className, value: valueProps, id: idProps, ...res
 			data-value={value.toString()}
 			onClick={() => onOptionSelection(id)}
 			aria-selected={isCurrentItemSelected(value)}
-			{...rest}
-		>
+			{...rest}>
 		</li>
 	);
 }

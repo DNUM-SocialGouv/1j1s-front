@@ -67,8 +67,7 @@ export function MeilisearchComboboxLocalisation(props: UseRefinementListProps) {
 				filter={Combobox.noFilter}
 				onChange={(_, newValue) => {
 					setUserInput(newValue);
-				}}
-			>
+				}}>
 				{listeDeLocalisations.map((suggestion) => (
 					<Combobox.Option key={suggestion} onClick={onClickOnOption}>
 						{suggestion}

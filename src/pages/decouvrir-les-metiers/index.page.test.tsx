@@ -21,8 +21,7 @@ describe('<RechercherFicheMetierPage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				rechercheClientService={aRechercheClientService()}
-			>
+				rechercheClientService={aRechercheClientService()}>
 				<RechercherFicheMetierPage />
 			</DependenciesProvider>,
 		);
@@ -36,8 +35,7 @@ describe('<RechercherFicheMetierPage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				rechercheClientService={aRechercheClientService()}
-			>
+				rechercheClientService={aRechercheClientService()}>
 				<RechercherFicheMetierPage />
 			</DependenciesProvider>,
 		);

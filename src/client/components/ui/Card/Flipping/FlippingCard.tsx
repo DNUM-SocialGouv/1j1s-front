@@ -78,15 +78,13 @@ export function FlippingCard(props: FlippingCardProps) {
 				<div className={styles.body}>
 					<CardTitle className={styles.bodyTitle} titleAs={titleAs}>{title}</CardTitle>
 					<div
-						className={styles.actionWrapper}
-					>
+						className={styles.actionWrapper}>
 						{hasFlipCardContent && (
 							<ButtonComponent
 								label="Pour qui ?"
 								appearance={'quaternary'}
 								ref={flipButton}
-								onClick={() => flipCard()}
-							/>
+								onClick={() => flipCard()} />
 						)}
 						{link && (
 							<Link href={link} prefetch={false} appearance="asPrimaryButton">
@@ -100,8 +98,7 @@ export function FlippingCard(props: FlippingCardProps) {
 			<div ref={cardFlipRef} className={classNames(styles.card, styles.verso)}>
 				<button
 					onClick={() => flipCard(true)}
-					aria-label="masquer la section pour qui"
-				>
+					aria-label="masquer la section pour qui">
 					<Icon name="angle-left" aria-hidden="true" />
 				</button>
 				<div className={styles.title}>Pour qui ?</div>

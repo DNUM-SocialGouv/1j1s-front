@@ -30,8 +30,7 @@ describe('MeilisearchCustomRangeForModalInput', () => {
 				nomDeLUnite="Euro"
 				unite="€"
 				min={20}
-				max={200}
-			/>,
+				max={200} />,
 		);
 		expect(screen.getByRole('group')).toBeVisible();
 	});
@@ -43,8 +42,7 @@ describe('MeilisearchCustomRangeForModalInput', () => {
 				nomDeLUnite="Euro"
 				unite="€"
 				min={20}
-				max={200}
-			/>,
+				max={200} />,
 		);
 
 		const inputMin = screen.getByLabelText('Minimum');
@@ -66,8 +64,7 @@ describe('MeilisearchCustomRangeForModalInput', () => {
 					nomDeLUnite="Euro"
 					unite="€"
 					min={20}
-					max={200}
-				/>,
+					max={200} />,
 			);
 
 			const inputMin = screen.getByLabelText('Minimum');
@@ -90,8 +87,7 @@ describe('MeilisearchCustomRangeForModalInput', () => {
 					nomDeLUnite="Euro"
 					unite="€"
 					min={20}
-					max={200}
-				/>,
+					max={200} />,
 			);
 
 			const inputMin = screen.getByLabelText('Minimum');
@@ -113,8 +109,7 @@ describe('MeilisearchCustomRangeForModalInput', () => {
 					nomDeLUnite="Euro"
 					unite="€"
 					min={20}
-					max={200}
-				/>,
+					max={200} />,
 			);
 
 			const inputMax = screen.getByLabelText('Maximum');

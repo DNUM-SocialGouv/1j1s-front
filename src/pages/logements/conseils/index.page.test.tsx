@@ -29,8 +29,7 @@ describe('ConseilsLogement', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<ConseilsLogement />
 			</DependenciesProvider>,
 		);
@@ -43,8 +42,7 @@ describe('ConseilsLogement', () => {
 
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<ConseilsLogement />
 			</DependenciesProvider>,
 		);
@@ -62,8 +60,7 @@ describe('ConseilsLogement', () => {
 
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<ConseilsLogement />
 			</DependenciesProvider>,
 		);
@@ -77,8 +74,7 @@ describe('ConseilsLogement', () => {
 
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<ConseilsLogement />
 			</DependenciesProvider>,
 		);

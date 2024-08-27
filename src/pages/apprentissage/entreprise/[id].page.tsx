@@ -42,14 +42,12 @@ export default function AnnonceAlternanceEntreprisePage({ id }: ConsulterAlterna
 		<>
 			<Head
 				title={'Candidature spontanée en alternance | 1jeune1solution'}
-				robots="noindex"
-			/>
+				robots="noindex" />
 			<ConsulterOffreLayout>
 				<iframe
 					src={`${SOURCE_ENTREPRISE_POSTUlER_IFRAME}&itemId=${id}`}
 					className={styles.iframe}
-					title="Formulaire de candidature spontanée en alternance"
-				/>
+					title="Formulaire de candidature spontanée en alternance" />
 			</ConsulterOffreLayout>
 		</>
 	);

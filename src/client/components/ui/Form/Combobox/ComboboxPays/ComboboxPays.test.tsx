@@ -173,8 +173,7 @@ describe('<ComboboxPays />', () => {
 					<ComboboxPays
 						paysList={paysList}
 						name='pays'
-						label='Rechercher un pays'
-					/>,
+						label='Rechercher un pays' />,
 				);
 
 				await user.type(screen.getByRole('combobox'), 'test');
@@ -199,8 +198,7 @@ describe('<ComboboxPays />', () => {
 					<ComboboxPays
 						paysList={paysList}
 						name='pays'
-						label='Rechercher un pays'
-					/>,
+						label='Rechercher un pays' />,
 				);
 
 				await user.type(screen.getByRole('combobox'), 'test');
@@ -267,8 +265,7 @@ describe('<ComboboxPays />', () => {
 					defaultValue={{
 						code: 'ES',
 						label: 'Espagne',
-					}}
-				/>
+					}} />
 			</form>,
 		);
 
@@ -291,8 +288,7 @@ describe('<ComboboxPays />', () => {
 			<ComboboxPays
 				paysList={paysList}
 				name='pays'
-				label='Rechercher un pays'
-			/>,
+				label='Rechercher un pays' />,
 		);
 
 		const deplierSuggestions = screen.getByRole('button', { name: 'pays' });
@@ -310,9 +306,7 @@ describe('<ComboboxPays />', () => {
 				<ComboboxPays
 					paysList={[]}
 					name='pays'
-					label='Rechercher un pays'
-						
-				/>,
+					label='Rechercher un pays' />,
 			);
 
 			const combobox = screen.getByRole('combobox');
@@ -330,8 +324,7 @@ describe('<ComboboxPays />', () => {
 				<ComboboxPays
 					paysList={[]}
 					name='pays'
-					label='Rechercher un pays'
-				/>,
+					label='Rechercher un pays' />,
 			);
 
 			const combobox = screen.getByRole('combobox');

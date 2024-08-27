@@ -31,8 +31,7 @@ describe('<Cgu />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<Cgu titre={'titre'} contenu={'contenu'} />);
 			</DependenciesProvider>);
 

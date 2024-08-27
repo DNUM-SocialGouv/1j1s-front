@@ -24,8 +24,7 @@ describe('<LesEntreprisesSEngagent />', () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<LesEntreprisesSEngagent />);
 			</DependenciesProvider>,
 		);

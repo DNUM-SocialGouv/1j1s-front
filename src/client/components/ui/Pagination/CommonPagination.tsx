@@ -38,8 +38,7 @@ export function CommonPagination(props: CommonPaginationProps) {
 					onClick={(event) => {
 						event.preventDefault();
 						onPageClick(page);
-					}}
-				>
+					}}>
 					{page + 1}
 				</a>
 			</li>
@@ -60,8 +59,7 @@ export function CommonPagination(props: CommonPaginationProps) {
 							if (!isFirstPage) {
 								onPageClick(0);
 							}
-						}}
-					>
+						}}>
 						<Icon name={'angle-left-from-line'} />
 					</a>
 				</li>
@@ -76,8 +74,7 @@ export function CommonPagination(props: CommonPaginationProps) {
 							if (!isFirstPage) {
 								onPageClick(currentPage - 1);
 							}
-						}}
-					>
+						}}>
 						{isSmallScreen ? <Icon name={'angle-left'} /> : <><Icon name={'angle-left'} /> <span>Page précédente</span></>}
 					</a>
 				</li>
@@ -107,8 +104,7 @@ export function CommonPagination(props: CommonPaginationProps) {
 							if (!isLastPage) {
 								onPageClick(currentPage + 1);
 							}
-						}}
-					>
+						}}>
 						{isSmallScreen ? <Icon name={'angle-right'} /> : <><span>Page suivante</span> <Icon name={'angle-right'} /></>}
 					</a>
 				</li>
@@ -123,8 +119,7 @@ export function CommonPagination(props: CommonPaginationProps) {
 							if (!isLastPage) {
 								onPageClick(computedLastPage);
 							}
-						}}
-					>
+						}}>
 						<Icon name={'angle-right-from-line'} />
 					</a>
 				</li>

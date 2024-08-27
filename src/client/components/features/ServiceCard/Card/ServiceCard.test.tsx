@@ -32,8 +32,7 @@ describe('ServiceCard', () => {
 			logo="/image.jpg"
 			logoAlt="Service Plus, le service des pros"
 			title="Mon nouveau service"
-			titleAs="h1"
-		>Wow ce service est incroyable</ServiceCard>);
+			titleAs="h1">Wow ce service est incroyable</ServiceCard>);
 
 		const logo = screen.getByRole('img');
 

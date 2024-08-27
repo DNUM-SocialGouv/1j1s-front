@@ -27,8 +27,7 @@ describe('<JeRecrutePage />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<JeRecrutePage />
 			</DependenciesProvider>,
 		);

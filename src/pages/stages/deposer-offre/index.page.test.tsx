@@ -20,8 +20,7 @@ describe('<DeposerOffreStagePage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
-			>
+				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}>
 				<DeposerOffreStagePage />
 			</DependenciesProvider> );
 
@@ -33,8 +32,7 @@ describe('<DeposerOffreStagePage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
-			>
+				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}>
 				<DeposerOffreStagePage />
 			</DependenciesProvider>,
 		);

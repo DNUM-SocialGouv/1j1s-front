@@ -16,8 +16,7 @@ export function Radio({ id: propsId, label, className, ...rest } : RadioProps) {
 			<input
 				type="radio"
 				{...rest}
-				id={id}
-			/>
+				id={id} />
 			<label className={styles.label} htmlFor={id}>
 				{label}
 			</label>

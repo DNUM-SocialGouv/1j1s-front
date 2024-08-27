@@ -53,8 +53,7 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 		<form
 			className={styles.formulaire}
 			onSubmit={envoyerFormulaireDeContact}
-			aria-label="formulaire cej"
-		>
+			aria-label="formulaire cej">
 			<Champ>
 				<Champ.Label>
 					Prénom
@@ -97,8 +96,7 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 					render={SelectSimple}
 					required
 					optionsAriaLabel={'années'}
-					name="age"
-				>
+					name="age">
 					{ageOptions.map((option) =>
 						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 					)}
@@ -109,8 +107,7 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 			<ComboboxCommune
 				required
 				label="Ville"
-				name="commune"
-			/>
+				name="commune" />
 
 			{isLoading
 				? <LoadingButton className={styles.formulaireButton} />

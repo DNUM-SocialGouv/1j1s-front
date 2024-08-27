@@ -77,8 +77,7 @@ export const Tab = React.forwardRef<HTMLButtonElement, TabProps>(function Tab(pr
 			ref={ref}
 			className={styles.tabLabel}
 			role="tab"
-			{...rest}
-		>
+			{...rest}>
 			{children}
 		</button>
 	);
@@ -100,8 +99,7 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(function
 			role="tabpanel"
 			aria-labelledby={`tab-${indexTabActive}`}
 			id={`panel-${indexTabActive}`}
-			{...rest}
-		>
+			{...rest}>
 			{children}
 		</div>
 	);

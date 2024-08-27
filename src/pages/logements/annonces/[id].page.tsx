@@ -27,8 +27,7 @@ export default function ConsulterAnnonceLogementPage({ annonceDeLogement, isFeat
 		<>
 			<Head
 				title={`${annonceDeLogement.titre} | 1jeune1solution`}
-				robots="noindex"
-			/>
+				robots="noindex" />
 			<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />
 		</>
 	);

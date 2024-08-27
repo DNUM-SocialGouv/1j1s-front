@@ -53,16 +53,14 @@ export function FormulaireRechercheStages3eEt2de() {
 				role="search"
 				className={styles.rechercheOffreForm}
 				aria-label="Rechercher un stage de 3e et 2de"
-				onSubmit={updateRechercherStage3eEt2deQueryParams}
-			>
+				onSubmit={updateRechercherStage3eEt2deQueryParams}>
 				<div className={styles.filtresRechercherOffre}>
 					<MetierDependenciesProvider metierService={metierService}>
 						<ComboboxMetiers
 							defaultValue={metierDefaultValue}
 							placeholder={'Exemples : boulanger, styliste...'}
 							label={'Métier (facultatif)'}
-							valueName={'codeMetier'}
-						/>
+							valueName={'codeMetier'} />
 					</MetierDependenciesProvider>
 					<ComboboxCommune required showRadiusInput defaultCommune={defaultCommuneValue} defaultDistance={distanceCommune} />
 				</div>
@@ -71,8 +69,7 @@ export function FormulaireRechercheStages3eEt2de() {
 						label="Rechercher"
 						icon={<Icon name="magnifying-glass" />}
 						iconPosition="right"
-						type="submit"
-					/>
+						type="submit" />
 				</div>
 			</form>
 		</>

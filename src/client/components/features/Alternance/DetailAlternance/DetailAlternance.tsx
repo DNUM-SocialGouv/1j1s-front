@@ -55,8 +55,7 @@ export function DetailAlternance({ annonce }: { annonce: Alternance }) {
 				iconPosition="right"
 				className={styles.postuler}
 				label={'Postuler'}
-				onClick={() => toggleModal()}
-			/>
+				onClick={() => toggleModal()} />
 		);
 	}
 
@@ -168,8 +167,7 @@ export function DetailAlternance({ annonce }: { annonce: Alternance }) {
 						src={annonce.lienPostuler}
 						title="Formulaire de candidature à l’annonce"
 						className={styles.iframe}
-						tabIndex={0}
-					/>
+						tabIndex={0} />
 				</ModalComponent.Content>
 			</ModalComponent>
 		</ConsulterOffreLayout>

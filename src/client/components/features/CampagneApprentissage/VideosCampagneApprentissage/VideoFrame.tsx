@@ -54,8 +54,7 @@ export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 					title={videoToDisplay.titre}
 					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 					allowFullScreen
-					className={styles.iframe}
-				/>
+					className={styles.iframe} />
 			) : (
 				<>
 					<Image
@@ -63,8 +62,7 @@ export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 						alt={''}
 						width="326"
 						height="180"
-						className={styles.placeholderThumbnail}
-					/>
+						className={styles.placeholderThumbnail} />
 					<div className={styles.placeholderContainer}>
 						<div className={styles.placeholderContent}>
 							<p>
@@ -83,8 +81,7 @@ export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 								appearance={'secondary'}
 								className={styles.buttonAcceptCookies}
 								icon={<Icon name="check-line" />}
-								iconPosition="right"
-							/>
+								iconPosition="right" />
 						</div>
 					</div>
 				</>

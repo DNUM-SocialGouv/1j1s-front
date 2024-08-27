@@ -15,8 +15,7 @@ export const MicrowaveIcon = React.forwardRef<SVGSVGElement, SvgProps>(function 
 			fill={color}
 			xmlns="http://www.w3.org/2000/svg"
 			{...rest}
-			ref={ref}
-		>
+			ref={ref}>
 			<rect width="24" height="24" fill="url(#pattern-microwave)" />
 			<defs>
 				<pattern id="pattern-microwave" patternContentUnits="objectBoundingBox" width="1" height="1">

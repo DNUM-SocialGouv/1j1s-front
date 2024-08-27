@@ -12,7 +12,6 @@ export const LoadingButton = ({ label = 'Envoi en cours', className } : LoadingB
 			icon={<SpinnerIcon />}
 			iconPosition="left"
 			label={label}
-			className={className}
-		/>
+			className={className} />
 	);
 };

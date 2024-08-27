@@ -18,8 +18,7 @@ export default function PasDAccompagnement({ setTypeFormulaireAffiché, setIsMis
 				onClick={onBackButton}
 				label="Retour"
 				icon={<Icon name={'angle-left'} />}
-				iconPosition={'left'}
-			/>
+				iconPosition={'left'} />
 			<p className={styles.question}>Quel âge avez-vous ?</p>
 			<div>
 				<span>Sélectionnez l‘option qui vous correspond :</span>

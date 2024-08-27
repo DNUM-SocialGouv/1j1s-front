@@ -56,8 +56,7 @@ export const TailleDePolice = {
 					<div className="text-interactive-example">
 						<Input className="text-interactive-example-input"
 							label="Label du champ"
-									 placeholder="Contenu du champ"
-						/>
+									 placeholder="Contenu du champ" />
 						<ButtonComponent label="label du bouton" />
 					</div>
 				</div>

@@ -9,8 +9,7 @@ export function FranceTravailPartner() {
 			logo="/images/logos/france-travail.svg"
 			link="/articles/accompagnement-france-travail"
 			linkLabel="En savoir plus"
-			titleAs={'h3'}
-		>
+			titleAs={'h3'}>
 			Avec son dispositif d’accompagnement individualisé des jeunes (AIJ), France
 			Travail propose à tous les jeunes demandeurs d’emploi de 16 à 30 ans, un
 			accompagnement personnalisé intensif d’une durée de 3 à 6 mois pour les

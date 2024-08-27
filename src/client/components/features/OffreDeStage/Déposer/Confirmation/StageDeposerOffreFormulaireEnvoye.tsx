@@ -14,14 +14,12 @@ export default function StageDeposerOffreFormulaireEnvoye() {
 			<div className={styles.boutonsConfirmationEnvoi}>
 				<Link
 					href={URL_DEPOSER_OFFRE}
-					appearance={'asPrimaryButton'}
-				>
+					appearance={'asPrimaryButton'}>
 					Déposer une offre de stage
 				</Link>
 				<Link
 					href={'/'}
-					appearance={'asSecondaryButton'}
-				>
+					appearance={'asSecondaryButton'}>
 					Retourner à l’accueil
 				</Link>
 			</div>

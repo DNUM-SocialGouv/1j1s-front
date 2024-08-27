@@ -66,8 +66,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 			onFocus={onFocus}
 			onBlur={onBlur}
 			className={classNames(styles.input, className)}
-			{...props}
-		/>
+			{...props} />
 	);
 });
 

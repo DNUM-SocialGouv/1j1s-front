@@ -8,8 +8,7 @@ export default function Error404Page() {
 		<>
 			<Head
 				title="Page indisponible | 1jeune1solution"
-				robots="noindex"
-			/>
+				robots="noindex" />
 			<main id="contenu">
 				<ErrorLayout>
 					<ErrorLayout.Title titleAs="h1">Page non trouvée</ErrorLayout.Title>

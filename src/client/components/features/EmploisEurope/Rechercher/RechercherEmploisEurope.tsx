@@ -77,8 +77,7 @@ export default function RechercherEmploisEurope() {
 			<Head
 				title="Rechercher un emploi en Europe | 1jeune1solution"
 				description="Des milliers d’offres d’emplois en Europe sélectionnées pour vous par EURES"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<RechercherSolutionLayout
 					banniere={<BanniereEmploisEurope />}
@@ -91,8 +90,7 @@ export default function RechercherEmploisEurope() {
 					paginationOffset={EMPLOIS_EUROPE_ITEMS_PER_PAGE}
 					listeSolutionElement={<ListeResultatsEmploiEurope resultatList={emploiEuropeList} />}
 					messageResultatRecherche={messageResultatRecherche}
-					maxPage={EMPLOIS_EUROPE_LAST_VISIBLE_PAGE_ALLOWED - 1}
-				/>
+					maxPage={EMPLOIS_EUROPE_LAST_VISIBLE_PAGE_ALLOWED - 1} />
 				<EnTete heading="Découvrez les dispositifs pour vous accompagner dans votre projet" />
 				<ServiceCardList>
 					<EuresPartner />

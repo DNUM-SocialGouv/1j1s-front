@@ -85,8 +85,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 					label={'Pays'}
 					labelComplement={'Exemple : France'}
 					valueName={LocalisationInputName.PAYS}
-					required
-				/>
+					required />
 				<Champ>
 					<Champ.Label>
 					Ville
@@ -96,8 +95,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 						render={Input}
 						name={LocalisationInputName.VILLE}
 						required
-						defaultValue={informationsLocalisation?.ville}
-					/>
+						defaultValue={informationsLocalisation?.ville} />
 					<Champ.Error />
 				</Champ>
 				<Champ>
@@ -109,8 +107,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 						render={Input}
 						name={LocalisationInputName.ADRESSE}
 						required
-						defaultValue={informationsLocalisation?.adresse}
-					/>
+						defaultValue={informationsLocalisation?.adresse} />
 					<Champ.Error />
 				</Champ>
 				<Champ>
@@ -122,8 +119,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 						render={Input}
 						name={LocalisationInputName.CODE_POSTAL}
 						required
-						defaultValue={informationsLocalisation?.codePostal}
-					/>
+						defaultValue={informationsLocalisation?.codePostal} />
 					<Champ.Error />
 				</Champ>
 			</>
@@ -141,8 +137,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 					<Champ.Input
 						render={Input}
 						name={LocalisationInputName.REGION}
-						defaultValue={informationsLocalisation?.region}
-					/>
+						defaultValue={informationsLocalisation?.region} />
 					<Champ.Error />
 				</Champ>
 				<Champ>
@@ -153,8 +148,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 					<Champ.Input
 						render={Input}
 						name={LocalisationInputName.DEPARTEMENT}
-						defaultValue={informationsLocalisation?.departement}
-					/>
+						defaultValue={informationsLocalisation?.departement} />
 					<Champ.Error />
 				</Champ>
 			</>
@@ -170,8 +164,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 					iconPosition="right"
 					label="Envoyer ma demande de dépôt d’offre"
 					type="submit"
-					disabled={isLoading}
-				/>
+					disabled={isLoading} />
 			);
 	}
 
@@ -182,8 +175,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 				inputsFacultatifs={<ChampsFacultatifs />}
 				formRef={formRef}
 				handleFormSubmit={handleFormSubmit}
-				boutonValidation={<BoutonValidation />}
-			/>
+				boutonValidation={<BoutonValidation />} />
 		);
 	}
 
@@ -210,15 +202,13 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 		<>
 			<FormulaireÉtapeLayout
 				étape="Étape 3 sur 3 : Localisation du stage"
-				urlÉtapePrécédente={`${URL_DEPOSER_OFFRE}/votre-offre-de-stage`}
-			>
+				urlÉtapePrécédente={`${URL_DEPOSER_OFFRE}/votre-offre-de-stage`}>
 				<FormulaireLocalisation />
 			</FormulaireÉtapeLayout>
 			<ModalErrorSubmission
 				isOpen={isModalErrorSubmitOpen}
 				onClose={() => setIsModalErrorSubmitOpen(false)}
-				onBackToForm={() => setIsModalErrorSubmitOpen(false)}
-			/>
+				onBackToForm={() => setIsModalErrorSubmitOpen(false)} />
 		</>
 	);
 };

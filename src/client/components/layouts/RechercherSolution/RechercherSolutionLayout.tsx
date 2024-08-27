@@ -63,8 +63,7 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 							<Skeleton type="card"
 								isLoading={true}
 								repeat={2}
-								className={styles.listeSolutions}
-							>
+								className={styles.listeSolutions}>
 							</Skeleton>
 						</Container>
 					</div>
@@ -102,8 +101,7 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 									<Pagination
 										numberOfResult={nombreTotalSolutions}
 										numberOfResultPerPage={paginationOffset}
-										maxPage={maxPage}
-									/>
+										maxPage={maxPage} />
 								</div>
 							)}
 						</Container>

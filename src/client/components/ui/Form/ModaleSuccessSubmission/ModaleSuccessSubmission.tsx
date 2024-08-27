@@ -14,8 +14,7 @@ export function ModaleSuccessSubmission({ isOpen, onClose }: ModaleSuccessSubmis
 		<ModalComponent
 			aria-labelledby={'dialog_label_success'}
 			isOpen={isOpen}
-			close={onClose}
-		>
+			close={onClose}>
 			<ModalComponent.Content>
 				<div className={styles.content}>
 					<CheckIcon circled={true} animate className={styles.contentIcon} />
@@ -26,8 +25,7 @@ export function ModaleSuccessSubmission({ isOpen, onClose }: ModaleSuccessSubmis
 						type="button"
 						label="Fermer"
 						onClick={onClose}
-						title="Fermer, Revenir à la page"
-					/>
+						title="Fermer, Revenir à la page" />
 				</div>
 			</ModalComponent.Content>
 		</ModalComponent>

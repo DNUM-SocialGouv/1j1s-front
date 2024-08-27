@@ -32,8 +32,7 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
 		<>
 			<Head
 				title={`${ficheMetier.nomMetier.charAt(0).toUpperCase()}${ficheMetier.nomMetier.slice(1)} | 1jeune1solution`}
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<Container className={styles.container}>
 					<BackButton className={styles.backButton} />

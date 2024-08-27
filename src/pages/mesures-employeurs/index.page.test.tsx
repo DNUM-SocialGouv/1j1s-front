@@ -25,8 +25,7 @@ describe('<MesuresEmployeursPage />', () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<MesuresEmployeursPage mesureEmployeurList={aMesuresEmployeursList()} />
 			</DependenciesProvider>,
 		);

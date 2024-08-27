@@ -114,8 +114,7 @@ describe('Page Apprentissage Jeunes', () => {
 			const { container } = render(
 				<DependenciesProvider
 					analyticsService={analyticsService}
-					youtubeService={aVideoService()}
-				>
+					youtubeService={aVideoService()}>
 					<ApprentissageJeunes videos={videos} />
 				</DependenciesProvider>,
 			);

@@ -25,8 +25,7 @@ describe('<Accompagnement />', () => {
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
 				établissementAccompagnementService={anEtablissementAccompagnementService()}
-				localisationService={aLocalisationService()}
-			>
+				localisationService={aLocalisationService()}>
 				<Accompagnement />
 			</DependenciesProvider>,
 		);

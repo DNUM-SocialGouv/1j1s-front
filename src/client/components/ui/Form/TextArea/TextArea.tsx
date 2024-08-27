@@ -67,8 +67,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fun
 			onBlur={onBlur}
 			className={classNames(styles.textarea, className)}
 			ref={ref}
-			{...props}
-		/>
+			{...props} />
 	);
 });
 

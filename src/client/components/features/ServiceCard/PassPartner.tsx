@@ -10,8 +10,7 @@ export function PassPartner() {
 			logo="/images/logos/pass.png"
 			logoAlt="PASS, Place de l'apprentissage et des stages dans la fonction publique"
 			title="Recherche une offre d'alternance dans la fonction publique"
-			titleAs={'h3'}
-		>
+			titleAs={'h3'}>
 			La fonction publique accueille des apprentis dans tous les domaines et
 			de tous niveaux. Découvrez les offres sur la place de l’apprentissage et des stages.
 		</ServiceCard>

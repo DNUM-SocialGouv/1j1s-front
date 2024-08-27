@@ -22,8 +22,7 @@ describe('<Immersions />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<Immersions />
 			</DependenciesProvider>,
 		);

@@ -22,15 +22,13 @@ export function EchecEnvoyerCandidatureStage3eEt2de(props: {
 					appearance="primary"
 					label="Retour au formulaire"
 					onClick={props.retourFormulaire}
-					className={styles.boutonRetourFormulaire}
-				/>
+					className={styles.boutonRetourFormulaire} />
 				<BackButton
 					label="Retour à la recherche"
 					aria-label="Retour à la recherche"
 					icon={undefined}
 					className={styles.boutonRetourRecherche}
-					appearance="secondary"
-				/>
+					appearance="secondary" />
 			</div>
 		</Container>
 	);

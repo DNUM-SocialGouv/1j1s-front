@@ -34,13 +34,11 @@ export function SuccesEnvoyerCandidatureStage3eEt2de() {
 					aria-label="Continuer la recherche"
 					icon={undefined}
 					className={styles.boutonContinuerRecherche}
-					appearance="primary"
-				/>
+					appearance="primary" />
 				<Link
 					href={'/'}
 					appearance="asSecondaryButton"
-					className={styles.boutonRetourAccueil}
-				>
+					className={styles.boutonRetourAccueil}>
 				Retour à l’accueil
 				</Link>
 			</div>

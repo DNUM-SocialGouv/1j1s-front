@@ -27,8 +27,7 @@ describe('RésultatRechercherSolution', () => {
 				lienOffre={`/emplois/${offreEmploi.id}`}
 				logo={offreEmploi.entreprise.logo}
 				sousTitreOffre={offreEmploi.entreprise.nom}
-				étiquetteOffreList={offreEmploi.étiquetteList}
-			/>,
+				étiquetteOffreList={offreEmploi.étiquetteList} />,
 		);
 
 		const étiquettesOffreAlternanceList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
@@ -50,8 +49,7 @@ describe('RésultatRechercherSolution', () => {
 					intituléOffre={offreEmploi.intitulé}
 					logo={offreEmploi.entreprise.logo}
 					sousTitreOffre={offreEmploi.entreprise.nom}
-					étiquetteOffreList={offreEmploi.étiquetteList}
-				/>,
+					étiquetteOffreList={offreEmploi.étiquetteList} />,
 			);
 
 			expect(screen.queryByRole('link')).not.toBeInTheDocument();
@@ -69,8 +67,7 @@ describe('RésultatRechercherSolution', () => {
 					intituléOffre={offreEmploi.intitulé}
 					logo={offreEmploi.entreprise.logo}
 					sousTitreOffre={offreEmploi.entreprise.nom}
-					étiquetteOffreList={offreEmploi.étiquetteList}
-				>
+					étiquetteOffreList={offreEmploi.étiquetteList}>
 					<div>Description 1</div>
 					<div>Description 2</div>
 				</ResultatRechercherSolution>,
@@ -92,8 +89,7 @@ describe('RésultatRechercherSolution', () => {
 					logo={offreEmploi.entreprise.logo}
 					sousTitreOffre={offreEmploi.entreprise.nom}
 					étiquetteOffreList={offreEmploi.étiquetteList}
-					lienOffre={`/emplois/${offreEmploi.id}`}
-				>
+					lienOffre={`/emplois/${offreEmploi.id}`}>
 					<div>Description 1</div>
 					<div>Description 2</div>
 				</ResultatRechercherSolution>,
@@ -111,8 +107,7 @@ describe('RésultatRechercherSolution', () => {
 					logo={offreEmploi.entreprise.logo}
 					sousTitreOffre={offreEmploi.entreprise.nom}
 					étiquetteOffreList={offreEmploi.étiquetteList}
-					lienOffre={`/emplois/${offreEmploi.id}`}
-				>
+					lienOffre={`/emplois/${offreEmploi.id}`}>
 					<div>Description 1</div>
 					<div>Description 2</div>
 				</ResultatRechercherSolution>,
@@ -133,8 +128,7 @@ describe('RésultatRechercherSolution', () => {
 					logo={offreEmploi.entreprise.logo}
 					sousTitreOffre={offreEmploi.entreprise.nom}
 					étiquetteOffreList={offreEmploi.étiquetteList}
-					lienOffre={`/emplois/${offreEmploi.id}`}
-				>
+					lienOffre={`/emplois/${offreEmploi.id}`}>
 					<div>Description 1</div>
 					<div>Description 2</div>
 				</ResultatRechercherSolution>,

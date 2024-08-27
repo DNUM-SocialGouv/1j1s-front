@@ -12,8 +12,7 @@ export function ModaleFranceTravail(props: { open: boolean, close: () => void, h
 			aria-labelledby={titleId}
 			isOpen={props.open}
 			close={props.close}
-			className={styles.accompagnementModal}
-		>
+			className={styles.accompagnementModal}>
 			<ModalComponent.Content className={styles.accompagnementModalContent}>
 				<div>
 					<h1 id={titleId}>Vous pouvez bénéficier d’informations sur le Contrat d’Engagement Jeune auprès de votre conseiller

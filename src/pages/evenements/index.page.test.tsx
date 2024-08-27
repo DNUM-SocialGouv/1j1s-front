@@ -23,8 +23,7 @@ describe('<PageEvenements />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<PageEvenements />
 			</DependenciesProvider>,
 		);
@@ -37,8 +36,7 @@ describe('<PageEvenements />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<PageEvenements />
 			</DependenciesProvider>,
 		);

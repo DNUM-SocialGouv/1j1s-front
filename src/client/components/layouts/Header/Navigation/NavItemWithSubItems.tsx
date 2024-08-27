@@ -93,8 +93,7 @@ export function NavItemWithSubItems({
 					label={subItem.label}
 					link={subItem.link}
 					isActive={router.pathname === subItem.link}
-					onClick={onNavItemSelected}
-				/>
+					onClick={onNavItemSelected} />
 			);
 		}
 		return (
@@ -103,8 +102,7 @@ export function NavItemWithSubItems({
 				className={styles.navItem}
 				navigationItemWithChildren={subItem}
 				onClick={onClick}
-				isMobile
-			/>
+				isMobile />
 		);
 	});
 
@@ -113,8 +111,7 @@ export function NavItemWithSubItems({
 			<button
 				className={classNames(styles.subNavItemButton)}
 				onClick={() => setIsExpanded(!isExpanded)}
-				aria-expanded={isExpanded}
-			>
+				aria-expanded={isExpanded}>
 				<span className={styles.subNavItemButtonLabel} aria-current={isNavItemActive}>
 					{navigationItemWithChildren.label}
 				</span>

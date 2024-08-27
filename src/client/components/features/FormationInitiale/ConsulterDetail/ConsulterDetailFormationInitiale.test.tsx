@@ -23,8 +23,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 	it('je vois le titre', () => {
 		const formationInitialeDetail = aFormationInitialeDetailComplete({ libelle: 'Je suis le titre' });
 		render(<ConsulterDetailFormationInitiale
-			formationInitialeDetail={formationInitialeDetail}
-		       />);
+			formationInitialeDetail={formationInitialeDetail} />);
 
 		expect(screen.getByRole('heading', { level: 1, name: 'Je suis le titre' })).toBeVisible();
 	});
@@ -69,8 +68,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 
 		// When
 		render(<ConsulterDetailFormationInitiale
-			formationInitialeDetail={formationInitialeDetail}
-		       />);
+			formationInitialeDetail={formationInitialeDetail} />);
 
 		// Then
 		const lienVersSitePartenaire = screen.getByRole('link', { name: /Consulter les établissements/ });
@@ -85,8 +83,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ description: descriptionText });
 
 			const { getByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}
-			                                        />, { queries });
+				formationInitialeDetail={formationInitialeDetail} />, { queries });
 
 			const description = getByDescriptionTerm('Description');
 			expect(description).toBeVisible();
@@ -97,8 +94,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ description: undefined });
 
 			const { queryByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}
-			                                          />, { queries });
+				formationInitialeDetail={formationInitialeDetail} />, { queries });
 
 			expect(queryByDescriptionTerm('Description')).not.toBeInTheDocument();
 		});
@@ -110,8 +106,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ attendusParcoursup: attendusParcoursup });
 
 			const { getByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}
-			                                        />, { queries });
+				formationInitialeDetail={formationInitialeDetail} />, { queries });
 
 			const description = getByDescriptionTerm('Attendus Parcoursup');
 			expect(description).toBeVisible();
@@ -122,8 +117,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ attendusParcoursup: undefined });
 
 			const { queryByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}
-			                                          />, { queries });
+				formationInitialeDetail={formationInitialeDetail} />, { queries });
 
 			expect(queryByDescriptionTerm('Attendus Parcoursup')).not.toBeInTheDocument();
 		});
@@ -135,8 +129,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ conditionsAcces: conditionsAcces });
 
 			const { getByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}
-			                                        />, { queries });
+				formationInitialeDetail={formationInitialeDetail} />, { queries });
 
 			const description = getByDescriptionTerm('Conditions d‘accès');
 			expect(description).toBeVisible();
@@ -147,8 +140,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ conditionsAcces: undefined });
 
 			const { queryByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}
-			                                          />, { queries });
+				formationInitialeDetail={formationInitialeDetail} />, { queries });
 
 			expect(queryByDescriptionTerm('Conditions d‘accès')).not.toBeInTheDocument();
 		});
@@ -160,8 +152,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ poursuiteEtudes: poursuiteEtudes });
 
 			const { getByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}
-			                                        />, { queries });
+				formationInitialeDetail={formationInitialeDetail} />, { queries });
 
 			const description = getByDescriptionTerm('Poursuite d‘études');
 			expect(description).toBeVisible();
@@ -172,8 +163,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ poursuiteEtudes: undefined });
 
 			const { queryByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}
-			                                          />, { queries });
+				formationInitialeDetail={formationInitialeDetail} />, { queries });
 
 			expect(queryByDescriptionTerm('Poursuite d‘études')).not.toBeInTheDocument();
 		});

@@ -14,8 +14,7 @@ export default function LesEntreprisesSEngagent() {
 			<Head
 				title="Les entreprises s'engagent | 1jeune1solution"
 				description="Votre entreprise recrute ou porte une initiative pour les jeunes ?"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<RejoignezMobilisation />
 				<AvantagesMobilisation />

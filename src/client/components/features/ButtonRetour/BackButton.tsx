@@ -37,8 +37,7 @@ export function BackButton({ className, label= 'Retour', ...rest }: BackButtonPr
 						iconPosition="left"
 						label={label}
 						onClick={() => router.back()}
-						{...rest}
-					/>
+						{...rest} />
 				</Container>
 			</div>
 		)

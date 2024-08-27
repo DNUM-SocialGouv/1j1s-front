@@ -29,8 +29,7 @@ describe('<MentionsLegales />', () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<MentionsLegales contenu={'contenu'} titre={'titre'} />);
 			</DependenciesProvider>,
 		);

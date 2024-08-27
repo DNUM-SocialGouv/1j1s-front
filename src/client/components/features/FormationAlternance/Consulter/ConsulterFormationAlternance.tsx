@@ -21,8 +21,7 @@ export function ConsulterFormationAlternance({ formation, statistiques }: { form
 					{formation.lienDemandeRendezVous && (
 						<Link href={formation.lienDemandeRendezVous}
 							className={commonStyles.postuler}
-							appearance={'asPrimaryButton'}
-						>
+							appearance={'asPrimaryButton'}>
 							Contacter l’établissement
 							<Link.Icon />
 						</Link>

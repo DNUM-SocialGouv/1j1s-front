@@ -30,8 +30,7 @@ export function ModaleFiltreAvancee(props: {
 			close={props.close}
 			closeTitle="Fermer les filtres"
 			isOpen={props.open}
-			aria-labelledby="dialog_label"
-		>
+			aria-labelledby="dialog_label">
 			<ModalComponent.Title>
 				<Icon name="menu" />
 				<span id="dialog_label">Filtrer ma recherche</span>
@@ -47,8 +46,7 @@ export function ModaleFiltreAvancee(props: {
 								onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleTypeContrat(e.target.value)}
 								value={typeContrat.valeur}
 								// NOTE (DORO - 05-12-2023): Pourrait ne plus marcher si on ajoute des types de contrat (cas avec 2 chiffres)
-								checked={props.inputTypeContrat.includes(typeContrat.valeur)}
-							/>
+								checked={props.inputTypeContrat.includes(typeContrat.valeur)} />
 						))}
 					</FilterAccordion.Content>
 				</FilterAccordion>
@@ -64,8 +62,7 @@ export function ModaleFiltreAvancee(props: {
 								label={tempsDeTravail.libellé}
 								onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleTempsDeTravail(e.target.value)}
 								value={tempsDeTravail.valeur}
-								checked={props.inputTempsDeTravail.includes(tempsDeTravail.valeur)}
-							/>
+								checked={props.inputTempsDeTravail.includes(tempsDeTravail.valeur)} />
 						))}
 					</FilterAccordion.Content>
 				</FilterAccordion>
@@ -81,8 +78,7 @@ export function ModaleFiltreAvancee(props: {
 								label={niveauEtude.libellé}
 								onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleNiveauEtude(e.target.value)}
 								value={niveauEtude.valeur}
-								checked={props.inputNiveauEtude.includes(niveauEtude.valeur)}
-							/>
+								checked={props.inputNiveauEtude.includes(niveauEtude.valeur)} />
 						))}
 					</FilterAccordion.Content>
 				</FilterAccordion>
@@ -98,8 +94,7 @@ export function ModaleFiltreAvancee(props: {
 								label={secteurActivite.libellé}
 								onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleSecteurActivite(e.target.value)}
 								value={secteurActivite.valeur}
-								checked={props.inputSecteurActivite.includes(secteurActivite.valeur)}
-							/>
+								checked={props.inputSecteurActivite.includes(secteurActivite.valeur)} />
 						))}
 					</FilterAccordion.Content>
 				</FilterAccordion>
@@ -110,8 +105,7 @@ export function ModaleFiltreAvancee(props: {
 						icon={<Icon name="angle-right" />}
 						iconPosition="right"
 						label="Appliquer les filtres"
-						onClick={props.onClick}
-					/>
+						onClick={props.onClick} />
 				</div>
 			</ModalComponent.Footer>
 		</ModalComponent>

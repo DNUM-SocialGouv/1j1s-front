@@ -31,8 +31,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 		render(
 			<DependenciesProvider
 				localisationService={aLocalisationService()}
-				metierLbaService={aMetierService()}
-			>
+				metierLbaService={aMetierService()}>
 				<FormulaireRechercherFormationAlternance />
 			</DependenciesProvider>,
 		);
@@ -44,8 +43,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 		render(
 			<DependenciesProvider
 				localisationService={aLocalisationService()}
-				metierLbaService={aMetierService()}
-			>
+				metierLbaService={aMetierService()}>
 				<FormulaireRechercherFormationAlternance />
 			</DependenciesProvider>,
 		);
@@ -80,8 +78,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationService}
-					metierLbaService={metierService}
-				>
+					metierLbaService={metierService}>
 					<FormulaireRechercherFormationAlternance />
 				</DependenciesProvider>,
 			);
@@ -130,8 +127,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 			render(
 				<DependenciesProvider
 					localisationService={aLocalisationService()}
-					metierLbaService={aMetierService()}
-				>
+					metierLbaService={aMetierService()}>
 					<FormulaireRechercherFormationAlternance />
 				</DependenciesProvider>,
 			);
@@ -162,8 +158,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 			render(
 				<DependenciesProvider
 					localisationService={aLocalisationService()}
-					metierLbaService={metierService}
-				>
+					metierLbaService={metierService}>
 					<FormulaireRechercherFormationAlternance />
 				</DependenciesProvider>,
 			);
@@ -202,8 +197,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationService}
-					metierLbaService={aMetierService()}
-				>
+					metierLbaService={aMetierService()}>
 					<FormulaireRechercherFormationAlternance />
 				</DependenciesProvider>,
 			);

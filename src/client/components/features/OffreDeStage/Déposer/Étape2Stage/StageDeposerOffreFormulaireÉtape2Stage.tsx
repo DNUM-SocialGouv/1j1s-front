@@ -81,8 +81,7 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 					name={StageEnum.NOM}
 					defaultValue={props.informationsStage?.nomOffre}
 					maxLength={LONGUEUR_MAX_TITRE}
-					required
-				/>
+					required />
 				<Champ.Error />
 			</Champ>
 			<Champ className={styles.inputLienCandidature}>
@@ -96,8 +95,7 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 					pattern={EMAIL_OR_URL_REGEX}
 					name={StageEnum.LIEN_CANDIDATURE}
 					defaultValue={props.informationsStage?.lienCandidature}
-					required
-				/>
+					required />
 				<Champ.Error />
 			</Champ>
 
@@ -112,20 +110,17 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 					defaultValue={props.informationsStage?.descriptionOffre}
 					required
 					rows={10}
-					minLength={200}
-				/>
+					minLength={200} />
 				<Champ.Error />
 			</Champ>
 			<fieldset className={styles.contenuDateDeDebut}>
 				<legend>Date de début du stage</legend>
 				<RadioIsDatePrecise
 					checked={displayDateDeDebutPrecise}
-					onChange={() => setDisplayDateDeDebutPrecise(!displayDateDeDebutPrecise)}
-				/>
+					onChange={() => setDisplayDateDeDebutPrecise(!displayDateDeDebutPrecise)} />
 				<InputDateDeDebut
 					displayDateDeDebutPrecise={displayDateDeDebutPrecise}
-					informationsStage={props.informationsStage}
-				/>
+					informationsStage={props.informationsStage} />
 			</fieldset>
 
 			<Champ>
@@ -139,8 +134,7 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 					required
 					optionsAriaLabel={'Durée'}
 					name={StageEnum.DUREE}
-					defaultValue={props.informationsStage?.dureeStage}
-				>
+					defaultValue={props.informationsStage?.dureeStage}>
 					{dureeStageList.map((option) =>
 						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 					)}
@@ -163,8 +157,7 @@ function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposee.Stage 
 					render={SelectSimple}
 					optionsAriaLabel={'Domaine'}
 					name={StageEnum.DOMAINE}
-					defaultValue={props.informationsStage?.domaineStage}
-				>
+					defaultValue={props.informationsStage?.domaineStage}>
 					{domaineStage.map((option) =>
 						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 					)}
@@ -184,8 +177,7 @@ function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposee.Stage 
 					type="number"
 					name={StageEnum.REMUNERATION}
 					min={0}
-					defaultValue={props.informationsStage?.remunerationStage}
-				/>
+					defaultValue={props.informationsStage?.remunerationStage} />
 				<Champ.Error />
 			</Champ>
 
@@ -196,13 +188,11 @@ function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposee.Stage 
 						<Radio name={StageEnum.TELETRAVAIL}
 							value="true"
 							label="Oui"
-								 defaultChecked={props.informationsStage?.teletravail === Teletravail.OUI}
-						/>
+								 defaultChecked={props.informationsStage?.teletravail === Teletravail.OUI} />
 						<Radio name={StageEnum.TELETRAVAIL}
 							value="false"
 							label="Non"
-								 defaultChecked={props.informationsStage?.teletravail === Teletravail.NON}
-						/>
+								 defaultChecked={props.informationsStage?.teletravail === Teletravail.NON} />
 					</div>
 				</fieldset>
 			</div>
@@ -238,8 +228,7 @@ export default function StageDeposerOffreFormulaireÉtape2Stage() {
 	return (
 		<FormulaireÉtapeLayout
 			étape="Étape 2 sur 3 : Votre offre de stage"
-			urlÉtapePrécédente={URL_DEPOSER_OFFRE}
-		>
+			urlÉtapePrécédente={URL_DEPOSER_OFFRE}>
 			<StageDeposerOffreFormulaireLayout
 				inputsObligatoires={
 					<ChampsObligatoires informationsStage={informationsStage} />
@@ -252,10 +241,8 @@ export default function StageDeposerOffreFormulaireÉtape2Stage() {
 						icon={<Icon name="angle-right" />}
 						iconPosition="right"
 						label="Suivant"
-						type="submit"
-					/>
-				)}
-			/>
+						type="submit" />
+				)} />
 		</FormulaireÉtapeLayout>
 	);
 };

@@ -8,8 +8,7 @@ export default function Error409Page() {
 		<>
 			<Head
 				title="Conflit d'identifiant | 1jeune1solution"
-				robots="noindex"
-			/>
+				robots="noindex" />
 			<main id="contenu">
 				<ErrorLayout>
 					<ErrorLayout.Title titleAs="h1">Erreur - Requête en conflit</ErrorLayout.Title>

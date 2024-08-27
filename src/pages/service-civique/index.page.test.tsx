@@ -24,8 +24,7 @@ describe('<RechercherMissionServiceCiviquePage />', () => {
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
 				localisationService={aLocalisationService()}
-				missionEngagementService={aMissionEngagementService()}
-			>
+				missionEngagementService={aMissionEngagementService()}>
 				<RechercherMissionServiceCiviquePage />);
 			</DependenciesProvider>);
 

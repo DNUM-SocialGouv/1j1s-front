@@ -24,8 +24,7 @@ export default function PageEvenements() {
 					<>
 						<Head
 							title={'Trouver un évènement Emploi | 1jeune1solution'}
-							robots="index,follow"
-						/>
+							robots="index,follow" />
 						<main id='contenu'>
 							<HeroWithButtonLink
 								titlePrimaryText="Des centaines d‘événements de recrutement "
@@ -37,8 +36,7 @@ export default function PageEvenements() {
 								buttonLabelSecondary='Trouver un événement ma Mission Locale'
 								buttonHref='https://mesevenementsemploi.francetravail.fr/mes-evenements-emploi/evenements'
 								buttonHrefSecondary='https://40-ans.unml.info/le-programme'
-								imgSrc='/images/évènements.webp'
-							/>
+								imgSrc='/images/évènements.webp' />
 						</main>
 					</>
 				)
@@ -48,8 +46,7 @@ export default function PageEvenements() {
 					<Head
 						title={'Rechercher un évènement | 1jeune1solution'}
 						description="Des centaines d‘évènements de recrutement pour tous les jeunes, partout en France"
-						robots="index,follow"
-					/>
+						robots="index,follow" />
 					<InstantSearchLayout
 						meilisearchIndex={MEILISEARCH_INDEX}
 						nombreDeResultatParPage={HITS_PER_PAGE}
@@ -61,8 +58,7 @@ export default function PageEvenements() {
 						nombreDeSkeleton={2}
 						resultatDeRecherche={RésultatRechercherEvenement}
 						tagList={<MeilisearchTagsList />}
-						isAffichageListeDeResultatsDesktopDirectionRow
-					/>
+						isAffichageListeDeResultatsDesktopDirectionRow />
 				</>
 			)
 			}

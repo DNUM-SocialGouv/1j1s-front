@@ -33,8 +33,7 @@ export default function ActualitesPage({ cartesActualites }: ActualitesPageProps
 					link={carte.link}
 					linkLabel={isExternalLink ? 'En savoir plus' : undefined}
 					iconName={isExternalLink ? 'external-redirection' : undefined}
-					titleHeadingTag={'h2'}
-				>
+					titleHeadingTag={'h2'}>
 					<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
 				</ArticleCard>
 			);
@@ -45,8 +44,7 @@ export default function ActualitesPage({ cartesActualites }: ActualitesPageProps
 		<>
 			<Head
 				title="Actualités | 1jeune1solution"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu" className={styles.actualites}>
 				<LightHero>
 					<h1>
@@ -59,8 +57,7 @@ export default function ActualitesPage({ cartesActualites }: ActualitesPageProps
 						seeLessAriaLabel={'Voir moins de résultats sur les actualités'}
 						seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}
 						numberOfVisibleItems={MAX_VISIBLE_ACTUALITES}
-						itemList={articleCardList}
-					/>
+						itemList={articleCardList} />
 				</Container>
 			</main>
 		</>

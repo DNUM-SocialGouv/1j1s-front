@@ -10,8 +10,7 @@ export function AidesFinancieresEurope() {
 			link="/mes-aides"
 			logo="/images/aides-financières.webp"
 			title="Je cherche des aides financières pour vivre une expérience en Europe"
-			titleAs={'h3'}
-		>
+			titleAs={'h3'}>
 			Simuler les aides auxquelles vous êtes éligibles afin de vivre au mieux votre expérience en Europe.
 		</ServiceCard>
 	);

@@ -18,8 +18,7 @@ export const Controls = (props: ControlsProps) => {
 					type="button"
 					title="image précédente"
 					onClick={() => goToPreviousSlide()}
-					className={classNames(styles.controls, styles.controlsPrevious)}
-				>
+					className={classNames(styles.controls, styles.controlsPrevious)}>
 					<Icon name="angle-left" />
 				</button>
 			</li>
@@ -28,8 +27,7 @@ export const Controls = (props: ControlsProps) => {
 					type="button"
 					title="image suivante"
 					onClick={() => goToNextSlide()}
-					className={classNames(styles.controls, styles.controlsNext)}
-				>
+					className={classNames(styles.controls, styles.controlsNext)}>
 					<Icon name="angle-right" />
 				</button>
 			</li>

@@ -16,8 +16,7 @@ export default function BesoinAide({ setTypeFormulaireAffiché, setIsDispositifs
 				onClick={onBackButton}
 				label="Retour"
 				icon={<Icon name={'angle-left'} />}
-				iconPosition={'left'}
-			/>
+				iconPosition={'left'} />
 			<p className={styles.question}>Avez-vous besoin d’aide pour vous orienter, chercher un emploi, une alternance, une formation, ou travailler votre projet professionnel ?</p>
 			<div>
 				<button className={styles.optionBouton} onClick={() => setTypeFormulaireAffiché('AutresBesoins')}>Oui</button>

@@ -27,8 +27,7 @@ describe('Immersion / Référencer mon entreprise', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<ImmersionReferenceMonEntreprisePage />
 			</DependenciesProvider>,
 		);
@@ -41,8 +40,7 @@ describe('Immersion / Référencer mon entreprise', () => {
 
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<ImmersionReferenceMonEntreprisePage />
 			</DependenciesProvider>,
 		);
@@ -57,8 +55,7 @@ describe('Immersion / Référencer mon entreprise', () => {
 
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<ImmersionReferenceMonEntreprisePage />
 			</DependenciesProvider>,
 		);
@@ -75,8 +72,7 @@ describe('Immersion / Référencer mon entreprise', () => {
 
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<ImmersionReferenceMonEntreprisePage />
 			</DependenciesProvider>,
 		);

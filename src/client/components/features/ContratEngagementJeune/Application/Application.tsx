@@ -23,8 +23,7 @@ export default function Application() {
 				<div className={styles.applicationTelecharger}>
 					<Link
 						href="https://play.google.com/store/apps/details?id=fr.fabrique.social.gouv.passemploi&gl=FR"
-						className={styles.applicationTelechargerLien}
-					>
+						className={styles.applicationTelechargerLien}>
 						<div className={styles.applicationTelechargerLienLogo} aria-hidden="true">
 							<Image src={logoGoogle} alt={''} fill />
 						</div>
@@ -34,8 +33,7 @@ export default function Application() {
 					</Link>
 					<Link
 						href="https://apps.apple.com/fr/app/contrat-dengagement-jeune/id1581603519"
-						className={styles.applicationTelechargerLien}
-					>
+						className={styles.applicationTelechargerLien}>
 						<div className={styles.applicationTelechargerLienLogo} aria-hidden="true">
 							<Image src={logoApple} alt={''} fill />
 						</div>

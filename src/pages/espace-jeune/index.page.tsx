@@ -44,8 +44,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 				link={carte.link}
 				linkLabel={getCarteActualiteLinkLabel(carte)}
 				iconName={getCarteActualiteLinkIcon(carte)}
-				titleHeadingTag={'h3'}
-			>
+				titleHeadingTag={'h3'}>
 				<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
 			</ArticleCard>
 		),
@@ -56,8 +55,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 		<>
 			<Head
 				title="Actualités et services jeunes | 1jeune1solution"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 
 				<h1 className={styles.title}>Actualités et services jeune</h1>
@@ -73,8 +71,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 														 seeLessAriaLabel={'Voir moins de résultats sur les actualités'}
 														 seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}
 														 numberOfVisibleItems={MAX_VISIBLE_ACTUALITES_LENGTH}
-														 itemList={articleCardList}
-						/>
+														 itemList={articleCardList} />
 					</Container>
 				</section>
 				<section className={classNames(styles.section, styles.mesuresJeunesSection)} aria-label="les services jeunes">

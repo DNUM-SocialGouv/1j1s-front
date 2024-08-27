@@ -10,8 +10,7 @@ export function EurasmusPlusPartner() {
 			link="https://info.erasmusplus.fr/"
 			logo="/images/logos/erasmus-plus.webp"
 			title="Le programme “ERASMUS+”"
-			titleAs={'h3'}
-		>
+			titleAs={'h3'}>
 			Il vous donne la possibilité de séjourner à l’étranger pour renforcer vos compétences et accroître votre employabilité.
 		</ServiceCard>
 	);

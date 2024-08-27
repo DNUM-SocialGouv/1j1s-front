@@ -36,8 +36,7 @@ describe('<RechercherJobEtudiantPage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				localisationService={aLocalisationService()}
-			>
+				localisationService={aLocalisationService()}>
 				<RechercherJobÉtudiantPage />);
 			</DependenciesProvider>,
 		);

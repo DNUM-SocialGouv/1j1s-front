@@ -66,8 +66,7 @@ export const Slide = (props: SlideProps) => {
 				{ [styles.nextInTransition]: isNextSlide && direction === 'next' && isInTransition },
 				{ [styles.prevInTransition]: isPreviousSlide && direction === 'previous' && isInTransition },
 				{ [styles.transition]: isAnimated },
-			)}
-		>
+			)}>
 			<Image src={image.src} alt={image.alt || defaultAlternative(index, numberOfImages)} width={imagesSize.width} height={imagesSize.height} />
 		</li>
 	);

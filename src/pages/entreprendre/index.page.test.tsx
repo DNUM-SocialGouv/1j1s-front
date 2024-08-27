@@ -21,8 +21,7 @@ describe('<Entreprendre />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				dateService={aDateService()}
-			>
+				dateService={aDateService()}>
 				<Entreprendre />
 			</DependenciesProvider>,
 		);
@@ -37,8 +36,7 @@ describe('<Entreprendre />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				dateService={aDateService()}
-			>
+				dateService={aDateService()}>
 				<Entreprendre />);
 			</DependenciesProvider>);
 

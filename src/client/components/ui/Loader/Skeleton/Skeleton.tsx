@@ -75,8 +75,7 @@ export function Skeleton(props: SkeletonProps) {
 			<ul
 				tabIndex={0}
 				aria-label="...En cours de chargement"
-				className={classNames(styles.wrapper, className)}
-			>
+				className={classNames(styles.wrapper, className)}>
 				{skeletonRender(type, repeat)}
 			</ul>
 		);

@@ -14,8 +14,7 @@ export function ModaleDispositifsReferences(props: { open: boolean, close: () =>
 			aria-labelledby={titleId}
 			isOpen={props.open}
 			close={props.close}
-			className={styles.dispositifsModale}
-		>
+			className={styles.dispositifsModale}>
 			<ModalComponent.Content className={styles.content}>
 				<div>
 					<h1 className={styles.title} id={titleId}>Découvrez les dispositifs référencés sur le portail

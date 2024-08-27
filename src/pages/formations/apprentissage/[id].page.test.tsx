@@ -243,8 +243,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<ConsulterFormationPage formation={formation} />
 			</DependenciesProvider>,
 		);
@@ -259,8 +258,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<ConsulterFormationPage formation={formation} />
 			</DependenciesProvider>,
 		);
@@ -276,8 +274,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<ConsulterFormationPage formation={formation} />
 			</DependenciesProvider>,
 		);

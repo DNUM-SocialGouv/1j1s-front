@@ -39,8 +39,7 @@ function CardButton(props: React.ComponentPropsWithoutRef<typeof ButtonComponent
 			label={label || ''}
 			icon={icon}
 			iconPosition={'right'}
-			{...rest}
-		/>
+			{...rest} />
 	);
 }
 

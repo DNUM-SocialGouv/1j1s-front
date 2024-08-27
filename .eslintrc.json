@@ -58,9 +58,7 @@
         "assertFunctionNames": ["expect", "checkA11y"]
       }
     ],
-    "react/jsx-closing-bracket-location": ["error", {
-      "nonEmpty": "line-aligned"
-    }],
+    "react/jsx-closing-bracket-location": ["error", "after-props"],
     "react/jsx-wrap-multilines": ["error", {
       "declaration": "parens-new-line",
       "assignment": "parens-new-line",

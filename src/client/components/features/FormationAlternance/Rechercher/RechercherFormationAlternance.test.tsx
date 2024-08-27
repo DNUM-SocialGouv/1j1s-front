@@ -25,8 +25,7 @@ describe('RechercherFormation', () => {
 		render(
 			<DependenciesProvider
 				metierLbaService={aMetierService()}
-				localisationService={aLocalisationService()}
-			>
+				localisationService={aLocalisationService()}>
 				<RechercherFormationAlternance />
 			</DependenciesProvider>,
 		);
@@ -84,8 +83,7 @@ describe('RechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					metierLbaService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
+					localisationService={aLocalisationService()}>
 					<RechercherFormationAlternance resultats={resultatRechercheFormationAlternance} />
 				</DependenciesProvider>,
 			);
@@ -119,8 +117,7 @@ describe('RechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					metierLbaService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
+					localisationService={aLocalisationService()}>
 					<RechercherFormationAlternance resultats={[]} />
 				</DependenciesProvider>,
 			);
@@ -137,8 +134,7 @@ describe('RechercherFormation', () => {
 				render(
 					<DependenciesProvider
 						metierLbaService={aMetierService()}
-						localisationService={aLocalisationService()}
-					>
+						localisationService={aLocalisationService()}>
 						<RechercherFormationAlternance resultats={resultatRechercheFormationAlternance} />
 					</DependenciesProvider>,
 				);
@@ -155,8 +151,7 @@ describe('RechercherFormation', () => {
 				render(
 					<DependenciesProvider
 						metierLbaService={aMetierService()}
-						localisationService={aLocalisationService()}
-					>
+						localisationService={aLocalisationService()}>
 						<RechercherFormationAlternance resultats={resultatRechercheFormationAlternance} />
 					</DependenciesProvider>,
 				);
@@ -172,8 +167,7 @@ describe('RechercherFormation', () => {
 		render(
 			<DependenciesProvider
 				metierLbaService={aMetierService()}
-				localisationService={aLocalisationService()}
-			>
+				localisationService={aLocalisationService()}>
 				<RechercherFormationAlternance />
 			</DependenciesProvider>,
 		);

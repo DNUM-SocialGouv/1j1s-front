@@ -60,12 +60,10 @@ describe('Page Espace Jeune', () => {
 
 			const { container } = render(
 				<DependenciesProvider
-					analyticsService={aManualAnalyticsService()}
-				>
+					analyticsService={aManualAnalyticsService()}>
 					<EspaceJeunePage
 						cartesActualites={carteActualites}
-						serviceJeuneList={serviceJeuneList}
-					/>);
+						serviceJeuneList={serviceJeuneList} />);
 				</DependenciesProvider>);
 
 			await expect(container).toBeAccessible();
@@ -78,8 +76,7 @@ describe('Page Espace Jeune', () => {
 
 			render(
 				<DependenciesProvider
-					analyticsService={analyticsService}
-				>
+					analyticsService={analyticsService}>
 					<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList} />
 				</DependenciesProvider>,
 			);
@@ -100,8 +97,7 @@ describe('Page Espace Jeune', () => {
 
 				render(
 					<DependenciesProvider
-						analyticsService={analyticsService}
-					>
+						analyticsService={analyticsService}>
 						<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList} />
 					</DependenciesProvider>,
 				);
@@ -121,8 +117,7 @@ describe('Page Espace Jeune', () => {
 
 				render(
 					<DependenciesProvider
-						analyticsService={analyticsService}
-					>
+						analyticsService={analyticsService}>
 						<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList} />
 					</DependenciesProvider>,
 				);

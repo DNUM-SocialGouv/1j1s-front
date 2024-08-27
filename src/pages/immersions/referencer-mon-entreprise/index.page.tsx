@@ -21,8 +21,7 @@ export default function ImmersionReferenceMonEntreprisePage() {
 		<main id="contenu">
 			<Head
 				title="je référence mon entreprise pour des immersions | 1jeune1solution"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<Hero>
 				<h1>
 					<HeroPrimaryText className={styles.heroTitle}>
@@ -39,8 +38,7 @@ export default function ImmersionReferenceMonEntreprisePage() {
 				<iframe
 					className={styles.iframe}
 					src="https://immersion-facile.beta.gouv.fr/etablissement/unJeuneUneSolution"
-					title="Formulaire recueil des entreprises volontaires pour l‘accueil des immersions professionnelles"
-				/>
+					title="Formulaire recueil des entreprises volontaires pour l‘accueil des immersions professionnelles" />
 				<p className={styles.rgpd}>
 					Vous êtes informé que vos données sont collectées et traitées par le Groupement d‘intérêt public de
 					plateforme de l‘inclusion pour traiter votre demande de référencement de votre entreprise. Pour en savoir plus

@@ -35,8 +35,7 @@ describe('<ConsulterMissionEngagementPage />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<ConsulterMissionEngagementPage missionEngagement={mission} />);
 			</DependenciesProvider>);
 

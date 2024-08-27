@@ -60,7 +60,6 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 			onMouseDown={onMouseDown}
 			ref={ref}
 			data-value={value?.toString()}
-			{...optionProps}
-		/>
+			{...optionProps} />
 	);
 });

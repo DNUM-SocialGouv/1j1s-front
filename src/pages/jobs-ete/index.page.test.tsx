@@ -42,8 +42,7 @@ describe('Page rechercher un job d‘été', () => {
 			render(
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
-					localisationService={aLocalisationService()}
-				>
+					localisationService={aLocalisationService()}>
 					<RechercherJobsEtePage />
 				</DependenciesProvider>,
 			);
@@ -66,8 +65,7 @@ describe('Page rechercher un job d‘été', () => {
 			render(
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
-					localisationService={aLocalisationService()}
-				>
+					localisationService={aLocalisationService()}>
 					<RechercherJobsEtePage />
 				</DependenciesProvider>,
 			);
@@ -83,8 +81,7 @@ describe('Page rechercher un job d‘été', () => {
 			render(
 				<DependenciesProvider
 					analyticsService={analyticsService}
-					localisationService={aLocalisationService()}
-				>
+					localisationService={aLocalisationService()}>
 					<RechercherJobsEtePage />
 				</DependenciesProvider>,
 			);
@@ -105,8 +102,7 @@ describe('Page rechercher un job d‘été', () => {
 			const { container } = render(
 				<DependenciesProvider
 					analyticsService={analyticsService}
-					localisationService={aLocalisationService()}
-				>
+					localisationService={aLocalisationService()}>
 					<RechercherJobsEtePage resultats={aRésultatsRechercheOffre()} />
 				</DependenciesProvider>,
 			);

@@ -10,8 +10,7 @@ export function FormationsEnApprentissageCard() {
 			logo="/images/formations-apprentissage.webp"
 			title="Vous êtes à la recherche d’une formation en apprentissage ?"
 			titleAs={'h3'}
-			imageFit={'cover'}
-		>
+			imageFit={'cover'}>
 			Trouvez la formation qu’il vous faut pour réaliser votre projet avec La bonne alternance
 		</ServiceCard>
 	);

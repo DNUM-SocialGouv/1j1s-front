@@ -22,8 +22,7 @@ export const Indicators = (props: IndicatorsProps) => {
 						type="button"
 						onClick={() => goToSelectedSlide(index)}
 						aria-disabled={index === currentSlideIndex ? true : undefined}
-						className={classNames(styles.indicator, { [styles.indicatorActive]: index === currentSlideIndex })}
-					>
+						className={classNames(styles.indicator, { [styles.indicatorActive]: index === currentSlideIndex })}>
 						<span className="sr-only">{`Image ${defaultAlternative(index, numberOfImages)}`}</span>
 					</button>
 				</li>

@@ -40,8 +40,7 @@ describe('RechercherAlternance', () => {
 		render(
 			<DependenciesProvider
 				metierLbaService={métierServiceMock}
-				localisationService={localisationServiceMock}
-			>
+				localisationService={localisationServiceMock}>
 				<RechercherAlternance />
 			</DependenciesProvider>,
 		);
@@ -59,8 +58,7 @@ describe('RechercherAlternance', () => {
 		render(
 			<DependenciesProvider
 				metierLbaService={aMetierService()}
-				localisationService={aLocalisationService()}
-			>
+				localisationService={aLocalisationService()}>
 				<RechercherAlternance resultats={aRechercheAlternance()} />
 			</DependenciesProvider>,
 		);
@@ -78,8 +76,7 @@ describe('RechercherAlternance', () => {
 		render(
 			<DependenciesProvider
 				metierLbaService={aMetierService()}
-				localisationService={aLocalisationService()}
-			>
+				localisationService={aLocalisationService()}>
 				<RechercherAlternance resultats={aRechercheAlternance()} />
 			</DependenciesProvider>,
 		);
@@ -159,8 +156,7 @@ describe('RechercherAlternance', () => {
 			render(
 				<DependenciesProvider
 					metierLbaService={métierServiceMock}
-					localisationService={localisationServiceMock}
-				>
+					localisationService={localisationServiceMock}>
 					<RechercherAlternance resultats={resultatFixture} />
 				</DependenciesProvider>,
 			);
@@ -195,8 +191,7 @@ describe('RechercherAlternance', () => {
 				render(
 					<DependenciesProvider
 						metierLbaService={aMetierService()}
-						localisationService={aLocalisationService()}
-					>
+						localisationService={aLocalisationService()}>
 						<RechercherAlternance resultats={resultats} />
 					</DependenciesProvider>,
 				);
@@ -217,8 +212,7 @@ describe('RechercherAlternance', () => {
 				render(
 					<DependenciesProvider
 						metierLbaService={aMetierService()}
-						localisationService={aLocalisationService()}
-					>
+						localisationService={aLocalisationService()}>
 						<RechercherAlternance resultats={resultats} />
 					</DependenciesProvider>,
 				);
@@ -237,8 +231,7 @@ describe('RechercherAlternance', () => {
 				render(
 					<DependenciesProvider
 						metierLbaService={métierServiceMock}
-						localisationService={localisationServiceMock}
-					>
+						localisationService={localisationServiceMock}>
 						<RechercherAlternance resultats={resultatFixture} />
 					</DependenciesProvider>,
 				);
@@ -268,8 +261,7 @@ describe('RechercherAlternance', () => {
 					render(
 						<DependenciesProvider
 							metierLbaService={aMetierService()}
-							localisationService={aLocalisationService()}
-						>
+							localisationService={aLocalisationService()}>
 							<RechercherAlternance resultats={resultats} />
 						</DependenciesProvider>,
 					);
@@ -290,8 +282,7 @@ describe('RechercherAlternance', () => {
 					render(
 						<DependenciesProvider
 							metierLbaService={aMetierService()}
-							localisationService={aLocalisationService()}
-						>
+							localisationService={aLocalisationService()}>
 							<RechercherAlternance resultats={resultats} />
 						</DependenciesProvider>,
 					);

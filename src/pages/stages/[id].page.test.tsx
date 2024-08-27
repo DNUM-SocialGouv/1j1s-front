@@ -32,8 +32,7 @@ describe('<ConsulterOffreStagePage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				dateService={aDateService()}
-			>
+				dateService={aDateService()}>
 				<ConsulterOffreStagePage offreDeStage={offreDeStage} />
 			</DependenciesProvider>,
 		);
@@ -45,8 +44,7 @@ describe('<ConsulterOffreStagePage />', () => {
 		render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				dateService={aDateService()}
-			>
+				dateService={aDateService()}>
 				<ConsulterOffreStagePage offreDeStage={offreDeStage} />
 			</DependenciesProvider>,
 		);

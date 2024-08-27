@@ -20,8 +20,7 @@ export function RéférencerEntreprises() {
 				<Link
 					className={styles.referencerBouton}
 					href="/immersions/referencer-mon-entreprise"
-					appearance="asPrimaryButton"
-				>
+					appearance="asPrimaryButton">
 					Référencer mon entreprise
 					<Link.Icon />
 				</Link>

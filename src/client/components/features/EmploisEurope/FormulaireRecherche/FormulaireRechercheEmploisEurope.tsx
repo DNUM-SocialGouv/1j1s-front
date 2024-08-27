@@ -106,8 +106,7 @@ export function FormulaireRechercheEmploisEurope() {
 			ref={rechercheEmploiEuropeForm}
 			role="search"
 			aria-label="Rechercher une offre d'emploi en Europe"
-			onSubmit={updateRechercherEmploiEuropeQueryParams}
-		>
+			onSubmit={updateRechercherEmploiEuropeQueryParams}>
 			<div className={styles.filtresRechercherOffre}>
 				<Champ className={styles.metier}>
 					<Champ.Label>
@@ -119,8 +118,7 @@ export function FormulaireRechercheEmploisEurope() {
 						autoFocus
 						value={inputMotCle}
 						name="motCle"
-						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
-					/>
+						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)} />
 					<Champ.Error />
 				</Champ>
 
@@ -129,8 +127,7 @@ export function FormulaireRechercheEmploisEurope() {
 					paysList={paysEuropeList}
 					labelComplement="Exemple : Belgique, Allemagne"
 					defaultValue={localisationDefaultValue}
-					placeholder="Sélectionnez vos choix"
-				/>
+					placeholder="Sélectionnez vos choix" />
 
 				<ButtonComponent
 					className={styles.buttonMoreFilterMobileOnly}
@@ -139,8 +136,7 @@ export function FormulaireRechercheEmploisEurope() {
 					icon={<Icon name="filter" />}
 					iconPosition="right"
 					label="Filtrer ma recherche"
-					onClick={() => setIsFiltresAvancesMobileOpen(!isFiltresAvancesMobileOpen)}
-				/>
+					onClick={() => setIsFiltresAvancesMobileOpen(!isFiltresAvancesMobileOpen)} />
 
 				<Champ className={classNames(styles.filtreDesktopOnly, styles.typeContrat)}>
 					<Champ.Label>
@@ -152,8 +148,7 @@ export function FormulaireRechercheEmploisEurope() {
 						optionsAriaLabel={'type de contrat'}
 						onChange={(option) => onChangeMultipleSelect(option, setInputTypeContrat)}
 						name="typeContrat"
-						value={inputTypeContrat}
-					>
+						value={inputTypeContrat}>
 						{typesContratEures.map((option) =>
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
@@ -171,8 +166,7 @@ export function FormulaireRechercheEmploisEurope() {
 						optionsAriaLabel={'temps de travail'}
 						onChange={(option) => onChangeMultipleSelect(option, setInputTempsDeTravail)}
 						name="tempsDeTravail"
-						value={inputTempsDeTravail}
-					>
+						value={inputTempsDeTravail}>
 						{tempsDeTravailEures.map((option) =>
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
@@ -190,8 +184,7 @@ export function FormulaireRechercheEmploisEurope() {
 						optionsAriaLabel={'niveau d‘études'}
 						onChange={(option) => onChangeMultipleSelect(option, setInputNiveauEtude)}
 						name="niveauEtude"
-						value={inputNiveauEtude}
-					>
+						value={inputNiveauEtude}>
 						{niveauDEtudes.map((option) =>
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
@@ -209,8 +202,7 @@ export function FormulaireRechercheEmploisEurope() {
 						optionsAriaLabel={'secteur d‘activité'}
 						onChange={(option) => onChangeMultipleSelect(option, setInputSecteurActivite)}
 						name="secteurActivite"
-						value={inputSecteurActivite}
-					>
+						value={inputSecteurActivite}>
 						{secteurActiviteEures.map((option) =>
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
@@ -223,8 +215,7 @@ export function FormulaireRechercheEmploisEurope() {
 					label="Rechercher"
 					icon={<Icon name="magnifying-glass" />}
 					iconPosition="right"
-					type="submit"
-				/>
+					type="submit" />
 			</div>
 
 			<ModaleFiltreAvancee
@@ -238,8 +229,7 @@ export function FormulaireRechercheEmploisEurope() {
 				inputNiveauEtude={inputNiveauEtude}
 				inputTempsDeTravail={inputTempsDeTravail}
 				open={isFiltresAvancesMobileOpen}
-				onClick={applyFiltresAvances}
-			/>
+				onClick={applyFiltresAvances} />
 		</form>
 	);
 }

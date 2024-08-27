@@ -28,8 +28,7 @@ export default function ConsulterFormationPage(props: ConsulterFormationPageProp
 		<>
 			<Head
 				title={`${formation.titre} | 1jeune1solution`}
-				robots="noindex"
-			/>
+				robots="noindex" />
 			<ConsulterFormationAlternance formation={formation} statistiques={statistiques} />
 		</>
 	);

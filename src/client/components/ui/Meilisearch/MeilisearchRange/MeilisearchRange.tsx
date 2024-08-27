@@ -100,8 +100,7 @@ export function MeilisearchRange(props: UseRangeProps & MeilisearchRangeProps) {
   				min={min}
   				max={max}
   				value={minValue}
-  				onChange={onMinInputChange}
-  			/>
+  				onChange={onMinInputChange} />
   			<span>{unite}</span>
   		</span>
   		<label className={styles.label} htmlFor={inputMaxRef.current}>Maximum</label>
@@ -112,8 +111,7 @@ export function MeilisearchRange(props: UseRangeProps & MeilisearchRangeProps) {
   				min={min}
   				max={max}
   				value={maxValue}
-  				onChange={onMaxInputChange}
-  			/>
+  				onChange={onMaxInputChange} />
   			<span>{unite}</span>
   		</span>
   		<ButtonComponent label={BUTTON_LABEL} onClick={refineRange} />
@@ -130,8 +128,7 @@ export function MeilisearchRange(props: UseRangeProps & MeilisearchRangeProps) {
   				aria-expanded={isRangeBoxOpen}
   				aria-labelledby={labelledBy.current}
   				className={styles.button}
-  				onClick={() => setIsRangeBoxOpen(!isRangeBoxOpen)}
-  			>
+  				onClick={() => setIsRangeBoxOpen(!isRangeBoxOpen)}>
   				<span>{displayPlaceholder()}</span>
   				<Icon name={isRangeBoxOpen ? 'angle-up' : 'angle-down'} />
   			</button>

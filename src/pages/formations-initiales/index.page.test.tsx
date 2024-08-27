@@ -26,8 +26,7 @@ describe('quand le feature flip n‘est pas actif', () => {
 		render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				formationInitialeService={aFormationInitialeService()}
-			>
+				formationInitialeService={aFormationInitialeService()}>
 				<FormationsInitialesPage />
 			</DependenciesProvider>,
 		);
@@ -53,8 +52,7 @@ describe('quand le feature flip est actif', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				formationInitialeService={aFormationInitialeService()}
-			>
+				formationInitialeService={aFormationInitialeService()}>
 				<FormationsInitialesPage />
 			</DependenciesProvider> );
 
@@ -72,8 +70,7 @@ describe('quand le feature flip est actif', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				formationInitialeService={aFormationInitialeService()}
-			>
+				formationInitialeService={aFormationInitialeService()}>
 				<FormationsInitialesPage />
 			</DependenciesProvider>,
 		);
@@ -106,8 +103,7 @@ describe('quand le feature flip est actif', () => {
 	it('affiche le titre de la page', async () => {
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}
-				formationInitialeService={aFormationInitialeService()}
-			>
+				formationInitialeService={aFormationInitialeService()}>
 				<FormationsInitialesPage />
 			</DependenciesProvider>);
 

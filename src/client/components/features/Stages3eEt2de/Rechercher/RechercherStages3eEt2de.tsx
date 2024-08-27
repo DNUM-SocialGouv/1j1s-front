@@ -79,8 +79,7 @@ export default function RechercherStages3eEt2de() {
 			<Head
 				title={title}
 				description="Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3e et 2de"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<RechercherSolutionLayout
 					banniere={<BaniereStages3eEt2de />}
@@ -91,8 +90,7 @@ export default function RechercherStages3eEt2de() {
 					isEtatInitial={empty(stage3eEt2deQuery)}
 					listeSolutionElement={<ListeResultatsStage3eEt2de resultatList={stage3eEt2deList} />}
 					messageResultatRecherche={messageResultatsRecherche}
-					nombreTotalSolutions={stage3eEt2deList?.nombreDeResultats ?? 0}
-				/>
+					nombreTotalSolutions={stage3eEt2deList?.nombreDeResultats ?? 0} />
 			</main>
 		</>
 	);

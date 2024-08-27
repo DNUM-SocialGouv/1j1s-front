@@ -17,8 +17,7 @@ export function MesuresEmployeursComponent({ mesureEmployeurList }: MesuresEmplo
 			<Head
 				title="Mesures Employeurs | 1jeune1solution"
 				description="Plus de 400 000 offres d‘emplois et d‘alternances sélectionnées pour vous"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<Bannière />
 				<section className={styles.dispositifs}>
@@ -55,7 +54,6 @@ function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {
 			titleAs={'h2'}
 			title={titre}
 			flippingCardContent={pourQui}
-			className={styles.carteMesureEmployeur}
-		/>
+			className={styles.carteMesureEmployeur} />
 	);
 }

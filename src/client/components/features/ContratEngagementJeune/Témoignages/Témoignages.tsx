@@ -103,8 +103,7 @@ function Programme({ children }: React.PropsWithChildren) {
 			itemList={[programme]}
 			seeMoreLabel="Découvrez son programme et ce que le CEJ lui apporte"
 			seeLessAriaLabel={'Voir moins de témoignages'}
-			seeMoreAriaLabel={'Voir plus de témoignages'}
-		>
+			seeMoreAriaLabel={'Voir plus de témoignages'}>
 			{programme}
 		</SeeMoreMobileOnly>
 	);

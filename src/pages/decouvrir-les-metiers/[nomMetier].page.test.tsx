@@ -35,8 +35,7 @@ describe('Page consulter fiche métier', () => {
 		const analyticsService = aManualAnalyticsService();
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<ConsulterFicheMetierPage ficheMetier={ficheMetier} />
 			</DependenciesProvider>,
 		);
@@ -48,8 +47,7 @@ describe('Page consulter fiche métier', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<ConsulterFicheMetierPage ficheMetier={ficheMetier} />
 			</DependenciesProvider>,
 		);
@@ -66,8 +64,7 @@ describe('Page consulter fiche métier', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<ConsulterFicheMetierPage ficheMetier={ficheMetier} />
 			</DependenciesProvider>,
 		);

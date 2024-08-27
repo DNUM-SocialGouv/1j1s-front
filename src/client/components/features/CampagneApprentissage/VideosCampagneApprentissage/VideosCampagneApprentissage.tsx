@@ -61,8 +61,7 @@ export default function VideosCampagneApprentissage({
 										icon={
 											getVideoButtonIcon(video)
 										}
-										iconPosition="left"
-									/>
+										iconPosition="left" />
 								</li>
 							))
 						}
@@ -71,8 +70,7 @@ export default function VideosCampagneApprentissage({
 						<Link
 							appearance={'asQuaternaryButton'}
 							href={'https://www.youtube.com/playlist?list=PL380KraUhZWX2ZY_qMbydLn5lqIXpUvw1'}
-							className={styles.lienPlaylist}
-						>
+							className={styles.lienPlaylist}>
 							Découvrir tous les témoignages
 							<Link.Icon />
 						</Link>

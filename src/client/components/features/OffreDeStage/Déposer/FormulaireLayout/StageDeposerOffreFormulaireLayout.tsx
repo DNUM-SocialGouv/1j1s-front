@@ -18,8 +18,7 @@ export function StageDeposerOffreFormulaireLayout({ inputsObligatoires, inputsFa
 			className={styles.formulaire}
 			ref={formRef}
 			onSubmit={handleFormSubmit}
-			{...rest}
-		>
+			{...rest}>
 			<p className={styles.informationChamp}>
 				Les champs suivants sont obligatoires
 			</p>

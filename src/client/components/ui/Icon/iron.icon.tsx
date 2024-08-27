@@ -15,8 +15,7 @@ export const IronIcon = React.forwardRef<SVGSVGElement, SvgProps>(function IronI
 			fill={color}
 			xmlns="http://www.w3.org/2000/svg"
 			{...rest}
-			ref={ref}
-		>
+			ref={ref}>
 			<rect width="24" height="24" fill="url(#pattern-iron)" />
 			<defs>
 				<pattern id="pattern-iron" patternContentUnits="objectBoundingBox" width="1" height="1">

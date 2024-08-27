@@ -26,8 +26,7 @@ describe('<MonEspace />', () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<MonEspace />);
 			</DependenciesProvider>,
 		);

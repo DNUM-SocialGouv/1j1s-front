@@ -15,16 +15,14 @@ export function RadioIsDatePrecise(props: { checked: boolean, onChange: () => vo
 				value={IsDateDeDebutPrecise.OUI}
 				checked={props.checked}
 				onChange={props.onChange}
-				required
-			/>
+				required />
 			<Radio
 				label="Je ne connais pas la date précise du début de stage"
 				name={StageEnum.IS_DATE_DE_DEBUT_PRECISE}
 				value={IsDateDeDebutPrecise.NON}
 				checked={!props.checked}
 				onChange={props.onChange}
-				required
-			/>
+				required />
 		</div>
 	);
 }

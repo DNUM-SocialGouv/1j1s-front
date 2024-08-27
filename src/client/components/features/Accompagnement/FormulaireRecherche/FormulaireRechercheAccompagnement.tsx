@@ -57,14 +57,12 @@ export function FormulaireRechercheAccompagnement() {
 				ref={rechercheAccompagnementForm}
 				aria-label="Rechercher un accompagnement"
 				className={styles.rechercheAccompagnementForm}
-				onSubmit={updateRechercheAccompagnementQueryParams}
-			>
+				onSubmit={updateRechercheAccompagnementQueryParams}>
 				<div className={styles.filtresRecherche}>
 					<div className={styles.comboboxCommune}>
 						<ComboboxCommune
 							defaultCommune={defaultCommuneValue}
-							required
-						/>
+							required />
 					</div>
 
 					<Champ>
@@ -74,8 +72,7 @@ export function FormulaireRechercheAccompagnement() {
 							required
 							optionsAriaLabel={'type d‘accompagnement'}
 							name="typeAccompagnement"
-							defaultValue={typeAccompagnement}
-						>
+							defaultValue={typeAccompagnement}>
 							{typeAccompagnementListe.map((option) =>
 								<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 							)}
@@ -89,8 +86,7 @@ export function FormulaireRechercheAccompagnement() {
 						label="Rechercher"
 						icon={<Icon name="magnifying-glass" />}
 						iconPosition="right"
-						type="submit"
-					/>
+						type="submit" />
 				</div>
 				
 			</form>

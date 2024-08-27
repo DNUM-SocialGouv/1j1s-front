@@ -12,8 +12,7 @@ export default function DeposerOffreStageEnvoyePage() {
 		<>
 			<Head
 				title={'Dépôt d’offre de stage - Formulaire envoyé | 1jeune1solution'}
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<LightHero className={styles.hero}>
 				<h1>
 					<LightHeroPrimaryText>Merci, votre offre de stage a bien été envoyée</LightHeroPrimaryText>

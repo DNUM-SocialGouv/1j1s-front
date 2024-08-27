@@ -9,8 +9,7 @@ import styles from './PreparationApprentissage.module.scss';
 export default function PreparationApprentissage() {
 	return (
 		<div
-			className={styles.preparationApprentissage}
-		>
+			className={styles.preparationApprentissage}>
 			<Container className={styles.contenu}>
 				<section className={styles.choixApprentissage} aria-labelledby={'titre-section-choix-apprentissage'}>
 					<h2 className={styles.titleChoixApprentissage} id={'titre-section-choix-apprentissage'}>
@@ -34,8 +33,7 @@ export default function PreparationApprentissage() {
 					<Link
 						className={classNames(styles.linkPrepaApprentissage, styles.link)}
 						href={'/articles/la-prepa-apprentissage-c-est-quoi'}
-						appearance={'asPrimaryButton'}
-					>
+						appearance={'asPrimaryButton'}>
 						Lire l‘article
 						<Link.Icon />
 					</Link>

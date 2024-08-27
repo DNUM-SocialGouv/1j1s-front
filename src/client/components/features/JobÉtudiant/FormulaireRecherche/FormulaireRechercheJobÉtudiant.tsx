@@ -37,8 +37,7 @@ export function FormulaireRechercheJobÉtudiant() {
 			ref={rechercheJobÉtudiantForm}
 			role="search"
 			className={styles.rechercheOffreForm}
-			onSubmit={updateRechercherJobÉtudiantQueryParams}
-		>
+			onSubmit={updateRechercherJobÉtudiantQueryParams}>
 			<div className={styles.filtres}>
 				<Champ>
 					<Champ.Label>
@@ -49,14 +48,12 @@ export function FormulaireRechercheJobÉtudiant() {
 						render={Input}
 						defaultValue={queryParams.motCle}
 						name="motCle"
-						minLength={2}
-					/>
+						minLength={2} />
 					<Champ.Error />
 				</Champ>
 
 				<ComboboxLocalisation
-					defaultValue={inputLocalisation}
-				/>
+					defaultValue={inputLocalisation} />
 
 				<Champ className={styles.domaine}>
 					<Champ.Label>
@@ -67,8 +64,7 @@ export function FormulaireRechercheJobÉtudiant() {
 						render={SelectMultiple}
 						optionsAriaLabel={'Domaines'}
 						name="grandDomaine"
-						defaultValue={queryParams.grandDomaine?.split(',')}
-					>
+						defaultValue={queryParams.grandDomaine?.split(',')}>
 						{mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList).map((option) =>
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
@@ -82,8 +78,7 @@ export function FormulaireRechercheJobÉtudiant() {
 					label="Rechercher"
 					icon={<Icon name="magnifying-glass" />}
 					iconPosition="right"
-					type="submit"
-				/>
+					type="submit" />
 			</div>
 		</form>
 	);

@@ -54,8 +54,7 @@ export function ResultatRechercherSolution(props: PropsWithChildren<ResultatRech
 					id={idLink}
 					href={lienOffre}
 					appearance={'asQuaternaryButton'}
-					aria-labelledby={intituléLienOffre ? undefined : `${idIntitulé} ${idLink}`}
-				>
+					aria-labelledby={intituléLienOffre ? undefined : `${idIntitulé} ${idLink}`}>
 					{intituléLienOffre || 'En savoir plus'}
 					<Link.Icon name="angle-right" />
 				</Link>

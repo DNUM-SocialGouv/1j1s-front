@@ -60,23 +60,20 @@ export function FormulaireRechercherFormationAlternance() {
 			<form
 				className={styles.rechercheFormationForm}
 				aria-label="Rechercher une formation"
-				onSubmit={updateRechercherFormationQueryParams}
-			>
+				onSubmit={updateRechercherFormationQueryParams}>
 				<div className={styles.filtresRechercherFormation}>
 					<MetierDependenciesProvider metierService={metierService}>
 						<ComboboxMetiers
 							defaultValue={domaineDefaultValue}
 							required
 							autoFocus
-							valueName={'codeRomes'}
-						/>
+							valueName={'codeRomes'} />
 					</MetierDependenciesProvider>
 					<ComboboxCommune
 						defaultCommune={communeDefaultValue}
 						showRadiusInput
 						defaultDistance={distanceCommune}
-						required
-					/>
+						required />
 
 					<Champ>
 						<Champ.Label>
@@ -87,8 +84,7 @@ export function FormulaireRechercherFormationAlternance() {
 							render={SelectSimple}
 							optionsAriaLabel={'Niveau d‘études'}
 							name="niveauEtudes"
-							defaultValue={niveauEtudes}
-						>
+							defaultValue={niveauEtudes}>
 							{Formation.NIVEAU_ETUDES.map((option) =>
 								<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 							)}
@@ -101,8 +97,7 @@ export function FormulaireRechercherFormationAlternance() {
 						label="Rechercher"
 						icon={<Icon name="magnifying-glass" />}
 						iconPosition="right"
-						type="submit"
-					/>
+						type="submit" />
 				</div>
 			</form>
 		</>

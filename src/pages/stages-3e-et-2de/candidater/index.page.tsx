@@ -29,8 +29,7 @@ export default function Stages3eEt2deCandidaterPage(props: Stage3eEt2deCandidate
 			<Head
 				title='Candidater à un stage de 3e et 2de | 1jeune1solution'
 				description="Candidater à un stage de 3e et 2de"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 
 			<main id="contenu">
 				<CandidaterStage3eEt2de {...props} />

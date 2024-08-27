@@ -63,8 +63,7 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 					<Services inclus={annonceDeLogement.servicesInclus} optionnels={annonceDeLogement.servicesOptionnels} />
 					<BilanEnergetiqueLogement
 						consommationEnergetique={bilanEnergetique.consommationEnergetique}
-						emissionDeGaz={bilanEnergetique.emissionDeGaz}
-					/>
+						emissionDeGaz={bilanEnergetique.emissionDeGaz} />
 				</div>
 				<CandidaterDesktop source={source} urlDeCandidature={urlDeCandidature} data-testid="source-annonce-desktop" />
 			</Container>
@@ -89,8 +88,7 @@ const AnnonceCarousel = ({ imageUrlList }: { imageUrlList: Array<ImageProps> | [
 				className={styles.carousel}
 				hideIndicators
 				imagesSize={{ height: MAX_IMAGE_HEIGHT, width: MAX_IMAGE_WIDTH }}
-				aria-label="Photos du logement"
-			/>
+				aria-label="Photos du logement" />
 		</div>
 	);
 };
@@ -114,8 +112,7 @@ function AnnonceSource({ source, className, ...rest }: AnnonceSourceProps) {
 						Ce bien est diffusé par <Image src="/images/logement/studapart.webp"
 						alt="studapart"
 						width="95"
-																					 height="44"
-						                        />
+																					 height="44" />
 				</span>
 			);
 		default:
@@ -130,8 +127,7 @@ function CandidaterDesktop({ source, urlDeCandidature, ...rest }: CandidaterDesk
 			<AnnonceSource source={source} />
 			<Link
 				appearance="asPrimaryButton"
-				href={urlDeCandidature}
-			>
+				href={urlDeCandidature}>
 				Voir l‘annonce
 				<Link.Icon />
 			</Link>

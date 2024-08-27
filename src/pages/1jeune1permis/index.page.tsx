@@ -70,15 +70,13 @@ export default function UnJeuneUnPermis() {
 		<main id="contenu">
 			<Head
 				title={'1jeune1permis | 1jeune1solution'}
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<Container>
 				<iframe className={styles.iframe}
 					title="Informations sur le dispositif 1 jeune 1 permis"
 					src={URL_IFRAME_1JEUNE_1PERMIS}
 					style={iframeHeight ? { '--1jeune1permis-iframe-height' : `${iframeHeight}px` } as React.CSSProperties : {}}
-					ref={iRef}
-				/>
+					ref={iRef} />
 			</Container>
 		</main>
 	);

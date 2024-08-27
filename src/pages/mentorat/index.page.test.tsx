@@ -31,8 +31,7 @@ describe('MentoratPage', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<MentoratPage />
 			</DependenciesProvider>,
 		);
@@ -45,8 +44,7 @@ describe('MentoratPage', () => {
 
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<MentoratPage />
 			</DependenciesProvider>,
 		);
@@ -64,8 +62,7 @@ describe('MentoratPage', () => {
 
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<MentoratPage />
 			</DependenciesProvider>,
 		);

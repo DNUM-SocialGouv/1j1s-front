@@ -71,8 +71,7 @@ describe('NavItemWithSubItems', () => {
 			render(
 				<NavItemWithSubItems 
 					navigationItemWithChildren={mockNavigationItemWithChildren} 
-					onClick={mockOnClick}
-				/>,
+					onClick={mockOnClick} />,
 			);
 		
 			const button = screen.getByRole('button', { name: 'Test Menu' });

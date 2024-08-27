@@ -16,8 +16,7 @@ export default function Immersions() {
 		<>
 			<Head
 				title="Je propose des immersions | 1jeune1solution"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<RéférencerEntreprises />
 				<BanniereRejoindreLaMobilisation />

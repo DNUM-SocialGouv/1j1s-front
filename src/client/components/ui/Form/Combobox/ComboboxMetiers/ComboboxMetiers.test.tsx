@@ -100,8 +100,7 @@ describe('<ComboboxMetiers />', () => {
 						<ComboboxMetiers
 							name='métier'
 							label='Rechercher un métier'
-							debounceTimeout={0}
-						/>
+							debounceTimeout={0} />
 					</MetierDependenciesProvider>,
 				);
 
@@ -121,8 +120,7 @@ describe('<ComboboxMetiers />', () => {
 						<ComboboxMetiers
 							name='métier'
 							label='Rechercher un métier'
-							debounceTimeout={0}
-						/>
+							debounceTimeout={0} />
 					</MetierDependenciesProvider>,
 				);
 
@@ -184,8 +182,7 @@ describe('<ComboboxMetiers />', () => {
 			<MetierDependenciesProvider metierService={metierServiceMock}>
 				<ComboboxMetiers
 					name='métier'
-					label='Rechercher un métier'
-				/>
+					label='Rechercher un métier' />
 			</MetierDependenciesProvider>,
 		);
 
@@ -207,8 +204,7 @@ describe('<ComboboxMetiers />', () => {
 				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
-					debounceTimeout={0}
-				/>
+					debounceTimeout={0} />
 			</MetierDependenciesProvider>,
 		);
 
@@ -231,8 +227,7 @@ describe('<ComboboxMetiers />', () => {
 			<MetierDependenciesProvider metierService={metierServiceMock}>
 				<ComboboxMetiers
 					name='métier'
-					label='Rechercher un métier'
-				/>
+					label='Rechercher un métier' />
 			</MetierDependenciesProvider>,
 		);
 
@@ -256,8 +251,7 @@ describe('<ComboboxMetiers />', () => {
 				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
-					debounceTimeout={debounceTimeout}
-				/>
+					debounceTimeout={debounceTimeout} />
 			</MetierDependenciesProvider>,
 		);
 
@@ -288,8 +282,7 @@ describe('<ComboboxMetiers />', () => {
 							code: 'I1234,J5678',
 							label: 'Ingénieur en ingénierie',
 						}}
-						debounceTimeout={0}
-					/>
+						debounceTimeout={0} />
 				</form>
 			</MetierDependenciesProvider>,
 		);
@@ -311,8 +304,7 @@ describe('<ComboboxMetiers />', () => {
 				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
-					debounceTimeout={0}
-				/>
+					debounceTimeout={0} />
 			</MetierDependenciesProvider>,
 		);
 
@@ -332,8 +324,7 @@ describe('<ComboboxMetiers />', () => {
 				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
-					debounceTimeout={0}
-				/>
+					debounceTimeout={0} />
 			</MetierDependenciesProvider>,
 		);
 
@@ -352,8 +343,7 @@ describe('<ComboboxMetiers />', () => {
 				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
-					debounceTimeout={0}
-				/>
+					debounceTimeout={0} />
 			</MetierDependenciesProvider>,
 		);
 
@@ -374,8 +364,7 @@ describe('<ComboboxMetiers />', () => {
 				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
-					debounceTimeout={0}
-				/>
+					debounceTimeout={0} />
 			</MetierDependenciesProvider>,
 		);
 
@@ -398,8 +387,7 @@ describe('<ComboboxMetiers />', () => {
 					<ComboboxMetiers
 						name='métier'
 						label='Rechercher un métier'
-						debounceTimeout={0}
-					/>
+						debounceTimeout={0} />
 				</MetierDependenciesProvider>,
 			);
 
@@ -422,8 +410,7 @@ describe('<ComboboxMetiers />', () => {
 					<ComboboxMetiers
 						name='métier'
 						label='Rechercher un métier'
-						debounceTimeout={0}
-					/>
+						debounceTimeout={0} />
 				</MetierDependenciesProvider>,
 			);
 
@@ -445,8 +432,7 @@ describe('<ComboboxMetiers />', () => {
 					<ComboboxMetiers
 						name='métier'
 						label='Rechercher un métier'
-						debounceTimeout={0}
-					/>
+						debounceTimeout={0} />
 				</MetierDependenciesProvider>,
 			);
 

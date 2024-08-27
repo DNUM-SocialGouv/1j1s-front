@@ -27,8 +27,7 @@ describe('RechercherSolutionLayout', () => {
 				messageResultatRecherche={<h2>{messageResultat}</h2>}
 				listeSolutionElement={<></>}
 				isChargement={false}
-				nombreTotalSolutions={0}
-			       />);
+				nombreTotalSolutions={0} />);
 
 			// THEN
 			expect(screen.queryByRole('heading', { level: 2, name: messageResultat })).not.toBeInTheDocument();
@@ -46,8 +45,7 @@ describe('RechercherSolutionLayout', () => {
 				messageResultatRecherche={<></>}
 				listeSolutionElement={<></>}
 				isEtatInitial={false}
-				nombreTotalSolutions={0}
-			       />);
+				nombreTotalSolutions={0} />);
 
 			const skeletons = screen.getAllByLabelText('...En cours de chargement');
 			expect(skeletons).toHaveLength(2);
@@ -74,8 +72,7 @@ describe('RechercherSolutionLayout', () => {
 					listeSolutionElement={<>liste des résultats</>}
 					messageResultatRecherche={<>message du nombre de résultats</>}
 					isEtatInitial={false}
-					nombreTotalSolutions={0}
-				       />);
+					nombreTotalSolutions={0} />);
 
 				const alertElement = screen.getByRole('alert');
 
@@ -92,8 +89,7 @@ describe('RechercherSolutionLayout', () => {
 					messageResultatRecherche={<></>}
 					listeSolutionElement={<></>}
 					isEtatInitial={false}
-					nombreTotalSolutions={0}
-				       />);
+					nombreTotalSolutions={0} />);
 
 				// THEN
 				const messageErreur = screen.getByText('Erreur - Demande incorrecte');
@@ -110,8 +106,7 @@ describe('RechercherSolutionLayout', () => {
 					messageResultatRecherche={<div data-testid={'message du nombre de résultats'} />}
 					isEtatInitial={false}
 					nombreTotalSolutions={0}
-					listeSolutionElement={<div data-testid={'liste des résultats'} />}
-				       />);
+					listeSolutionElement={<div data-testid={'liste des résultats'} />} />);
 
 				// THEN
 				const etiquettes = screen.queryByTestId('étiquettes');
@@ -134,8 +129,7 @@ describe('RechercherSolutionLayout', () => {
 						etiquettesRecherche={<>étiquettes</>}
 						listeSolutionElement={<>liste des résultats</>}
 						messageResultatRecherche={<>message du nombre de résultats</>}
-						isEtatInitial={false}
-					       />);
+						isEtatInitial={false} />);
 
 					expect(screen.getByRole('status')).toHaveTextContent('message du nombre de résultats');
 				});
@@ -149,8 +143,7 @@ describe('RechercherSolutionLayout', () => {
 						etiquettesRecherche={<>étiquettes</>}
 						listeSolutionElement={<>liste des résultats</>}
 						messageResultatRecherche={<>message du nombre de résultats</>}
-						isEtatInitial={false}
-					       />);
+						isEtatInitial={false} />);
 
 					const etiquettes = screen.getByText('étiquettes');
 					const messageNbResultats = screen.getByText('message du nombre de résultats');
@@ -174,8 +167,7 @@ describe('RechercherSolutionLayout', () => {
 						messageResultatRecherche={<></>}
 						isEtatInitial={false}
 						footnote={<div data-testid={'footnote'} />}
-						paginationOffset={5}
-					       />);
+						paginationOffset={5} />);
 
 					const footnote = screen.getByTestId('footnote');
 					expect(footnote).toBeVisible();
@@ -194,8 +186,7 @@ describe('RechercherSolutionLayout', () => {
 						etiquettesRecherche={<>étiquettes</>}
 						listeSolutionElement={<>liste des résultats</>}
 						messageResultatRecherche={<>message du nombre de résultats</>}
-						isEtatInitial={false}
-					       />);
+						isEtatInitial={false} />);
 
 					const alertElement = screen.getByRole('alert');
 
@@ -212,8 +203,7 @@ describe('RechercherSolutionLayout', () => {
 						etiquettesRecherche={<div data-testid={'étiquettes'} />}
 						messageResultatRecherche={<div data-testid={'message du nombre de résultats'} />}
 						listeSolutionElement={<div data-testid={'liste des résultats'} />}
-						isEtatInitial={false}
-					       />);
+						isEtatInitial={false} />);
 					// THEN
 					const messageNbResultats = screen.getByText('0 résultat');
 
@@ -231,8 +221,7 @@ describe('RechercherSolutionLayout', () => {
 						etiquettesRecherche={<div data-testid={'étiquettes'} />}
 						messageResultatRecherche={<div data-testid={'message du nombre de résultats'} />}
 						listeSolutionElement={<div data-testid={'liste des résultats'} />}
-						isEtatInitial={false}
-					       />);
+						isEtatInitial={false} />);
 
 					const etiquettes = screen.queryByTestId('étiquettes');
 					const messageNbResultats = screen.queryByTestId('message du nombre de résultats');

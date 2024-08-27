@@ -30,8 +30,7 @@ export function ListeMissions({ resultatList, isServiceCivique }: ListeMissionsP
 
 	return (
 		<ListeRésultatsRechercherSolution
-			aria-label={isServiceCivique ? 'Offre pour le service civique' : 'Offre pour le bénévolat'}
-		>
+			aria-label={isServiceCivique ? 'Offre pour le service civique' : 'Offre pour le bénévolat'}>
 			{resultatList.map((mission: Mission) => (
 				<li key={mission.id}>
 					<ResultatRechercherSolution
@@ -39,8 +38,7 @@ export function ListeMissions({ resultatList, isServiceCivique }: ListeMissionsP
 						sousTitreOffre={mission.nomEntreprise}
 						lienOffre={isServiceCivique ? `/service-civique/${mission.id}` : `/benevolat/${mission.id}`}
 						logo={getLogo(mission)}
-						étiquetteOffreList={mission.étiquetteList}
-					/>
+						étiquetteOffreList={mission.étiquetteList} />
 				</li>
 			))}
 		</ListeRésultatsRechercherSolution>

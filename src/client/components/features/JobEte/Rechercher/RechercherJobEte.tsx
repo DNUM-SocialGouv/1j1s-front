@@ -68,8 +68,7 @@ export function RechercherJobEte(props: RechercherJobEteProps) {
 						getCodeLibelleLocalisation(offreEmploiQuery.codeLocalisation, offreEmploiQuery.codePostalLocalisation, offreEmploiQuery.typeLocalisation) || '',
 					),
 				]}
-				aria-label="Filtres de la recherche"
-				/>
+				aria-label="Filtres de la recherche" />
 			);
 		} else {
 			return undefined;
@@ -81,8 +80,7 @@ export function RechercherJobEte(props: RechercherJobEteProps) {
 			<Head
 				title={title}
 				description="Des milliers de jobs d’été sélectionnés pour vous"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<RechercherSolutionLayout
 					banniere={<BanniereJobEte />}
@@ -95,8 +93,7 @@ export function RechercherJobEte(props: RechercherJobEteProps) {
 					nombreTotalSolutions={nombreResultats}
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
 					maxPage={MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL - 1}
-					listeSolutionElement={<ListeOffreJobEte resultatList={jobEteList} />}
-				/>
+					listeSolutionElement={<ListeOffreJobEte resultatList={jobEteList} />} />
 			</main>
 		</>
 	);
@@ -121,8 +118,7 @@ function ListeOffreJobEte({ resultatList }: ListeResultatProps) {
 						lienOffre={`/jobs-ete/${offreEmploi.id}`}
 						logo={offreEmploi.entreprise.logo || LOGO_FRANCE_TRAVAIL}
 						logoAlt={offreEmploi.entreprise.logo ? '' : 'France travail'}
-						sousTitreOffre={offreEmploi.entreprise.nom}
-					/>
+						sousTitreOffre={offreEmploi.entreprise.nom} />
 				</li>
 			))}
 		</ListeRésultatsRechercherSolution>

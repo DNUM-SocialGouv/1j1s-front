@@ -12,8 +12,7 @@ describe('<MessageResultatRecherche />', () => {
 			labelSingulier={'résultat'}
 			labelPluriel={'résultats'}
 			isLoading={false}
-			numberOfResult={1}
-		       />);
+			numberOfResult={1} />);
 
 		const titre = screen.getByRole('heading', { name: /1 résultat/i });
 		const footnote = within(titre).getByRole('link', { name: 'note de pied de page' });
@@ -26,8 +25,7 @@ describe('<MessageResultatRecherche />', () => {
 			render(<MessageResultatRecherche labelSingulier={'résultat'}
 				labelPluriel={'résultats'}
 				isLoading={false}
-																			 numberOfResult={0}
-			       />);
+																			 numberOfResult={0} />);
 
 			const alertError = screen.getByRole('alert');
 			expect(alertError).toHaveTextContent(/0 résultat/i);
@@ -41,8 +39,7 @@ describe('<MessageResultatRecherche />', () => {
 			labelSingulier={'résultat'}
 			labelPluriel={'résultats'}
 			isLoading={false}
-			numberOfResult={1}
-		       />);
+			numberOfResult={1} />);
 
 		const statusMessage = screen.getByRole('status');
 		expect(statusMessage).toHaveTextContent('1 résultat');
@@ -53,8 +50,7 @@ describe('<MessageResultatRecherche />', () => {
 			labelSingulier={'résultat'}
 			labelPluriel={'résultats'}
 			isLoading={false}
-			numberOfResult={10}
-		       />);
+			numberOfResult={10} />);
 		const statusMessage = screen.getByRole('status');
 		expect(statusMessage).toHaveTextContent('10 résultats');
 	});

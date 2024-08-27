@@ -31,15 +31,13 @@ export function ConsulterMissionEngagement({
 				)}
 				<TagList
 					list={missionEngagement.étiquetteList}
-					aria-label="Caractéristiques de la mission"
-				/>
+					aria-label="Caractéristiques de la mission" />
 				<div className={commonStyles.buttonAsLinkWrapper}>
 					<div className={commonStyles.buttonAsLink}>
 						{missionEngagement.url && (
 							<Link
 								href={missionEngagement.url}
-								appearance="asPrimaryButton"
-							>
+								appearance="asPrimaryButton">
 								S’engager
 								<Link.Icon />
 							</Link>
@@ -54,16 +52,14 @@ export function ConsulterMissionEngagement({
 						<p
 							dangerouslySetInnerHTML={{
 								__html: localisationMissionEngagement,
-							}}
-						/>
+							}} />
 					</div>
 				)}
 				{missionEngagement.description && (
 					<div className={commonStyles.contenuAdaptatif}>
 						<h3>Quoi ? </h3>
 						<p
-							dangerouslySetInnerHTML={{ __html: descriptionMissionEngagement }}
-						/>
+							dangerouslySetInnerHTML={{ __html: descriptionMissionEngagement }} />
 					</div>
 				)}
 				{missionEngagement.débutContrat && (

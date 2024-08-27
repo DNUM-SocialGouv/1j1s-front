@@ -58,8 +58,7 @@ export function BilanEnergetiqueLogement(props: BilanEnergetiqueLogementProps) {
 					style={{
 						'--color': `var(--color-${consommationEnergetique?.toLowerCase()})`,
 						'--text-color': `var(--text-color-${consommationEnergetique?.toLowerCase()})`,
-					} as React.CSSProperties}
-				>{consommationEnergetique ?? 'Non renseigné'}</div>
+					} as React.CSSProperties}>{consommationEnergetique ?? 'Non renseigné'}</div>
 				{consommationEnergetique && (
 					<p id="consommation-energetique">
 						{CONSOMMATION_ENERGETIQUE[consommationEnergetique] } </p>
@@ -77,8 +76,7 @@ export function BilanEnergetiqueLogement(props: BilanEnergetiqueLogementProps) {
 					style={{
 						'--color': `var(--color-${emissionDeGaz?.toLowerCase()})`,
 						'--text-color': `var(--text-color-${emissionDeGaz?.toLowerCase()})`,
-					} as React.CSSProperties}
-				>{emissionDeGaz ?? 'Non renseigné'}</div>
+					} as React.CSSProperties}>{emissionDeGaz ?? 'Non renseigné'}</div>
 				{emissionDeGaz && <p id="emission-de-gaz">{EMISSION_DE_GAZ[emissionDeGaz] } </p>}
 			</figure>
 		</section>

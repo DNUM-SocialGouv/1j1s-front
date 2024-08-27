@@ -34,8 +34,7 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 					siret={siret}
 					modeDeContact={modeDeContact}
 					onSuccess={() => setEtatSoumission('succes')}
-					onFailure={(erreur: Erreur) => setEtatSoumission(erreur)}
-				/>
+					onFailure={(erreur: Erreur) => setEtatSoumission(erreur)} />
 			)}
 
 			<div role={'status'}>

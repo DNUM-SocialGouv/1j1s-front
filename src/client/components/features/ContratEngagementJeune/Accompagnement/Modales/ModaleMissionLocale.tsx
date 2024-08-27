@@ -23,8 +23,7 @@ export function ModaleMissionLocale({ isMissionLocaleModaleOpen, setIsMissionLoc
 			<ModalComponent
 				isOpen={isMissionLocaleModaleOpen}
 				close={() => setIsMissionLocaleModaleOpen(false)}
-				aria-labelledby={'dialog_label'}
-			>
+				aria-labelledby={'dialog_label'}>
 				<ModalComponent.Title className={styles.title} id="dialog_label">
 				Vous pouvez bénéficier d’un accompagnement répondant à vos besoins auprès de votre Mission Locale
 				</ModalComponent.Title>
@@ -38,8 +37,7 @@ export function ModaleMissionLocale({ isMissionLocaleModaleOpen, setIsMissionLoc
 						onFailure={() => {
 							setIsMissionLocaleModaleOpen(false);
 							setStatusForm('error');
-						}}
-					/>
+						}} />
 				</ModalComponent.Content>
 			</ModalComponent>
 
@@ -47,8 +45,7 @@ export function ModaleMissionLocale({ isMissionLocaleModaleOpen, setIsMissionLoc
 				onClose={() => {
 					setIsMissionLocaleModaleOpen(false);
 					setStatusForm('notSubmitted');
-				}}
-			/>
+				}} />
 
 			<ModalErrorSubmission isOpen={statusForm === 'error'} 
 				onClose={() => {
@@ -57,8 +54,7 @@ export function ModaleMissionLocale({ isMissionLocaleModaleOpen, setIsMissionLoc
 				onBackToForm={() => {
 					setIsMissionLocaleModaleOpen(true);
 					setStatusForm('notSubmitted');
-				}}
-			/>
+				}} />
 		</>
 	);
 }

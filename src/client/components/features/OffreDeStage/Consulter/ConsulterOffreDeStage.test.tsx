@@ -59,8 +59,7 @@ describe('ConsulterOffreDeStage', () => {
 		it('affiche le nom de l‘employeur', () => {
 			render(<DependenciesProvider dateService={aDateService()}>
 				<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ employeur: { nom: 'Je suis le nom de l‘employeur' } })}
-				/>
+					offreDeStage={anOffreDeStage({ employeur: { nom: 'Je suis le nom de l‘employeur' } })} />
 			</DependenciesProvider>);
 
 			const nomEntreprise = screen.getByText('Je suis le nom de l‘employeur');
@@ -73,8 +72,7 @@ describe('ConsulterOffreDeStage', () => {
 				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
 					<ConsulterOffreDeStage offreDeStage={anOffreDeStage({
 						description: 'Je suis une description du poste',
-					})}
-					/>
+					})} />
 				</DependenciesProvider>, { queries });
 
 				const descriptionPoste = getByDescriptionTerm('Description du poste :');
@@ -118,8 +116,7 @@ describe('ConsulterOffreDeStage', () => {
 							description: '',
 							nom: 'nom',
 						},
-					})}
-					/>
+					})} />
 				</DependenciesProvider>);
 
 				const descriptionPoste = screen.queryByText('Description de l‘employeur :');
@@ -133,8 +130,7 @@ describe('ConsulterOffreDeStage', () => {
 			it('Lorsque la rémunération n‘est pas renseignée affiche "Non renseignée', () => {
 				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
 					<ConsulterOffreDeStage
-						offreDeStage={anOffreDeStage({ remunerationMax: undefined, remunerationMin: undefined })}
-					/>
+						offreDeStage={anOffreDeStage({ remunerationMax: undefined, remunerationMin: undefined })} />
 				</DependenciesProvider>, { queries });
 
 				const remuneration = getByDescriptionTerm('Rémunération :');
@@ -146,8 +142,7 @@ describe('ConsulterOffreDeStage', () => {
 			it('lorsque la rémunération min et max est à 0, affiche "Aucune"', () => {
 				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
 					<ConsulterOffreDeStage
-						offreDeStage={anOffreDeStage({ remunerationMax: 0, remunerationMin: 0 })}
-					/>
+						offreDeStage={anOffreDeStage({ remunerationMax: 0, remunerationMin: 0 })} />
 				</DependenciesProvider>, { queries });
 
 				const remunération = getByDescriptionTerm('Rémunération :');
@@ -160,8 +155,7 @@ describe('ConsulterOffreDeStage', () => {
 			it('lorsque la rémunération min et max sont identiques affiche cette rémunération', () => {
 				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
 					<ConsulterOffreDeStage
-						offreDeStage={anOffreDeStage({ remunerationMax: 1234, remunerationMin: 1234 })}
-					/>
+						offreDeStage={anOffreDeStage({ remunerationMax: 1234, remunerationMin: 1234 })} />
 				</DependenciesProvider>, { queries });
 
 				const remunération = getByDescriptionTerm('Rémunération :');
@@ -175,8 +169,7 @@ describe('ConsulterOffreDeStage', () => {
 			it('lorsque la rémunération min et max sont proposées affiche l‘intervalle de rémunération', () => {
 				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
 					<ConsulterOffreDeStage
-						offreDeStage={anOffreDeStage({ remunerationMax: 2000, remunerationMin: 2 })}
-					/>
+						offreDeStage={anOffreDeStage({ remunerationMax: 2000, remunerationMin: 2 })} />
 				</DependenciesProvider>, { queries });
 
 				const remuneration = getByDescriptionTerm('Rémunération :');
@@ -195,8 +188,7 @@ describe('ConsulterOffreDeStage', () => {
 							remunerationMax: undefined,
 							remunerationMin: undefined,
 							remunerationPeriode: RemunerationPeriode.YEARLY,
-						})}
-					/>
+						})} />
 				</DependenciesProvider>, { queries });
 
 				const periodeDeRemuneration = queryByDescriptionTerm('Période de paiement :');
@@ -211,8 +203,7 @@ describe('ConsulterOffreDeStage', () => {
 							remunerationMax: 10000000,
 							remunerationMin: 10000000,
 							remunerationPeriode: undefined,
-						})}
-					/>
+						})} />
 				</DependenciesProvider>, { queries });
 
 				const periodeDeRemuneration = getByDescriptionTerm('Période de paiement :');
@@ -232,8 +223,7 @@ describe('ConsulterOffreDeStage', () => {
 							remunerationMax: 10000000,
 							remunerationMin: 10000000,
 							remunerationPeriode,
-						})}
-					/>
+						})} />
 				</DependenciesProvider>, { queries });
 
 				const periodeDeRemuneration = getByDescriptionTerm('Période de paiement :');

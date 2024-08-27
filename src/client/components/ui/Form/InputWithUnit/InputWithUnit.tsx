@@ -23,8 +23,7 @@ export const InputWithUnit = React.forwardRef<HTMLInputElement, InputWithUnitPro
 				ref={inputRef}
 				className={classNames(className, styles.input)}
 				{...rest}
-				aria-describedby={`${idUnite} ${props['aria-describedby'] ?? ''}`}
-			/>
+				aria-describedby={`${idUnite} ${props['aria-describedby'] ?? ''}`} />
 			<abbr className={styles.remunerationUnite} title={nomDeLUnite} id={idUnite}>{unite}</abbr>
 		</div>
 	);

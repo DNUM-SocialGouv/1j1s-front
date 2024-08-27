@@ -42,8 +42,7 @@ describe('<ApprentissageEntreprises />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				youtubeService={aVideoService()}
-			>
+				youtubeService={aVideoService()}>
 				<ApprentissageEntreprises videos={videos} />
 			</DependenciesProvider> );
 
@@ -64,8 +63,7 @@ describe('<ApprentissageEntreprises />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				youtubeService={aVideoService()}
-			>
+				youtubeService={aVideoService()}>
 				<ApprentissageEntreprises videos={videos} />);
 			</DependenciesProvider>);
 

@@ -124,8 +124,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 												 onChangeProps(event, newValue);
 											 }}
 											 requireValidOption
-											 {...rest}
-					>
+											 {...rest}>
 						{
 							(communeOptions.map((commune: Commune) => (
 								<Combobox.Option key={commune.code} value={commune.code}>
@@ -160,8 +159,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 						render={SelectSimple}
 						optionsAriaLabel={'Rayons'}
 						name={'distanceCommune'}
-						defaultValue={defaultDistanceProps || DEFAULT_RADIUS_VALUE}
-					>
+						defaultValue={defaultDistanceProps || DEFAULT_RADIUS_VALUE}>
 						{radiusList.map((option) =>
 							<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 						)}

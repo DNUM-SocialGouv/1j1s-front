@@ -47,23 +47,19 @@ export function FormulaireRechercheOffreStage() {
 			<MeilisearchInput
 				label="Métiers, mots clés, …"
 				name="motCle"
-				placeholder="Exemples : designer, juriste…"
-			/>
+				placeholder="Exemples : designer, juriste…" />
 			<MeilisearchComboboxLocalisation
 				attribute="localisationFiltree"
-				limit={LIMIT_MAX_FACETS}
-			/>
+				limit={LIMIT_MAX_FACETS} />
 			<MeilisearchSelectMultiple
 				attribute="domaines"
 				limit={LIMIT_MAX_DOMAINS}
 				label="Domaines"
-				sortBy={sortWithNonRenseigneAtTheEnd}
-			/>
+				sortBy={sortWithNonRenseigneAtTheEnd} />
 			<MeilisearchSelectMultiple
 				attribute="dureeCategorisee"
 				label="Durée de stage"
-				sortBy={sortByDurationAscending}
-			/>
+				sortBy={sortByDurationAscending} />
 		</form>
 	);
 }

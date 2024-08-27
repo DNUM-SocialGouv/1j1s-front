@@ -21,8 +21,7 @@ describe('<AnnoncesPage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				rechercheClientService={aRechercheClientService()}
-			>
+				rechercheClientService={aRechercheClientService()}>
 				<AnnoncesPage />
 			</DependenciesProvider>,
 		);
@@ -36,8 +35,7 @@ describe('<AnnoncesPage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				rechercheClientService={aRechercheClientService()}
-			>
+				rechercheClientService={aRechercheClientService()}>
 				<AnnoncesPage />
 			</DependenciesProvider>,
 		);

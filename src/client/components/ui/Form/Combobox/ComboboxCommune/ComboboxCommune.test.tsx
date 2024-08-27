@@ -62,8 +62,7 @@ describe('<ComboboxCommune/>', () => {
 							longitude: 2.2,
 						},
 						ville: 'Paris 15e Arrondissement',
-					})}
-					/>
+					})} />
 				</DependenciesProvider>);
 				const combobox = screen.getByRole('combobox');
 
@@ -118,8 +117,7 @@ describe('<ComboboxCommune/>', () => {
 						ville: 'Paris 15e Arrondissement',
 					})}
 					showRadiusInput
-					defaultDistance={radiusExpected.valeur}
-				/>
+					defaultDistance={radiusExpected.valeur} />
 			</DependenciesProvider>);
 
 			expect(screen.getByDisplayValue(radiusList[1].valeur)).toBeInTheDocument();

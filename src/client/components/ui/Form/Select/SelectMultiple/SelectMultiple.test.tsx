@@ -86,8 +86,7 @@ describe('<SelectMultiple/>', () => {
 				<SelectMultiple
 					optionsAriaLabel={'options'}
 					required
-					onInvalid={onInvalid}
-				>
+					onInvalid={onInvalid}>
 					<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 					<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
 				</SelectMultiple>
@@ -369,8 +368,7 @@ describe('<SelectMultiple/>', () => {
 			render(<form aria-label="form"
 				onSubmit={(formEvent) => {
 					selectValues = getAllFormData(formEvent, 'name');
-				}}
-			>
+				}}>
 				<SelectMultiple optionsAriaLabel={'options'} name={'name'}>
 					<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 					<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
@@ -419,8 +417,7 @@ describe('<SelectMultiple/>', () => {
 				render(<form aria-label="form"
 					onSubmit={(formEvent) => {
 						selectValues = getAllFormData(formEvent, 'name');
-					}}
-				>
+					}}>
 					<SelectMultiple optionsAriaLabel={'options'} name={'name'} defaultValue={['1']}>
 						<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 						<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
@@ -444,12 +441,10 @@ describe('<SelectMultiple/>', () => {
 				render(<form aria-label="form"
 					onSubmit={(formEvent) => {
 						selectValues = getAllFormData(formEvent, 'name');
-					}}
-				>
+					}}>
 					<SelectMultiple optionsAriaLabel={'options'}
 						name={'name'}
-						defaultValue={['1']}
-					>
+						defaultValue={['1']}>
 						<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 						<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
 					</SelectMultiple>
@@ -538,12 +533,10 @@ describe('<SelectMultiple/>', () => {
 				render(<form aria-label="form"
 					onSubmit={(formEvent) => {
 						selectValues = getAllFormData(formEvent, 'name');
-					}}
-				>
+					}}>
 					<SelectMultiple optionsAriaLabel={'options'}
 						name={'name'}
-						defaultValue={['1']}
-					>
+						defaultValue={['1']}>
 						<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 						<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
 					</SelectMultiple>
@@ -876,8 +869,7 @@ describe('<SelectMultiple/>', () => {
 					aria-label={'test'}
 					onSubmit={(formEvent) => {
 						selectValues = getAllFormData(formEvent, 'name');
-					}}
-				>
+					}}>
 					<SelectMultiple optionsAriaLabel={'options'} value={value} name="name">
 						<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 						<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
@@ -902,8 +894,7 @@ describe('<SelectMultiple/>', () => {
 				aria-label={'test'}
 				onSubmit={(formEvent) => {
 					selectValues = getAllFormData(formEvent, 'name');
-				}}
-			>
+				}}>
 				<SelectMultiple optionsAriaLabel={'options'} name="name" defaultValue={['1', '2']}>
 					<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 					<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>

@@ -51,8 +51,7 @@ export function ListeSolutionAlternance({ alternanceList }: {
 							logo={getLogo(alternance)}
 							étiquetteOffreList={getTags(alternance)}
 							sousTitreOffre={alternance.entreprise.nom}
-							logoAlt={getAlternativeTextuelle(alternance)}
-						/>
+							logoAlt={getAlternativeTextuelle(alternance)} />
 					</li>
 				))}
 			</ListeRésultatsRechercherSolution>

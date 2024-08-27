@@ -234,8 +234,7 @@ export function SelectSimple(props: SelectSimpleProps) {
 			activeDescendant: state.activeDescendant,
 			isCurrentItemSelected,
 			onOptionSelection: selectOption,
-		}}
-		>
+		}}>
 			<div className={styles.container}>
 				<Input
 					ref={inputHiddenRef}
@@ -244,8 +243,7 @@ export function SelectSimple(props: SelectSimpleProps) {
 					aria-hidden={'true'}
 					name={name}
 					onInvalid={onInvalidProps}
-					value={optionSelectedValue}
-				/>
+					value={optionSelectedValue} />
 				<button
 					type="button"
 					role="combobox"
@@ -257,8 +255,7 @@ export function SelectSimple(props: SelectSimpleProps) {
 					aria-activedescendant={state.activeDescendant}
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}
-					{...rest}
-				>
+					{...rest}>
 					{placeholder}
 					<Icon name={'angle-down'} />
 				</button>
@@ -268,8 +265,7 @@ export function SelectSimple(props: SelectSimpleProps) {
 					aria-label={optionsAriaLabel}
 					id={listboxId}
 					tabIndex={-1}
-					hidden={!state.isListOptionsOpen}
-				>
+					hidden={!state.isListOptionsOpen}>
 					{children}
 				</ul>
 			</div>

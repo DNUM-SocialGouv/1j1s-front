@@ -12,8 +12,7 @@ export default function Avantages() {
 					alt=""
 					width={100}
 					height={100}
-					className={styles.image}
-				/>
+					className={styles.image} />
 				<div className={styles.texte}>
 					<h2 className={styles.titre}>Les avantages</h2>
 					<h3 className={styles.sousTitre}>Faites monter en compétences votre candidat</h3>

@@ -30,8 +30,7 @@ describe('<Confidentialite />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<Confidentialite titre={'titre'} contenu={'contenu'}  />);
 			</DependenciesProvider>);
 

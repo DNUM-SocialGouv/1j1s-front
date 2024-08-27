@@ -16,8 +16,7 @@ export function ConsulterContenu({ titre, contenu }: ConsulterContenuProps) {
 				<article className={styles.article}>
 					<Head
 						title={`${titre} | 1jeune1solution`}
-						robots="index,follow"
-					/>
+						robots="index,follow" />
 					<MarkdownToHtml markdown={contenu} className={MarkdownToHtmlStyles.normalize} />
 				</article>
 			</Container>

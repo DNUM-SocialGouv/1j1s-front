@@ -50,7 +50,6 @@ export function OffreDeStage(props: HitProps<OffreDeStageIndexée>) {
 			logo={IMAGE_FIXE}
 			sousTitreOffre={stage.nomEmployeur}
 			étiquetteOffreList={listeEtiquettes || []}
-			key={stage.slug}
-		/>
+			key={stage.slug} />
 	);
 }

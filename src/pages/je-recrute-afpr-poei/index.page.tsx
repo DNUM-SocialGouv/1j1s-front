@@ -11,8 +11,7 @@ export default function JeRecruteAfprPoeiPage() {
 			<Head
 				title="Je forme les jeunes grâce à l‘emploi | 1jeune1solution"
 				description="Votre entreprise recrute ou porte une initiative pour les jeunes ?"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<JeRecruteAfprPoei />
 			</main>

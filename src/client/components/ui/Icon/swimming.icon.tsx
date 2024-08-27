@@ -15,8 +15,7 @@ export const SwimmingIcon = React.forwardRef<SVGSVGElement, SvgProps>(function S
 			fill={color}
 			xmlns="http://www.w3.org/2000/svg"
 			{...rest}
-			ref={ref}
-		>
+			ref={ref}>
 			<rect width="32" height="32" fill="url(#pattern-swimming)" />
 			<defs>
 				<pattern id="pattern-swimming" patternContentUnits="objectBoundingBox" width="1" height="1">

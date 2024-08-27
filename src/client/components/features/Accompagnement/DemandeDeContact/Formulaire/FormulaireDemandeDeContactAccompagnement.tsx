@@ -55,8 +55,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 	return (
 		<form
 			className={styles.formulaire}
-			onSubmit={envoyerFormulaire}
-		>
+			onSubmit={envoyerFormulaire}>
 			<Champ>
 				<Champ.Label>
 					Prénom
@@ -65,8 +64,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 				<Champ.Input
 					render={Input}
 					name="firstname"
-					required
-				/>
+					required />
 				<Champ.Error />
 			</Champ>
 
@@ -78,8 +76,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 				<Champ.Input
 					render={Input}
 					name="lastname"
-					required
-				/>
+					required />
 				<Champ.Error />
 			</Champ>
 
@@ -92,8 +89,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 					render={Input}
 					pattern={emailRegex}
 					name="mail"
-					type="email"
-				/>
+					type="email" />
 				<Champ.Error />
 			</Champ>
 
@@ -107,8 +103,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 					pattern={telFrRegex}
 					name="phone"
 					type="tel"
-					required
-				/>
+					required />
 				<Champ.Error />
 			</Champ>
 
@@ -118,8 +113,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 					render={SelectSimple}
 					required
 					optionsAriaLabel={'années'}
-					name="age"
-				>
+					name="age">
 					{ageOptions.map((option) =>
 						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 					)}
@@ -141,8 +135,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 						<ButtonComponent
 							type="submit"
 							className={styles.formulaireValidateButton}
-							label={<>Envoyer mes informations <span className={styles.desktopOnly}>afin d‘être rappelé(e)</span></>}
-						/>
+							label={<>Envoyer mes informations <span className={styles.desktopOnly}>afin d‘être rappelé(e)</span></>} />
 					</>
 				)
 			}

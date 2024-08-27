@@ -18,8 +18,7 @@ export function ListeResultatsEmploiEurope({ resultatList }: ListeResultatsEmplo
 
 	return (
 		<ListeRésultatsRechercherSolution
-			aria-label={'Offres d’emplois en Europe'}
-		>
+			aria-label={'Offres d’emplois en Europe'}>
 			{resultatList.map((emploiEurope) => ResultatEmploiEurope(emploiEurope))}
 		</ListeRésultatsRechercherSolution>
 	);
@@ -34,8 +33,7 @@ function ResultatEmploiEurope(emploiEurope: EmploiEurope) {
 				intituléOffre={emploiEurope.titre ? <span lang={codeLangueDeLOffre}>{emploiEurope.titre}</span> : 'Offre d’emploi sans titre'}
 				lienOffre={`/emplois-europe/${emploiEurope.id}`}
 				sousTitreOffre={emploiEurope.nomEntreprise}
-				étiquetteOffreList={getTagsFromAnnonce(emploiEurope)}
-			/>
+				étiquetteOffreList={getTagsFromAnnonce(emploiEurope)} />
 		</li>
 	);
 }

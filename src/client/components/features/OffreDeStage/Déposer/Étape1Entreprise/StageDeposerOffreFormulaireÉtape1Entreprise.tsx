@@ -52,8 +52,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 						type="text"
 						maxLength={255}
 						defaultValue={informationsEntreprise?.nomEmployeur}
-						autoComplete="organization"
-					/>
+						autoComplete="organization" />
 					<Champ.Error />
 					<Champ.Hint>255 caractères maximum</Champ.Hint>
 				</Champ>
@@ -68,8 +67,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 						defaultValue={informationsEntreprise?.emailEmployeur}
 						required
 						type="email"
-						autoComplete="email"
-					/>
+						autoComplete="email" />
 					<Champ.Error />
 					<Champ.Hint>
 					Cette adresse de contact sera utilisée dans le cas où
@@ -89,8 +87,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 						defaultValue={informationsEntreprise?.descriptionEmployeur}
 						required
 						rows={10}
-						maxLength={500}
-					/>
+						maxLength={500} />
 					<Champ.Error />
 				</Champ>
 			</>
@@ -109,8 +106,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 										 type="url"
 										 name={InputName.LOGO}
 										 defaultValue={informationsEntreprise?.logoEmployeur}
-										 pattern={URL_REGEX}
-					/>
+										 pattern={URL_REGEX} />
 					<Champ.Error />
 				</Champ>
 				<Champ>
@@ -121,8 +117,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 										 type="url"
 										 name={InputName.SITE}
 										 defaultValue={informationsEntreprise?.siteEmployeur}
-										 pattern={URL_REGEX}
-					/>
+										 pattern={URL_REGEX} />
 					<Champ.Error />
 				</Champ>
 			</>
@@ -135,8 +130,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 				icon={<Icon name="angle-right" />}
 				iconPosition="right"
 				label="Suivant"
-				type="submit"
-			/>
+				type="submit" />
 		);
 	}
 
@@ -147,8 +141,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 				inputsFacultatifs={<ChampsFacultatifs />}
 				formRef={formRef}
 				handleFormSubmit={handleFormSubmit}
-				boutonValidation={<BoutonValidation />}
-			/>
+				boutonValidation={<BoutonValidation />} />
 		);
 	}
 
@@ -163,8 +156,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 
 	return (
 		<FormulaireÉtapeLayout
-			étape="Étape 1 sur 3 : Votre entreprise"
-		>
+			étape="Étape 1 sur 3 : Votre entreprise">
 			<FormulaireEntreprise />
 		</FormulaireÉtapeLayout>
 	);

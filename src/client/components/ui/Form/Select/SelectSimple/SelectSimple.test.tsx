@@ -86,8 +86,7 @@ describe('<SelectSimpleSimple/>', () => {
 				<SelectSimple
 					optionsAriaLabel={'options'}
 					required
-					onInvalid={onInvalid}
-				>
+					onInvalid={onInvalid}>
 					<SelectSimple.Option value="1">options 1</SelectSimple.Option>
 					<SelectSimple.Option value="2">options 2</SelectSimple.Option>
 				</SelectSimple>

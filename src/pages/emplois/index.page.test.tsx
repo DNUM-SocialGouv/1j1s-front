@@ -40,8 +40,7 @@ describe('Page Emploi', () => {
 			const { container } = render(
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
-					localisationService={aLocalisationService()}
-				>
+					localisationService={aLocalisationService()}>
 					<RechercherOffreEmploiPage resultats={aRésultatsRechercheOffre()} />);
 				</DependenciesProvider>);
 
@@ -64,8 +63,7 @@ describe('Page Emploi', () => {
 				render(
 					<DependenciesProvider
 						analyticsService={aManualAnalyticsService()}
-						localisationService={aLocalisationService()}
-					>
+						localisationService={aLocalisationService()}>
 						<RechercherOffreEmploiPage resultats={offres} />);
 					</DependenciesProvider>,
 				);

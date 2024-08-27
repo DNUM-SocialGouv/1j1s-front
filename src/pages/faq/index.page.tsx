@@ -23,8 +23,7 @@ export default function FaqPage({ listeDeQuestionRéponse }: FaqPageProps) {
 		<>
 			<Head
 				title="FAQ | 1jeune1solution"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<Container className={styles.container}>
 					<h1 className={styles.titre}>FAQ - QUESTIONS FRÉQUEMMENT POSÉES</h1>

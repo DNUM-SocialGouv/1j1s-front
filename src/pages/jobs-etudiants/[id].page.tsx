@@ -25,8 +25,7 @@ export default function ConsulterJobÉtudiantPage({ jobÉtudiant }: ConsulterJob
 		<>
 			<Head
 				title={`${jobÉtudiant.intitulé} | 1jeune1solution`}
-				robots="noindex"
-			/>
+				robots="noindex" />
 			<ConsulterOffreEmploi offreEmploi={jobÉtudiant} />
 		</>
 	);

@@ -60,8 +60,7 @@ export const intégrationDansUnFormulaire: Story = {
 	render: ({ children, ...args }) => (
 		<form
 			onSubmit={(event) => { event.preventDefault(); alert('form submitted'); }}
-			className={styles.completeForm}
-		>
+			className={styles.completeForm}>
 			<label>
 				Mot clé
 				<Input readOnly value="Informatique" />
@@ -94,8 +93,7 @@ export const optionAvecValue: Story = {
 				label: ${event.currentTarget['pays.label'].value},
 				value: ${event.currentTarget['pays.value'].value}
 			`);
-		}}
-		>
+		}}>
 			<label htmlFor="pays">Pays</label>
 			<Combobox id="pays" name="pays" {...args}>
 				{children.map((child, index) => <Combobox.Option value={index} key={index}>{child}</Combobox.Option>)}
@@ -115,8 +113,7 @@ export const validation: Story = {
 				label: ${event.currentTarget['pays.label'].value},
 				value: ${event.currentTarget['pays.value'].value}
 			`);
-		}}
-		>
+		}}>
 			<label htmlFor="pays">Pays (sélectionnez une valeur dans la liste)</label>
 			<Combobox id="pays" name="pays" {...args}>
 				{children.map((child, index) => <Combobox.Option value={index} key={index}>{child}</Combobox.Option>)}
@@ -182,8 +179,7 @@ export const async: Story = {
 						onChange(_, newValue);
 						setValue(newValue);
 					}}
-					{...args}
-				>
+					{...args}>
 					{!loading && apiResults.map((result, index) => <Combobox.Option value={index} key={index}>{result}</Combobox.Option>)}
 					<Combobox.AsyncMessage>{loading ? 'Chargement ...' : `${apiResults.length} résultats trouvés`}</Combobox.AsyncMessage>
 				</Combobox>

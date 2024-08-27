@@ -26,8 +26,7 @@ describe('<DeposerOffreStageEnvoyePage />', () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<StageDeposerOffreFormulaireEnvoye />
 			</DependenciesProvider>,
 		);

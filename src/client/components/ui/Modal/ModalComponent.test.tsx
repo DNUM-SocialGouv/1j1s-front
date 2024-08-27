@@ -16,8 +16,7 @@ describe('ModalComponent', () => {
 			isOpen={true}
 			closeLabel={'Fermer'}
 			close={() => {
-			}}
-		>
+			}}>
 			<ModalComponent.Title>
 				Ceci est le titre de la modale
 			</ModalComponent.Title>
@@ -42,8 +41,7 @@ describe('ModalComponent', () => {
 						aria-label="label"
 						isOpen={isModaleOpen}
 						closeLabel={'Fermer'}
-						close={() => setIsModaleOpen(false)}
-					>
+						close={() => setIsModaleOpen(false)}>
 						<ModalComponent.Content>Ceci est le contenu de la modale</ModalComponent.Content>
 					</ModalComponent>
 				</>

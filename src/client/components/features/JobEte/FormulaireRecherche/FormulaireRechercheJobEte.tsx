@@ -36,8 +36,7 @@ export function FormulaireRechercheJobEte() {
 			ref={rechercheJobEteForm}
 			role="search"
 			className={styles.rechercheOffreForm}
-			onSubmit={updateRechercherJobEteQueryParams}
-		>
+			onSubmit={updateRechercherJobEteQueryParams}>
 			<div className={styles.filtres}>
 				<Champ>
 					<Champ.Label>
@@ -48,8 +47,7 @@ export function FormulaireRechercheJobEte() {
 						render={Input}
 						defaultValue={queryParams.motCle}
 						name="motCle"
-						minLength={2}
-					/>
+						minLength={2} />
 					<Champ.Error />
 				</Champ>
 
@@ -64,8 +62,7 @@ export function FormulaireRechercheJobEte() {
 						render={SelectMultiple}
 						optionsAriaLabel={'Domaines'}
 						name="grandDomaine"
-						defaultValue={queryParams.grandDomaine?.split(',')}
-					>
+						defaultValue={queryParams.grandDomaine?.split(',')}>
 						{mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList).map((option) =>
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
@@ -78,8 +75,7 @@ export function FormulaireRechercheJobEte() {
 					label="Rechercher"
 					icon={<Icon name="magnifying-glass" />}
 					iconPosition="right"
-					type="submit"
-				/>
+					type="submit" />
 			</div>
 		</form>
 	);

@@ -39,8 +39,7 @@ describe('Page Candidater Stages 3e et 2de', () => {
 			const { container } = render(
 				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 					<Stages3eEt2deCandidaterPage
-						donneesEntreprise={donneesEntreprise}
-					/>,
+						donneesEntreprise={donneesEntreprise} />,
 				</DependenciesProvider>,
 			);
 
@@ -50,11 +49,9 @@ describe('Page Candidater Stages 3e et 2de', () => {
 			const donneesEntreprise = aDonneesEntrepriseStage3eEt2de();
 			const { container } = render(
 				<DependenciesProvider
-					stage3eEt2deService={aStage3eEt2deService()}
-				>
+					stage3eEt2deService={aStage3eEt2deService()}>
 					<Stages3eEt2deCandidaterPage
-						donneesEntreprise={donneesEntreprise}
-					/>
+						donneesEntreprise={donneesEntreprise} />
 				</DependenciesProvider>,
 			);
 

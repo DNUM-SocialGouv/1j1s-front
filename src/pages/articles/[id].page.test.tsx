@@ -30,8 +30,7 @@ describe('<ConsulterArticlePage />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<ConsulterArticlePage article={anArticle()} />);
 			</DependenciesProvider>);
 

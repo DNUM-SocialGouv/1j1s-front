@@ -15,8 +15,7 @@ export const CleanHandsIcon = React.forwardRef<SVGSVGElement, SvgProps>(function
 			fill={color}
 			xmlns="http://www.w3.org/2000/svg"
 			{...rest}
-			ref={ref}
-		>
+			ref={ref}>
 			<rect width="24" height="24" fill="url(#pattern-clean-hands)" />
 			<defs>
 				<pattern id="pattern-clean-hands" patternContentUnits="objectBoundingBox" width="1" height="1">

@@ -16,8 +16,7 @@ export default function AidesLogement() {
 		<>
 			<Head
 				title="Les aides au logement | 1jeune1solution"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<HeroWithButtonLink
 					titlePrimaryText="Je découvre les aides pour payer mon logement "
@@ -28,8 +27,7 @@ export default function AidesLogement() {
 					buttonLabel="Découvrir mes aides"
 					buttonHref="/mes-aides"
 					imgSrc="/images/aides-au-logement.webp"
-					additionalInformation={additionalInformation()}
-				/>
+					additionalInformation={additionalInformation()} />
 				<div className={classNames(styles.contentWrapper, 'background-white-lilac')}>
 					<Container>
 						<section className={styles.section}>
@@ -41,8 +39,7 @@ export default function AidesLogement() {
 										link="https://wwwd.caf.fr/wps/portal/caffr/aidesetdemarches/mesdemarches/faireunesimulation/lelogement#/preparation"
 										linkLabel="Tester mon éligibilité pour les aides au logement de la CAF"
 										title="Vous dépendez du régime général ? Demandez vos aides à la CAF !"
-										titleAs={'h3'}
-									>
+										titleAs={'h3'}>
 										La CAF signifie Caisse d’Allocation Familiales. Il y en a
 										dans chaque département. Son rôle est de verser les aides
 										qui concernent la famille, le logement mais aussi une partie
@@ -56,8 +53,7 @@ export default function AidesLogement() {
 										link="https://www.msa.fr/lfp/web/msa/logement/offre-msa"
 										linkLabel="Découvrir les aides au logement de la MSA"
 										title="Vous dépendez du régime agricole ? Demandez vos aides à la MSA !"
-										titleAs={'h3'}
-									>
+										titleAs={'h3'}>
 										La MSA signifie Mutualité Sociale Agricole, c’est le régime
 										de protection sociale obligatoire pour toute personne du
 										secteur agricole. Son rôle est donc de verser à tous ses

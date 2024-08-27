@@ -40,8 +40,7 @@ describe('Annonce Component', () => {
 				<DependenciesProvider dateService={aDateService()}>
 					<AnnonceDeLogement
 						hit={anAnnonceDeLogement({ imagesUrl: [] })}
-						sendEvent={jest.fn()}
-					/>
+						sendEvent={jest.fn()} />
 				</DependenciesProvider>,
 			);
 			const image: HTMLImageElement = screen.getByRole('presentation');
@@ -55,8 +54,7 @@ describe('Annonce Component', () => {
 				<DependenciesProvider dateService={aDateService()}>
 					<AnnonceDeLogement
 						hit={anAnnonceDeLogement({ imagesUrl: ['/image-0.jpg'] })}
-						sendEvent={jest.fn()}
-					/>
+						sendEvent={jest.fn()} />
 				</DependenciesProvider>,
 			);
 			const image: HTMLImageElement = screen.getByRole('presentation');
@@ -70,8 +68,7 @@ describe('Annonce Component', () => {
 				<DependenciesProvider dateService={aDateService()}>
 					<AnnonceDeLogement
 						hit={anAnnonceDeLogement()}
-						sendEvent={jest.fn()}
-					/>
+						sendEvent={jest.fn()} />
 				</DependenciesProvider>,
 			);
 			const listDesSlides = screen.getByText((content, element) => element?.getAttribute('aria-live') === 'polite');
@@ -87,8 +84,7 @@ describe('Annonce Component', () => {
 					<DependenciesProvider dateService={aDateService()}>
 						<AnnonceDeLogement
 							hit={anAnnonceDeLogement({ type: 'habitation intergénérationnelle' })}
-							sendEvent={jest.fn()}
-						/>
+							sendEvent={jest.fn()} />
 					</DependenciesProvider>,
 				);
 				const type = screen.getByText(/intergénérationnel/i);
@@ -102,8 +98,7 @@ describe('Annonce Component', () => {
 					<DependenciesProvider dateService={aDateService()}>
 						<AnnonceDeLogement
 							hit={anAnnonceDeLogement()}
-							sendEvent={jest.fn()}
-						/>
+							sendEvent={jest.fn()} />
 					</DependenciesProvider>,
 				);
 				const appartement = 'appartement';
@@ -124,8 +119,7 @@ describe('Annonce Component', () => {
 			<DependenciesProvider dateService={dateService}>
 				<AnnonceDeLogement
 					hit={annoncesLogement}
-					sendEvent={jest.fn()}
-				/>
+					sendEvent={jest.fn()} />
 			</DependenciesProvider>,
 		);
 		const dateDePublication = 'postée le 12 avril 2022';
@@ -138,8 +132,7 @@ describe('Annonce Component', () => {
 			<DependenciesProvider dateService={aDateService()}>
 				<AnnonceDeLogement
 					hit={anAnnonceDeLogement()}
-					sendEvent={jest.fn()}
-				/>
+					sendEvent={jest.fn()} />
 			</DependenciesProvider>,
 		);
 		const titre = screen.getByRole('heading', { level: 3 });
@@ -151,8 +144,7 @@ describe('Annonce Component', () => {
 			<DependenciesProvider dateService={aDateService()}>
 				<AnnonceDeLogement
 					hit={anAnnonceDeLogement()}
-					sendEvent={jest.fn()}
-				/>
+					sendEvent={jest.fn()} />
 			</DependenciesProvider>,
 		);
 		const intervalleSurface = 'de 70 à 71m2';
@@ -169,8 +161,7 @@ describe('Annonce Component', () => {
 			<DependenciesProvider dateService={aDateService()}>
 				<AnnonceDeLogement
 					hit={anAnnonceDeLogement()}
-					sendEvent={jest.fn()}
-				/>
+					sendEvent={jest.fn()} />
 			</DependenciesProvider>,
 		);
 		const ville = 'Paris';
@@ -183,8 +174,7 @@ describe('Annonce Component', () => {
 			<DependenciesProvider dateService={aDateService()}>
 				<AnnonceDeLogement
 					hit={anAnnonceDeLogement()}
-					sendEvent={jest.fn()}
-				/>
+					sendEvent={jest.fn()} />
 			</DependenciesProvider>,
 		);
 		const url = screen.getByRole('link');
