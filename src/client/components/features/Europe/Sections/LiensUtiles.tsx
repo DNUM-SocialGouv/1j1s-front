@@ -16,8 +16,10 @@ export function LiensUtiles() {
 				<li>
 					<Link appearance="asQuaternaryButton" href="https://mon-vie-via.businessfrance.fr/">
 						<span>Vous cherchez un Volontariat International (<abbr
-							title="Volontariat International en Entreprise">V.I.E</abbr> / <abbr
-							title="Volontariat International en Administration">V.I.A</abbr>)</span>
+							title="Volontariat International en Entreprise"
+						>V.I.E</abbr> / <abbr
+							title="Volontariat International en Administration"
+						>V.I.A</abbr>)</span>
 						<Link.Icon/>
 					</Link>
 				</li>

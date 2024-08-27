@@ -267,7 +267,8 @@ describe('<ComboboxPays />', () => {
 					defaultValue={{
 						code: 'ES',
 						label: 'Espagne',
-					}} />
+					}}
+				/>
 			</form>,
 		);
 

@@ -57,7 +57,10 @@
       {
         "assertFunctionNames": ["expect", "checkA11y"]
       }
-    ]
+    ],
+    "react/jsx-closing-bracket-location": ["error", {
+      "nonEmpty": "line-aligned"
+    }]
   },
   "overrides": [
     // Only uses Testing Library lint rules in test files

@@ -82,7 +82,8 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 												 type="button"
 												 aria-expanded={isOpen}
 												 aria-controls={`section-${ariaId}`}
-												 aria-label={buttonAriaLabel}>
+												 aria-label={buttonAriaLabel}
+				>
 				</ButtonComponent>
 			}
 		</>

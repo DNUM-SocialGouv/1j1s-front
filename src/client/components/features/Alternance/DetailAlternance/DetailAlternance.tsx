@@ -55,7 +55,7 @@ export function DetailAlternance({ annonce }: { annonce: Alternance }) {
 			className={styles.postuler}
 			label={'Postuler'}
 			onClick={() => toggleModal()}
-		/>;
+		                     />;
 	}
 
 	return (

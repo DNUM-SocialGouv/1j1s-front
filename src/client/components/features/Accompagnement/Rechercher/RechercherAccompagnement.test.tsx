@@ -40,7 +40,8 @@ describe('RechercherAccompagnement', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
-					établissementAccompagnementService={établissementAccompagnementService}>
+					établissementAccompagnementService={établissementAccompagnementService}
+				>
 					<RechercherAccompagnement/>
 				</DependenciesProvider>,
 			);
@@ -82,7 +83,8 @@ describe('RechercherAccompagnement', () => {
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
-						établissementAccompagnementService={établissementAccompagnementService}>
+						établissementAccompagnementService={établissementAccompagnementService}
+					>
 						<RechercherAccompagnement/>
 					</DependenciesProvider>,
 				);
@@ -109,7 +111,8 @@ describe('RechercherAccompagnement', () => {
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
-						établissementAccompagnementService={établissementAccompagnementService}>
+						établissementAccompagnementService={établissementAccompagnementService}
+					>
 						<RechercherAccompagnement/>
 					</DependenciesProvider>,
 				);
@@ -141,7 +144,8 @@ describe('RechercherAccompagnement', () => {
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
-						établissementAccompagnementService={etablissementAccompagnementService}>
+						établissementAccompagnementService={etablissementAccompagnementService}
+					>
 						<RechercherAccompagnement/>
 					</DependenciesProvider>,
 				);
@@ -170,7 +174,8 @@ describe('RechercherAccompagnement', () => {
 			render(
 				<DependenciesProvider
 					établissementAccompagnementService={établissementAccompagnementService}
-					localisationService={localisationService}>
+					localisationService={localisationService}
+				>
 					<RechercherAccompagnement/>
 				</DependenciesProvider>,
 			);
@@ -196,7 +201,8 @@ describe('RechercherAccompagnement', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
-					établissementAccompagnementService={établissementAccompagnementService}>
+					établissementAccompagnementService={établissementAccompagnementService}
+				>
 					<RechercherAccompagnement/>
 				</DependenciesProvider>,
 			);
@@ -229,7 +235,8 @@ describe('RechercherAccompagnement', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
-					établissementAccompagnementService={établissementAccompagnementService}>
+					établissementAccompagnementService={établissementAccompagnementService}
+				>
 					<RechercherAccompagnement/>
 				</DependenciesProvider>,
 			);

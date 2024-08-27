@@ -102,7 +102,8 @@ export function NavItemWithSubItems({
 			className={styles.navItem}
 			navigationItemWithChildren={subItem}
 			onClick={onClick}
-			isMobile/>;
+			isMobile
+		       />;
 	});
 
 	return (
@@ -110,7 +111,8 @@ export function NavItemWithSubItems({
 			<button
 				className={classNames(styles.subNavItemButton)}
 				onClick={() => setIsExpanded(!isExpanded)}
-				aria-expanded={isExpanded}>
+				aria-expanded={isExpanded}
+			>
 				<span className={styles.subNavItemButtonLabel} aria-current={isNavItemActive}>
 					{navigationItemWithChildren.label}
 				</span>

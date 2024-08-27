@@ -88,7 +88,8 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 					defaultValue={informationsEntreprise?.descriptionEmployeur}
 					required
 					rows={10}
-					maxLength={500}/>
+					maxLength={500}
+				/>
 				<Champ.Error/>
 			</Champ>
 		</>;
@@ -105,7 +106,8 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 										 type="url"
 										 name={InputName.LOGO}
 										 defaultValue={informationsEntreprise?.logoEmployeur}
-										 pattern={URL_REGEX}/>
+										 pattern={URL_REGEX}
+				/>
 				<Champ.Error/>
 			</Champ>
 			<Champ>
@@ -116,7 +118,8 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 										 type="url"
 										 name={InputName.SITE}
 										 defaultValue={informationsEntreprise?.siteEmployeur}
-										 pattern={URL_REGEX}/>
+										 pattern={URL_REGEX}
+				/>
 				<Champ.Error/>
 			</Champ>
 		</>;
@@ -128,7 +131,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 			iconPosition="right"
 			label="Suivant"
 			type="submit"
-		/>;
+		       />;
 	}
 
 	function FormulaireEntreprise() {
@@ -138,7 +141,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 			formRef={formRef}
 			handleFormSubmit={handleFormSubmit}
 			boutonValidation={<BoutonValidation/>}
-		/>;
+		       />;
 	}
 
 	function handleFormSubmit(event: FormEvent<HTMLFormElement>) {

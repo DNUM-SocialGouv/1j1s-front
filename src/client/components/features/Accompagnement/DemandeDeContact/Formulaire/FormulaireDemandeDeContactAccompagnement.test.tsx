@@ -37,7 +37,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 		it('a un champ Adresse e-mail facultatif', async () => {
 			render(<DependenciesProvider
 				localisationService={aLocalisationService()}
-				établissementAccompagnementService={anEtablissementAccompagnementService()}>
+				établissementAccompagnementService={anEtablissementAccompagnementService()}
+			>
 				<FormulaireDemandeDeContactAccompagnement
 					contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 					onSuccess={jest.fn()}
@@ -57,7 +58,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 			render(
 				<DependenciesProvider
 					localisationService={aLocalisationService()}
-					établissementAccompagnementService={anEtablissementAccompagnementService()}>
+					établissementAccompagnementService={anEtablissementAccompagnementService()}
+				>
 					<FormulaireDemandeDeContactAccompagnement
 						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 						onSuccess={jest.fn()}
@@ -80,7 +82,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 		render(
 			<DependenciesProvider
 				localisationService={aLocalisationService()}
-				établissementAccompagnementService={anEtablissementAccompagnementService()}>
+				établissementAccompagnementService={anEtablissementAccompagnementService()}
+			>
 				<FormulaireDemandeDeContactAccompagnement
 					contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 					onSuccess={jest.fn()}
@@ -102,7 +105,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 		render(
 			<DependenciesProvider
 				localisationService={aLocalisationService()}
-				établissementAccompagnementService={anEtablissementAccompagnementService()}>
+				établissementAccompagnementService={anEtablissementAccompagnementService()}
+			>
 				<FormulaireDemandeDeContactAccompagnement
 					contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 					onSuccess={jest.fn()}
@@ -133,7 +137,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationService}
-					établissementAccompagnementService={établissementAccompagnementService}>
+					établissementAccompagnementService={établissementAccompagnementService}
+				>
 					<FormulaireDemandeDeContactAccompagnement
 						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 						onSuccess={jest.fn()}
@@ -178,7 +183,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 			render(
 				<DependenciesProvider
 					localisationService={aLocalisationService()}
-					établissementAccompagnementService={anEtablissementAccompagnementService()}>
+					établissementAccompagnementService={anEtablissementAccompagnementService()}
+				>
 					<FormulaireDemandeDeContactAccompagnement
 						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 						onSuccess={onSuccess}
@@ -211,7 +217,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 			render(
 				<DependenciesProvider
 					localisationService={aLocalisationService()}
-					établissementAccompagnementService={établissementAccompagnementService}>
+					établissementAccompagnementService={établissementAccompagnementService}
+				>
 					<FormulaireDemandeDeContactAccompagnement
 						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 						onSuccess={jest.fn()}

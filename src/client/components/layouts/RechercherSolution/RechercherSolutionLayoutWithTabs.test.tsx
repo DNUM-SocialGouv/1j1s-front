@@ -33,7 +33,8 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 				bannière={<></>}
 				formulaireRecherche={<></>}
 				listeSolutionElementTab={listSolutionElementTab}
-				isLoading={false}/>);
+				isLoading={false}
+			       />);
 
 			expect(screen.getByText('3 résultats pour tab1')).toBeVisible();
 		});
@@ -56,7 +57,8 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 				bannière={<></>}
 				formulaireRecherche={<></>}
 				listeSolutionElementTab={listSolutionElementTab}
-				isLoading={false}/>);
+				isLoading={false}
+			       />);
 
 			expect(screen.getByText('2 résultats pour tab2')).toBeVisible();
 		});
@@ -72,7 +74,8 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 				bannière={<></>}
 				formulaireRecherche={<></>}
 				listeSolutionElementTab={listSolutionElementTab}
-				isLoading={false}/>);
+				isLoading={false}
+			       />);
 
 			expect(screen.getByText('Malheureusement, aucune offre ne correspond à votre recherche !')).toBeVisible();
 		});
@@ -89,7 +92,8 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 				bannière={<></>}
 				formulaireRecherche={<></>}
 				listeSolutionElementTab={listSolutionElementTab}
-				isLoading={false}/>);
+				isLoading={false}
+			       />);
 
 			expect(screen.getByText('ooops 0 résultat')).toBeVisible();
 		});
@@ -113,7 +117,8 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 					bannière={<></>}
 					formulaireRecherche={<></>}
 					listeSolutionElementTab={listSolutionElementTab}
-					isLoading={false}/>);
+					isLoading={false}
+				       />);
 
 				const user = userEvent.setup();
 				await user.click(screen.getByRole('tab', { name: 'tab2' }));
@@ -139,7 +144,8 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 					bannière={<></>}
 					formulaireRecherche={<></>}
 					listeSolutionElementTab={listSolutionElementTab}
-					isLoading={false}/>);
+					isLoading={false}
+				       />);
 
 				const user = userEvent.setup();
 				await user.click(screen.getByRole('tab', { name: 'tab2' }));
@@ -167,7 +173,8 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 					bannière={<></>}
 					formulaireRecherche={<></>}
 					listeSolutionElementTab={listSolutionElementTab}
-					isLoading={false}/>);
+					isLoading={false}
+				       />);
 
 				const user = userEvent.setup();
 				await user.click(screen.getByRole('tab', { name: 'tab2' }));

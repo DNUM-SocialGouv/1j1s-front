@@ -74,7 +74,8 @@ describe('Page rechercher une alternance', () => {
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
 					localisationService={localisationServiceMock}
-					metierLbaService={métiersServiceMock}>
+					metierLbaService={métiersServiceMock}
+				>
 					<RechercherAlternancePage resultats={resultats}/>
 				</DependenciesProvider>,
 			);

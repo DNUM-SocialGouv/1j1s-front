@@ -71,7 +71,8 @@ export function RechercherJobÉtudiant(props: RechercherJobEtudiantProps) {
 					offreEmploiQuery.nomLocalisation,
 					getCodeLibelleLocalisation(offreEmploiQuery.codeLocalisation, offreEmploiQuery.codePostalLocalisation, offreEmploiQuery.typeLocalisation) || '',
 				),
-			]} aria-label="Filtres de la recherche"/>;
+			]} aria-label="Filtres de la recherche"
+			       />;
 		} else {
 			return undefined;
 		}

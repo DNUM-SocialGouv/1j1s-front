@@ -97,7 +97,8 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(function
 		role="tabpanel"
 		aria-labelledby={`tab-${indexTabActive}`}
 		id={`panel-${indexTabActive}`}
-		{...rest}>
+		{...rest}
+	>
 		{children}
 	</div>;
 });

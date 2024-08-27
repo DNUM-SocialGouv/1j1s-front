@@ -193,7 +193,8 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			filter,
 			onOptionSelection,
 			state: { ...state, value },
-		}}>
+		}}
+		>
 			<div className={classNames(styles.combobox, className)} onBlur={onBlur} onFocus={onFocus}>
 				<Input
 					type="text"
@@ -211,12 +212,14 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					onKeyDown={onKeyDown}
 					onInput={(event) => onInputProps(event, event.currentTarget.value)}
 					required={required}
-					{...inputProps} />
+					{...inputProps}
+				/>
 				<Input
 					type="hidden"
 					name={valueName ?? (name && `${name}.value`)}
 					value={matchingOptionValue}
-					required={requireValidOption}/>
+					required={requireValidOption}
+				/>
 				<button
 					onClick={() => {
 						dispatch(new Actions.ToggleList());
@@ -227,7 +230,8 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					tabIndex={-1}
 					aria-controls={listboxId}
 					aria-expanded={open}
-					aria-label={optionsAriaLabel}>
+					aria-label={optionsAriaLabel}
+				>
 					<Icon name={'angle-down'}/>
 				</button>
 				<ul
@@ -236,7 +240,8 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					hidden={!open}
 					ref={listboxRef}
 					tabIndex={-1}
-					aria-label={optionsAriaLabel}>
+					aria-label={optionsAriaLabel}
+				>
 					{children}
 				</ul>
 			</div>

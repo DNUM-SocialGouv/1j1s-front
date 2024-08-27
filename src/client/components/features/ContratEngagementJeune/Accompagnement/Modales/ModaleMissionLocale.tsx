@@ -37,14 +37,16 @@ export function ModaleMissionLocale({ isMissionLocaleModaleOpen, setIsMissionLoc
 					onFailure={() => {
 						setIsMissionLocaleModaleOpen(false);
 						setStatusForm('error');
-					}}/>
+					}}
+				/>
 			</ModalComponent.Content>
 		</ModalComponent>
 
 		<ModaleSuccessSubmission isOpen={statusForm === 'success'} onClose={() => {
 			setIsMissionLocaleModaleOpen(false);
 			setStatusForm('notSubmitted');
-		}}/>
+		}}
+		/>
 
 		<ModalErrorSubmission isOpen={statusForm === 'error'} 
 			onClose={() => {
@@ -53,6 +55,7 @@ export function ModaleMissionLocale({ isMissionLocaleModaleOpen, setIsMissionLoc
 			onBackToForm={() => {
 				setIsMissionLocaleModaleOpen(true);
 				setStatusForm('notSubmitted');
-			}}/>
+			}}
+		/>
 	</>;
 }

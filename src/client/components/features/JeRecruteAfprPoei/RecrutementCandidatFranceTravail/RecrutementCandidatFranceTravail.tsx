@@ -25,13 +25,15 @@ export default function RecrutementCandidatFranceTravail() {
 				<div className={styles.links}>
 					<Link
 						href="https://entreprise.francetravail.fr/accueil/description/afpr"
-						appearance="asPrimaryButton">
+						appearance="asPrimaryButton"
+					>
 						M‘engager à recruter
 						<Link.Icon/>
 					</Link>
 					<Link
 						href="https://entreprise.francetravail.fr/accueil/choixauthentification?goto=https://entreprise.francetravail.fr/accueil/description/afpr"
-						appearance="asSecondaryButton">
+						appearance="asSecondaryButton"
+					>
 						Compléter une demande
 						<Link.Icon/>
 					</Link>

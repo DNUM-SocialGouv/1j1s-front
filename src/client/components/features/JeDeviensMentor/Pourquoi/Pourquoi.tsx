@@ -38,7 +38,8 @@ export function Pourquoi() {
 						seeLessAriaLabel="Voir plus de raisons de devenir mentor en tant que citoyen"
 						seeMoreAriaLabel="Voir moins de raisons de devenir mentor en tant que citoyen"
 						itemList={[<ListeCitoyen key={0}/>]}
-						numberOfVisibleItems={0}>
+						numberOfVisibleItems={0}
+					>
 						<ListeCitoyen/>
 					</SeeMoreMobileOnly>
 				</section>

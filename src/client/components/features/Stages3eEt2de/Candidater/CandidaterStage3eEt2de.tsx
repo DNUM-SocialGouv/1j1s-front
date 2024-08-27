@@ -33,7 +33,7 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 			modeDeContact={modeDeContact}
 			onSuccess={() => setEtatSoumission('succes')}
 			onFailure={(erreur: Erreur) => setEtatSoumission(erreur)}
-		/>}
+		                                 />}
 
 		<div role={'status'}>
 			{etatSoumission === 'succes' && <SuccesEnvoyerCandidatureStage3eEt2de />}

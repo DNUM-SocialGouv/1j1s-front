@@ -147,7 +147,8 @@ const AfficherResultatDeRecherche = React.forwardRef(function AfficherResultatDe
 				skeletonRepeat={nombreDeSkeleton}
 				pagination={<MeiliSearchPagination numberOfResultPerPage={nombreDeResultatParPage}
 																					 className={styles.pagination}
-																					 onPageChange={scrollToTopOfListeDesResultats}/>}
+																					 onPageChange={scrollToTopOfListeDesResultats}
+				            />}
 				isLoading={isInstantSearchLoading}
 				isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow}
 			/>

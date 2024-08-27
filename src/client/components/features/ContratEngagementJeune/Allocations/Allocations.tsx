@@ -18,7 +18,8 @@ export default function Allocations() {
 						numberOfVisibleItems={0}
 						itemList={[<ConditionsAllocation key={0}/>]}
 						seeLessAriaLabel={'Voir moins de conditions pour bénéficier de l‘allocation'}
-						seeMoreAriaLabel={'Voir plus de conditions pour bénéficier de l‘allocation'}>
+						seeMoreAriaLabel={'Voir plus de conditions pour bénéficier de l‘allocation'}
+					>
 						<ConditionsAllocation/>
 					</SeeMoreMobileOnly>
 				</article>

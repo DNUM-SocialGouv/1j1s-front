@@ -58,5 +58,5 @@ function ServiceJeuneCard({ serviceJeune }: ServiceJeuneCardProps) {
 		link={link}
 		title={titre}
 		flippingCardContent={concerne}
-	/>;
+	       />;
 }

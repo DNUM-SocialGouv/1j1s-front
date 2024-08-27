@@ -29,7 +29,8 @@ export function NavDesktop() {
 					className={styles.navigationDesktopNavigation}
 					role="navigation"
 					data-testid="navigation-desktop"
-					aria-label="Menu principal">
+					aria-label="Menu principal"
+				>
 					<ul className={styles.navigationDesktopList}>
 						<NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={router.pathname === accueil.link} />
 						<NavItemWithSubItems className={styles.navItem}  navigationItemWithChildren={offresNav} />

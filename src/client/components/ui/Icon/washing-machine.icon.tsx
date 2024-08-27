@@ -11,7 +11,8 @@ export const WashingMachineIcon = React.forwardRef<SVGSVGElement, SvgProps>(func
 		<svg width="24" height="24" viewBox="0 0 24 24"
 			className={classNames(className, styles.size)} fill={color}
 			xmlns="http://www.w3.org/2000/svg"
-			{...rest} ref={ref}>
+			{...rest} ref={ref}
+		>
 			<rect width="24" height="24" fill="url(#pattern-washing-machine)"/>
 			<defs>
 				<pattern id="pattern-washing-machine" patternContentUnits="objectBoundingBox" width="1" height="1">

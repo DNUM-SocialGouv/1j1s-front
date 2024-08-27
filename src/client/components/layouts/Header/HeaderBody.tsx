@@ -31,7 +31,8 @@ export function HeaderBody() {
 							role={'navigation'}
 							aria-label="ouvrir le menu principal"
 							id={ID_NAV_MOBILE}
-							className={styles.headerBodyNavigationMobile}>
+							className={styles.headerBodyNavigationMobile}
+						>
 							<ButtonComponent
 								appearance="quaternary"
 								icon={<Icon name="burger-menu"/>}

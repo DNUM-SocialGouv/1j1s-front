@@ -62,7 +62,8 @@ describe('<ComboboxCommune/>', () => {
 							longitude: 2.2,
 						},
 						ville: 'Paris 15e Arrondissement',
-					})}/>
+					})}
+					/>
 				</DependenciesProvider>);
 				const combobox = screen.getByRole('combobox');
 

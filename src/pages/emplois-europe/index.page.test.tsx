@@ -49,7 +49,8 @@ describe('Page emplois en europe', () => {
 			const { container } = render(
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
-					emploiEuropeService={anEmploiEuropeService()}>
+					emploiEuropeService={anEmploiEuropeService()}
+				>
 					<EmploiEuropePage/>
 				</DependenciesProvider> );
 			

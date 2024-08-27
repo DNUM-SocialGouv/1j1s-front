@@ -55,5 +55,5 @@ function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {
 		title={titre}
 		flippingCardContent={pourQui}
 		className={styles.carteMesureEmployeur}
-	/>;
+	       />;
 }

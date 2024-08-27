@@ -64,7 +64,8 @@ describe('<InstantSearchLayout />', () => {
 					messageResultatRechercheLabelPluriel="résultats trouvés"
 					nombreDeSkeleton={1}
 					isAffichageListeDeResultatsDesktopDirectionRow={true}
-					resultatDeRecherche={() => <></>}/>
+					resultatDeRecherche={() => <></>}
+				/>
 			</DependenciesProvider>,
 		);
 		await screen.findByRole('heading', { name: /2 résultats trouvés/ });

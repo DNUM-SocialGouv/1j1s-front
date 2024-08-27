@@ -113,7 +113,8 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 				}}
 				value={value}
 				requireValidOption
-				{...comboboxProps}>
+				{...comboboxProps}
+			>
 				{
 					(metiers.map((suggestion) => (
 						<Combobox.Option key={suggestion.label} value={suggestion.code}>{suggestion.label}</Combobox.Option>

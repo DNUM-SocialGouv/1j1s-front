@@ -92,7 +92,8 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 						{offreDeStage.urlDeCandidature &&
 							<Link
 								href={offreDeStage.urlDeCandidature}
-								appearance="asPrimaryButton">
+								appearance="asPrimaryButton"
+							>
 								Postuler
 								<Link.Icon/>
 							</Link>

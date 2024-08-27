@@ -18,7 +18,8 @@ export function RésultatRechercherEvenement(props: HitProps<Evenement>) {
 				<Card.Content className={styles.content}>
 					<div className={styles.event}>
 						<div className={styles.eventDetails}>{formatEventDateTime(dateDebut, dateFin)} <span
-							className={styles.eventOrganizer}>- {organismeOrganisateur}</span>
+							className={styles.eventOrganizer}
+						>- {organismeOrganisateur}</span>
 						</div>
 						<div className={styles.eventTitle}>{titreEvenement}</div>
 					</div>

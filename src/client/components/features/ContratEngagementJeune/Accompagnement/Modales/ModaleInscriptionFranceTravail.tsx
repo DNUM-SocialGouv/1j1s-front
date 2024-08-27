@@ -11,7 +11,8 @@ export function ModaleInscriptionFranceTravail(props: { open: boolean, close: ()
 		aria-labelledby={titleId}
 		isOpen={props.open}
 		close={props.close}
-		className={styles.accompagnementModal}>
+		className={styles.accompagnementModal}
+	>
 		<ModalComponent.Content className={styles.accompagnementModalContent}>
 			<div>
 				<h1 id={titleId}>Vous pouvez bénéficier des services de France Travail</h1>

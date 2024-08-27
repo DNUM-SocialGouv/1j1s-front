@@ -94,7 +94,8 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             							<TabsLabel>
             								{listeSolutionElementTab.map((solutionElement) => (
             									<Tab
-            										key={solutionElement.label}>
+            										key={solutionElement.label}
+            									>
             										{solutionElement.label}
             									</Tab>))}
             							</TabsLabel>

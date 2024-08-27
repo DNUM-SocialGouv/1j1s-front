@@ -124,7 +124,8 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 												 onChangeProps(event, newValue);
 											 }}
 											 requireValidOption
-											 {...rest}>
+											 {...rest}
+					>
 						{
 							(communeOptions.map((commune: Commune) => (
 								<Combobox.Option key={commune.code} value={commune.code}>

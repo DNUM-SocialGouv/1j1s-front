@@ -12,5 +12,5 @@ export const LoadingButton = ({ label = 'Envoi en cours', className } : LoadingB
 		iconPosition="left"
 		label={label}
 		className={className}
-	/>;
+	       />;
 };

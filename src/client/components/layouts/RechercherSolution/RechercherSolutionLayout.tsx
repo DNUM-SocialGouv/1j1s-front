@@ -60,7 +60,8 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 				<div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
 					<Container>
 						<Skeleton type="card" isLoading={true} repeat={2}
-							className={styles.listeSolutions}>
+							className={styles.listeSolutions}
+						>
 						</Skeleton>
 					</Container>
 				</div>

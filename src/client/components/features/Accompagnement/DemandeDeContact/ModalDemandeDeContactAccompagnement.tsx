@@ -52,7 +52,8 @@ export function ModalDemandeDeContactAccompagnement({ contactÉtablissementAccom
 			<ModaleSuccessSubmission isOpen={statusForm === 'success'} onClose={() => {
 				setIsOpen(false);
 				setStatusForm('notSubmitted');
-			}}/>
+			}}
+			/>
 
 			<ModalErrorSubmission isOpen={statusForm === 'error'} 
 				onClose={() => {
@@ -61,7 +62,8 @@ export function ModalDemandeDeContactAccompagnement({ contactÉtablissementAccom
 				onBackToForm={() => {
 					setIsOpen(true);
 					setStatusForm('notSubmitted');
-				}}/>
+				}}
+			/>
 		</>
 
 	);

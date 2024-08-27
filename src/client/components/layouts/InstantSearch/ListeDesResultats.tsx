@@ -22,7 +22,8 @@ export const ListeDesResultats = React.forwardRef<HTMLElement | null, ListeDesRe
 	return (
 		<section className={styles.listeDesResultatsWrapper} ref={ref} aria-label='Résultats de la recherche'>
 			<Container
-				className={classNames({ [styles.listeDesResultats]: !isAffichageListeDeResultatsDesktopDirectionRow })}>
+				className={classNames({ [styles.listeDesResultats]: !isAffichageListeDeResultatsDesktopDirectionRow })}
+			>
 				<Skeleton
 					type="card"
 					isLoading={isLoading}

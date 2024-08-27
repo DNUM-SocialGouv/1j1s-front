@@ -100,17 +100,20 @@ export default function RechercherAlternance(props: RechercherAlternanceProps) {
 					listeSolutionElement: <ListeSolutionAlternance alternanceList={alternanceList.offreList}/>,
 					messageNoResult: <NoResultErrorMessage
 						explanationText="Aucun contrat d‘alternance ne correspond à votre recherche."
-						solutionText="Vous pouvez consulter les entreprises ou modifier votre recherche."/>,
+						solutionText="Vous pouvez consulter les entreprises ou modifier votre recherche."
+					                 />,
 					messageResultatRecherche: getMessageResultatRecherche(alternanceList.offreList.length),
 					nombreDeSolutions: alternanceList.offreList.length,
 				},
 				{
 					label: 'Entreprises',
 					listeSolutionElement: <ListeSolutionAlternanceEntreprise
-						entrepriseList={alternanceList.entrepriseList}/>,
+						entrepriseList={alternanceList.entrepriseList}
+					                      />,
 					messageNoResult: <NoResultErrorMessage
 						explanationText="Aucune entreprise ne correspond à votre recherche."
-						solutionText="Vous pouvez consulter les contrats d‘alternance ou modifier votre recherche."/>,
+						solutionText="Vous pouvez consulter les contrats d‘alternance ou modifier votre recherche."
+					                 />,
 					messageResultatRecherche: getMessageResultatRecherche(alternanceList.entrepriseList.length),
 					nombreDeSolutions: alternanceList.entrepriseList.length,
 				}]}
@@ -123,7 +126,8 @@ export default function RechercherAlternance(props: RechercherAlternanceProps) {
 					linkLabel="Lire l‘article"
 					link="/articles/l-aide-a-l-apprentissage-l-atout-qu-il-faut-pour-vos-candidatures"
 					title="Une aide exceptionnelle pour l’apprentissage : l’atout qu’il vous faut pour vos candidatures !"
-					titleAs={'h3'}>
+					titleAs={'h3'}
+				>
 					Découvrez un argument supplémentaire à avancer pour vous faire embaucher
 				</ServiceCard>
 			</ServiceCardList>

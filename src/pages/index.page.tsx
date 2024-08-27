@@ -254,7 +254,8 @@ export default function Accueil() {
 
 				{isBanniereStagesSecondeVisible
 					&& <HeroWithIllustration image="/images/stages-seconde/banniere-stages-seconde.webp"
-																	 className={classNames(styles.hero, styles.stageSecondeBanner)}>
+																	 className={classNames(styles.hero, styles.stageSecondeBanner)}
+					>
 						{isBanniereStagesSecondePourCampagneDu25Mars ?
 							<>
 								<h2>
@@ -316,7 +317,8 @@ export default function Accueil() {
 							itemList={getCardList(offreCardListContent)}
 							numberOfVisibleItems={3}
 							seeMoreAriaLabel={'Voir plus de résultats sur les offres d‘emplois'}
-							seeLessAriaLabel={'Voir moins de résultats sur les offres d‘emplois'}/>
+							seeLessAriaLabel={'Voir moins de résultats sur les offres d‘emplois'}
+						/>
 					</Container>
 				</section>
 				<section className={classNames(styles.section, styles.sectionFormationsOrientation)}>
@@ -329,7 +331,8 @@ export default function Accueil() {
 							itemList={getCardList(formationEtOrientationCardListContent)}
 							numberOfVisibleItems={3}
 							seeMoreAriaLabel={'Voir plus de résultats sur les formations et orientation'}
-							seeLessAriaLabel={'Voir moins de résultats sur les formations et orientation'}/>
+							seeLessAriaLabel={'Voir moins de résultats sur les formations et orientation'}
+						/>
 					</Container>
 				</section>
 				<section className={classNames(styles.section, styles.sectionEngagementBénévolat)}>
@@ -342,7 +345,8 @@ export default function Accueil() {
 							itemList={getCardList(engagementEtBenevolatCardListContent)}
 							numberOfVisibleItems={3}
 							seeMoreAriaLabel={'Voir plus de résultats sur les engagements et bénévolats'}
-							seeLessAriaLabel={'Voir moins de résultats sur les engagements et bénévolats'}/>
+							seeLessAriaLabel={'Voir moins de résultats sur les engagements et bénévolats'}
+						/>
 					</Container>
 				</section>
 				<section className={classNames(styles.section, styles.sectionLogement)}>
@@ -355,7 +359,8 @@ export default function Accueil() {
 							itemList={getCardList(logementCardListContent)}
 							numberOfVisibleItems={3}
 							seeMoreAriaLabel={'Voir plus de résultats sur les logements'}
-							seeLessAriaLabel={'Voir moins de résultats sur les logements'}/>
+							seeLessAriaLabel={'Voir moins de résultats sur les logements'}
+						/>
 					</Container>
 				</section>
 				<section className={classNames(styles.section, styles.sectionAidesOrientationAccompagnement)}>
@@ -368,7 +373,8 @@ export default function Accueil() {
 							itemList={getCardList(accompagnementCardListContent)}
 							numberOfVisibleItems={3}
 							seeMoreAriaLabel={'Voir plus de résultats sur les aides et accompagnements'}
-							seeLessAriaLabel={'Voir moins de résultats sur les aides et accompagnements'}/>
+							seeLessAriaLabel={'Voir moins de résultats sur les aides et accompagnements'}
+						/>
 					</Container>
 				</section>
 				<section className={classNames(styles.section, styles.sectionAidesEtOutils)}>
@@ -381,7 +387,8 @@ export default function Accueil() {
 							itemList={getCardList(aideEtOutilCardListContent)}
 							numberOfVisibleItems={3}
 							seeMoreAriaLabel={'Voir plus de résultats sur les aides et outils'}
-							seeLessAriaLabel={'Voir moins de résultats sur les aides et outils'}/>
+							seeLessAriaLabel={'Voir moins de résultats sur les aides et outils'}
+						/>
 					</Container>
 				</section>
 			</main>

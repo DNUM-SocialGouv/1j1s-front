@@ -110,7 +110,8 @@ function AnnonceSource({ source, className, ...rest }: AnnonceSourceProps) {
 			return (
 				<span className={classNames(styles.source, className)} {...rest}>
 						Ce bien est diffusé par <Image src="/images/logement/studapart.webp" alt="studapart" width="95"
-																					 height="44"/>
+																					 height="44"
+						                        />
 				</span>
 			);
 		default:

@@ -57,7 +57,8 @@ export default function ActualitesPage({ cartesActualites }: ActualitesPageProps
 						seeLessAriaLabel={'Voir moins de résultats sur les actualités'}
 						seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}
 						numberOfVisibleItems={MAX_VISIBLE_ACTUALITES}
-						itemList={articleCardList}/>
+						itemList={articleCardList}
+					/>
 				</Container>
 			</main>
 		</>

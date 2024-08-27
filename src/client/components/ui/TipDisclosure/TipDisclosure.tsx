@@ -24,7 +24,8 @@ export function TipDisclosure(props: React.PropsWithChildren<TipDisclosureProps>
 				aria-expanded={isOpen}
 				aria-controls={isOpen ? tipId : undefined}
 				type="button"
-				onClick={() => setIsOpen(!isOpen)}>
+				onClick={() => setIsOpen(!isOpen)}
+			>
 				<Icon name="information" className={styles.icon}/>
 			</button>
 			<span className={classNames(styles.tip)} id={tipId} hidden={!isOpen}>

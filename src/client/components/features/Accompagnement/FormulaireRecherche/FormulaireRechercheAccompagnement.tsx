@@ -57,7 +57,8 @@ export function FormulaireRechercheAccompagnement() {
 				ref={rechercheAccompagnementForm}
 				aria-label="Rechercher un accompagnement"
 				className={styles.rechercheAccompagnementForm}
-				onSubmit={updateRechercheAccompagnementQueryParams}>
+				onSubmit={updateRechercheAccompagnementQueryParams}
+			>
 				<div className={styles.filtresRecherche}>
 					<div className={styles.comboboxCommune}>
 						<ComboboxCommune
@@ -88,7 +89,8 @@ export function FormulaireRechercheAccompagnement() {
 						label="Rechercher"
 						icon={<Icon name="magnifying-glass"/>}
 						iconPosition="right"
-						type="submit"/>
+						type="submit"
+					/>
 				</div>
 				
 			</form>

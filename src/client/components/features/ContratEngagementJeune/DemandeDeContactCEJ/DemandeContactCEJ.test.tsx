@@ -30,7 +30,8 @@ describe('<DemandeContactCEJ />', () => {
 
 		render(
 			<DependenciesProvider demandeDeContactService={demandeDeContactServiceMock}
-				localisationService={localisationService}>
+				localisationService={localisationService}
+			>
 				<DemandeContactCEJ/>
 			</DependenciesProvider>,
 		);
@@ -76,7 +77,8 @@ describe('<DemandeContactCEJ />', () => {
 			render(
 				<DependenciesProvider
 					demandeDeContactService={demandeDeContactService}
-					localisationService={localisationService}>
+					localisationService={localisationService}
+				>
 					<DemandeContactCEJ/>
 				</DependenciesProvider>,
 			);
@@ -112,7 +114,8 @@ describe('<DemandeContactCEJ />', () => {
 				render(
 					<DependenciesProvider
 						demandeDeContactService={demandeDeContactService}
-						localisationService={localisationService}>
+						localisationService={localisationService}
+					>
 						<DemandeContactCEJ/>
 					</DependenciesProvider>,
 				);
@@ -149,7 +152,8 @@ describe('<DemandeContactCEJ />', () => {
 				render(
 					<DependenciesProvider
 						demandeDeContactService={demandeDeContactService}
-						localisationService={localisationService}>
+						localisationService={localisationService}
+					>
 						<DemandeContactCEJ/>
 					</DependenciesProvider>,
 				);
@@ -189,7 +193,8 @@ describe('<DemandeContactCEJ />', () => {
 				render(
 					<DependenciesProvider
 						demandeDeContactService={demandeDeContactService}
-						localisationService={localisationService}>
+						localisationService={localisationService}
+					>
 						<DemandeContactCEJ/>
 					</DependenciesProvider>,
 				);

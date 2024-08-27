@@ -88,7 +88,7 @@ export default function RechercherFormationAlternance({ resultats: formationAlte
 						...router.query,
 						libelleMetier: undefined,
 					})}
-				/>
+				                      />
 				}
 			/>
 			<EnTete heading="Découvrez des services faits pour vous"/>

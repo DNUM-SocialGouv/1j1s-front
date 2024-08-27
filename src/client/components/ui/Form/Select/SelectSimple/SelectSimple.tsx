@@ -234,7 +234,8 @@ export function SelectSimple(props: SelectSimpleProps) {
 			activeDescendant: state.activeDescendant,
 			isCurrentItemSelected,
 			onOptionSelection: selectOption,
-		}}>
+		}}
+		>
 			<div className={styles.container}>
 				<Input
 					ref={inputHiddenRef}
@@ -267,7 +268,8 @@ export function SelectSimple(props: SelectSimpleProps) {
 					aria-label={optionsAriaLabel}
 					id={listboxId}
 					tabIndex={-1}
-					hidden={!state.isListOptionsOpen}>
+					hidden={!state.isListOptionsOpen}
+				>
 					{children}
 				</ul>
 			</div>

@@ -46,13 +46,15 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 				className={classNames(styles.contactFormulaireÉtablissement, styles.contactFormulaireÉtablissementDesktopOnly)}
 				label={label}
 				appearance={'quaternary'}
-				onClick={openContactÉtablissementModal}/>
+				onClick={openContactÉtablissementModal}
+			/>
 
 			<ButtonComponent
 				className={classNames(styles.contactFormulaireÉtablissement, styles.contactFormulaireÉtablissementMobileOnly)}
 				label={label}
 				appearance={'primary'}
-				onClick={openContactÉtablissementModal}/>
+				onClick={openContactÉtablissementModal}
+			/>
 		</>;
 	}
 
@@ -66,7 +68,8 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 				appearance={'asQuaternaryButton'}
 				href={mailTo}
 				className={classNames(styles.contactMailÉtablissement, styles.contactMailÉtablissementDesktop)}
-				title={title}>
+				title={title}
+			>
 				{label}
 				<Link.Icon name="mail"/>
 			</Link>
@@ -74,7 +77,8 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 				appearance={'asPrimaryButton'}
 				href={mailTo}
 				className={classNames(styles.contactMailÉtablissement, styles.contactMailÉtablissementMobile)}
-				title={title}>
+				title={title}
+			>
 				{label}
 				<Link.Icon name="mail"/>
 			</Link>

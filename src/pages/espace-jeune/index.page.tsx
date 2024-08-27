@@ -72,7 +72,8 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 														 seeLessAriaLabel={'Voir moins de résultats sur les actualités'}
 														 seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}
 														 numberOfVisibleItems={MAX_VISIBLE_ACTUALITES_LENGTH}
-														 itemList={articleCardList}/>
+														 itemList={articleCardList}
+						/>
 					</Container>
 				</section>
 				<section className={classNames(styles.section, styles.mesuresJeunesSection)} aria-label="les services jeunes">

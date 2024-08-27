@@ -166,7 +166,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 				label="Envoyer ma demande de dépôt d’offre"
 				type="submit"
 				disabled={isLoading}
-			/>;
+			  />;
 	}
 
 	function FormulaireLocalisation() {
@@ -176,7 +176,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 			formRef={formRef}
 			handleFormSubmit={handleFormSubmit}
 			boutonValidation={<BoutonValidation/>}
-		/>;
+		       />;
 	}
 
 	async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
@@ -209,7 +209,8 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 			<ModalErrorSubmission
 				isOpen={isModalErrorSubmitOpen}
 				onClose={() => setIsModalErrorSubmitOpen(false)}
-				onBackToForm={() => setIsModalErrorSubmitOpen(false)}/>
+				onBackToForm={() => setIsModalErrorSubmitOpen(false)}
+			/>
 		</>
 	);
 };

@@ -135,17 +135,20 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 			nomEntreprise={nomEntreprise}
 			envoyerCandidature={envoyerCandidature}
 			metiersStage3eEt2de={metiersStage3eEt2de}
-			isLoading={isLoading}/>}
+			isLoading={isLoading}
+		                                          />}
 		{modeDeContact === ModeDeContact.IN_PERSON && <FormulaireContactEnPersonne
 			nomEntreprise={nomEntreprise}
 			envoyerCandidature={envoyerCandidature}
 			metiersStage3eEt2de={metiersStage3eEt2de}
-			isLoading={isLoading}/>}
+			isLoading={isLoading}
+		                                              />}
 		{modeDeContact === ModeDeContact.EMAIL && <FormulaireContactParEmail
 			nomEntreprise={nomEntreprise}
 			envoyerCandidature={envoyerCandidature}
 			metiersStage3eEt2de={metiersStage3eEt2de}
-			isLoading={isLoading}/>}
+			isLoading={isLoading}
+		                                          />}
 	</>;
 }
 
@@ -376,7 +379,8 @@ function FormulaireContactParEmail(props: {
 						name="message"
 						maxLength={500}
 						required
-						defaultValue={messageContactParDefaut}/>
+						defaultValue={messageContactParDefaut}
+					/>
 					<Champ.Error/>
 				</Champ>
 				<ButtonComponent

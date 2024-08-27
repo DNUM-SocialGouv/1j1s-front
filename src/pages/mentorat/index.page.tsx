@@ -87,7 +87,8 @@ export default function MentoratPage() {
 							  numberOfVisibleItems={0}
 								itemList={[<RaisonParticipationsMentorat key={0}/>]}
 								seeLessAriaLabel={'Voir moins de raisons de participer au mentorat'}
-								seeMoreAriaLabel={'Voir plus de raisons de participer au mentorat'}>
+								seeMoreAriaLabel={'Voir plus de raisons de participer au mentorat'}
+							>
 								<RaisonParticipationsMentorat/>
 							</SeeMoreMobileOnly>
 						</div>

@@ -129,7 +129,8 @@ export function ModalComponent(props: ModalPropsWithAccessibleDescription) {
 					className={classNames(className, styles.modal)}
 					open={isOpen}
 					aria-modal="true"
-					{...rest}>
+					{...rest}
+				>
 					<div className={styles.modalBody}>
 						<div className={styles.modalClose}>
 							<ButtonComponent

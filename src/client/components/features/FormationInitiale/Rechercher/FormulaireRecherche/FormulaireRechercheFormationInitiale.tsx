@@ -41,7 +41,8 @@ export function FormulaireRechercheFormationInitiale() {
 					value={inputMotCle}
 					name="motCle"
 					autoFocus
-					onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}/>
+					onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
+				/>
 				<Champ.Error/>
 			</Champ>
 

@@ -20,7 +20,8 @@ export function ConsulterFormationAlternance({ formation, statistiques }: { form
 					<TagList list={formation.tags}/>
 					{formation.lienDemandeRendezVous &&
 						<Link href={formation.lienDemandeRendezVous} className={commonStyles.postuler}
-							appearance={'asPrimaryButton'}>
+							appearance={'asPrimaryButton'}
+						>
 							Contacter l’établissement
 							<Link.Icon/>
 						</Link>

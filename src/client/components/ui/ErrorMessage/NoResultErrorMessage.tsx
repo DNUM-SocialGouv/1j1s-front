@@ -11,7 +11,8 @@ export function NoResultErrorMessage(props: NoResultErrorMessageProps) {
 		<ErrorMessageComponent
 			title={props.title ?? '0 résultat'}
 			explanationText={props.explanationText ?? 'Malheureusement, aucune offre ne correspond à votre recherche !'}
-			solutionText={props.solutionText ?? 'Vérifiez l‘orthographe, essayez d‘autres mots-clés ou élargissez votre zone géographique de recherche.'}/>
+			solutionText={props.solutionText ?? 'Vérifiez l‘orthographe, essayez d‘autres mots-clés ou élargissez votre zone géographique de recherche.'}
+		/>
 	);
 };
 

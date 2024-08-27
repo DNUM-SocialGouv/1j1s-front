@@ -36,7 +36,8 @@ export function FormulaireRechercheAnnonceLogement() {
 		<form
 			className={styles.RechercherLogementForm}
 			role="search"
-			onSubmit={(event) => event.preventDefault()}>
+			onSubmit={(event) => event.preventDefault()}
+		>
 			<MeilisearchInput
 				className={styles.inputVille}
 				label="Ville"
@@ -88,7 +89,8 @@ export function FormulaireRechercheAnnonceLogement() {
 					closeTitle="Fermer les filtres"
 					isOpen={isFiltresAvancésMobileOpen}
 					keepModalMounted
-					aria-labelledby="dialog_label">
+					aria-labelledby="dialog_label"
+				>
 					<ModalComponent.Title>
 						<Icon name="menu"/>
 						<span id="dialog_label">Filtrer ma recherche</span>

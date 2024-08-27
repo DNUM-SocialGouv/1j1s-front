@@ -26,7 +26,8 @@ function BoutonEtendre({ onClick, estÉtendu, 'aria-controls': ariaControls }: B
 			onClick={onClick}
 			type="button"
 			aria-expanded={estÉtendu}
-			aria-controls={ariaControls}/>
+			aria-controls={ariaControls}
+		/>
 	);
 }
 
@@ -56,14 +57,16 @@ export const DescriptionDuLogement = ({ children }: DescriptionDuLogementProps) 
 
 	return (
 		<section className={classNames(styles.card, styles.descriptionDuLogement)}
-						 aria-labelledby="description-annonce-title">
+						 aria-labelledby="description-annonce-title"
+		>
 			<h2 id="description-annonce-title" ref={titleRef} tabIndex={-1}>Description du Logement</h2>
 			<p id="description-annonce">{description}</p>
 			{longueDescription && (
 				<BoutonEtendre
 					onClick={toogle}
 					estÉtendu={descriptionÉtendue}
-					aria-controls="description-annonce"/>
+					aria-controls="description-annonce"
+				/>
 			)}
 		</section>
 	);

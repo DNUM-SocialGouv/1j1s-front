@@ -261,7 +261,8 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ description: undefined });
 
 			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				annonceEmploiEurope={offreEmploiEurope}
+			                                          />, { queries });
 
 			expect(queryByDescriptionTerm('Description du poste')).not.toBeInTheDocument();
 		});
@@ -281,7 +282,8 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ listePermis: [] });
 
 			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				annonceEmploiEurope={offreEmploiEurope}
+			                                          />, { queries });
 
 			expect(queryByDescriptionTerm('Type de permis requis')).not.toBeInTheDocument();
 		});
@@ -350,7 +352,8 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ localisations: [] });
 
 			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				annonceEmploiEurope={offreEmploiEurope}
+			                                          />, { queries });
 
 			expect(queryByDescriptionTerm('Localisation')).not.toBeInTheDocument();
 			expect(queryByDescriptionTerm('Localisations')).not.toBeInTheDocument();
@@ -371,7 +374,8 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ langueDeTravail: [] });
 
 			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				annonceEmploiEurope={offreEmploiEurope}
+			                                          />, { queries });
 
 			expect(queryByDescriptionTerm('Langue de travail')).not.toBeInTheDocument();
 		});
@@ -412,7 +416,8 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ competencesLinguistiques: [] });
 
 			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				annonceEmploiEurope={offreEmploiEurope}
+			                                          />, { queries });
 
 			expect(queryByDescriptionTerm('Compétences linguistiques requises')).not.toBeInTheDocument();
 		});
@@ -423,7 +428,8 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ laPlusLongueExperienceNecessaire: undefined });
 
 			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				annonceEmploiEurope={offreEmploiEurope}
+			                                          />, { queries });
 
 			expect(queryByDescriptionTerm('Expérience')).not.toBeInTheDocument();
 		});

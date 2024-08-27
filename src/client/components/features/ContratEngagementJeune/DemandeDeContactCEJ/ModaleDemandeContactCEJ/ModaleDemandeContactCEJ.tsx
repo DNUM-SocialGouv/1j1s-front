@@ -39,14 +39,16 @@ export function ModaleDemandeContactCEJ({ isOpen, setIsOpen }: ModalDemandeDeCon
 						onFailure={() => {
 							setIsOpen(false);
 							setStatusForm('error');
-						}}/>
+						}}
+					/>
 				</ModalComponent.Content>
 			</ModalComponent>
 
 			<ModaleSuccessSubmission isOpen={statusForm === 'success'} onClose={() => {
 				setIsOpen(false);
 				setStatusForm('notSubmitted');
-			}}/>
+			}}
+			/>
 
 			<ModalErrorSubmission
 				isOpen={statusForm === 'error'}
@@ -56,7 +58,8 @@ export function ModaleDemandeContactCEJ({ isOpen, setIsOpen }: ModalDemandeDeCon
 				onBackToForm={() => {
 					setIsOpen(true);
 					setStatusForm('notSubmitted');
-				}}/>
+				}}
+			/>
 		</>
 	);
 }

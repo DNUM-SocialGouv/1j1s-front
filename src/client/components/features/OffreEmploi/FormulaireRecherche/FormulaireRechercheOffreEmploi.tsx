@@ -244,7 +244,8 @@ export function FormulaireRechercheOffreEmploi() {
 				close={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
 				closeTitle="Fermer les filtres"
 				isOpen={isFiltresAvancésMobileOpen}
-				aria-labelledby="dialog_label">
+				aria-labelledby="dialog_label"
+			>
 				<ModalComponent.Title>
 					<Icon name="menu"/>
 					<span id="dialog_label">Filtrer ma recherche</span>

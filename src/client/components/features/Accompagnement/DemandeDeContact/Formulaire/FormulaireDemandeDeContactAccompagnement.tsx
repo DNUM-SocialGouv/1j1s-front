@@ -65,7 +65,8 @@ export function FormulaireDemandeDeContactAccompagnement({
 				<Champ.Input
 					render={Input}
 					name="firstname"
-					required/>
+					required
+				/>
 				<Champ.Error/>
 			</Champ>
 
@@ -77,7 +78,8 @@ export function FormulaireDemandeDeContactAccompagnement({
 				<Champ.Input
 					render={Input}
 					name="lastname"
-					required/>
+					required
+				/>
 				<Champ.Error/>
 			</Champ>
 
@@ -105,7 +107,8 @@ export function FormulaireDemandeDeContactAccompagnement({
 					pattern={telFrRegex}
 					name="phone"
 					type="tel"
-					required/>
+					required
+				/>
 				<Champ.Error/>
 			</Champ>
 

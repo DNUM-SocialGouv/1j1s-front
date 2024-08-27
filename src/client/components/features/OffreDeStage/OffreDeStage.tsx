@@ -50,5 +50,5 @@ export function OffreDeStage(props: HitProps<OffreDeStageIndexée>) {
 		sousTitreOffre={stage.nomEmployeur}
 		étiquetteOffreList={listeEtiquettes || []}
 		key={stage.slug}
-	/>;
+	       />;
 }

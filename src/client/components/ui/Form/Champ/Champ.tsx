@@ -25,7 +25,8 @@ export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 			setErrorMessage,
 			setHintId,
 			setInputId,
-		}}>
+		}}
+		>
 			<div className={classNames(styles.champ, classNameProps)} {...otherProps}/>
 		</ChampContextProvider>
 	);
@@ -90,7 +91,7 @@ export const InputChamp: <Props extends ComponentChildrenPropsNecessary>(props: 
 			onChange={onChange}
 			ref={outerRef}
 			{...rest}
-		/>);
+		        />);
 	});
 
 function ErrorChamp({ id, ...rest }: Omit<ComponentPropsWithoutRef<typeof Error>, 'children'>) {

@@ -57,8 +57,7 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 					</Link>
 				</HeroWithIllustration>
 			</header>
-			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage :" raisons={raisons}
-			/>
+			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage :" raisons={raisons}/>
 			<EnSavoirPlusApprentissageEntreprises/>
 			{ videos.length > 0 &&
 				<VideosCampagneApprentissage

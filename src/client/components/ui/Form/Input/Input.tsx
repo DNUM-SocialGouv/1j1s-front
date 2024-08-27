@@ -66,7 +66,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 		onBlur={onBlur}
 		className={classNames(styles.input, className)}
 		{...props}
-	/>;
+	       />;
 });
 
 

@@ -191,9 +191,11 @@ function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposee.Stage 
 				<legend>Télétravail possible</legend>
 				<div className={styles.inputTeletravail}>
 					<Radio name={StageEnum.TELETRAVAIL} value="true" label="Oui"
-								 defaultChecked={props.informationsStage?.teletravail === Teletravail.OUI}/>
+								 defaultChecked={props.informationsStage?.teletravail === Teletravail.OUI}
+					/>
 					<Radio name={StageEnum.TELETRAVAIL} value="false" label="Non"
-								 defaultChecked={props.informationsStage?.teletravail === Teletravail.NON}/>
+								 defaultChecked={props.informationsStage?.teletravail === Teletravail.NON}
+					/>
 				</div>
 			</fieldset>
 		</div>
@@ -242,7 +244,7 @@ export default function StageDeposerOffreFormulaireÉtape2Stage() {
 					iconPosition="right"
 					label="Suivant"
 					type="submit"
-				/>}
+				                  />}
 			/>
 		</FormulaireÉtapeLayout>
 	);

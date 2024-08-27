@@ -223,7 +223,8 @@ export function SelectMultiple(props: SelectMultipleProps) {
 			activeDescendant: state.activeDescendant,
 			isCurrentItemSelected,
 			onOptionSelection: selectOption,
-		}}>
+		}}
+		>
 			<div className={styles.container}>
 				<Input
 					ref={firstInputHiddenRef}
@@ -232,14 +233,16 @@ export function SelectMultiple(props: SelectMultipleProps) {
 					required={required}
 					aria-hidden="true"
 					name={name}
-					value={optionsSelectedValues[0] || ''}/>
+					value={optionsSelectedValues[0] || ''}
+				/>
 				{optionsSelectedValues.slice(1).map((optionValue) => (
 					<Input
 						tabIndex={-1}
 						key={optionValue}
 						aria-hidden="true"
 						name={name}
-						value={optionValue}/>
+						value={optionValue}
+					/>
 				))}
 				<button
 					type="button"
@@ -264,7 +267,8 @@ export function SelectMultiple(props: SelectMultipleProps) {
 					aria-label={optionsAriaLabel}
 					id={listboxId}
 					tabIndex={-1}
-					hidden={!state.isListOptionsOpen}>
+					hidden={!state.isListOptionsOpen}
+				>
 					{children}
 				</ul>
 			</div>
