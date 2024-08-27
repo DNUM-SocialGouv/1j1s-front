@@ -24,9 +24,10 @@
   }
 
   @extend %outlined;
+  border-radius: inputStyles.$border-radius;
   & input,
   & button {
-    @extend %no-outline
+    @extend %no-outline;
   }
 
   // NOTE (GAFI 27-06-2023): Impossible de changer la couleur de la bordure quand disabled si elle est sur la div parent
