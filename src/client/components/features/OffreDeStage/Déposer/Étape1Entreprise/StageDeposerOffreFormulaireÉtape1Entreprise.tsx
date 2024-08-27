@@ -54,7 +54,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 						defaultValue={informationsEntreprise?.nomEmployeur}
 						autoComplete="organization"
 					/>
-					<Champ.Error/>
+					<Champ.Error />
 					<Champ.Hint>255 caractères maximum</Champ.Hint>
 				</Champ>
 				<Champ>
@@ -70,7 +70,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 						type="email"
 						autoComplete="email"
 					/>
-					<Champ.Error/>
+					<Champ.Error />
 					<Champ.Hint>
 					Cette adresse de contact sera utilisée dans le cas où
 					il manquerait des informations pour valider votre demande, ou pour vous informer du statut de cette dernière.
@@ -91,7 +91,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 						rows={10}
 						maxLength={500}
 					/>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 			</>
 		);
@@ -111,7 +111,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 										 defaultValue={informationsEntreprise?.logoEmployeur}
 										 pattern={URL_REGEX}
 					/>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 				<Champ>
 					<Champ.Label>Lien du site de l’entreprise - lien/URL
@@ -123,7 +123,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 										 defaultValue={informationsEntreprise?.siteEmployeur}
 										 pattern={URL_REGEX}
 					/>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 			</>
 		);
@@ -132,7 +132,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 	function BoutonValidation() {
 		return (
 			<ButtonComponent
-				icon={<Icon name="angle-right"/>}
+				icon={<Icon name="angle-right" />}
 				iconPosition="right"
 				label="Suivant"
 				type="submit"
@@ -143,11 +143,11 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 	function FormulaireEntreprise() {
 		return (
 			<StageDeposerOffreFormulaireLayout
-				inputsObligatoires={<ChampsObligatoires/>}
-				inputsFacultatifs={<ChampsFacultatifs/>}
+				inputsObligatoires={<ChampsObligatoires />}
+				inputsFacultatifs={<ChampsFacultatifs />}
 				formRef={formRef}
 				handleFormSubmit={handleFormSubmit}
-				boutonValidation={<BoutonValidation/>}
+				boutonValidation={<BoutonValidation />}
 			/>
 		);
 	}
@@ -165,7 +165,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 		<FormulaireÉtapeLayout
 			étape="Étape 1 sur 3 : Votre entreprise"
 		>
-			<FormulaireEntreprise/>
+			<FormulaireEntreprise />
 		</FormulaireÉtapeLayout>
 	);
 };

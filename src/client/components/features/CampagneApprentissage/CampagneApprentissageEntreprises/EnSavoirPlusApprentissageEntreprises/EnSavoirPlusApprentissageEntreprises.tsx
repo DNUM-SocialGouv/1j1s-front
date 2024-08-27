@@ -12,7 +12,7 @@ export default function EnSavoirPlusApprentissageEntreprises() {
 				<h2 className={styles.heading}>On répond à toutes vos questions <span>sur l’apprentissage</span></h2>
 				<Link className={styles.link} href="/faq/apprentissage-employeurs-apprentis" appearance="asPrimaryButton">
 				Consulter la FAQ
-					<Link.Icon/>
+					<Link.Icon />
 				</Link>
 			</div>
 			<div className={styles.enSavoirPlusDepotOffre}>
@@ -21,7 +21,7 @@ export default function EnSavoirPlusApprentissageEntreprises() {
 				</h2>
 				<Link className={styles.link} href="/apprentissage/deposer-offre" appearance="asPrimaryButton">
 				Déposer une offre
-					<Link.Icon/>
+					<Link.Icon />
 				</Link>
 			</div>
 		</Container>

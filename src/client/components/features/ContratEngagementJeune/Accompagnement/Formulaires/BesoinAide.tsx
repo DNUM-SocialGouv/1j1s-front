@@ -15,7 +15,7 @@ export default function BesoinAide({ setTypeFormulaireAffiché, setIsDispositifs
 				className={styles.boutonRetour}
 				onClick={onBackButton}
 				label="Retour"
-				icon={<Icon name={'angle-left'}/>}
+				icon={<Icon name={'angle-left'} />}
 				iconPosition={'left'}
 			/>
 			<p className={styles.question}>Avez-vous besoin d’aide pour vous orienter, chercher un emploi, une alternance, une formation, ou travailler votre projet professionnel ?</p>

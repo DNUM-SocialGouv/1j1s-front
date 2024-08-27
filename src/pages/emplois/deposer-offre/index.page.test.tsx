@@ -18,7 +18,7 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<DéposerUneOffreDEmploi/>
+			<DéposerUneOffreDEmploi />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();

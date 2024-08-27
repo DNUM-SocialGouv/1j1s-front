@@ -41,7 +41,7 @@ export function NavDesktopEmployeur({ item: root }: NavEmployeursProps) {
 				}}
 			>
 				<span className={styles.navItemLabel} aria-current={isActive}>{root.label}</span>
-				<Icon name="angle-down" className={classNames(styles.icon, { [styles.expanded]: isExpanded })}/>
+				<Icon name="angle-down" className={classNames(styles.icon, { [styles.expanded]: isExpanded })} />
 			</button>
 			<div ref={wrapper} className={classNames(styles.navWrapper, { [styles.expanded]: isExpanded })}>
 				<ul ref={content} className={styles.navDetail}>

@@ -21,7 +21,7 @@ export function FormulaireÉtapeLayout(props: FormulaireEtapeLayoutProps) {
 					appearance="asSecondaryButton"
 					className={styles.boutonRetour}
 				>
-					<Link.Icon name="angle-left"/>
+					<Link.Icon name="angle-left" />
         Retour à l’étape précédente
 				</Link>
 			)}

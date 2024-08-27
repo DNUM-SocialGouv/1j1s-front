@@ -103,7 +103,7 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 			{annonceEmploiEurope.urlCandidature && (
 				<Link href={annonceEmploiEurope.urlCandidature} appearance="asPrimaryButton">
 					Je postule sur Eures
-					<Link.Icon/>
+					<Link.Icon />
 				</Link>
 			)}
 			<section className={styles.contenu}>
@@ -111,7 +111,7 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 					{annonceEmploiEurope.description && (
 						<div className={styles.caracteristique}>
 							<dt>Description du poste</dt>
-							<dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }} lang={codeLangueDeLOffre}/>
+							<dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }} lang={codeLangueDeLOffre} />
 						</div>
 					)}
 					{annonceEmploiEurope.localisations.length > 0 && (

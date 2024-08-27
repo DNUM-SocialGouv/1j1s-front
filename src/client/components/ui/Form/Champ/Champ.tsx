@@ -27,7 +27,7 @@ export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 			setInputId,
 		}}
 		>
-			<div className={classNames(styles.champ, classNameProps)} {...otherProps}/>
+			<div className={classNames(styles.champ, classNameProps)} {...otherProps} />
 		</ChampContextProvider>
 	);
 }
@@ -103,7 +103,7 @@ function ErrorChamp({ id, ...rest }: Omit<ComponentPropsWithoutRef<typeof Error>
 		if (id) { setErrorId(id); }
 	}, [id, setErrorId]);
 
-	return (errorMessage && <Error id={id ?? errorId} {...rest} >{errorMessage}</Error>);
+	return (errorMessage && <Error id={id ?? errorId} {...rest}>{errorMessage}</Error>);
 }
 
 function HintChamp({ id, ...rest }: ComponentPropsWithoutRef<typeof Hint>) {
@@ -113,7 +113,7 @@ function HintChamp({ id, ...rest }: ComponentPropsWithoutRef<typeof Hint>) {
 		if (id) { setHintId(id); }
 	}, [id, setHintId]);
 
-	return (<Hint id={id ?? hintId} {...rest}/>);
+	return (<Hint id={id ?? hintId} {...rest} />);
 }
 
 function LabelChamp(props: ComponentPropsWithoutRef<typeof Label>) {

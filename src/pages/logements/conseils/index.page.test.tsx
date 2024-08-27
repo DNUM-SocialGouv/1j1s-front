@@ -20,7 +20,7 @@ describe('ConseilsLogement', () => {
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<ConseilsLogement/>
+			<ConseilsLogement />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -31,7 +31,7 @@ describe('ConseilsLogement', () => {
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
 			>
-				<ConseilsLogement/>
+				<ConseilsLogement />
 			</DependenciesProvider>,
 		);
 
@@ -45,7 +45,7 @@ describe('ConseilsLogement', () => {
 			<DependenciesProvider
 				analyticsService={analyticsService}
 			>
-				<ConseilsLogement/>
+				<ConseilsLogement />
 			</DependenciesProvider>,
 		);
 
@@ -64,7 +64,7 @@ describe('ConseilsLogement', () => {
 			<DependenciesProvider
 				analyticsService={analyticsService}
 			>
-				<ConseilsLogement/>
+				<ConseilsLogement />
 			</DependenciesProvider>,
 		);
 
@@ -79,7 +79,7 @@ describe('ConseilsLogement', () => {
 			<DependenciesProvider
 				analyticsService={analyticsService}
 			>
-				<ConseilsLogement/>
+				<ConseilsLogement />
 			</DependenciesProvider>,
 		);
 

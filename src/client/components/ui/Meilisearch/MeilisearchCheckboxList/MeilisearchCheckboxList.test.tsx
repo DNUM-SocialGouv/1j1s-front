@@ -35,7 +35,7 @@ describe('<MeilisearchCheckboxList/>', () => {
 	});
 
 	it('affiche la liste des checkbox', async () => {
-		render(<MeilisearchCheckboxList attribute='test' label='test'/>);
+		render(<MeilisearchCheckboxList attribute='test' label='test' />);
 
 		const optionList = screen.getAllByRole('checkbox');
 		expect(optionList).toHaveLength(3);
@@ -74,7 +74,7 @@ describe('<MeilisearchCheckboxList/>', () => {
 				}));
 		});
 		it('affiche un message informatif dans à la place de la liste de suggestions', async () => {
-			render(<MeilisearchCheckboxList attribute='test' label='test'/>);
+			render(<MeilisearchCheckboxList attribute='test' label='test' />);
 			const messageInformatif = screen.getByText('Malheureusement ce champ de recherche ne peut pas être affiché pour le moment.');
 			expect(messageInformatif).toBeInTheDocument();
 		});

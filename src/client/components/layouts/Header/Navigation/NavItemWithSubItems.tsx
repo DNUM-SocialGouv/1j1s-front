@@ -118,7 +118,7 @@ export function NavItemWithSubItems({
 				<span className={styles.subNavItemButtonLabel} aria-current={isNavItemActive}>
 					{navigationItemWithChildren.label}
 				</span>
-				<Icon className={isExpanded ? styles.subNavItemButtonIconExpanded : styles.subNavItemButtonIcon} name="angle-down"/>
+				<Icon className={isExpanded ? styles.subNavItemButtonIconExpanded : styles.subNavItemButtonIcon} name="angle-down" />
 			</button>
 			{isExpanded && <ul className={styles.subNavItemList}>{subNav}</ul>}
 		</li>

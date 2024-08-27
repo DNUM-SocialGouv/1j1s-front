@@ -124,7 +124,7 @@ export const ComboboxPays = React.forwardRef<ComboboxRef, ComboboxPaysProps>(fun
 						}
 					</li>
 				</Champ.Input>
-				<Champ.Error/>
+				<Champ.Error />
 			</Champ>
 		</div>
 	);

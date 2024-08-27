@@ -44,7 +44,7 @@ describe('<ApprentissageEntreprises />', () => {
 				analyticsService={aManualAnalyticsService()}
 				youtubeService={aVideoService()}
 			>
-				<ApprentissageEntreprises videos={videos}/>
+				<ApprentissageEntreprises videos={videos} />
 			</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();

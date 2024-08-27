@@ -23,25 +23,25 @@ export function ModaleDispositifsReferences(props: { open: boolean, close: () =>
 					<ul>
 						<li>
 							<Link href={'/#offres'}>
-								<Icon name="brief-case" className={classNames(styles.icon, styles.iconOffre)}/>
+								<Icon name="brief-case" className={classNames(styles.icon, styles.iconOffre)} />
 								<p>Découvrez nos offres</p>
 							</Link>
 						</li>
 						<li>
 							<Link href={'/#formation'}>
-								<Icon name={'book'} className={classNames(styles.icon, styles.iconFormation)}/>
+								<Icon name={'book'} className={classNames(styles.icon, styles.iconFormation)} />
 								<p>Formation et orientation</p>
 							</Link>
 						</li>
 						<li>
 							<Link href={'/#aides-orientation-accompagnement'}>
-								<Icon name={'compass'} className={classNames(styles.icon, styles.iconAide)}/>
+								<Icon name={'compass'} className={classNames(styles.icon, styles.iconAide)} />
 								<p>Aides et accompagnement</p>
 							</Link>
 						</li>
 						<li>
 							<Link href={'/#engagement-benevolat'}>
-								<Icon name="trophy" className={classNames(styles.icon, styles.iconBenevolat)}/>
+								<Icon name="trophy" className={classNames(styles.icon, styles.iconBenevolat)} />
 								<p>Engagement</p>
 							</Link>
 						</li>

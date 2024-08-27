@@ -492,7 +492,7 @@ describe('<SelectMultiple/>', () => {
 							<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 							<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
 						</SelectMultiple>
-						<input aria-label={'input label'}/>
+						<input aria-label={'input label'} />
 					</form>);
 
 					await user.tab();
@@ -513,7 +513,7 @@ describe('<SelectMultiple/>', () => {
 							<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 							<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
 						</SelectMultiple>
-						<input aria-label={'input label'}/>
+						<input aria-label={'input label'} />
 					</form>);
 
 					await user.tab();

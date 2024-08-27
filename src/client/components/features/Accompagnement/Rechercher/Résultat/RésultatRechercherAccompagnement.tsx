@@ -74,7 +74,7 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 					title={title}
 				>
 					{label}
-					<Link.Icon name="mail"/>
+					<Link.Icon name="mail" />
 				</Link>
 				<Link
 					appearance={'asPrimaryButton'}
@@ -83,7 +83,7 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 					title={title}
 				>
 					{label}
-					<Link.Icon name="mail"/>
+					<Link.Icon name="mail" />
 				</Link>
 			</>
 		);
@@ -97,14 +97,14 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 		<>
 			<Card layout={'vertical'} className={styles.card}>
 				<Card.Content className={styles.content}>
-					<Card.Image className={styles.logo} src={logoÉtablissement} aria-hidden/>
+					<Card.Image className={styles.logo} src={logoÉtablissement} aria-hidden />
 					<div className={styles.mainInfoEtablissement}>
 						<Card.Title className={styles.title} titleAs={'h3'}>
 							{etablissement.nom}
 						</Card.Title>
-						{adresse && <Address className={styles.address} address={adresse}/>}
+						{adresse && <Address className={styles.address} address={adresse} />}
 					</div>
-					<RésultatRechercherAccompagnementTagsList etablissement={etablissement}/>
+					<RésultatRechercherAccompagnementTagsList etablissement={etablissement} />
 
 					{etablissement.horaires && etablissement.horaires.length > 0 && (
 						<details className={styles.details}>
@@ -113,7 +113,7 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 								<ol className={styles.listeHoraire}>
 									{etablissement.horaires.map((horaire) => (
 										<li key={horaire.jour} className={styles.horaireElement}>
-											<HorairesResultatRechercherAccompagnement horaire={horaire}/>
+											<HorairesResultatRechercherAccompagnement horaire={horaire} />
 										</li>
 									))}
 								</ol>
@@ -122,8 +122,8 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 					)}
 
 					{
-						etablissement.email && (isMissionLocale ? <ContactButton/>
-							: <MailLink établissement={etablissement}/>)
+						etablissement.email && (isMissionLocale ? <ContactButton />
+							: <MailLink établissement={etablissement} />)
 					}
 				</Card.Content>
 			</Card>

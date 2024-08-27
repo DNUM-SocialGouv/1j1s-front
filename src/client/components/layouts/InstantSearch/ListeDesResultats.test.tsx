@@ -39,8 +39,8 @@ describe('ListeDesResultats Component', () => {
 			render(
 				<ListeDesResultats
 					isLoading={true}
-					resultats={<TestComponent/>}
-					pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
+					resultats={<TestComponent />}
+					pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null} />}
 					isAffichageListeDeResultatsDesktopDirectionRow={true}
 					skeletonRepeat={2}
 				/>,
@@ -59,8 +59,8 @@ describe('ListeDesResultats Component', () => {
 				render(
 					<ListeDesResultats
 						isLoading={true}
-						resultats={<TestComponent/>}
-						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
+						resultats={<TestComponent />}
+						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null} />}
 						isAffichageListeDeResultatsDesktopDirectionRow={true}
 						skeletonRepeat={4}
 					/>,
@@ -78,8 +78,8 @@ describe('ListeDesResultats Component', () => {
 				render(
 					<ListeDesResultats
 						isLoading={true}
-						resultats={<TestComponent/>}
-						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
+						resultats={<TestComponent />}
+						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null} />}
 						isAffichageListeDeResultatsDesktopDirectionRow={true}
 						skeletonRepeat={2}
 					/>,
@@ -99,8 +99,8 @@ describe('ListeDesResultats Component', () => {
 				render(
 					<ListeDesResultats
 						isLoading={true}
-						resultats={<TestComponent/>}
-						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
+						resultats={<TestComponent />}
+						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null} />}
 						isAffichageListeDeResultatsDesktopDirectionRow={false}
 						skeletonRepeat={3}
 					/>,
@@ -124,8 +124,8 @@ describe('ListeDesResultats Component', () => {
 				render(
 					<ListeDesResultats
 						isLoading={false}
-						resultats={<TestComponent/>}
-						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
+						resultats={<TestComponent />}
+						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null} />}
 						isAffichageListeDeResultatsDesktopDirectionRow={true}
 						skeletonRepeat={2}
 					/>,
@@ -148,8 +148,8 @@ describe('ListeDesResultats Component', () => {
 				render(
 					<ListeDesResultats
 						isLoading={false}
-						resultats={<TestComponent/>}
-						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
+						resultats={<TestComponent />}
+						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null} />}
 						isAffichageListeDeResultatsDesktopDirectionRow={true}
 						skeletonRepeat={2}
 					/>,
@@ -170,8 +170,8 @@ describe('ListeDesResultats Component', () => {
 			render(
 				<ListeDesResultats
 					isLoading={false}
-					resultats={<div/>}
-					pagination={<MeiliSearchPagination numberOfResultPerPage={1} onPageChange={() => null}/>}
+					resultats={<div />}
+					pagination={<MeiliSearchPagination numberOfResultPerPage={1} onPageChange={() => null} />}
 					isAffichageListeDeResultatsDesktopDirectionRow={true}
 					skeletonRepeat={2}
 				/>,
@@ -186,8 +186,8 @@ describe('ListeDesResultats Component', () => {
 			render(
 				<ListeDesResultats
 					isLoading={false}
-					resultats={<div/>}
-					pagination={<MeiliSearchPagination numberOfResultPerPage={1} onPageChange={() => null}/>}
+					resultats={<div />}
+					pagination={<MeiliSearchPagination numberOfResultPerPage={1} onPageChange={() => null} />}
 					isAffichageListeDeResultatsDesktopDirectionRow={true}
 					skeletonRepeat={2}
 				/>,

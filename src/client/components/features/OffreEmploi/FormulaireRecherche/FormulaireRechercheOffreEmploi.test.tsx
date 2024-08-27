@@ -39,7 +39,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi/>
+						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
 
@@ -66,7 +66,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				mockUseRouter({ push: routerPush });
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi/>
+						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
 
@@ -102,7 +102,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi/>
+						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
 
@@ -133,7 +133,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				// WHEN
 				render(
 					<DependenciesProvider localisationService={aLocalisationService()}>
-						<FormulaireRechercheOffreEmploi/>
+						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
 				await user.click(screen.getByRole('button', { name: 'Filtrer ma recherche' }));
@@ -153,7 +153,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi/>
+						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
 
@@ -184,7 +184,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				// WHEN
 				render(
 					<DependenciesProvider localisationService={aLocalisationService()}>
-						<FormulaireRechercheOffreEmploi/>
+						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
 				await user.click(screen.getByRole('button', { name: 'Filtrer ma recherche' }));
@@ -205,7 +205,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi/>
+						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
 
@@ -236,7 +236,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				// WHEN
 				render(
 					<DependenciesProvider localisationService={aLocalisationService()}>
-						<FormulaireRechercheOffreEmploi/>
+						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
 				await user.click(screen.getByRole('button', { name: 'Filtrer ma recherche' }));
@@ -257,7 +257,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi/>
+						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
 
@@ -289,7 +289,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				// WHEN
 				render(
 					<DependenciesProvider localisationService={aLocalisationService()}>
-						<FormulaireRechercheOffreEmploi/>
+						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
 				await user.click(screen.getByRole('button', { name: 'Filtrer ma recherche' }));
@@ -315,7 +315,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi/>
+						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
 
@@ -341,7 +341,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi/>
+						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
 
@@ -367,7 +367,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi/>
+						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
 
@@ -393,7 +393,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi/>
+						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
 
@@ -430,7 +430,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={aLocalisationService()}>
-						<FormulaireRechercheOffreEmploi/>
+						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
 
@@ -462,7 +462,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={aLocalisationService()}>
-						<FormulaireRechercheOffreEmploi/>
+						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
 

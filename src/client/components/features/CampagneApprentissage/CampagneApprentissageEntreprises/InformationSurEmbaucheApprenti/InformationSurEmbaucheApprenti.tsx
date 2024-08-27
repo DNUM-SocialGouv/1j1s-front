@@ -17,7 +17,7 @@ export function InformationSurEmbaucheApprenti() {
 				</h2>
 				<Link href={embaucherUnApprentiLink} appearance={'asSecondaryButton'} className={styles.link}>
 					Se renseigner sur l’embauche
-					<Link.Icon/>
+					<Link.Icon />
 				</Link>
 			</section>
 			<section aria-labelledby={'titre-section-aide'} className={styles.aideFinanciere}>
@@ -29,7 +29,7 @@ export function InformationSurEmbaucheApprenti() {
 				</p>
 				<Link href={enSavoirPlusSurAideLink} appearance={'asSecondaryButton'} className={styles.link}>
 						En savoir plus
-					<Link.Icon/>
+					<Link.Icon />
 				</Link>
 			</section>
 		</Container>

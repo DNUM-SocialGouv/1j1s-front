@@ -65,7 +65,7 @@ describe('<ConsulterEmploiEurope />', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		const analyticsService = aManualAnalyticsService();
 		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>
-			<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope}/>
+			<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 		</DependenciesProvider>);
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -73,7 +73,7 @@ describe('<ConsulterEmploiEurope />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const analyticsService = aManualAnalyticsService();
 		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>
-			<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope}/>
+			<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 		</DependenciesProvider>);
 
 		await expect(container).toBeAccessible();
@@ -85,7 +85,7 @@ describe('<ConsulterEmploiEurope />', () => {
 
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope}/>
+				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 			</DependenciesProvider>,
 		);
 
@@ -98,7 +98,7 @@ describe('<ConsulterEmploiEurope />', () => {
 
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope}/>
+				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 			</DependenciesProvider>,
 		);
 
@@ -111,7 +111,7 @@ describe('<ConsulterEmploiEurope />', () => {
 
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope}/>
+				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 			</DependenciesProvider>,
 		);
 
@@ -123,7 +123,7 @@ describe('<ConsulterEmploiEurope />', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope}/>
+				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 			</DependenciesProvider>,
 		);
 

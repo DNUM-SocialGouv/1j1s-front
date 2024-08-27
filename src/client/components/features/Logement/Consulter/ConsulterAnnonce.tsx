@@ -48,30 +48,30 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 	} = annonceDeLogement;
 	return (
 		<main id="contenu" className={styles.gridLayout}>
-			<BackButton className={styles.boutonRetour}/>
-			<AnnonceSource source={source} className={styles.mobileOnly} data-testid="source-annonce-mobile"/>
-			<AnnonceCarousel imageUrlList={imageList}/>
+			<BackButton className={styles.boutonRetour} />
+			<AnnonceSource source={source} className={styles.mobileOnly} data-testid="source-annonce-mobile" />
+			<AnnonceCarousel imageUrlList={imageList} />
 			<AnnonceEntête>
 				<h1>{titre}</h1>
-				<DateMiseÀJour date={dateDeMiseAJour}/>
+				<DateMiseÀJour date={dateDeMiseAJour} />
 				<TypeBien>{type} - {typeBien}</TypeBien>
 			</AnnonceEntête>
 			<Container className={styles.annonceBody}>
 				<div>
-					<InformationsGénérales annonce={annonceDeLogement}/>
+					<InformationsGénérales annonce={annonceDeLogement} />
 					<DescriptionDuLogement>{description}</DescriptionDuLogement>
-					<Services inclus={annonceDeLogement.servicesInclus} optionnels={annonceDeLogement.servicesOptionnels}/>
+					<Services inclus={annonceDeLogement.servicesInclus} optionnels={annonceDeLogement.servicesOptionnels} />
 					<BilanEnergetiqueLogement
 						consommationEnergetique={bilanEnergetique.consommationEnergetique}
 						emissionDeGaz={bilanEnergetique.emissionDeGaz}
 					/>
 				</div>
-				<CandidaterDesktop source={source} urlDeCandidature={urlDeCandidature} data-testid="source-annonce-desktop"/>
+				<CandidaterDesktop source={source} urlDeCandidature={urlDeCandidature} data-testid="source-annonce-desktop" />
 			</Container>
 			<div className={styles.lienDeCandidatureMobile}>
 				<Link appearance="asPrimaryButton" href={urlDeCandidature}>
 					Voir l‘annonce
-					<Link.Icon/>
+					<Link.Icon />
 				</Link>
 			</div>
 		</main>
@@ -105,7 +105,7 @@ function AnnonceSource({ source, className, ...rest }: AnnonceSourceProps) {
 		case 'immojeune':
 			return (
 				<span className={classNames(styles.source, className)} {...rest}>
-						Ce bien est diffusé par <Image src="/images/logement/immojeune.webp" alt="immojeune" width="95" height="44"/>
+						Ce bien est diffusé par <Image src="/images/logement/immojeune.webp" alt="immojeune" width="95" height="44" />
 				</span>
 			);
 		case 'studapart':
@@ -125,13 +125,13 @@ type CandidaterDesktopProps = { source: AnnonceDeLogement.Source, urlDeCandidatu
 function CandidaterDesktop({ source, urlDeCandidature, ...rest }: CandidaterDesktopProps) {
 	return (
 		<div className={classNames(styles.cardCandidater)} {...rest}>
-			<AnnonceSource source={source}/>
+			<AnnonceSource source={source} />
 			<Link
 				appearance="asPrimaryButton"
 				href={urlDeCandidature}
 			>
 				Voir l‘annonce
-				<Link.Icon/>
+				<Link.Icon />
 			</Link>
 		</div>
 	);

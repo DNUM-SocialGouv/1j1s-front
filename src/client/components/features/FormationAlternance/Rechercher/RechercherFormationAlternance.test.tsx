@@ -27,7 +27,7 @@ describe('RechercherFormation', () => {
 				metierLbaService={aMetierService()}
 				localisationService={aLocalisationService()}
 			>
-				<RechercherFormationAlternance/>
+				<RechercherFormationAlternance />
 			</DependenciesProvider>,
 		);
 
@@ -86,7 +86,7 @@ describe('RechercherFormation', () => {
 					metierLbaService={aMetierService()}
 					localisationService={aLocalisationService()}
 				>
-					<RechercherFormationAlternance resultats={resultatRechercheFormationAlternance}/>
+					<RechercherFormationAlternance resultats={resultatRechercheFormationAlternance} />
 				</DependenciesProvider>,
 			);
 
@@ -121,7 +121,7 @@ describe('RechercherFormation', () => {
 					metierLbaService={aMetierService()}
 					localisationService={aLocalisationService()}
 				>
-					<RechercherFormationAlternance resultats={[]}/>
+					<RechercherFormationAlternance resultats={[]} />
 				</DependenciesProvider>,
 			);
 
@@ -139,7 +139,7 @@ describe('RechercherFormation', () => {
 						metierLbaService={aMetierService()}
 						localisationService={aLocalisationService()}
 					>
-						<RechercherFormationAlternance resultats={resultatRechercheFormationAlternance}/>
+						<RechercherFormationAlternance resultats={resultatRechercheFormationAlternance} />
 					</DependenciesProvider>,
 				);
 
@@ -157,7 +157,7 @@ describe('RechercherFormation', () => {
 						metierLbaService={aMetierService()}
 						localisationService={aLocalisationService()}
 					>
-						<RechercherFormationAlternance resultats={resultatRechercheFormationAlternance}/>
+						<RechercherFormationAlternance resultats={resultatRechercheFormationAlternance} />
 					</DependenciesProvider>,
 				);
 
@@ -174,7 +174,7 @@ describe('RechercherFormation', () => {
 				metierLbaService={aMetierService()}
 				localisationService={aLocalisationService()}
 			>
-				<RechercherFormationAlternance/>
+				<RechercherFormationAlternance />
 			</DependenciesProvider>,
 		);
 

@@ -55,7 +55,7 @@ describe('RechercherJobÉtudiant', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()}/>
+					<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()} />
 				</DependenciesProvider>,
 			);
 
@@ -89,7 +89,7 @@ describe('RechercherJobÉtudiant', () => {
 						<DependenciesProvider
 							localisationService={localisationServiceMock}
 						>
-							<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()}/>
+							<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()} />
 						</DependenciesProvider>,
 					);
 
@@ -118,7 +118,7 @@ describe('RechercherJobÉtudiant', () => {
 						<DependenciesProvider
 							localisationService={localisationServiceMock}
 						>
-							<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()}/>
+							<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()} />
 						</DependenciesProvider>,
 					);
 
@@ -144,7 +144,7 @@ describe('RechercherJobÉtudiant', () => {
 						<DependenciesProvider
 							localisationService={localisationServiceMock}
 						>
-							<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()}/>
+							<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()} />
 						</DependenciesProvider>,
 					);
 
@@ -166,7 +166,7 @@ describe('RechercherJobÉtudiant', () => {
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
 					>
-						<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()}/>
+						<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()} />
 					</DependenciesProvider>,
 				);
 
@@ -199,7 +199,7 @@ describe('RechercherJobÉtudiant', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherJobÉtudiant resultats={expected}/>
+					<RechercherJobÉtudiant resultats={expected} />
 				</DependenciesProvider>,
 			);
 
@@ -225,7 +225,7 @@ describe('RechercherJobÉtudiant', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherJobÉtudiant resultats={expected}/>
+					<RechercherJobÉtudiant resultats={expected} />
 				</DependenciesProvider>,
 			);
 
@@ -249,7 +249,7 @@ describe('RechercherJobÉtudiant', () => {
 				<DependenciesProvider
 					localisationService={aLocalisationService()}
 				>
-					<RechercherJobÉtudiant resultats={offre}/>
+					<RechercherJobÉtudiant resultats={offre} />
 				</DependenciesProvider>,
 			);
 
@@ -273,7 +273,7 @@ describe('RechercherJobÉtudiant', () => {
 				<DependenciesProvider
 					localisationService={aLocalisationService()}
 				>
-					<RechercherJobÉtudiant resultats={offre}/>
+					<RechercherJobÉtudiant resultats={offre} />
 				</DependenciesProvider>,
 			);
 

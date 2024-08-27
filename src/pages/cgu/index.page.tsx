@@ -9,7 +9,7 @@ import { dependencies } from '~/server/start';
 export default function Cgu({ titre, contenu }: ConsulterContenuProps) {
 	useAnalytics(analytics);
 
-	return <ConsulterContenu titre={titre} contenu={contenu}/>;
+	return <ConsulterContenu titre={titre} contenu={contenu} />;
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<ConsulterContenuProps>> {

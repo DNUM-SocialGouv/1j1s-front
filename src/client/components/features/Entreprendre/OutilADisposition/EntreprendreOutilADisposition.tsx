@@ -16,7 +16,7 @@ export function EntreprendreOutilADisposition({ link, linkLabel, description }: 
 			<p>{description}</p>
 			<Link appearance="asPrimaryButton" href={link}>
 				{linkLabel}
-				<Link.Icon/>
+				<Link.Icon />
 			</Link>
 		</div>
 	);

@@ -13,7 +13,7 @@ export default function RejoignezMobilisation() {
 		<div className={styles.content}>
 			<Container className={styles.container}>
 				<div className={styles.lesEntreprisesSEngagent}>
-					<Image src="/icons/les-entreprises-s-engagent.svg" alt="" width={65} height={65}/>
+					<Image src="/icons/les-entreprises-s-engagent.svg" alt="" width={65} height={65} />
 					<span className={styles.lesEntreprisesSEngagentTitle}>Les entreprises s‘engagent</span>
 				</div>
 				<LightHero className={styles.initiativeJeuneTitle}>
@@ -30,11 +30,11 @@ export default function RejoignezMobilisation() {
 				<div className={styles.linkAsButtonWrapper}>
 					<Link href={urlRejoindreLaMobilisation} appearance="asPrimaryButton">
 					Rejoindre la mobilisation
-						<Link.Icon/>
+						<Link.Icon />
 					</Link>
 					<Link href="https://lesentreprises-sengagent.gouv.fr/les-entreprises-engagees" appearance="asSecondaryButton">
 					Découvrir les entreprises engagées
-						<Link.Icon/>
+						<Link.Icon />
 					</Link>
 				</div>
 			</Container>

@@ -20,7 +20,7 @@ export function ModaleFranceTravail(props: { open: boolean, close: () => void, h
 					France Travail</h1>
 					<Link href={props.href} appearance="asPrimaryButton">
 					Contacter mon conseiller
-						<Link.Icon/>
+						<Link.Icon />
 					</Link>
 				</div>
 			</ModalComponent.Content>

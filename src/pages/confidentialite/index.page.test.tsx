@@ -18,7 +18,7 @@ describe('<Confidentialite />', () => {
 		mockSmallScreen();
 			
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<Confidentialite titre={'titre'} contenu={'contenu'}/>
+			<Confidentialite titre={'titre'} contenu={'contenu'} />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();

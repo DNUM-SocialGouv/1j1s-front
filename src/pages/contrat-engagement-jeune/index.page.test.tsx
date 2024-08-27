@@ -25,7 +25,7 @@ describe('Contrat engagement jeune', () => {
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>
-			<ContratEngagementJeune/>
+			<ContratEngagementJeune />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -34,7 +34,7 @@ describe('Contrat engagement jeune', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<ContratEngagementJeune/>
+				<ContratEngagementJeune />
 			</DependenciesProvider>,
 		);
 

@@ -42,7 +42,7 @@ export function ConsulterFicheMétier({ ficheMetier }: { ficheMetier: FicheMéti
 						<div className={styles.fieldDomaine}>
 							<span className={styles.fieldLabel}>Domaine(s) :</span>
 							<div className={styles.fieldContent}>
-								<TagList list={secteursActivite.map((fiche) => fiche.libelle)}/>
+								<TagList list={secteursActivite.map((fiche) => fiche.libelle)} />
 							</div>
 						</div>
 					)}
@@ -50,7 +50,7 @@ export function ConsulterFicheMétier({ ficheMetier }: { ficheMetier: FicheMéti
 						<div className={styles.fieldRésumé}>
 							<span className={styles.fieldLabel}>Résumé :</span>
 							{accrocheMetier &&
-							<div className={styles.fieldContent} dangerouslySetInnerHTML={{ __html: accrocheMetier }}/>}
+							<div className={styles.fieldContent} dangerouslySetInnerHTML={{ __html: accrocheMetier }} />}
 						</div>
 					)}
 					{niveauAccesMin.length > 0 && (
@@ -69,34 +69,34 @@ export function ConsulterFicheMétier({ ficheMetier }: { ficheMetier: FicheMéti
 			</section>
 			{natureTravail && (
 				<FoldingSection summary="Nature du travail" open={true}>
-					<MarkdownToHtml markdown={natureTravail}/>
+					<MarkdownToHtml markdown={natureTravail} />
 				</FoldingSection>
 			)}
 			{competences && (
 				<FoldingSection summary="Compétences requises">
-					<MarkdownToHtml markdown={competences}/>
+					<MarkdownToHtml markdown={competences} />
 				</FoldingSection>
 			)}
 			{conditionTravail && (
 				<FoldingSection summary="Lieu d‘exercice et status">
-					<MarkdownToHtml markdown={conditionTravail}/>
+					<MarkdownToHtml markdown={conditionTravail} />
 				</FoldingSection>
 			)}
 			{vieProfessionnelle && (
 				<FoldingSection summary="Carrière et salaire">
-					<MarkdownToHtml markdown={vieProfessionnelle}/>
+					<MarkdownToHtml markdown={vieProfessionnelle} />
 				</FoldingSection>
 			)}
 			{accesMetier && (
 				<FoldingSection summary="Accès au métier">
-					<MarkdownToHtml markdown={accesMetier}/>
+					<MarkdownToHtml markdown={accesMetier} />
 				</FoldingSection>
 			)}
 			{centresInteret && centresInteret.length > 0 && (
 				<section className={styles.section}>
 					<h2 className={styles.lastSectionTitle}>Centres d‘intérêt</h2>
 					<div className={styles.sectionContent}>
-						<TagList list={displayedCentresInteret}/>
+						<TagList list={displayedCentresInteret} />
 					</div>
 				</section>
 			)}

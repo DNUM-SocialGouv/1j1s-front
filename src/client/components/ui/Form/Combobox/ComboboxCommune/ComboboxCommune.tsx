@@ -143,12 +143,12 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 							}
 						</Combobox.AsyncMessage>
 					</Champ.Input>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
-				<input type="hidden" name="ville" value={matchingOption?.ville ?? ''}/>
-				<input type="hidden" name="latitudeCommune" value={matchingOption?.coordonnées.latitude ?? ''}/>
-				<input type="hidden" name="longitudeCommune" value={matchingOption?.coordonnées.longitude ?? ''}/>
-				<input type="hidden" name="codePostal" value={matchingOption?.codePostal ?? ''}/>
+				<input type="hidden" name="ville" value={matchingOption?.ville ?? ''} />
+				<input type="hidden" name="latitudeCommune" value={matchingOption?.coordonnées.latitude ?? ''} />
+				<input type="hidden" name="longitudeCommune" value={matchingOption?.coordonnées.longitude ?? ''} />
+				<input type="hidden" name="codePostal" value={matchingOption?.codePostal ?? ''} />
 			</div>
 			{showRadiusInput && isCommuneValid && userInput && 	(
 				<Champ>
@@ -166,7 +166,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 							<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 						)}
 					</Champ.Input>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 			)}
 		</>

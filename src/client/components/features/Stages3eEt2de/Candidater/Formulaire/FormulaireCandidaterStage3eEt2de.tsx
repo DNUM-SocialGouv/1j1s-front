@@ -182,7 +182,7 @@ function FormulaireContactParTelephone(props: {
 		<>
 			<Container className={styles.formulaireContainer}>
 
-				<BackButton label="Retour à la recherche" aria-label="Retour à la recherche" className={styles.boutonRetour}/>
+				<BackButton label="Retour à la recherche" aria-label="Retour à la recherche" className={styles.boutonRetour} />
 
 				<p className={styles.mentionChampsObligatoires}>Tous les champs sont obligatoires (sauf mention contraire)</p>
 
@@ -201,7 +201,7 @@ function FormulaireContactParTelephone(props: {
 											 type="text"
 											 autoComplete="given-name"
 						/>
-						<Champ.Error/>
+						<Champ.Error />
 					</Champ>
 					<Champ>
 						<Champ.Label>Nom
@@ -213,7 +213,7 @@ function FormulaireContactParTelephone(props: {
 											 type="text"
 											 autoComplete="family-name"
 						/>
-						<Champ.Error/>
+						<Champ.Error />
 					</Champ>
 					<Champ>
 						<Champ.Label>E-mail
@@ -226,7 +226,7 @@ function FormulaireContactParTelephone(props: {
 											 autoComplete="email"
 											 pattern={emailRegex}
 						/>
-						<Champ.Error/>
+						<Champ.Error />
 					</Champ>
 					{ /* FIXME (DORO 22-01-2024: Ajouter la gestion de readonly dans Select */}
 					{isMoreThanOneMetier ? (
@@ -245,7 +245,7 @@ function FormulaireContactParTelephone(props: {
 									<SelectSimple.Option key={metier.label} value={metier.code}>{metier.label}</SelectSimple.Option>,
 								)}
 							</Champ.Input>
-							<Champ.Error/>
+							<Champ.Error />
 						</Champ>
 					) : (
 						<Champ>
@@ -261,7 +261,7 @@ function FormulaireContactParTelephone(props: {
 												 readOnly
 												 type="text"
 							/>
-							<Champ.Error/>
+							<Champ.Error />
 						</Champ>
 					)}
 					<ButtonComponent
@@ -289,7 +289,7 @@ function FormulaireContactParEmail(props: {
 		<>
 			<Container className={styles.formulaireContainer}>
 
-				<BackButton label="Retour à la recherche" aria-label="Retour à la recherche" className={styles.boutonRetour}/>
+				<BackButton label="Retour à la recherche" aria-label="Retour à la recherche" className={styles.boutonRetour} />
 
 				<p className={styles.mentionChampsObligatoires}>Tous les champs sont obligatoires (sauf mention contraire)</p>
 
@@ -308,7 +308,7 @@ function FormulaireContactParEmail(props: {
 											 type="text"
 											 autoComplete="given-name"
 						/>
-						<Champ.Error/>
+						<Champ.Error />
 					</Champ>
 					<Champ>
 						<Champ.Label>Nom
@@ -320,7 +320,7 @@ function FormulaireContactParEmail(props: {
 											 type="text"
 											 autoComplete="family-name"
 						/>
-						<Champ.Error/>
+						<Champ.Error />
 					</Champ>
 					<Champ>
 						<Champ.Label>E-mail
@@ -333,7 +333,7 @@ function FormulaireContactParEmail(props: {
 											 autoComplete="email"
 											 pattern={emailRegex}
 						/>
-						<Champ.Error/>
+						<Champ.Error />
 					</Champ>
 					<Champ>
 						<Champ.Label>
@@ -349,7 +349,7 @@ function FormulaireContactParEmail(props: {
 											 autoComplete="tel"
 											 pattern={telFrRegex}
 						/>
-						<Champ.Error/>
+						<Champ.Error />
 					</Champ>
 					{ /* FIXME (DORO 22-01-2024: Ajouter la gestion de readonly dans Select */}
 					{isMoreThanOneMetier ? (
@@ -368,7 +368,7 @@ function FormulaireContactParEmail(props: {
 									<SelectSimple.Option key={metier.label} value={metier.code}>{metier.label}</SelectSimple.Option>,
 								)}
 							</Champ.Input>
-							<Champ.Error/>
+							<Champ.Error />
 						</Champ>
 					) : (
 						<Champ>
@@ -384,7 +384,7 @@ function FormulaireContactParEmail(props: {
 												 readOnly
 												 type="text"
 							/>
-							<Champ.Error/>
+							<Champ.Error />
 						</Champ>
 					)}
 					<Champ className={styles.champMessage}>
@@ -402,7 +402,7 @@ function FormulaireContactParEmail(props: {
 							required
 							defaultValue={messageContactParDefaut}
 						/>
-						<Champ.Error/>
+						<Champ.Error />
 					</Champ>
 					<ButtonComponent
 						className={styles.boutonSoumission}

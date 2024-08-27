@@ -27,7 +27,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 
 		render(
 			<DependenciesProvider demandeDeContactService={demandeDeContactServiceMock} localisationService={localisationService}>
-				<FormulaireDeContactCEJ onSuccess={onSuccess} onFailure={onFailure}/>
+				<FormulaireDeContactCEJ onSuccess={onSuccess} onFailure={onFailure} />
 			</DependenciesProvider>,
 		);
 		return { demandeDeContactServiceMock, onSuccess };

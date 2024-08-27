@@ -12,7 +12,7 @@ export default function Application() {
 		<div className={styles.application}>
 			<div className={styles.applicationContainer}>
 
-				<Image src={logoImage} alt={'Contrat d‘engagement jeune'} aria-hidden="true"/>
+				<Image src={logoImage} alt={'Contrat d‘engagement jeune'} aria-hidden="true" />
 
 				<div className={styles.applicationDescription}>
 					L‘appli qui vous permet d‘échanger plus facilement avec votre conseiller et de réaliser vos recherches
@@ -26,7 +26,7 @@ export default function Application() {
 						className={styles.applicationTelechargerLien}
 					>
 						<div className={styles.applicationTelechargerLienLogo} aria-hidden="true">
-							<Image src={logoGoogle} alt={''} fill/>
+							<Image src={logoGoogle} alt={''} fill />
 						</div>
 						<div>
 							Télécharger sur <span>Google Play</span>
@@ -37,7 +37,7 @@ export default function Application() {
 						className={styles.applicationTelechargerLien}
 					>
 						<div className={styles.applicationTelechargerLienLogo} aria-hidden="true">
-							<Image src={logoApple} alt={''} fill/>
+							<Image src={logoApple} alt={''} fill />
 						</div>
 						<div>
 							Télécharger sur <span>APP Store</span>

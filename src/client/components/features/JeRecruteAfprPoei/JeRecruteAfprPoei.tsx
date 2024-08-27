@@ -8,10 +8,10 @@ import BanniereRejoindreLaMobilisation
 export default function JeRecruteAfprPoei() {
 	return (
 		<div className={styles.jeRecruteAfprPoei}>
-			<RecrutementCandidatFranceTravail/>
-			<Avantages/>
-			<CommentCaMarche/>
-			<BanniereRejoindreLaMobilisation/>
+			<RecrutementCandidatFranceTravail />
+			<Avantages />
+			<CommentCaMarche />
+			<BanniereRejoindreLaMobilisation />
 		</div>
 	);
 }

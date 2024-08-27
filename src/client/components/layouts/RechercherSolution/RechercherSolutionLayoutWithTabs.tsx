@@ -59,7 +59,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 	}
 
 	const messageResultatRechercheCurrentTab = listeSolutionElementTab[currentTab].messageResultatRecherche;
-	const messageNoResult = listeSolutionElementTab[currentTab].messageNoResult ?? <NoResultErrorMessage/>;
+	const messageNoResult = listeSolutionElementTab[currentTab].messageNoResult ?? <NoResultErrorMessage />;
 	const shouldDisplayPagination = paginationOffset && listeSolutionElementTab[currentTab].nombreDeSolutions > paginationOffset;
 	const hasSolutionsInCurrentTab = listeSolutionElementTab[currentTab].nombreDeSolutions > 0;
 
@@ -76,7 +76,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 
 				{hasRouterQuery && (
 					<>
-            	{erreurRecherche ? <ErrorComponent errorType={erreurRecherche}/>
+            	{erreurRecherche ? <ErrorComponent errorType={erreurRecherche} />
             		: (
 								<>
             			<Container className={styles.informationResultat}>

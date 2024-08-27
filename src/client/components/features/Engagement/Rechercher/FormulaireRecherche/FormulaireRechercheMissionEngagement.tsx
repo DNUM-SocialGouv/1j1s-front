@@ -75,7 +75,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 							<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 						)}
 					</Champ.Input>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 
 				<ComboboxCommune
@@ -95,7 +95,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 			</div>
 
 			<div className={styles.rechercherMissionEngagementButton}>
-				<ButtonComponent label="Rechercher" icon={<Icon name="magnifying-glass"/>} iconPosition="right"
+				<ButtonComponent label="Rechercher" icon={<Icon name="magnifying-glass" />} iconPosition="right"
 								 type="submit"
 				/>
 			</div>

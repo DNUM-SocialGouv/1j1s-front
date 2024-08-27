@@ -15,7 +15,7 @@ export default function Handicap({ setTypeFormulaireAffiché, setIsInscriptionFr
 				className={styles.boutonRetour}
 				onClick={onBackButton}
 				label="Retour"
-				icon={<Icon name={'angle-left'}/>}
+				icon={<Icon name={'angle-left'} />}
 				iconPosition={'left'}
 			/>
 			<p className={styles.question}>Êtes-vous en situation de handicap (RQTH) ?</p>

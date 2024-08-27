@@ -62,7 +62,7 @@ export function CommonPagination(props: CommonPaginationProps) {
 							}
 						}}
 					>
-						<Icon name={'angle-left-from-line'}/>
+						<Icon name={'angle-left-from-line'} />
 					</a>
 				</li>
 				<li key="PreviousPageLiPagination">
@@ -78,7 +78,7 @@ export function CommonPagination(props: CommonPaginationProps) {
 							}
 						}}
 					>
-						{isSmallScreen ? <Icon name={'angle-left'}/> : <><Icon name={'angle-left'}/> <span>Page précédente</span></>}
+						{isSmallScreen ? <Icon name={'angle-left'} /> : <><Icon name={'angle-left'} /> <span>Page précédente</span></>}
 					</a>
 				</li>
 			</>
@@ -109,7 +109,7 @@ export function CommonPagination(props: CommonPaginationProps) {
 							}
 						}}
 					>
-						{isSmallScreen ? <Icon name={'angle-right'}/> : <><span>Page suivante</span> <Icon name={'angle-right'}/></>}
+						{isSmallScreen ? <Icon name={'angle-right'} /> : <><span>Page suivante</span> <Icon name={'angle-right'} /></>}
 					</a>
 				</li>
 				<li key="LastLiPagination">
@@ -125,7 +125,7 @@ export function CommonPagination(props: CommonPaginationProps) {
 							}
 						}}
 					>
-						<Icon name={'angle-right-from-line'}/>
+						<Icon name={'angle-right-from-line'} />
 					</a>
 				</li>
 			</>

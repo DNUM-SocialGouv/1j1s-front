@@ -49,7 +49,7 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 	const isInternalLink = useIsInternalLink(link);
 	const linkTitle = !isInternalLink ? `${linkLabel} - nouvelle fenêtre` : undefined;
 	const icon = useMemo(function () {
-		return <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'}/>;
+		return <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'} />;
 	}, [isInternalLink]);
 
 
@@ -64,12 +64,12 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 					styles.serviceCard,
 					imageFit === 'cover' && styles.cardCover)}
 			>
-				<Card.Image className={styles.cardLogo} src={logo} alt={logoAlt}/>
+				<Card.Image className={styles.cardLogo} src={logo} alt={logoAlt} />
 				<Card.Content className={styles.cardBody}>
 					<Card.Title titleAs={titleAs} className={styles.cardTitle}>{title}</Card.Title>
 					<p>{children}</p>
 					<span className={styles.cardAction}>
-						<Card.FakeLink appearance={'quaternary'} label={linkLabel} icon={icon}/>
+						<Card.FakeLink appearance={'quaternary'} label={linkLabel} icon={icon} />
 					</span>
 				</Card.Content>
 			</Card>

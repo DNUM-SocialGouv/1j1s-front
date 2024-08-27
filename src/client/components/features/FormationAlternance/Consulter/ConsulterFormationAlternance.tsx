@@ -17,13 +17,13 @@ export function ConsulterFormationAlternance({ formation, statistiques }: { form
 				<header className={commonStyles.titre}>
 					{formation.titre && <h1>{formation.titre}</h1>}
 					{formation.nomEntreprise && <h2>{formation.nomEntreprise}</h2>}
-					<TagList list={formation.tags}/>
+					<TagList list={formation.tags} />
 					{formation.lienDemandeRendezVous && (
 						<Link href={formation.lienDemandeRendezVous} className={commonStyles.postuler}
 							appearance={'asPrimaryButton'}
 						>
 							Contacter l’établissement
-							<Link.Icon/>
+							<Link.Icon />
 						</Link>
 					)}
 				</header>
@@ -56,7 +56,7 @@ export function ConsulterFormationAlternance({ formation, statistiques }: { form
 					)}
 				</section>
 			</ConsulterOffreLayout>
-			<StatistiquesFormationAlternance statistiques={statistiques}/>
+			<StatistiquesFormationAlternance statistiques={statistiques} />
 		</>
 	);
 }

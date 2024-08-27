@@ -50,7 +50,7 @@ describe('ModalComponent', () => {
 			);
 		}
 
-		render(<ButtonWithModale/>);
+		render(<ButtonWithModale />);
 
 		await user.click(screen.getByRole('button', { name: 'Ouvrir la modale' }));
 		expect(screen.getByRole('button', { name: 'Fermer' })).toHaveFocus();

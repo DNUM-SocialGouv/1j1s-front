@@ -22,7 +22,7 @@ describe('<ConsulterOffreStagePage />', () => {
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()}>
-			<ConsulterOffreStagePage offreDeStage={offreDeStage}/>
+			<ConsulterOffreStagePage offreDeStage={offreDeStage} />
 		</DependenciesProvider> );
 		
 		expect(container.outerHTML).toHTMLValidate();

@@ -70,23 +70,23 @@ export function RechercherOffreEmploi(props: RechercherOffreEmploiProps) {
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout
-					banniere={<BannièreOffreEmploi/>}
+					banniere={<BannièreOffreEmploi />}
 					erreurRecherche={erreurRecherche}
-					etiquettesRecherche={<EtiquettesFiltreOffreEmploi/>}
-					formulaireRecherche={<FormulaireRechercheOffreEmploi/>}
+					etiquettesRecherche={<EtiquettesFiltreOffreEmploi />}
+					formulaireRecherche={<FormulaireRechercheOffreEmploi />}
 					isChargement={false}
 					isEtatInitial={empty(offreQuery)}
 					messageResultatRecherche={messageRésultatRecherche}
 					nombreTotalSolutions={nombreRésultats}
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
 					maxPage={MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL - 1}
-					listeSolutionElement={<ListeOffreEmploi résultatList={offreEmploiList}/>}
+					listeSolutionElement={<ListeOffreEmploi résultatList={offreEmploiList} />}
 				/>
-				<EnTete heading="Découvrez des services faits pour vous"/>
+				<EnTete heading="Découvrez des services faits pour vous" />
 				<ServiceCardList>
-					<LaBonneBoitePartner/>
-					<OnisepMetierPartner/>
-					<ServiceCiviquePartner/>
+					<LaBonneBoitePartner />
+					<OnisepMetierPartner />
+					<ServiceCiviquePartner />
 				</ServiceCardList>
 			</main>
 		</>

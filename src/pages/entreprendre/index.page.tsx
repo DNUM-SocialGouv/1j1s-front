@@ -60,13 +60,13 @@ export default function Entreprendre() {
 
 						<div className={styles.réseauxContent}>
 							<Accordion summary="Je cherche à être accompagné" summaryAs="h3">
-								<RéseauAccompagnementList/>
+								<RéseauAccompagnementList />
 							</Accordion>
 							<Accordion summary="Je cherche à financer mon projet" summaryAs="h3">
-								<RéseauFinancementList/>
+								<RéseauFinancementList />
 							</Accordion>
 							<Accordion summary="Je lance un projet dans l’Economie sociale et solidaire" summaryAs="h3">
-								<RéseauÉconomieSocialeEtSolidaireList/>
+								<RéseauÉconomieSocialeEtSolidaireList />
 							</Accordion>
 						</div>
 					</Container>

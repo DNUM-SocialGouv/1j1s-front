@@ -51,7 +51,7 @@ export function FormulaireRechercheJobÉtudiant() {
 						name="motCle"
 						minLength={2}
 					/>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 
 				<ComboboxLocalisation
@@ -73,14 +73,14 @@ export function FormulaireRechercheJobÉtudiant() {
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
 					</Champ.Input>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 
 			</div>
 			<div className={styles.buttonRechercher}>
 				<ButtonComponent
 					label="Rechercher"
-					icon={<Icon name="magnifying-glass"/>}
+					icon={<Icon name="magnifying-glass" />}
 					iconPosition="right"
 					type="submit"
 				/>

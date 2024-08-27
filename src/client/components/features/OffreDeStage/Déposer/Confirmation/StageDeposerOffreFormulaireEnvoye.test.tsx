@@ -10,14 +10,14 @@ import StageDeposerOffreFormulaireEnvoye
 describe('StageDeposerOffreFormulaireEnvoye', () => {
 	it('affiche le message de validation', () => {
 		// When
-		render(<StageDeposerOffreFormulaireEnvoye/>);
+		render(<StageDeposerOffreFormulaireEnvoye />);
 
 		// Then
 		expect(screen.getByText('Cette offre est soumise à une validation avant sa mise en ligne.')).toBeVisible();
 	});
 	it('affiche un bouton pour déposer une nouvelle offre de stage', () => {
 		// When
-		render(<StageDeposerOffreFormulaireEnvoye/>);
+		render(<StageDeposerOffreFormulaireEnvoye />);
 
 		// Then
 		const link = screen.getByRole('link', { name: 'Déposer une offre de stage' });
@@ -26,7 +26,7 @@ describe('StageDeposerOffreFormulaireEnvoye', () => {
 	});
 	it('affiche un bouton pour retourner à l’accueil', () => {
 		// When
-		render(<StageDeposerOffreFormulaireEnvoye/>);
+		render(<StageDeposerOffreFormulaireEnvoye />);
 
 		// Then
 		const link = screen.getByRole('link', { name: 'Retourner à l’accueil' });

@@ -11,13 +11,13 @@ import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 export function ListeDesServicesInteressants() {
 	return (
 		<>
-			<EnTete heading='Des services faits pour vous' headingLevel={'h2'}/>
+			<EnTete heading='Des services faits pour vous' headingLevel={'h2'} />
 			<ServiceCardList>
-				<CarifOrefPartner/>
-				<FormationsEnApprentissageCard/>
-				<ParcourSupPartner/>
-				<MonCompteFormationPartner/>
-				<PixPartner/>
+				<CarifOrefPartner />
+				<FormationsEnApprentissageCard />
+				<ParcourSupPartner />
+				<MonCompteFormationPartner />
+				<PixPartner />
 			</ServiceCardList>
 		</>
 	);;

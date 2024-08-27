@@ -42,7 +42,7 @@ describe('<Accompagnement />', () => {
 
 		render(
 			<DependenciesProvider demandeDeContactService={demandeDeContactService} localisationService={localisationService}>
-				<Accompagnement/>
+				<Accompagnement />
 			</DependenciesProvider>,
 		);
 	}
@@ -63,7 +63,7 @@ describe('<Accompagnement />', () => {
 					demandeDeContactService={aDemandeDeContactService()}
 					localisationService={aLocalisationService()}
 				>
-					<Accompagnement/>
+					<Accompagnement />
 				</DependenciesProvider>,
 			);
 
@@ -98,7 +98,7 @@ describe('<Accompagnement />', () => {
 						demandeDeContactService={demandeDeContactService}
 						localisationService={localisationService}
 					>
-						<Accompagnement/>
+						<Accompagnement />
 					</DependenciesProvider>,
 				);
 				await user.click(screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par la Mission Locale' }));
@@ -140,7 +140,7 @@ describe('<Accompagnement />', () => {
 							demandeDeContactService={demandeDeContactService}
 							localisationService={localisationService}
 						>
-							<Accompagnement/>
+							<Accompagnement />
 						</DependenciesProvider>,
 					);
 					const boutonFormulaireMissionLocale = screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par la Mission Locale' });
@@ -173,7 +173,7 @@ describe('<Accompagnement />', () => {
 							demandeDeContactService={demandeDeContactService}
 							localisationService={localisationService}
 						>
-							<Accompagnement/>
+							<Accompagnement />
 						</DependenciesProvider>,
 					);
 
@@ -210,7 +210,7 @@ describe('<Accompagnement />', () => {
 							demandeDeContactService={demandeDeContactService}
 							localisationService={localisationService}
 						>
-							<Accompagnement/>
+							<Accompagnement />
 						</DependenciesProvider>,
 					);
 
@@ -278,7 +278,7 @@ describe('<Accompagnement />', () => {
 					demandeDeContactService={aDemandeDeContactService()}
 					localisationService={aLocalisationService()}
 				>
-					<Accompagnement/>
+					<Accompagnement />
 				</DependenciesProvider>,
 			);
 

@@ -10,7 +10,7 @@ export default function Accessibilite({ titre, contenu }: ConsulterContenuProps)
 	useAnalytics(analytics);
 
 	return (
-		<ConsulterContenu titre={titre} contenu={contenu}/>
+		<ConsulterContenu titre={titre} contenu={contenu} />
 	);
 }
 

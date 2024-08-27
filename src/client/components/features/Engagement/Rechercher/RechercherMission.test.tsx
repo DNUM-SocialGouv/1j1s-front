@@ -37,7 +37,7 @@ describe('RechercherMission', () => {
 					localisationService={localisationServiceMock}
 					missionEngagementService={missionEngagementServiceMock}
 				>
-					<RechercherMission category={EngagementCategory.BENEVOLAT}/>
+					<RechercherMission category={EngagementCategory.BENEVOLAT} />
 				</DependenciesProvider>,
 			);
 
@@ -65,7 +65,7 @@ describe('RechercherMission', () => {
 						localisationService={localisationServiceMock}
 						missionEngagementService={missionEngagementServiceMock}
 					>
-						<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
+						<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
 					</DependenciesProvider>,
 				);
 
@@ -91,7 +91,7 @@ describe('RechercherMission', () => {
 						localisationService={localisationServiceMock}
 						missionEngagementService={missionEngagementServiceMock}
 					>
-						<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
+						<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
 					</DependenciesProvider>,
 				);
 
@@ -110,7 +110,7 @@ describe('RechercherMission', () => {
 						localisationService={localisationServiceMock}
 						missionEngagementService={missionEngagementServiceMock}
 					>
-						<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
+						<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
 					</DependenciesProvider>,
 				);
 				const user = userEvent.setup();
@@ -145,7 +145,7 @@ describe('RechercherMission', () => {
 						localisationService={localisationServiceMock}
 						missionEngagementService={missionEngagementServiceMock}
 					>
-						<RechercherMission category={EngagementCategory.BENEVOLAT}/>
+						<RechercherMission category={EngagementCategory.BENEVOLAT} />
 					</DependenciesProvider>,
 				);
 
@@ -170,7 +170,7 @@ describe('RechercherMission', () => {
 						localisationService={localisationServiceMock}
 						missionEngagementService={missionEngagementServiceMock}
 					>
-						<RechercherMission category={EngagementCategory.BENEVOLAT}/>
+						<RechercherMission category={EngagementCategory.BENEVOLAT} />
 					</DependenciesProvider>,
 				);
 
@@ -189,7 +189,7 @@ describe('RechercherMission', () => {
 						localisationService={localisationServiceMock}
 						missionEngagementService={missionEngagementServiceMock}
 					>
-						<RechercherMission category={EngagementCategory.BENEVOLAT}/>
+						<RechercherMission category={EngagementCategory.BENEVOLAT} />
 					</DependenciesProvider>,
 				);
 
@@ -231,7 +231,7 @@ describe('RechercherMission', () => {
 
 		render(
 			<DependenciesProvider missionEngagementService={missionService} localisationService={aLocalisationService()}>
-				<RechercherMission category={EngagementCategory.BENEVOLAT}/>
+				<RechercherMission category={EngagementCategory.BENEVOLAT} />
 			</DependenciesProvider>,
 		);
 
@@ -252,7 +252,7 @@ describe('RechercherMission', () => {
 
 		render(
 			<DependenciesProvider missionEngagementService={missionService} localisationService={aLocalisationService()}>
-				<RechercherMission category={EngagementCategory.BENEVOLAT}/>
+				<RechercherMission category={EngagementCategory.BENEVOLAT} />
 			</DependenciesProvider>,
 		);
 
@@ -272,7 +272,7 @@ describe('RechercherMission', () => {
 					localisationService={localisationServiceMock}
 					missionEngagementService={missionEngagementServiceMock}
 				>
-					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
+					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
 				</DependenciesProvider>,
 			);
 
@@ -293,7 +293,7 @@ describe('RechercherMission', () => {
 					localisationService={localisationServiceMock}
 					missionEngagementService={missionEngagementServiceMock}
 				>
-					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
+					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
 				</DependenciesProvider>,
 			);
 
@@ -314,7 +314,7 @@ describe('RechercherMission', () => {
 					localisationService={localisationServiceMock}
 					missionEngagementService={missionEngagementServiceMock}
 				>
-					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
+					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
 				</DependenciesProvider>,
 			);
 
@@ -331,7 +331,7 @@ describe('RechercherMission', () => {
 				<DependenciesProvider missionEngagementService={aMissionEngagementService()}
 					localisationService={aLocalisationService()}
 				>
-					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
+					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />
 				</DependenciesProvider>,
 			);
 
@@ -356,7 +356,7 @@ describe('RechercherMission', () => {
 				<DependenciesProvider missionEngagementService={aMissionEngagementService()}
 					localisationService={aLocalisationService()}
 				>
-					<RechercherMission category={EngagementCategory.BENEVOLAT}/>
+					<RechercherMission category={EngagementCategory.BENEVOLAT} />
 				</DependenciesProvider>,
 			);
 

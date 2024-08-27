@@ -29,7 +29,7 @@ describe('La recherche des stages de 3e et 2de', () => {
 																	 localisationService={aLocalisationService()}
 																	 metierStage3eEt2deService={metierStage3eEt2deService}
 			>
-				<RechercherStages3eEt2de/>
+				<RechercherStages3eEt2de />
 			</DependenciesProvider>);
 
 			// THEN
@@ -72,7 +72,7 @@ describe('La recherche des stages de 3e et 2de', () => {
 																	 localisationService={aLocalisationService()}
 																	 metierStage3eEt2deService={aMetierService()}
 			>
-				<RechercherStages3eEt2de/>
+				<RechercherStages3eEt2de />
 			</DependenciesProvider>);
 			const messageResultatsRecherche = await screen.findByText('1 entreprise accueillante');
 			const resultatsUl = await screen.findAllByRole('list', { name: 'Stages de 3e et 2de' });
@@ -127,7 +127,7 @@ describe('La recherche des stages de 3e et 2de', () => {
 																	 localisationService={aLocalisationService()}
 																	 metierStage3eEt2deService={aMetierService()}
 			>
-				<RechercherStages3eEt2de/>
+				<RechercherStages3eEt2de />
 			</DependenciesProvider>);
 			const messageResultatsRecherche = await screen.findByText('2 entreprises accueillantes');
 			const resultatsUl = await screen.findAllByRole('list', { name: 'Stages de 3e et 2de' });
@@ -177,7 +177,7 @@ describe('La recherche des stages de 3e et 2de', () => {
 																		 localisationService={aLocalisationService()}
 																		 metierStage3eEt2deService={aMetierService()}
 				>
-					<RechercherStages3eEt2de/>
+					<RechercherStages3eEt2de />
 				</DependenciesProvider>);
 				const messageResultatsRecherche = await screen.findByText('1 entreprise accueillante pour Informatique');
 
@@ -203,7 +203,7 @@ describe('La recherche des stages de 3e et 2de', () => {
 																	 localisationService={aLocalisationService()}
 																	 metierStage3eEt2deService={aMetierService()}
 			>
-				<RechercherStages3eEt2de/>
+				<RechercherStages3eEt2de />
 			</DependenciesProvider>);
 
 			await screen.findAllByRole('list', { name: 'Stages de 3e et 2de' });

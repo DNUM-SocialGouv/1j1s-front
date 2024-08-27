@@ -55,7 +55,7 @@ describe('<ComboboxMetiers />', () => {
 			const user = userEvent.setup();
 
 			render(<MetierDependenciesProvider metierService={metierServiceMock}>
-				<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0}/>
+				<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0} />
 			</MetierDependenciesProvider>);
 			const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier Exemples : boulangerie, enseignement' });
 			await user.type(comboboxMetiers, 'dddddd');
@@ -76,7 +76,7 @@ describe('<ComboboxMetiers />', () => {
 			const user = userEvent.setup();
 
 			render(<MetierDependenciesProvider metierService={metierServiceMock}>
-				<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0}/>
+				<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0} />
 			</MetierDependenciesProvider>);
 			const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier Exemples : boulangerie, enseignement' });
 			await user.type(comboboxMetiers, 'boulang');
@@ -142,7 +142,7 @@ describe('<ComboboxMetiers />', () => {
 				render(
 					<form aria-label="Métier">
 						<MetierDependenciesProvider metierService={metierServiceMock}>
-							<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0}/>
+							<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0} />
 						</MetierDependenciesProvider>
 					</form>,
 				);
@@ -163,7 +163,7 @@ describe('<ComboboxMetiers />', () => {
 
 				render(
 					<MetierDependenciesProvider metierService={metierServiceMock}>
-						<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0}/>
+						<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0} />
 					</MetierDependenciesProvider>,
 				);
 				const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier Exemples : boulangerie, enseignement' });

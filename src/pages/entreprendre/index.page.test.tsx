@@ -23,7 +23,7 @@ describe('<Entreprendre />', () => {
 				analyticsService={aManualAnalyticsService()}
 				dateService={aDateService()}
 			>
-				<Entreprendre/>
+				<Entreprendre />
 			</DependenciesProvider>,
 		);
 
@@ -39,7 +39,7 @@ describe('<Entreprendre />', () => {
 				analyticsService={aManualAnalyticsService()}
 				dateService={aDateService()}
 			>
-				<Entreprendre/>);
+				<Entreprendre />);
 			</DependenciesProvider>);
 
 		await expect(container).toBeAccessible();

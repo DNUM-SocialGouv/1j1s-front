@@ -22,7 +22,7 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
 				<TagList list={offreEmploi.étiquetteList} aria-label="Caractéristiques de l‘offre d‘emploi" />
 				<div className={commonStyles.buttonAsLinkWrapper}>
 					<div className={commonStyles.buttonAsLink}>
-						<Link href={offreEmploi.urlOffreOrigine} appearance="asPrimaryButton">Je postule sur France Travail<Link.Icon/></Link>
+						<Link href={offreEmploi.urlOffreOrigine} appearance="asPrimaryButton">Je postule sur France Travail<Link.Icon /></Link>
 					</div>
 				</div>
 			</header>
@@ -30,7 +30,7 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
 				{offreEmploi.description && (
 					<div>
         	<h3>Description du poste :</h3>
-        	<p dangerouslySetInnerHTML={{ __html: descriptionOffreEmploi }}/>
+        	<p dangerouslySetInnerHTML={{ __html: descriptionOffreEmploi }} />
 					</div>
 				)}
 				{offreEmploi.compétenceList.length > 0 && (
@@ -71,7 +71,7 @@ export function ConsulterOffreEmploi({ offreEmploi }: ConsulterOffreEmploiProps)
 				{offreEmploi.salaire && (
 					<div>
         	<h3>Salaire :</h3> { ' ' }
-        	<p dangerouslySetInnerHTML={{ __html: salaireOffreEmploi }}/>
+        	<p dangerouslySetInnerHTML={{ __html: salaireOffreEmploi }} />
 					</div>
 				)}
 			</section>

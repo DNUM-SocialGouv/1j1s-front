@@ -22,7 +22,7 @@ describe('<DeposerOffreStagePage />', () => {
 				analyticsService={aManualAnalyticsService()}
 				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 			>
-				<DeposerOffreStagePage/>
+				<DeposerOffreStagePage />
 			</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();

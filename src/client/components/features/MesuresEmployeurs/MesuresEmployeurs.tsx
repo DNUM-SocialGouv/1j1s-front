@@ -20,12 +20,12 @@ export function MesuresEmployeursComponent({ mesureEmployeurList }: MesuresEmplo
 				robots="index,follow"
 			/>
 			<main id="contenu">
-				<Bannière/>
+				<Bannière />
 				<section className={styles.dispositifs}>
 					<ul className={styles.cartes}>
 						{mesureEmployeurList.map((carte) => (
 							<li key={carte.titre}>
-								<CarteMesureEmployeur carte={carte}/>
+								<CarteMesureEmployeur carte={carte} />
 							</li>
 						))}
 					</ul>

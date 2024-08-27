@@ -93,13 +93,13 @@ export function FormulaireRechercherFormationAlternance() {
 								<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 							)}
 						</Champ.Input>
-						<Champ.Error/>
+						<Champ.Error />
 					</Champ>
 				</div>
 				<div className={styles.buttonRechercher}>
 					<ButtonComponent
 						label="Rechercher"
-						icon={<Icon name="magnifying-glass"/>}
+						icon={<Icon name="magnifying-glass" />}
 						iconPosition="right"
 						type="submit"
 					/>

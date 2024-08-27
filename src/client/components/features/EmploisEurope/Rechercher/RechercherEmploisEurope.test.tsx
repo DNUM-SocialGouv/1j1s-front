@@ -34,7 +34,7 @@ describe('RechercherEmploisEurope', () => {
 				<DependenciesProvider
 					emploiEuropeService={emploiEuropeServiceMock}
 				>
-					<RechercherEmploisEurope/>
+					<RechercherEmploisEurope />
 				</DependenciesProvider>,
 			);
 			const formulaireRechercheEmploisEurope = screen.getByRole('search');
@@ -82,7 +82,7 @@ describe('RechercherEmploisEurope', () => {
 					<DependenciesProvider
 						emploiEuropeService={emploiEuropeServiceMock}
 					>
-						<RechercherEmploisEurope/>
+						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
 				const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
@@ -137,7 +137,7 @@ describe('RechercherEmploisEurope', () => {
 						<DependenciesProvider
 							emploiEuropeService={emploiEuropeServiceMock}
 						>
-							<RechercherEmploisEurope/>
+							<RechercherEmploisEurope />
 						</DependenciesProvider>,
 					);
 
@@ -184,7 +184,7 @@ describe('RechercherEmploisEurope', () => {
 						<DependenciesProvider
 							emploiEuropeService={emploiEuropeServiceMock}
 						>
-							<RechercherEmploisEurope/>
+							<RechercherEmploisEurope />
 						</DependenciesProvider>,
 					);
 
@@ -231,7 +231,7 @@ describe('RechercherEmploisEurope', () => {
 						<DependenciesProvider
 							emploiEuropeService={emploiEuropeServiceMock}
 						>
-							<RechercherEmploisEurope/>
+							<RechercherEmploisEurope />
 						</DependenciesProvider>,
 					);
 
@@ -281,7 +281,7 @@ describe('RechercherEmploisEurope', () => {
 						<DependenciesProvider
 							emploiEuropeService={emploiEuropeServiceMock}
 						>
-							<RechercherEmploisEurope/>
+							<RechercherEmploisEurope />
 						</DependenciesProvider>,
 					);
 
@@ -332,7 +332,7 @@ describe('RechercherEmploisEurope', () => {
 						<DependenciesProvider
 							emploiEuropeService={emploiEuropeServiceMock}
 						>
-							<RechercherEmploisEurope/>
+							<RechercherEmploisEurope />
 						</DependenciesProvider>,
 					);
 					const nombreResultats = await screen.findByRole('heading', {
@@ -375,7 +375,7 @@ describe('RechercherEmploisEurope', () => {
 						<DependenciesProvider
 							emploiEuropeService={emploiEuropeServiceMock}
 						>
-							<RechercherEmploisEurope/>
+							<RechercherEmploisEurope />
 						</DependenciesProvider>,
 					);
 					const nombreResultats = await screen.findByRole('heading', {
@@ -425,7 +425,7 @@ describe('RechercherEmploisEurope', () => {
 					<DependenciesProvider
 						emploiEuropeService={emploiEuropeServiceMock}
 					>
-						<RechercherEmploisEurope/>
+						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
 
@@ -476,7 +476,7 @@ describe('RechercherEmploisEurope', () => {
 					<DependenciesProvider
 						emploiEuropeService={emploiEuropeServiceMock}
 					>
-						<RechercherEmploisEurope/>
+						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
 				const nombreResultats = await screen.findByRole('heading', { level: 2, name: '2 offres d’emplois en Europe' });
@@ -513,7 +513,7 @@ describe('RechercherEmploisEurope', () => {
 				<DependenciesProvider
 					emploiEuropeService={emploiEuropeServiceMock}
 				>
-					<RechercherEmploisEurope/>
+					<RechercherEmploisEurope />
 				</DependenciesProvider>,
 			);
 
@@ -567,7 +567,7 @@ describe('RechercherEmploisEurope', () => {
 				<DependenciesProvider
 					emploiEuropeService={emploiEuropeServiceMock}
 				>
-					<RechercherEmploisEurope/>
+					<RechercherEmploisEurope />
 				</DependenciesProvider>,
 			);
 
@@ -615,7 +615,7 @@ describe('RechercherEmploisEurope', () => {
 				<DependenciesProvider
 					emploiEuropeService={emploiEuropeServiceMock}
 				>
-					<RechercherEmploisEurope/>
+					<RechercherEmploisEurope />
 				</DependenciesProvider>,
 			);
 
@@ -656,7 +656,7 @@ describe('RechercherEmploisEurope', () => {
 					<DependenciesProvider
 						emploiEuropeService={emploiEuropeServiceMock}
 					>
-						<RechercherEmploisEurope/>
+						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
 				const title = await screen.findByText('Offre d’emploi sans titre');
@@ -694,7 +694,7 @@ describe('RechercherEmploisEurope', () => {
 						<DependenciesProvider
 							emploiEuropeService={emploiEuropeServiceMock}
 						>
-							<RechercherEmploisEurope/>
+							<RechercherEmploisEurope />
 						</DependenciesProvider>,
 					);
 
@@ -732,7 +732,7 @@ describe('RechercherEmploisEurope', () => {
 						<DependenciesProvider
 							emploiEuropeService={emploiEuropeServiceMock}
 						>
-							<RechercherEmploisEurope/>
+							<RechercherEmploisEurope />
 						</DependenciesProvider>,
 					);
 
@@ -772,7 +772,7 @@ describe('RechercherEmploisEurope', () => {
 					<DependenciesProvider
 						emploiEuropeService={emploiEuropeServiceMock}
 					>
-						<RechercherEmploisEurope/>
+						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
 				const listeDesResultats = await screen.findByRole('list', { name: 'Offres d’emplois en Europe' });
@@ -812,7 +812,7 @@ describe('RechercherEmploisEurope', () => {
 					<DependenciesProvider
 						emploiEuropeService={emploiEuropeServiceMock}
 					>
-						<RechercherEmploisEurope/>
+						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
 				const listeDesResultats = await screen.findByRole('list', { name: 'Offres d’emplois en Europe' });
@@ -845,7 +845,7 @@ describe('RechercherEmploisEurope', () => {
 					<DependenciesProvider
 						emploiEuropeService={emploiEuropeServiceMock}
 					>
-						<RechercherEmploisEurope/>
+						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
 				const listeDesResultats = await screen.findByRole('list', { name: 'Offres d’emplois en Europe' });
@@ -877,7 +877,7 @@ describe('RechercherEmploisEurope', () => {
 					<DependenciesProvider
 						emploiEuropeService={emploiEuropeServiceMock}
 					>
-						<RechercherEmploisEurope/>
+						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
 				const listeDesResultats = await screen.findByRole('list', { name: 'Offres d’emplois en Europe' });
@@ -909,7 +909,7 @@ describe('RechercherEmploisEurope', () => {
 					<DependenciesProvider
 						emploiEuropeService={emploiEuropeServiceMock}
 					>
-						<RechercherEmploisEurope/>
+						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
 				const listeDesResultats = await screen.findByRole('list', { name: 'Offres d’emplois en Europe' });
@@ -929,7 +929,7 @@ describe('RechercherEmploisEurope', () => {
 
 			render(
 				<DependenciesProvider emploiEuropeService={anEmploiEuropeService()}>
-					<RechercherEmploisEurope/>
+					<RechercherEmploisEurope />
 				</DependenciesProvider>);
 
 			const listPartenaires = screen.getByRole('list', { name: 'Liste des partenaires et des services' });

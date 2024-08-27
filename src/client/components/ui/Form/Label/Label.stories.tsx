@@ -15,7 +15,7 @@ export const exemple: Story = {
 	render: (args) => (
 		<>
 			<Label htmlFor="inputId" {...args}>Je suis le label</Label>
-			<Input id="inputId"/>
+			<Input id="inputId" />
 		</>
 	),
 };

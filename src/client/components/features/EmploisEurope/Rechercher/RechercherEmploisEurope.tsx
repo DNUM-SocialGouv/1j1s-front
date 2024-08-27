@@ -81,24 +81,24 @@ export default function RechercherEmploisEurope() {
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout
-					banniere={<BanniereEmploisEurope/>}
+					banniere={<BanniereEmploisEurope />}
 					erreurRecherche={erreurRecherche}
-					etiquettesRecherche={<EtiquettesFiltresRecherche/>}
-					formulaireRecherche={<FormulaireRechercheEmploisEurope/>}
+					etiquettesRecherche={<EtiquettesFiltresRecherche />}
+					formulaireRecherche={<FormulaireRechercheEmploisEurope />}
 					isChargement={isLoading}
 					isEtatInitial={empty(emploiEuropeQuery)}
 					nombreTotalSolutions={nombreResultats}
 					paginationOffset={EMPLOIS_EUROPE_ITEMS_PER_PAGE}
-					listeSolutionElement={<ListeResultatsEmploiEurope resultatList={emploiEuropeList}/>}
+					listeSolutionElement={<ListeResultatsEmploiEurope resultatList={emploiEuropeList} />}
 					messageResultatRecherche={messageResultatRecherche}
 					maxPage={EMPLOIS_EUROPE_LAST_VISIBLE_PAGE_ALLOWED - 1}
 				/>
-				<EnTete heading="Découvrez les dispositifs pour vous accompagner dans votre projet"/>
+				<EnTete heading="Découvrez les dispositifs pour vous accompagner dans votre projet" />
 				<ServiceCardList>
-					<EuresPartner/>
-					<EurasmusPlusPartner/>
-					<AidesFinancieresEurope/>
-					<ExperiencesEurope/>
+					<EuresPartner />
+					<EurasmusPlusPartner />
+					<AidesFinancieresEurope />
+					<ExperiencesEurope />
 				</ServiceCardList>
 			</main>
 		</>

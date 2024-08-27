@@ -66,7 +66,7 @@ export default function RechercherAlternance(props: RechercherAlternanceProps) {
 
 	const étiquettesRecherche = useMemo(() => {
 		if (alternanceQuery.ville && alternanceQuery.codePostal) {
-			return <TagList list={[`${alternanceQuery.ville} (${alternanceQuery.codePostal})`]} aria-label="Filtres de la recherche"/>;
+			return <TagList list={[`${alternanceQuery.ville} (${alternanceQuery.codePostal})`]} aria-label="Filtres de la recherche" />;
 		} else {
 			return undefined;
 		}
@@ -91,14 +91,14 @@ export default function RechercherAlternance(props: RechercherAlternanceProps) {
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayoutWithTabs
-					bannière={<BanniereApprentissage/>}
+					bannière={<BanniereApprentissage />}
 					erreurRecherche={erreurRecherche}
 					étiquettesRecherche={étiquettesRecherche}
-					formulaireRecherche={<FormulaireRechercheAlternance onSubmit={onSubmit}/>}
+					formulaireRecherche={<FormulaireRechercheAlternance onSubmit={onSubmit} />}
 					isLoading={isLoading}
 					listeSolutionElementTab={[{
 						label: 'Contrats d‘alternance',
-						listeSolutionElement: <ListeSolutionAlternance alternanceList={alternanceList.offreList}/>,
+						listeSolutionElement: <ListeSolutionAlternance alternanceList={alternanceList.offreList} />,
 						messageNoResult: <NoResultErrorMessage
 							explanationText="Aucun contrat d‘alternance ne correspond à votre recherche."
 							solutionText="Vous pouvez consulter les entreprises ou modifier votre recherche."
@@ -119,7 +119,7 @@ export default function RechercherAlternance(props: RechercherAlternanceProps) {
 						nombreDeSolutions: alternanceList.entrepriseList.length,
 					}]}
 				/>
-				<EnTete heading="Consultez nos articles"/>
+				<EnTete heading="Consultez nos articles" />
 				<ServiceCardList aria-label="Liste de nos articles">
 					<ServiceCard
 						logo="/images/articles/aide-exceptionnelle-apprentissage.svg"
@@ -133,11 +133,11 @@ export default function RechercherAlternance(props: RechercherAlternanceProps) {
 					</ServiceCard>
 				</ServiceCardList>
 
-				<EnTete heading="Découvrez des services faits pour vous"/>
+				<EnTete heading="Découvrez des services faits pour vous" />
 				<ServiceCardList>
-					<DecouvrirApprentissage/>
-					<PassPartner/>
-					<OnisepMetierPartner/>
+					<DecouvrirApprentissage />
+					<PassPartner />
+					<OnisepMetierPartner />
 				</ServiceCardList>
 			</main>
 		</>

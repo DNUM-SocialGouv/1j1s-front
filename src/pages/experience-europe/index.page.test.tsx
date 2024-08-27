@@ -23,7 +23,7 @@ describe('Page Europe', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<EuropePage/>
+				<EuropePage />
 			</DependenciesProvider> );
 		
 		expect(container.outerHTML).toHTMLValidate();

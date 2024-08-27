@@ -36,7 +36,7 @@ describe('CampagneApprentissageJeunes', () => {
 		];
 		render(
 			<DependenciesProvider youtubeService={aVideoService()}>
-				<CampagneApprentissageJeunes videos={videos}/>
+				<CampagneApprentissageJeunes videos={videos} />
 			</DependenciesProvider>,
 		);
 
@@ -63,7 +63,7 @@ describe('CampagneApprentissageJeunes', () => {
 		// WHEN
 		render(
 			<DependenciesProvider youtubeService={aVideoService()}>
-				<CampagneApprentissageJeunes videos={videos}/>
+				<CampagneApprentissageJeunes videos={videos} />
 			</DependenciesProvider>,
 		);
 
@@ -78,7 +78,7 @@ describe('CampagneApprentissageJeunes', () => {
 			// WHEN
 			render(
 				<DependenciesProvider youtubeService={aVideoService()}>
-					<CampagneApprentissageJeunes videos={[]}/>
+					<CampagneApprentissageJeunes videos={[]} />
 				</DependenciesProvider>,
 			);
 
@@ -104,7 +104,7 @@ describe('CampagneApprentissageJeunes', () => {
 			// WHEN
 			render(
 				<DependenciesProvider youtubeService={aVideoService()}>
-					<CampagneApprentissageJeunes videos={[]}/>
+					<CampagneApprentissageJeunes videos={[]} />
 				</DependenciesProvider>,
 			);
 
@@ -123,7 +123,7 @@ describe('CampagneApprentissageJeunes', () => {
 		it('je vois les informations pour accéder aux offres de formation et d‘alternance', () => {
 			render(
 				<DependenciesProvider youtubeService={aVideoService()}>
-					<CampagneApprentissageJeunes videos={[]}/>
+					<CampagneApprentissageJeunes videos={[]} />
 				</DependenciesProvider>,
 			);
 			expect(screen.getByRole('heading', {
@@ -136,7 +136,7 @@ describe('CampagneApprentissageJeunes', () => {
 		it('je vois les informations pour accéder à l‘article sur la prépa apprentissage', () => {
 			render(
 				<DependenciesProvider youtubeService={aVideoService()}>
-					<CampagneApprentissageJeunes videos={[]}/>
+					<CampagneApprentissageJeunes videos={[]} />
 				</DependenciesProvider>,
 			);
 			expect(screen.getByRole('heading', {
@@ -159,7 +159,7 @@ describe('CampagneApprentissageJeunes', () => {
 			];
 			render(
 				<DependenciesProvider youtubeService={aVideoService()}>
-					<CampagneApprentissageJeunes videos={videos}/>
+					<CampagneApprentissageJeunes videos={videos} />
 				</DependenciesProvider>,
 			);
 			expect(screen.getByRole('heading', {
@@ -179,7 +179,7 @@ describe('CampagneApprentissageJeunes', () => {
 			];
 			render(
 				<DependenciesProvider youtubeService={aVideoService()}>
-					<CampagneApprentissageJeunes videos={videos}/>
+					<CampagneApprentissageJeunes videos={videos} />
 				</DependenciesProvider>,
 			);
 			expect(screen.getByRole('heading', {
@@ -203,7 +203,7 @@ describe('CampagneApprentissageJeunes', () => {
 			it('n’affiche pas la section', () => {
 				render(
 					<DependenciesProvider youtubeService={aVideoService()}>
-						<CampagneApprentissageJeunes videos={[]}/>
+						<CampagneApprentissageJeunes videos={[]} />
 					</DependenciesProvider>,
 				);
 				expect(screen.queryByRole('region', { name: /Ils ont fait le choix de l’apprentissage, pourquoi pas vous ?/i })).not.toBeInTheDocument();
@@ -212,7 +212,7 @@ describe('CampagneApprentissageJeunes', () => {
 		it('je vois le titre de la partie videos', () => {
 			render(
 				<DependenciesProvider youtubeService={aVideoService()}>
-					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList} />
 				</DependenciesProvider>,
 			);
 			expect(screen.getByRole('heading', {
@@ -223,7 +223,7 @@ describe('CampagneApprentissageJeunes', () => {
 		it('je vois la description de la partie videos', () => {
 			render(
 				<DependenciesProvider youtubeService={aVideoService()}>
-					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList} />
 				</DependenciesProvider>,
 			);
 			expect(screen.getByText('Découvrez les témoignages d’Elyna, Céline, Benoît et tous les autres !')).toBeVisible();
@@ -231,7 +231,7 @@ describe('CampagneApprentissageJeunes', () => {
 		it('je vois les titres vidéos et ce sont des boutons', () => {
 			render(
 				<DependenciesProvider youtubeService={aVideoService()}>
-					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList} />
 				</DependenciesProvider>,
 			);
 
@@ -250,7 +250,7 @@ describe('CampagneApprentissageJeunes', () => {
 
 				render(
 					<DependenciesProvider youtubeService={aVideoService()}>
-						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList} />
 					</DependenciesProvider>,
 				);
 
@@ -266,7 +266,7 @@ describe('CampagneApprentissageJeunes', () => {
 
 				render(
 					<DependenciesProvider youtubeService={aVideoService()}>
-						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList} />
 					</DependenciesProvider>,
 				);
 
@@ -284,7 +284,7 @@ describe('CampagneApprentissageJeunes', () => {
 
 				render(
 					<DependenciesProvider youtubeService={aVideoService()}>
-						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList} />
 					</DependenciesProvider>,
 				);
 
@@ -300,7 +300,7 @@ describe('CampagneApprentissageJeunes', () => {
 
 				render(
 					<DependenciesProvider youtubeService={aVideoService()}>
-						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList} />
 					</DependenciesProvider>,
 				);
 
@@ -315,7 +315,7 @@ describe('CampagneApprentissageJeunes', () => {
 		it('je ne vois pas la transcription de la vidéo', () => {
 			render(
 				<DependenciesProvider youtubeService={aVideoService()}>
-					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList} />
 				</DependenciesProvider>,
 			);
 
@@ -325,7 +325,7 @@ describe('CampagneApprentissageJeunes', () => {
 		it('je vois un bouton me permettant de voir la transcription de la vidéo', () => {
 			render(
 				<DependenciesProvider youtubeService={aVideoService()}>
-					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList} />
 				</DependenciesProvider>,
 			);
 
@@ -338,7 +338,7 @@ describe('CampagneApprentissageJeunes', () => {
 				const user = userEvent.setup();
 				render(
 					<DependenciesProvider youtubeService={aVideoService()}>
-						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList} />
 					</DependenciesProvider>,
 				);
 				const premièreVideoCampagne = aVideoCampagneApprentissagesList[0];
@@ -358,7 +358,7 @@ describe('CampagneApprentissageJeunes', () => {
 				// WHEN
 				render(
 					<DependenciesProvider youtubeService={videoService}>
-						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList} />
 					</DependenciesProvider>,
 				);
 
@@ -374,7 +374,7 @@ describe('CampagneApprentissageJeunes', () => {
 				// WHEN
 				render(
 					<DependenciesProvider youtubeService={videoService}>
-						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList} />
 					</DependenciesProvider>,
 				);
 
@@ -388,7 +388,7 @@ describe('CampagneApprentissageJeunes', () => {
 				const videoService = aVideoService({ isAllowed: jest.fn(() => false) });
 				render(
 					<DependenciesProvider youtubeService={videoService}>
-						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList} />
 						<button id="youtubeAllowed">Allow Youtube</button>
 					</DependenciesProvider>,
 				);

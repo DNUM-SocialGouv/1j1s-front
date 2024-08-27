@@ -17,8 +17,8 @@ export default function LesEntreprisesSEngagent() {
 				robots="index,follow"
 			/>
 			<main id="contenu">
-				<RejoignezMobilisation/>
-				<AvantagesMobilisation/>
+				<RejoignezMobilisation />
+				<AvantagesMobilisation />
 			</main>
 		</>
 	);

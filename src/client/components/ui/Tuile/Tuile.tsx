@@ -12,7 +12,7 @@ type TuileProps = React.ComponentPropsWithoutRef<'div'> & {
 export function Tuile({ iconName, children, className } : TuileProps) {
 	return (
 		<div className={classNames(styles.tuile, className)}>
-			<Icon name={iconName}/>
+			<Icon name={iconName} />
 			{children}
 		</div>
 	);

@@ -105,12 +105,12 @@ describe('RechercherSolutionLayout', () => {
 					erreurRecherche={ErreurMetier.DEMANDE_INCORRECTE}
 					isChargement={false}
 					banniere={<></>}
-					etiquettesRecherche={<div data-testid={'étiquettes'}/>}
+					etiquettesRecherche={<div data-testid={'étiquettes'} />}
 					formulaireRecherche={<></>}
-					messageResultatRecherche={<div data-testid={'message du nombre de résultats'}/>}
+					messageResultatRecherche={<div data-testid={'message du nombre de résultats'} />}
 					isEtatInitial={false}
 					nombreTotalSolutions={0}
-					listeSolutionElement={<div data-testid={'liste des résultats'}/>}
+					listeSolutionElement={<div data-testid={'liste des résultats'} />}
 				       />);
 
 				// THEN
@@ -170,10 +170,10 @@ describe('RechercherSolutionLayout', () => {
 						banniere={<></>}
 						formulaireRecherche={<></>}
 						etiquettesRecherche={<></>}
-						listeSolutionElement={<div data-testid={'liste des résultats'}/>}
+						listeSolutionElement={<div data-testid={'liste des résultats'} />}
 						messageResultatRecherche={<></>}
 						isEtatInitial={false}
-						footnote={<div data-testid={'footnote'}/>}
+						footnote={<div data-testid={'footnote'} />}
 						paginationOffset={5}
 					       />);
 
@@ -209,9 +209,9 @@ describe('RechercherSolutionLayout', () => {
 						isChargement={false}
 						banniere={<></>}
 						formulaireRecherche={<></>}
-						etiquettesRecherche={<div data-testid={'étiquettes'}/>}
-						messageResultatRecherche={<div data-testid={'message du nombre de résultats'}/>}
-						listeSolutionElement={<div data-testid={'liste des résultats'}/>}
+						etiquettesRecherche={<div data-testid={'étiquettes'} />}
+						messageResultatRecherche={<div data-testid={'message du nombre de résultats'} />}
+						listeSolutionElement={<div data-testid={'liste des résultats'} />}
 						isEtatInitial={false}
 					       />);
 					// THEN
@@ -228,9 +228,9 @@ describe('RechercherSolutionLayout', () => {
 						isChargement={false}
 						banniere={<></>}
 						formulaireRecherche={<></>}
-						etiquettesRecherche={<div data-testid={'étiquettes'}/>}
-						messageResultatRecherche={<div data-testid={'message du nombre de résultats'}/>}
-						listeSolutionElement={<div data-testid={'liste des résultats'}/>}
+						etiquettesRecherche={<div data-testid={'étiquettes'} />}
+						messageResultatRecherche={<div data-testid={'message du nombre de résultats'} />}
+						listeSolutionElement={<div data-testid={'liste des résultats'} />}
 						isEtatInitial={false}
 					       />);
 

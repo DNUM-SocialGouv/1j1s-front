@@ -33,7 +33,7 @@ export function ModaleFiltreAvancee(props: {
 			aria-labelledby="dialog_label"
 		>
 			<ModalComponent.Title>
-				<Icon name="menu"/>
+				<Icon name="menu" />
 				<span id="dialog_label">Filtrer ma recherche</span>
 			</ModalComponent.Title>
 			<ModalComponent.Content>
@@ -107,7 +107,7 @@ export function ModaleFiltreAvancee(props: {
 			<ModalComponent.Footer>
 				<div className={styles.buttonRechercher}>
 					<ButtonComponent
-						icon={<Icon name="angle-right"/>}
+						icon={<Icon name="angle-right" />}
 						iconPosition="right"
 						label="Appliquer les filtres"
 						onClick={props.onClick}

@@ -6,7 +6,7 @@ import analytics from '~/pages/service-civique/index.analytics';
 export default function RechercherMissionServiceCiviquePage() {
 	useAnalytics(analytics);
 
-	return <RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>;
+	return <RechercherMission category={EngagementCategory.SERVICE_CIVIQUE} />;
 }
 
 export function getServerSideProps() {

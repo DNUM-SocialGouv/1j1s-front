@@ -230,7 +230,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 		mockUseRouter({});
 
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<ConsulterFormationPage formation={formation}/>
+			<ConsulterFormationPage formation={formation} />
 		</DependenciesProvider>);
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -245,7 +245,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 			<DependenciesProvider
 				analyticsService={analyticsService}
 			>
-				<ConsulterFormationPage formation={formation}/>
+				<ConsulterFormationPage formation={formation} />
 			</DependenciesProvider>,
 		);
 
@@ -261,7 +261,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 			<DependenciesProvider
 				analyticsService={analyticsService}
 			>
-				<ConsulterFormationPage formation={formation}/>
+				<ConsulterFormationPage formation={formation} />
 			</DependenciesProvider>,
 		);
 
@@ -278,7 +278,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 			<DependenciesProvider
 				analyticsService={analyticsService}
 			>
-				<ConsulterFormationPage formation={formation}/>
+				<ConsulterFormationPage formation={formation} />
 			</DependenciesProvider>,
 		);
 

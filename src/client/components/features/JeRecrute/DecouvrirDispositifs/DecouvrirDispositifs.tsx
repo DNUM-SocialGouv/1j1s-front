@@ -12,13 +12,13 @@ export function DécouvrirDispositifs () {
 				<p>Dans le cadre du plan 1 jeune, 1 solution, nous vous accompagnons dans la recherche de vos futurs collaborateurs.</p>
 				<ul className={styles.offres}>
 					<li>
-						<Link href="/emplois/deposer-offre" appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre d‘emploi<Link.Icon/></Link>
+						<Link href="/emplois/deposer-offre" appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre d‘emploi<Link.Icon /></Link>
 					</li>
 					<li>
-						<Link href="/apprentissage/deposer-offre" appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre d’alternance<Link.Icon/></Link>
+						<Link href="/apprentissage/deposer-offre" appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre d’alternance<Link.Icon /></Link>
 					</li>
 					<li>
-						<Link href="/stages/deposer-offre" appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre de stage<Link.Icon/></Link>
+						<Link href="/stages/deposer-offre" appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre de stage<Link.Icon /></Link>
 					</li>
 				</ul>
 			</Container>

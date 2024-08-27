@@ -10,7 +10,7 @@ export default function Confidentialite({ titre, contenu }: ConsulterContenuProp
 	useAnalytics(analytics);
 
 	return (
-		<ConsulterContenu titre={titre} contenu={contenu}/>
+		<ConsulterContenu titre={titre} contenu={contenu} />
 	);
 }
 

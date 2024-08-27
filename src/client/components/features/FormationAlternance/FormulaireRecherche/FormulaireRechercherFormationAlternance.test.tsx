@@ -33,7 +33,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 				localisationService={aLocalisationService()}
 				metierLbaService={aMetierService()}
 			>
-				<FormulaireRechercherFormationAlternance/>
+				<FormulaireRechercherFormationAlternance />
 			</DependenciesProvider>,
 		);
 
@@ -46,7 +46,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 				localisationService={aLocalisationService()}
 				metierLbaService={aMetierService()}
 			>
-				<FormulaireRechercherFormationAlternance/>
+				<FormulaireRechercherFormationAlternance />
 			</DependenciesProvider>,
 		);
 
@@ -82,7 +82,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 					localisationService={localisationService}
 					metierLbaService={metierService}
 				>
-					<FormulaireRechercherFormationAlternance/>
+					<FormulaireRechercherFormationAlternance />
 				</DependenciesProvider>,
 			);
 
@@ -132,7 +132,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 					localisationService={aLocalisationService()}
 					metierLbaService={aMetierService()}
 				>
-					<FormulaireRechercherFormationAlternance/>
+					<FormulaireRechercherFormationAlternance />
 				</DependenciesProvider>,
 			);
 
@@ -164,7 +164,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 					localisationService={aLocalisationService()}
 					metierLbaService={metierService}
 				>
-					<FormulaireRechercherFormationAlternance/>
+					<FormulaireRechercherFormationAlternance />
 				</DependenciesProvider>,
 			);
 
@@ -204,7 +204,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 					localisationService={localisationService}
 					metierLbaService={aMetierService()}
 				>
-					<FormulaireRechercherFormationAlternance/>
+					<FormulaireRechercherFormationAlternance />
 				</DependenciesProvider>,
 			);
 
@@ -237,7 +237,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 		});
 		render(
 			<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={aMetierService()}>
-				<FormulaireRechercherFormationAlternance/>
+				<FormulaireRechercherFormationAlternance />
 			</DependenciesProvider>,
 		);
 
@@ -279,7 +279,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 
 		render(
 			<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={aMetierService()}>
-				<FormulaireRechercherFormationAlternance/>
+				<FormulaireRechercherFormationAlternance />
 			</DependenciesProvider>,
 		);
 
@@ -301,7 +301,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 
 		render(
 			<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={aMetierService()}>
-				<FormulaireRechercherFormationAlternance/>
+				<FormulaireRechercherFormationAlternance />
 			</DependenciesProvider>,
 		);
 

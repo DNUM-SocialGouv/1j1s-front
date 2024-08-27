@@ -67,7 +67,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 					name="firstname"
 					required
 				/>
-				<Champ.Error/>
+				<Champ.Error />
 			</Champ>
 
 			<Champ>
@@ -80,7 +80,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 					name="lastname"
 					required
 				/>
-				<Champ.Error/>
+				<Champ.Error />
 			</Champ>
 
 			<Champ>
@@ -94,7 +94,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 					name="mail"
 					type="email"
 				/>
-				<Champ.Error/>
+				<Champ.Error />
 			</Champ>
 
 			<Champ>
@@ -109,7 +109,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 					type="tel"
 					required
 				/>
-				<Champ.Error/>
+				<Champ.Error />
 			</Champ>
 
 			<Champ>
@@ -124,18 +124,18 @@ export function FormulaireDemandeDeContactAccompagnement({
 						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 					)}
 				</Champ.Input>
-				<Champ.Error/>
+				<Champ.Error />
 			</Champ>
 
-			<ComboboxCommune required/>
+			<ComboboxCommune required />
 			<Champ className={styles.commentaireDemandeDeContact}>
 				<Champ.Label>Commentaires ou autres informations utiles (facultatif)</Champ.Label>
-				<Champ.Input render={TextArea} name="commentaire" rows={5}/>
-				<Champ.Error/>
+				<Champ.Input render={TextArea} name="commentaire" rows={5} />
+				<Champ.Error />
 			</Champ>
 
 			{isLoading
-				? <LoadingButton className={styles.formulaireValidateButton}/>
+				? <LoadingButton className={styles.formulaireValidateButton} />
 				: (
 					<>
 						<ButtonComponent

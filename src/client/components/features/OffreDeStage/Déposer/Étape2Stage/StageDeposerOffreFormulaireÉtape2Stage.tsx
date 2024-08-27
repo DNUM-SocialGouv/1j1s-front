@@ -83,7 +83,7 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 					maxLength={LONGUEUR_MAX_TITRE}
 					required
 				/>
-				<Champ.Error/>
+				<Champ.Error />
 			</Champ>
 			<Champ className={styles.inputLienCandidature}>
 				<Champ.Label>Lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa
@@ -98,7 +98,7 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 					defaultValue={props.informationsStage?.lienCandidature}
 					required
 				/>
-				<Champ.Error/>
+				<Champ.Error />
 			</Champ>
 
 			<Champ className={styles.textareaWrapper}>
@@ -114,7 +114,7 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 					rows={10}
 					minLength={200}
 				/>
-				<Champ.Error/>
+				<Champ.Error />
 			</Champ>
 			<fieldset className={styles.contenuDateDeDebut}>
 				<legend>Date de début du stage</legend>
@@ -145,7 +145,7 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 					)}
 				</Champ.Input>
-				<Champ.Error/>
+				<Champ.Error />
 			</Champ>
 		</>
 	);
@@ -169,7 +169,7 @@ function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposee.Stage 
 						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 					)}
 				</Champ.Input>
-				<Champ.Error/>
+				<Champ.Error />
 			</Champ>
 
 			<Champ>
@@ -186,7 +186,7 @@ function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposee.Stage 
 					min={0}
 					defaultValue={props.informationsStage?.remunerationStage}
 				/>
-				<Champ.Error/>
+				<Champ.Error />
 			</Champ>
 
 			<div>
@@ -238,14 +238,14 @@ export default function StageDeposerOffreFormulaireÉtape2Stage() {
 		>
 			<StageDeposerOffreFormulaireLayout
 				inputsObligatoires={
-					<ChampsObligatoires informationsStage={informationsStage}/>
+					<ChampsObligatoires informationsStage={informationsStage} />
 				}
-				inputsFacultatifs={<ChampsFaculatifs informationsStage={informationsStage}/>}
+				inputsFacultatifs={<ChampsFaculatifs informationsStage={informationsStage} />}
 				formRef={formRef}
 				handleFormSubmit={handleFormSubmit}
 				boutonValidation={(
 					<ButtonComponent
-						icon={<Icon name="angle-right"/>}
+						icon={<Icon name="angle-right" />}
 						iconPosition="right"
 						label="Suivant"
 						type="submit"

@@ -19,7 +19,7 @@ export default function ConseilsLogement() {
 			/>
 			<main id="contenu">
 				<Container>
-					<BannièreConseilsLogement/>
+					<BannièreConseilsLogement />
 					<ul aria-label="Ce qu‘il faut savoir" className={styles.articleList}>
 						<li>
 							<ArticleCard

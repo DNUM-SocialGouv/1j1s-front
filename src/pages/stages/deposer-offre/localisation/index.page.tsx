@@ -28,7 +28,7 @@ export default function DeposerOffreStageEtape3Page() {
 						</h1>
 					</LightHero>
 				</div>
-				<Localisation/>
+				<Localisation />
 			</main>
 		</>
 	);

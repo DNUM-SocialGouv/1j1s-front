@@ -232,7 +232,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					aria-expanded={open}
 					aria-label={optionsAriaLabel}
 				>
-					<Icon name={'angle-down'}/>
+					<Icon name={'angle-down'} />
 				</button>
 				<ul
 					role="listbox"

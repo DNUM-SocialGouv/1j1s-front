@@ -37,7 +37,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 				niveauDeSortie: 'Bac + 2',
 			});
 
-			render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>);
+			render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail} />);
 
 			const tagsList = within(screen.getByRole('list')).getAllByRole('listitem');
 			expect(tagsList).toHaveLength(3);
@@ -53,7 +53,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 				niveauDeSortie: 'Bac + 2',
 			});
 
-			render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>);
+			render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail} />);
 
 			const tagsList = within(screen.getByRole('list')).getAllByRole('listitem');
 			expect(tagsList).toHaveLength(2);
@@ -184,7 +184,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 			it('affiche la mention explicative', () => {
 				const formationInitialeDetail = aFormationInitiale();
 
-				render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>);
+				render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail} />);
 
 				expect(screen.getByText('L‘ONISEP ne fournit pas de description pour cette formation. Vous pouvez consulter les établissements pour plus d‘informations.')).toBeVisible();
 			});
@@ -193,7 +193,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 		describe('lorsque les informations sont récupérées du CMS', () => {
 			it('n‘affiche pas la mention explicative', () => {
 				const formationInitialeDetail = aFormationInitialeDetailComplete();
-				render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>);
+				render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail} />);
 
 				expect(screen.queryByText('L‘ONISEP ne fournit pas de description pour cette formation. Vous pouvez consulter les établissements pour plus d‘informations.')).not.toBeInTheDocument();
 			});

@@ -20,10 +20,10 @@ export function Pourquoi() {
 					<SeeMoreMobileOnly
 						seeLessAriaLabel="Voir plus de raisons de devenir mentor en tant qu‘employeur"
 						seeMoreAriaLabel="Voir moins de raisons de devenir mentor en tant qu‘employeur"
-						itemList={[<ListeEmployeur key={0}/>]}
+						itemList={[<ListeEmployeur key={0} />]}
 						numberOfVisibleItems={0}
 					>
-						<ListeEmployeur/>
+						<ListeEmployeur />
 					</SeeMoreMobileOnly>
 				</section>
 				<section>
@@ -37,10 +37,10 @@ export function Pourquoi() {
 					<SeeMoreMobileOnly
 						seeLessAriaLabel="Voir plus de raisons de devenir mentor en tant que citoyen"
 						seeMoreAriaLabel="Voir moins de raisons de devenir mentor en tant que citoyen"
-						itemList={[<ListeCitoyen key={0}/>]}
+						itemList={[<ListeCitoyen key={0} />]}
 						numberOfVisibleItems={0}
 					>
-						<ListeCitoyen/>
+						<ListeCitoyen />
 					</SeeMoreMobileOnly>
 				</section>
 			</article>

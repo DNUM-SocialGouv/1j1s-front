@@ -43,13 +43,13 @@ export function FormulaireRechercheFormationInitiale() {
 					autoFocus
 					onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
 				/>
-				<Champ.Error/>
+				<Champ.Error />
 			</Champ>
 
 			<div className={styles.buttonWrapper}>
 				<ButtonComponent
 					label="Rechercher"
-					icon={<Icon name="magnifying-glass"/>}
+					icon={<Icon name="magnifying-glass" />}
 					iconPosition="right"
 					type="submit"
 				/>

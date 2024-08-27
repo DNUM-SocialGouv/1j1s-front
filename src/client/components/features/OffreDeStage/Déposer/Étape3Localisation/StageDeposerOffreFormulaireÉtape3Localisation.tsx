@@ -98,7 +98,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 						required
 						defaultValue={informationsLocalisation?.ville}
 					/>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 				<Champ>
 					<Champ.Label>
@@ -111,7 +111,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 						required
 						defaultValue={informationsLocalisation?.adresse}
 					/>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 				<Champ>
 					<Champ.Label>
@@ -124,7 +124,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 						required
 						defaultValue={informationsLocalisation?.codePostal}
 					/>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 			</>
 		);
@@ -143,7 +143,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 						name={LocalisationInputName.REGION}
 						defaultValue={informationsLocalisation?.region}
 					/>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 				<Champ>
 					<Champ.Label>
@@ -155,7 +155,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 						name={LocalisationInputName.DEPARTEMENT}
 						defaultValue={informationsLocalisation?.departement}
 					/>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 			</>
 		);
@@ -163,10 +163,10 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 
 	function BoutonValidation() {
 		return isLoading
-			? <LoadingButton/>
+			? <LoadingButton />
 			: (
 				<ButtonComponent
-					icon={<Icon name="angle-right"/>}
+					icon={<Icon name="angle-right" />}
 					iconPosition="right"
 					label="Envoyer ma demande de dépôt d’offre"
 					type="submit"
@@ -178,11 +178,11 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 	function FormulaireLocalisation() {
 		return (
 			<StageDeposerOffreFormulaireLayout
-				inputsObligatoires={<ChampsObligatoires/>}
-				inputsFacultatifs={<ChampsFacultatifs/>}
+				inputsObligatoires={<ChampsObligatoires />}
+				inputsFacultatifs={<ChampsFacultatifs />}
 				formRef={formRef}
 				handleFormSubmit={handleFormSubmit}
-				boutonValidation={<BoutonValidation/>}
+				boutonValidation={<BoutonValidation />}
 			/>
 		);
 	}
@@ -212,7 +212,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 				étape="Étape 3 sur 3 : Localisation du stage"
 				urlÉtapePrécédente={`${URL_DEPOSER_OFFRE}/votre-offre-de-stage`}
 			>
-				<FormulaireLocalisation/>
+				<FormulaireLocalisation />
 			</FormulaireÉtapeLayout>
 			<ModalErrorSubmission
 				isOpen={isModalErrorSubmitOpen}

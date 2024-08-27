@@ -21,7 +21,7 @@ export function RésultatRechercherAccompagnementTagsList({ etablissement }: tag
 				<li key="téléphone" aria-label="téléphone de l‘établissement">
 					<Tag>
 						<Link href={`tel:${etablissement.telephone}`}>
-							<Icon name="phone"/>{etablissement.telephone}
+							<Icon name="phone" />{etablissement.telephone}
 						</Link>
 					</Tag>
 				</li>
@@ -30,7 +30,7 @@ export function RésultatRechercherAccompagnementTagsList({ etablissement }: tag
 				<li key="mail" aria-label="email de l‘établissement">
 					<Tag>
 						<Link href={`mailto:${etablissement.email}`}>
-							<Icon name="mail"/>{etablissement.email}
+							<Icon name="mail" />{etablissement.email}
 						</Link>
 					</Tag>
 				</li>

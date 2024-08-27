@@ -8,7 +8,7 @@ import { Banniere } from '~/client/components/features/ContratEngagementJeune/Ba
 
 describe('Banniere', () => {
 	it('je vois le titre de la page', () => {
-		render(<Banniere/>);
+		render(<Banniere />);
 
 		expect(screen.getByRole('heading', {
 			level: 1,
@@ -19,7 +19,7 @@ describe('Banniere', () => {
 	it('affiche le lien avec le bon intitulé', () => {
 		// GIVEN
 		// WHEN
-		render(<Banniere/>);
+		render(<Banniere />);
 
 		// THEN
 		const lien = screen.getByRole('link', { name: 'Trouver son accompagnement CEJ' });

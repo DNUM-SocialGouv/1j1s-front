@@ -19,7 +19,7 @@ export default function MonEspace() {
 				robots="index,follow"
 			/>
 			<main id="contenu">
-				<MonEspaceEntreprise/>
+				<MonEspaceEntreprise />
 				<MonEspaceEnSavoirPlus />
 			</main>
 		</>

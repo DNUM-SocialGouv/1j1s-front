@@ -46,7 +46,7 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 			return null;
 		}
 		if (erreurRecherche) {
-			return <div role={'alert'}><ErrorComponent errorType={erreurRecherche}/></div>;
+			return <div role={'alert'}><ErrorComponent errorType={erreurRecherche} /></div>;
 		}
 		if (isChargement) {
 			return (
@@ -73,7 +73,7 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 		if (nombreTotalSolutions === 0) {
 			return (
 				<div role={'alert'}>
-					<NoResultErrorMessage/>
+					<NoResultErrorMessage />
 				</div>
 			);
 		}

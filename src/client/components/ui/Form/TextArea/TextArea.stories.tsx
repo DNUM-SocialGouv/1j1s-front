@@ -45,8 +45,8 @@ export const withValidation: Story = {
 		<>
 			<Champ>
 				<Champ.Label>Description de la France (doit contenir le mot &quot;France&quot;)</Champ.Label>
-				<Champ.Input render={TextArea} {...args}/>
-				<Champ.Error/>
+				<Champ.Input render={TextArea} {...args} />
+				<Champ.Error />
 			</Champ>
 		</>
 	),

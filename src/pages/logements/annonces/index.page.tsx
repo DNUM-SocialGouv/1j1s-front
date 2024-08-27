@@ -29,7 +29,7 @@ export default function AnnoncesPage() {
 		return transformerMeilisearchLogementsItems(items);
 	}, []);
 
-	if (!displayAnnoncesLogement || !indexAnnoncesLogement) return <ErrorUnavailableService/>;
+	if (!displayAnnoncesLogement || !indexAnnoncesLogement) return <ErrorUnavailableService />;
 	return (
 		<>
 			<Head

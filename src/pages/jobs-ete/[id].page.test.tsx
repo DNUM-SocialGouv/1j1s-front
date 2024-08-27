@@ -24,7 +24,7 @@ describe('<ConsulterJobEtePage />', () => {
 		const jobEte = anOffreEmploi();
 
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<ConsulterJobEtePage jobEte={jobEte}/>
+			<ConsulterJobEtePage jobEte={jobEte} />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -34,7 +34,7 @@ describe('<ConsulterJobEtePage />', () => {
 		const jobEte = anOffreEmploi();
 		const { container } = render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<ConsulterJobEtePage jobEte={jobEte}/>
+				<ConsulterJobEtePage jobEte={jobEte} />
 			</DependenciesProvider>,
 		);
 
@@ -45,7 +45,7 @@ describe('<ConsulterJobEtePage />', () => {
 		const jobEte = anOffreEmploi();
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<ConsulterJobEtePage jobEte={jobEte}/>
+				<ConsulterJobEtePage jobEte={jobEte} />
 			</DependenciesProvider>,
 		);
 
@@ -55,7 +55,7 @@ describe('<ConsulterJobEtePage />', () => {
 	it('affiche le détail de l’annonce', async () => {
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<ConsulterJobEtePage jobEte={anOffreEmploi()}/>
+				<ConsulterJobEtePage jobEte={anOffreEmploi()} />
 			</DependenciesProvider>,
 		);
 
@@ -67,7 +67,7 @@ describe('<ConsulterJobEtePage />', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<ConsulterJobEtePage jobEte={anOffreEmploi()}/>
+				<ConsulterJobEtePage jobEte={anOffreEmploi()} />
 			</DependenciesProvider>,
 		);
 

@@ -20,7 +20,7 @@ export default function DeposerOffreStageEnvoyePage() {
 				</h1>
 			</LightHero>
 			<main id="contenu">
-				<StageDeposerOffreFormulaireEnvoye/>
+				<StageDeposerOffreFormulaireEnvoye />
 			</main>
 		</>
 	);

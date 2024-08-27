@@ -35,7 +35,7 @@ describe('<Bouée />', () => {
 			const [surfaceRef] = mockSurface();
 
 			// When
-			render(<Bouée surface={ surfaceRef }/>);
+			render(<Bouée surface={ surfaceRef } />);
 			
 			// Then
 			const link = screen.queryByRole('link', { hidden: true, name: LABEL_BOUEE });
@@ -48,7 +48,7 @@ describe('<Bouée />', () => {
 				const [surfaceRef, setY] = mockSurface();
 
 				// When
-				render(<Bouée surface={ surfaceRef }/>);
+				render(<Bouée surface={ surfaceRef } />);
 				setY(-100);
 				await act(async () => {
 					window.scrollTo({ top: 200 });
@@ -66,7 +66,7 @@ describe('<Bouée />', () => {
 					const [ surfaceRef, setY] = mockSurface();
 
 					// When
-					render(<Bouée surface={ surfaceRef }/>);
+					render(<Bouée surface={ surfaceRef } />);
 					setY(-100);
 					await act(async () => {
 						window.scrollTo({ top: 200 });
@@ -88,7 +88,7 @@ describe('<Bouée />', () => {
 			const [surfaceRef] = mockSurface(-100);
 
 			// When
-			render(<Bouée surface={ surfaceRef }/>);
+			render(<Bouée surface={ surfaceRef } />);
 			await act(() => delay(DEBOUNCE_DELAY));
 
 			// Then

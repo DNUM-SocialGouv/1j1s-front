@@ -92,10 +92,10 @@ export function RechercherMission(props: RechercherMissionProps) {
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout
-					banniere={<BanniereMission isServiceCivique={isServiceCivique}/>}
+					banniere={<BanniereMission isServiceCivique={isServiceCivique} />}
 					erreurRecherche={erreurRecherche}
-					etiquettesRecherche={<EtiquettesFiltreMission/>}
-					formulaireRecherche={<FormulaireRechercheMissionEngagement domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
+					etiquettesRecherche={<EtiquettesFiltreMission />}
+					formulaireRecherche={<FormulaireRechercheMissionEngagement domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList} />}
 					isChargement={isLoading}
 					isEtatInitial={empty(missionEngagementQuery)}
 					messageResultatRecherche={(
@@ -110,9 +110,9 @@ export function RechercherMission(props: RechercherMissionProps) {
 					)}
 					nombreTotalSolutions={nombreResultats}
 					paginationOffset={NOMBRE_RÉSULTATS_MISSION_PAR_PAGE}
-					listeSolutionElement={<ListeMissions resultatList={missionList} isServiceCivique={isServiceCivique}/>}
+					listeSolutionElement={<ListeMissions resultatList={missionList} isServiceCivique={isServiceCivique} />}
 					footnote={(
-						<Footnote htmlFor="partenaires-reference" id="partenaires" >
+						<Footnote htmlFor="partenaires-reference" id="partenaires">
 							les annonces listées ci-dessus nous sont fournies par nos partenaires (<a href="/cgu#3.-services">liste disponible dans les <abbr title="Conditions Générales d'Utilisation">CGU</abbr></a>)
 						</Footnote>
 					)}

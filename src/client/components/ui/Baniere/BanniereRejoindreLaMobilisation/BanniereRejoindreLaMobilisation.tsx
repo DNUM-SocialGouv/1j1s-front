@@ -10,7 +10,7 @@ export default function BanniereRejoindreLaMobilisation() {
 				<h2 className={styles.aidesContainerTitre}>Les entreprises s’engagent,
 					<span className={styles.aidesContainerTitreAccroche}> une mobilisation des entreprises pour l’emploi des jeunes</span>
 				</h2>
-				<Link href="/les-entreprises-s-engagent" appearance='asSecondaryButton'>Rejoindre la mobilisation<Link.Icon/></Link>
+				<Link href="/les-entreprises-s-engagent" appearance='asSecondaryButton'>Rejoindre la mobilisation<Link.Icon /></Link>
 			</div>
 		</section>
 	);

@@ -28,7 +28,7 @@ export default function DeposerOffreStageEtape2Page() {
 						</h1>
 					</LightHero>
 				</div>
-				<OffreStage/>
+				<OffreStage />
 			</main>
 		</>
 	);

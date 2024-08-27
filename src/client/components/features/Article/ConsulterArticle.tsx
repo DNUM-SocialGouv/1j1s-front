@@ -20,7 +20,7 @@ export function ConsulterArticle({ article }: ConsulterArticleProps) {
 	return (
 		<>
 			<main className={classNames('fr-container', styles.consulterArticle)}>
-				<BackButton className={styles.consulterArticleButtonRetour}/>
+				<BackButton className={styles.consulterArticleButtonRetour} />
 				<h1 className={styles.titre}>{titre}</h1>
 				{/* eslint-disable-next-line @next/next/no-img-element */}
 				{bannièreSrc && <img src={bannièreSrc} alt={bannièreAlt} decoding="async" loading="lazy" />}

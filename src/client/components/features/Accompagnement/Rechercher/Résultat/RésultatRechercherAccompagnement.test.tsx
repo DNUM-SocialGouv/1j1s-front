@@ -46,7 +46,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 		});
 
 		render(<DependenciesProvider>
-			<RésultatRechercherAccompagnement etablissement={etablissement}/>
+			<RésultatRechercherAccompagnement etablissement={etablissement} />
 		</DependenciesProvider>);
 
 		expect(screen.getByText('29-31 rue des Boulets, 75011 Paris')).toBeVisible();
@@ -62,7 +62,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnement etablissement={etablissement}/>
+				<RésultatRechercherAccompagnement etablissement={etablissement} />
 			</DependenciesProvider>);
 
 			// THEN
@@ -77,7 +77,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnement etablissement={etablissement}/>
+				<RésultatRechercherAccompagnement etablissement={etablissement} />
 			</DependenciesProvider>);
 
 			// THEN
@@ -98,7 +98,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnement etablissement={etablissement}/>
+				<RésultatRechercherAccompagnement etablissement={etablissement} />
 			</DependenciesProvider>);
 
 			// THEN
@@ -116,7 +116,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnement etablissement={etablissement}/>
+				<RésultatRechercherAccompagnement etablissement={etablissement} />
 			</DependenciesProvider>);
 
 			// THEN
@@ -134,7 +134,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnement etablissement={etablissement}/>
+				<RésultatRechercherAccompagnement etablissement={etablissement} />
 			</DependenciesProvider>);
 
 			// THEN
@@ -162,7 +162,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnement etablissement={etablissement}/>
+				<RésultatRechercherAccompagnement etablissement={etablissement} />
 			</DependenciesProvider>);
 
 			await userEvent.click(screen.getByText('Voir les horaires d‘ouverture'));
@@ -191,7 +191,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 			render(<DependenciesProvider établissementAccompagnementService={établissementAccompagnementService}
 																	 localisationService={localisationService}
 			>
-				<RésultatRechercherAccompagnement etablissement={établissement}/>
+				<RésultatRechercherAccompagnement etablissement={établissement} />
 			</DependenciesProvider>);
 
 			const buttonDemandeContact = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
@@ -215,7 +215,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 					établissementAccompagnementService={établissementAccompagnementService}
 					localisationService={aLocalisationService()}
 				>
-					<RésultatRechercherAccompagnement etablissement={établissement}/>
+					<RésultatRechercherAccompagnement etablissement={établissement} />
 				</DependenciesProvider>);
 
 			const buttonDemandeContact = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
@@ -245,7 +245,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				établissementAccompagnementService={établissementAccompagnementService}
 				localisationService={aLocalisationService()}
 			>
-				<RésultatRechercherAccompagnement etablissement={établissement}/>
+				<RésultatRechercherAccompagnement etablissement={établissement} />
 			</DependenciesProvider>);
 
 
@@ -273,7 +273,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 					établissementAccompagnementService={établissementAccompagnementService}
 					localisationService={aLocalisationService()}
 				>
-					<RésultatRechercherAccompagnement etablissement={établissement}/>
+					<RésultatRechercherAccompagnement etablissement={établissement} />
 				</DependenciesProvider>);
 
 				const buttonDemandeContact = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
@@ -302,7 +302,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 					établissementAccompagnementService={établissementAccompagnementService}
 					localisationService={localisationService}
 				>
-					<RésultatRechercherAccompagnement etablissement={établissement}/>
+					<RésultatRechercherAccompagnement etablissement={établissement} />
 				</DependenciesProvider>);
 
 				const buttonDemandeContact = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
@@ -335,7 +335,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 					établissementAccompagnementService={établissementAccompagnementService}
 					localisationService={localisationService}
 				>
-					<RésultatRechercherAccompagnement etablissement={établissement}/>
+					<RésultatRechercherAccompagnement etablissement={établissement} />
 				</DependenciesProvider>);
 
 				const buttonDemandeContact = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];

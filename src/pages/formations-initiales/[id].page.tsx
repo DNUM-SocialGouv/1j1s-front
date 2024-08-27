@@ -72,12 +72,12 @@ export default function ConsulterFormationInitialePage({ formationInitialeDetail
 				title={`${formationInitialeDetail.libelle} | 1jeune1solution`}
 				robots="noindex"
 			/>
-			<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>
+			<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail} />
 
 			<Container className={styles.container}>
-				<OnisepGeneralPartner headingLevel={'h2'}/>
+				<OnisepGeneralPartner headingLevel={'h2'} />
 				<div className={styles.partnerInfo}>
-					<Icon name="information" className={styles.icon}/>
+					<Icon name="information" className={styles.icon} />
 					<span>{`Idéo-fiches formations, Onisep, ${dataUpdatedDate}, sous licence ODBL`}</span>
 				</div>
 			</Container>

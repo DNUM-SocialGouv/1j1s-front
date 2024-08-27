@@ -38,7 +38,7 @@ export function MeilisearchSelectMultiple(props: UseRefinementListProps & Meilis
 					<SelectMultiple.Option key={option.value} value={option.value}>{getCapitalizedItems(option.label)}</SelectMultiple.Option>,
 				)}
 			</Champ.Input>
-			<Champ.Error/>
+			<Champ.Error />
 		</Champ>
 	);
 }

@@ -17,7 +17,7 @@ describe('<ConsulterJobÉtudiantPage />', () => {
 		mockUseRouter({});
 
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<ConsulterJobÉtudiantPage jobÉtudiant={anOffreEmploi()}/>
+			<ConsulterJobÉtudiantPage jobÉtudiant={anOffreEmploi()} />
 		</DependenciesProvider> );
 		
 		expect(container.outerHTML).toHTMLValidate();

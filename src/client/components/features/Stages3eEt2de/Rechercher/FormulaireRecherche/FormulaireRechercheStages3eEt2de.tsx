@@ -64,12 +64,12 @@ export function FormulaireRechercheStages3eEt2de() {
 							valueName={'codeMetier'}
 						/>
 					</MetierDependenciesProvider>
-					<ComboboxCommune required showRadiusInput defaultCommune={defaultCommuneValue} defaultDistance={distanceCommune}/>
+					<ComboboxCommune required showRadiusInput defaultCommune={defaultCommuneValue} defaultDistance={distanceCommune} />
 				</div>
 				<div className={styles.buttonRechercher}>
 					<ButtonComponent
 						label="Rechercher"
-						icon={<Icon name="magnifying-glass"/>}
+						icon={<Icon name="magnifying-glass" />}
 						iconPosition="right"
 						type="submit"
 					/>

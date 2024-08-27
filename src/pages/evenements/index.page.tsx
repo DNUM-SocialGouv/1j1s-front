@@ -55,7 +55,7 @@ export default function PageEvenements() {
 						nombreDeResultatParPage={HITS_PER_PAGE}
 						titre="Des centaines d‘évènements de recrutement"
 						sousTitre="pour tous les jeunes, partout en France"
-						formulaireDeRecherche={<FormulaireRechercheEvenement/>}
+						formulaireDeRecherche={<FormulaireRechercheEvenement />}
 						messageResultatRechercheLabelSingulier="évènement"
 						messageResultatRechercheLabelPluriel="évènements"
 						nombreDeSkeleton={2}

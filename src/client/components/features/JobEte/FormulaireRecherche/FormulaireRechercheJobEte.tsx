@@ -50,10 +50,10 @@ export function FormulaireRechercheJobEte() {
 						name="motCle"
 						minLength={2}
 					/>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 
-				<ComboboxLocalisation defaultValue={inputLocalisation}/>
+				<ComboboxLocalisation defaultValue={inputLocalisation} />
 
 				<Champ className={styles.domaine}>
 					<Champ.Label>
@@ -70,13 +70,13 @@ export function FormulaireRechercheJobEte() {
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
 					</Champ.Input>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 			</div>
 			<div className={styles.buttonRechercher}>
 				<ButtonComponent
 					label="Rechercher"
-					icon={<Icon name="magnifying-glass"/>}
+					icon={<Icon name="magnifying-glass" />}
 					iconPosition="right"
 					type="submit"
 				/>

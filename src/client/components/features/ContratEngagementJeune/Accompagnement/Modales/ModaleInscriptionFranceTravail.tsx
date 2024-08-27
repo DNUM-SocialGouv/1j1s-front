@@ -20,7 +20,7 @@ export function ModaleInscriptionFranceTravail(props: { open: boolean, close: ()
 					<p>Inscrivez-vous à France Travail pour bénéficier d‘un accompagnement répondant à vos besoins </p>
 					<Link href={props.href} appearance="asPrimaryButton">
 					S‘inscrire à France Travail
-						<Link.Icon/>
+						<Link.Icon />
 					</Link>
 				</div>
 			</ModalComponent.Content>

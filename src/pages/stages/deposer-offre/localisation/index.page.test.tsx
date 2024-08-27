@@ -51,7 +51,7 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 				stageDeposerOffreEtape2PersistenceService={stageDeposerOffreEtape2PersistenceService}
 				stageDeposerOffreEtape3PersistenceService={stageDeposerOffreEtape3PersistenceService}
 			>
-				<DeposerOffreStageEtape3Page/>
+				<DeposerOffreStageEtape3Page />
 			</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();

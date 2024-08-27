@@ -13,7 +13,7 @@ import Immersions from '~/pages/immersions/index.page';
 describe('<Immersions />', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<Immersions/>
+			<Immersions />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();

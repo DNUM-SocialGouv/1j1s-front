@@ -20,7 +20,7 @@ export const Controls = (props: ControlsProps) => {
 					onClick={() => goToPreviousSlide()}
 					className={classNames(styles.controls, styles.controlsPrevious)}
 				>
-					<Icon name="angle-left"/>
+					<Icon name="angle-left" />
 				</button>
 			</li>
 			<li>
@@ -30,7 +30,7 @@ export const Controls = (props: ControlsProps) => {
 					onClick={() => goToNextSlide()}
 					className={classNames(styles.controls, styles.controlsNext)}
 				>
-					<Icon name="angle-right"/>
+					<Icon name="angle-right" />
 				</button>
 			</li>
 		</ul>

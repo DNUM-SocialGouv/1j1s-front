@@ -79,7 +79,7 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 						pattern={patternDate}
 						placeholder={placeholderDate}
 					/>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 			)
 				: (
@@ -101,7 +101,7 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 								pattern={patternDate}
 								placeholder={placeholderDate}
 							/>
-							<Champ.Error/>
+							<Champ.Error />
 						</Champ>
 						<Champ>
 							<Champ.Label>
@@ -120,7 +120,7 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 								pattern={patternDate}
 								placeholder={placeholderDate}
 							/>
-							<Champ.Error/>
+							<Champ.Error />
 						</Champ>
 					</div>
 				)}

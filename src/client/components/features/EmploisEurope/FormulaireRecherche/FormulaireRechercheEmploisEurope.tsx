@@ -121,7 +121,7 @@ export function FormulaireRechercheEmploisEurope() {
 						name="motCle"
 						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
 					/>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 
 				<ComboboxPays
@@ -136,7 +136,7 @@ export function FormulaireRechercheEmploisEurope() {
 					className={styles.buttonMoreFilterMobileOnly}
 					appearance="quaternary"
 					type="button"
-					icon={<Icon name="filter"/>}
+					icon={<Icon name="filter" />}
 					iconPosition="right"
 					label="Filtrer ma recherche"
 					onClick={() => setIsFiltresAvancesMobileOpen(!isFiltresAvancesMobileOpen)}
@@ -158,7 +158,7 @@ export function FormulaireRechercheEmploisEurope() {
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
 					</Champ.Input>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 
 				<Champ className={classNames(styles.filtreDesktopOnly, styles.tempsTravail)}>
@@ -177,7 +177,7 @@ export function FormulaireRechercheEmploisEurope() {
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
 					</Champ.Input>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 
 				<Champ className={classNames(styles.filtreDesktopOnly, styles.niveauEtudes)}>
@@ -196,7 +196,7 @@ export function FormulaireRechercheEmploisEurope() {
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
 					</Champ.Input>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 
 				<Champ className={classNames(styles.filtreDesktopOnly, styles.domaines)}>
@@ -215,13 +215,13 @@ export function FormulaireRechercheEmploisEurope() {
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
 					</Champ.Input>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 			</div>
 			<div className={styles.buttonRechercher}>
 				<ButtonComponent
 					label="Rechercher"
-					icon={<Icon name="magnifying-glass"/>}
+					icon={<Icon name="magnifying-glass" />}
 					iconPosition="right"
 					type="submit"
 				/>

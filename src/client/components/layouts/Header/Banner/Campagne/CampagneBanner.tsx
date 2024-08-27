@@ -13,7 +13,7 @@ export function CampagneBannerMobile() {
 	return (displayCampagneEnCoursBanner && (
 		<Link href={ENCART_CAMPAGNE_URL} className={styles.headerBannerMobile} data-testid="mobile-encart-campagne">
 			{TITRE} {/*SOUS_TITRE*/}
-			<Link.Icon name="angle-right"/>
+			<Link.Icon name="angle-right" />
 		</Link>
 	)
 	);
@@ -27,7 +27,7 @@ export function CampagneBannerDesktop() {
 				<span className={styles.title}>{TITRE}</span>
 				{/*<span className={styles.content}>{SOUS_TITRE}</span>*/}
 			</p>
-			<Link.Icon className={styles.icon} name="angle-right"/>
+			<Link.Icon className={styles.icon} name="angle-right" />
 		</Link>
 	)
 	);

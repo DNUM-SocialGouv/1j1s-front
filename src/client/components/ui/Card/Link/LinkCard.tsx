@@ -33,7 +33,7 @@ export function LinkCard({ children, className, imageUrl, link, linkLabel, title
 						<LinkCardTitle className={styles.cardTitle}>{title}</LinkCardTitle>
 						<span className={styles.cardAction}>
 							<span className="sr-only">{linkLabel}</span>
-							<Icon name='angle-right' aria-hidden="true"/>
+							<Icon name='angle-right' aria-hidden="true" />
 						</span>
 					</div>
 

@@ -15,11 +15,11 @@ export function Header() {
 
 	return (
 		<header className={styles.header} role="banner">
-			<CampagneBannerMobile/>
-			<HeaderBody/>
-			<NavDesktop/>
+			<CampagneBannerMobile />
+			<HeaderBody />
+			<NavDesktop />
 			{displayEnqueteSatisfactionBanner &&
-				<EnqueteSatisfactionBanner enqueteUrl={enqueteSatisfactionUrl}/>
+				<EnqueteSatisfactionBanner enqueteUrl={enqueteSatisfactionUrl} />
 			}
 		</header>
 	);

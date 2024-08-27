@@ -91,7 +91,7 @@ function CardImage(props: CardImageProps & React.ComponentPropsWithoutRef<'div'>
 	const { className, src, alt = '', sizes = '100vw', ...rest } = props;
 	return (
 		<div className={classNames(styles.cardImageWrapper, className)} {...rest}>
-			<Image src={src} alt={alt} fill={true} sizes={sizes}/>
+			<Image src={src} alt={alt} fill={true} sizes={sizes} />
 		</div>
 	);
 }

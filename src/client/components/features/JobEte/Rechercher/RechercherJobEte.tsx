@@ -84,17 +84,17 @@ export function RechercherJobEte(props: RechercherJobEteProps) {
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout
-					banniere={<BanniereJobEte/>}
+					banniere={<BanniereJobEte />}
 					erreurRecherche={erreurRecherche}
 					etiquettesRecherche={etiquettesRecherche}
-					formulaireRecherche={<FormulaireRechercheJobEte/>}
+					formulaireRecherche={<FormulaireRechercheJobEte />}
 					isChargement={false}
 					isEtatInitial={empty(offreEmploiQuery)}
 					messageResultatRecherche={messageResultatRecherche}
 					nombreTotalSolutions={nombreResultats}
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
 					maxPage={MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL - 1}
-					listeSolutionElement={<ListeOffreJobEte resultatList={jobEteList}/>}
+					listeSolutionElement={<ListeOffreJobEte resultatList={jobEteList} />}
 				/>
 			</main>
 		</>

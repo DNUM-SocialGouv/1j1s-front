@@ -35,7 +35,7 @@ export default function FaqPage({ listeDeQuestionRéponse }: FaqPageProps) {
 								<li key={question.slug}>
 									<Link href={`/faq/${question.slug}`}>
 										<h3>{question.problématique}</h3>
-										<Link.Icon name='angle-right'/>
+										<Link.Icon name='angle-right' />
 									</Link>
 								</li>
 							)) }
@@ -46,7 +46,7 @@ export default function FaqPage({ listeDeQuestionRéponse }: FaqPageProps) {
 						<h3>Vous ne trouvez pas de réponse à votre question ?</h3>
 						<Link appearance={'asSecondaryButton'} href={`mailto:${MAIL_TO}`} prefetch={false}>
 							Nous contacter
-							<Link.Icon name="mail"/>
+							<Link.Icon name="mail" />
 						</Link>
 					</div>
 				</Container>

@@ -36,7 +36,7 @@ export default function DeposerOffreStagePage() {
 						</h1>
 					</LightHero>
 				</div>
-				<Entreprise/>
+				<Entreprise />
 			</main>
 		</>
 	);

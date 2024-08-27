@@ -28,7 +28,7 @@ describe('MeilisearchTagsList', () => {
 				items: [],
 				refine: refineMock,
 		  }));
-		  render(<MeilisearchTagsList/>);
+		  render(<MeilisearchTagsList />);
 		  const currentRefinements = screen.queryByRole('list');
 
 		  expect(currentRefinements).not.toBeInTheDocument();
@@ -40,7 +40,7 @@ describe('MeilisearchTagsList', () => {
 	  spyOnUseCurrentRefinements.mockImplementation(() => mockUseCurrentRefinements({
 				items: [aTypeBienItem()],
 	  }));
-	  render(<MeilisearchTagsList/>);
+	  render(<MeilisearchTagsList />);
 	  const currentRefinements = screen.getByRole('list');
 
 	  expect(currentRefinements).toBeInTheDocument();
@@ -55,7 +55,7 @@ describe('MeilisearchTagsList', () => {
 			spyOnUseCurrentRefinements.mockImplementation(() => mockUseCurrentRefinements({
 		  items: [aTypeBienItem()],
 			}));
-			render(<MeilisearchTagsList/>);
+			render(<MeilisearchTagsList />);
 			const currentRefinements = screen.getByRole('list');
 
 			expect(currentRefinements).toBeInTheDocument();
@@ -73,7 +73,7 @@ describe('MeilisearchTagsList', () => {
 		  refine: refineMock,
 			}));
 			const user = userEvent.setup();
-			render(<MeilisearchTagsList/>);
+			render(<MeilisearchTagsList />);
 			const currentRefinements = screen.getByRole('list');
 
 			expect(currentRefinements).toBeInTheDocument();

@@ -44,7 +44,7 @@ describe('Page rechercher un job d‘été', () => {
 					analyticsService={aManualAnalyticsService()}
 					localisationService={aLocalisationService()}
 				>
-					<RechercherJobsEtePage/>
+					<RechercherJobsEtePage />
 				</DependenciesProvider>,
 			);
 
@@ -68,7 +68,7 @@ describe('Page rechercher un job d‘été', () => {
 					analyticsService={aManualAnalyticsService()}
 					localisationService={aLocalisationService()}
 				>
-					<RechercherJobsEtePage/>
+					<RechercherJobsEtePage />
 				</DependenciesProvider>,
 			);
 
@@ -85,7 +85,7 @@ describe('Page rechercher un job d‘été', () => {
 					analyticsService={analyticsService}
 					localisationService={aLocalisationService()}
 				>
-					<RechercherJobsEtePage/>
+					<RechercherJobsEtePage />
 				</DependenciesProvider>,
 			);
 
@@ -107,7 +107,7 @@ describe('Page rechercher un job d‘été', () => {
 					analyticsService={analyticsService}
 					localisationService={aLocalisationService()}
 				>
-					<RechercherJobsEtePage resultats={aRésultatsRechercheOffre()}/>
+					<RechercherJobsEtePage resultats={aRésultatsRechercheOffre()} />
 				</DependenciesProvider>,
 			);
 

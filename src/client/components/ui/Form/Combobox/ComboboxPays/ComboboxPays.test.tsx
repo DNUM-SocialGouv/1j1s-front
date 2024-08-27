@@ -56,7 +56,7 @@ describe('<ComboboxPays />', () => {
 			const user = userEvent.setup();
 			const onInvalid = jest.fn();
 			render(
-				<ComboboxPays paysList={[]} name='pays' label='Rechercher un pays' onInvalid={onInvalid}/>,
+				<ComboboxPays paysList={[]} name='pays' label='Rechercher un pays' onInvalid={onInvalid} />,
 			);
 
 			const combobox = screen.getByRole('combobox', { name: /Rechercher un pays/i });

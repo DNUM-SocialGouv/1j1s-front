@@ -76,7 +76,7 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 			>
 				<InstantSearchErrorBoundary>
 					<>
-						<Configure hitsPerPage={nombreDeResultatParPage}/>
+						<Configure hitsPerPage={nombreDeResultatParPage} />
 						<section className="separator">
 							<Container>
 								{formulaireDeRecherche}
@@ -143,7 +143,7 @@ const AfficherResultatDeRecherche = React.forwardRef(function AfficherResultatDe
 			</section>
 			<ListeDesResultats
 				ref={ref}
-				resultats={<Hits hitComponent={resultatDeRecherche}/>}
+				resultats={<Hits hitComponent={resultatDeRecherche} />}
 				skeletonRepeat={nombreDeSkeleton}
 				pagination={(
 					<MeiliSearchPagination numberOfResultPerPage={nombreDeResultatParPage}

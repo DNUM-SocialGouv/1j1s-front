@@ -12,9 +12,9 @@ export const ExampleMediaMixinsQueryLarge = {
 
 	render: () => (
 		<div className="buttonsContainer">
-			<ButtonComponent label="Bouton 1"/>
-			<ButtonComponent label="Bouton 2"/>
-			<ButtonComponent label="Bouton 3"/>
+			<ButtonComponent label="Bouton 1" />
+			<ButtonComponent label="Bouton 2" />
+			<ButtonComponent label="Bouton 3" />
 		</div>
 	),
 };

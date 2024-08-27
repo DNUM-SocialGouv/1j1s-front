@@ -24,7 +24,7 @@ export function AnnonceDeLogement(props: HitProps<AnnonceDeLogementIndexee>) {
 		<Card layout="vertical" className={styles.Card}>
 			<Card.Title titleAs="h3" className={styles.cardTextContent}>{annonce.titre}</Card.Title>
 
-			<CardImage imageSrcList={annonce.imagesUrl}/>
+			<CardImage imageSrcList={annonce.imagesUrl} />
 
 			<span className={classNames(styles.CardEnTete, styles.cardTextContent)}>
 				<span className={styles.CardEnTeteType}>{typeDeLogement}</span>
@@ -56,7 +56,7 @@ export function AnnonceDeLogement(props: HitProps<AnnonceDeLogementIndexee>) {
 					appearance={'asQuaternaryButton'}
 				>
 					Lire l‘annonce
-					<Link.Icon/>
+					<Link.Icon />
 				</Link>
 			</span>
 		</Card>
@@ -72,17 +72,17 @@ function CardImage(props: { imageSrcList: ImageSrcListProps }) {
 
 	if (hasNoImage) return (
 		<div className={styles.CardImageWrapper}>
-			<Image src={'/images/image-par-defaut-carte.webp'} alt="" width={360} height={180}/>
+			<Image src={'/images/image-par-defaut-carte.webp'} alt="" width={360} height={180} />
 		</div>
 	);
 
 	if (hasOnlyOneImage) return (
 		<div className={styles.CardImageWrapper}>
-			<Image src={imageSrcList[0]} alt="" width={360} height={180}/>
+			<Image src={imageSrcList[0]} alt="" width={360} height={180} />
 		</div>
 	);
 
-	return <CardAnnonceCarousel imageSrcList={imageSrcList}/>;
+	return <CardAnnonceCarousel imageSrcList={imageSrcList} />;
 }
 
 const CardAnnonceCarousel = (props: { imageSrcList: ImageSrcListProps }) => {

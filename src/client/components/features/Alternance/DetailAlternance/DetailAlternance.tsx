@@ -51,7 +51,7 @@ export function DetailAlternance({ annonce }: { annonce: Alternance }) {
 		return annonce.id && (
 			<ButtonComponent
 				appearance={'primary'}
-				icon={<Icon name="arrow-right"/>}
+				icon={<Icon name="arrow-right" />}
 				iconPosition="right"
 				className={styles.postuler}
 				label={'Postuler'}
@@ -65,12 +65,12 @@ export function DetailAlternance({ annonce }: { annonce: Alternance }) {
 			<header className={styles.entete}>
 				<h1>{annonce.titre}</h1>
 				{annonce.entreprise.nom && <p className={styles.sousTitre}>{annonce.entreprise.nom}</p>}
-				<TagList aria-label="mots clés de l‘offre" className={styles.tags} list={getTags()}/>
+				<TagList aria-label="mots clés de l‘offre" className={styles.tags} list={getTags()} />
 				{isFranceTravail(annonce.source) && annonce.lienPostuler && (
 					<Link appearance={'asPrimaryButton'} href={annonce.lienPostuler} className={styles.postuler}>Postuler sur
-						France Travail<Link.Icon/></Link>
+						France Travail<Link.Icon /></Link>
 				)}
-				{isMatcha(annonce.source) && <StatusOffreMatcha/>
+				{isMatcha(annonce.source) && <StatusOffreMatcha />
 				}
 			</header>
 			<section>
@@ -78,13 +78,13 @@ export function DetailAlternance({ annonce }: { annonce: Alternance }) {
 					{annonce.description && (
 						<div className={styles.description}>
 							<dt>Description du poste</dt>
-							<dd dangerouslySetInnerHTML={{ __html: description }}/>
+							<dd dangerouslySetInnerHTML={{ __html: description }} />
 						</div>
 					)}
 					{annonce.descriptionEmployeur && (
 						<div className={styles.descriptionEmployeur}>
 							<dt>Description de l’entreprise</dt>
-							<dd dangerouslySetInnerHTML={{ __html: descriptionEmployeur }}/>
+							<dd dangerouslySetInnerHTML={{ __html: descriptionEmployeur }} />
 						</div>
 					)}
 					{annonce.compétences && annonce.compétences.length > 0 && (

@@ -55,7 +55,7 @@ describe('RechercherJobEte', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherJobEte resultats={aRésultatsRechercheOffre()}/>
+					<RechercherJobEte resultats={aRésultatsRechercheOffre()} />
 				</DependenciesProvider>,
 			);
 
@@ -89,7 +89,7 @@ describe('RechercherJobEte', () => {
 						<DependenciesProvider
 							localisationService={localisationServiceMock}
 						>
-							<RechercherJobEte resultats={aRésultatsRechercheOffre()}/>
+							<RechercherJobEte resultats={aRésultatsRechercheOffre()} />
 						</DependenciesProvider>,
 					);
 
@@ -118,7 +118,7 @@ describe('RechercherJobEte', () => {
 						<DependenciesProvider
 							localisationService={localisationServiceMock}
 						>
-							<RechercherJobEte resultats={aRésultatsRechercheOffre()}/>
+							<RechercherJobEte resultats={aRésultatsRechercheOffre()} />
 						</DependenciesProvider>,
 					);
 
@@ -144,7 +144,7 @@ describe('RechercherJobEte', () => {
 						<DependenciesProvider
 							localisationService={localisationServiceMock}
 						>
-							<RechercherJobEte resultats={aRésultatsRechercheOffre()}/>
+							<RechercherJobEte resultats={aRésultatsRechercheOffre()} />
 						</DependenciesProvider>,
 					);
 
@@ -166,7 +166,7 @@ describe('RechercherJobEte', () => {
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
 					>
-						<RechercherJobEte resultats={aRésultatsRechercheOffre()}/>
+						<RechercherJobEte resultats={aRésultatsRechercheOffre()} />
 					</DependenciesProvider>,
 				);
 
@@ -198,7 +198,7 @@ describe('RechercherJobEte', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherJobEte resultats={expected}/>
+					<RechercherJobEte resultats={expected} />
 				</DependenciesProvider>,
 			);
 
@@ -224,7 +224,7 @@ describe('RechercherJobEte', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherJobEte resultats={expected}/>
+					<RechercherJobEte resultats={expected} />
 				</DependenciesProvider>,
 			);
 
@@ -248,7 +248,7 @@ describe('RechercherJobEte', () => {
 				<DependenciesProvider
 					localisationService={aLocalisationService()}
 				>
-					<RechercherJobEte resultats={offre}/>
+					<RechercherJobEte resultats={offre} />
 				</DependenciesProvider>,
 			);
 
@@ -272,7 +272,7 @@ describe('RechercherJobEte', () => {
 				<DependenciesProvider
 					localisationService={aLocalisationService()}
 				>
-					<RechercherJobEte resultats={offre}/>
+					<RechercherJobEte resultats={offre} />
 				</DependenciesProvider>,
 			);
 

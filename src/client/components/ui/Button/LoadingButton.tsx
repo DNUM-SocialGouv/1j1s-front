@@ -9,7 +9,7 @@ export const LoadingButton = ({ label = 'Envoi en cours', className } : LoadingB
 	return (
 		<ButtonComponent
 			disabled
-			icon={<SpinnerIcon/>}
+			icon={<SpinnerIcon />}
 			iconPosition="left"
 			label={label}
 			className={className}

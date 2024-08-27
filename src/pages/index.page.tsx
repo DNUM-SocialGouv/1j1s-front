@@ -247,7 +247,7 @@ export default function Accueil() {
 							<Link href={'/espace-jeune'} appearance={'asSecondaryButton'} className={styles.heroButton}>
 								<span className={styles.heroButtonLargeScreenText}>Découvrir les actualités et services jeunes</span>
 								<span className={styles.heroButtonSmallMediumScreenText}>Actualités et services jeunes</span>
-								<Link.Icon/>
+								<Link.Icon />
 							</Link>
 						)}
 				</HeroWithIllustration>
@@ -270,7 +270,7 @@ export default function Accueil() {
 									</HeroSecondaryText>
 									<Link href={urlHomePageStageDeSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
 									Proposer un stage ou candidater
-										<Link.Icon/>
+										<Link.Icon />
 									</Link>
 								</>
 							) : (
@@ -285,7 +285,7 @@ export default function Accueil() {
 									</HeroSecondaryText>
 									<Link href={urlDepotOffreStagesSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
 									Déposer votre offre de stage
-										<Link.Icon/>
+										<Link.Icon />
 									</Link>
 								</>
 							)}
@@ -306,7 +306,7 @@ export default function Accueil() {
 							</HeroSecondaryText>
 							<Link href="https://worldskills2024.com" appearance={'asSecondaryButton'} className={styles.heroButton}>
 							Plus d’infos
-								<Link.Icon/>
+								<Link.Icon />
 							</Link>
 						</HeroWithIllustration>
 					)
@@ -314,7 +314,7 @@ export default function Accueil() {
 
 				<section className={classNames(styles.section, styles.sectionNosOffres)}>
 					<h2 id="offres" className={styles.sectionHeader}>
-						<Icon name="brief-case" className={styles.sectionNosOffresHeaderIcon}/>
+						<Icon name="brief-case" className={styles.sectionNosOffresHeaderIcon} />
 						Offres
 					</h2>
 					<Container>
@@ -328,7 +328,7 @@ export default function Accueil() {
 				</section>
 				<section className={classNames(styles.section, styles.sectionFormationsOrientation)}>
 					<h2 id="formation" className={styles.sectionHeader}>
-						<Icon name={'book'} className={styles.sectionFormationsOrientationHeaderIcon}/>
+						<Icon name={'book'} className={styles.sectionFormationsOrientationHeaderIcon} />
 						Formations et orientation
 					</h2>
 					<Container>
@@ -342,7 +342,7 @@ export default function Accueil() {
 				</section>
 				<section className={classNames(styles.section, styles.sectionEngagementBénévolat)}>
 					<h2 id="engagement-benevolat" className={styles.sectionHeader}>
-						<Icon name="trophy" className={styles.sectionEngagementBénévolatHeaderIcon}/>
+						<Icon name="trophy" className={styles.sectionEngagementBénévolatHeaderIcon} />
 						Engagement
 					</h2>
 					<Container>
@@ -356,7 +356,7 @@ export default function Accueil() {
 				</section>
 				<section className={classNames(styles.section, styles.sectionLogement)}>
 					<h2 id="logement" className={styles.sectionHeader}>
-						<Icon name={'home'} className={styles.sectionLogementHeaderIcon}/>
+						<Icon name={'home'} className={styles.sectionLogementHeaderIcon} />
 						Logement
 					</h2>
 					<Container>
@@ -370,7 +370,7 @@ export default function Accueil() {
 				</section>
 				<section className={classNames(styles.section, styles.sectionAidesOrientationAccompagnement)}>
 					<h2 id="aides-orientation-accompagnement" className={styles.sectionHeader}>
-						<Icon name={'compass'} className={styles.sectionAidesOrientationAccompagnementHeaderIcon}/>
+						<Icon name={'compass'} className={styles.sectionAidesOrientationAccompagnementHeaderIcon} />
 						Accompagnement
 					</h2>
 					<Container>
@@ -384,7 +384,7 @@ export default function Accueil() {
 				</section>
 				<section className={classNames(styles.section, styles.sectionAidesEtOutils)}>
 					<h2 id="aides-et-outils" className={styles.sectionHeader}>
-						<Icon name={'mark-pen'} className={styles.sectionAidesEtOutilsHeaderIcon}/>
+						<Icon name={'mark-pen'} className={styles.sectionAidesEtOutilsHeaderIcon} />
 						Aides et outils
 					</h2>
 					<Container>

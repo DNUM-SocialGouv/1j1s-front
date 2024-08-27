@@ -45,7 +45,7 @@ describe('Page Espace Jeune', () => {
 			mockSmallScreen();
 
 			const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList}/>
+				<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList} />
 			</DependenciesProvider>);
 
 			expect(container.outerHTML).toHTMLValidate();
@@ -80,7 +80,7 @@ describe('Page Espace Jeune', () => {
 				<DependenciesProvider
 					analyticsService={analyticsService}
 				>
-					<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList}/>
+					<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList} />
 				</DependenciesProvider>,
 			);
 
@@ -102,7 +102,7 @@ describe('Page Espace Jeune', () => {
 					<DependenciesProvider
 						analyticsService={analyticsService}
 					>
-						<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList}/>
+						<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList} />
 					</DependenciesProvider>,
 				);
 				const actualitesSection = screen.getByRole('region', { name: 'les actualités' });
@@ -123,7 +123,7 @@ describe('Page Espace Jeune', () => {
 					<DependenciesProvider
 						analyticsService={analyticsService}
 					>
-						<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList}/>
+						<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList} />
 					</DependenciesProvider>,
 				);
 				const actualitesSection = screen.getByRole('region', { name: 'les actualités' });
@@ -148,7 +148,7 @@ describe('Page Espace Jeune', () => {
 
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList}/>
+						<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList} />
 					</DependenciesProvider>,
 				);
 
@@ -173,7 +173,7 @@ describe('Page Espace Jeune', () => {
 
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList}/>
+						<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList} />
 					</DependenciesProvider>,
 				);
 				const mesuresJeunesSection = screen.getByRole('region', { name: 'les services jeunes' });
@@ -198,7 +198,7 @@ describe('Page Espace Jeune', () => {
 
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList}/>
+						<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList} />
 					</DependenciesProvider>,
 				);
 				const mesuresJeunesSection = screen.getByRole('region', { name: 'les services jeunes' });

@@ -28,7 +28,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 
 			render(
 				<DependenciesProvider localisationService={localisationServiceMock}>
-					<FormulaireRechercheMissionEngagement domainList={domainList}/>
+					<FormulaireRechercheMissionEngagement domainList={domainList} />
 				</DependenciesProvider>,
 			);
 			const user = userEvent.setup();
@@ -60,7 +60,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 
 			render(
 				<DependenciesProvider localisationService={localisationServiceMock}>
-					<FormulaireRechercheMissionEngagement domainList={domainList}/>
+					<FormulaireRechercheMissionEngagement domainList={domainList} />
 				</DependenciesProvider>,
 			);
 			const user = userEvent.setup();
@@ -89,7 +89,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 
 			render(
 				<DependenciesProvider localisationService={localisationServiceMock}>
-					<FormulaireRechercheMissionEngagement domainList={aMissionEngagementDomainList()}/>
+					<FormulaireRechercheMissionEngagement domainList={aMissionEngagementDomainList()} />
 				</DependenciesProvider>,
 			);
 
@@ -122,7 +122,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheMissionEngagement domainList={domainList}/>
+						<FormulaireRechercheMissionEngagement domainList={domainList} />
 					</DependenciesProvider>,
 				);
 
@@ -151,7 +151,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheMissionEngagement domainList={domainList}/>
+						<FormulaireRechercheMissionEngagement domainList={domainList} />
 					</DependenciesProvider>,
 				);
 

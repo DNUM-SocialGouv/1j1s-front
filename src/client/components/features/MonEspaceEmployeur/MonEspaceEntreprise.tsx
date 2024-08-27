@@ -21,7 +21,7 @@ export function MonEspaceEntreprise() {
 					</LightHeroPrimaryText>
 				</h1>
 				<div className={styles.entreprisesPourLaJeunesse}>
-					<Image src="/images/logos/les-entrerprises-s-engagent.svg" alt="" width={150} height={150}/>
+					<Image src="/images/logos/les-entrerprises-s-engagent.svg" alt="" width={150} height={150} />
 					<h2>
 						<LightHeroSecondaryText>
 							<span>Vous êtes déjà membre de la Communauté</span> &quot;Les entreprises s‘engagent&quot; ?
@@ -38,13 +38,13 @@ export function MonEspaceEntreprise() {
 							appearance="asPrimaryButton"
 						>
 							Se connecter
-							<Link.Icon/>
+							<Link.Icon />
 						</Link>
 						<Link
 							appearance={'asQuaternaryButton'}
 							href="/les-entreprises-s-engagent"
 						>
-							<Link.Icon name="information"/>
+							<Link.Icon name="information" />
 							Pas encore inscrit ? Rejoignez la mobilisation
 						</Link>
 					</div>
@@ -66,12 +66,12 @@ export function MonEspaceEntreprise() {
 						</span>
 					</p>
 					<div>
-						<Link href={AUTHENTIFICATION_URL_LBA} appearance="asPrimaryButton">Se connecter<Link.Icon/></Link>
+						<Link href={AUTHENTIFICATION_URL_LBA} appearance="asPrimaryButton">Se connecter<Link.Icon /></Link>
 						<Link
 							appearance={'asQuaternaryButton'}
 							href={INSCRIPTION_URL_LBA}
 						>
-							<Link.Icon name="information"/>
+							<Link.Icon name="information" />
 							Pas encore inscrit ? Inscrivez votre entreprise
 						</Link>
 					</div>
@@ -79,7 +79,7 @@ export function MonEspaceEntreprise() {
 				<p className={styles.contact}>
 					Pour toute demande concernant les offres de stages d‘études, veuillez <Link
 						href={`mailto:${MAIL_TO_CONTACT_1J1S}`}
-					>nous contacter par email<Link.Icon/></Link>
+					>nous contacter par email<Link.Icon /></Link>
 				</p>
 			</Container>
 		</section>

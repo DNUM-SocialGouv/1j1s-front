@@ -77,7 +77,7 @@ export default function AidesLogement() {
 function additionalInformation() {
 	return (
 		<div className={styles.additionalInfo}>
-			<Icon name="information"/>
+			<Icon name="information" />
 			<span>Avant de démarrer la simulation de vos aides, pensez à vous munir de vos ressources et de celles de vos
         parents si vous êtes encore à leur charge.</span>
 		</div>

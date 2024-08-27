@@ -16,17 +16,17 @@ export const Example: Story = {
 		open: true,
 	},
 	render: (args) => (
-		<FilterAccordion {...args} >
+		<FilterAccordion {...args}>
 			<FilterAccordion.Title>Je suis le titre</FilterAccordion.Title>
 			<FilterAccordion.Content>
 				<>
 					<div>
 						<label htmlFor={'idInputCommune'}>Commune</label>
-						<input id={'idInputCommune'}/>
+						<input id={'idInputCommune'} />
 					</div>
 					<div>
 						<label htmlFor={'idInputPays'}>Pays</label>
-						<input id={'idInputPays'}/>
+						<input id={'idInputPays'} />
 					</div>
 				</>
 			</FilterAccordion.Content>

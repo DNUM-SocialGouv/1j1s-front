@@ -18,7 +18,7 @@ export function ModaleSuccessSubmission({ isOpen, onClose }: ModaleSuccessSubmis
 		>
 			<ModalComponent.Content>
 				<div className={styles.content}>
-					<CheckIcon circled={true} animate className={styles.contentIcon}/>
+					<CheckIcon circled={true} animate className={styles.contentIcon} />
 					<h1 id="dialog_label_success" className={styles.contentMessage}>
 					Votre demande a bien été transmise !
 					</h1>

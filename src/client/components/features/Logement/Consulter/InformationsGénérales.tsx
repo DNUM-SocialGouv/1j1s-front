@@ -48,7 +48,7 @@ export function InformationsGénérales({
 		<section className={classNames(styles.card, styles.informationsGenerales)} aria-labelledby="informations-annonce-title">
 			<h2 id="informations-annonce-title">Informations générales</h2>
 			<table>
-				<caption><Icon name='euro' aria-hidden={false} aria-label="Prix"/></caption>
+				<caption><Icon name='euro' aria-hidden={false} aria-label="Prix" /></caption>
 				<tbody>
 					<tr>
 						<th scope="row">Prix</th>
@@ -69,7 +69,7 @@ export function InformationsGénérales({
 				</tbody>
 			</table>
 			<table>
-				<caption><Icon name='community' aria-hidden={false} aria-label="Informations du logement"/></caption>
+				<caption><Icon name='community' aria-hidden={false} aria-label="Informations du logement" /></caption>
 				<tbody>
 					<tr>
 						<th scope="row">Surface</th>
@@ -101,7 +101,7 @@ export function InformationsGénérales({
 			</table>
 			{localisationAffichable && (
 				<table className={styles.localisation}>
-					<caption><Icon name='roadmap' aria-hidden={false} aria-label="Localisation"/></caption>
+					<caption><Icon name='roadmap' aria-hidden={false} aria-label="Localisation" /></caption>
 					<tbody>
 						<tr>
 							<th scope="row">Localisation</th>
@@ -111,7 +111,7 @@ export function InformationsGénérales({
 				</table>
 			)}
 			<table className={styles.disponibilite}>
-				<caption><Icon name='suitcase' aria-hidden={false} aria-label="Disponibilité"/></caption>
+				<caption><Icon name='suitcase' aria-hidden={false} aria-label="Disponibilité" /></caption>
 				<tbody>
 					<tr>
 						<th scope="row">Disponible</th>

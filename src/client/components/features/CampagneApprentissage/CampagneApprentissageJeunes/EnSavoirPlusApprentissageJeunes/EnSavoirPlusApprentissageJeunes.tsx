@@ -12,7 +12,7 @@ export default function EnSavoirPlusApprentissageJeunes() {
 				<h2 className={styles.heading}>L’apprentissage vous intéresse&nbsp;? <span className={styles.headingSecondary}>On répond à toutes vos questions</span></h2>
 				<Link className={styles.link} href="/faq/apprentissage-parents-enfants" appearance="asPrimaryButton">
 				Consulter la FAQ
-					<Link.Icon/>
+					<Link.Icon />
 				</Link>
 			</div>
 			<div className={styles.enSavoirPlusEmployeurs}>
@@ -20,7 +20,7 @@ export default function EnSavoirPlusApprentissageJeunes() {
 				</h2>
 				<Link className={styles.link} href="/apprentissage-entreprises" appearance="asPrimaryButton">
 				Découvrir l’apprentissage
-					<Link.Icon/>
+					<Link.Icon />
 				</Link>
 			</div>
 		</Container>

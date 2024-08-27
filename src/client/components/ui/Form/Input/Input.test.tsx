@@ -9,12 +9,12 @@ import { Input } from './Input';
 
 describe('<Input/>', () => {
 	it('affiche un textbox', () => {
-		render(<Input/>);
+		render(<Input />);
 		expect(screen.getByRole('textbox')).toBeVisible();
 	});
 
 	it('accepte les props natives d‘un input', () => {
-		render(<Input disabled aria-label={'foo'}/>);
+		render(<Input disabled aria-label={'foo'} />);
 
 		const input = screen.getByRole('textbox');
 		expect(input).toBeDisabled();
@@ -23,14 +23,14 @@ describe('<Input/>', () => {
 
 	it('accepte une ref', () => {
 		const ref = jest.fn();
-		render(<Input ref={ref}/>);
+		render(<Input ref={ref} />);
 
 		expect(ref).toHaveBeenCalledTimes(1);
 		expect(ref).toHaveBeenCalledWith(expect.any(HTMLInputElement));
 	});
 
 	it('accepte une classe', () => {
-		render(<Input className={'className'}/>);
+		render(<Input className={'className'} />);
 
 		const input = screen.getByRole('textbox');
 		expect(input).toHaveAttribute('class', expect.stringContaining('className'));
@@ -39,7 +39,7 @@ describe('<Input/>', () => {
 	it('accepte un onChange', async () => {
 		const onChange = jest.fn();
 		const user = userEvent.setup();
-		render(<Input onChange={onChange}/>);
+		render(<Input onChange={onChange} />);
 
 		const input = screen.getByRole('textbox');
 		await user.type(input, 'a');
@@ -50,7 +50,7 @@ describe('<Input/>', () => {
 	it('accepte un onFocus', async () => {
 		const onFocus = jest.fn();
 		const user = userEvent.setup();
-		render(<Input onFocus={onFocus}/>);
+		render(<Input onFocus={onFocus} />);
 
 		const input = screen.getByRole('textbox');
 		await user.click(input);
@@ -61,7 +61,7 @@ describe('<Input/>', () => {
 	it('accepte un onBlur', async () => {
 		const onBlur = jest.fn();
 		const user = userEvent.setup();
-		render(<Input onBlur={onBlur}/>);
+		render(<Input onBlur={onBlur} />);
 
 		const input = screen.getByRole('textbox');
 		await user.type(input, 'a');
@@ -73,7 +73,7 @@ describe('<Input/>', () => {
 	describe('validation', () => {
 		it('lorsque la valeur initiale de l‘input est valide, l‘input est valide', async () => {
 			const validation = jest.fn().mockReturnValue('');
-			render(<Input validation={validation}/>);
+			render(<Input validation={validation} />);
 
 			const input = screen.getByRole('textbox');
 			expect(input).toBeValid();
@@ -81,7 +81,7 @@ describe('<Input/>', () => {
 
 		it('lorsque la valeur initiale de l‘input n‘est pas valide, l‘input est invalide', async () => {
 			const validation = jest.fn().mockReturnValue('error message');
-			render(<Input validation={validation}/>);
+			render(<Input validation={validation} />);
 
 			const input = screen.getByRole('textbox');
 			expect(input).toBeInvalid();
@@ -90,7 +90,7 @@ describe('<Input/>', () => {
 		it('lorsque je tape une valeur valide, l‘input est valide', async () => {
 			const validation = jest.fn().mockReturnValue('');
 			const user = userEvent.setup();
-			render(<Input validation={validation}/>);
+			render(<Input validation={validation} />);
 
 			const input = screen.getByRole('textbox');
 			await user.type(input, 'a');
@@ -101,7 +101,7 @@ describe('<Input/>', () => {
 		it('lorsque je tape une valeur invalide, l‘input est en erreur', async () => {
 			const validation = jest.fn().mockReturnValue('error');
 			const user = userEvent.setup();
-			render(<Input validation={validation}/>);
+			render(<Input validation={validation} />);
 
 			const input = screen.getByRole<HTMLInputElement>('textbox');
 			await user.type(input, 'a');
@@ -115,7 +115,7 @@ describe('<Input/>', () => {
 			const validation = jest.fn().mockReturnValue('error');
 			const onChange = jest.fn((event) => { validationMessage = event.target.validationMessage; });
 			const user = userEvent.setup();
-			render(<Input validation={validation} onChange={onChange}/>);
+			render(<Input validation={validation} onChange={onChange} />);
 
 			const input = screen.getByRole('textbox');
 			await user.type(input, 'a');
@@ -131,7 +131,7 @@ describe('<Input/>', () => {
 
 	describe('l’input est marqué comme touché ou non', () => {
 		it('n’est pas marqué comme touché par défaut', () => {
-			render(<Input/>);
+			render(<Input />);
 
 			const input = screen.getByRole('textbox');
 			expect(input).toHaveAttribute('data-touched', 'false');
@@ -139,7 +139,7 @@ describe('<Input/>', () => {
 
 		it('marque le champ comme touché quand on quitte le champ après avoir écrit dedans', async () => {
 			const user = userEvent.setup();
-			render(<Input/>);
+			render(<Input />);
 
 			const input = screen.getByRole('textbox');
 			await user.type(input, 'a');
@@ -150,7 +150,7 @@ describe('<Input/>', () => {
 
 		it('ne marque pas le champ tant qu’on ne quitte pas le champ', async () => {
 			const user = userEvent.setup();
-			render(<Input/>);
+			render(<Input />);
 
 			const input = screen.getByRole('textbox');
 			await user.type(input, 'a');
@@ -160,7 +160,7 @@ describe('<Input/>', () => {
 
 		it('ne marque pas le champ comme touché quand on quitte le champ sans avoir écrit dedans', async () => {
 			const user = userEvent.setup();
-			render(<Input/>);
+			render(<Input />);
 
 			const input = screen.getByRole('textbox');
 			await user.click(input);
@@ -185,7 +185,7 @@ describe('<Input/>', () => {
 	it('lorsque l‘input est en erreur et que l‘input est touched, onInvalid est appelé', async () => {
 		const onInvalid = jest.fn();
 		const user = userEvent.setup();
-		render(<Input onInvalid={onInvalid} required/>);
+		render(<Input onInvalid={onInvalid} required />);
 
 		const input = screen.getByRole('textbox');
 		await user.type(input, 'a');
@@ -198,7 +198,7 @@ describe('<Input/>', () => {
 	it('lorsque l‘input n‘est pas en erreur, onInvalid n‘est pas appelé', async () => {
 		const onInvalid = jest.fn();
 		const user = userEvent.setup();
-		render(<Input onInvalid={onInvalid} required/>);
+		render(<Input onInvalid={onInvalid} required />);
 
 		const input = screen.getByRole('textbox');
 		await user.type(input, 'a');
@@ -209,7 +209,7 @@ describe('<Input/>', () => {
 	it('lorsque l‘input est déjà en erreur et que l‘input est touched, onInvalid est appelé', async () => {
 		const onInvalid = jest.fn();
 		const user = userEvent.setup();
-		render(<Input onInvalid={onInvalid} required defaultValue={'toto'}/>);
+		render(<Input onInvalid={onInvalid} required defaultValue={'toto'} />);
 
 		const input = screen.getByRole('textbox');
 		await user.clear(input);
@@ -221,7 +221,7 @@ describe('<Input/>', () => {
 	it('lorsque l‘input est en erreur et que l‘input n‘est pas touched, onInvalid n‘est pas appelé', async () => {
 		const onInvalid = jest.fn();
 		const user = userEvent.setup();
-		render(<Input onInvalid={onInvalid} required/>);
+		render(<Input onInvalid={onInvalid} required />);
 
 		const input = screen.getByRole('textbox');
 		await user.type(input, 'a');

@@ -83,16 +83,16 @@ export function RechercherFormationInitiale() {
 				<RechercherSolutionLayout
 					banniere={banniere()}
 					erreurRecherche={erreurRecherche}
-					formulaireRecherche={<FormulaireRechercheFormationInitiale/>}
+					formulaireRecherche={<FormulaireRechercheFormationInitiale />}
 					isChargement={isLoading}
 					isEtatInitial={empty(formationInitialeQuery)}
 					messageResultatRecherche={messageResultatRecherche}
 					nombreTotalSolutions={nombreDeResultat}
 					paginationOffset={NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE}
-					listeSolutionElement={<ListeFormationInitiale resultatList={resultatList}/>}
+					listeSolutionElement={<ListeFormationInitiale resultatList={resultatList} />}
 				/>
 
-				<ListeDesServicesInteressants/>
+				<ListeDesServicesInteressants />
 			</main>
 		</>
 	);

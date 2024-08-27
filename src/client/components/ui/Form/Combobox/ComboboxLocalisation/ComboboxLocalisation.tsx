@@ -136,13 +136,13 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 				filter={Combobox.noFilter}
 				{...rest}
 			>
-				<LocalisationOptionsByCategory localisations={localisationOptions} optionMessage={optionMessage}/>
+				<LocalisationOptionsByCategory localisations={localisationOptions} optionMessage={optionMessage} />
 			</Champ.Input>
-			<Champ.Error/>
-			<input type="hidden" value={matchingOption?.nom ?? ''} name="nomLocalisation"/>
-			<input type="hidden" value={matchingOption?.codePostal ?? ''} name="codePostalLocalisation"/>
-			<input type="hidden" value={matchingOption?.code ?? ''} name="codeLocalisation"/>
-			<input type="hidden" value={matchingOption?.type ?? ''} name="typeLocalisation"/>
+			<Champ.Error />
+			<input type="hidden" value={matchingOption?.nom ?? ''} name="nomLocalisation" />
+			<input type="hidden" value={matchingOption?.codePostal ?? ''} name="codePostalLocalisation" />
+			<input type="hidden" value={matchingOption?.code ?? ''} name="codeLocalisation" />
+			<input type="hidden" value={matchingOption?.type ?? ''} name="typeLocalisation" />
 		</Champ>
 	);
 });

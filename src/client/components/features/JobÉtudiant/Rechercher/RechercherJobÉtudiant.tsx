@@ -89,17 +89,17 @@ export function RechercherJobÉtudiant(props: RechercherJobEtudiantProps) {
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout
-					banniere={<BannièreJobÉtudiant/>}
+					banniere={<BannièreJobÉtudiant />}
 					erreurRecherche={erreurRecherche}
 					etiquettesRecherche={étiquettesRecherche}
-					formulaireRecherche={<FormulaireRechercheJobÉtudiant/>}
+					formulaireRecherche={<FormulaireRechercheJobÉtudiant />}
 					isChargement={false}
 					isEtatInitial={empty(offreEmploiQuery)}
 					messageResultatRecherche={messageRésultatRecherche}
 					nombreTotalSolutions={nombreRésultats}
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
 					maxPage={MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL - 1}
-					listeSolutionElement={<ListeOffreJobÉtudiant résultatList={jobÉtudiantList}/>}
+					listeSolutionElement={<ListeOffreJobÉtudiant résultatList={jobÉtudiantList} />}
 				/>
 				<EnTete heading="Découvrez des services faits pour vous" />
 				<ServiceCardList>

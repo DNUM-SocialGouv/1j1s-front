@@ -41,7 +41,7 @@ export function ConsulterMissionEngagement({
 								appearance="asPrimaryButton"
 							>
 								S’engager
-								<Link.Icon/>
+								<Link.Icon />
 							</Link>
 						)}
 					</div>

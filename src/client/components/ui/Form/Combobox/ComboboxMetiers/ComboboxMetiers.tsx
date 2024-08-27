@@ -126,11 +126,11 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 						|| status === 'failure' && MESSAGE_ERREUR_FETCH
 						|| status === 'pending' && MESSAGE_CHARGEMENT
 						|| metiers.length === 0 && MESSAGE_PAS_DE_RESULTAT
-						|| <MetiersTrouves quantity={metiers.length}/>
+						|| <MetiersTrouves quantity={metiers.length} />
 					}
 				</Combobox.AsyncMessage>
 			</Champ.Input>
-			<Champ.Error/>
+			<Champ.Error />
 		</Champ>
 	);
 });

@@ -32,7 +32,7 @@ describe('RechercherOffreEmploi', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherOffreEmploi/>
+					<RechercherOffreEmploi />
 				</DependenciesProvider>,
 			);
 
@@ -55,7 +55,7 @@ describe('RechercherOffreEmploi', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherOffreEmploi resultats={aRésultatsRechercheOffre()}/>
+					<RechercherOffreEmploi resultats={aRésultatsRechercheOffre()} />
 				</DependenciesProvider>,
 			);
 
@@ -89,7 +89,7 @@ describe('RechercherOffreEmploi', () => {
 						<DependenciesProvider
 							localisationService={localisationServiceMock}
 						>
-							<RechercherOffreEmploi resultats={aRésultatsRechercheOffre()}/>
+							<RechercherOffreEmploi resultats={aRésultatsRechercheOffre()} />
 						</DependenciesProvider>,
 					);
 
@@ -119,7 +119,7 @@ describe('RechercherOffreEmploi', () => {
 						<DependenciesProvider
 							localisationService={localisationServiceMock}
 						>
-							<RechercherOffreEmploi resultats={aRésultatsRechercheOffre()}/>
+							<RechercherOffreEmploi resultats={aRésultatsRechercheOffre()} />
 						</DependenciesProvider>,
 					);
 
@@ -146,7 +146,7 @@ describe('RechercherOffreEmploi', () => {
 						<DependenciesProvider
 							localisationService={localisationServiceMock}
 						>
-							<RechercherOffreEmploi resultats={aRésultatsRechercheOffre()}/>
+							<RechercherOffreEmploi resultats={aRésultatsRechercheOffre()} />
 						</DependenciesProvider>,
 					);
 
@@ -168,7 +168,7 @@ describe('RechercherOffreEmploi', () => {
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
 					>
-						<RechercherOffreEmploi resultats={aRésultatsRechercheOffre()}/>
+						<RechercherOffreEmploi resultats={aRésultatsRechercheOffre()} />
 					</DependenciesProvider>,
 				);
 
@@ -201,7 +201,7 @@ describe('RechercherOffreEmploi', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherOffreEmploi resultats={offre}/>
+					<RechercherOffreEmploi resultats={offre} />
 				</DependenciesProvider>,
 			);
 
@@ -227,7 +227,7 @@ describe('RechercherOffreEmploi', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherOffreEmploi resultats={resultats}/>
+					<RechercherOffreEmploi resultats={resultats} />
 				</DependenciesProvider>,
 			);
 
@@ -251,7 +251,7 @@ describe('RechercherOffreEmploi', () => {
 				<DependenciesProvider
 					localisationService={aLocalisationService()}
 				>
-					<RechercherOffreEmploi resultats={offre}/>
+					<RechercherOffreEmploi resultats={offre} />
 				</DependenciesProvider>,
 			);
 
@@ -275,7 +275,7 @@ describe('RechercherOffreEmploi', () => {
 				<DependenciesProvider
 					localisationService={aLocalisationService()}
 				>
-					<RechercherOffreEmploi resultats={offre}/>
+					<RechercherOffreEmploi resultats={offre} />
 				</DependenciesProvider>,
 			);
 

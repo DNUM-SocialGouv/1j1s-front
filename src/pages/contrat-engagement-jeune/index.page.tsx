@@ -25,16 +25,16 @@ export default function ContratEngagementJeune() {
 				robots="index,follow"
 			/>
 			<main id="contenu">
-				<Banniere/>
-				<QuEstCeQueCEst/>
-				<Actions/>
-				<PourquoiCEstFaitPourMoi/>
-				<QuEstCeQueJyGagne/>
-				<Allocations/>
-				<Témoignages/>
-				<Accompagnement/>
-				<DemandeContactCEJ/>
-				<Application/>
+				<Banniere />
+				<QuEstCeQueCEst />
+				<Actions />
+				<PourquoiCEstFaitPourMoi />
+				<QuEstCeQueJyGagne />
+				<Allocations />
+				<Témoignages />
+				<Accompagnement />
+				<DemandeContactCEJ />
+				<Application />
 			</main>
 		</>
 	);

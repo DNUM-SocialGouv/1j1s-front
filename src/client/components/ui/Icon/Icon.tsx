@@ -160,7 +160,7 @@ export function Icon({ name, className, ...rest }: IconProps) {
 			case 'car':
 				return <CarIcon className={className} aria-hidden={true} {...rest} />;
 			case 'check-line':
-				return <CheckLineIcon className={className} aria-hidden={true} {...rest}/>;
+				return <CheckLineIcon className={className} aria-hidden={true} {...rest} />;
 			case 'clean-hands':
 				return <CleanHandsIcon className={className} aria-hidden={true} {...rest} />;
 			case 'close':
@@ -188,7 +188,7 @@ export function Icon({ name, className, ...rest }: IconProps) {
 			case 'lock':
 				return <LockIcon className={className} aria-hidden={true} {...rest} />;
 			case 'magnifying-glass':
-				return <MagnifyingGlassIcon className={className} aria-hidden={true} {...rest}/>;
+				return <MagnifyingGlassIcon className={className} aria-hidden={true} {...rest} />;
 			case 'map-pin':
 				return <MapPinIcon className={className} aria-hidden={true} {...rest} />;
 			case 'mark-pen':

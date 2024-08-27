@@ -67,7 +67,7 @@ describe('Plan du site', () => {
 					<DependenciesProvider
 						analyticsService={analyticsService}
 					>
-						<PlanDuSite/>
+						<PlanDuSite />
 					</DependenciesProvider>,
 				);
 
@@ -97,7 +97,7 @@ describe('Plan du site', () => {
 				<DependenciesProvider
 					analyticsService={analyticsService}
 				>
-					<PlanDuSite/>
+					<PlanDuSite />
 				</DependenciesProvider>,
 			);
 
@@ -114,7 +114,7 @@ describe('Plan du site', () => {
 			<DependenciesProvider
 				analyticsService={analyticsService}
 			>
-				<PlanDuSite/>
+				<PlanDuSite />
 			</DependenciesProvider>,
 		);
 

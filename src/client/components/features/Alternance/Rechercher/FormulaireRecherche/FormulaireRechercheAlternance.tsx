@@ -88,7 +88,7 @@ export function FormulaireRechercheAlternance(props: FormulaireRechercheAlternan
 				<div className={styles.buttonRechercher}>
 					<ButtonComponent
 						label="Rechercher"
-						icon={<Icon name="magnifying-glass"/>}
+						icon={<Icon name="magnifying-glass" />}
 						iconPosition="right"
 						type="submit"
 					/>

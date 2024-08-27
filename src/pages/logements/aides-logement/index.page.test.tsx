@@ -20,7 +20,7 @@ describe('Les aides au logement', () => {
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<AidesLogement/>
+			<AidesLogement />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -31,7 +31,7 @@ describe('Les aides au logement', () => {
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
 			>
-				<AidesLogement/>
+				<AidesLogement />
 			</DependenciesProvider>,
 		);
 
@@ -45,7 +45,7 @@ describe('Les aides au logement', () => {
 			<DependenciesProvider
 				analyticsService={analyticsService}
 			>
-				<AidesLogement/>
+				<AidesLogement />
 			</DependenciesProvider>,
 		);
 
@@ -65,7 +65,7 @@ describe('Les aides au logement', () => {
 				<DependenciesProvider
 					analyticsService={analyticsService}
 				>
-					<AidesLogement/>
+					<AidesLogement />
 				</DependenciesProvider>,
 			);
 

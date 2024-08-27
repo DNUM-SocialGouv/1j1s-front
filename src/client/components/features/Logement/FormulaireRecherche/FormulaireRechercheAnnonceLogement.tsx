@@ -78,7 +78,7 @@ export function FormulaireRechercheAnnonceLogement() {
 				<ButtonComponent
 					type="button"
 					appearance="quaternary"
-					icon={<Icon name="filter"/>}
+					icon={<Icon name="filter" />}
 					iconPosition="right"
 					label="Filtrer ma recherche"
 					onClick={() => setIsFiltresAvancésMobileOpen(true)}
@@ -92,7 +92,7 @@ export function FormulaireRechercheAnnonceLogement() {
 					aria-labelledby="dialog_label"
 				>
 					<ModalComponent.Title>
-						<Icon name="menu"/>
+						<Icon name="menu" />
 						<span id="dialog_label">Filtrer ma recherche</span>
 					</ModalComponent.Title>
 					<ModalComponent.Content className={styles.filtresAvancésModalContenu}>
@@ -150,7 +150,7 @@ export function FormulaireRechercheAnnonceLogement() {
 					<ModalComponent.Footer>
 						<div className={styles.applyFiltersButton}>
 							<ButtonComponent
-								icon={<Icon name="angle-right"/>}
+								icon={<Icon name="angle-right" />}
 								iconPosition="right"
 								label="Appliquer les filtres"
 								onClick={() => setIsFiltresAvancésMobileOpen(false)}

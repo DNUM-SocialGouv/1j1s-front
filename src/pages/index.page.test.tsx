@@ -30,7 +30,7 @@ describe('Page d‘accueil', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<Accueil/>
+				<Accueil />
 			</DependenciesProvider>);
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -39,7 +39,7 @@ describe('Page d‘accueil', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<Accueil/>
+				<Accueil />
 			</DependenciesProvider>,
 		);
 
@@ -51,7 +51,7 @@ describe('Page d‘accueil', () => {
 			process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '1';
 			render(
 				<DependenciesProvider analyticsService={analyticsService}>
-					<Accueil/>
+					<Accueil />
 				</DependenciesProvider>,
 			);
 			expect(screen.getByRole('link', { name: /Découvrir les actualités et services jeunes/ })).toBeVisible();
@@ -61,7 +61,7 @@ describe('Page d‘accueil', () => {
 			process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
 			render(
 				<DependenciesProvider analyticsService={analyticsService}>
-					<Accueil/>
+					<Accueil />
 				</DependenciesProvider>,
 			);
 			expect(screen.queryByRole('link', { name: /Découvrir les actualités et services jeunes/ })).not.toBeInTheDocument();
@@ -73,7 +73,7 @@ describe('Page d‘accueil', () => {
 			// WHEN
 			render(
 				<DependenciesProvider analyticsService={analyticsService}>
-					<Accueil/>
+					<Accueil />
 				</DependenciesProvider>,
 			);
 
@@ -91,7 +91,7 @@ describe('Page d‘accueil', () => {
 				// WHEN
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil/>
+						<Accueil />
 					</DependenciesProvider>,
 				);
 
@@ -110,7 +110,7 @@ describe('Page d‘accueil', () => {
 				// WHEN
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil/>
+						<Accueil />
 					</DependenciesProvider>,
 				);
 
@@ -127,7 +127,7 @@ describe('Page d‘accueil', () => {
 				process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '0';
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil/>
+						<Accueil />
 					</DependenciesProvider>,
 				);
 				expect(screen.queryByText('Jobs d‘été')).not.toBeInTheDocument();
@@ -140,7 +140,7 @@ describe('Page d‘accueil', () => {
 
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil/>
+						<Accueil />
 					</DependenciesProvider>,
 				);
 
@@ -159,7 +159,7 @@ describe('Page d‘accueil', () => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil/>
+						<Accueil />
 					</DependenciesProvider>,
 				);
 				expect(screen.queryByText('Formations initiales')).not.toBeInTheDocument();
@@ -171,7 +171,7 @@ describe('Page d‘accueil', () => {
 
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil/>
+						<Accueil />
 					</DependenciesProvider>,
 				);
 
@@ -188,7 +188,7 @@ describe('Page d‘accueil', () => {
 				process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '0';
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil/>
+						<Accueil />
 					</DependenciesProvider>,
 				);
 				expect(screen.queryByText('Aides au permis de conduire')).not.toBeInTheDocument();
@@ -200,7 +200,7 @@ describe('Page d‘accueil', () => {
 
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil/>
+						<Accueil />
 					</DependenciesProvider>,
 				);
 
@@ -220,7 +220,7 @@ describe('Page d‘accueil', () => {
 				// WHEN
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil/>
+						<Accueil />
 					</DependenciesProvider>,
 				);
 
@@ -240,7 +240,7 @@ describe('Page d‘accueil', () => {
 					// WHEN
 					render(
 						<DependenciesProvider analyticsService={analyticsService}>
-							<Accueil/>
+							<Accueil />
 						</DependenciesProvider>,
 					);
 
@@ -264,7 +264,7 @@ describe('Page d‘accueil', () => {
 					// WHEN
 					render(
 						<DependenciesProvider analyticsService={analyticsService}>
-							<Accueil/>
+							<Accueil />
 						</DependenciesProvider>,
 					);
 
@@ -288,7 +288,7 @@ describe('Page d‘accueil', () => {
 				// When
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil/>
+						<Accueil />
 					</DependenciesProvider>,
 				);
 
@@ -303,7 +303,7 @@ describe('Page d‘accueil', () => {
 			  // When
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil/>
+						<Accueil />
 					</DependenciesProvider>,
 				);
 
@@ -319,7 +319,7 @@ describe('Page d‘accueil', () => {
 			// When
 			render(
 				<DependenciesProvider analyticsService={analyticsService}>
-					<Accueil/>
+					<Accueil />
 				</DependenciesProvider>,
 			);
 

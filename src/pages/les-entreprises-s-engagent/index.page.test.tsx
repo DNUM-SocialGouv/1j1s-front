@@ -14,7 +14,7 @@ import LesEntreprisesSEngagent from '~/pages/les-entreprises-s-engagent/index.pa
 describe('<LesEntreprisesSEngagent />', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<LesEntreprisesSEngagent/>
+			<LesEntreprisesSEngagent />
 		</DependenciesProvider>);
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -26,7 +26,7 @@ describe('<LesEntreprisesSEngagent />', () => {
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
 			>
-				<LesEntreprisesSEngagent/>);
+				<LesEntreprisesSEngagent />);
 			</DependenciesProvider>,
 		);
 
@@ -37,7 +37,7 @@ describe('<LesEntreprisesSEngagent />', () => {
 		process.env.NEXT_PUBLIC_LES_ENTREPRISES_S_ENGAGENT_URL = 'http://url.com';
 
 		render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<LesEntreprisesSEngagent/>
+			<LesEntreprisesSEngagent />
 		</DependenciesProvider>);
 
 		expect(screen.getByRole('link', { name: 'Rejoindre la mobilisation - nouvelle fenêtre' })).toHaveAttribute('href', 'http://url.com');

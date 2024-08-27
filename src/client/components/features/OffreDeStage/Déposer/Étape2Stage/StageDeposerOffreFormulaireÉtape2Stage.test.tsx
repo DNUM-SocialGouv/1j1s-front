@@ -35,7 +35,7 @@ describe('<Stage />', () => {
 			render(<DependenciesProvider
 				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 				stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
-			><Stage/></DependenciesProvider>);
+			><Stage /></DependenciesProvider>);
 
 			const retourLink = screen.getByRole('link', { name: 'Retour à l’étape précédente' });
 
@@ -46,7 +46,7 @@ describe('<Stage />', () => {
 			render(<DependenciesProvider
 				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 				stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
-			><Stage/></DependenciesProvider>);
+			><Stage /></DependenciesProvider>);
 
 			expect(screen.getByText('Étape 2 sur 3 : Votre offre de stage')).toBeVisible();
 			expect(screen.getByRole('textbox', { name: LABEL_NOM_STAGE })).toBeVisible();
@@ -65,7 +65,7 @@ describe('<Stage />', () => {
 				render(<DependenciesProvider
 					stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 					stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
-				><Stage/></DependenciesProvider>);
+				><Stage /></DependenciesProvider>);
 
 				expect(screen.getByLabelText('Date précise du début de stage')).toBeVisible();
 			});
@@ -74,7 +74,7 @@ describe('<Stage />', () => {
 				render(<DependenciesProvider
 					stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 					stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
-				><Stage/></DependenciesProvider>);
+				><Stage /></DependenciesProvider>);
 
 				expect(screen.getByRole('radio', { name: 'Je connais la date précise du début de stage' })).toBeChecked();
 			});
@@ -88,7 +88,7 @@ describe('<Stage />', () => {
 				render(<DependenciesProvider
 					stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 					stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
-				><Stage/></DependenciesProvider>);
+				><Stage /></DependenciesProvider>);
 				await user.type(screen.getByLabelText('Date précise du début de stage'), currentDate);
 
 				// Then
@@ -105,7 +105,7 @@ describe('<Stage />', () => {
 				render(<DependenciesProvider
 					stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 					stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
-				><Stage/></DependenciesProvider>);
+				><Stage /></DependenciesProvider>);
 				const radioDatePrecise = screen.getByRole('radio', { name: 'Je ne connais pas la date précise du début de stage' });
 				await user.click(radioDatePrecise);
 				await user.type(screen.getByLabelText('Date de début du stage au plus tôt'), dateDebutMin);
@@ -128,7 +128,7 @@ describe('<Stage />', () => {
 				render(<DependenciesProvider
 					stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 					stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
-				><Stage/></DependenciesProvider>);
+				><Stage /></DependenciesProvider>);
 				const radioDatePrecise = screen.getByRole('radio', { name: 'Je ne connais pas la date précise du début de stage' });
 				await user.click(radioDatePrecise);
 				await user.type(screen.getByLabelText('Date de début du stage au plus tôt'), dateDebutMin);
@@ -145,7 +145,7 @@ describe('<Stage />', () => {
 				render(<DependenciesProvider
 					stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 					stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
-				><Stage/></DependenciesProvider>);
+				><Stage /></DependenciesProvider>);
 
 				const radioDatePrecise = screen.getByRole('radio', { name: 'Je ne connais pas la date précise du début de stage' });
 
@@ -164,7 +164,7 @@ describe('<Stage />', () => {
 				render(<DependenciesProvider
 					stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 					stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
-				><Stage/></DependenciesProvider>);
+				><Stage /></DependenciesProvider>);
 				await user.type(screen.getByLabelText('Date précise du début de stage'), yesterday);
 				await user.tab();
 
@@ -183,7 +183,7 @@ describe('<Stage />', () => {
 				render(<DependenciesProvider
 					stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 					stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
-				><Stage/></DependenciesProvider>);
+				><Stage /></DependenciesProvider>);
 				const radioDatePrecise = screen.getByRole('radio', { name: 'Je ne connais pas la date précise du début de stage' });
 				await user.click(radioDatePrecise);
 				await user.type(screen.getByLabelText('Date de début du stage au plus tôt'), dateDebutMin);
@@ -202,7 +202,7 @@ describe('<Stage />', () => {
 				render(<DependenciesProvider
 					stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 					stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
-				><Stage/></DependenciesProvider>);
+				><Stage /></DependenciesProvider>);
 
 				//When
 				const inputRemuneration = screen.getByRole('spinbutton', { name: LABEL_REMUNERATION });
@@ -217,7 +217,7 @@ describe('<Stage />', () => {
 			render(<DependenciesProvider
 				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 				stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
-			><Stage/></DependenciesProvider>);
+			><Stage /></DependenciesProvider>);
 
 			//When
 			const inputRemuneration = screen.getByRole('spinbutton', { name: LABEL_REMUNERATION });
@@ -236,7 +236,7 @@ describe('<Stage />', () => {
 			render(<DependenciesProvider
 				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 				stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
-			><Stage/></DependenciesProvider>);
+			><Stage /></DependenciesProvider>);
 
 			const radioOui = screen.getByRole('radio', { name: 'Oui' });
 			const radioNon = screen.getByRole('radio', { name: 'Non' });
@@ -253,7 +253,7 @@ describe('<Stage />', () => {
 			render(<DependenciesProvider
 				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 				stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
-			><Stage/></DependenciesProvider>);
+			><Stage /></DependenciesProvider>);
 
 			const textAreaDescription = screen.getByRole('textbox', { name: LABEL_DESCRIPTION_STAGE });
 			expect(textAreaDescription).toBeVisible();
@@ -266,7 +266,7 @@ describe('<Stage />', () => {
 			render(<DependenciesProvider
 				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 				stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
-			><Stage/></DependenciesProvider>);
+			><Stage /></DependenciesProvider>);
 
 			const inputNomOffreStage = screen.getByRole('textbox', { name: LABEL_NOM_STAGE });
 			await userEvent.type(inputNomOffreStage, 'Chef de projet');
@@ -290,7 +290,7 @@ describe('<Stage />', () => {
 					stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 					stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
 				>
-					<Stage/>
+					<Stage />
 				</DependenciesProvider>);
 				const inputTextTitreOffreDeStage = screen.getByRole('textbox', { name: LABEL_NOM_STAGE });
 				await userEvent.type(inputTextTitreOffreDeStage, longTextToType);
@@ -312,7 +312,7 @@ describe('<Stage />', () => {
 						stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 						stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
 					>
-						<Stage/>
+						<Stage />
 					</DependenciesProvider>);
 				const inputTextTitreOffreDeStage = screen.getByRole('textbox', { name: LABEL_NOM_STAGE });
 				await userEvent.type(inputTextTitreOffreDeStage, shortTextToType);

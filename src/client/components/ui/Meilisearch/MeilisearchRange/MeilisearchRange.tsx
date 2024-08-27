@@ -116,7 +116,7 @@ export function MeilisearchRange(props: UseRangeProps & MeilisearchRangeProps) {
   			/>
   			<span>{unite}</span>
   		</span>
-  		<ButtonComponent label={BUTTON_LABEL} onClick={refineRange}/>
+  		<ButtonComponent label={BUTTON_LABEL} onClick={refineRange} />
   	</fieldset>
   );
 
@@ -133,7 +133,7 @@ export function MeilisearchRange(props: UseRangeProps & MeilisearchRangeProps) {
   				onClick={() => setIsRangeBoxOpen(!isRangeBoxOpen)}
   			>
   				<span>{displayPlaceholder()}</span>
-  				<Icon name={isRangeBoxOpen ? 'angle-up' : 'angle-down'}/>
+  				<Icon name={isRangeBoxOpen ? 'angle-up' : 'angle-down'} />
   			</button>
   			{isRangeBoxOpen && renderRangeBox()}
   		</div>

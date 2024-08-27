@@ -21,13 +21,13 @@ export function ErrorLayout(props: React.PropsWithChildren<ErrorLayoutProps>) {
 			<div>
 				{children}
 				<div className={styles.buttonWrapper}>
-					<BackButton aria-label="Retourner à la page précédente" label="Retourner à la page précédente" appearance="primary" className={styles.backButton}/>
+					<BackButton aria-label="Retourner à la page précédente" label="Retourner à la page précédente" appearance="primary" className={styles.backButton} />
 					<Link href="/" appearance="asSecondaryButton" className={styles.homeLink}>Aller à l‘accueil</Link>
 				</div>
 			</div>
 
 			<div className={styles.errorLogo}>
-          	<Image src="/images/logos/technical-error.svg" alt="" width={185} height={205}/>
+          	<Image src="/images/logos/technical-error.svg" alt="" width={185} height={205} />
 			</div>
 		</Container>
 	);

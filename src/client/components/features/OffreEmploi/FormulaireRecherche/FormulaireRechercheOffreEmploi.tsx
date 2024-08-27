@@ -129,26 +129,26 @@ export function FormulaireRechercheOffreEmploi() {
 						name="motCle"
 						minLength={2}
 					/>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 
 				<div className={styles.localisation}>
-					<ComboboxLocalisation defaultValue={inputLocalisation}/>
+					<ComboboxLocalisation defaultValue={inputLocalisation} />
 				</div>
 
 				{isSmallScreen && (
 					<div>
 						<ButtonComponent
 							appearance="quaternary"
-							icon={<Icon name="filter"/>}
+							icon={<Icon name="filter" />}
 							iconPosition="right"
 							label="Filtrer ma recherche"
 							onClick={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
 						/>
-						<input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
-						<input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
-						<input type="hidden" name="experienceExigence" value={inputExpérience}/>
-						<input type="hidden" name="grandDomaine" value={inputDomaine}/>
+						<input type="hidden" name="typeDeContrats" value={inputTypeDeContrat} />
+						<input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail} />
+						<input type="hidden" name="experienceExigence" value={inputExpérience} />
+						<input type="hidden" name="grandDomaine" value={inputDomaine} />
 					</div>
 				)}
 
@@ -171,7 +171,7 @@ export function FormulaireRechercheOffreEmploi() {
 									<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 								)}
 							</Champ.Input>
-							<Champ.Error/>
+							<Champ.Error />
 						</Champ>
 
 						<Champ className={styles.tempsTravail}>
@@ -190,7 +190,7 @@ export function FormulaireRechercheOffreEmploi() {
 									<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 								)}
 							</Champ.Input>
-							<Champ.Error/>
+							<Champ.Error />
 						</Champ>
 
 						<Champ className={styles.niveau}>
@@ -209,7 +209,7 @@ export function FormulaireRechercheOffreEmploi() {
 									<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 								)}
 							</Champ.Input>
-							<Champ.Error/>
+							<Champ.Error />
 						</Champ>
 
 						<Champ className={styles.domaines}>
@@ -228,14 +228,14 @@ export function FormulaireRechercheOffreEmploi() {
 									<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 								)}
 							</Champ.Input>
-							<Champ.Error/>
+							<Champ.Error />
 						</Champ>
 					</>
 				)}
 			</div>
 			<div className={styles.buttonRechercher}>
 				<ButtonComponent
-					icon={<Icon name="magnifying-glass"/>}
+					icon={<Icon name="magnifying-glass" />}
 					iconPosition="right"
 					label="Rechercher"
 					type="submit"
@@ -249,7 +249,7 @@ export function FormulaireRechercheOffreEmploi() {
 				aria-labelledby="dialog_label"
 			>
 				<ModalComponent.Title>
-					<Icon name="menu"/>
+					<Icon name="menu" />
 					<span id="dialog_label">Filtrer ma recherche</span>
 				</ModalComponent.Title>
 				<ModalComponent.Content className={styles.modalfiltresAvancesContenu}>
@@ -325,7 +325,7 @@ export function FormulaireRechercheOffreEmploi() {
 				<ModalComponent.Footer>
 					<div className={styles.modalfiltresAvancesButton}>
 						<ButtonComponent
-							icon={<Icon name="angle-right"/>}
+							icon={<Icon name="angle-right" />}
 							iconPosition="right"
 							label="Appliquer les filtres"
 							onClick={applyFiltresAvancés}

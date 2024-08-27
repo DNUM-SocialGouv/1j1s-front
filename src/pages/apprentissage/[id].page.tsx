@@ -57,7 +57,7 @@ export default function AnnonceAlternancePage({ alternanceSerialized }: Consulte
 				title={`${alternanceSerialized.titre} | 1jeune1solution`}
 				robots="noindex"
 			/>
-			<DetailAlternance annonce={alternance}/>
+			<DetailAlternance annonce={alternance} />
 		</>
 	);
 }

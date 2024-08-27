@@ -42,7 +42,7 @@ describe('Page Emploi', () => {
 					analyticsService={aManualAnalyticsService()}
 					localisationService={aLocalisationService()}
 				>
-					<RechercherOffreEmploiPage resultats={aRésultatsRechercheOffre()}/>);
+					<RechercherOffreEmploiPage resultats={aRésultatsRechercheOffre()} />);
 				</DependenciesProvider>);
 
 			await screen.findByRole('list', { name: /Offres d‘emplois/i });
@@ -66,7 +66,7 @@ describe('Page Emploi', () => {
 						analyticsService={aManualAnalyticsService()}
 						localisationService={aLocalisationService()}
 					>
-						<RechercherOffreEmploiPage resultats={offres}/>);
+						<RechercherOffreEmploiPage resultats={offres} />);
 					</DependenciesProvider>,
 				);
 

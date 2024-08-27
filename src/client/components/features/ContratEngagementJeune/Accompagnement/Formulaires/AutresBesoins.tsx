@@ -32,7 +32,7 @@ export default function AutresBesoins26ans(
 				className={styles.boutonRetour}
 				onClick={onBackButton}
 				label="Retour"
-				icon={<Icon name={'angle-left'}/>}
+				icon={<Icon name={'angle-left'} />}
 				iconPosition={'left'}
 			/>
 			<form onSubmit={onSubmit} className={styles.autresBesoins}>
@@ -71,7 +71,7 @@ export default function AutresBesoins26ans(
 						/>
 					</div>
 				</fieldset>
-				<ButtonComponent label="Valider"/>
+				<ButtonComponent label="Valider" />
 			</form>
 		</>
 	);

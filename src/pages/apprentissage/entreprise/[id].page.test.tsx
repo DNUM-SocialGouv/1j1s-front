@@ -27,7 +27,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<AnnonceAlternanceEntreprisePage id={siret}/>
+			<AnnonceAlternanceEntreprisePage id={siret} />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -37,7 +37,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 		const analyticsService = aManualAnalyticsService();
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<AnnonceAlternanceEntreprisePage id={siret}/>
+				<AnnonceAlternanceEntreprisePage id={siret} />
 			</DependenciesProvider>,
 		);
 
@@ -48,7 +48,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<AnnonceAlternanceEntreprisePage id={siret}/>
+				<AnnonceAlternanceEntreprisePage id={siret} />
 			</DependenciesProvider>,
 		);
 
@@ -59,7 +59,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<AnnonceAlternanceEntreprisePage id={siret}/>
+				<AnnonceAlternanceEntreprisePage id={siret} />
 			</DependenciesProvider>,
 		);
 
@@ -71,7 +71,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<AnnonceAlternanceEntreprisePage id={siret}/>
+				<AnnonceAlternanceEntreprisePage id={siret} />
 			</DependenciesProvider>,
 		);
 

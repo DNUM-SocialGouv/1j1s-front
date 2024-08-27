@@ -15,7 +15,7 @@ import { aMesuresEmployeursList } from '~/server/mesures-employeurs/domain/mesur
 describe('<MesuresEmployeursPage />', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<MesuresEmployeursPage mesureEmployeurList={aMesuresEmployeursList()}/>
+			<MesuresEmployeursPage mesureEmployeurList={aMesuresEmployeursList()} />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -27,7 +27,7 @@ describe('<MesuresEmployeursPage />', () => {
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
 			>
-				<MesuresEmployeursPage mesureEmployeurList={aMesuresEmployeursList()}/>
+				<MesuresEmployeursPage mesureEmployeurList={aMesuresEmployeursList()} />
 			</DependenciesProvider>,
 		);
 

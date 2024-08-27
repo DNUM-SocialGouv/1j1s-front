@@ -57,7 +57,7 @@ describe('Link', () => {
 			render(
 				<Link href={lienExterne}>
 					Mon super lien externe
-					<Link.Icon/>
+					<Link.Icon />
 				</Link>,
 			);
 

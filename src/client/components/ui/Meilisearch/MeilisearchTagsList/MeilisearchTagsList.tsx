@@ -17,7 +17,7 @@ export default function MeilisearchTagsList(props: UseCurrentRefinementsProps) {
 		<ul aria-label="liste des filtres appliqués" className={styles.tagList}>
 			{items.map((item) => {
 				return item.refinements.map((refinement, index) => (
-					<li key={index} >
+					<li key={index}>
 						<Tag>
 							<button aria-label={`${refinement.label} - supprimer le filtre`} type="button" onClick={() => refine(refinement)}>
 								{getCapitalizedItems(refinement.label)}

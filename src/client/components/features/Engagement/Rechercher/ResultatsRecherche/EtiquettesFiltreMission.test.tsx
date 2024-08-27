@@ -28,7 +28,7 @@ describe('Etiquettes filtre mission', () => {
 					page: '1',
 				},
 			});
-			render(<EtiquettesFiltreMission/>);
+			render(<EtiquettesFiltreMission />);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 			expect(filtresRecherche).toBeVisible();
@@ -45,7 +45,7 @@ describe('Etiquettes filtre mission', () => {
 					ville: 'Paris',
 				},
 			});
-			render(<EtiquettesFiltreMission/>);
+			render(<EtiquettesFiltreMission />);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 			const localisation = within(filtresRecherche).getByText('Paris (75001)');
@@ -64,7 +64,7 @@ describe('Etiquettes filtre mission', () => {
 					ville: 'Paris',
 				},
 			});
-			render(<EtiquettesFiltreMission/>);
+			render(<EtiquettesFiltreMission />);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 			const ouvertsAuxMineurs = within(filtresRecherche).getByText('Dès 16 ans');

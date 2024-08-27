@@ -26,7 +26,7 @@ export function TipDisclosure(props: React.PropsWithChildren<TipDisclosureProps>
 				type="button"
 				onClick={() => setIsOpen(!isOpen)}
 			>
-				<Icon name="information" className={styles.icon}/>
+				<Icon name="information" className={styles.icon} />
 			</button>
 			<span className={classNames(styles.tip)} id={tipId} hidden={!isOpen}>
 				<button className={styles.buttonClose} type="button" aria-label='fermer' onClick={() => setIsOpen(false)}>

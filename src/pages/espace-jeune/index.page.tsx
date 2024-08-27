@@ -86,7 +86,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 							</LightHeroSecondaryText>
 						</h2>
 					</LightHero>
-					<ServicesJeunes cardList={serviceJeuneList}/>
+					<ServicesJeunes cardList={serviceJeuneList} />
 				</section>
 			</main>
 		</>

@@ -11,7 +11,7 @@ export default function FormationsInitialesPage() {
 	useAnalytics(analytics);
 
 	return (
-		<RechercherFormationInitiale/>
+		<RechercherFormationInitiale />
 	);
 };
 

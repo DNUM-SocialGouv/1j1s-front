@@ -257,8 +257,8 @@ export function SelectMultiple(props: SelectMultipleProps) {
 					onBlur={onBlur}
 					{...rest}
 				>
-					<PlaceholderSelectedOptions/>
-					<Icon name={'angle-down'}/>
+					<PlaceholderSelectedOptions />
+					<Icon name={'angle-down'} />
 				</button>
 				<ul
 					aria-multiselectable="true"

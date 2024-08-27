@@ -71,7 +71,7 @@ export default function RechercherStages3eEt2de() {
 			filtreList.push(`${stage3eEt2deQuery.ville} (${stage3eEt2deQuery.codePostal})`);
 		}
 		if (filtreList.length === 0) return;
-		return <TagList list={filtreList} aria-label="Filtres de la recherche"/>;
+		return <TagList list={filtreList} aria-label="Filtres de la recherche" />;
 	}, [stage3eEt2deQuery.codePostal, stage3eEt2deQuery.ville]);
 
 	return (
@@ -83,13 +83,13 @@ export default function RechercherStages3eEt2de() {
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout
-					banniere={<BaniereStages3eEt2de/>}
+					banniere={<BaniereStages3eEt2de />}
 					erreurRecherche={erreurRecherche}
 					etiquettesRecherche={etiquettesRecherche}
-					formulaireRecherche={<FormulaireRechercheStages3eEt2de/>}
+					formulaireRecherche={<FormulaireRechercheStages3eEt2de />}
 					isChargement={isLoading}
 					isEtatInitial={empty(stage3eEt2deQuery)}
-					listeSolutionElement={<ListeResultatsStage3eEt2de resultatList={stage3eEt2deList}/>}
+					listeSolutionElement={<ListeResultatsStage3eEt2de resultatList={stage3eEt2deList} />}
 					messageResultatRecherche={messageResultatsRecherche}
 					nombreTotalSolutions={stage3eEt2deList?.nombreDeResultats ?? 0}
 				/>

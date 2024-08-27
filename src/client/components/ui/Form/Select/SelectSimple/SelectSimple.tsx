@@ -260,7 +260,7 @@ export function SelectSimple(props: SelectSimpleProps) {
 					{...rest}
 				>
 					{placeholder}
-					<Icon name={'angle-down'}/>
+					<Icon name={'angle-down'} />
 				</button>
 				<ul
 					role="listbox"

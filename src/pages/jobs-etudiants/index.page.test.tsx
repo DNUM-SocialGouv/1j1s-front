@@ -38,7 +38,7 @@ describe('<RechercherJobEtudiantPage />', () => {
 				analyticsService={aManualAnalyticsService()}
 				localisationService={aLocalisationService()}
 			>
-				<RechercherJobÉtudiantPage/>);
+				<RechercherJobÉtudiantPage />);
 			</DependenciesProvider>,
 		);
 

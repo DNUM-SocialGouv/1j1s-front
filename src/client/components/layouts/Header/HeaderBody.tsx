@@ -35,7 +35,7 @@ export function HeaderBody() {
 						>
 							<ButtonComponent
 								appearance="quaternary"
-								icon={<Icon name="burger-menu"/>}
+								icon={<Icon name="burger-menu" />}
 								iconPosition="top"
 								onClick={toggleModal}
 								label="Menu"
@@ -52,15 +52,15 @@ export function HeaderBody() {
 						1jeune1solution
 					</Link>
 				</div>
-				<CampagneBannerDesktop/>
+				<CampagneBannerDesktop />
 			</div>
 			<ModalComponent aria-label="Menu principal" close={toggleModal} isOpen={isModalOpen}>
 				<ModalComponent.Title>
-					<Icon name="menu"/>
+					<Icon name="menu" />
 					<span>Menu</span>
 				</ModalComponent.Title>
 				<ModalComponent.Content>
-					<NavMobile toggleModal={toggleModal}/>
+					<NavMobile toggleModal={toggleModal} />
 				</ModalComponent.Content>
 			</ModalComponent>
 		</Container>

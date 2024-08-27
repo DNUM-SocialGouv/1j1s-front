@@ -18,7 +18,7 @@ describe('<MentionsLegales />', () => {
 		mockUseRouter({});
 
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<MentionsLegales titre={'titre'} contenu={'contenu'}/>
+			<MentionsLegales titre={'titre'} contenu={'contenu'} />
 		</DependenciesProvider> );
 		
 		expect(container.outerHTML).toHTMLValidate();

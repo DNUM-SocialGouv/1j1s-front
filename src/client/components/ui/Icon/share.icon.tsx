@@ -10,7 +10,7 @@ export function ShareIcon({ color = 'currentColor', className }: SvgProps) {
 			</g>
 			<defs>
 				<clipPath id="clip0_1774_37968">
-					<rect width="16" height="16" fill="white" transform="translate(0 -0.000488281)"/>
+					<rect width="16" height="16" fill="white" transform="translate(0 -0.000488281)" />
 				</clipPath>
 			</defs>
 		</svg>

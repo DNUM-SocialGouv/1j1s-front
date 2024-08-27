@@ -37,7 +37,7 @@ export function Skeleton(props: SkeletonProps) {
 		), []);
 
 	const tag = useMemo(() => (
-		<div className={classNames(styles.gradient, styles.tag)}/>
+		<div className={classNames(styles.gradient, styles.tag)} />
 	), []);
 
 	const line = useMemo(() => (

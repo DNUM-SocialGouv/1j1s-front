@@ -70,7 +70,7 @@ export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 							<p>
 							Cette vidéo est hébergée par <Link href="https://www.youtube.com/t/terms" className={styles.linkToYoutubeTerms}>
 							youtube.com
-									<Link.Icon/>
+									<Link.Icon />
 								</Link>
 							</p>
 							<p>
@@ -82,7 +82,7 @@ export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 								onClick={allowYoutube}
 								appearance={'secondary'}
 								className={styles.buttonAcceptCookies}
-								icon={<Icon name="check-line"/>}
+								icon={<Icon name="check-line" />}
 								iconPosition="right"
 							/>
 						</div>

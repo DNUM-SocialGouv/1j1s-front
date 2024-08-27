@@ -10,10 +10,10 @@ export function Layout({ children }: React.PropsWithChildren) {
 
 	return (
 		<div ref={ surface }>
-			<SkipLink/>
-			<Header/>
+			<SkipLink />
+			<Header />
 			{children}
-			<Footer/>
+			<Footer />
 			<Bouée surface={ surface } />
 		</div>
 	);

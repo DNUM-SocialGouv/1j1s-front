@@ -28,8 +28,8 @@ export default function ConsulterOffreStagePage({ offreDeStage }: ConsulterStage
 				title={`${offreDeStage.titre} | 1jeune1solution`}
 				robots="noindex"
 			/>
-			<ConsulterOffreDeStage offreDeStage={offreDeStage}/>
-			<JeDonneMonAvis/>
+			<ConsulterOffreDeStage offreDeStage={offreDeStage} />
+			<JeDonneMonAvis />
 		</>
 	);
 }

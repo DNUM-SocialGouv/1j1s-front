@@ -70,5 +70,5 @@ export const EtiquettesFiltresRecherche = () => {
 
 	if (filtreList.length === 0) return;
 
-	return <TagList list={filtreList} aria-label="Filtres de la recherche"/>;
+	return <TagList list={filtreList} aria-label="Filtres de la recherche" />;
 };

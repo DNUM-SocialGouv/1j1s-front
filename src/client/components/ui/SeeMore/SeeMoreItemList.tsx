@@ -76,7 +76,7 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 				<ButtonComponent className={classNames(styles.seeMoreButton, className)}
 												 appearance={'quaternary'}
 												 label={buttonLabel}
-												 icon={isOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+												 icon={isOpen ? <Icon name={'angle-up'} /> : <Icon name={'angle-down'} />}
 												 iconPosition={'right'}
 												 onClick={toggle}
 												 type="button"

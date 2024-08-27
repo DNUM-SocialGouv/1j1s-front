@@ -42,7 +42,7 @@ describe('RechercherAccompagnement', () => {
 					localisationService={localisationServiceMock}
 					établissementAccompagnementService={établissementAccompagnementService}
 				>
-					<RechercherAccompagnement/>
+					<RechercherAccompagnement />
 				</DependenciesProvider>,
 			);
 
@@ -85,7 +85,7 @@ describe('RechercherAccompagnement', () => {
 						localisationService={localisationServiceMock}
 						établissementAccompagnementService={établissementAccompagnementService}
 					>
-						<RechercherAccompagnement/>
+						<RechercherAccompagnement />
 					</DependenciesProvider>,
 				);
 
@@ -113,7 +113,7 @@ describe('RechercherAccompagnement', () => {
 						localisationService={localisationServiceMock}
 						établissementAccompagnementService={établissementAccompagnementService}
 					>
-						<RechercherAccompagnement/>
+						<RechercherAccompagnement />
 					</DependenciesProvider>,
 				);
 
@@ -146,7 +146,7 @@ describe('RechercherAccompagnement', () => {
 						localisationService={localisationServiceMock}
 						établissementAccompagnementService={etablissementAccompagnementService}
 					>
-						<RechercherAccompagnement/>
+						<RechercherAccompagnement />
 					</DependenciesProvider>,
 				);
 
@@ -176,7 +176,7 @@ describe('RechercherAccompagnement', () => {
 					établissementAccompagnementService={établissementAccompagnementService}
 					localisationService={localisationService}
 				>
-					<RechercherAccompagnement/>
+					<RechercherAccompagnement />
 				</DependenciesProvider>,
 			);
 
@@ -203,7 +203,7 @@ describe('RechercherAccompagnement', () => {
 					localisationService={localisationServiceMock}
 					établissementAccompagnementService={établissementAccompagnementService}
 				>
-					<RechercherAccompagnement/>
+					<RechercherAccompagnement />
 				</DependenciesProvider>,
 			);
 
@@ -237,7 +237,7 @@ describe('RechercherAccompagnement', () => {
 					localisationService={localisationServiceMock}
 					établissementAccompagnementService={établissementAccompagnementService}
 				>
-					<RechercherAccompagnement/>
+					<RechercherAccompagnement />
 				</DependenciesProvider>,
 			);
 

@@ -21,7 +21,7 @@ export default function ApprentissageEntreprises ({ videos }: ApprentissageEntre
 		<>
 			<Head title="Découvrir les avantages de l’apprentissage pour les entreprises | 1jeune1solution" robots="index,follow" />
 			<main id="contenu">
-				<CampagneApprentissageEntreprises videos={videos}/>
+				<CampagneApprentissageEntreprises videos={videos} />
 			</main>
 		</>
 	);

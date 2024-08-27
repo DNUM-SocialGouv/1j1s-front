@@ -75,10 +75,10 @@ export default function RechercherFormationAlternance({ resultats: formationAlte
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout
-					banniere={<BannièreFormation/>}
+					banniere={<BannièreFormation />}
 					erreurRecherche={erreurRecherche}
-					etiquettesRecherche={<EtiquettesFiltreFormationAlternance/>}
-					formulaireRecherche={<FormulaireRechercherFormationAlternance/>}
+					etiquettesRecherche={<EtiquettesFiltreFormationAlternance />}
+					formulaireRecherche={<FormulaireRechercherFormationAlternance />}
 					isChargement={false}
 					isEtatInitial={empty(formationQuery)}
 					messageResultatRecherche={messageRésultatRecherche}
@@ -94,14 +94,14 @@ export default function RechercherFormationAlternance({ resultats: formationAlte
 					)
 					}
 				/>
-				<EnTete heading="Découvrez des services faits pour vous"/>
+				<EnTete heading="Découvrez des services faits pour vous" />
 				<ServiceCardList>
-					<DecouvrirApprentissage/>
-					<MonCompteFormationPartner/>
-					<ParcourSupPartner/>
-					<CarifOrefPartner/>
-					<PixPartner/>
-					<MétierDuSoinPartner/>
+					<DecouvrirApprentissage />
+					<MonCompteFormationPartner />
+					<ParcourSupPartner />
+					<CarifOrefPartner />
+					<PixPartner />
+					<MétierDuSoinPartner />
 				</ServiceCardList>
 			</main>
 		</>

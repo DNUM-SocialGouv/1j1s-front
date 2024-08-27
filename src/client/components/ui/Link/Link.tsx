@@ -100,7 +100,7 @@ export function LinkIcon(props: LinkIconProps) {
 
 	return (
 		<span className={styles.icon}>
-			{name ? <Icon className={className} name={name} {...rest}/> : <DefaultLinkIcon className={className} {...rest}/>}
+			{name ? <Icon className={className} name={name} {...rest} /> : <DefaultLinkIcon className={className} {...rest} />}
 		</span>
 	);
 }
@@ -115,8 +115,8 @@ function DefaultLinkIcon({ className, ...rest }: DefaultLinkIconProps) {
 	const isInternalLink = useIsInternalLink(href);
 
 	return (
-		<>{isInternalLink ? <Icon name="arrow-right" className={className} {...rest}/> :
-			<Icon className={className} name="external-redirection" aria-hidden="false" aria-label="- nouvelle fenêtre" {...rest}/>}</>
+		<>{isInternalLink ? <Icon name="arrow-right" className={className} {...rest} /> :
+			<Icon className={className} name="external-redirection" aria-hidden="false" aria-label="- nouvelle fenêtre" {...rest} />}</>
 	);
 }
 

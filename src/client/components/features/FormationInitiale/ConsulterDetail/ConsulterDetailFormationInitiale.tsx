@@ -38,12 +38,12 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: {
 		<ConsulterOffreLayout>
 			<header className={styles.entete}>
 				<h1>{formationInitialeDetail.libelle}</h1>
-				<TagList list={getTags()} className={styles.tags}/>
+				<TagList list={getTags()} className={styles.tags} />
 			</header>
 
 			<Link href={formationInitialeDetail.url_formation} appearance="asPrimaryButton">
 				Consulter les établissements
-				<Link.Icon/>
+				<Link.Icon />
 			</Link>
 
 			{isFormationInitialeWithCMSDetails && (
@@ -52,25 +52,25 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: {
 						{formationInitialeDetail.description && (
 							<div>
 								<dt>Description</dt>
-								<dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }}/>
+								<dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }} />
 							</div>
 						)}
 						{formationInitialeDetail.attendusParcoursup && (
 							<div>
 								<dt>Attendus Parcoursup</dt>
-								<dd dangerouslySetInnerHTML={{ __html: attendusParcoursupSanitized }}/>
+								<dd dangerouslySetInnerHTML={{ __html: attendusParcoursupSanitized }} />
 							</div>
 						)}
 						{formationInitialeDetail.conditionsAcces && (
 							<div>
 								<dt>Conditions d‘accès</dt>
-								<dd dangerouslySetInnerHTML={{ __html: conditionsAccesSanitized }}/>
+								<dd dangerouslySetInnerHTML={{ __html: conditionsAccesSanitized }} />
 							</div>
 						)}
 						{formationInitialeDetail.poursuiteEtudes && (
 							<div>
 								<dt>Poursuite d‘études</dt>
-								<dd dangerouslySetInnerHTML={{ __html: poursuiteEtudesSanitized }}/>
+								<dd dangerouslySetInnerHTML={{ __html: poursuiteEtudesSanitized }} />
 							</div>
 						)}
 					</dl>

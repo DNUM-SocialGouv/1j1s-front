@@ -23,14 +23,14 @@ export function MessageResultatRecherche(props: MessageResultatRechercheProps) {
 						<h2 className={styles.stats}>
 							<span className={styles.nombreResultats}>{numberOfResult}</span>
 							{' ' + labelSingulier}
-							<Footnote.Reference to="partenaires" id="partenaires-reference"/>
+							<Footnote.Reference to="partenaires" id="partenaires-reference" />
 						</h2>
 					)}
 					{numberOfResult > 1 && (
 						<h2 className={styles.stats}>
 							<span className={styles.nombreResultats}>{numberOfResult}</span>
 							{' ' + labelPluriel}
-							<Footnote.Reference to="partenaires" id="partenaires-reference"/>
+							<Footnote.Reference to="partenaires" id="partenaires-reference" />
 						</h2>
 					)}
 				</div>
@@ -38,7 +38,7 @@ export function MessageResultatRecherche(props: MessageResultatRechercheProps) {
 					{
 						(numberOfResult === 0) && (
 							<div>
-								<ErrorComponent/>
+								<ErrorComponent />
 							</div>
 						)}
 				</div>

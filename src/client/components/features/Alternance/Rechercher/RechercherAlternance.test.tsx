@@ -42,7 +42,7 @@ describe('RechercherAlternance', () => {
 				metierLbaService={métierServiceMock}
 				localisationService={localisationServiceMock}
 			>
-				<RechercherAlternance/>
+				<RechercherAlternance />
 			</DependenciesProvider>,
 		);
 		const formulaireRechercheAlternance = screen.getByRole('form');
@@ -61,7 +61,7 @@ describe('RechercherAlternance', () => {
 				metierLbaService={aMetierService()}
 				localisationService={aLocalisationService()}
 			>
-				<RechercherAlternance resultats={aRechercheAlternance()}/>
+				<RechercherAlternance resultats={aRechercheAlternance()} />
 			</DependenciesProvider>,
 		);
 
@@ -80,7 +80,7 @@ describe('RechercherAlternance', () => {
 				metierLbaService={aMetierService()}
 				localisationService={aLocalisationService()}
 			>
-				<RechercherAlternance resultats={aRechercheAlternance()}/>
+				<RechercherAlternance resultats={aRechercheAlternance()} />
 			</DependenciesProvider>,
 		);
 
@@ -161,7 +161,7 @@ describe('RechercherAlternance', () => {
 					metierLbaService={métierServiceMock}
 					localisationService={localisationServiceMock}
 				>
-					<RechercherAlternance resultats={resultatFixture}/>
+					<RechercherAlternance resultats={resultatFixture} />
 				</DependenciesProvider>,
 			);
 			const formulaireRechercheAlternance = screen.getByRole('form');
@@ -197,7 +197,7 @@ describe('RechercherAlternance', () => {
 						metierLbaService={aMetierService()}
 						localisationService={aLocalisationService()}
 					>
-						<RechercherAlternance resultats={resultats}/>
+						<RechercherAlternance resultats={resultats} />
 					</DependenciesProvider>,
 				);
 
@@ -219,7 +219,7 @@ describe('RechercherAlternance', () => {
 						metierLbaService={aMetierService()}
 						localisationService={aLocalisationService()}
 					>
-						<RechercherAlternance resultats={resultats}/>
+						<RechercherAlternance resultats={resultats} />
 					</DependenciesProvider>,
 				);
 
@@ -239,7 +239,7 @@ describe('RechercherAlternance', () => {
 						metierLbaService={métierServiceMock}
 						localisationService={localisationServiceMock}
 					>
-						<RechercherAlternance resultats={resultatFixture}/>
+						<RechercherAlternance resultats={resultatFixture} />
 					</DependenciesProvider>,
 				);
 				const onglet = await screen.findByRole('tab', { name: 'Entreprises' });
@@ -270,7 +270,7 @@ describe('RechercherAlternance', () => {
 							metierLbaService={aMetierService()}
 							localisationService={aLocalisationService()}
 						>
-							<RechercherAlternance resultats={resultats}/>
+							<RechercherAlternance resultats={resultats} />
 						</DependenciesProvider>,
 					);
 
@@ -292,7 +292,7 @@ describe('RechercherAlternance', () => {
 							metierLbaService={aMetierService()}
 							localisationService={aLocalisationService()}
 						>
-							<RechercherAlternance resultats={resultats}/>
+							<RechercherAlternance resultats={resultats} />
 						</DependenciesProvider>,
 					);
 

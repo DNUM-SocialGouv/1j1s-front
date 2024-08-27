@@ -68,7 +68,7 @@ export default function Footer() {
 								<li key={link.title}>
 									<Link href={link.url} className={styles.footerLienExterneItem} prefetch={false}>
 										{link.title}
-										<Link.Icon/>
+										<Link.Icon />
 									</Link>
 								</li>
 							))}
@@ -89,7 +89,7 @@ export default function Footer() {
 						href="https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf"
 					>
 						etalab-2.0
-						<Link.Icon/>
+						<Link.Icon />
 					</Link>
 				</p>
 			</Container>

@@ -51,7 +51,7 @@ export function Services({ inclus, optionnels }: ServicesProps) {
 				{inclus.map((service) => (
 					service !== Service.NON_RENSEIGNE && (
 						<li key={service}>
-							<Icon name={Icônes[service]}/>
+							<Icon name={Icônes[service]} />
 							{service}
 						</li>
 					)

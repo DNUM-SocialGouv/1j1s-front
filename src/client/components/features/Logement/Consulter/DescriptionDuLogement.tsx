@@ -21,7 +21,7 @@ function BoutonEtendre({ onClick, estÉtendu, 'aria-controls': ariaControls }: B
 			className={styles.readMore}
 			appearance={'quaternary'}
 			label={estÉtendu ? 'Afficher moins' : 'Lire la suite'}
-			icon={estÉtendu ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+			icon={estÉtendu ? <Icon name={'angle-up'} /> : <Icon name={'angle-down'} />}
 			iconPosition={'right'}
 			onClick={onClick}
 			type="button"

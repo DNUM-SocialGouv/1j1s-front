@@ -19,7 +19,7 @@ export function Banniere() {
 						appearance={'asSecondaryButton'}
 					>
 						Trouver son accompagnement CEJ
-						<Link.Icon name="angle-right"/>
+						<Link.Icon name="angle-right" />
 					</Link>
 				</div>
 			</div>

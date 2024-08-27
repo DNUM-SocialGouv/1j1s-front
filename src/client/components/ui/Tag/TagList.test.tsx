@@ -8,7 +8,7 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 
 describe('TagList', () => {
 	it('Affiche la liste de tag', () => {
-		render(<TagList list={['element 1', 'element 2']}/>);
+		render(<TagList list={['element 1', 'element 2']} />);
 
 		const tags = screen.getAllByRole('listitem');
 		expect(tags).toHaveLength(2);
@@ -16,7 +16,7 @@ describe('TagList', () => {
 		expect(tags[1]).toHaveTextContent('element 2');
 	});
 	it('filtre les tags vides', () => {
-		render(<TagList list={['element 1', '', 'element 2']}/>);
+		render(<TagList list={['element 1', '', 'element 2']} />);
 
 		const tags = screen.getAllByRole('listitem');
 		expect(tags).toHaveLength(2);

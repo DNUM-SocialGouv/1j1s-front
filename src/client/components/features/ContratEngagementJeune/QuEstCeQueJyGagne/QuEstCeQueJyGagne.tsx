@@ -13,7 +13,7 @@ export default function QuEstCeQueJyGagne() {
 				</div>
 				<SeeMoreMobileOnly
 					numberOfVisibleItems={0}
-					itemList={[<GainsCEJ key={0}/>]}
+					itemList={[<GainsCEJ key={0} />]}
 					seeLessAriaLabel={'Voir moins de gains liés au contrat engagement jeune'}
 					seeMoreAriaLabel={'Voir plus de gains liés au contrat engagement jeune'}
 				>
