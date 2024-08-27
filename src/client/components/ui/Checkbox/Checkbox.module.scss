@@ -53,13 +53,12 @@
   }
 
   input[type=checkbox] + label::before {
-    content: "";
+    @extend %checkbox;
     display: block;
     position: absolute;
     top: 0;
     left: 0.5rem;
     margin-top: 1rem;
-    @extend %checkbox;
   }
 
   input[type=checkbox]:checked + label::before {
