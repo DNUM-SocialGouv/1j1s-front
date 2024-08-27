@@ -19,12 +19,12 @@ $border-width-compensation: calc($error-border-width - $border-width);
 %bordered {
   border-radius: $border-radius;
   border: $border-width solid $color-border;
+  padding: 0.5rem 1rem;
 }
 
 %input {
   color: $color-text;
   background-color: transparent;
-  padding: 0.5rem 1rem;
   @extend %bordered;
   @include utilities.text-interactive-medium;
 

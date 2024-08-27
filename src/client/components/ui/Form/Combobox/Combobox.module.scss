@@ -14,7 +14,6 @@
 
   & > input {
     background-color: transparent;
-    padding: 0.5rem 1rem;
   }
 
   & > button {
@@ -35,6 +34,7 @@
     border-right: none;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
+    padding-right: 0;
   }
   & input[role="combobox"] + button {
     @extend %bordered;
