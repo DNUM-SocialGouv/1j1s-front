@@ -12,8 +12,7 @@ export default function FormationPage() {
 		<>
 			<Head
 				title="Créer mon CV personnalisé | 1jeune1solution"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<HeroWithButtonLink
 					titlePrimaryText="Je crée un CV personnalisé qui valorise mes compétences "
@@ -21,8 +20,7 @@ export default function FormationPage() {
 					content={heroCVContent()}
 					buttonHref="https://cv.1jeune1solution.beta.gouv.fr/#/connexion"
 					buttonLabel="Créer mon CV"
-					imgSrc="/images/créer-son-cv.webp"
-				/>
+					imgSrc="/images/créer-son-cv.webp" />
 			</main>
 		</>
 	);

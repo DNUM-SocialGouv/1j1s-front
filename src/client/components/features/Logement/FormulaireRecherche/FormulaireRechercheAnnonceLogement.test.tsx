@@ -18,7 +18,7 @@ const spyed = jest.spyOn(require('react-instantsearch'), 'useRefinementList');
 
 describe('FormulaireRechercheAnnonceLogement', () => {
 	it('affiche un formulaire', () => {
-		render(<FormulaireRechercheAnnonceLogement/>);
+		render(<FormulaireRechercheAnnonceLogement />);
 
 		const form = screen.getByRole('search');
 		expect(form).toBeVisible();
@@ -34,7 +34,7 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 
 	describe('en Desktop', () => {
 		it('affiche les champs de recherche', () => {
-			render(<FormulaireRechercheAnnonceLogement/>);
+			render(<FormulaireRechercheAnnonceLogement />);
 
 			expect(screen.getByRole('textbox', { name: 'Ville' })).toBeVisible();
 			expect(screen.getByRole('combobox', { name: 'Type d‘offre' })).toBeVisible();
@@ -50,13 +50,13 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 		});
 
 		it('affiche uniquement le champ ville dans le formulaire', () => {
-			render(<FormulaireRechercheAnnonceLogement/>);
+			render(<FormulaireRechercheAnnonceLogement />);
 
 			expect(screen.getByRole('textbox', { name: 'Ville' })).toBeVisible();
 		});
 
 		it('affiche un bouton pour filtrer la recherche', () => {
-			render(<FormulaireRechercheAnnonceLogement/>);
+			render(<FormulaireRechercheAnnonceLogement />);
 
 			const buttonFiltre = screen.getByRole('button', { name: 'Filtrer ma recherche' });
 			expect(buttonFiltre).toBeVisible();
@@ -66,7 +66,7 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 			it('affiche la modale', async () => {
 				const user = userEvent.setup();
 
-				render(<FormulaireRechercheAnnonceLogement/>);
+				render(<FormulaireRechercheAnnonceLogement />);
 
 				const buttonFiltre = screen.getByRole('button', { name: 'Filtrer ma recherche' });
 				await user.click(buttonFiltre);
@@ -85,7 +85,7 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 					],
 				}));
 
-				render(<FormulaireRechercheAnnonceLogement/>);
+				render(<FormulaireRechercheAnnonceLogement />);
 
 				await user.click(screen.getByRole('button', { name: 'Filtrer ma recherche' }));
 
@@ -108,7 +108,7 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 				}));
 
 
-				render(<FormulaireRechercheAnnonceLogement/>);
+				render(<FormulaireRechercheAnnonceLogement />);
 
 				await user.click(screen.getByRole('button', { name: 'Filtrer ma recherche' }));
 				const modal = screen.getByRole('dialog');
@@ -132,7 +132,7 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 
 				const user = userEvent.setup();
 
-				render(<FormulaireRechercheAnnonceLogement/>);
+				render(<FormulaireRechercheAnnonceLogement />);
 
 				await user.click(screen.getByRole('button', { name: 'Filtrer ma recherche' }));
 				const modal = screen.getByRole('dialog');
@@ -154,7 +154,7 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 				}));
 				const user = userEvent.setup();
 
-				render(<FormulaireRechercheAnnonceLogement/>);
+				render(<FormulaireRechercheAnnonceLogement />);
 
 				await user.click(screen.getByRole('button', { name: 'Filtrer ma recherche' }));
 				const modal = screen.getByRole('dialog');

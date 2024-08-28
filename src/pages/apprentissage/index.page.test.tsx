@@ -75,7 +75,7 @@ describe('Page rechercher une alternance', () => {
 					analyticsService={aManualAnalyticsService()}
 					localisationService={localisationServiceMock}
 					metierLbaService={métiersServiceMock}>
-					<RechercherAlternancePage resultats={resultats}/>
+					<RechercherAlternancePage resultats={resultats} />
 				</DependenciesProvider>,
 			);
 
@@ -91,9 +91,8 @@ describe('Page rechercher une alternance', () => {
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
 					localisationService={localisationServiceMock}
-					metierLbaService={métiersServiceMock}
-				>
-					<RechercherAlternancePage/>
+					metierLbaService={métiersServiceMock}>
+					<RechercherAlternancePage />
 				</DependenciesProvider>,
 			);
 
@@ -111,9 +110,8 @@ describe('Page rechercher une alternance', () => {
 				<DependenciesProvider
 					analyticsService={analyticsService}
 					localisationService={localisationServiceMock}
-					metierLbaService={métiersServiceMock}
-				>
-					<RechercherAlternancePage/>
+					metierLbaService={métiersServiceMock}>
+					<RechercherAlternancePage />
 				</DependenciesProvider>,
 			);
 

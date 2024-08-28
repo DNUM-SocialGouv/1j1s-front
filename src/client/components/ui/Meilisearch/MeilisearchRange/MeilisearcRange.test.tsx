@@ -29,8 +29,7 @@ const renderMeilisearchCustomRangeInputComponent = () => {
 			placeholder='test-placeholder'
 			unite='test-unité'
 			min={20}
-			max={200}
-		/>,
+			max={200} />,
 	);
 };
 

@@ -26,10 +26,9 @@ export default function ConsulterOffreStagePage({ offreDeStage }: ConsulterStage
 		<>
 			<Head
 				title={`${offreDeStage.titre} | 1jeune1solution`}
-				robots="noindex"
-			/>
-			<ConsulterOffreDeStage offreDeStage={offreDeStage}/>
-			<JeDonneMonAvis/>
+				robots="noindex" />
+			<ConsulterOffreDeStage offreDeStage={offreDeStage} />
+			<JeDonneMonAvis />
 		</>
 	);
 }

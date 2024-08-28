@@ -24,7 +24,7 @@ export function RésultatRechercherMétier(props: HitProps<Partial<StrapiFicheMe
 			intituléOffre={nomMetier}
 			étiquetteOffreList={[]}
 			lienOffre={`/decouvrir-les-metiers/${encodeURIComponent(ficheMetier.nomMetier)}`}>
-			<div className={styles.description} dangerouslySetInnerHTML={{ __html: accrocheMétier || '' }}/>
+			<div className={styles.description} dangerouslySetInnerHTML={{ __html: accrocheMétier || '' }} />
 		</ResultatRechercherSolution>
 	);
 }

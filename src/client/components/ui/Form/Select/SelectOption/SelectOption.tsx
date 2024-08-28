@@ -20,14 +20,16 @@ export function SelectOption({ className, value: valueProps, id: idProps, ...res
 		event.preventDefault();
 	}, []);
 
-	return <li
-		className={classNames(className, { [styles.optionVisuallyFocus] : activeDescendant === id })}
-		id={id}
-		role="option"
-		onMouseDown={onMouseDown}
-		data-value={value.toString()}
-		onClick={() => onOptionSelection(id)}
-		aria-selected={isCurrentItemSelected(value)}
-		{...rest}>
-	</li>;
+	return (
+		<li
+			className={classNames(className, { [styles.optionVisuallyFocus] : activeDescendant === id })}
+			id={id}
+			role="option"
+			onMouseDown={onMouseDown}
+			data-value={value.toString()}
+			onClick={() => onOptionSelection(id)}
+			aria-selected={isCurrentItemSelected(value)}
+			{...rest}>
+		</li>
+	);
 }

@@ -41,7 +41,7 @@ describe('1jeune1permis', () => {
 		// When
 		const { container } = render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<UnJeuneUnPermis/>
+				<UnJeuneUnPermis />
 			</DependenciesProvider>);
 
 		// Then
@@ -51,7 +51,7 @@ describe('1jeune1permis', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<UnJeuneUnPermis/>
+				<UnJeuneUnPermis />
 			</DependenciesProvider>);
 
 		await expect(container).toBeAccessible();
@@ -61,7 +61,7 @@ describe('1jeune1permis', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<UnJeuneUnPermis/>
+				<UnJeuneUnPermis />
 			</DependenciesProvider>,
 		);
 		await waitFor(() => {
@@ -81,7 +81,7 @@ describe('1jeune1permis', () => {
 		// When
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<UnJeuneUnPermis/>
+				<UnJeuneUnPermis />
 			</DependenciesProvider>);
 
 		// Then
@@ -93,7 +93,7 @@ describe('1jeune1permis', () => {
 		// When
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<UnJeuneUnPermis/>
+				<UnJeuneUnPermis />
 			</DependenciesProvider>);
 
 		// Then
@@ -104,7 +104,7 @@ describe('1jeune1permis', () => {
 		// When
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<UnJeuneUnPermis/>
+				<UnJeuneUnPermis />
 			</DependenciesProvider>);
 
 		// Then
@@ -118,7 +118,7 @@ describe('1jeune1permis', () => {
 		// Given
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<UnJeuneUnPermis/>
+				<UnJeuneUnPermis />
 			</DependenciesProvider>);
 
 		// When
@@ -140,7 +140,7 @@ describe('1jeune1permis', () => {
 		// Given
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<UnJeuneUnPermis/>
+				<UnJeuneUnPermis />
 			</DependenciesProvider>);
 
 		// When
@@ -163,7 +163,7 @@ describe('1jeune1permis', () => {
 		// Given
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<UnJeuneUnPermis/>
+				<UnJeuneUnPermis />
 			</DependenciesProvider>);
 
 		// When
@@ -184,7 +184,7 @@ describe('1jeune1permis', () => {
 		// Given
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<UnJeuneUnPermis/>
+				<UnJeuneUnPermis />
 			</DependenciesProvider>);
 
 		// When

@@ -13,7 +13,7 @@ export default function RecrutementCandidatFranceTravail() {
 				<h1>
 					Je m’engage à recruter des candidats formés avec l’aide de France Travail
 					(POE, AFPR)
-					<Footnote.Reference to={'abreviation-reference'} id={'abreviation'}/>
+					<Footnote.Reference to={'abreviation-reference'} id={'abreviation'} />
 				</h1>
 				<p>
 					Formez un candidat à vos besoins. Bénéficiez d’une aide au financement de la formation, anticipez vos
@@ -27,13 +27,13 @@ export default function RecrutementCandidatFranceTravail() {
 						href="https://entreprise.francetravail.fr/accueil/description/afpr"
 						appearance="asPrimaryButton">
 						M‘engager à recruter
-						<Link.Icon/>
+						<Link.Icon />
 					</Link>
 					<Link
 						href="https://entreprise.francetravail.fr/accueil/choixauthentification?goto=https://entreprise.francetravail.fr/accueil/description/afpr"
 						appearance="asSecondaryButton">
 						Compléter une demande
-						<Link.Icon/>
+						<Link.Icon />
 					</Link>
 				</div>
 			</Container>

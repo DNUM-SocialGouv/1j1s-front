@@ -41,20 +41,17 @@ export function FormulaireRechercheAnnonceLogement() {
 				className={styles.inputVille}
 				label="Ville"
 				name="ville"
-				placeholder="Exemples : Paris, Toulouse"
-			/>
+				placeholder="Exemples : Paris, Toulouse" />
 			<MeilisearchSelectMultiple
 				className={styles.filtresDesktop}
 				attribute="type"
 				label="Type d‘offre"
-				sortBy={['name:asc']}
-			/>
+				sortBy={['name:asc']} />
 			<MeilisearchSelectMultiple
 				className={styles.filtresDesktop}
 				attribute="typeBien"
 				label="Type de bien"
-				sortBy={['name:asc']}
-			/>
+				sortBy={['name:asc']} />
 			<MeilisearchRange
 				className={styles.filtresDesktop}
 				attribute="surface"
@@ -62,8 +59,7 @@ export function FormulaireRechercheAnnonceLogement() {
 				placeholder="Surface"
 				unite={UNITE_SURFACE}
 				min={SURFACE_MINIMUM}
-				max={SURFACE_MAXIMUM}
-			/>
+				max={SURFACE_MAXIMUM} />
 			<MeilisearchRange
 				className={styles.filtresDesktop}
 				attribute="prix"
@@ -71,17 +67,15 @@ export function FormulaireRechercheAnnonceLogement() {
 				placeholder="Fourchette de prix"
 				unite={DEVISE}
 				min={PRIX_MINIMUM}
-				max={PRIX_MAXIMUM}
-			/>
+				max={PRIX_MAXIMUM} />
 			<div className={styles.filtresAvancesMobile}>
 				<ButtonComponent
 					type="button"
 					appearance="quaternary"
-					icon={<Icon name="filter"/>}
+					icon={<Icon name="filter" />}
 					iconPosition="right"
 					label="Filtrer ma recherche"
-					onClick={() => setIsFiltresAvancésMobileOpen(true)}
-				/>
+					onClick={() => setIsFiltresAvancésMobileOpen(true)} />
 				<ModalComponent
 					className={isFiltresAvancésMobileOpen ? styles.show : styles.hide}
 					close={() => setIsFiltresAvancésMobileOpen(false)}
@@ -90,7 +84,7 @@ export function FormulaireRechercheAnnonceLogement() {
 					keepModalMounted
 					aria-labelledby="dialog_label">
 					<ModalComponent.Title>
-						<Icon name="menu"/>
+						<Icon name="menu" />
 						<span id="dialog_label">Filtrer ma recherche</span>
 					</ModalComponent.Title>
 					<ModalComponent.Content className={styles.filtresAvancésModalContenu}>
@@ -101,8 +95,7 @@ export function FormulaireRechercheAnnonceLogement() {
 									<MeilisearchCheckboxList
 										attribute="type"
 										label="Type d‘offre"
-										sortBy={['name:asc']}
-									/>
+										sortBy={['name:asc']} />
 								</fieldset>
 							</FilterAccordion.Content>
 						</FilterAccordion>
@@ -113,8 +106,7 @@ export function FormulaireRechercheAnnonceLogement() {
 									<MeilisearchCheckboxList
 										attribute="typeBien"
 										label="Type de bien"
-										sortBy={['name:asc']}
-									/>
+										sortBy={['name:asc']} />
 								</fieldset>
 							</FilterAccordion.Content>
 						</FilterAccordion>
@@ -127,8 +119,7 @@ export function FormulaireRechercheAnnonceLogement() {
 									nomDeLUnite="Euro"
 									unite="€"
 									min={PRIX_MINIMUM}
-									max={PRIX_MAXIMUM}
-								/>
+									max={PRIX_MAXIMUM} />
 							</FilterAccordion.Content>
 						</FilterAccordion>
 						<FilterAccordion>
@@ -140,19 +131,17 @@ export function FormulaireRechercheAnnonceLogement() {
 									nomDeLUnite="Mètre carré"
 									unite="m²"
 									min={SURFACE_MINIMUM}
-									max={SURFACE_MAXIMUM}
-								/>
+									max={SURFACE_MAXIMUM} />
 							</FilterAccordion.Content>
 						</FilterAccordion>
 					</ModalComponent.Content>
 					<ModalComponent.Footer>
 						<div className={styles.applyFiltersButton}>
 							<ButtonComponent
-								icon={<Icon name="angle-right"/>}
+								icon={<Icon name="angle-right" />}
 								iconPosition="right"
 								label="Appliquer les filtres"
-								onClick={() => setIsFiltresAvancésMobileOpen(false)}
-							/>
+								onClick={() => setIsFiltresAvancésMobileOpen(false)} />
 						</div>
 					</ModalComponent.Footer>
 				</ModalComponent>

@@ -107,8 +107,7 @@ export const ComboboxPays = React.forwardRef<ComboboxRef, ComboboxPaysProps>(fun
 					requireValidOption
 					filter={Combobox.noFilter}
 					aria-describedby={`${ariaDescribedby} ${errorId}`}
-					{...comboboxProps}
-				>
+					{...comboboxProps}>
 
 					{
 						(pays.map((suggestion) => (
@@ -124,7 +123,7 @@ export const ComboboxPays = React.forwardRef<ComboboxRef, ComboboxPaysProps>(fun
 						}
 					</li>
 				</Champ.Input>
-				<Champ.Error/>
+				<Champ.Error />
 			</Champ>
 		</div>
 	);

@@ -38,41 +38,44 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: {
 		<ConsulterOffreLayout>
 			<header className={styles.entete}>
 				<h1>{formationInitialeDetail.libelle}</h1>
-				<TagList list={getTags()} className={styles.tags}/>
+				<TagList list={getTags()} className={styles.tags} />
 			</header>
 
 			<Link href={formationInitialeDetail.url_formation} appearance="asPrimaryButton">
 				Consulter les établissements
-				<Link.Icon/>
+				<Link.Icon />
 			</Link>
 
-			{isFormationInitialeWithCMSDetails && <section>
-				<dl className={styles.contenu}>
-					{formationInitialeDetail.description && (
-						<div>
-							<dt>Description</dt>
-							<dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }}/>
-						</div>)}
-					{formationInitialeDetail.attendusParcoursup && (
-						<div>
-							<dt>Attendus Parcoursup</dt>
-							<dd dangerouslySetInnerHTML={{ __html: attendusParcoursupSanitized }}/>
-						</div>
-					)}
-					{formationInitialeDetail.conditionsAcces && (
-						<div>
-							<dt>Conditions d‘accès</dt>
-							<dd dangerouslySetInnerHTML={{ __html: conditionsAccesSanitized }}/>
-						</div>
-					)}
-					{formationInitialeDetail.poursuiteEtudes && (
-						<div>
-							<dt>Poursuite d‘études</dt>
-							<dd dangerouslySetInnerHTML={{ __html: poursuiteEtudesSanitized }}/>
-						</div>
-					)}
-				</dl>
-			</section>}
+			{isFormationInitialeWithCMSDetails && (
+				<section>
+					<dl className={styles.contenu}>
+						{formationInitialeDetail.description && (
+							<div>
+								<dt>Description</dt>
+								<dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }} />
+							</div>
+						)}
+						{formationInitialeDetail.attendusParcoursup && (
+							<div>
+								<dt>Attendus Parcoursup</dt>
+								<dd dangerouslySetInnerHTML={{ __html: attendusParcoursupSanitized }} />
+							</div>
+						)}
+						{formationInitialeDetail.conditionsAcces && (
+							<div>
+								<dt>Conditions d‘accès</dt>
+								<dd dangerouslySetInnerHTML={{ __html: conditionsAccesSanitized }} />
+							</div>
+						)}
+						{formationInitialeDetail.poursuiteEtudes && (
+							<div>
+								<dt>Poursuite d‘études</dt>
+								<dd dangerouslySetInnerHTML={{ __html: poursuiteEtudesSanitized }} />
+							</div>
+						)}
+					</dl>
+				</section>
+			)}
 			{!isFormationInitialeWithCMSDetails && (
 				<p className={styles.mentionFormationNonDocumentee}>L‘ONISEP ne fournit pas de description pour cette formation.
 					Vous pouvez consulter les établissements pour plus d‘informations.</p>

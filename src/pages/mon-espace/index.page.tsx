@@ -16,10 +16,9 @@ export default function MonEspace() {
 			<Head
 				title="Mon espace employeur | 1jeune1solution"
 				description="Accéder à mon espace employeur"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
-				<MonEspaceEntreprise/>
+				<MonEspaceEntreprise />
 				<MonEspaceEnSavoirPlus />
 			</main>
 		</>

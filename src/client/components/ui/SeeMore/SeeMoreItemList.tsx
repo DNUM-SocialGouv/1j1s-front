@@ -60,23 +60,22 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 	if (!itemList || itemList.length <= 0) return null;
 	return (
 		<>
-			{itemListToDisplay.length > 0 &&
+			{itemListToDisplay.length > 0 && (
 				<div
 					id={`section-${ariaId}`}
-					{...rest}
-				>
+					{...rest}>
 					<ul className={styles.itemList} ref={listRef} tabIndex={-1}>
 						{itemListToDisplay?.map((element, index) =>
 							<li key={index}>{element}</li>,
 						)}
 					</ul>
 				</div>
-			}
-			{itemList.length > numberOfVisibleItems &&
+			)}
+			{itemList.length > numberOfVisibleItems && (
 				<ButtonComponent className={classNames(styles.seeMoreButton, className)}
 												 appearance={'quaternary'}
 												 label={buttonLabel}
-												 icon={isOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+												 icon={isOpen ? <Icon name={'angle-up'} /> : <Icon name={'angle-down'} />}
 												 iconPosition={'right'}
 												 onClick={toggle}
 												 type="button"
@@ -84,7 +83,7 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 												 aria-controls={`section-${ariaId}`}
 												 aria-label={buttonAriaLabel}>
 				</ButtonComponent>
-			}
+			)}
 		</>
 	);
 }

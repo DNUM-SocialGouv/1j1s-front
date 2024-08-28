@@ -41,19 +41,21 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 
 	function ContactButton() {
 		const label = 'Je souhaite être contacté(e)';
-		return <>
-			<ButtonComponent
-				className={classNames(styles.contactFormulaireÉtablissement, styles.contactFormulaireÉtablissementDesktopOnly)}
-				label={label}
-				appearance={'quaternary'}
-				onClick={openContactÉtablissementModal}/>
+		return (
+			<>
+				<ButtonComponent
+					className={classNames(styles.contactFormulaireÉtablissement, styles.contactFormulaireÉtablissementDesktopOnly)}
+					label={label}
+					appearance={'quaternary'}
+					onClick={openContactÉtablissementModal} />
 
-			<ButtonComponent
-				className={classNames(styles.contactFormulaireÉtablissement, styles.contactFormulaireÉtablissementMobileOnly)}
-				label={label}
-				appearance={'primary'}
-				onClick={openContactÉtablissementModal}/>
-		</>;
+				<ButtonComponent
+					className={classNames(styles.contactFormulaireÉtablissement, styles.contactFormulaireÉtablissementMobileOnly)}
+					label={label}
+					appearance={'primary'}
+					onClick={openContactÉtablissementModal} />
+			</>
+		);
 	}
 
 	function MailLink(props: { établissement: EtablissementAccompagnement }) {
@@ -61,24 +63,26 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 		const mailTo = `mailto:${props.établissement.email}`;
 		const title = `${label} - adresse mail`;
 
-		return <>
-			<Link
-				appearance={'asQuaternaryButton'}
-				href={mailTo}
-				className={classNames(styles.contactMailÉtablissement, styles.contactMailÉtablissementDesktop)}
-				title={title}>
-				{label}
-				<Link.Icon name="mail"/>
-			</Link>
-			<Link
-				appearance={'asPrimaryButton'}
-				href={mailTo}
-				className={classNames(styles.contactMailÉtablissement, styles.contactMailÉtablissementMobile)}
-				title={title}>
-				{label}
-				<Link.Icon name="mail"/>
-			</Link>
-		</>;
+		return (
+			<>
+				<Link
+					appearance={'asQuaternaryButton'}
+					href={mailTo}
+					className={classNames(styles.contactMailÉtablissement, styles.contactMailÉtablissementDesktop)}
+					title={title}>
+					{label}
+					<Link.Icon name="mail" />
+				</Link>
+				<Link
+					appearance={'asPrimaryButton'}
+					href={mailTo}
+					className={classNames(styles.contactMailÉtablissement, styles.contactMailÉtablissementMobile)}
+					title={title}>
+					{label}
+					<Link.Icon name="mail" />
+				</Link>
+			</>
+		);
 	}
 
 	const Address = ({ address, className }: { address: EtablissementAccompagnement.Adresse} & React.HTMLAttributes<HTMLSpanElement>) => {
@@ -89,48 +93,47 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 		<>
 			<Card layout={'vertical'} className={styles.card}>
 				<Card.Content className={styles.content}>
-					<Card.Image className={styles.logo} src={logoÉtablissement} aria-hidden/>
+					<Card.Image className={styles.logo} src={logoÉtablissement} aria-hidden />
 					<div className={styles.mainInfoEtablissement}>
 						<Card.Title className={styles.title} titleAs={'h3'}>
 							{etablissement.nom}
 						</Card.Title>
-						{adresse && <Address className={styles.address} address={adresse}/>}
+						{adresse && <Address className={styles.address} address={adresse} />}
 					</div>
-					<RésultatRechercherAccompagnementTagsList etablissement={etablissement}/>
+					<RésultatRechercherAccompagnementTagsList etablissement={etablissement} />
 
-					{etablissement.horaires && etablissement.horaires.length > 0 &&
+					{etablissement.horaires && etablissement.horaires.length > 0 && (
 						<details className={styles.details}>
 							<summary className={styles.summary}>Voir les horaires d‘ouverture</summary>
 							<div className={styles.horaireBackground}>
 								<ol className={styles.listeHoraire}>
 									{etablissement.horaires.map((horaire) => (
 										<li key={horaire.jour} className={styles.horaireElement}>
-											<HorairesResultatRechercherAccompagnement horaire={horaire}/>
+											<HorairesResultatRechercherAccompagnement horaire={horaire} />
 										</li>
 									))}
 								</ol>
 							</div>
 						</details>
-					}
+					)}
 
 					{
-						etablissement.email && (isMissionLocale ? <ContactButton/>
-							: <MailLink établissement={etablissement}/>)
+						etablissement.email && (isMissionLocale ? <ContactButton />
+							: <MailLink établissement={etablissement} />)
 					}
 				</Card.Content>
 			</Card>
 			{
-				isMissionLocale && etablissement.email &&
-				<ModalDemandeDeContactAccompagnement
-					contactÉtablissementAccompagnement={{
-						email: etablissement.email,
-						nom: etablissement.nom,
-						type: etablissement.type,
-					}}
-					isOpen={isPopInOpen}
-					setIsOpen={setIsPopInOpen}
-				/>
-			}
+				isMissionLocale && etablissement.email && (
+					<ModalDemandeDeContactAccompagnement
+						contactÉtablissementAccompagnement={{
+							email: etablissement.email,
+							nom: etablissement.nom,
+							type: etablissement.type,
+						}}
+						isOpen={isPopInOpen}
+						setIsOpen={setIsPopInOpen} />
+				)}
 		</>
 	);
 }

@@ -25,8 +25,7 @@ export default function RechercherFicheMetierPage() {
 			<Head
 				title={'Rechercher un métier | 1jeune1solution'}
 				description="Trouver le métier qui vous correspond"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<InstantSearchLayout
 				meilisearchIndex={MEILISEARCH_INDEX}
 				nombreDeResultatParPage={HITS_PER_PAGE}
@@ -38,8 +37,7 @@ export default function RechercherFicheMetierPage() {
 				nombreDeSkeleton={2}
 				resultatDeRecherche={RésultatRechercherMétier}
 				tagList={<MeilisearchTagsList />}
-				isAffichageListeDeResultatsDesktopDirectionRow
-			/>
+				isAffichageListeDeResultatsDesktopDirectionRow />
 			<EnTete heading="Découvrez des services faits pour vous" />
 			<div className={classNames(styles.additionalSection, 'background-white-lilac')}>
 				<Container className={styles.partnerCardContainer}>

@@ -72,11 +72,10 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 				searchClient={searchClient}
 				indexName={meilisearchIndex}
 				routing /* NOTE (SULI 19-02-2024): Cf PR https://github.com/DNUM-SocialGouv/1j1s-front/pull/2711 pour réutiliser createInstantSearchRouterNext*/
-				future={{ preserveSharedStateOnUnmount: true }}
-			>
+				future={{ preserveSharedStateOnUnmount: true }}>
 				<InstantSearchErrorBoundary>
 					<>
-						<Configure hitsPerPage={nombreDeResultatParPage}/>
+						<Configure hitsPerPage={nombreDeResultatParPage} />
 						<section className="separator">
 							<Container>
 								{formulaireDeRecherche}
@@ -93,8 +92,7 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 							isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow}
 							nombreDeResultatParPage={nombreDeResultatParPage}
 							scrollToTopOfListeDesResultats={scrollToTopOfListeDesResultats}
-							ref={listeDesResultatsRef}
-						/>
+							ref={listeDesResultatsRef} />
 					</>
 				</InstantSearchErrorBoundary>
 			</InstantSearch>
@@ -136,21 +134,21 @@ const AfficherResultatDeRecherche = React.forwardRef(function AfficherResultatDe
 						labelSingulier={messageResultatRechercheLabelSingulier}
 						labelPluriel={messageResultatRechercheLabelPluriel}
 						isLoading={isInstantSearchLoading}
-						numberOfResult={nbHits}
-					/>
+						numberOfResult={nbHits} />
 
 				</Container>
 			</section>
 			<ListeDesResultats
 				ref={ref}
-				resultats={<Hits hitComponent={resultatDeRecherche}/>}
+				resultats={<Hits hitComponent={resultatDeRecherche} />}
 				skeletonRepeat={nombreDeSkeleton}
-				pagination={<MeiliSearchPagination numberOfResultPerPage={nombreDeResultatParPage}
+				pagination={(
+					<MeiliSearchPagination numberOfResultPerPage={nombreDeResultatParPage}
 																					 className={styles.pagination}
-																					 onPageChange={scrollToTopOfListeDesResultats}/>}
+																					 onPageChange={scrollToTopOfListeDesResultats} />
+				)}
 				isLoading={isInstantSearchLoading}
-				isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow}
-			/>
+				isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow} />
 		</>
 	);
 });

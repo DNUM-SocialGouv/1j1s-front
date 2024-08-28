@@ -25,14 +25,14 @@ export function NavMobile({ toggleModal }: { toggleModal: () => void }) {
 		<Container>
 			<nav role="navigation" aria-label="menu principal" data-testid="navigation-mobile">
 				<ul className={styles.modalNavigationList}>
-					<NavItem className={styles.navItem}  label={accueil.label} link={accueil.link} isActive={router.pathname === accueil.link} onClick={toggleModal}/>
-					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={offresNav} onClick={toggleModal} isMobile/>
-					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={orientationNav} onClick={toggleModal} isMobile/>
-					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={engagementNav} onClick={toggleModal} isMobile/>
-					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={logementsNav} onClick={toggleModal} isMobile/>
-					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={accompagnementNav} onClick={toggleModal} isMobile/>
-					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={aidesEtOutilsNav} onClick={toggleModal} isMobile/>
-					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={employeurNav} onClick={toggleModal} isMobile/>
+					<NavItem className={styles.navItem}  label={accueil.label} link={accueil.link} isActive={router.pathname === accueil.link} onClick={toggleModal} />
+					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={offresNav} onClick={toggleModal} isMobile />
+					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={orientationNav} onClick={toggleModal} isMobile />
+					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={engagementNav} onClick={toggleModal} isMobile />
+					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={logementsNav} onClick={toggleModal} isMobile />
+					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={accompagnementNav} onClick={toggleModal} isMobile />
+					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={aidesEtOutilsNav} onClick={toggleModal} isMobile />
+					<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={employeurNav} onClick={toggleModal} isMobile />
 				</ul>
 			</nav>
 		</Container>

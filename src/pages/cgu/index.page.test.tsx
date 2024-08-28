@@ -19,7 +19,7 @@ describe('<Cgu />', () => {
 
 		const { container } = render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<Cgu titre={'titre'} contenu={'contenu'}/>
+				<Cgu titre={'titre'} contenu={'contenu'} />
 			</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -31,8 +31,7 @@ describe('<Cgu />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<Cgu titre={'titre'} contenu={'contenu'} />);
 			</DependenciesProvider>);
 

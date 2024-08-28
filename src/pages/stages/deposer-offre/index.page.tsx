@@ -21,8 +21,7 @@ export default function DeposerOffreStagePage() {
 		<>
 			<Head
 				title={'Dépôt d’offre de stage - Étape 1 sur 3 : Votre entreprise | 1jeune1solution '}
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<div className={styles.section}>
 					<LightHero>
@@ -36,7 +35,7 @@ export default function DeposerOffreStagePage() {
 						</h1>
 					</LightHero>
 				</div>
-				<Entreprise/>
+				<Entreprise />
 			</main>
 		</>
 	);

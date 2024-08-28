@@ -20,7 +20,7 @@ describe('<ConsulterArticlePage />', () => {
 	});
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<ConsulterArticlePage article={anArticle()}/>
+			<ConsulterArticlePage article={anArticle()} />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -30,8 +30,7 @@ describe('<ConsulterArticlePage />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<ConsulterArticlePage article={anArticle()} />);
 			</DependenciesProvider>);
 

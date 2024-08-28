@@ -27,8 +27,7 @@ export default function ConsulterMissionEngagementPage({ missionEngagement }: Co
 		<>
 			<Head
 				title={`${missionEngagement.titre} | 1jeune1solution`}
-				robots="noindex"
-			/>
+				robots="noindex" />
 			<ConsulterMissionEngagement missionEngagement={ missionEngagement } />
 		</>
 	);

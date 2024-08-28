@@ -85,7 +85,7 @@ describe('Page Actualités', () => {
 
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<ActualitesPage cartesActualites={carteActualites}/>
+						<ActualitesPage cartesActualites={carteActualites} />
 					</DependenciesProvider>,
 				);
 
@@ -101,7 +101,7 @@ describe('Page Actualités', () => {
 				const carteActualites = [anActualite({ titre: 'Actualité 1' }), anActualite({ titre: 'Actualité 2' }), anActualite({ titre: 'Actualité 3' })];
 
 				const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-					<ActualitesPage cartesActualites={carteActualites}/>
+					<ActualitesPage cartesActualites={carteActualites} />
 				</DependenciesProvider>);
 
 				expect(container.outerHTML).toHTMLValidate();
@@ -112,7 +112,7 @@ describe('Page Actualités', () => {
 
 				const { container } = render(
 					<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-						<ActualitesPage cartesActualites={carteActualites}/>
+						<ActualitesPage cartesActualites={carteActualites} />
 					</DependenciesProvider>);
 
 				await expect(container).toBeAccessible();
@@ -126,7 +126,7 @@ describe('Page Actualités', () => {
 				];
 				render(
 					<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-						<ActualitesPage cartesActualites={carteActualites}/>
+						<ActualitesPage cartesActualites={carteActualites} />
 					</DependenciesProvider>,
 				);
 
@@ -145,7 +145,7 @@ describe('Page Actualités', () => {
 
 					render(
 						<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-							<ActualitesPage cartesActualites={carteActualites}/>
+							<ActualitesPage cartesActualites={carteActualites} />
 						</DependenciesProvider>,
 					);
 
@@ -160,7 +160,7 @@ describe('Page Actualités', () => {
 
 					render(
 						<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-							<ActualitesPage cartesActualites={carteActualites}/>
+							<ActualitesPage cartesActualites={carteActualites} />
 						</DependenciesProvider>,
 					);
 
@@ -180,7 +180,7 @@ describe('Page Actualités', () => {
 					];
 					render(
 						<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-							<ActualitesPage cartesActualites={carteActualites}/>
+							<ActualitesPage cartesActualites={carteActualites} />
 						</DependenciesProvider>,
 					);
 					expect(screen.queryByRole('button', { name: 'Voir plus de résultats sur les actualités' })).not.toBeInTheDocument();
@@ -196,7 +196,7 @@ describe('Page Actualités', () => {
 
 					render(
 						<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-							<ActualitesPage cartesActualites={carteActualites}/>
+							<ActualitesPage cartesActualites={carteActualites} />
 						</DependenciesProvider>,
 					);
 

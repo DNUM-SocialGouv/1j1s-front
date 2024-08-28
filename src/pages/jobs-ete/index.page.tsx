@@ -38,7 +38,7 @@ export default function RechercherJobsEtePage(props: RechercherJobsEtePageProps)
 		}
 	}, [router]);
 
-	return <RechercherJobEte resultats={props.resultats} erreurRecherche={props.erreurRecherche}/>;
+	return <RechercherJobEte resultats={props.resultats} erreurRecherche={props.erreurRecherche} />;
 };
 
 const jobsEteQuerySchema = Joi.object({

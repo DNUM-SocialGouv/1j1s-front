@@ -38,8 +38,7 @@ export function ListeMissions({ resultatList, isServiceCivique }: ListeMissionsP
 						sousTitreOffre={mission.nomEntreprise}
 						lienOffre={isServiceCivique ? `/service-civique/${mission.id}` : `/benevolat/${mission.id}`}
 						logo={getLogo(mission)}
-						étiquetteOffreList={mission.étiquetteList}
-					/>
+						étiquetteOffreList={mission.étiquetteList} />
 				</li>
 			))}
 		</ListeRésultatsRechercherSolution>

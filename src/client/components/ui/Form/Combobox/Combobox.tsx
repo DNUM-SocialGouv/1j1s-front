@@ -216,7 +216,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					type="hidden"
 					name={valueName ?? (name && `${name}.value`)}
 					value={matchingOptionValue}
-					required={requireValidOption}/>
+					required={requireValidOption} />
 				<button
 					onClick={() => {
 						dispatch(new Actions.ToggleList());
@@ -228,7 +228,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					aria-controls={listboxId}
 					aria-expanded={open}
 					aria-label={optionsAriaLabel}>
-					<Icon name={'angle-down'}/>
+					<Icon name={'angle-down'} />
 				</button>
 				<ul
 					role="listbox"

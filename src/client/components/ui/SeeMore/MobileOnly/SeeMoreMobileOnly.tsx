@@ -10,7 +10,7 @@ export default function SeeMoreMobileOnly(props: SeeMoreProps) {
 
 	return (
 		<>
-			<SeeMoreItemList {...rest} className={classNames(styles.smallScreenOnly, className)}/>
+			<SeeMoreItemList {...rest} className={classNames(styles.smallScreenOnly, className)} />
 			<div className={classNames(styles.largeScreenOnly, className)}>{children}</div>
 		</>
 	);

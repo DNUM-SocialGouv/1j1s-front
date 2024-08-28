@@ -20,8 +20,7 @@ export function MeilisearchCheckboxList(props: UseRefinementListProps & Meilisea
 					label={getCapitalizedItems(item.label)}
 					value={item.value}
 					checked={item.isRefined}
-					onChange={() => refine(item.value)}
-				/>
+					onChange={() => refine(item.value)} />
 			))}
 		</>
 	);

@@ -8,8 +8,7 @@ export default function Error400Page() {
 		<>
 			<Head
 				title="Demande incorrecte | 1jeune1solution"
-				robots="noindex"
-			/>
+				robots="noindex" />
 			<main id="contenu">
 				<ErrorLayout>
 					<ErrorLayout.Title titleAs="h1">Erreur - Demande Incorrecte</ErrorLayout.Title>

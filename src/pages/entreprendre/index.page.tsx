@@ -24,18 +24,16 @@ export default function Entreprendre() {
 		<>
 			<Head
 				title="Les solutions pour créer une entreprise | 1jeune1solution"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<HeroComponent
-					titlePrimaryText={
+					titlePrimaryText={(
 						<span>
 							<b>Je découvre les solutions qui s’offrent à moi</b>, pour créer mon entreprise…
 						</span>
-					}
+					)}
 					titleSecondaryText={<>…quel que soit le stade de mon projet de création !</>}
-					imgSrc="/images/entrepreneurs.webp"
-				>
+					imgSrc="/images/entrepreneurs.webp">
 					<ol className={styles.phases} aria-label="stades projet de création">
 						<li className={styles.phasesCard}>
 							<b>Ante-création</b>
@@ -60,13 +58,13 @@ export default function Entreprendre() {
 
 						<div className={styles.réseauxContent}>
 							<Accordion summary="Je cherche à être accompagné" summaryAs="h3">
-								<RéseauAccompagnementList/>
+								<RéseauAccompagnementList />
 							</Accordion>
 							<Accordion summary="Je cherche à financer mon projet" summaryAs="h3">
-								<RéseauFinancementList/>
+								<RéseauFinancementList />
 							</Accordion>
 							<Accordion summary="Je lance un projet dans l’Economie sociale et solidaire" summaryAs="h3">
-								<RéseauÉconomieSocialeEtSolidaireList/>
+								<RéseauÉconomieSocialeEtSolidaireList />
 							</Accordion>
 						</div>
 					</Container>
@@ -82,29 +80,25 @@ export default function Entreprendre() {
 								<EntreprendreOutilADisposition
 									link="https://bpifrance-creation.fr/encyclopedie/previsions-financieres-business-plan/business-plan/faire-son-business-plan"
 									linkLabel="Construire mon Business Plan"
-									description="Construisez votre Business Plan, gratuitement en ligne"
-								/>
+									description="Construisez votre Business Plan, gratuitement en ligne" />
 							</li>
 							<li>
 								<EntreprendreOutilADisposition
 									link="https://jesuisentrepreneur.fr/mon-etude-de-marche"
 									linkLabel="Faire mon étude de marché"
-									description="Découvrez les tendances et les chiffres de votre marché"
-								/>
+									description="Découvrez les tendances et les chiffres de votre marché" />
 							</li>
 							<li>
 								<EntreprendreOutilADisposition
 									link="https://bpifrance-creation.fr/boiteaoutils/infographie-entrepreneurs-trouvez-bon-reseau-daccompagnement-vos-besoins"
 									linkLabel="Me faire accompagner"
-									description="Trouvez le réseau d’accompagnement qui correspond à vos besoins"
-								/>
+									description="Trouvez le réseau d’accompagnement qui correspond à vos besoins" />
 							</li>
 							<li>
 								<EntreprendreOutilADisposition
 									link="https://www.initiative-france.fr/espace-info/vie-du-reseau/426-mon-kit-entrepreneur-notre-nouvelle-application-mobile.html"
 									linkLabel="Découvrir Mon kit entrepreneur"
-									description="Découvrez Mon kit entrepreneur, l’application mobile pour créer son entreprise"
-								/>
+									description="Découvrez Mon kit entrepreneur, l’application mobile pour créer son entreprise" />
 							</li>
 						</ul>
 					</Container>
@@ -121,8 +115,7 @@ export default function Entreprendre() {
 							logo="/images/entreprendre/région-sud.png"
 							logoAlt="Région Sud, Provence Alpes Côte d'Azur. Gourvenement, Liberté, Égalité, Fraternité"
 							title="Vous avez moins de 30 ans, habitez Marseille et souhaitez créer votre entreprise ?"
-							titleAs={'h3'}
-						>
+							titleAs={'h3'}>
 							Dans le cadre de l’initiative “Marseille en grand” lancée par le
 							Président de la République le 2 septembre 2021, l’Etat et la
 							région Sud se mobilisent pour soutenir la création d’entreprises à

@@ -232,14 +232,14 @@ export function SelectMultiple(props: SelectMultipleProps) {
 					required={required}
 					aria-hidden="true"
 					name={name}
-					value={optionsSelectedValues[0] || ''}/>
+					value={optionsSelectedValues[0] || ''} />
 				{optionsSelectedValues.slice(1).map((optionValue) => (
 					<Input
 						tabIndex={-1}
 						key={optionValue}
 						aria-hidden="true"
 						name={name}
-						value={optionValue}/>
+						value={optionValue} />
 				))}
 				<button
 					type="button"
@@ -252,10 +252,9 @@ export function SelectMultiple(props: SelectMultipleProps) {
 					aria-activedescendant={state.activeDescendant}
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}
-					{...rest}
-				>
-					<PlaceholderSelectedOptions/>
-					<Icon name={'angle-down'}/>
+					{...rest}>
+					<PlaceholderSelectedOptions />
+					<Icon name={'angle-down'} />
 				</button>
 				<ul
 					aria-multiselectable="true"

@@ -57,7 +57,27 @@
       {
         "assertFunctionNames": ["expect", "checkA11y"]
       }
-    ]
+    ],
+    "react/jsx-closing-bracket-location": ["error", "after-props"],
+    "react/jsx-wrap-multilines": ["error", {
+      "declaration": "parens-new-line",
+      "assignment": "parens-new-line",
+      "return": "parens-new-line",
+      "arrow": "parens-new-line",
+      "condition": "parens-new-line",
+      "logical": "parens-new-line",
+      "prop": "parens-new-line"
+    }],
+    "react/jsx-tag-spacing": ["error", {
+      "closingSlash": "never",
+      "beforeSelfClosing": "always",
+      "afterOpening": "never",
+      "beforeClosing": "never"
+    }],
+    "react/jsx-max-props-per-line": ["error", {
+      "maximum": 1,
+      "when": "multiline"
+    }]
   },
   "overrides": [
     // Only uses Testing Library lint rules in test files

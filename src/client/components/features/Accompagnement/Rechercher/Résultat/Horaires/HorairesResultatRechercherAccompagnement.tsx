@@ -22,14 +22,14 @@ export function HorairesResultatRechercherAccompagnement(props: HorairesResultat
 		if (heures.length > 1) {
 			return (
 				<>
-					<TimeRange start={heures[0].début} end={heures[0].fin}/>
+					<TimeRange start={heures[0].début} end={heures[0].fin} />
 					{' et '}
-					<TimeRange start={heures[1].début} end={heures[1].fin}/>
+					<TimeRange start={heures[1].début} end={heures[1].fin} />
 				</>
 			);
 		} else {
 			return (
-				<TimeRange start={heures[0].début} end={heures[0].fin}/>
+				<TimeRange start={heures[0].début} end={heures[0].fin} />
 			);
 		}
 	}, [heures]);

@@ -134,12 +134,11 @@ export function ModalComponent(props: ModalPropsWithAccessibleDescription) {
 						<div className={styles.modalClose}>
 							<ButtonComponent
 								appearance="quaternary"
-								icon={<Icon name="close"/>}
+								icon={<Icon name="close" />}
 								iconPosition="right"
 								label={closeLabel}
 								title={closeTitle}
-								onClick={() => close()}
-							/>
+								onClick={() => close()} />
 						</div>
 						{children}
 					</div>

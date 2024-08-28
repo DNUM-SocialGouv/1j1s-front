@@ -55,8 +55,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 	return (
 		<form
 			className={styles.formulaire}
-			onSubmit={envoyerFormulaire}
-		>
+			onSubmit={envoyerFormulaire}>
 			<Champ>
 				<Champ.Label>
 					Prénom
@@ -65,8 +64,8 @@ export function FormulaireDemandeDeContactAccompagnement({
 				<Champ.Input
 					render={Input}
 					name="firstname"
-					required/>
-				<Champ.Error/>
+					required />
+				<Champ.Error />
 			</Champ>
 
 			<Champ>
@@ -77,8 +76,8 @@ export function FormulaireDemandeDeContactAccompagnement({
 				<Champ.Input
 					render={Input}
 					name="lastname"
-					required/>
-				<Champ.Error/>
+					required />
+				<Champ.Error />
 			</Champ>
 
 			<Champ>
@@ -90,9 +89,8 @@ export function FormulaireDemandeDeContactAccompagnement({
 					render={Input}
 					pattern={emailRegex}
 					name="mail"
-					type="email"
-				/>
-				<Champ.Error/>
+					type="email" />
+				<Champ.Error />
 			</Champ>
 
 			<Champ>
@@ -105,8 +103,8 @@ export function FormulaireDemandeDeContactAccompagnement({
 					pattern={telFrRegex}
 					name="phone"
 					type="tel"
-					required/>
-				<Champ.Error/>
+					required />
+				<Champ.Error />
 			</Champ>
 
 			<Champ>
@@ -115,31 +113,31 @@ export function FormulaireDemandeDeContactAccompagnement({
 					render={SelectSimple}
 					required
 					optionsAriaLabel={'années'}
-					name="age"
-				>
+					name="age">
 					{ageOptions.map((option) =>
 						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 					)}
 				</Champ.Input>
-				<Champ.Error/>
+				<Champ.Error />
 			</Champ>
 
-			<ComboboxCommune required/>
+			<ComboboxCommune required />
 			<Champ className={styles.commentaireDemandeDeContact}>
 				<Champ.Label>Commentaires ou autres informations utiles (facultatif)</Champ.Label>
-				<Champ.Input render={TextArea} name="commentaire" rows={5}/>
-				<Champ.Error/>
+				<Champ.Input render={TextArea} name="commentaire" rows={5} />
+				<Champ.Error />
 			</Champ>
 
 			{isLoading
-				? <LoadingButton className={styles.formulaireValidateButton}/>
-				: <>
-					<ButtonComponent
-						type="submit"
-						className={styles.formulaireValidateButton}
-						label={<>Envoyer mes informations <span className={styles.desktopOnly}>afin d‘être rappelé(e)</span></>}
-					/>
-				</>
+				? <LoadingButton className={styles.formulaireValidateButton} />
+				: (
+					<>
+						<ButtonComponent
+							type="submit"
+							className={styles.formulaireValidateButton}
+							label={<>Envoyer mes informations <span className={styles.desktopOnly}>afin d‘être rappelé(e)</span></>} />
+					</>
+				)
 			}
 			<div className={styles.formulaireDécharge}>
 				<p>

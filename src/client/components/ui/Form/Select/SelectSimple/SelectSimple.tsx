@@ -243,8 +243,7 @@ export function SelectSimple(props: SelectSimpleProps) {
 					aria-hidden={'true'}
 					name={name}
 					onInvalid={onInvalidProps}
-					value={optionSelectedValue}
-				/>
+					value={optionSelectedValue} />
 				<button
 					type="button"
 					role="combobox"
@@ -256,10 +255,9 @@ export function SelectSimple(props: SelectSimpleProps) {
 					aria-activedescendant={state.activeDescendant}
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}
-					{...rest}
-				>
+					{...rest}>
 					{placeholder}
-					<Icon name={'angle-down'}/>
+					<Icon name={'angle-down'} />
 				</button>
 				<ul
 					role="listbox"

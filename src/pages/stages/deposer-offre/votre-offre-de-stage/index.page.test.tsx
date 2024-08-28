@@ -34,8 +34,7 @@ describe('<DeposerOffreStageEtape2Page />', () => {
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
 				stageDeposerOffreEtape1PersistenceService={stageDeposerOffreEtape1PersistenceService}
-				stageDeposerOffreEtape2PersistenceService={stageDeposerOffreEtape2PersistenceService}
-			>
+				stageDeposerOffreEtape2PersistenceService={stageDeposerOffreEtape2PersistenceService}>
 				<DeposerOffreStageEtape2Page />
 			</DependenciesProvider>,
 		);

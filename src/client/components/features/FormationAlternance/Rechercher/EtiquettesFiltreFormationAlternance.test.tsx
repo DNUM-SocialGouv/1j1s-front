@@ -27,7 +27,7 @@ describe('EtiquettesFiltreFormation', () => {
 					ville: 'Paris 20e Arrondissement',
 				},
 			});
-			render(<EtiquettesFiltreFormationAlternance/>);
+			render(<EtiquettesFiltreFormationAlternance />);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 			expect(filtresRecherche).toBeVisible();
@@ -48,7 +48,7 @@ describe('EtiquettesFiltreFormation', () => {
 					ville: 'Paris 20e Arrondissement',
 				},
 			});
-			render(<EtiquettesFiltreFormationAlternance/>);
+			render(<EtiquettesFiltreFormationAlternance />);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 
@@ -74,7 +74,7 @@ describe('EtiquettesFiltreFormation', () => {
 						ville: 'Paris 20e Arrondissement',
 					},
 				});
-				render(<EtiquettesFiltreFormationAlternance/>);
+				render(<EtiquettesFiltreFormationAlternance />);
 
 				const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 
@@ -103,7 +103,7 @@ describe('EtiquettesFiltreFormation', () => {
 					},
 				});
 				
-				render(<EtiquettesFiltreFormationAlternance/>);
+				render(<EtiquettesFiltreFormationAlternance />);
 
 				const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 

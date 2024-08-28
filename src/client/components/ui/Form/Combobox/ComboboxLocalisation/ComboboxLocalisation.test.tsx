@@ -51,8 +51,7 @@ describe('ComboboxLocalisation', () => {
 							codePostal: '75001',
 							nom: 'Paris',
 							type: TypeLocalisation.COMMUNE,
-						}}
-						/>
+						}} />
 					</form>
 				</DependenciesProvider>,
 			);

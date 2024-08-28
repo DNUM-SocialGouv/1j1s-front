@@ -8,8 +8,7 @@ export default function Error500Page() {
 		<>
 			<Head
 				title="Service indisponible | 1jeune1solution"
-				robots="noindex"
-			/>
+				robots="noindex" />
 			<main id="contenu">
 				<ErrorUnavailableService />
 			</main>

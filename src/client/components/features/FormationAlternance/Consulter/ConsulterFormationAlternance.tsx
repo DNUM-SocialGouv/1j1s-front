@@ -17,45 +17,46 @@ export function ConsulterFormationAlternance({ formation, statistiques }: { form
 				<header className={commonStyles.titre}>
 					{formation.titre && <h1>{formation.titre}</h1>}
 					{formation.nomEntreprise && <h2>{formation.nomEntreprise}</h2>}
-					<TagList list={formation.tags}/>
-					{formation.lienDemandeRendezVous &&
-						<Link href={formation.lienDemandeRendezVous} className={commonStyles.postuler}
+					<TagList list={formation.tags} />
+					{formation.lienDemandeRendezVous && (
+						<Link href={formation.lienDemandeRendezVous}
+							className={commonStyles.postuler}
 							appearance={'asPrimaryButton'}>
 							Contacter l’établissement
-							<Link.Icon/>
+							<Link.Icon />
 						</Link>
-					}
+					)}
 				</header>
 				<section className={commonStyles.contenu}>
-					{formation.description &&
+					{formation.description && (
 						<>
 							<h3>Description de la formation :</h3>
 							<p>{formation.description}</p>
 						</>
-					}
-					{formation.objectif &&
+					)}
+					{formation.objectif && (
 						<>
 							<h3>Objectifs de la formation :</h3>
 							<p>{formation.objectif}</p>
 						</>
-					}
-					{formation.dureeIndicative &&
+					)}
+					{formation.dureeIndicative && (
 						<>
 							<h3>Durée de la formation :</h3>
 							<p>{formation.dureeIndicative}</p>
 						</>
-					}
-					{displayInformationCentreFormation &&
+					)}
+					{displayInformationCentreFormation && (
 						<>
 							<h3>Informations sur le centre de formation :</h3>
 							{formation.adresse.adresseComplete &&
 								<p>Adresse : {formation.adresse.adresseComplete}</p>
 							}
 						</>
-					}
+					)}
 				</section>
 			</ConsulterOffreLayout>
-			<StatistiquesFormationAlternance statistiques={statistiques}/>
+			<StatistiquesFormationAlternance statistiques={statistiques} />
 		</>
 	);
 }

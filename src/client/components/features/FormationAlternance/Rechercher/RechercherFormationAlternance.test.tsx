@@ -25,9 +25,8 @@ describe('RechercherFormation', () => {
 		render(
 			<DependenciesProvider
 				metierLbaService={aMetierService()}
-				localisationService={aLocalisationService()}
-			>
-				<RechercherFormationAlternance/>
+				localisationService={aLocalisationService()}>
+				<RechercherFormationAlternance />
 			</DependenciesProvider>,
 		);
 
@@ -84,9 +83,8 @@ describe('RechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					metierLbaService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
-					<RechercherFormationAlternance resultats={resultatRechercheFormationAlternance}/>
+					localisationService={aLocalisationService()}>
+					<RechercherFormationAlternance resultats={resultatRechercheFormationAlternance} />
 				</DependenciesProvider>,
 			);
 
@@ -119,9 +117,8 @@ describe('RechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					metierLbaService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
-					<RechercherFormationAlternance resultats={[]}/>
+					localisationService={aLocalisationService()}>
+					<RechercherFormationAlternance resultats={[]} />
 				</DependenciesProvider>,
 			);
 
@@ -137,9 +134,8 @@ describe('RechercherFormation', () => {
 				render(
 					<DependenciesProvider
 						metierLbaService={aMetierService()}
-						localisationService={aLocalisationService()}
-					>
-						<RechercherFormationAlternance resultats={resultatRechercheFormationAlternance}/>
+						localisationService={aLocalisationService()}>
+						<RechercherFormationAlternance resultats={resultatRechercheFormationAlternance} />
 					</DependenciesProvider>,
 				);
 
@@ -155,9 +151,8 @@ describe('RechercherFormation', () => {
 				render(
 					<DependenciesProvider
 						metierLbaService={aMetierService()}
-						localisationService={aLocalisationService()}
-					>
-						<RechercherFormationAlternance resultats={resultatRechercheFormationAlternance}/>
+						localisationService={aLocalisationService()}>
+						<RechercherFormationAlternance resultats={resultatRechercheFormationAlternance} />
 					</DependenciesProvider>,
 				);
 
@@ -172,9 +167,8 @@ describe('RechercherFormation', () => {
 		render(
 			<DependenciesProvider
 				metierLbaService={aMetierService()}
-				localisationService={aLocalisationService()}
-			>
-				<RechercherFormationAlternance/>
+				localisationService={aLocalisationService()}>
+				<RechercherFormationAlternance />
 			</DependenciesProvider>,
 		);
 

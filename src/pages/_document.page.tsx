@@ -6,7 +6,7 @@ export default function Document() {
 	return (
 		<Html lang="fr">
 			<Head>
-				<meta name="author" content="1jeune1solution"/>
+				<meta name="author" content="1jeune1solution" />
 				<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png" />
 				<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png" />
 				<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png" />
@@ -20,7 +20,7 @@ export default function Document() {
 				<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32" />
 				<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16" />
 				<link rel="icon" type="image/png" href="/favicons/favicon-128x128.png" sizes="128x128" />
-				<meta name="application-name" content="1jeune1solution"/>
+				<meta name="application-name" content="1jeune1solution" />
 				<meta name="msapplication-TileColor" content="#FFFFFF" />
 				<meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png" />
 				<meta name="msapplication-square70x70logo" content="/favicons/mstile-70x70.png" />
@@ -29,21 +29,19 @@ export default function Document() {
 				<meta name="msapplication-square310x310logo" content="/favicons/mstile-310x310.png" />
 			</Head>
 			<body>
-				<Main/>
-				<NextScript/>
-				{ process.env.NODE_ENV === 'production' &&
+				<Main />
+				<NextScript />
+				{ process.env.NODE_ENV === 'production' && (
 					// eslint-disable-next-line @next/next/no-sync-scripts
 					<script
-						src={`/scripts/tarteaucitron/tarteaucitron.js?v=${encodeURI(process.env.NEXT_PUBLIC_APPLICATION_VERSION)}`}
-					/>
-				}
-				{ process.env.NEXT_PUBLIC_ANALYTICS_EULERIAN_FEATURE === '1' &&
-          <Script
+						src={`/scripts/tarteaucitron/tarteaucitron.js?v=${encodeURI(process.env.NEXT_PUBLIC_APPLICATION_VERSION)}`} />
+   			)}
+				{ process.env.NEXT_PUBLIC_ANALYTICS_EULERIAN_FEATURE === '1' && (
+					<Script
           	id="eulerianAnalytics"
           	src={`/scripts/eulerian.${process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN}.js`}
-          	strategy="beforeInteractive"
-          />
-				}
+          	strategy="beforeInteractive" />
+				)}
 			</body>
 		</Html>
 	);

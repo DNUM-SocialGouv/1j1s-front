@@ -66,27 +66,25 @@ export function RechercherOffreEmploi(props: RechercherOffreEmploiProps) {
 			<Head
 				title={title}
 				description="Plus de 400 000 offres d‘emplois et d‘alternances sélectionnées pour vous"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<RechercherSolutionLayout
-					banniere={<BannièreOffreEmploi/>}
+					banniere={<BannièreOffreEmploi />}
 					erreurRecherche={erreurRecherche}
-					etiquettesRecherche={<EtiquettesFiltreOffreEmploi/>}
-					formulaireRecherche={<FormulaireRechercheOffreEmploi/>}
+					etiquettesRecherche={<EtiquettesFiltreOffreEmploi />}
+					formulaireRecherche={<FormulaireRechercheOffreEmploi />}
 					isChargement={false}
 					isEtatInitial={empty(offreQuery)}
 					messageResultatRecherche={messageRésultatRecherche}
 					nombreTotalSolutions={nombreRésultats}
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
 					maxPage={MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL - 1}
-					listeSolutionElement={<ListeOffreEmploi résultatList={offreEmploiList}/>}
-				/>
-				<EnTete heading="Découvrez des services faits pour vous"/>
+					listeSolutionElement={<ListeOffreEmploi résultatList={offreEmploiList} />} />
+				<EnTete heading="Découvrez des services faits pour vous" />
 				<ServiceCardList>
-					<LaBonneBoitePartner/>
-					<OnisepMetierPartner/>
-					<ServiceCiviquePartner/>
+					<LaBonneBoitePartner />
+					<OnisepMetierPartner />
+					<ServiceCiviquePartner />
 				</ServiceCardList>
 			</main>
 		</>
@@ -112,8 +110,7 @@ function ListeOffreEmploi({ résultatList }: ListeRésultatProps) {
 						lienOffre={`/emplois/${offreEmploi.id}`}
 						logo={offreEmploi.entreprise.logo || LOGO_FRANCE_TRAVAIL}
 						logoAlt={offreEmploi.entreprise.logo ? '' : 'France travail'}
-						sousTitreOffre={offreEmploi.entreprise.nom}
-					/>
+						sousTitreOffre={offreEmploi.entreprise.nom} />
 				</li>
 			))}
 		</ListeRésultatsRechercherSolution>

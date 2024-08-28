@@ -25,8 +25,7 @@ export function HeaderBody() {
 							src="/images/logos/république-française.svg"
 							alt="République Française, Liberté, Egalité, Fraternité"
 							width="88"
-							height="80"
-						/>
+							height="80" />
 						<nav
 							role={'navigation'}
 							aria-label="ouvrir le menu principal"
@@ -34,32 +33,30 @@ export function HeaderBody() {
 							className={styles.headerBodyNavigationMobile}>
 							<ButtonComponent
 								appearance="quaternary"
-								icon={<Icon name="burger-menu"/>}
+								icon={<Icon name="burger-menu" />}
 								iconPosition="top"
 								onClick={toggleModal}
 								label="Menu"
-								className={styles.headerBodyBurgerMenu}
-							/>
+								className={styles.headerBodyBurgerMenu} />
 						</nav>
 					</div>
 					<Link
 						className={styles.headerBodyTitle}
 						href="/"
 						title="1jeune1solution (retour à l'accueil)"
-						aria-label="1jeune1solution (retour à l'accueil)"
-					>
+						aria-label="1jeune1solution (retour à l'accueil)">
 						1jeune1solution
 					</Link>
 				</div>
-				<CampagneBannerDesktop/>
+				<CampagneBannerDesktop />
 			</div>
 			<ModalComponent aria-label="Menu principal" close={toggleModal} isOpen={isModalOpen}>
 				<ModalComponent.Title>
-					<Icon name="menu"/>
+					<Icon name="menu" />
 					<span>Menu</span>
 				</ModalComponent.Title>
 				<ModalComponent.Content>
-					<NavMobile toggleModal={toggleModal}/>
+					<NavMobile toggleModal={toggleModal} />
 				</ModalComponent.Content>
 			</ModalComponent>
 		</Container>

@@ -30,8 +30,7 @@ describe('RechercherJobEte', () => {
 			mockUseRouter({});
 			render(
 				<DependenciesProvider
-					localisationService={localisationServiceMock}
-				>
+					localisationService={localisationServiceMock}>
 					<RechercherJobEte />
 				</DependenciesProvider>,
 			);
@@ -53,9 +52,8 @@ describe('RechercherJobEte', () => {
 			mockUseRouter({ query: { page: '1' } });
 			render(
 				<DependenciesProvider
-					localisationService={localisationServiceMock}
-				>
-					<RechercherJobEte resultats={aRésultatsRechercheOffre()}/>
+					localisationService={localisationServiceMock}>
+					<RechercherJobEte resultats={aRésultatsRechercheOffre()} />
 				</DependenciesProvider>,
 			);
 
@@ -87,9 +85,8 @@ describe('RechercherJobEte', () => {
 					// WHEN
 					render(
 						<DependenciesProvider
-							localisationService={localisationServiceMock}
-						>
-							<RechercherJobEte resultats={aRésultatsRechercheOffre()}/>
+							localisationService={localisationServiceMock}>
+							<RechercherJobEte resultats={aRésultatsRechercheOffre()} />
 						</DependenciesProvider>,
 					);
 
@@ -116,9 +113,8 @@ describe('RechercherJobEte', () => {
 					// WHEN
 					render(
 						<DependenciesProvider
-							localisationService={localisationServiceMock}
-						>
-							<RechercherJobEte resultats={aRésultatsRechercheOffre()}/>
+							localisationService={localisationServiceMock}>
+							<RechercherJobEte resultats={aRésultatsRechercheOffre()} />
 						</DependenciesProvider>,
 					);
 
@@ -142,9 +138,8 @@ describe('RechercherJobEte', () => {
 					// WHEN
 					render(
 						<DependenciesProvider
-							localisationService={localisationServiceMock}
-						>
-							<RechercherJobEte resultats={aRésultatsRechercheOffre()}/>
+							localisationService={localisationServiceMock}>
+							<RechercherJobEte resultats={aRésultatsRechercheOffre()} />
 						</DependenciesProvider>,
 					);
 
@@ -164,9 +159,8 @@ describe('RechercherJobEte', () => {
 
 				render(
 					<DependenciesProvider
-						localisationService={localisationServiceMock}
-					>
-						<RechercherJobEte resultats={aRésultatsRechercheOffre()}/>
+						localisationService={localisationServiceMock}>
+						<RechercherJobEte resultats={aRésultatsRechercheOffre()} />
 					</DependenciesProvider>,
 				);
 
@@ -196,9 +190,8 @@ describe('RechercherJobEte', () => {
 
 			render(
 				<DependenciesProvider
-					localisationService={localisationServiceMock}
-				>
-					<RechercherJobEte resultats={expected}/>
+					localisationService={localisationServiceMock}>
+					<RechercherJobEte resultats={expected} />
 				</DependenciesProvider>,
 			);
 
@@ -222,9 +215,8 @@ describe('RechercherJobEte', () => {
 
 			render(
 				<DependenciesProvider
-					localisationService={localisationServiceMock}
-				>
-					<RechercherJobEte resultats={expected}/>
+					localisationService={localisationServiceMock}>
+					<RechercherJobEte resultats={expected} />
 				</DependenciesProvider>,
 			);
 
@@ -246,9 +238,8 @@ describe('RechercherJobEte', () => {
 
 			render(
 				<DependenciesProvider
-					localisationService={aLocalisationService()}
-				>
-					<RechercherJobEte resultats={offre}/>
+					localisationService={aLocalisationService()}>
+					<RechercherJobEte resultats={offre} />
 				</DependenciesProvider>,
 			);
 
@@ -270,9 +261,8 @@ describe('RechercherJobEte', () => {
 
 			render(
 				<DependenciesProvider
-					localisationService={aLocalisationService()}
-				>
-					<RechercherJobEte resultats={offre}/>
+					localisationService={aLocalisationService()}>
+					<RechercherJobEte resultats={offre} />
 				</DependenciesProvider>,
 			);
 

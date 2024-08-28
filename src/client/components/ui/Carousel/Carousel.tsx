@@ -60,8 +60,7 @@ export function Carousel(props: CarouselProps) {
 				src={imageList[0].src}
 				alt={imageList[0].alt || '1 sur 1'}
 				width={imagesSize.width}
-				height={imagesSize.height}
-			/>
+				height={imagesSize.height} />
 		);
 	}
 
@@ -82,23 +81,20 @@ export function Carousel(props: CarouselProps) {
 						direction={direction}
 						setDirection={setDirection}
 						isAnimated={isAnimated}
-						imagesSize={imagesSize}
-					/>
+						imagesSize={imagesSize} />
 				))}
 			</ul>
 
 			<Controls
 				goToPreviousSlide={goToPreviousSlide}
-				goToNextSlide={goToNextSlide}
-			/>
+				goToNextSlide={goToNextSlide} />
 
 			{!hideIndicators && (
 				<Indicators
 					goToSelectedSlide={goToSelectedSlide}
 					imageList={imageList}
 					currentSlideIndex={currentSlideIndex}
-					numberOfImages={numberOfImages}
-				/>
+					numberOfImages={numberOfImages} />
 			)}
 		</div>
 	);

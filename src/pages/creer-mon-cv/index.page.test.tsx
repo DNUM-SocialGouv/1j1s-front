@@ -30,8 +30,7 @@ describe('<FormationPage />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<FormationPage />);
 			</DependenciesProvider>);
 

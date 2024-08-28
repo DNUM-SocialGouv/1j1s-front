@@ -36,8 +36,7 @@ export function FormulaireRechercheJobEte() {
 			ref={rechercheJobEteForm}
 			role="search"
 			className={styles.rechercheOffreForm}
-			onSubmit={updateRechercherJobEteQueryParams}
-		>
+			onSubmit={updateRechercherJobEteQueryParams}>
 			<div className={styles.filtres}>
 				<Champ>
 					<Champ.Label>
@@ -48,12 +47,11 @@ export function FormulaireRechercheJobEte() {
 						render={Input}
 						defaultValue={queryParams.motCle}
 						name="motCle"
-						minLength={2}
-					/>
-					<Champ.Error/>
+						minLength={2} />
+					<Champ.Error />
 				</Champ>
 
-				<ComboboxLocalisation defaultValue={inputLocalisation}/>
+				<ComboboxLocalisation defaultValue={inputLocalisation} />
 
 				<Champ className={styles.domaine}>
 					<Champ.Label>
@@ -64,22 +62,20 @@ export function FormulaireRechercheJobEte() {
 						render={SelectMultiple}
 						optionsAriaLabel={'Domaines'}
 						name="grandDomaine"
-						defaultValue={queryParams.grandDomaine?.split(',')}
-					>
+						defaultValue={queryParams.grandDomaine?.split(',')}>
 						{mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList).map((option) =>
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
 					</Champ.Input>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 			</div>
 			<div className={styles.buttonRechercher}>
 				<ButtonComponent
 					label="Rechercher"
-					icon={<Icon name="magnifying-glass"/>}
+					icon={<Icon name="magnifying-glass" />}
 					iconPosition="right"
-					type="submit"
-				/>
+					type="submit" />
 			</div>
 		</form>
 	);

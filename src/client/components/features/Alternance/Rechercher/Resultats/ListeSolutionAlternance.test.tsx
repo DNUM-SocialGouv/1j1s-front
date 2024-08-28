@@ -26,7 +26,7 @@ describe('les tags', () => {
 			}),
 		];
 
-		render(<ListeSolutionAlternance alternanceList={alternancesList}/>);
+		render(<ListeSolutionAlternance alternanceList={alternancesList} />);
 		
 		const tagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
 		const tags = within(tagsList).getAllByRole('listitem');
@@ -46,7 +46,7 @@ describe('les tags', () => {
 			}),
 		];
 
-		render(<ListeSolutionAlternance alternanceList={alternancesList}/>);
+		render(<ListeSolutionAlternance alternanceList={alternancesList} />);
 
 		const tagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
 		const tags = within(tagsList).getAllByRole('listitem');

@@ -39,8 +39,7 @@ export function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
 							lienOffre={entreprise.candidaturePossible ? `/apprentissage/entreprise/${entreprise.id}` : undefined}
 							intituléOffre={entreprise.nom}
 							intituléLienOffre={'Candidater'}
-							étiquetteOffreList={getTags(entreprise)}
-						>
+							étiquetteOffreList={getTags(entreprise)}>
 							<ul>
 								{entreprise.secteurs && entreprise.secteurs.length > 0 &&
 									<li>{entreprise.secteurs.join(', ')}</li>}

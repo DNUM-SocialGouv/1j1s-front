@@ -55,21 +55,20 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 						<span>
 							Simuler votre rémunération <span className={styles.desktopOnly}>en tant qu’apprenti</span>
 						</span>
-						<Link.Icon/>
+						<Link.Icon />
 					</Link>
 				</HeroWithIllustration>
 			</header>
-			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage" raisons={raisons}/>
-			{ videos.length > 0 &&
-					<VideosCampagneApprentissage
-						videos={videos}
-						titre={<>Ils ont fait le choix de l’apprentissage, <span>pourquoi pas vous ?</span> </>}
-						description={'Découvrez les témoignages d’Elyna, Céline, Benoît et tous les autres !'}
-					/>
-			}
-			<PreparationApprentissage/>
+			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage" raisons={raisons} />
+			{ videos.length > 0 && (
+				<VideosCampagneApprentissage
+					videos={videos}
+					titre={<>Ils ont fait le choix de l’apprentissage, <span>pourquoi pas vous ?</span> </>}
+					description={'Découvrez les témoignages d’Elyna, Céline, Benoît et tous les autres !'} />
+			)}
+			<PreparationApprentissage />
 
-			<EnSavoirPlusApprentissage/>
+			<EnSavoirPlusApprentissage />
 		</>
 	);
 }

@@ -66,12 +66,15 @@ export function RechercherJobÉtudiant(props: RechercherJobEtudiantProps) {
 
 	const étiquettesRecherche = useMemo(() => {
 		if (offreEmploiQuery.nomLocalisation) {
-			return <TagList list={[
-				formatLibelleLocalisation(
-					offreEmploiQuery.nomLocalisation,
-					getCodeLibelleLocalisation(offreEmploiQuery.codeLocalisation, offreEmploiQuery.codePostalLocalisation, offreEmploiQuery.typeLocalisation) || '',
-				),
-			]} aria-label="Filtres de la recherche"/>;
+			return (
+				<TagList list={[
+					formatLibelleLocalisation(
+						offreEmploiQuery.nomLocalisation,
+						getCodeLibelleLocalisation(offreEmploiQuery.codeLocalisation, offreEmploiQuery.codePostalLocalisation, offreEmploiQuery.typeLocalisation) || '',
+					),
+				]}
+				aria-label="Filtres de la recherche" />
+			);
 		} else {
 			return undefined;
 		}
@@ -82,22 +85,20 @@ export function RechercherJobÉtudiant(props: RechercherJobEtudiantProps) {
 			<Head
 				title={title}
 				description="Des milliers de jobs étudiants sélectionnés pour vous"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<RechercherSolutionLayout
-					banniere={<BannièreJobÉtudiant/>}
+					banniere={<BannièreJobÉtudiant />}
 					erreurRecherche={erreurRecherche}
 					etiquettesRecherche={étiquettesRecherche}
-					formulaireRecherche={<FormulaireRechercheJobÉtudiant/>}
+					formulaireRecherche={<FormulaireRechercheJobÉtudiant />}
 					isChargement={false}
 					isEtatInitial={empty(offreEmploiQuery)}
 					messageResultatRecherche={messageRésultatRecherche}
 					nombreTotalSolutions={nombreRésultats}
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
 					maxPage={MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL - 1}
-					listeSolutionElement={<ListeOffreJobÉtudiant résultatList={jobÉtudiantList}/>}
-				/>
+					listeSolutionElement={<ListeOffreJobÉtudiant résultatList={jobÉtudiantList} />} />
 				<EnTete heading="Découvrez des services faits pour vous" />
 				<ServiceCardList>
 					<LaBonneBoitePartner />
@@ -128,8 +129,7 @@ function ListeOffreJobÉtudiant({ résultatList }: ListeRésultatProps) {
 						lienOffre={`/jobs-etudiants/${offreEmploi.id}`}
 						logo={offreEmploi.entreprise.logo || LOGO_FRANCE_TRAVAIL}
 						logoAlt={offreEmploi.entreprise.logo ? '' : 'France travail'}
-						sousTitreOffre={offreEmploi.entreprise.nom}
-					/>
+						sousTitreOffre={offreEmploi.entreprise.nom} />
 				</li>
 			))}
 		</ListeRésultatsRechercherSolution>

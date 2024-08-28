@@ -88,17 +88,16 @@ export function RechercherMission(props: RechercherMissionProps) {
 			<Head
 				title={title || `Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'} | 1jeune1solution`}
 				description="Se rendre utile tout en préparant son avenir grâce aux missions de service civique"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<RechercherSolutionLayout
-					banniere={<BanniereMission isServiceCivique={isServiceCivique}/>}
+					banniere={<BanniereMission isServiceCivique={isServiceCivique} />}
 					erreurRecherche={erreurRecherche}
-					etiquettesRecherche={<EtiquettesFiltreMission/>}
-					formulaireRecherche={<FormulaireRechercheMissionEngagement domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
+					etiquettesRecherche={<EtiquettesFiltreMission />}
+					formulaireRecherche={<FormulaireRechercheMissionEngagement domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList} />}
 					isChargement={isLoading}
 					isEtatInitial={empty(missionEngagementQuery)}
-					messageResultatRecherche={
+					messageResultatRecherche={(
 						<>
 							{messageNombreResultats({
 								domaine: domaine,
@@ -107,16 +106,15 @@ export function RechercherMission(props: RechercherMissionProps) {
 							})}
 							<Footnote.Reference to="partenaires" id="partenaires-reference" />
 						</>
-					}
+					)}
 					nombreTotalSolutions={nombreResultats}
 					paginationOffset={NOMBRE_RÉSULTATS_MISSION_PAR_PAGE}
-					listeSolutionElement={<ListeMissions resultatList={missionList} isServiceCivique={isServiceCivique}/>}
-					footnote={
-						<Footnote htmlFor="partenaires-reference" id="partenaires" >
+					listeSolutionElement={<ListeMissions resultatList={missionList} isServiceCivique={isServiceCivique} />}
+					footnote={(
+						<Footnote htmlFor="partenaires-reference" id="partenaires">
 							les annonces listées ci-dessus nous sont fournies par nos partenaires (<a href="/cgu#3.-services">liste disponible dans les <abbr title="Conditions Générales d'Utilisation">CGU</abbr></a>)
 						</Footnote>
-					}
-				/>
+					)} />
 				<EnTete heading="Consultez nos articles et découvrez des services faits pour vous" />
 				{isServiceCivique ? (
 					<ServiceCardList>
@@ -125,8 +123,7 @@ export function RechercherMission(props: RechercherMissionProps) {
 							logo="/images/logos/service-civique.svg"
 							link="/articles/faire-un-service-civique"
 							title="Pourquoi faire un service civique ?"
-							titleAs={'h3'}
-						>
+							titleAs={'h3'}>
 							Découvrez l’univers du service civique : ses missions, sa rémunération et les perspectives d’avenir qu’offre cet engagement enrichissant !
 						</ServiceCard>
 						<ServiceCard
@@ -134,8 +131,7 @@ export function RechercherMission(props: RechercherMissionProps) {
 							logo="/images/logos/service-civique.svg"
 							link="/articles/service-civique-jeunes"
 							title="L'impact du service civique sur les jeunes"
-							titleAs={'h3'}
-						>
+							titleAs={'h3'}>
 							Découvrez comment le service civique favorise le développement personnel et professionnel des jeunes engagés !
 						</ServiceCard>
 					</ServiceCardList>
@@ -146,8 +142,7 @@ export function RechercherMission(props: RechercherMissionProps) {
 							logo="/images/bénévolat-disponible-article.webp"
 							link="/articles/des-missions-de-benevolat-toujours-disponibles"
 							title="Des missions de bénévolat toujours disponibles"
-							titleAs={'h3'}
-						>
+							titleAs={'h3'}>
 							Trouver des centaines d’offres sur la plateforme.
 						</ServiceCard>
 					</ServiceCardList>

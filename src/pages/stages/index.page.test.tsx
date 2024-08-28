@@ -21,8 +21,7 @@ describe('<RechercherOffreStagePage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				rechercheClientService={aRechercheClientService()}
-			>
+				rechercheClientService={aRechercheClientService()}>
 				<RechercherOffreStagePage />
 			</DependenciesProvider>,
 		);
@@ -36,8 +35,7 @@ describe('<RechercherOffreStagePage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				rechercheClientService={aRechercheClientService()}
-			>
+				rechercheClientService={aRechercheClientService()}>
 				<RechercherOffreStagePage />
 			</DependenciesProvider>,
 		);

@@ -16,8 +16,7 @@ export function TipDisclosure(props: React.PropsWithChildren<TipDisclosureProps>
 
 	return (
 		<span
-			className={styles.position}
-		>
+			className={styles.position}>
 			<button
 				className={styles.tipDisclosure}
 				aria-label={`${disclosureAriaLabel} (${isOpen ? 'Fermer' : 'Ouvrir'})`}
@@ -25,7 +24,7 @@ export function TipDisclosure(props: React.PropsWithChildren<TipDisclosureProps>
 				aria-controls={isOpen ? tipId : undefined}
 				type="button"
 				onClick={() => setIsOpen(!isOpen)}>
-				<Icon name="information" className={styles.icon}/>
+				<Icon name="information" className={styles.icon} />
 			</button>
 			<span className={classNames(styles.tip)} id={tipId} hidden={!isOpen}>
 				<button className={styles.buttonClose} type="button" aria-label='fermer' onClick={() => setIsOpen(false)}>

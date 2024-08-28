@@ -20,7 +20,7 @@ export const Image = React.forwardRef<ImageRef, ImageProps>(function Image({
 				setError(true);
 				onErrorProps(...args);
 			}}
-			ref={ref}/>
+			ref={ref} />
 	);
 });
 

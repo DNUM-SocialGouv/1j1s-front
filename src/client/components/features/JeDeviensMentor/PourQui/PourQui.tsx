@@ -36,9 +36,10 @@ export function PourQui() {
 					</dl>
 				</div>
 				<div className={styles.linkWrapper}>
-					<Link href="https://www.1jeune1mentor.fr/formulaire-mentor?1jeune1solution" appearance="asPrimaryButton">Devenir mentor<Link.Icon/></Link>
-					<Link href="/les-entreprises-s-engagent" appearance="asSecondaryButton">Engager mon entreprise<Link.Icon/></Link>
+					<Link href="https://www.1jeune1mentor.fr/formulaire-mentor?1jeune1solution" appearance="asPrimaryButton">Devenir mentor<Link.Icon /></Link>
+					<Link href="/les-entreprises-s-engagent" appearance="asSecondaryButton">Engager mon entreprise<Link.Icon /></Link>
 				</div>
 			</Container>
-		</div>);
+		</div>
+	);
 }

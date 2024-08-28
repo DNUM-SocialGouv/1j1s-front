@@ -15,7 +15,7 @@ describe('<JeDeviensMentorPage />', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		mockSmallScreen();
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<JeDeviensMentorPage/>
+			<JeDeviensMentorPage />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -26,8 +26,7 @@ describe('<JeDeviensMentorPage />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<JeDeviensMentorPage />
 			</DependenciesProvider>,
 		);

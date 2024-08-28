@@ -61,9 +61,8 @@ export function MeilisearchRangeForModal(props: UseRangeProps & MeilisearchRange
 					max={max}
 					value={minValue}
 					onChange={onMinInputChange}
-					onBlur={refineRange}
-				/>
-				<Champ.Error/>
+					onBlur={refineRange} />
+				<Champ.Error />
 			</Champ>
 			<Champ className={styles.champ}>
 				<Champ.Label>Maximum</Champ.Label>
@@ -76,9 +75,8 @@ export function MeilisearchRangeForModal(props: UseRangeProps & MeilisearchRange
 					max={max}
 					value={maxValue}
 					onChange={onMaxInputChange}
-					onBlur={refineRange}
-				/>
-				<Champ.Error/>
+					onBlur={refineRange} />
+				<Champ.Error />
 			</Champ>
 		</fieldset>
 	);

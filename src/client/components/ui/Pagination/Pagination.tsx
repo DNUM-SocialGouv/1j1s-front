@@ -45,7 +45,6 @@ export function Pagination({ numberOfResult, numberOfResultPerPage, maxPage }: P
 			numberOfPageList={numberOfPageList}
 			lastPage={lastPage}
 			isFirstPage={isFirstPage}
-			maxPage={maxPage}
-		/>
+			maxPage={maxPage} />
 	);
 }

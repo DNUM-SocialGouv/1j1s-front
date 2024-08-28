@@ -23,8 +23,7 @@ describe('<RechercherMissionBénévolatPage />', () => {
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
 				localisationService={aLocalisationService()}
-				missionEngagementService={aMissionEngagementService()}
-			>
+				missionEngagementService={aMissionEngagementService()}>
 				<RechercherMissionBénévolatPage />);
 			</DependenciesProvider>);
 

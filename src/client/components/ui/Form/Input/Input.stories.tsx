@@ -41,7 +41,7 @@ export const withValidation: Story = {
 	render: (args) => (
 		<>
 			<Label htmlFor="pays">Pays (Entrer France)</Label>
-			<Input id="pays" {...args}/>
+			<Input id="pays" {...args} />
 		</>
 	),
 };

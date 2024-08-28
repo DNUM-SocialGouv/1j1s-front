@@ -22,7 +22,7 @@ describe('<ConsulterOffreStagePage />', () => {
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()}>
-			<ConsulterOffreStagePage offreDeStage={offreDeStage}/>
+			<ConsulterOffreStagePage offreDeStage={offreDeStage} />
 		</DependenciesProvider> );
 		
 		expect(container.outerHTML).toHTMLValidate();
@@ -32,8 +32,7 @@ describe('<ConsulterOffreStagePage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				dateService={aDateService()}
-			>
+				dateService={aDateService()}>
 				<ConsulterOffreStagePage offreDeStage={offreDeStage} />
 			</DependenciesProvider>,
 		);
@@ -45,8 +44,7 @@ describe('<ConsulterOffreStagePage />', () => {
 		render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				dateService={aDateService()}
-			>
+				dateService={aDateService()}>
 				<ConsulterOffreStagePage offreDeStage={offreDeStage} />
 			</DependenciesProvider>,
 		);

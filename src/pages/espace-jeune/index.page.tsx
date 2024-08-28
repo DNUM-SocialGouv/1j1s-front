@@ -35,7 +35,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 	}, []);
 
 	const articleCardList: React.ReactNode[] = useMemo(() => {
-		return cartesActualites.map((carte, index) =>
+		return cartesActualites.map((carte, index) => (
 			<ArticleCard
 				className={styles.carteActualite}
 				key={index}
@@ -44,10 +44,10 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 				link={carte.link}
 				linkLabel={getCarteActualiteLinkLabel(carte)}
 				iconName={getCarteActualiteLinkIcon(carte)}
-				titleHeadingTag={'h3'}
-			>
+				titleHeadingTag={'h3'}>
 				<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
-			</ArticleCard>,
+			</ArticleCard>
+		),
 		);
 	}, [cartesActualites, getCarteActualiteLinkIcon, getCarteActualiteLinkLabel]);
 
@@ -55,8 +55,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 		<>
 			<Head
 				title="Actualités et services jeunes | 1jeune1solution"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 
 				<h1 className={styles.title}>Actualités et services jeune</h1>
@@ -72,7 +71,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 														 seeLessAriaLabel={'Voir moins de résultats sur les actualités'}
 														 seeMoreAriaLabel={'Voir plus de résultats sur les actualités'}
 														 numberOfVisibleItems={MAX_VISIBLE_ACTUALITES_LENGTH}
-														 itemList={articleCardList}/>
+														 itemList={articleCardList} />
 					</Container>
 				</section>
 				<section className={classNames(styles.section, styles.mesuresJeunesSection)} aria-label="les services jeunes">
@@ -84,7 +83,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 							</LightHeroSecondaryText>
 						</h2>
 					</LightHero>
-					<ServicesJeunes cardList={serviceJeuneList}/>
+					<ServicesJeunes cardList={serviceJeuneList} />
 				</section>
 			</main>
 		</>

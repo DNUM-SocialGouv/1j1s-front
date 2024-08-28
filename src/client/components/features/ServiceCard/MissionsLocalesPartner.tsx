@@ -10,8 +10,7 @@ export function MissionsLocalesPartner() {
 			logoAlt="Union Nationale des Missions Locales, Représenter et accompagner les réseaux d’insertions"
 			link="/articles/mission-locale"
 			linkLabel="En savoir plus"
-			titleAs={'h3'}
-		>
+			titleAs={'h3'}>
 			Les missions locales sont présentes sur l’ensemble du territoire national
 			et permettent à tous les jeunes de 16 à 25 ans de surmonter les
 			difficultés qui font obstacle à leur insertion professionnelle et sociale.

@@ -9,7 +9,7 @@ import analytics from './index.analytics';
 export default function Stages3eEt2dePage() {
 	useAnalytics(analytics);
 
-	return <RechercherStages3eEt2de/>;
+	return <RechercherStages3eEt2de />;
 }
 
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<Record<never, never>>> {

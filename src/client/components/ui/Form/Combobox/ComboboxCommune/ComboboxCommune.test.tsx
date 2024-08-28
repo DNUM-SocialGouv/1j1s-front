@@ -30,7 +30,7 @@ describe('<ComboboxCommune/>', () => {
 	});
 	it('affiche le combobox', () => {
 		const localisationService = aLocalisationService();
-		render(<DependenciesProvider localisationService={localisationService}><ComboboxCommune/></DependenciesProvider>);
+		render(<DependenciesProvider localisationService={localisationService}><ComboboxCommune /></DependenciesProvider>);
 		expect(screen.getByRole('combobox')).toBeVisible();
 	});
 
@@ -41,7 +41,7 @@ describe('<ComboboxCommune/>', () => {
 			const onChange = jest.fn();
 
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune label={'comboboxLabel'} onChange={onChange}/>
+				<ComboboxCommune label={'comboboxLabel'} onChange={onChange} />
 			</DependenciesProvider>);
 			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
@@ -62,7 +62,7 @@ describe('<ComboboxCommune/>', () => {
 							longitude: 2.2,
 						},
 						ville: 'Paris 15e Arrondissement',
-					})}/>
+					})} />
 				</DependenciesProvider>);
 				const combobox = screen.getByRole('combobox');
 
@@ -90,7 +90,7 @@ describe('<ComboboxCommune/>', () => {
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 
 				render(<DependenciesProvider localisationService={localisationService}>
-					<ComboboxCommune defaultCommune={commune}/>
+					<ComboboxCommune defaultCommune={commune} />
 				</DependenciesProvider>);
 				const combobox = screen.getByRole('combobox');
 
@@ -117,8 +117,7 @@ describe('<ComboboxCommune/>', () => {
 						ville: 'Paris 15e Arrondissement',
 					})}
 					showRadiusInput
-					defaultDistance={radiusExpected.valeur}
-				/>
+					defaultDistance={radiusExpected.valeur} />
 			</DependenciesProvider>);
 
 			expect(screen.getByDisplayValue(radiusList[1].valeur)).toBeInTheDocument();
@@ -129,7 +128,7 @@ describe('<ComboboxCommune/>', () => {
 			const ref = jest.fn();
 
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune ref={ref}/>
+				<ComboboxCommune ref={ref} />
 			</DependenciesProvider>);
 			const combobox = screen.getByRole('combobox');
 
@@ -141,7 +140,7 @@ describe('<ComboboxCommune/>', () => {
 			const localisationService = aLocalisationService();
 			const onFocus = jest.fn();
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune onFocus={onFocus}/>
+				<ComboboxCommune onFocus={onFocus} />
 			</DependenciesProvider>);
 			const combobox = screen.getByRole('combobox');
 
@@ -157,7 +156,7 @@ describe('<ComboboxCommune/>', () => {
 		});
 
 		render(<DependenciesProvider localisationService={localisationService}>
-			<ComboboxCommune label={'comboboxLabel'}/>
+			<ComboboxCommune label={'comboboxLabel'} />
 		</DependenciesProvider>);
 		const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
@@ -172,7 +171,7 @@ describe('<ComboboxCommune/>', () => {
 		const localisationService = aLocalisationService();
 
 		render(<DependenciesProvider localisationService={localisationService}>
-			<ComboboxCommune label={'commune'}/>
+			<ComboboxCommune label={'commune'} />
 		</DependenciesProvider>);
 		const comboboxCommune = screen.getByRole('combobox', { name: 'commune Exemples : Paris, Béziers…' });
 
@@ -192,7 +191,7 @@ describe('<ComboboxCommune/>', () => {
 		});
 
 		render(<DependenciesProvider localisationService={localisationService}>
-			<ComboboxCommune label={'comboboxLabel'}/>
+			<ComboboxCommune label={'comboboxLabel'} />
 		</DependenciesProvider>);
 		const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
@@ -209,7 +208,7 @@ describe('<ComboboxCommune/>', () => {
 		});
 
 		render(<DependenciesProvider localisationService={localisationService}>
-			<ComboboxCommune label={'comboboxLabel'}/>
+			<ComboboxCommune label={'comboboxLabel'} />
 		</DependenciesProvider>);
 		const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
@@ -227,7 +226,7 @@ describe('<ComboboxCommune/>', () => {
 		});
 
 		render(<DependenciesProvider localisationService={localisationService}>
-			<ComboboxCommune label={'comboboxLabel'}/>
+			<ComboboxCommune label={'comboboxLabel'} />
 		</DependenciesProvider>);
 		const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
@@ -242,7 +241,7 @@ describe('<ComboboxCommune/>', () => {
 			rechercherCommune: jest.fn(),
 		});
 		render(<DependenciesProvider localisationService={localisationService}>
-			<ComboboxCommune label={'comboboxLabel'}/>
+			<ComboboxCommune label={'comboboxLabel'} />
 		</DependenciesProvider>);
 
 		expect(screen.queryByRole('button', { name: 'Rayon Exemple : 30 km' })).not.toBeInTheDocument();
@@ -255,7 +254,7 @@ describe('<ComboboxCommune/>', () => {
 			const localisationService = aLocalisationService();
 
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune label={'comboboxLabel'}/>
+				<ComboboxCommune label={'comboboxLabel'} />
 			</DependenciesProvider>);
 			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
@@ -277,7 +276,7 @@ describe('<ComboboxCommune/>', () => {
 			});
 			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune label={'comboboxLabel'}/>
+				<ComboboxCommune label={'comboboxLabel'} />
 			</DependenciesProvider>);
 			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
@@ -301,7 +300,7 @@ describe('<ComboboxCommune/>', () => {
 				});
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 				render(<DependenciesProvider localisationService={localisationService}>
-					<ComboboxCommune label={'comboboxLabel'}/>
+					<ComboboxCommune label={'comboboxLabel'} />
 				</DependenciesProvider>);
 				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
@@ -323,7 +322,7 @@ describe('<ComboboxCommune/>', () => {
 				});
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 				render(<DependenciesProvider localisationService={localisationService}>
-					<ComboboxCommune label={'comboboxLabel'}/>
+					<ComboboxCommune label={'comboboxLabel'} />
 				</DependenciesProvider>);
 				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
@@ -344,7 +343,7 @@ describe('<ComboboxCommune/>', () => {
 				});
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 				render(<DependenciesProvider localisationService={localisationService}>
-					<ComboboxCommune label={'comboboxLabel'}/>
+					<ComboboxCommune label={'comboboxLabel'} />
 				</DependenciesProvider>);
 				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
@@ -365,7 +364,7 @@ describe('<ComboboxCommune/>', () => {
 				});
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 				render(<DependenciesProvider localisationService={localisationService}>
-					<ComboboxCommune label={'comboboxLabel'}/>
+					<ComboboxCommune label={'comboboxLabel'} />
 				</DependenciesProvider>);
 				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
@@ -384,7 +383,7 @@ describe('<ComboboxCommune/>', () => {
 				const localisationService = aLocalisationService();
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 				render(<DependenciesProvider localisationService={localisationService}>
-					<ComboboxCommune label={'comboboxLabel'}/>
+					<ComboboxCommune label={'comboboxLabel'} />
 				</DependenciesProvider>);
 				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
@@ -403,7 +402,7 @@ describe('<ComboboxCommune/>', () => {
 				const localisationService = aLocalisationService();
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 				render(<DependenciesProvider localisationService={localisationService}>
-					<ComboboxCommune label={'comboboxLabel'}/>
+					<ComboboxCommune label={'comboboxLabel'} />
 				</DependenciesProvider>);
 				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
@@ -425,7 +424,7 @@ describe('<ComboboxCommune/>', () => {
 					});
 					jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 					render(<DependenciesProvider localisationService={localisationService}>
-						<ComboboxCommune label={'comboboxLabel'} showRadiusInput/>
+						<ComboboxCommune label={'comboboxLabel'} showRadiusInput />
 					</DependenciesProvider>);
 					const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
@@ -447,7 +446,7 @@ describe('<ComboboxCommune/>', () => {
 					});
 					jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 					render(<DependenciesProvider localisationService={localisationService}>
-						<ComboboxCommune label={'comboboxLabel'} showRadiusInput/>
+						<ComboboxCommune label={'comboboxLabel'} showRadiusInput />
 					</DependenciesProvider>);
 					const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
@@ -472,7 +471,7 @@ describe('<ComboboxCommune/>', () => {
 				});
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 				render(<DependenciesProvider localisationService={localisationService}>
-					<ComboboxCommune required/>
+					<ComboboxCommune required />
 				</DependenciesProvider>);
 				const combobox = screen.getByRole('combobox');
 
@@ -495,7 +494,7 @@ describe('<ComboboxCommune/>', () => {
 				});
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 				render(<DependenciesProvider localisationService={localisationService}>
-					<ComboboxCommune/>
+					<ComboboxCommune />
 				</DependenciesProvider>);
 				const combobox = screen.getByRole('combobox');
 
@@ -512,7 +511,7 @@ describe('<ComboboxCommune/>', () => {
 				const messageErreur = 'Veuillez sélectionner une option dans la liste';
 				render(
 					<DependenciesProvider localisationService={aLocalisationService()}>
-						<ComboboxCommune/>
+						<ComboboxCommune />
 					</DependenciesProvider>,
 				);
 
@@ -537,7 +536,7 @@ describe('<ComboboxCommune/>', () => {
 
 
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune label={'comboboxLabel'}/>
+				<ComboboxCommune label={'comboboxLabel'} />
 			</DependenciesProvider>);
 
 			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
@@ -556,7 +555,7 @@ describe('<ComboboxCommune/>', () => {
 
 
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune label={'comboboxLabel'}/>
+				<ComboboxCommune label={'comboboxLabel'} />
 			</DependenciesProvider>);
 
 			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
@@ -574,7 +573,7 @@ describe('<ComboboxCommune/>', () => {
 
 
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune label={'comboboxLabel'} debounceTimeout={0}/>
+				<ComboboxCommune label={'comboboxLabel'} debounceTimeout={0} />
 			</DependenciesProvider>);
 
 			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
@@ -593,7 +592,7 @@ describe('<ComboboxCommune/>', () => {
 
 
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune label={'comboboxLabel'} debounceTimeout={0}/>
+				<ComboboxCommune label={'comboboxLabel'} debounceTimeout={0} />
 			</DependenciesProvider>);
 
 			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
@@ -612,7 +611,7 @@ describe('<ComboboxCommune/>', () => {
 
 
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune label={'comboboxLabel'} debounceTimeout={0}/>
+				<ComboboxCommune label={'comboboxLabel'} debounceTimeout={0} />
 			</DependenciesProvider>);
 
 			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });

@@ -74,20 +74,20 @@ export default function Accompagnement() {
 			<ModaleFranceTravail
 				open={isFranceTravailModalOpen}
 				close={() => setIsFranceTravailModalOpen(false)}
-				href={lienFranceTravail}/>
+				href={lienFranceTravail} />
 
 			<ModaleInscriptionFranceTravail
 				open={isInscriptionFranceTravailModalOpen}
 				close={() => setIsInscriptionFranceTravailModalOpen(false)}
-				href={deuxièmeLienFranceTravail}/>
+				href={deuxièmeLienFranceTravail} />
 
 			<ModaleMissionLocale
 				isMissionLocaleModaleOpen={isMissionLocaleModalOpen}
-				setIsMissionLocaleModaleOpen={setIsMissionLocaleModalOpen}/>
+				setIsMissionLocaleModaleOpen={setIsMissionLocaleModalOpen} />
 
 			<ModaleDispositifsReferences
 				open={isDispositifsReferencesModalOpen}
-				close={() => setIsDispositifsReferencesModalOpen(false)}/>
+				close={() => setIsDispositifsReferencesModalOpen(false)} />
 		</>
 	);
 }
@@ -95,46 +95,53 @@ export default function Accompagnement() {
 function getFormulaireÀAfficher(typeFormulaireÀAfficher: Formulaires, setTypeFormulaireAffiché: Dispatch<SetStateAction<Formulaires>>, setIsFranceTravailModalOpen: Dispatch<SetStateAction<boolean>>, setIsInscriptionFranceTravailModalOpen: Dispatch<SetStateAction<boolean>>, setIsMissionLocaleModalOpen: Dispatch<SetStateAction<boolean>>, setIsDispositifsReferencesModalOpen: Dispatch<SetStateAction<boolean>>) {
 	switch (typeFormulaireÀAfficher) {
 		case 'PasDAccompagnement':
-			return <PasDAccompagnement
-				onBackButton={() => setTypeFormulaireAffiché('Démarrage')}
-				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
-				setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
-			/>;
+			return (
+				<PasDAccompagnement
+					onBackButton={() => setTypeFormulaireAffiché('Démarrage')}
+					setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+					setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen} />
+			);
 		case 'BesoinAide':
-			return <BesoinAide
-				onBackButton={() => setTypeFormulaireAffiché('PasDAccompagnement')}
-				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
-				setIsDispositifsReferencesModalOpen={setIsDispositifsReferencesModalOpen}
-			/>;
+			return (
+				<BesoinAide
+					onBackButton={() => setTypeFormulaireAffiché('PasDAccompagnement')}
+					setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+					setIsDispositifsReferencesModalOpen={setIsDispositifsReferencesModalOpen} />
+			);
 		case 'BesoinAide26ans':
-			return <BesoinAide26ans
-				onBackButton={() => setTypeFormulaireAffiché('PasDAccompagnement')}
-				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
-				setIsDispositifsReferencesModalOpen={setIsDispositifsReferencesModalOpen}
-			/>;
+			return (
+				<BesoinAide26ans
+					onBackButton={() => setTypeFormulaireAffiché('PasDAccompagnement')}
+					setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+					setIsDispositifsReferencesModalOpen={setIsDispositifsReferencesModalOpen} />
+			);
 		case 'AutresBesoins':
-			return <AutresBesoins
-				onBackButton={() => setTypeFormulaireAffiché('BesoinAide')}
-				setIsInscriptionFranceTravailModalOpen={setIsInscriptionFranceTravailModalOpen}
-				setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
-			/>;
+			return (
+				<AutresBesoins
+					onBackButton={() => setTypeFormulaireAffiché('BesoinAide')}
+					setIsInscriptionFranceTravailModalOpen={setIsInscriptionFranceTravailModalOpen}
+					setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen} />
+			);
 		case 'Handicap':
-			return <Handicap
-				onBackButton={() => setTypeFormulaireAffiché('BesoinAide26ans')}
-				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
-				setIsInscriptionFranceTravailModalOpen={setIsInscriptionFranceTravailModalOpen}
-			/>;
+			return (
+				<Handicap
+					onBackButton={() => setTypeFormulaireAffiché('BesoinAide26ans')}
+					setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+					setIsInscriptionFranceTravailModalOpen={setIsInscriptionFranceTravailModalOpen} />
+			);
 		case 'AutresBesoins26ans':
-			return <AutresBesoins
-				onBackButton={() => setTypeFormulaireAffiché('Handicap')}
-				setIsInscriptionFranceTravailModalOpen={setIsInscriptionFranceTravailModalOpen}
-				setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
-			/>;
+			return (
+				<AutresBesoins
+					onBackButton={() => setTypeFormulaireAffiché('Handicap')}
+					setIsInscriptionFranceTravailModalOpen={setIsInscriptionFranceTravailModalOpen}
+					setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen} />
+			);
 		default:
-			return <Démarrage
-				setTypeFormulaireAffiché={setTypeFormulaireAffiché}
-				setIsFranceTravailModalOpen={setIsFranceTravailModalOpen}
-				setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen}
-			/>;
+			return (
+				<Démarrage
+					setTypeFormulaireAffiché={setTypeFormulaireAffiché}
+					setIsFranceTravailModalOpen={setIsFranceTravailModalOpen}
+					setIsMissionLocaleModalOpen={setIsMissionLocaleModalOpen} />
+			);
 	}
 }

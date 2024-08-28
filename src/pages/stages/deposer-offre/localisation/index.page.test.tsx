@@ -49,9 +49,8 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 				stageService={aStageService()}
 				stageDeposerOffreEtape1PersistenceService={stageDeposerOffreEtape1PersistenceService}
 				stageDeposerOffreEtape2PersistenceService={stageDeposerOffreEtape2PersistenceService}
-				stageDeposerOffreEtape3PersistenceService={stageDeposerOffreEtape3PersistenceService}
-			>
-				<DeposerOffreStageEtape3Page/>
+				stageDeposerOffreEtape3PersistenceService={stageDeposerOffreEtape3PersistenceService}>
+				<DeposerOffreStageEtape3Page />
 			</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -70,8 +69,7 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 				stageService={aStageService()}
 				stageDeposerOffreEtape1PersistenceService={stageDeposerOffreEtape1PersistenceService}
 				stageDeposerOffreEtape2PersistenceService={stageDeposerOffreEtape2PersistenceService}
-				stageDeposerOffreEtape3PersistenceService={stageDeposerOffreEtape3PersistenceService}
-			>
+				stageDeposerOffreEtape3PersistenceService={stageDeposerOffreEtape3PersistenceService}>
 				<DeposerOffreStageEtape3Page />
 			</DependenciesProvider>,
 		);

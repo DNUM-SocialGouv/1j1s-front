@@ -14,7 +14,7 @@ export default function Actions() {
 				</div>
 				<div className={styles.actionsArticle__Content}>
 					<SeeMoreMobileOnly
-						itemList={[<ListeActions key={0}/>]}
+						itemList={[<ListeActions key={0} />]}
 						numberOfVisibleItems={0}
 						seeLessAriaLabel={'Voir moins d‘actions'}
 						seeMoreAriaLabel={'Voir plus d‘actions'}>

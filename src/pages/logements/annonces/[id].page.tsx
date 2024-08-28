@@ -18,7 +18,7 @@ export default function ConsulterAnnonceLogementPage({ annonceDeLogement, isFeat
 	useAnalytics(analytics);
 	usePopstate();
 
-	if (!isFeatureActive) return <ErrorUnavailableService/>;
+	if (!isFeatureActive) return <ErrorUnavailableService />;
 
 	annonceDeLogement.dateDeMiseAJour = new Date(annonceDeLogement.dateDeMiseAJour);
 	annonceDeLogement.dateDeDisponibilité = new Date(annonceDeLogement.dateDeDisponibilité);
@@ -27,9 +27,8 @@ export default function ConsulterAnnonceLogementPage({ annonceDeLogement, isFeat
 		<>
 			<Head
 				title={`${annonceDeLogement.titre} | 1jeune1solution`}
-				robots="noindex"
-			/>
-			<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>
+				robots="noindex" />
+			<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />
 		</>
 	);
 }

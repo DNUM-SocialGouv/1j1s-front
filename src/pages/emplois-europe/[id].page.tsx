@@ -48,9 +48,8 @@ export default function ConsulterEmploiEurope({ annonceEmploiEurope }: Consulter
 		<>
 			<Head
 				title={annonceEmploiEurope.titre ? `${annonceEmploiEurope.titre} | 1jeune1solution` : 'Offre d’emploi sans titre | 1jeune1solution'}
-				robots="noindex"
-			/>
-			<DetailEmploiEurope annonceEmploiEurope={annonceEmploiEurope}/>
+				robots="noindex" />
+			<DetailEmploiEurope annonceEmploiEurope={annonceEmploiEurope} />
 		</>
 	);
 }

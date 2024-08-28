@@ -24,8 +24,7 @@ export function ModaleDemandeContactCEJ({ isOpen, setIsOpen }: ModalDemandeDeCon
 			<ModalComponent
 				isOpen={isOpen}
 				close={() => setIsOpen(false)}
-				aria-labelledby={'dialog_label'}
-			>
+				aria-labelledby={'dialog_label'}>
 				<ModalComponent.Title className={styles.modalTitle} id="dialog_label">
 					J‘ai des questions sur le Contrat d‘Engagement Jeune et souhaite être rappelé
 				</ModalComponent.Title>
@@ -39,14 +38,15 @@ export function ModaleDemandeContactCEJ({ isOpen, setIsOpen }: ModalDemandeDeCon
 						onFailure={() => {
 							setIsOpen(false);
 							setStatusForm('error');
-						}}/>
+						}} />
 				</ModalComponent.Content>
 			</ModalComponent>
 
-			<ModaleSuccessSubmission isOpen={statusForm === 'success'} onClose={() => {
-				setIsOpen(false);
-				setStatusForm('notSubmitted');
-			}}/>
+			<ModaleSuccessSubmission isOpen={statusForm === 'success'}
+				onClose={() => {
+					setIsOpen(false);
+					setStatusForm('notSubmitted');
+				}} />
 
 			<ModalErrorSubmission
 				isOpen={statusForm === 'error'}
@@ -56,7 +56,7 @@ export function ModaleDemandeContactCEJ({ isOpen, setIsOpen }: ModalDemandeDeCon
 				onBackToForm={() => {
 					setIsOpen(true);
 					setStatusForm('notSubmitted');
-				}}/>
+				}} />
 		</>
 	);
 }

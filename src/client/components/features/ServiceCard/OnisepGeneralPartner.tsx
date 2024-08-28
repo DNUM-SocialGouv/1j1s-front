@@ -14,8 +14,7 @@ export function OnisepGeneralPartner({ headingLevel }: OnisepGeneralCardProps) {
 			link="https://www.onisep.fr/"
 			linkLabel="Aller sur onisep.fr"
 			title={'Onisep : l’information pour l’orientation'}
-			titleAs={headingLevel}
-		>
+			titleAs={headingLevel}>
             L’Onisep est un établissement public, sous tutelle du ministère de
             l’Education nationale, de la Jeunesse et des Sports, et du
             ministère de l’Enseignement supérieur, de la Recherche et de

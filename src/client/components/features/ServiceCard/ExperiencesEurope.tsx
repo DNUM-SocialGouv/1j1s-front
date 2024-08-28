@@ -10,8 +10,7 @@ export function ExperiencesEurope() {
 			link="/experience-europe"
 			logo="/images/passeport.webp"
 			title="Je découvre les dispositifs pour m’accompagner dans mon projet"
-			titleAs={'h3'}
-		>
+			titleAs={'h3'}>
 			Découvrez les services destinés à vous aider à trouver l’expérience en Europe faite pour vous
 		</ServiceCard>
 	);

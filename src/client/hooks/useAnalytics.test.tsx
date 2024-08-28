@@ -50,7 +50,7 @@ describe('useAnalytics()', () => {
 		const pageTags = aPageTags();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<TestComponent pageTags={pageTags}/>
+				<TestComponent pageTags={pageTags} />
 			</DependenciesProvider>,
 		);
 
@@ -65,7 +65,7 @@ describe('useAnalytics()', () => {
 
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<TestComponent pageTags={pageTags}/>
+				<TestComponent pageTags={pageTags} />
 			</DependenciesProvider>,
 		);
 
@@ -78,7 +78,7 @@ describe('useAnalytics()', () => {
 
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<TestComponent pageTags={pageTags}/>
+				<TestComponent pageTags={pageTags} />
 			</DependenciesProvider>,
 		);
 
@@ -93,7 +93,7 @@ describe('useAnalytics()', () => {
 
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<TestComponent pageTags={pageTags}/>
+				<TestComponent pageTags={pageTags} />
 			</DependenciesProvider>,
 		);
 
@@ -108,7 +108,7 @@ describe('useAnalytics()', () => {
 
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<TestComponent pageTags={aPageTags()}/>
+				<TestComponent pageTags={aPageTags()} />
 			</DependenciesProvider>,
 		);
 
@@ -118,7 +118,7 @@ describe('useAnalytics()', () => {
 		const analyticsService = aManualAnalyticsService({ isAllowed: () => false });
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<TestComponent pageTags={aPageTags()}/>
+				<TestComponent pageTags={aPageTags()} />
 			</DependenciesProvider>,
 		);
 

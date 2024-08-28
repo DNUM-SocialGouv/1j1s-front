@@ -48,9 +48,8 @@ describe('<Localisation />', () => {
 					stageService={stageService}
 					stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
 					stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
-					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
-				>
-					<Localisation/>
+					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}>
+					<Localisation />
 				</DependenciesProvider>,
 			);
 
@@ -75,9 +74,8 @@ describe('<Localisation />', () => {
 					stageService={stageService}
 					stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
 					stageDeposerOffreEtape2PersistenceService={persistenceStage}
-					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
-				>
-					<Localisation/>
+					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}>
+					<Localisation />
 				</DependenciesProvider>,
 			);
 
@@ -103,9 +101,8 @@ describe('<Localisation />', () => {
 					stageService={stageService}
 					stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
 					stageDeposerOffreEtape2PersistenceService={persistenceStage}
-					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
-				>
-					<Localisation/>
+					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}>
+					<Localisation />
 				</DependenciesProvider>,
 			);
 
@@ -128,9 +125,8 @@ describe('<Localisation />', () => {
 					stageService={stageService}
 					stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
 					stageDeposerOffreEtape2PersistenceService={persistenceStage}
-					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
-				>
-					<Localisation/>
+					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}>
+					<Localisation />
 				</DependenciesProvider>,
 			);
 
@@ -160,9 +156,8 @@ describe('<Localisation />', () => {
 					stageService={stageService}
 					stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
 					stageDeposerOffreEtape2PersistenceService={persistenceStage}
-					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
-				>
-					<Localisation/>
+					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}>
+					<Localisation />
 				</DependenciesProvider>,
 			);
 
@@ -191,9 +186,8 @@ describe('<Localisation />', () => {
 					stageService={stageService}
 					stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
 					stageDeposerOffreEtape2PersistenceService={persistenceStage}
-					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
-				>
-					<Localisation/>
+					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}>
+					<Localisation />
 				</DependenciesProvider>,
 			);
 
@@ -227,9 +221,8 @@ describe('<Localisation />', () => {
 						stageService={aStageService()}
 						stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
 						stageDeposerOffreEtape2PersistenceService={persistenceStage}
-						stageDeposerOffreEtape3PersistenceService={persistenceLocalisation}
-					>
-						<Localisation/>
+						stageDeposerOffreEtape3PersistenceService={persistenceLocalisation}>
+						<Localisation />
 					</DependenciesProvider>,
 				);
 
@@ -261,9 +254,8 @@ describe('<Localisation />', () => {
 						stageService={stageService}
 						stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
 						stageDeposerOffreEtape2PersistenceService={persistenceStage}
-						stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
-					>
-						<Localisation/>
+						stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}>
+						<Localisation />
 					</DependenciesProvider>,
 				);
 
@@ -291,9 +283,8 @@ describe('<Localisation />', () => {
 						stageService={stageService}
 						stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
 						stageDeposerOffreEtape2PersistenceService={persistenceStage}
-						stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
-					>
-						<Localisation/>
+						stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}>
+						<Localisation />
 					</DependenciesProvider>,
 				);
 
@@ -325,9 +316,8 @@ describe('<Localisation />', () => {
 						stageService={stageService}
 						stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
 						stageDeposerOffreEtape2PersistenceService={persistenceStage}
-						stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
-					>
-						<Localisation/>
+						stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}>
+						<Localisation />
 					</DependenciesProvider>,
 				);
 

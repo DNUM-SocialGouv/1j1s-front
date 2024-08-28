@@ -7,9 +7,9 @@ export function Dispositifs() {
 		<section className={styles.dispositifs}>
 			<h2>Je découvre les dispositifs pour m’accompagner dans mon projet</h2>
 			<ul className={styles.cards} aria-label="Dispositifs d'accompagnement">
-				<li><EuresCardContent/></li>
-				<li className={styles.erasmus}><ErasmusCardContent/></li>
-				<li><AidesFinancieresCardContent/></li>
+				<li><EuresCardContent /></li>
+				<li className={styles.erasmus}><ErasmusCardContent /></li>
+				<li><AidesFinancieresCardContent /></li>
 			</ul>
 		</section>
 	);
@@ -38,10 +38,9 @@ function EuresCardContent() {
 			<Link
 				appearance="asPrimaryButton"
 				href="https://eures.europa.eu/index_fr"
-				aria-label="En savoir plus sur EURES - nouvelle fenêtre"
-			>
+				aria-label="En savoir plus sur EURES - nouvelle fenêtre">
 				En savoir plus
-				<Link.Icon/>
+				<Link.Icon />
 			</Link>
 		</>
 	);
@@ -79,10 +78,9 @@ function ErasmusCardContent() {
 			<Link
 				appearance="asPrimaryButton"
 				href="https://info.erasmusplus.fr/"
-				aria-label="En savoir plus sur ERASMUS+ - nouvelle fenêtre"
-			>
+				aria-label="En savoir plus sur ERASMUS+ - nouvelle fenêtre">
 				En savoir plus
-				<Link.Icon/>
+				<Link.Icon />
 			</Link>
 		</>
 	);
@@ -95,7 +93,7 @@ function AidesFinancieresCardContent() {
 			<p>Découvrez le simulateur d’aides financières sur 1jeune1solution</p>
 			<Link appearance="asPrimaryButton" href="/mes-aides">
 				Faire une simulation d’aides
-				<Link.Icon/>
+				<Link.Icon />
 			</Link>
 		</>
 	);

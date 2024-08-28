@@ -57,8 +57,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 		<form
 			className={styles.rechercheMissionEngagementForm}
 			onSubmit={rechercherMission}
-			aria-label="Rechercher une mission d'engagement"
-		>
+			aria-label="Rechercher une mission d'engagement">
 			<div className={styles.filtreRecherche}>
 				<Champ>
 					<Champ.Label>
@@ -69,20 +68,18 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 						render={SelectSimple}
 						optionsAriaLabel={'Domaines'}
 						name="domain"
-						defaultValue={domain}
-					>
+						defaultValue={domain}>
 						{domainList.map((option) =>
 							<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 						)}
 					</Champ.Input>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 
 				<ComboboxCommune
 					defaultCommune={defaultCommune}
 					defaultDistance={distanceCommune}
-					showRadiusInput
-				/>
+					showRadiusInput />
 
 				<Checkbox
 					label="Dès 16 ans"
@@ -90,13 +87,14 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 					checked={ouvertAuxMineurs}
 					onChange={() => setOuvertAuxMineurs(!ouvertAuxMineurs)}
 					name="ouvertsAuxMineurs"
-					value="true"
-				/>
+					value="true" />
 			</div>
 
 			<div className={styles.rechercherMissionEngagementButton}>
-				<ButtonComponent label="Rechercher" icon={<Icon name="magnifying-glass"/>} iconPosition="right"
-								 type="submit"/>
+				<ButtonComponent label="Rechercher"
+					icon={<Icon name="magnifying-glass" />}
+					iconPosition="right"
+								 type="submit" />
 			</div>
 		</form>
 	);

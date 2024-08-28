@@ -48,8 +48,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		render(
 			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 				<CandidaterStage3eEt2de
-					donneesEntreprise={donneesEntreprise}
-				/>
+					donneesEntreprise={donneesEntreprise} />
 			</DependenciesProvider>,
 		);
 
@@ -79,8 +78,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 			render(
 				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 					<CandidaterStage3eEt2de
-						donneesEntreprise={donneesEntreprise}
-					/>
+						donneesEntreprise={donneesEntreprise} />
 				</DependenciesProvider>,
 			);
 
@@ -112,8 +110,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 			render(
 				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 					<CandidaterStage3eEt2de
-						donneesEntreprise={donneesEntreprise}
-					/>
+						donneesEntreprise={donneesEntreprise} />
 				</DependenciesProvider>,
 			);
 
@@ -137,8 +134,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 			render(
 				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 					<CandidaterStage3eEt2de
-						donneesEntreprise={donneesEntreprise}
-					/>
+						donneesEntreprise={donneesEntreprise} />
 				</DependenciesProvider>,
 			);
 
@@ -176,8 +172,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				render(
 					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>,
 				);
 				const boutonRetour = screen.getByRole('link', { name: 'Retour à la recherche' });
@@ -207,8 +202,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				render(
 					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>,
 				);
 				// THEN
@@ -234,8 +228,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				render(
 					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>,
 				);
 				// THEN
@@ -273,8 +266,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				render(
 					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>,
 				);
 
@@ -301,8 +293,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				render(
 					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>,
 				);
 				const boutonRetour = screen.getByRole('link', { name: 'Retour à la recherche' });
@@ -323,8 +314,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				render(
 					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>,
 				);
 				// THEN
@@ -345,8 +335,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				render(
 					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>,
 				);
 
@@ -377,8 +366,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				render(
 					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>,
 				);
 
@@ -398,8 +386,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				render(
 					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>,
 				);
 
@@ -436,8 +423,7 @@ En vous remerciant,
 				render(
 					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>,
 				);
 
@@ -471,8 +457,7 @@ En vous remerciant,
 				render(
 					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>,
 				);
 				// THEN
@@ -509,8 +494,7 @@ En vous remerciant,
 				render(
 					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>,
 				);
 				const selectMetier = screen.getByRole('combobox', { name: 'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
@@ -553,8 +537,7 @@ En vous remerciant,
 					const stage3eEt2deService = aStage3eEt2deService();
 					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>);
 					await remplirLeFormulaire({
 						email: 'alexis.dupont@example.com',
@@ -600,8 +583,7 @@ En vous remerciant,
 					const stage3eEt2deService = aStage3eEt2deService();
 					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>);
 					await remplirLeFormulaire({
 						email: 'alexis.dupont@example.com',
@@ -651,8 +633,7 @@ En vous remerciant,
 					const stage3eEt2deService = aStage3eEt2deService();
 					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>);
 					await remplirLeFormulaire({
 						email: 'alexis.dupont@example.com',
@@ -698,8 +679,7 @@ En vous remerciant,
 					const stage3eEt2deService = aStage3eEt2deService();
 					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>);
 					await remplirLeFormulaire({
 						email: 'alexis.dupont@example.com',
@@ -750,8 +730,7 @@ En vous remerciant,
 					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>);
 					await remplirLeFormulaire({
 						email: 'alexis.dupont@example.com',
@@ -803,8 +782,7 @@ En vous remerciant,
 					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>);
 					await remplirLeFormulaire({
 						email: 'alexis.dupont@example.com',
@@ -861,8 +839,7 @@ En vous remerciant,
 					// WHEN
 					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>);
 
 					await remplirLeFormulaire({
@@ -909,8 +886,7 @@ En vous remerciant,
 					// WHEN
 					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>);
 					await remplirLeFormulaire({
 						email: 'alexis.dupont@example.com',
@@ -954,8 +930,7 @@ En vous remerciant,
 				// WHEN
 				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
-						donneesEntreprise={donneesEntreprise}
-					/>
+						donneesEntreprise={donneesEntreprise} />
 				</DependenciesProvider>);
 				await remplirLeFormulaire({
 					email: 'alexis.dupont@example.com',
@@ -1002,8 +977,7 @@ En vous remerciant,
 				// WHEN
 				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
-						donneesEntreprise={donneesEntreprise}
-					/>
+						donneesEntreprise={donneesEntreprise} />
 				</DependenciesProvider>);
 				await remplirLeFormulaire({
 					email: 'alexis.dupont@example.com',
@@ -1046,8 +1020,7 @@ En vous remerciant,
 					// WHEN
 					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>);
 					await remplirLeFormulaire({
 						email: 'alexis.dupont@example.com',
@@ -1088,8 +1061,7 @@ En vous remerciant,
 					// WHEN
 					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
-							donneesEntreprise={donneesEntreprise}
-						/>
+							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>);
 					await remplirLeFormulaire({
 						email: 'alexis.dupont@example.com',
@@ -1129,8 +1101,7 @@ En vous remerciant,
 				// WHEN
 				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
-						donneesEntreprise={donneesEntreprise}
-					/>
+						donneesEntreprise={donneesEntreprise} />
 				</DependenciesProvider>);
 				await remplirLeFormulaire({
 					email: 'alexis.dupont@example.com',
@@ -1180,8 +1151,7 @@ En vous remerciant,
 				// WHEN
 				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
-						donneesEntreprise={donneesEntreprise}
-					/>
+						donneesEntreprise={donneesEntreprise} />
 				</DependenciesProvider>);
 				await remplirLeFormulaire({
 					email: 'test@example.com',
@@ -1224,8 +1194,7 @@ En vous remerciant,
 
 				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
-						donneesEntreprise={donneesEntreprise}
-					/>
+						donneesEntreprise={donneesEntreprise} />
 				</DependenciesProvider>);
 
 				await remplirLeFormulaire({

@@ -15,11 +15,10 @@ export default function ConseilsLogement() {
 		<>
 			<Head
 				title="Découvrir tous nos conseils logement | 1jeune1solution"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<Container>
-					<BannièreConseilsLogement/>
+					<BannièreConseilsLogement />
 					<ul aria-label="Ce qu‘il faut savoir" className={styles.articleList}>
 						<li>
 							<ArticleCard

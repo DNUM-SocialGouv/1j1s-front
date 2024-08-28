@@ -63,17 +63,15 @@ export const MeilisearchInput = (props: MeilisearchCustomSearchBoxProps & UseSea
 					placeholder={placeholder}
 					value={value}
 					onChange={updateValue}
-					className={styles.customSearchBoxInput}
-				/>
+					className={styles.customSearchBoxInput} />
 				{
 					!!value && (
 						<button
 							type="reset"
 							title={resetTitle || DEFAULT_RESET_TITLE}
 							onClick={() => resetValue()}
-							className={styles.customSearchBoxResetButton}
-						>
-							<Icon name="close"/>
+							className={styles.customSearchBoxResetButton}>
+							<Icon name="close" />
 						</button>
 					)
 				}

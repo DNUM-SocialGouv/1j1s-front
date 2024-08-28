@@ -18,18 +18,20 @@ interface RaisonsDeChoisirApprentissageProps {
 export function RaisonsDeChoisirApprentissage(props: RaisonsDeChoisirApprentissageProps) {
 	const { titre, raisons } = props;
 
-	return <section aria-labelledby={'titre-section-raisons'} className={styles.raisons}>
-		<Container>
-			<h2 id={'titre-section-raisons'}>{titre}</h2>
-			<ul>
-				{raisons.map((raison, index) => (
-					<li key={index}>
-						<Tuile iconName={raison.iconName} className={styles.tuile}>
-							{raison.text}
-						</Tuile>
-					</li>
-				))}
-			</ul>
-		</Container>
-	</section>;
+	return (
+		<section aria-labelledby={'titre-section-raisons'} className={styles.raisons}>
+			<Container>
+				<h2 id={'titre-section-raisons'}>{titre}</h2>
+				<ul>
+					{raisons.map((raison, index) => (
+						<li key={index}>
+							<Tuile iconName={raison.iconName} className={styles.tuile}>
+								{raison.text}
+							</Tuile>
+						</li>
+					))}
+				</ul>
+			</Container>
+		</section>
+	);
 }

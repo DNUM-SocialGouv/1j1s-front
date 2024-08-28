@@ -32,13 +32,13 @@ export function ArticleCard({
 
 	return (
 		<Card className={classNames(className, styles.card)} layout={'vertical'}>
-			<Card.Image className={imageClassName} src={imageSrc} aria-hidden/>
+			<Card.Image className={imageClassName} src={imageSrc} aria-hidden />
 			<Card.Content className={styles.content}>
 				<Card.Title className={styles.title} titleAs={titleHeadingTag}>{titleLabel}</Card.Title>
 				{children}
 				<Link appearance={'asQuaternaryButton'} href={link}>
 					{linkLabel}
-					<Link.Icon name={iconName ?? 'arrow-right'}/>
+					<Link.Icon name={iconName ?? 'arrow-right'} />
 				</Link>
 			</Card.Content>
 		</Card>

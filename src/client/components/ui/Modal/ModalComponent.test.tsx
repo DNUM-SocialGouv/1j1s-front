@@ -16,8 +16,7 @@ describe('ModalComponent', () => {
 			isOpen={true}
 			closeLabel={'Fermer'}
 			close={() => {
-			}}
-		>
+			}}>
 			<ModalComponent.Title>
 				Ceci est le titre de la modale
 			</ModalComponent.Title>
@@ -35,19 +34,21 @@ describe('ModalComponent', () => {
 
 		function ButtonWithModale() {
 			const [isModaleOpen, setIsModaleOpen] = useState<boolean>(false);
-			return <>
-				<button onClick={() => setIsModaleOpen(true)}>Ouvrir la modale</button>
-				<ModalComponent
-					aria-label="label"
-					isOpen={isModaleOpen}
-					closeLabel={'Fermer'}
-					close={() => setIsModaleOpen(false)}>
-					<ModalComponent.Content>Ceci est le contenu de la modale</ModalComponent.Content>
-				</ModalComponent>
-			</>;
+			return (
+				<>
+					<button onClick={() => setIsModaleOpen(true)}>Ouvrir la modale</button>
+					<ModalComponent
+						aria-label="label"
+						isOpen={isModaleOpen}
+						closeLabel={'Fermer'}
+						close={() => setIsModaleOpen(false)}>
+						<ModalComponent.Content>Ceci est le contenu de la modale</ModalComponent.Content>
+					</ModalComponent>
+				</>
+			);
 		}
 
-		render(<ButtonWithModale/>);
+		render(<ButtonWithModale />);
 
 		await user.click(screen.getByRole('button', { name: 'Ouvrir la modale' }));
 		expect(screen.getByRole('button', { name: 'Fermer' })).toHaveFocus();

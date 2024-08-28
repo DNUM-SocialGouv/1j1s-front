@@ -9,14 +9,14 @@ import RecrutementCandidatFranceTravail
 
 describe('<RecrutementCandidatFranceTravail/>', () => {
 	it('je vois le titre', () => {
-		render(<RecrutementCandidatFranceTravail/>);
+		render(<RecrutementCandidatFranceTravail />);
 
 		const titre = screen.getByRole('heading', { level: 1 });
 		expect(titre).toHaveTextContent('Je m’engage à recruter des candidats formés avec l’aide de France Travail');
 	});
 
 	it('je vois la footnote', () => {
-		render(<RecrutementCandidatFranceTravail/>);
+		render(<RecrutementCandidatFranceTravail />);
 
 		const titre = screen.getByRole('heading', { level: 1 });
 		const reference = within(titre).getByRole('link', { name: 'note de pied de page' });
@@ -30,7 +30,7 @@ describe('<RecrutementCandidatFranceTravail/>', () => {
 		const LINK_M_ENGAGER_A_RECRUTER = 'https://entreprise.francetravail.fr/accueil/description/afpr';
 		const LINK_COMPLETER_UNE_DEMANDE = 'https://entreprise.francetravail.fr/accueil/choixauthentification?goto=https://entreprise.francetravail.fr/accueil/description/afpr';
 
-		render(<RecrutementCandidatFranceTravail/>);
+		render(<RecrutementCandidatFranceTravail />);
 
 		expect(screen.getByRole('link', { name: 'M‘engager à recruter - nouvelle fenêtre' })).toHaveAttribute('href', LINK_M_ENGAGER_A_RECRUTER);
 		expect(screen.getByRole('link', { name: 'Compléter une demande - nouvelle fenêtre' })).toHaveAttribute('href', LINK_COMPLETER_UNE_DEMANDE);

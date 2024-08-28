@@ -62,8 +62,7 @@ export function FormulaireRechercheAccompagnement() {
 					<div className={styles.comboboxCommune}>
 						<ComboboxCommune
 							defaultCommune={defaultCommuneValue}
-							required
-						/>
+							required />
 					</div>
 
 					<Champ>
@@ -73,22 +72,21 @@ export function FormulaireRechercheAccompagnement() {
 							required
 							optionsAriaLabel={'type d‘accompagnement'}
 							name="typeAccompagnement"
-							defaultValue={typeAccompagnement}
-						>
+							defaultValue={typeAccompagnement}>
 							{typeAccompagnementListe.map((option) =>
 								<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 							)}
 						</Champ.Input>
-						<Champ.Error/>
+						<Champ.Error />
 					</Champ>
 
 				</div>
 				<div className={styles.buttonRechercher}>
 					<ButtonComponent
 						label="Rechercher"
-						icon={<Icon name="magnifying-glass"/>}
+						icon={<Icon name="magnifying-glass" />}
 						iconPosition="right"
-						type="submit"/>
+						type="submit" />
 				</div>
 				
 			</form>

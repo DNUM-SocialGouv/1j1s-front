@@ -41,7 +41,7 @@ describe('RechercherAccompagnement', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 					établissementAccompagnementService={établissementAccompagnementService}>
-					<RechercherAccompagnement/>
+					<RechercherAccompagnement />
 				</DependenciesProvider>,
 			);
 
@@ -83,7 +83,7 @@ describe('RechercherAccompagnement', () => {
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
 						établissementAccompagnementService={établissementAccompagnementService}>
-						<RechercherAccompagnement/>
+						<RechercherAccompagnement />
 					</DependenciesProvider>,
 				);
 
@@ -110,7 +110,7 @@ describe('RechercherAccompagnement', () => {
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
 						établissementAccompagnementService={établissementAccompagnementService}>
-						<RechercherAccompagnement/>
+						<RechercherAccompagnement />
 					</DependenciesProvider>,
 				);
 
@@ -142,7 +142,7 @@ describe('RechercherAccompagnement', () => {
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
 						établissementAccompagnementService={etablissementAccompagnementService}>
-						<RechercherAccompagnement/>
+						<RechercherAccompagnement />
 					</DependenciesProvider>,
 				);
 
@@ -171,7 +171,7 @@ describe('RechercherAccompagnement', () => {
 				<DependenciesProvider
 					établissementAccompagnementService={établissementAccompagnementService}
 					localisationService={localisationService}>
-					<RechercherAccompagnement/>
+					<RechercherAccompagnement />
 				</DependenciesProvider>,
 			);
 
@@ -197,7 +197,7 @@ describe('RechercherAccompagnement', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 					établissementAccompagnementService={établissementAccompagnementService}>
-					<RechercherAccompagnement/>
+					<RechercherAccompagnement />
 				</DependenciesProvider>,
 			);
 
@@ -230,7 +230,7 @@ describe('RechercherAccompagnement', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 					établissementAccompagnementService={établissementAccompagnementService}>
-					<RechercherAccompagnement/>
+					<RechercherAccompagnement />
 				</DependenciesProvider>,
 			);
 

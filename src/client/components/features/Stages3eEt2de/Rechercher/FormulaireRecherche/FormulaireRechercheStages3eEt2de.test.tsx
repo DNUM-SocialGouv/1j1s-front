@@ -45,9 +45,8 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 			<DependenciesProvider
 				localisationService={aLocalisationService()}
 				stage3eEt2deService={aStage3eEt2deService()}
-				metierStage3eEt2deService={aMetierService()}
-			>
-				<FormulaireRechercheStages3eEt2de/>
+				metierStage3eEt2deService={aMetierService()}>
+				<FormulaireRechercheStages3eEt2de />
 			</DependenciesProvider>,
 		);
 
@@ -87,9 +86,8 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 			<DependenciesProvider
 				localisationService={localisationService}
 				stage3eEt2deService={aStage3eEt2deService()}
-				metierStage3eEt2deService={metierService}
-			>
-				<FormulaireRechercheStages3eEt2de/>
+				metierStage3eEt2deService={metierService}>
+				<FormulaireRechercheStages3eEt2de />
 			</DependenciesProvider>,
 		);
 
@@ -124,9 +122,8 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 			<DependenciesProvider
 				stage3eEt2deService={aStage3eEt2deService()}
 				metierStage3eEt2deService={aMetierService()}
-				localisationService={localisationService}
-			>
-				<FormulaireRechercheStages3eEt2de/>
+				localisationService={localisationService}>
+				<FormulaireRechercheStages3eEt2de />
 			</DependenciesProvider>,
 		);
 
@@ -155,9 +152,8 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 			<DependenciesProvider
 				stage3eEt2deService={stage3eEt2deService}
 				metierStage3eEt2deService={aMetierService()}
-				localisationService={aLocalisationService()}
-			>
-				<FormulaireRechercheStages3eEt2de/>
+				localisationService={aLocalisationService()}>
+				<FormulaireRechercheStages3eEt2de />
 			</DependenciesProvider>,
 		);
 

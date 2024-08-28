@@ -30,7 +30,7 @@ describe('quand le feature flip est actif', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService} dateService={aDateService()}>
-				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
+				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()} />
 			</DependenciesProvider>,
 		);
 
@@ -45,7 +45,7 @@ describe('quand le feature flip est actif', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()}>
-				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
+				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()} />
 			</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -54,7 +54,7 @@ describe('quand le feature flip est actif', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()}>
-				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
+				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()} />
 			</DependenciesProvider>,
 		);
 
@@ -70,7 +70,7 @@ describe('quand le feature flip est actif', () => {
 			// WHEN
 			render(
 				<DependenciesProvider analyticsService={analyticsService} dateService={dateService}>
-					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
+					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()} />
 				</DependenciesProvider>,
 			);
 
@@ -90,7 +90,7 @@ describe('quand le feature flip est actif', () => {
 			// WHEN
 			render(
 				<DependenciesProvider analyticsService={analyticsService} dateService={dateService}>
-					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete({ dateDeMiseAJour: updateDateFromFormationInitiale })}/>
+					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete({ dateDeMiseAJour: updateDateFromFormationInitiale })} />
 				</DependenciesProvider>,
 			);
 
@@ -112,7 +112,7 @@ describe('quand le feature flip est actif', () => {
 			// WHEN
 			render(
 				<DependenciesProvider analyticsService={analyticsService} dateService={dateService}>
-					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitiale()}/>
+					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitiale()} />
 				</DependenciesProvider>,
 			);
 
@@ -133,7 +133,7 @@ describe('quand le feature flip n‘est pas actif', () => {
 		process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()}>
-				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
+				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()} />
 			</DependenciesProvider>,
 		);
 

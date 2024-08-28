@@ -72,24 +72,26 @@ export function FlippingCard(props: FlippingCardProps) {
 	return (
 		<div className={classNames(styles.cardWrapper, { [styles.flipped]: isAnimationOn }, className)} {...rest}>
 			<div className={classNames(styles.card, styles.recto)}>
-				<Image src={imageUrl ?? '/images/image-par-defaut-carte.webp'} alt="" width={360} height={180}/>
+				<Image src={imageUrl ?? '/images/image-par-defaut-carte.webp'} alt="" width={360} height={180} />
 				{category && <div className={classNames(styles.category, categoryClass)}>{category}</div>}
 
 				<div className={styles.body}>
 					<CardTitle className={styles.bodyTitle} titleAs={titleAs}>{title}</CardTitle>
 					<div
 						className={styles.actionWrapper}>
-						{hasFlipCardContent &&
+						{hasFlipCardContent && (
 							<ButtonComponent
 								label="Pour qui ?"
 								appearance={'quaternary'}
 								ref={flipButton}
-								onClick={() => flipCard()}/>
-						}
-						{link && <Link href={link} prefetch={false} appearance="asPrimaryButton">
-							{isInternalLink ? 'Lire l‘article' : 'En savoir plus'}
-							<Link.Icon/>
-						</Link>}
+								onClick={() => flipCard()} />
+						)}
+						{link && (
+							<Link href={link} prefetch={false} appearance="asPrimaryButton">
+								{isInternalLink ? 'Lire l‘article' : 'En savoir plus'}
+								<Link.Icon />
+							</Link>
+						)}
 					</div>
 				</div>
 			</div>
@@ -97,10 +99,10 @@ export function FlippingCard(props: FlippingCardProps) {
 				<button
 					onClick={() => flipCard(true)}
 					aria-label="masquer la section pour qui">
-					<Icon name="angle-left" aria-hidden="true"/>
+					<Icon name="angle-left" aria-hidden="true" />
 				</button>
 				<div className={styles.title}>Pour qui ?</div>
-				<MarkdownToHtml markdown={flippingCardContent} className={styles.content}/>
+				<MarkdownToHtml markdown={flippingCardContent} className={styles.content} />
 			</div>
 		</div>
 	);

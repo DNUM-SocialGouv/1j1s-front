@@ -28,7 +28,7 @@ describe('RechercherFormationInitiale', () => {
 
 		// WHEN
 		render(<DependenciesProvider formationInitialeService={aFormationService}>
-			<RechercherFormationInitiale/>
+			<RechercherFormationInitiale />
 		</DependenciesProvider>);
 
 		// THEN
@@ -55,7 +55,7 @@ describe('RechercherFormationInitiale', () => {
 			jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultatFormationInitiale);
 
 			render(<DependenciesProvider formationInitialeService={aFormationService}>
-				<RechercherFormationInitiale/>
+				<RechercherFormationInitiale />
 			</DependenciesProvider>);
 
 			await screen.findByText(/150 formations pour boulanger/);
@@ -75,7 +75,7 @@ describe('RechercherFormationInitiale', () => {
 				jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultRechercheFormation);
 
 				render(<DependenciesProvider formationInitialeService={aFormationService}>
-					<RechercherFormationInitiale/>
+					<RechercherFormationInitiale />
 				</DependenciesProvider>,
 				);
 
@@ -96,7 +96,7 @@ describe('RechercherFormationInitiale', () => {
 					jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultatFormationInitiale);
 
 					render(<DependenciesProvider formationInitialeService={aFormationService}>
-						<RechercherFormationInitiale/>
+						<RechercherFormationInitiale />
 					</DependenciesProvider>,
 					);
 
@@ -115,7 +115,7 @@ describe('RechercherFormationInitiale', () => {
 					jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultRechercheFormation);
 
 					render(<DependenciesProvider formationInitialeService={aFormationService}>
-						<RechercherFormationInitiale/>
+						<RechercherFormationInitiale />
 					</DependenciesProvider>,
 					);
 
@@ -131,7 +131,7 @@ describe('RechercherFormationInitiale', () => {
 						formationsInitiales: formationsInitiales,
 					}));
 					jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValueOnce(resultatFormationInitiale);
-					render(<DependenciesProvider formationInitialeService={aFormationService}> <RechercherFormationInitiale/>
+					render(<DependenciesProvider formationInitialeService={aFormationService}> <RechercherFormationInitiale />
 					</DependenciesProvider>);
 					const listeCards = await screen.findByRole('list', { name: 'Formations Initiales' });
 					const cardTitles = within(listeCards).getAllByRole('heading', { level: 3 });
@@ -153,7 +153,7 @@ describe('RechercherFormationInitiale', () => {
 						const resultatFormationInitiale = createSuccess(aResultatFormationInitiale({ formationsInitiales: formationsInitiales }));
 						jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValueOnce(resultatFormationInitiale);
 						render(<DependenciesProvider formationInitialeService={aFormationService}>
-							<RechercherFormationInitiale/>
+							<RechercherFormationInitiale />
 						</DependenciesProvider>);
 						const listeTags = await screen.findByRole('list', { name: 'Caractéristiques de l‘offre' });
 						const tags = within(listeTags).getAllByRole('listitem');
@@ -175,7 +175,7 @@ describe('RechercherFormationInitiale', () => {
 						jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValueOnce(resultatFormationInitiale);
 						
 						render(<DependenciesProvider formationInitialeService={aFormationService}>
-							<RechercherFormationInitiale/>
+							<RechercherFormationInitiale />
 						</DependenciesProvider>);
 
 						const listeTags = await screen.findByRole('list', { name: 'Caractéristiques de l‘offre' });
@@ -205,7 +205,7 @@ describe('RechercherFormationInitiale', () => {
 			jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultatRechercheFormation);
 
 			render(<DependenciesProvider formationInitialeService={aFormationService}>
-				<RechercherFormationInitiale/>
+				<RechercherFormationInitiale />
 			</DependenciesProvider>);
 
 			await screen.findByText(/[0-9]+ formations/);
@@ -223,7 +223,7 @@ describe('RechercherFormationInitiale', () => {
 			const resultatFormationInitiale = createSuccess(resultatFormationsInitiales);
 			jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultatFormationInitiale);
 			render(<DependenciesProvider formationInitialeService={aFormationService}>
-				<RechercherFormationInitiale/>
+				<RechercherFormationInitiale />
 			</DependenciesProvider>);
 
 			expect(await screen.findByText(/[0-9]+ formations$/)).toBeVisible();
@@ -241,7 +241,7 @@ describe('RechercherFormationInitiale', () => {
 
 			// WHEN
 			render(<DependenciesProvider formationInitialeService={aFormationService}>
-				<RechercherFormationInitiale/>
+				<RechercherFormationInitiale />
 			</DependenciesProvider>);
 
 			// THEN
@@ -256,7 +256,7 @@ describe('RechercherFormationInitiale', () => {
 
 				// WHEN
 				render(<DependenciesProvider formationInitialeService={aFormationService}>
-					<RechercherFormationInitiale/>
+					<RechercherFormationInitiale />
 				</DependenciesProvider>);
 
 				// THEN
@@ -271,7 +271,7 @@ describe('RechercherFormationInitiale', () => {
 
 				// WHEN
 				render(<DependenciesProvider formationInitialeService={aFormationService}>
-					<RechercherFormationInitiale/>
+					<RechercherFormationInitiale />
 				</DependenciesProvider>);
 
 				// THEN
@@ -286,7 +286,7 @@ describe('RechercherFormationInitiale', () => {
 
 				// WHEN
 				render(<DependenciesProvider formationInitialeService={aFormationService}>
-					<RechercherFormationInitiale/>
+					<RechercherFormationInitiale />
 				</DependenciesProvider>);
 
 				// THEN
@@ -301,7 +301,7 @@ describe('RechercherFormationInitiale', () => {
 
 				// WHEN
 				render(<DependenciesProvider formationInitialeService={aFormationService}>
-					<RechercherFormationInitiale/>
+					<RechercherFormationInitiale />
 				</DependenciesProvider>);
 
 				// THEN
@@ -316,7 +316,7 @@ describe('RechercherFormationInitiale', () => {
 
 				// WHEN
 				render(<DependenciesProvider formationInitialeService={aFormationService}>
-					<RechercherFormationInitiale/>
+					<RechercherFormationInitiale />
 				</DependenciesProvider>);
 
 				// THEN

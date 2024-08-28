@@ -20,9 +20,8 @@ describe('<DeposerOffreStagePage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
-			>
-				<DeposerOffreStagePage/>
+				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}>
+				<DeposerOffreStagePage />
 			</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -33,8 +32,7 @@ describe('<DeposerOffreStagePage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
-			>
+				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}>
 				<DeposerOffreStagePage />
 			</DependenciesProvider>,
 		);

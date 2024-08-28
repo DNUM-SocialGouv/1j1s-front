@@ -66,7 +66,7 @@ export default function RechercherAlternance(props: RechercherAlternanceProps) {
 
 	const étiquettesRecherche = useMemo(() => {
 		if (alternanceQuery.ville && alternanceQuery.codePostal) {
-			return <TagList list={[`${alternanceQuery.ville} (${alternanceQuery.codePostal})`]} aria-label="Filtres de la recherche"/>;
+			return <TagList list={[`${alternanceQuery.ville} (${alternanceQuery.codePostal})`]} aria-label="Filtres de la recherche" />;
 		} else {
 			return undefined;
 		}
@@ -82,60 +82,60 @@ export default function RechercherAlternance(props: RechercherAlternanceProps) {
 		setIsLoading(true);
 	}
 
-	return <>
-		<Head
-			title={title}
-			description="Des milliers d’alternances sélectionnées pour vous"
-			robots="index,follow"
-		/>
-		<main id="contenu">
-			<RechercherSolutionLayoutWithTabs
-				bannière={<BanniereApprentissage/>}
-				erreurRecherche={erreurRecherche}
-				étiquettesRecherche={étiquettesRecherche}
-				formulaireRecherche={<FormulaireRechercheAlternance onSubmit={onSubmit}/>}
-				isLoading={isLoading}
-				listeSolutionElementTab={[{
-					label: 'Contrats d‘alternance',
-					listeSolutionElement: <ListeSolutionAlternance alternanceList={alternanceList.offreList}/>,
-					messageNoResult: <NoResultErrorMessage
-						explanationText="Aucun contrat d‘alternance ne correspond à votre recherche."
-						solutionText="Vous pouvez consulter les entreprises ou modifier votre recherche."/>,
-					messageResultatRecherche: getMessageResultatRecherche(alternanceList.offreList.length),
-					nombreDeSolutions: alternanceList.offreList.length,
-				},
-				{
-					label: 'Entreprises',
-					listeSolutionElement: <ListeSolutionAlternanceEntreprise
-						entrepriseList={alternanceList.entrepriseList}/>,
-					messageNoResult: <NoResultErrorMessage
-						explanationText="Aucune entreprise ne correspond à votre recherche."
-						solutionText="Vous pouvez consulter les contrats d‘alternance ou modifier votre recherche."/>,
-					messageResultatRecherche: getMessageResultatRecherche(alternanceList.entrepriseList.length),
-					nombreDeSolutions: alternanceList.entrepriseList.length,
-				}]}
-			/>
-			<EnTete heading="Consultez nos articles"/>
-			<ServiceCardList aria-label="Liste de nos articles">
-				<ServiceCard
-					logo="/images/articles/aide-exceptionnelle-apprentissage.svg"
-					imageFit="cover"
-					linkLabel="Lire l‘article"
-					link="/articles/l-aide-a-l-apprentissage-l-atout-qu-il-faut-pour-vos-candidatures"
-					title="Une aide exceptionnelle pour l’apprentissage : l’atout qu’il vous faut pour vos candidatures !"
-					titleAs={'h3'}>
+	return (
+		<>
+			<Head
+				title={title}
+				description="Des milliers d’alternances sélectionnées pour vous"
+				robots="index,follow" />
+			<main id="contenu">
+				<RechercherSolutionLayoutWithTabs
+					bannière={<BanniereApprentissage />}
+					erreurRecherche={erreurRecherche}
+					étiquettesRecherche={étiquettesRecherche}
+					formulaireRecherche={<FormulaireRechercheAlternance onSubmit={onSubmit} />}
+					isLoading={isLoading}
+					listeSolutionElementTab={[{
+						label: 'Contrats d‘alternance',
+						listeSolutionElement: <ListeSolutionAlternance alternanceList={alternanceList.offreList} />,
+						messageNoResult: <NoResultErrorMessage
+							explanationText="Aucun contrat d‘alternance ne correspond à votre recherche."
+							solutionText="Vous pouvez consulter les entreprises ou modifier votre recherche." />,
+						messageResultatRecherche: getMessageResultatRecherche(alternanceList.offreList.length),
+						nombreDeSolutions: alternanceList.offreList.length,
+					},
+					{
+						label: 'Entreprises',
+						listeSolutionElement: <ListeSolutionAlternanceEntreprise
+							entrepriseList={alternanceList.entrepriseList} />,
+						messageNoResult: <NoResultErrorMessage
+							explanationText="Aucune entreprise ne correspond à votre recherche."
+							solutionText="Vous pouvez consulter les contrats d‘alternance ou modifier votre recherche." />,
+						messageResultatRecherche: getMessageResultatRecherche(alternanceList.entrepriseList.length),
+						nombreDeSolutions: alternanceList.entrepriseList.length,
+					}]} />
+				<EnTete heading="Consultez nos articles" />
+				<ServiceCardList aria-label="Liste de nos articles">
+					<ServiceCard
+						logo="/images/articles/aide-exceptionnelle-apprentissage.svg"
+						imageFit="cover"
+						linkLabel="Lire l‘article"
+						link="/articles/l-aide-a-l-apprentissage-l-atout-qu-il-faut-pour-vos-candidatures"
+						title="Une aide exceptionnelle pour l’apprentissage : l’atout qu’il vous faut pour vos candidatures !"
+						titleAs={'h3'}>
 					Découvrez un argument supplémentaire à avancer pour vous faire embaucher
-				</ServiceCard>
-			</ServiceCardList>
+					</ServiceCard>
+				</ServiceCardList>
 
-			<EnTete heading="Découvrez des services faits pour vous"/>
-			<ServiceCardList>
-				<DecouvrirApprentissage/>
-				<PassPartner/>
-				<OnisepMetierPartner/>
-			</ServiceCardList>
-		</main>
-	</>;
+				<EnTete heading="Découvrez des services faits pour vous" />
+				<ServiceCardList>
+					<DecouvrirApprentissage />
+					<PassPartner />
+					<OnisepMetierPartner />
+				</ServiceCardList>
+			</main>
+		</>
+	);
 }
 
 

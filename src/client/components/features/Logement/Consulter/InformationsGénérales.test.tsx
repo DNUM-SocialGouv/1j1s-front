@@ -16,7 +16,7 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.prix = 500;
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const prixRow = screen.getByRole('row', { name: /Prix/i });
@@ -28,7 +28,7 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.devise = '$';
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const prixRow = screen.getByRole('row', { name: /Prix/i });
@@ -38,7 +38,7 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.charge = 500;
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const chargesRow = screen.getByRole('row', { name: /Charges/i });
@@ -48,7 +48,7 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.charge = undefined;
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const chargesRow = screen.queryByRole('row', { name: /Charges/i });
@@ -58,7 +58,7 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.devise = '$';
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const chargesRow = screen.getByRole('row', { name: /Charges/i });
@@ -68,7 +68,7 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.garantie = 500;
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const cautionRow = screen.getByRole('row', { name: /Caution/i });
@@ -78,7 +78,7 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.garantie = undefined;
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const cautionRow = screen.queryByRole('row', { name: /Caution/i });
@@ -88,7 +88,7 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.devise = '$';
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const cautionRow = screen.getByRole('row', { name: /Caution/i });
@@ -103,7 +103,7 @@ describe('<InformationsGénérales />', () => {
 					annonce.surface = 50;
 					annonce.surfaceMax = 100;
 					render(<DependenciesProvider dateService={aDateService()}>
-						<InformationsGénérales annonce={annonce}/>
+						<InformationsGénérales annonce={annonce} />
 					</DependenciesProvider>);
 
 					const surfaceRow = screen.getByRole('row', { name: /Surface/i });
@@ -116,7 +116,7 @@ describe('<InformationsGénérales />', () => {
 					annonce.surface = 50;
 					annonce.surfaceMax = 0;
 					render(<DependenciesProvider dateService={aDateService()}>
-						<InformationsGénérales annonce={annonce}/>
+						<InformationsGénérales annonce={annonce} />
 					</DependenciesProvider>);
 
 					const surfaceRow = screen.getByRole('row', { name: /Surface/i });
@@ -129,7 +129,7 @@ describe('<InformationsGénérales />', () => {
 					annonce.surface = 50;
 					annonce.surfaceMax = undefined;
 					render(<DependenciesProvider dateService={aDateService()}>
-						<InformationsGénérales annonce={annonce}/>
+						<InformationsGénérales annonce={annonce} />
 					</DependenciesProvider>);
 
 					const surfaceRow = screen.getByRole('row', { name: /Surface/i });
@@ -142,7 +142,7 @@ describe('<InformationsGénérales />', () => {
 				const annonce = anAnnonceDeLogement();
 				annonce.nombreDePièces = 2;
 				render(<DependenciesProvider dateService={aDateService()}>
-					<InformationsGénérales annonce={annonce}/>
+					<InformationsGénérales annonce={annonce} />
 				</DependenciesProvider>);
 
 				const piècesRow = screen.getByRole('row', { name: /Nombre de pièces/i });
@@ -152,7 +152,7 @@ describe('<InformationsGénérales />', () => {
 				const annonce = anAnnonceDeLogement();
 				annonce.nombreDePièces = 0;
 				render(<DependenciesProvider dateService={aDateService()}>
-					<InformationsGénérales annonce={annonce}/>
+					<InformationsGénérales annonce={annonce} />
 				</DependenciesProvider>);
 
 				const piècesRow = screen.getByRole('row', { name: /Nombre de pièces/i });
@@ -165,7 +165,7 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.étage = 2;
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const étageRow = screen.getByRole('row', { name: /Étage/i });
@@ -175,7 +175,7 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.étage = 0;
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const étageRow = screen.getByRole('row', { name: /Étage/i });
@@ -185,7 +185,7 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.étage = 1;
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const étageRow = screen.getByRole('row', { name: /Étage/i });
@@ -195,7 +195,7 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.étage = undefined;
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const étageRow = screen.queryByRole('row', { name: /Étage/i });
@@ -205,7 +205,7 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.typeBien = 'Appartement';
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const typeBienRow = screen.getByRole('row', { name: /Type de bien/i });
@@ -215,7 +215,7 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.meublé = false;
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const meubléRow = screen.getByRole('row', { name: /Meublé/i });
@@ -225,7 +225,7 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.meublé = true;
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const meubléRow = screen.getByRole('row', { name: /Meublé/i });
@@ -241,7 +241,7 @@ describe('<InformationsGénérales />', () => {
 				ville: 'Paris',
 			};
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const localisationRow = screen.getByRole('row', { name: /Localisation/i });
@@ -255,7 +255,7 @@ describe('<InformationsGénérales />', () => {
 				ville: undefined,
 			};
 			render(<DependenciesProvider dateService={aDateService()}>
-				<InformationsGénérales annonce={annonce}/>
+				<InformationsGénérales annonce={annonce} />
 			</DependenciesProvider>);
 
 			const localisationRow = screen.queryByRole('row', { name: /Localisation/i });
@@ -271,7 +271,7 @@ describe('<InformationsGénérales />', () => {
 			jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 janvier 2022');
 			render(
 				<DependenciesProvider dateService={dateService}>
-					<InformationsGénérales annonce={annonce}/>
+					<InformationsGénérales annonce={annonce} />
 				</DependenciesProvider>,
 			);
 

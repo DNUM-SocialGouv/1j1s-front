@@ -20,7 +20,7 @@ describe('StatistiquesFormation', () => {
 	describe('quand on reçoit des statistiques', () => {
 
 		it('affiche l’entête', () => {
-			render(<StatistiquesFormationAlternance statistiques={statistiques()}/>);
+			render(<StatistiquesFormationAlternance statistiques={statistiques()} />);
 
 			const entête =  screen.getByRole('heading', { level: 2 });
 			expect(entête).toHaveTextContent('Et après la formation ?');
@@ -33,7 +33,7 @@ describe('StatistiquesFormation', () => {
 		describe('concernant le taux en emploi après 6 mois', () => {
 			describe('quand on ne reçoit pas l’information', () => {
 				it('ne retourne rien', () => {
-					render(<StatistiquesFormationAlternance statistiques={statistiques({ tauxEnEmploi6Mois: undefined })}/>);
+					render(<StatistiquesFormationAlternance statistiques={statistiques({ tauxEnEmploi6Mois: undefined })} />);
 
 					const tauxEnEmploi6Mois = screen.queryByText('sont en emploi au bout de 6 mois (quel que soit le type d’emploi et son secteur)');
 					expect(tauxEnEmploi6Mois).not.toBeInTheDocument();
@@ -42,7 +42,7 @@ describe('StatistiquesFormation', () => {
 
 			describe('quand on reçoit l’information', () => {
 				it('affiche le taux', () => {
-					render(<StatistiquesFormationAlternance statistiques={statistiques()}/>);
+					render(<StatistiquesFormationAlternance statistiques={statistiques()} />);
 
 					const listes = screen.getAllByRole('list');
 					const listeDeStatistique = listes[0];
@@ -56,7 +56,7 @@ describe('StatistiquesFormation', () => {
 		describe('concernant le taux en formation', () => {
 			describe('quand on ne reçoit pas l’information', () => {
 				it('ne retourne rien', () => {
-					render(<StatistiquesFormationAlternance statistiques={statistiques({ tauxEnFormation: undefined })}/>);
+					render(<StatistiquesFormationAlternance statistiques={statistiques({ tauxEnFormation: undefined })} />);
 
 					const tauxEnFormation = screen.queryByText('sont inscrits en formation (formation supérieure, redoublants, changement de filière)');
 					expect(tauxEnFormation).not.toBeInTheDocument();
@@ -65,7 +65,7 @@ describe('StatistiquesFormation', () => {
 
 			describe('quand on reçoit l’information', () => {
 				it('affiche le taux', () => {
-					render(<StatistiquesFormationAlternance statistiques={statistiques()}/>);
+					render(<StatistiquesFormationAlternance statistiques={statistiques()} />);
 
 					const listes = screen.getAllByRole('list');
 					const listeDeStatistique = listes[0];
@@ -79,7 +79,7 @@ describe('StatistiquesFormation', () => {
 		describe('concernant le taux des autres cas', () => {
 			describe('quand on ne reçoit pas l’information', () => {
 				it('ne retourne rien', () => {
-					render(<StatistiquesFormationAlternance statistiques={statistiques({ tauxAutres6Mois: undefined })}/>);
+					render(<StatistiquesFormationAlternance statistiques={statistiques({ tauxAutres6Mois: undefined })} />);
 
 					const tauxAutres6Mois = screen.queryByText('sont dans d’autres cas (recherche d’emploi, service civique, à l’étranger, indépendant, etc)');
 					expect(tauxAutres6Mois).not.toBeInTheDocument();
@@ -88,7 +88,7 @@ describe('StatistiquesFormation', () => {
 
 			describe('quand on reçoit l’information', () => {
 				it('affiche le taux', () => {
-					render(<StatistiquesFormationAlternance statistiques={statistiques()}/>);
+					render(<StatistiquesFormationAlternance statistiques={statistiques()} />);
 
 					const listes = screen.getAllByRole('list');
 					const listeDeStatistique = listes[0];
@@ -103,7 +103,7 @@ describe('StatistiquesFormation', () => {
 		describe('concernant le millesime', () => {
 			describe('quand on ne reçoit pas l’information', () => {
 				it('ne retourne rien', () => {
-					render(<StatistiquesFormationAlternance statistiques={statistiques({ millesime: undefined })}/>);
+					render(<StatistiquesFormationAlternance statistiques={statistiques({ millesime: undefined })} />);
 
 					const millesime = screen.queryByText('Données issues du dispositif InserJeunes, promotion)');
 					expect(millesime).not.toBeInTheDocument();
@@ -112,7 +112,7 @@ describe('StatistiquesFormation', () => {
 
 			describe('quand on reçoit l’information', () => {
 				it('affiche le millesime', () => {
-					render(<StatistiquesFormationAlternance statistiques={statistiques()}/>);
+					render(<StatistiquesFormationAlternance statistiques={statistiques()} />);
 
 					const millesime = screen.getByText('Données issues du dispositif InserJeunes, promotion 2020-2021');
 					expect(millesime).toBeVisible();
@@ -121,7 +121,7 @@ describe('StatistiquesFormation', () => {
 		});
 
 		it('affiche un article inserjeunes', () => {
-			render(<StatistiquesFormationAlternance statistiques={statistiques()}/>);
+			render(<StatistiquesFormationAlternance statistiques={statistiques()} />);
 
 			const article =  screen.getByRole('link');
 			expect(article).toHaveTextContent('Découvrez le dispositif InserJeunes');
@@ -133,7 +133,7 @@ describe('StatistiquesFormation', () => {
 
 	describe('quand on ne reçoit pas de statistiques', () => {
 		it('ne retourne rien', () => {
-			render(<StatistiquesFormationAlternance statistiques={undefined}/>);
+			render(<StatistiquesFormationAlternance statistiques={undefined} />);
 
 			const entête = screen.queryByRole('heading', { level: 2 });
 			expect(entête).not.toBeInTheDocument();

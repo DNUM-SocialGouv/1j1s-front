@@ -12,7 +12,7 @@ export default function QuEstCeQueCEst() {
 		<section className={styles.section}>
 			<Container className={ styles.container }>
 				<div className={styles.illustration}>
-					<Image src={illustration} fill alt=""/>
+					<Image src={illustration} fill alt="" />
 				</div>
 				<article className={styles.article}>
 					<h2>Le Contrat d‘Engagement Jeune, qu‘est-ce que c‘est ?</h2>

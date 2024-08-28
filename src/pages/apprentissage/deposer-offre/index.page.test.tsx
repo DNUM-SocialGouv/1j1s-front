@@ -15,7 +15,7 @@ describe('deposer-offre', () => {
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<DeposerOffrePage/>
+			<DeposerOffrePage />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -26,7 +26,7 @@ describe('deposer-offre', () => {
 
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<DeposerOffrePage/>
+				<DeposerOffrePage />
 			</DependenciesProvider>,
 		);
 
@@ -36,7 +36,7 @@ describe('deposer-offre', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<DeposerOffrePage/>
+				<DeposerOffrePage />
 			</DependenciesProvider>,
 		);
 		const titre = screen.getByRole('heading', { level: 1 });
@@ -50,7 +50,7 @@ describe('deposer-offre', () => {
 		process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL = 'https://labonnealternance-recette.apprentissage.beta.gouv.fr/';
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<DeposerOffrePage/>
+				<DeposerOffrePage />
 			</DependenciesProvider>,
 		);
 
@@ -63,7 +63,7 @@ describe('deposer-offre', () => {
 		process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL = 'https://labonnealternance-recette.apprentissage.beta.gouv.fr/';
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<DeposerOffrePage/>
+				<DeposerOffrePage />
 			</DependenciesProvider>,
 		);
 

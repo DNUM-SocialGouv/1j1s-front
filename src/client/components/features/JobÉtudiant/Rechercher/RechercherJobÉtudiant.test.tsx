@@ -30,8 +30,7 @@ describe('RechercherJobÉtudiant', () => {
 			mockUseRouter({});
 			render(
 				<DependenciesProvider
-					localisationService={localisationServiceMock}
-				>
+					localisationService={localisationServiceMock}>
 					<RechercherJobÉtudiant />
 				</DependenciesProvider>,
 			);
@@ -53,9 +52,8 @@ describe('RechercherJobÉtudiant', () => {
 			mockUseRouter({ query: { page: '1' } });
 			render(
 				<DependenciesProvider
-					localisationService={localisationServiceMock}
-				>
-					<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()}/>
+					localisationService={localisationServiceMock}>
+					<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()} />
 				</DependenciesProvider>,
 			);
 
@@ -87,9 +85,8 @@ describe('RechercherJobÉtudiant', () => {
 					// WHEN
 					render(
 						<DependenciesProvider
-							localisationService={localisationServiceMock}
-						>
-							<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()}/>
+							localisationService={localisationServiceMock}>
+							<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()} />
 						</DependenciesProvider>,
 					);
 
@@ -116,9 +113,8 @@ describe('RechercherJobÉtudiant', () => {
 					// WHEN
 					render(
 						<DependenciesProvider
-							localisationService={localisationServiceMock}
-						>
-							<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()}/>
+							localisationService={localisationServiceMock}>
+							<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()} />
 						</DependenciesProvider>,
 					);
 
@@ -142,9 +138,8 @@ describe('RechercherJobÉtudiant', () => {
 					// WHEN
 					render(
 						<DependenciesProvider
-							localisationService={localisationServiceMock}
-						>
-							<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()}/>
+							localisationService={localisationServiceMock}>
+							<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()} />
 						</DependenciesProvider>,
 					);
 
@@ -164,9 +159,8 @@ describe('RechercherJobÉtudiant', () => {
 
 				render(
 					<DependenciesProvider
-						localisationService={localisationServiceMock}
-					>
-						<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()}/>
+						localisationService={localisationServiceMock}>
+						<RechercherJobÉtudiant resultats={aRésultatsRechercheOffre()} />
 					</DependenciesProvider>,
 				);
 
@@ -197,9 +191,8 @@ describe('RechercherJobÉtudiant', () => {
 
 			render(
 				<DependenciesProvider
-					localisationService={localisationServiceMock}
-				>
-					<RechercherJobÉtudiant resultats={expected}/>
+					localisationService={localisationServiceMock}>
+					<RechercherJobÉtudiant resultats={expected} />
 				</DependenciesProvider>,
 			);
 
@@ -223,9 +216,8 @@ describe('RechercherJobÉtudiant', () => {
 
 			render(
 				<DependenciesProvider
-					localisationService={localisationServiceMock}
-				>
-					<RechercherJobÉtudiant resultats={expected}/>
+					localisationService={localisationServiceMock}>
+					<RechercherJobÉtudiant resultats={expected} />
 				</DependenciesProvider>,
 			);
 
@@ -247,9 +239,8 @@ describe('RechercherJobÉtudiant', () => {
 
 			render(
 				<DependenciesProvider
-					localisationService={aLocalisationService()}
-				>
-					<RechercherJobÉtudiant resultats={offre}/>
+					localisationService={aLocalisationService()}>
+					<RechercherJobÉtudiant resultats={offre} />
 				</DependenciesProvider>,
 			);
 
@@ -271,9 +262,8 @@ describe('RechercherJobÉtudiant', () => {
 
 			render(
 				<DependenciesProvider
-					localisationService={aLocalisationService()}
-				>
-					<RechercherJobÉtudiant resultats={offre}/>
+					localisationService={aLocalisationService()}>
+					<RechercherJobÉtudiant resultats={offre} />
 				</DependenciesProvider>,
 			);
 

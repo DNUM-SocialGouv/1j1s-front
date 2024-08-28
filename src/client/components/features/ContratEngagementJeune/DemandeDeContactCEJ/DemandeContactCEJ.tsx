@@ -20,8 +20,7 @@ export default function DemandeContactCEJ() {
 			</Container>
 			<ModaleDemandeContactCEJ
 				isOpen={isPopInOpen}
-				setIsOpen={setIsPopInOpen}
-			/>
+				setIsOpen={setIsPopInOpen} />
 		</div>
 	);
 }

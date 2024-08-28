@@ -128,7 +128,7 @@ Cette procédure est à utiliser dans le cas suivant. Vous avez signalé au resp
 
 		const { container } = render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<Accessibilite titre={titre} contenu={contenu}/>);
+				<Accessibilite titre={titre} contenu={contenu} />);
 			</DependenciesProvider>);
 
 		await expect(container).toBeAccessible();
@@ -137,7 +137,7 @@ Cette procédure est à utiliser dans le cas suivant. Vous avez signalé au resp
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<Accessibilite titre={titre} contenu={contenu}/>);
+				<Accessibilite titre={titre} contenu={contenu} />);
 			</DependenciesProvider>);
 
 		expect(container.outerHTML).toHTMLValidate();

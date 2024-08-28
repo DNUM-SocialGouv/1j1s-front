@@ -16,7 +16,7 @@ export const exemple: Story = {
 	render: (args) => (
 		<>
 			<Label htmlFor="pays">Pays</Label>
-			<Input id="pays" aria-describedby="hint"/>
+			<Input id="pays" aria-describedby="hint" />
 			<Hint id='hint' {...args}>Je suis l‘indication</Hint>
 		</>
 	),

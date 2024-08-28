@@ -42,9 +42,8 @@ describe('<ApprentissageEntreprises />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				youtubeService={aVideoService()}
-			>
-				<ApprentissageEntreprises videos={videos}/>
+				youtubeService={aVideoService()}>
+				<ApprentissageEntreprises videos={videos} />
 			</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -64,8 +63,7 @@ describe('<ApprentissageEntreprises />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				youtubeService={aVideoService()}
-			>
+				youtubeService={aVideoService()}>
 				<ApprentissageEntreprises videos={videos} />);
 			</DependenciesProvider>);
 

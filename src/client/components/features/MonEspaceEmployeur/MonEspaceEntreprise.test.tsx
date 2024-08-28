@@ -12,7 +12,7 @@ describe('<MonEspaceEntreprise/>', () => {
 			...process.env,
 			NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL: 'https://url-lba.com/',
 		};
-		render(<MonEspaceEntreprise/>);
+		render(<MonEspaceEntreprise />);
 		const linkConnexion = screen.getAllByRole('link', { name: 'Se connecter - nouvelle fenêtre' });
 		expect(linkConnexion[0]).toBeVisible();
 		expect(linkConnexion[0]).toHaveAttribute('href', 'https://www.lesentreprises-sengagent.gouv.fr/login');
@@ -30,7 +30,7 @@ describe('<MonEspaceEntreprise/>', () => {
 	});
 
 	it('voit la demande de contact par mail', () => {
-		render(<MonEspaceEntreprise/>);
+		render(<MonEspaceEntreprise />);
 
 		const demandeContactMail = screen.getByRole('link', { name: 'nous contacter par email - nouvelle fenêtre' });
 		expect(demandeContactMail).toBeVisible();

@@ -27,8 +27,7 @@ export const ListeDesResultats = React.forwardRef<HTMLElement | null, ListeDesRe
 					type="card"
 					isLoading={isLoading}
 					repeat={skeletonRepeat}
-					className={classNames({ [styles.skeletonAffichageDesktopDirectionRow]: !isAffichageListeDeResultatsDesktopDirectionRow })}
-				>
+					className={classNames({ [styles.skeletonAffichageDesktopDirectionRow]: !isAffichageListeDeResultatsDesktopDirectionRow })}>
 					<>
 						{resultats}
 						{pagination}

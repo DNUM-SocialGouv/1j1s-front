@@ -30,8 +30,7 @@ export function ServicesJeunes(props: ServicesJeunesProps) {
 					seeLessAriaLabel={'Voir moins de résultats sur les services conçus pour les jeunes'}
 					seeMoreAriaLabel={'Voir plus de résultats sur les services conçus pour les jeunes'}
 					numberOfVisibleItems={NUMBER_OF_VISIBLE_ITEMS}
-					itemList={cardListToDisplay}
-				/>
+					itemList={cardListToDisplay} />
 			</Container>
 		</>
 	);
@@ -51,12 +50,13 @@ function ServiceJeuneCard({ serviceJeune }: ServiceJeuneCardProps) {
 	} = serviceJeune;
 	const titre = useSanitize(dirtyTitre);
 
-	return <FlippingCard
-		className={styles.card}
-		category={categorie}
-		imageUrl={banniere?.src}
-		link={link}
-		title={titre}
-		flippingCardContent={concerne}
-	/>;
+	return (
+		<FlippingCard
+			className={styles.card}
+			category={categorie}
+			imageUrl={banniere?.src}
+			link={link}
+			title={titre}
+			flippingCardContent={concerne} />
+	);
 }

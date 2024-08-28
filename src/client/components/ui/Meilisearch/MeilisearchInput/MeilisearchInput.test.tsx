@@ -19,8 +19,7 @@ describe('<MeilisearchInput/>', () => {
 	  <MeilisearchInput
 				label='Ville'
 				name="ville"
-				placeholder="Exemples : Paris, Toulouse"
-	  />,
+				placeholder="Exemples : Paris, Toulouse" />,
 		);
 		const form = screen.queryByRole('form');
 		expect(form).not.toBeInTheDocument();
@@ -31,8 +30,7 @@ describe('<MeilisearchInput/>', () => {
 	  <MeilisearchInput
 				label='Ville'
 				name="ville"
-				placeholder="Exemples : Paris, Toulouse"
-	  />,
+				placeholder="Exemples : Paris, Toulouse" />,
 		);
 		const input = screen.getByLabelText('Ville', { selector: 'input' });
 		expect(input).toBeInTheDocument();
@@ -45,8 +43,7 @@ describe('<MeilisearchInput/>', () => {
 	  <MeilisearchInput
 				label='Ville'
 				name="ville"
-				placeholder="Exemples : Paris, Toulouse"
-	  />,
+				placeholder="Exemples : Paris, Toulouse" />,
 		);
 
 		const resetButton = screen.queryByRole('button');
@@ -59,8 +56,7 @@ describe('<MeilisearchInput/>', () => {
 	  <MeilisearchInput
 				label='Ville'
 				name="ville"
-				placeholder="Exemples : Paris, Toulouse"
-	  />,
+				placeholder="Exemples : Paris, Toulouse" />,
 		);
 		const user = userEvent.setup();
 		const input = screen.getByLabelText('Ville', { selector: 'input' });
@@ -75,8 +71,7 @@ describe('<MeilisearchInput/>', () => {
 	  <MeilisearchInput
 				label='Ville'
 				name="ville"
-				placeholder="Exemples : Paris, Toulouse"
-	  />,
+				placeholder="Exemples : Paris, Toulouse" />,
 		);
 		const user = userEvent.setup();
 		const input = screen.getByLabelText('Ville', { selector: 'input' });
@@ -92,8 +87,7 @@ describe('<MeilisearchInput/>', () => {
 				label='Ville'
 				name="ville"
 				placeholder="Exemples : Paris, Toulouse"
-				resetTitle={'Vider le champ ville'}
-	  />,
+				resetTitle={'Vider le champ ville'} />,
 		);
 		const user = userEvent.setup();
 		const input = screen.getByLabelText('Ville', { selector: 'input' });

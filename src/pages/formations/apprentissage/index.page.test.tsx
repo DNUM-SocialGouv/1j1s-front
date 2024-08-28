@@ -81,9 +81,8 @@ describe('Page Formations en Apprentissage', () => {
 				<DependenciesProvider
 					analyticsService={analyticsService}
 					metierLbaService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
-					<FormationAlternancePage/>
+					localisationService={aLocalisationService()}>
+					<FormationAlternancePage />
 				</DependenciesProvider>,
 			);
 
@@ -107,9 +106,8 @@ describe('Page Formations en Apprentissage', () => {
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
 					metierLbaService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
-					<FormationAlternancePage resultats={resultats}/>
+					localisationService={aLocalisationService()}>
+					<FormationAlternancePage resultats={resultats} />
 				</DependenciesProvider>,
 			);
 

@@ -58,15 +58,16 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 		onBlurProps(event);
 	}, [onBlurProps, onTouchProps, setTouchedOnBlur]);
 
-	return <input
-		data-touched={touched}
-		ref={inputRef}
-		onChange={onChange}
-		onFocus={onFocus}
-		onBlur={onBlur}
-		className={classNames(styles.input, className)}
-		{...props}
-	/>;
+	return (
+		<input
+			data-touched={touched}
+			ref={inputRef}
+			onChange={onChange}
+			onFocus={onFocus}
+			onBlur={onBlur}
+			className={classNames(styles.input, className)}
+			{...props} />
+	);
 });
 
 

@@ -18,8 +18,7 @@ export default function MentoratPage() {
 			<Head
 				title="Mentorat | 1jeune1solution"
 				description="Se rendre utile tout en préparant son avenir grâce aux missions de service civique"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<div className={styles.heading}>
 					<div className={styles.headingContainer}>
@@ -44,7 +43,7 @@ export default function MentoratPage() {
 								<div className={styles.linkAsButtonWrapper}>
 									<Link href="https://www.1jeune1mentor.fr/formulaire?1jeune1solution" appearance="asPrimaryButton">
 										Trouver mon mentor
-										<Link.Icon/>
+										<Link.Icon />
 									</Link>
 								</div>
 							</div>
@@ -57,7 +56,7 @@ export default function MentoratPage() {
 									</p>
 								</div>
 								<div className={styles.linkAsButtonWrapper}>
-									<Link href="/je-deviens-mentor" appearance="asPrimaryButton">Devenir mentor<Link.Icon/></Link>
+									<Link href="/je-deviens-mentor" appearance="asPrimaryButton">Devenir mentor<Link.Icon /></Link>
 								</div>
 							</div>
 						</div>
@@ -85,18 +84,17 @@ export default function MentoratPage() {
 							</div>
 							<SeeMoreMobileOnly
 							  numberOfVisibleItems={0}
-								itemList={[<RaisonParticipationsMentorat key={0}/>]}
+								itemList={[<RaisonParticipationsMentorat key={0} />]}
 								seeLessAriaLabel={'Voir moins de raisons de participer au mentorat'}
 								seeMoreAriaLabel={'Voir plus de raisons de participer au mentorat'}>
-								<RaisonParticipationsMentorat/>
+								<RaisonParticipationsMentorat />
 							</SeeMoreMobileOnly>
 						</div>
 						<Image
 							src="/illustrations/aventure-du-mentorat.svg"
 							alt=""
 							width={490}
-							height={370}
-						/>
+							height={370} />
 					</article>
 				</div>
 			</main>
@@ -110,21 +108,21 @@ function RaisonParticipationsMentorat() {
 			<ul aria-label="Raisons de participation au Mentorat">
 				<li className={styles.RaisonParticipationMentoratElement}>
 					<div className={styles.RaisonParticipationMentoratElement__Title}>
-						<Icon name="arrow-right"/>
+						<Icon name="arrow-right" />
 						<p>J’ai des difficultés à l’école</p>
 					</div>
 					<p>Votre mentor pourra vous aider à organiser votre travail et à améliorer vos résultats scolaires</p>
 				</li>
 				<li className={styles.RaisonParticipationMentoratElement}>
 					<div className={styles.RaisonParticipationMentoratElement__Title}>
-						<Icon name="arrow-right"/>
+						<Icon name="arrow-right" />
 						<p>Je ne sais pas quelle orientation choisir</p>
 					</div>
 					<p>Votre mentor pourra vous conseiller et vous guider</p>
 				</li>
 				<li className={styles.RaisonParticipationMentoratElement}>
 					<div className={styles.RaisonParticipationMentoratElement__Title}>
-						<Icon name="arrow-right"/>
+						<Icon name="arrow-right" />
 						<p>Je cherche un stage, une alternance, un premier emploi</p>
 					</div>
 					<p>Votre mentor pourra vous aider et vous ouvrir son réseau professionnel</p>

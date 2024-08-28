@@ -32,9 +32,8 @@ describe('FormulaireRechercheAlternance', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationService}
-					metierLbaService={aMetierService()}
-				>
-					<FormulaireRechercheAlternance/>
+					metierLbaService={aMetierService()}>
+					<FormulaireRechercheAlternance />
 				</DependenciesProvider>,
 			);
 			const formulaireRechercheAlternance = screen.getByRole('form');
@@ -46,9 +45,8 @@ describe('FormulaireRechercheAlternance', () => {
 			render(
 				<DependenciesProvider
 					localisationService={aLocalisationService()}
-					metierLbaService={aMetierService()}
-				>
-					<FormulaireRechercheAlternance/>
+					metierLbaService={aMetierService()}>
+					<FormulaireRechercheAlternance />
 				</DependenciesProvider>,
 			);
 
@@ -80,9 +78,8 @@ describe('FormulaireRechercheAlternance', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationService}
-					metierLbaService={metierService}
-				>
-					<FormulaireRechercheAlternance/>
+					metierLbaService={metierService}>
+					<FormulaireRechercheAlternance />
 				</DependenciesProvider>,
 			);
 
@@ -130,9 +127,8 @@ describe('FormulaireRechercheAlternance', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationService}
-					metierLbaService={metierService}
-				>
-					<FormulaireRechercheAlternance/>
+					metierLbaService={metierService}>
+					<FormulaireRechercheAlternance />
 				</DependenciesProvider>,
 			);
 
@@ -167,9 +163,8 @@ describe('FormulaireRechercheAlternance', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationService}
-					metierLbaService={metierService}
-				>
-					<FormulaireRechercheAlternance/>
+					metierLbaService={metierService}>
+					<FormulaireRechercheAlternance />
 				</DependenciesProvider>,
 			);
 
@@ -206,7 +201,7 @@ describe('FormulaireRechercheAlternance', () => {
 
 		render(
 			<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={aMetierService()}>
-				<FormulaireRechercheAlternance/>
+				<FormulaireRechercheAlternance />
 			</DependenciesProvider>,
 		);
 
@@ -229,7 +224,7 @@ describe('FormulaireRechercheAlternance', () => {
 
 		render(
 			<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={aMetierService()}>
-				<FormulaireRechercheAlternance/>
+				<FormulaireRechercheAlternance />
 			</DependenciesProvider>,
 		);
 
@@ -250,7 +245,7 @@ describe('FormulaireRechercheAlternance', () => {
 
 		render(
 			<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={aMetierService()}>
-				<FormulaireRechercheAlternance/>
+				<FormulaireRechercheAlternance />
 			</DependenciesProvider>,
 		);
 
@@ -274,9 +269,8 @@ describe('FormulaireRechercheAlternance', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationService}
-					metierLbaService={aMetierService()}
-				>
-					<FormulaireRechercheAlternance onSubmit={onSubmit}/>
+					metierLbaService={aMetierService()}>
+					<FormulaireRechercheAlternance onSubmit={onSubmit} />
 				</DependenciesProvider>,
 			);
 

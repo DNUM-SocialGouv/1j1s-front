@@ -26,7 +26,7 @@ export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 			setHintId,
 			setInputId,
 		}}>
-			<div className={classNames(styles.champ, classNameProps)} {...otherProps}/>
+			<div className={classNames(styles.champ, classNameProps)} {...otherProps} />
 		</ChampContextProvider>
 	);
 }
@@ -81,16 +81,17 @@ export const InputChamp: <Props extends ComponentChildrenPropsNecessary>(props: 
 			onInvalidProps(event, ...args);
 		}, [onInvalidProps, setErrorMessage]);
 
-		return (<Render
-			onTouch={onTouch}
-			aria-describedby={`${ariaDescribedby} ${errorMessage ? errorId : ''} ${hintId}`}
-			aria-invalid={errorMessage !== ''}
-			id={inputId}
-			onInvalid={onInvalid}
-			onChange={onChange}
-			ref={outerRef}
-			{...rest}
-		/>);
+		return (
+			<Render
+				onTouch={onTouch}
+				aria-describedby={`${ariaDescribedby} ${errorMessage ? errorId : ''} ${hintId}`}
+				aria-invalid={errorMessage !== ''}
+				id={inputId}
+				onInvalid={onInvalid}
+				onChange={onChange}
+				ref={outerRef}
+				{...rest} />
+		);
 	});
 
 function ErrorChamp({ id, ...rest }: Omit<ComponentPropsWithoutRef<typeof Error>, 'children'>) {
@@ -100,7 +101,7 @@ function ErrorChamp({ id, ...rest }: Omit<ComponentPropsWithoutRef<typeof Error>
 		if (id) { setErrorId(id); }
 	}, [id, setErrorId]);
 
-	return (errorMessage && <Error id={id ?? errorId} {...rest} >{errorMessage}</Error>);
+	return (errorMessage && <Error id={id ?? errorId} {...rest}>{errorMessage}</Error>);
 }
 
 function HintChamp({ id, ...rest }: ComponentPropsWithoutRef<typeof Hint>) {
@@ -110,7 +111,7 @@ function HintChamp({ id, ...rest }: ComponentPropsWithoutRef<typeof Hint>) {
 		if (id) { setHintId(id); }
 	}, [id, setHintId]);
 
-	return (<Hint id={id ?? hintId} {...rest}/>);
+	return (<Hint id={id ?? hintId} {...rest} />);
 }
 
 function LabelChamp(props: ComponentPropsWithoutRef<typeof Label>) {

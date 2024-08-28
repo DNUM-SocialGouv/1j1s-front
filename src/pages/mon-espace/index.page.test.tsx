@@ -15,7 +15,7 @@ import MonEspace from '~/pages/mon-espace/index.page';
 describe('<MonEspace />', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<MonEspace/>
+			<MonEspace />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -26,8 +26,7 @@ describe('<MonEspace />', () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<MonEspace />);
 			</DependenciesProvider>,
 		);

@@ -40,7 +40,7 @@ describe('Page FAQ', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat} />
 			</DependenciesProvider>);
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -51,7 +51,7 @@ describe('Page FAQ', () => {
 
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat} />
 			</DependenciesProvider>,
 		);
 
@@ -62,7 +62,7 @@ describe('Page FAQ', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat} />
 			</DependenciesProvider>,
 		);
 
@@ -77,7 +77,7 @@ describe('Page FAQ', () => {
 	it('affiche le titre de la page', async () => {
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat} />
 			</DependenciesProvider>);
 
 		const title = await screen.findByRole('heading', { level: 1 });
@@ -87,7 +87,7 @@ describe('Page FAQ', () => {
 	it('affiche le sous titre de la page', async () => {
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat} />
 			</DependenciesProvider>);
 
 		const sousTitre = await screen.findByRole('heading', { level: 2 });
@@ -98,7 +98,7 @@ describe('Page FAQ', () => {
 	it('affiche une liste de question', async () => {
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat} />
 			</DependenciesProvider>);
 
 		const listeDeQuestion = screen.getByRole('list');
@@ -111,7 +111,7 @@ describe('Page FAQ', () => {
 	it('affiche les questions sous forme de lien', async () => {
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat} />
 			</DependenciesProvider>);
 
 		const listeDeQuestion = screen.getByRole('list');
@@ -128,7 +128,7 @@ describe('Page FAQ', () => {
 		it('n’affiche pas de liste', async () => {
 			render(
 				<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-					<FaqPage listeDeQuestionRéponse={[]}/>
+					<FaqPage listeDeQuestionRéponse={[]} />
 				</DependenciesProvider>);
 
 			const listeDeQuestion = screen.queryByRole('list');
@@ -141,7 +141,7 @@ describe('Page FAQ', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat} />
 			</DependenciesProvider>,
 		);
 

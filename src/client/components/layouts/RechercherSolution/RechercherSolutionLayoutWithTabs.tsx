@@ -59,7 +59,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 	}
 
 	const messageResultatRechercheCurrentTab = listeSolutionElementTab[currentTab].messageResultatRecherche;
-	const messageNoResult = listeSolutionElementTab[currentTab].messageNoResult ?? <NoResultErrorMessage/>;
+	const messageNoResult = listeSolutionElementTab[currentTab].messageNoResult ?? <NoResultErrorMessage />;
 	const shouldDisplayPagination = paginationOffset && listeSolutionElementTab[currentTab].nombreDeSolutions > paginationOffset;
 	const hasSolutionsInCurrentTab = listeSolutionElementTab[currentTab].nombreDeSolutions > 0;
 
@@ -74,17 +74,18 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 					</Container>
 				</div>
 
-				{hasRouterQuery &&
-            <>
-            	{erreurRecherche ? <ErrorComponent errorType={erreurRecherche}/>
-            		: <>
+				{hasRouterQuery && (
+					<>
+            	{erreurRecherche ? <ErrorComponent errorType={erreurRecherche} />
+            		: (
+								<>
             			<Container className={styles.informationResultat}>
             				{étiquettesRecherche}
-            				{(hasSolutionsInCurrentTab || isLoading) &&
-                        <Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
+            				{(hasSolutionsInCurrentTab || isLoading) && (
+											<Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
                         	<h2>{messageResultatRechercheCurrentTab}</h2>
-                        </Skeleton>
-            				}
+											</Skeleton>
+										)}
             			</Container>
 
             			<div>
@@ -96,7 +97,8 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             									<Tab
             										key={solutionElement.label}>
             										{solutionElement.label}
-            									</Tab>))}
+            									</Tab>
+														))}
             							</TabsLabel>
             							{listeSolutionElementTab.map((solutionElement) => (
             								<TabPanel key={solutionElement.label}>
@@ -109,20 +111,20 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             						</Tabs>
             					</>
             				</Skeleton>
-            				{shouldDisplayPagination &&
-                        <div className={styles.pagination}>
+            				{shouldDisplayPagination && (
+											<div className={styles.pagination}>
                         	<Pagination
                         		numberOfResult={listeSolutionElementTab[currentTab].nombreDeSolutions}
                         		numberOfResultPerPage={paginationOffset}
-                        		maxPage={maxPage}
-                        	/>
-                        </div>
-            				}
+                        		maxPage={maxPage} />
+											</div>
+										)}
             			</div>
             		</>
+							)
             	}
-            </>
-				}
+					</>
+				)}
 			</div>
 		</>
 	);

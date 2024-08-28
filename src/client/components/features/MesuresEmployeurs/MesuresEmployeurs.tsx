@@ -17,15 +17,14 @@ export function MesuresEmployeursComponent({ mesureEmployeurList }: MesuresEmplo
 			<Head
 				title="Mesures Employeurs | 1jeune1solution"
 				description="Plus de 400 000 offres d‘emplois et d‘alternances sélectionnées pour vous"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
-				<Bannière/>
+				<Bannière />
 				<section className={styles.dispositifs}>
 					<ul className={styles.cartes}>
 						{mesureEmployeurList.map((carte) => (
 							<li key={carte.titre}>
-								<CarteMesureEmployeur carte={carte}/>
+								<CarteMesureEmployeur carte={carte} />
 							</li>
 						))}
 					</ul>
@@ -48,12 +47,13 @@ function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {
 	} = carte;
 	const titre = useSanitize(dirtyTitre);
 
-	return <FlippingCard
-		imageUrl={banniere?.src}
-		link={link}
-		titleAs={'h2'}
-		title={titre}
-		flippingCardContent={pourQui}
-		className={styles.carteMesureEmployeur}
-	/>;
+	return (
+		<FlippingCard
+			imageUrl={banniere?.src}
+			link={link}
+			titleAs={'h2'}
+			title={titre}
+			flippingCardContent={pourQui}
+			className={styles.carteMesureEmployeur} />
+	);
 }

@@ -36,9 +36,9 @@ export default function PlanDuSite() {
 	return (
 		<>
 			<Head
-				title="Plan du site | 1jeune1solution" description="Plan du site"
-				robots="index,follow"
-			/>
+				title="Plan du site | 1jeune1solution"
+				description="Plan du site"
+				robots="index,follow" />
 			<Container className={styles.planDuSiteContainer}>
 				<main id="contenu">
 					<h1 id="planDuSite" className={styles.planDuSiteTitre}>Plan du site</h1>

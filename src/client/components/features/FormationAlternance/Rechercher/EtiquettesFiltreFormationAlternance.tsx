@@ -26,6 +26,6 @@ export const EtiquettesFiltreFormationAlternance = () => {
 	if (!filtres.length) return null;
 
 	return (
-		<TagList list={filtres} aria-label="Filtres de la recherche"/>
+		<TagList list={filtres} aria-label="Filtres de la recherche" />
 	);
 };

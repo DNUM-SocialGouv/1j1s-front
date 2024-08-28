@@ -115,8 +115,7 @@ export function FormulaireRechercheOffreEmploi() {
 			aria-label="Rechercher une offre d'emploi"
 			className={styles.rechercheOffreForm}
 			onSubmit={updateRechercherOffreEmploiQueryParams}
-			role="search"
-		>
+			role="search">
 			<div className={styles.filtres}>
 				<Champ className={styles.metier}>
 					<Champ.Label>
@@ -127,28 +126,28 @@ export function FormulaireRechercheOffreEmploi() {
 						render={Input}
 						defaultValue={queryParams.motCle}
 						name="motCle"
-						minLength={2}
-					/>
-					<Champ.Error/>
+						minLength={2} />
+					<Champ.Error />
 				</Champ>
 
 				<div className={styles.localisation}>
-					<ComboboxLocalisation defaultValue={inputLocalisation}/>
+					<ComboboxLocalisation defaultValue={inputLocalisation} />
 				</div>
 
-				{isSmallScreen && <div>
-					<ButtonComponent
-						appearance="quaternary"
-						icon={<Icon name="filter"/>}
-						iconPosition="right"
-						label="Filtrer ma recherche"
-						onClick={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
-					/>
-					<input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
-					<input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
-					<input type="hidden" name="experienceExigence" value={inputExpérience}/>
-					<input type="hidden" name="grandDomaine" value={inputDomaine}/>
-				</div>}
+				{isSmallScreen && (
+					<div>
+						<ButtonComponent
+							appearance="quaternary"
+							icon={<Icon name="filter" />}
+							iconPosition="right"
+							label="Filtrer ma recherche"
+							onClick={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)} />
+						<input type="hidden" name="typeDeContrats" value={inputTypeDeContrat} />
+						<input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail} />
+						<input type="hidden" name="experienceExigence" value={inputExpérience} />
+						<input type="hidden" name="grandDomaine" value={inputDomaine} />
+					</div>
+				)}
 
 				{!isSmallScreen && (
 					<>
@@ -162,14 +161,12 @@ export function FormulaireRechercheOffreEmploi() {
 								optionsAriaLabel={'Types de contrats'}
 								name={'typeDeContrats'}
 								onChange={(option) => onChangeMultipleSelect(option, setInputTypeDeContrat)}
-								value={inputTypeDeContrat}
-
-							>
+								value={inputTypeDeContrat}>
 								{mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST).map((option) =>
 									<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 								)}
 							</Champ.Input>
-							<Champ.Error/>
+							<Champ.Error />
 						</Champ>
 
 						<Champ className={styles.tempsTravail}>
@@ -182,13 +179,12 @@ export function FormulaireRechercheOffreEmploi() {
 								optionsAriaLabel={'Temps de travail'}
 								name={'tempsDeTravail'}
 								onChange={(option) => setInputTempsDeTravail(getValueSelected(option))}
-								value={inputTempsDeTravail}
-							>
+								value={inputTempsDeTravail}>
 								{Offre.TEMPS_DE_TRAVAIL_LIST.map((option) =>
 									<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 								)}
 							</Champ.Input>
-							<Champ.Error/>
+							<Champ.Error />
 						</Champ>
 
 						<Champ className={styles.niveau}>
@@ -201,13 +197,12 @@ export function FormulaireRechercheOffreEmploi() {
 								optionsAriaLabel={'Niveau demandé'}
 								name={'experienceExigence'}
 								onChange={(option) => setInputExpérience(getValueSelected(option))}
-								value={inputExpérience}
-							>
+								value={inputExpérience}>
 								{Offre.EXPÉRIENCE.map((option) =>
 									<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 								)}
 							</Champ.Input>
-							<Champ.Error/>
+							<Champ.Error />
 						</Champ>
 
 						<Champ className={styles.domaines}>
@@ -220,24 +215,22 @@ export function FormulaireRechercheOffreEmploi() {
 								optionsAriaLabel={'Domaines'}
 								name={'grandDomaine'}
 								onChange={(option) => onChangeMultipleSelect(option, setInputDomaine)}
-								value={inputDomaine}
-							>
+								value={inputDomaine}>
 								{mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList).map((option) =>
 									<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 								)}
 							</Champ.Input>
-							<Champ.Error/>
+							<Champ.Error />
 						</Champ>
 					</>
 				)}
 			</div>
 			<div className={styles.buttonRechercher}>
 				<ButtonComponent
-					icon={<Icon name="magnifying-glass"/>}
+					icon={<Icon name="magnifying-glass" />}
 					iconPosition="right"
 					label="Rechercher"
-					type="submit"
-				/>
+					type="submit" />
 			</div>
 
 			<ModalComponent
@@ -246,7 +239,7 @@ export function FormulaireRechercheOffreEmploi() {
 				isOpen={isFiltresAvancésMobileOpen}
 				aria-labelledby="dialog_label">
 				<ModalComponent.Title>
-					<Icon name="menu"/>
+					<Icon name="menu" />
 					<span id="dialog_label">Filtrer ma recherche</span>
 				</ModalComponent.Title>
 				<ModalComponent.Content className={styles.modalfiltresAvancesContenu}>
@@ -261,8 +254,7 @@ export function FormulaireRechercheOffreEmploi() {
 										label={typeDeContrat.libelléLong}
 										onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
 										value={typeDeContrat.valeur}
-										checked={inputTypeDeContrat.includes(typeDeContrat.valeur)}
-									/>
+										checked={inputTypeDeContrat.includes(typeDeContrat.valeur)} />
 								))}
 							</fieldset>
 						</FilterAccordion.Content>
@@ -278,8 +270,7 @@ export function FormulaireRechercheOffreEmploi() {
 										name="tempsDeTravail"
 										checked={inputTempsDeTravail === tempsDeTravail.valeur}
 										onChange={() => setInputTempsDeTravail(tempsDeTravail.valeur)}
-										value={tempsDeTravail.valeur}
-									/>
+										value={tempsDeTravail.valeur} />
 								))}
 							</fieldset>
 						</FilterAccordion.Content>
@@ -295,8 +286,7 @@ export function FormulaireRechercheOffreEmploi() {
 										name="experienceExigence"
 										checked={inputExpérience === expérience.valeur}
 										onChange={() => setInputExpérience(expérience.valeur)}
-										value={expérience.valeur}
-									/>
+										value={expérience.valeur} />
 								))}
 							</fieldset>
 						</FilterAccordion.Content>
@@ -312,8 +302,7 @@ export function FormulaireRechercheOffreEmploi() {
 										label={domaine.libelle}
 										onChange={(e: ChangeEvent<HTMLInputElement>) => toggleDomaine(e.target.value)}
 										value={domaine.code}
-										checked={inputDomaine.includes(domaine.code)}
-									/>
+										checked={inputDomaine.includes(domaine.code)} />
 								))}
 							</fieldset>
 						</FilterAccordion.Content>
@@ -322,11 +311,10 @@ export function FormulaireRechercheOffreEmploi() {
 				<ModalComponent.Footer>
 					<div className={styles.modalfiltresAvancesButton}>
 						<ButtonComponent
-							icon={<Icon name="angle-right"/>}
+							icon={<Icon name="angle-right" />}
 							iconPosition="right"
 							label="Appliquer les filtres"
-							onClick={applyFiltresAvancés}
-						/>
+							onClick={applyFiltresAvancés} />
 					</div>
 				</ModalComponent.Footer>
 			</ModalComponent>

@@ -38,7 +38,7 @@ export default function FormationAlternancePage(props: RechercherFormationAppren
 	useAnalytics(analytics);
 
 	return (
-		<RechercherFormationAlternance {...props}/>
+		<RechercherFormationAlternance {...props} />
 	);
 };
 

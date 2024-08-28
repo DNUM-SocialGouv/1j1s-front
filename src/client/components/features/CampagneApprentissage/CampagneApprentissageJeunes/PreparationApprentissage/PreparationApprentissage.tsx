@@ -18,11 +18,11 @@ export default function PreparationApprentissage() {
 					<div className={styles.linkContainerChoixApprentissage}>
 						<Link className={styles.link} href={'/formations/apprentissage'} appearance={'asPrimaryButton'}>
 							Trouver votre formation en apprentissage
-							<Link.Icon/>
+							<Link.Icon />
 						</Link>
 						<Link className={styles.link} href={'/apprentissage'} appearance={'asSecondaryButton'}>
 							Trouver votre entreprise
-							<Link.Icon/>
+							<Link.Icon />
 						</Link>
 					</div>
 				</section>
@@ -35,9 +35,10 @@ export default function PreparationApprentissage() {
 						href={'/articles/la-prepa-apprentissage-c-est-quoi'}
 						appearance={'asPrimaryButton'}>
 						Lire l‘article
-						<Link.Icon/>
+						<Link.Icon />
 					</Link>
 				</section>
 			</Container>
-		</div>);
+		</div>
+	);
 }

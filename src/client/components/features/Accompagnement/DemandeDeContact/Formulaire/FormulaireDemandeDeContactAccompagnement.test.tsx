@@ -41,8 +41,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 				<FormulaireDemandeDeContactAccompagnement
 					contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 					onSuccess={jest.fn()}
-					onFailure={jest.fn()}
-				/>
+					onFailure={jest.fn()} />
 			</DependenciesProvider>,
 			);
 			const inputEmail = screen.getByRole('textbox', { name: 'Adresse e-mail (facultatif) Exemple : jean.dupont@gmail.com' });
@@ -61,8 +60,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 					<FormulaireDemandeDeContactAccompagnement
 						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 						onSuccess={jest.fn()}
-						onFailure={jest.fn()}
-					/>
+						onFailure={jest.fn()} />
 				</DependenciesProvider>,
 			);
 
@@ -84,8 +82,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 				<FormulaireDemandeDeContactAccompagnement
 					contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 					onSuccess={jest.fn()}
-					onFailure={jest.fn()}
-				/>
+					onFailure={jest.fn()} />
 			</DependenciesProvider>,
 		);
 
@@ -106,8 +103,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 				<FormulaireDemandeDeContactAccompagnement
 					contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 					onSuccess={jest.fn()}
-					onFailure={jest.fn()}
-				/>
+					onFailure={jest.fn()} />
 			</DependenciesProvider>,
 		);
 
@@ -137,8 +133,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 					<FormulaireDemandeDeContactAccompagnement
 						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 						onSuccess={jest.fn()}
-						onFailure={jest.fn()}
-					/>
+						onFailure={jest.fn()} />
 				</DependenciesProvider>,
 			);
 
@@ -182,8 +177,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 					<FormulaireDemandeDeContactAccompagnement
 						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 						onSuccess={onSuccess}
-						onFailure={jest.fn()}
-					/>
+						onFailure={jest.fn()} />
 				</DependenciesProvider>,
 			);
 
@@ -215,8 +209,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 					<FormulaireDemandeDeContactAccompagnement
 						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 						onSuccess={jest.fn()}
-						onFailure={onFailure}
-					/>
+						onFailure={onFailure} />
 				</DependenciesProvider>,
 			);
 			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));

@@ -67,31 +67,27 @@ export function FormulaireRechercheAlternance(props: FormulaireRechercheAlternan
 			<form
 				className={styles.rechercheOffreForm}
 				aria-label="Rechercher une alternance"
-				onSubmit={updateRechercherAlternanceQueryParams}
-			>
+				onSubmit={updateRechercherAlternanceQueryParams}>
 				<div className={styles.filtresRechercherOffre}>
 					<MetierDependenciesProvider metierService={metierService}>
 						<ComboboxMetiers
 							defaultValue={domaineDefaultValue}
 							required
-							valueName={'codeRomes'}
-						/>
+							valueName={'codeRomes'} />
 					</MetierDependenciesProvider>
 
 					<ComboboxCommune
 						defaultCommune={defaultCommune}
 						showRadiusInput
 						defaultDistance={distanceCommune}
-						required
-					/>
+						required />
 				</div>
 				<div className={styles.buttonRechercher}>
 					<ButtonComponent
 						label="Rechercher"
-						icon={<Icon name="magnifying-glass"/>}
+						icon={<Icon name="magnifying-glass" />}
 						iconPosition="right"
-						type="submit"
-					/>
+						type="submit" />
 				</div>
 			</form>
 		</>

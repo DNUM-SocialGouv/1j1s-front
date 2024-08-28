@@ -70,134 +70,134 @@ const dureeStageList = [
 function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stage | null }) {
 	const [displayDateDeDebutPrecise, setDisplayDateDeDebutPrecise] = useState<boolean>(props.informationsStage?.isDateDeDebutPrecise ? props.informationsStage.isDateDeDebutPrecise === IsDateDeDebutPrecise.OUI : true);
 
-	return <>
-		<Champ className={styles.inputNomOffre}>
-			<Champ.Label>Nom de l’offre de stage (200 caractères maximum)
-				<Champ.Label.Complement>Exemple : Assistant de recherche (6mois) chez ABC.ENTREPRISE</Champ.Label.Complement>
-			</Champ.Label>
-			<Champ.Input
-				render={Input}
-				name={StageEnum.NOM}
-				defaultValue={props.informationsStage?.nomOffre}
-				maxLength={LONGUEUR_MAX_TITRE}
-				required
-			/>
-			<Champ.Error/>
-		</Champ>
-		<Champ className={styles.inputLienCandidature}>
-			<Champ.Label>Lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa
+	return (
+		<>
+			<Champ className={styles.inputNomOffre}>
+				<Champ.Label>Nom de l’offre de stage (200 caractères maximum)
+					<Champ.Label.Complement>Exemple : Assistant de recherche (6mois) chez ABC.ENTREPRISE</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input
+					render={Input}
+					name={StageEnum.NOM}
+					defaultValue={props.informationsStage?.nomOffre}
+					maxLength={LONGUEUR_MAX_TITRE}
+					required />
+				<Champ.Error />
+			</Champ>
+			<Champ className={styles.inputLienCandidature}>
+				<Champ.Label>Lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa
 				candidature
-			<Champ.Label.Complement>Exemples : https://candidat.francetravail.fr/offres/142Y OU
+				<Champ.Label.Complement>Exemples : https://candidat.francetravail.fr/offres/142Y OU
 					candidature_PE_technicien@exemple.com</Champ.Label.Complement>
-			</Champ.Label>
-			<Champ.Input
-				render={Input}
-				pattern={EMAIL_OR_URL_REGEX}
-				name={StageEnum.LIEN_CANDIDATURE}
-				defaultValue={props.informationsStage?.lienCandidature}
-				required
-			/>
-			<Champ.Error/>
-		</Champ>
+				</Champ.Label>
+				<Champ.Input
+					render={Input}
+					pattern={EMAIL_OR_URL_REGEX}
+					name={StageEnum.LIEN_CANDIDATURE}
+					defaultValue={props.informationsStage?.lienCandidature}
+					required />
+				<Champ.Error />
+			</Champ>
 
-		<Champ className={styles.textareaWrapper}>
-			<Champ.Label>Description de l’offre de stage (200 caractères minimum)
-				<Champ.Label.Complement>Informations sur le stage : les objectifs, les challenges, les
+			<Champ className={styles.textareaWrapper}>
+				<Champ.Label>Description de l’offre de stage (200 caractères minimum)
+					<Champ.Label.Complement>Informations sur le stage : les objectifs, les challenges, les
 					missions…</Champ.Label.Complement>
-			</Champ.Label>
-			<Champ.Input
-				render={TextArea}
-				name={StageEnum.DESCRIPTION}
-				defaultValue={props.informationsStage?.descriptionOffre}
-				required
-				rows={10}
-				minLength={200}
-			/>
-			<Champ.Error/>
-		</Champ>
-		<fieldset className={styles.contenuDateDeDebut}>
-			<legend>Date de début du stage</legend>
-			<RadioIsDatePrecise
-				checked={displayDateDeDebutPrecise}
-				onChange={() => setDisplayDateDeDebutPrecise(!displayDateDeDebutPrecise)}
-			/>
-			<InputDateDeDebut
-				displayDateDeDebutPrecise={displayDateDeDebutPrecise}
-				informationsStage={props.informationsStage}
-			/>
-		</fieldset>
+				</Champ.Label>
+				<Champ.Input
+					render={TextArea}
+					name={StageEnum.DESCRIPTION}
+					defaultValue={props.informationsStage?.descriptionOffre}
+					required
+					rows={10}
+					minLength={200} />
+				<Champ.Error />
+			</Champ>
+			<fieldset className={styles.contenuDateDeDebut}>
+				<legend>Date de début du stage</legend>
+				<RadioIsDatePrecise
+					checked={displayDateDeDebutPrecise}
+					onChange={() => setDisplayDateDeDebutPrecise(!displayDateDeDebutPrecise)} />
+				<InputDateDeDebut
+					displayDateDeDebutPrecise={displayDateDeDebutPrecise}
+					informationsStage={props.informationsStage} />
+			</fieldset>
 
-		<Champ>
-			<Champ.Label>
+			<Champ>
+				<Champ.Label>
 				Durée du stage
-				<Champ.Label.Complement>Exemple : 3 mois</Champ.Label.Complement>
-			</Champ.Label>
-			<Champ.Input
-				className={styles.dureeStage}
-				render={SelectSimple}
-				required
-				optionsAriaLabel={'Durée'}
-				name={StageEnum.DUREE}
-				defaultValue={props.informationsStage?.dureeStage}
-			>
-				{dureeStageList.map((option) =>
-					<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
-				)}
-			</Champ.Input>
-			<Champ.Error/>
-		</Champ>
-	</>;
+					<Champ.Label.Complement>Exemple : 3 mois</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input
+					className={styles.dureeStage}
+					render={SelectSimple}
+					required
+					optionsAriaLabel={'Durée'}
+					name={StageEnum.DUREE}
+					defaultValue={props.informationsStage?.dureeStage}>
+					{dureeStageList.map((option) =>
+						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
+					)}
+				</Champ.Input>
+				<Champ.Error />
+			</Champ>
+		</>
+	);
 }
 
 function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposee.Stage | null }) {
-	return <>
-		<Champ>
-			<Champ.Label>
+	return (
+		<>
+			<Champ>
+				<Champ.Label>
 				Domaine de l’offre de stage
-				<Champ.Label.Complement>Exemple : Agriculture</Champ.Label.Complement>
-			</Champ.Label>
-			<Champ.Input
-				render={SelectSimple}
-				optionsAriaLabel={'Domaine'}
-				name={StageEnum.DOMAINE}
-				defaultValue={props.informationsStage?.domaineStage}
-			>
-				{domaineStage.map((option) =>
-					<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
-				)}
-			</Champ.Input>
-			<Champ.Error/>
-		</Champ>
+					<Champ.Label.Complement>Exemple : Agriculture</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input
+					render={SelectSimple}
+					optionsAriaLabel={'Domaine'}
+					name={StageEnum.DOMAINE}
+					defaultValue={props.informationsStage?.domaineStage}>
+					{domaineStage.map((option) =>
+						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
+					)}
+				</Champ.Input>
+				<Champ.Error />
+			</Champ>
 
-		<Champ>
-			<Champ.Label>
+			<Champ>
+				<Champ.Label>
 				Rémunération par mois
-				<Champ.Label.Complement>Exemple : 560</Champ.Label.Complement>
-			</Champ.Label>
-			<Champ.Input
-				render={InputWithUnit}
-				nomDeLUnite={'Euro'}
-				unite={'€'}
-				type="number"
-				name={StageEnum.REMUNERATION}
-				min={0}
-				defaultValue={props.informationsStage?.remunerationStage}
-			/>
-			<Champ.Error/>
-		</Champ>
+					<Champ.Label.Complement>Exemple : 560</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input
+					render={InputWithUnit}
+					nomDeLUnite={'Euro'}
+					unite={'€'}
+					type="number"
+					name={StageEnum.REMUNERATION}
+					min={0}
+					defaultValue={props.informationsStage?.remunerationStage} />
+				<Champ.Error />
+			</Champ>
 
-		<div>
-			<fieldset className={styles.contenuTeletravail}>
-				<legend>Télétravail possible</legend>
-				<div className={styles.inputTeletravail}>
-					<Radio name={StageEnum.TELETRAVAIL} value="true" label="Oui"
-								 defaultChecked={props.informationsStage?.teletravail === Teletravail.OUI}/>
-					<Radio name={StageEnum.TELETRAVAIL} value="false" label="Non"
-								 defaultChecked={props.informationsStage?.teletravail === Teletravail.NON}/>
-				</div>
-			</fieldset>
-		</div>
-	</>;
+			<div>
+				<fieldset className={styles.contenuTeletravail}>
+					<legend>Télétravail possible</legend>
+					<div className={styles.inputTeletravail}>
+						<Radio name={StageEnum.TELETRAVAIL}
+							value="true"
+							label="Oui"
+								 defaultChecked={props.informationsStage?.teletravail === Teletravail.OUI} />
+						<Radio name={StageEnum.TELETRAVAIL}
+							value="false"
+							label="Non"
+								 defaultChecked={props.informationsStage?.teletravail === Teletravail.NON} />
+					</div>
+				</fieldset>
+			</div>
+		</>
+	);
 }
 
 export default function StageDeposerOffreFormulaireÉtape2Stage() {
@@ -228,22 +228,21 @@ export default function StageDeposerOffreFormulaireÉtape2Stage() {
 	return (
 		<FormulaireÉtapeLayout
 			étape="Étape 2 sur 3 : Votre offre de stage"
-			urlÉtapePrécédente={URL_DEPOSER_OFFRE}
-		>
+			urlÉtapePrécédente={URL_DEPOSER_OFFRE}>
 			<StageDeposerOffreFormulaireLayout
 				inputsObligatoires={
-					<ChampsObligatoires informationsStage={informationsStage}/>
+					<ChampsObligatoires informationsStage={informationsStage} />
 				}
-				inputsFacultatifs={<ChampsFaculatifs informationsStage={informationsStage}/>}
+				inputsFacultatifs={<ChampsFaculatifs informationsStage={informationsStage} />}
 				formRef={formRef}
 				handleFormSubmit={handleFormSubmit}
-				boutonValidation={<ButtonComponent
-					icon={<Icon name="angle-right"/>}
-					iconPosition="right"
-					label="Suivant"
-					type="submit"
-				/>}
-			/>
+				boutonValidation={(
+					<ButtonComponent
+						icon={<Icon name="angle-right" />}
+						iconPosition="right"
+						label="Suivant"
+						type="submit" />
+				)} />
 		</FormulaireÉtapeLayout>
 	);
 };

@@ -25,7 +25,7 @@ describe('DetailOffreEmploiEurope', () => {
 			it('affiche le titre de l‘offre d‘emploi avec l‘attribut langue associé', () => {
 				const offreEmploiEurope = anEmploiEurope({ codeLangueDeLOffre: 'lb', titre: 'Boulanger' });
 
-				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope} />);
 
 				const titreDeLOffre = screen.getByRole('heading', { level: 1, name: 'Boulanger' });
 
@@ -35,7 +35,7 @@ describe('DetailOffreEmploiEurope', () => {
 			it('si la langue n‘est pas présente, affiche le titre avec l‘attribut langue inconnue', () => {
 				const offreEmploiEurope = anEmploiEurope({ codeLangueDeLOffre: undefined, titre: 'Boulanger' });
 
-				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope} />);
 
 				const titreDeLOffre = screen.getByRole('heading', { level: 1, name: 'Boulanger' });
 
@@ -47,7 +47,7 @@ describe('DetailOffreEmploiEurope', () => {
 		it('affiche \'Titre non renseigné\' si le titre de l‘offre d‘emploi est indisponible, sans l‘attribut langue', () => {
 			const offreEmploiEurope = anEmploiEurope({ titre: undefined });
 
-			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope} />);
 
 			const titreDeLOffre = screen.getByRole('heading', { level: 1, name: 'Offre d’emploi sans titre' });
 
@@ -59,7 +59,7 @@ describe('DetailOffreEmploiEurope', () => {
 		it('affiche \'Titre non renseigné\' si le titre de l‘offre d‘emploi est une chaine de caractères vides, sans l‘attribut langue', () => {
 			const offreEmploiEurope = anEmploiEurope({ titre: '' });
 
-			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope} />);
 
 			const titreDeLOffre = screen.getByRole('heading', { level: 1, name: 'Offre d’emploi sans titre' });
 
@@ -73,7 +73,7 @@ describe('DetailOffreEmploiEurope', () => {
 		it('affiche le bouton pour postuler à une offre si le lien est donné', () => {
 			const offreEmploiEurope = anEmploiEurope({ urlCandidature: 'https://urlDeCandidature.com' });
 
-			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope} />);
 
 
 			const linkCandidature = screen.getByRole('link', { name: 'Je postule sur Eures - nouvelle fenêtre' });
@@ -86,7 +86,7 @@ describe('DetailOffreEmploiEurope', () => {
 
 			const offreEmploiEurope = anEmploiEurope({ urlCandidature: undefined });
 
-			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope} />);
 
 
 			const linkCandidature = screen.queryByRole('link', { name: 'Je postule sur Eures' });
@@ -98,7 +98,7 @@ describe('DetailOffreEmploiEurope', () => {
 	it('affiche le nom de l‘entreprise si il est disponible', () => {
 		const offreEmploiEurope = anEmploiEurope({ nomEntreprise: 'Ma Mie d‘amour' });
 
-		render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+		render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope} />);
 
 		const nomDeLEntreprise = screen.getByText('Ma Mie d‘amour');
 
@@ -112,7 +112,7 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ typeContrat: 'Embauche directe' });
 
 			// WHEN
-			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope} />);
 
 			// THEN
 			const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
@@ -125,7 +125,7 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ tempsDeTravail: 'Temps partiel' });
 
 			// WHEN
-			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope} />);
 
 			// THEN
 			const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
@@ -138,7 +138,7 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ niveauEtudes: NiveauDEtudesLibelle.MASTER });
 
 			// WHEN
-			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope} />);
 
 			// THEN
 			const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
@@ -151,7 +151,7 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ niveauEtudes: NiveauDEtudesLibelle.NON_SPECIFIE });
 
 			// WHEN
-			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope} />);
 
 			// THEN
 			const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
@@ -165,7 +165,7 @@ describe('DetailOffreEmploiEurope', () => {
 				const offreEmploiEurope = anEmploiEurope({ localisations: [{ pays: 'France', ville: 'Paris' }] });
 
 				// WHEN
-				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope} />);
 
 				// THEN
 				const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
@@ -180,7 +180,7 @@ describe('DetailOffreEmploiEurope', () => {
 				const offreEmploiEurope = anEmploiEurope({ localisations: [{ pays: 'France', ville: undefined }] });
 
 				// WHEN
-				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope} />);
 
 				// THEN
 				const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
@@ -195,7 +195,7 @@ describe('DetailOffreEmploiEurope', () => {
 				const offreEmploiEurope = anEmploiEurope({ localisations: [{ pays: undefined, ville: 'Paris' }] });
 
 				// WHEN
-				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope} />);
 
 				// THEN
 				const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
@@ -214,7 +214,7 @@ describe('DetailOffreEmploiEurope', () => {
 				});
 
 				// WHEN
-				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope} />);
 
 				// THEN
 				const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
@@ -230,7 +230,7 @@ describe('DetailOffreEmploiEurope', () => {
 				const offreEmploiEurope = anEmploiEurope({ codeLangueDeLOffre: 'lb', description: 'Je suis la description' });
 
 				const { getByDescriptionTerm } = render(<DetailEmploiEurope
-					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+					annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 				expect(getByDescriptionTerm('Description du poste')).toHaveTextContent('Je suis la description');
 				expect(screen.getByText('Je suis la description')).toHaveAttribute('lang', 'lb');
@@ -242,7 +242,7 @@ describe('DetailOffreEmploiEurope', () => {
 					description: 'Je suis la description',
 				});
 
-				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope} />);
 
 				expect(screen.getByText('Je suis la description')).toHaveAttribute('lang', '');
 			});
@@ -251,7 +251,7 @@ describe('DetailOffreEmploiEurope', () => {
 				const offreEmploiEurope = anEmploiEurope({ description: '<a href=\'javascript:alert(1)\'>Je suis la description</a>' });
 
 				const { getByDescriptionTerm } = render(<DetailEmploiEurope
-					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+					annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 				expect(within(getByDescriptionTerm('Description du poste')).getByText('Je suis la description')).not.toHaveAttribute('href');
 			});
@@ -261,7 +261,7 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ description: undefined });
 
 			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 			expect(queryByDescriptionTerm('Description du poste')).not.toBeInTheDocument();
 		});
@@ -272,7 +272,7 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ listePermis: ['B', 'C'] });
 
 			const { getByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 			expect(getByDescriptionTerm('Type de permis requis')).toHaveTextContent('B, C');
 		});
@@ -281,7 +281,7 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ listePermis: [] });
 
 			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 			expect(queryByDescriptionTerm('Type de permis requis')).not.toBeInTheDocument();
 		});
@@ -294,7 +294,7 @@ describe('DetailOffreEmploiEurope', () => {
 				const offreEmploiEurope = anEmploiEurope({ localisations: [{ pays: 'France', ville: 'La Rochelle' }] });
 
 				const { getByDescriptionTerm } = render(<DetailEmploiEurope
-					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+					annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 				expect(getByDescriptionTerm('Localisation')).toHaveTextContent('France, La Rochelle');
 			});
@@ -303,7 +303,7 @@ describe('DetailOffreEmploiEurope', () => {
 				const offreEmploiEurope = anEmploiEurope({ localisations: [{ ville: 'La Rochelle' }] });
 
 				const { getByDescriptionTerm } = render(<DetailEmploiEurope
-					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+					annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 				expect(getByDescriptionTerm('Localisation')).toHaveTextContent('La Rochelle');
 			});
@@ -312,7 +312,7 @@ describe('DetailOffreEmploiEurope', () => {
 				const offreEmploiEurope = anEmploiEurope({ localisations: [{ pays: 'France' }] });
 
 				const { getByDescriptionTerm } = render(<DetailEmploiEurope
-					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+					annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 				expect(getByDescriptionTerm('Localisation')).toHaveTextContent('France');
 			});
@@ -330,7 +330,7 @@ describe('DetailOffreEmploiEurope', () => {
 
 				// When
 				const { getByDescriptionTerm } = render(<DetailEmploiEurope
-					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+					annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 
 				// Then
@@ -350,7 +350,7 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ localisations: [] });
 
 			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 			expect(queryByDescriptionTerm('Localisation')).not.toBeInTheDocument();
 			expect(queryByDescriptionTerm('Localisations')).not.toBeInTheDocument();
@@ -362,7 +362,7 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ langueDeTravail: ['Anglais', 'Français'] });
 
 			const { getByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 			expect(getByDescriptionTerm('Langue de travail')).toHaveTextContent('Anglais, Français');
 		});
@@ -371,7 +371,7 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ langueDeTravail: [] });
 
 			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 			expect(queryByDescriptionTerm('Langue de travail')).not.toBeInTheDocument();
 		});
@@ -400,7 +400,7 @@ describe('DetailOffreEmploiEurope', () => {
 			});
 
 			const { getByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 			const competencesLinguistiquesDescription = getByDescriptionTerm('Compétences linguistiques requises');
 			expect(competencesLinguistiquesDescription).toHaveTextContent('français (B2 - avancé)');
@@ -412,7 +412,7 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ competencesLinguistiques: [] });
 
 			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 			expect(queryByDescriptionTerm('Compétences linguistiques requises')).not.toBeInTheDocument();
 		});
@@ -423,7 +423,7 @@ describe('DetailOffreEmploiEurope', () => {
 			const offreEmploiEurope = anEmploiEurope({ laPlusLongueExperienceNecessaire: undefined });
 
 			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 			expect(queryByDescriptionTerm('Expérience')).not.toBeInTheDocument();
 		});
@@ -436,7 +436,7 @@ describe('DetailOffreEmploiEurope', () => {
 			});
 
 			const { getByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 			expect(getByDescriptionTerm('Expérience')).toHaveTextContent('Aucune expérience requise');
 		});
@@ -450,7 +450,7 @@ describe('DetailOffreEmploiEurope', () => {
 				});
 
 				const { getByDescriptionTerm } = render(<DetailEmploiEurope
-					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+					annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('1 mois');
 			});
@@ -463,7 +463,7 @@ describe('DetailOffreEmploiEurope', () => {
 				});
 
 				const { getByDescriptionTerm } = render(<DetailEmploiEurope
-					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+					annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('5 mois');
 			});
@@ -479,7 +479,7 @@ describe('DetailOffreEmploiEurope', () => {
 				});
 
 				const { getByDescriptionTerm } = render(<DetailEmploiEurope
-					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+					annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('1 an');
 			});
@@ -493,7 +493,7 @@ describe('DetailOffreEmploiEurope', () => {
 				});
 
 				const { getByDescriptionTerm } = render(<DetailEmploiEurope
-					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+					annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('5 ans');
 			});
@@ -509,7 +509,7 @@ describe('DetailOffreEmploiEurope', () => {
 				});
 
 				const { getByDescriptionTerm } = render(<DetailEmploiEurope
-					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+					annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('1 semaine');
 			});
@@ -523,7 +523,7 @@ describe('DetailOffreEmploiEurope', () => {
 				});
 
 				const { getByDescriptionTerm } = render(<DetailEmploiEurope
-					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+					annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('5 semaines');
 			});
@@ -539,7 +539,7 @@ describe('DetailOffreEmploiEurope', () => {
 				});
 
 				const { getByDescriptionTerm } = render(<DetailEmploiEurope
-					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+					annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('1 jour');
 			});
@@ -553,7 +553,7 @@ describe('DetailOffreEmploiEurope', () => {
 				});
 
 				const { getByDescriptionTerm } = render(<DetailEmploiEurope
-					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+					annonceEmploiEurope={offreEmploiEurope} />, { queries });
 
 				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('5 jours');
 			});

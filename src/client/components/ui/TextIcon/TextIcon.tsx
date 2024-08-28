@@ -15,7 +15,7 @@ export function TextIcon({ children, icon, className, iconPosition = 'right' }: 
 	return (
 		<span className={_classNames}>
 			{
-				iconPosition === 'left' ? <><Icon name={icon}/> {children}</> : <>{children} <Icon name={icon}/></>
+				iconPosition === 'left' ? <><Icon name={icon} /> {children}</> : <>{children} <Icon name={icon} /></>
 			}
 		</span>
 	);

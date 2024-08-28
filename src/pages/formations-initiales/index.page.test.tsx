@@ -27,7 +27,7 @@ describe('quand le feature flip n‘est pas actif', () => {
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
 				formationInitialeService={aFormationInitialeService()}>
-				<FormationsInitialesPage/>
+				<FormationsInitialesPage />
 			</DependenciesProvider>,
 		);
 
@@ -53,7 +53,7 @@ describe('quand le feature flip est actif', () => {
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
 				formationInitialeService={aFormationInitialeService()}>
-				<FormationsInitialesPage/>
+				<FormationsInitialesPage />
 			</DependenciesProvider> );
 
 		const rechercherButton = screen.getByRole('button', { name: 'Rechercher' });
@@ -71,7 +71,7 @@ describe('quand le feature flip est actif', () => {
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
 				formationInitialeService={aFormationInitialeService()}>
-				<FormationsInitialesPage/>
+				<FormationsInitialesPage />
 			</DependenciesProvider>,
 		);
 
@@ -87,7 +87,7 @@ describe('quand le feature flip est actif', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService} formationInitialeService={aFormationInitialeService()}>
-				<FormationsInitialesPage/>
+				<FormationsInitialesPage />
 			</DependenciesProvider>,
 		);
 		await waitFor(() => {
@@ -104,7 +104,7 @@ describe('quand le feature flip est actif', () => {
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}
 				formationInitialeService={aFormationInitialeService()}>
-				<FormationsInitialesPage/>
+				<FormationsInitialesPage />
 			</DependenciesProvider>);
 
 		const heading = screen.getByRole('heading', { level: 1 });

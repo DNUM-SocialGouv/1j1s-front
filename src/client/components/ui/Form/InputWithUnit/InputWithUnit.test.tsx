@@ -26,7 +26,7 @@ describe('<InputWithUnit', () => {
 
 	it('accepte une ref', () => {
 		const ref = jest.fn();
-		render(<InputWithUnit unite={'€'} nomDeLUnite={'Euro'} ref={ref}/>);
+		render(<InputWithUnit unite={'€'} nomDeLUnite={'Euro'} ref={ref} />);
 
 		expect(ref).toHaveBeenCalledWith(expect.any(HTMLInputElement));
 	});
@@ -34,7 +34,7 @@ describe('<InputWithUnit', () => {
 	it('merge la description accessible avec celle donnée en props', () => {
 		render(<>
 			<div id={'id'}>test</div>
-			<InputWithUnit unite={'€'} nomDeLUnite={'Euro'} aria-describedby={'id'}/>
+			<InputWithUnit unite={'€'} nomDeLUnite={'Euro'} aria-describedby={'id'} />
 		</>);
 
 		expect(screen.getByRole('textbox')).toHaveAccessibleDescription('€ test');

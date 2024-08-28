@@ -22,6 +22,6 @@ export function EtiquettesFiltreMission() {
 	}
 
 	return (
-		<TagList list={filtreList} aria-label="Filtres de la recherche"/>
+		<TagList list={filtreList} aria-label="Filtres de la recherche" />
 	);
 }

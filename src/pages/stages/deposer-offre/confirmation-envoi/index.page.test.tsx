@@ -16,7 +16,7 @@ describe('<DeposerOffreStageEnvoyePage />', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<StageDeposerOffreFormulaireEnvoye/>
+				<StageDeposerOffreFormulaireEnvoye />
 			</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -26,8 +26,7 @@ describe('<DeposerOffreStageEnvoyePage />', () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<StageDeposerOffreFormulaireEnvoye />
 			</DependenciesProvider>,
 		);

@@ -16,7 +16,7 @@ describe('FormulaireRechercheFormationInitiale', () => {
 	it('Je vois les champs du formulaire de recherche', () => {
 		mockUseRouter({});
 
-		render(<FormulaireRechercheFormationInitiale/>);
+		render(<FormulaireRechercheFormationInitiale />);
 		const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Domaine, mot-clé… Exemples: boulanger, informatique' });
 		expect(inputRechercheMotCle).toBeVisible();
 
@@ -28,7 +28,7 @@ describe('FormulaireRechercheFormationInitiale', () => {
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
 
-			render(<FormulaireRechercheFormationInitiale/>);
+			render(<FormulaireRechercheFormationInitiale />);
 			const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Domaine, mot-clé… Exemples: boulanger, informatique' });
 			fireEvent.change(inputRechercheMotCle, { target: { value: 'boulanger' } });
 
@@ -43,7 +43,7 @@ describe('FormulaireRechercheFormationInitiale', () => {
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
 
-			render(<FormulaireRechercheFormationInitiale/>);
+			render(<FormulaireRechercheFormationInitiale />);
 
 			const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 			fireEvent.click(buttonRechercher);
@@ -58,7 +58,7 @@ describe('FormulaireRechercheFormationInitiale', () => {
 			},
 		});
 
-		render(<FormulaireRechercheFormationInitiale/>);
+		render(<FormulaireRechercheFormationInitiale />);
 
 		const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Domaine, mot-clé… Exemples: boulanger, informatique' });
 		expect(inputRechercheMotCle).toHaveValue('boulanger');

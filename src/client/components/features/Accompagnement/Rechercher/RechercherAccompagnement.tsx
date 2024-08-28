@@ -84,7 +84,7 @@ export function RechercherAccompagnement() {
 
 	const étiquettesRecherche = useMemo(() => {
 		if (accompagnementQuery.ville && accompagnementQuery.codePostal) {
-			return <TagList list={[`${accompagnementQuery.ville} (${accompagnementQuery.codePostal})`]} aria-label="Filtres de la recherche"/>;
+			return <TagList list={[`${accompagnementQuery.ville} (${accompagnementQuery.codePostal})`]} aria-label="Filtres de la recherche" />;
 		} else {
 			return undefined;
 		}
@@ -95,21 +95,19 @@ export function RechercherAccompagnement() {
 			<Head
 				title={title || 'Trouver un accompagnement | 1jeune1solution'}
 				description="Trouver un accompagnement"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<RechercherSolutionLayout
-					banniere={<BannièreAccompagnement/>}
+					banniere={<BannièreAccompagnement />}
 					erreurRecherche={erreurRecherche}
 					etiquettesRecherche={étiquettesRecherche}
-					formulaireRecherche={<FormulaireRechercheAccompagnement/>}
+					formulaireRecherche={<FormulaireRechercheAccompagnement />}
 					isChargement={isLoading}
 					isEtatInitial={empty(accompagnementQuery)}
 					messageResultatRecherche={messageRésultatRecherche}
 					nombreTotalSolutions={établissementAccompagnementList?.length || 0}
-					listeSolutionElement={<ListeÉtablissementAccompagnement résultatList={établissementAccompagnementList}/>}
-				/>
-				<EnTete heading="Découvrez d’autres services faits pour vous"/>
+					listeSolutionElement={<ListeÉtablissementAccompagnement résultatList={établissementAccompagnementList} />} />
+				<EnTete heading="Découvrez d’autres services faits pour vous" />
 				<ServiceCardList>
 					<MissionsLocalesPartner />
 					<InfoJeunesPartner />
@@ -146,7 +144,7 @@ function ListeÉtablissementAccompagnement({ résultatList }: ListeRésultatProp
 		<ListeRésultatsRechercherSolution aria-label="Établissements d‘accompagnement">
 			{résultatList.map((établissementAccompagnement: EtablissementAccompagnement) => (
 				<li key={établissementAccompagnement.id}>
-					<RésultatRechercherAccompagnement etablissement={établissementAccompagnement}/>
+					<RésultatRechercherAccompagnement etablissement={établissementAccompagnement} />
 				</li>
 			))}
 		</ListeRésultatsRechercherSolution>

@@ -72,14 +72,15 @@ export const Tab = React.forwardRef<HTMLButtonElement, TabProps>(function Tab(pr
 		...rest
 	} = props;
 
-	return <button
-		ref={ref}
-		className={styles.tabLabel}
-		role="tab"
-		{...rest}
-	>
-		{children}
-	</button>;
+	return (
+		<button
+			ref={ref}
+			className={styles.tabLabel}
+			role="tab"
+			{...rest}>
+			{children}
+		</button>
+	);
 });
 
 type TabPanelProps = React.ComponentPropsWithoutRef<'div'>
@@ -91,15 +92,17 @@ export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(function
 	} = props;
 	const { indexTabActive } = useTabContext();
 
-	return <div
-		className={classNames(className, styles.tabPanel)}
-		ref={ref}
-		role="tabpanel"
-		aria-labelledby={`tab-${indexTabActive}`}
-		id={`panel-${indexTabActive}`}
-		{...rest}>
-		{children}
-	</div>;
+	return (
+		<div
+			className={classNames(className, styles.tabPanel)}
+			ref={ref}
+			role="tabpanel"
+			aria-labelledby={`tab-${indexTabActive}`}
+			id={`panel-${indexTabActive}`}
+			{...rest}>
+			{children}
+		</div>
+	);
 });
 
 function getHtmlElement(element: Element | null | undefined) {

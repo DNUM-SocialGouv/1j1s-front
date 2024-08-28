@@ -29,14 +29,13 @@ export default function AnnoncesPage() {
 		return transformerMeilisearchLogementsItems(items);
 	}, []);
 
-	if (!displayAnnoncesLogement || !indexAnnoncesLogement) return <ErrorUnavailableService/>;
+	if (!displayAnnoncesLogement || !indexAnnoncesLogement) return <ErrorUnavailableService />;
 	return (
 		<>
 			<Head
 				title="Rechercher un logement | 1jeune1solution"
 				description="Logement étudiant et location jeune actif partout en France"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<InstantSearchLayout
 				meilisearchIndex={indexAnnoncesLogement}
 				nombreDeResultatParPage={ANNONCE_PAR_PAGE}
@@ -48,8 +47,7 @@ export default function AnnoncesPage() {
 				nombreDeSkeleton={3}
 				resultatDeRecherche={AnnonceDeLogement}
 				tagList={<MeilisearchTagsList transformItems={transformItems} />}
-				isAffichageListeDeResultatsDesktopDirectionRow={false}
-			/>
+				isAffichageListeDeResultatsDesktopDirectionRow={false} />
 		</>
 	);
 }

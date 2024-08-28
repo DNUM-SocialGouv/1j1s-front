@@ -20,7 +20,7 @@ describe('<ConsulterOffreEmploiPage />', () => {
 		const offre = anOffreEmploi();
 
 		const { container } =			render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<ConsulterOffreEmploiPage offreEmploi={offre}/>
+			<ConsulterOffreEmploiPage offreEmploi={offre} />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -33,8 +33,7 @@ describe('<ConsulterOffreEmploiPage />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<ConsulterOffreEmploiPage offreEmploi={offre} />);
 			</DependenciesProvider>);
 

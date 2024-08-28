@@ -32,19 +32,18 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
 		<>
 			<Head
 				title={`${ficheMetier.nomMetier.charAt(0).toUpperCase()}${ficheMetier.nomMetier.slice(1)} | 1jeune1solution`}
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<Container className={styles.container}>
-					<BackButton className={styles.backButton}/>
-					<ConsulterFicheMétier ficheMetier={ficheMetier}/>
+					<BackButton className={styles.backButton} />
+					<ConsulterFicheMétier ficheMetier={ficheMetier} />
 				</Container>
 				<div className={'background-white-lilac'}>
-					<EnTete heading="Informations fournies par ONISEP"/>
+					<EnTete heading="Informations fournies par ONISEP" />
 					<Container className={styles.container}>
-						<OnisepGeneralPartner headingLevel={'h3'}/>
+						<OnisepGeneralPartner headingLevel={'h3'} />
 						<div className={styles.partnerInfo}>
-							<Icon name="information" className={styles.partnerInfoIcon}/>
+							<Icon name="information" className={styles.partnerInfoIcon} />
 							<span>Idéo-fiches métiers, Onisep, 14/09/2022, sous licence ODBL</span>
 						</div>
 					</Container>

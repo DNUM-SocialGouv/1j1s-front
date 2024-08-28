@@ -34,8 +34,7 @@ export default function ConsulterArticlePage({ faqRéponse  }: ConsulterFAQRépo
 		<>
 			<Head
 				title={`${faqRéponse.problématique} | 1jeune1solution`}
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<ConsulterArticle article={faqRéponseMapToArticleFormat(faqRéponse)} />
 		</>
 	);

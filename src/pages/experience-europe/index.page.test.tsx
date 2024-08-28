@@ -23,7 +23,7 @@ describe('Page Europe', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<EuropePage/>
+				<EuropePage />
 			</DependenciesProvider> );
 		
 		expect(container.outerHTML).toHTMLValidate();
@@ -35,8 +35,7 @@ describe('Page Europe', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<EuropePage />);
 			</DependenciesProvider>);
 
@@ -46,8 +45,7 @@ describe('Page Europe', () => {
 	it('affiche le contenu de la page', () => {
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<EuropePage />
 			</DependenciesProvider>,
 		);

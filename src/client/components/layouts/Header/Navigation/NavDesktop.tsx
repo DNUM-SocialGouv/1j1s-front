@@ -36,8 +36,8 @@ export function NavDesktop() {
 						<NavItemWithSubItems className={styles.navItem}  navigationItemWithChildren={orientationNav} />
 						<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={engagementNav} />
 						<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={logementsNav} />
-						<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={accompagnementNav}/>
-						<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={aidesEtOutilsNav}/>
+						<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={accompagnementNav} />
+						<NavItemWithSubItems className={styles.navItem} navigationItemWithChildren={aidesEtOutilsNav} />
 						<NavDesktopEmployeur item={employeurNav} />
 					</ul>
 				</nav>

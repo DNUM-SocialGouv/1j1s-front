@@ -19,7 +19,7 @@ describe('Header', () => {
 		});
 		it('affiche le composant Header', async () => {
 			mockUseRouter({ pathname: '/' });
-			render(<Header/>);
+			render(<Header />);
 
 			const header = screen.getByRole('banner');
 			expect(header).toBeVisible();
@@ -27,7 +27,7 @@ describe('Header', () => {
 
 		it('affiche le logo de la République Française', () => {
 			mockUseRouter({ pathname: '/' });
-			render(<Header/>);
+			render(<Header />);
 
 			const logo = screen.getByAltText('République Française, Liberté, Egalité, Fraternité');
 			expect(logo).toBeVisible();
@@ -35,7 +35,7 @@ describe('Header', () => {
 
 		it('affiche un lien vers l’accueil', () => {
 			mockUseRouter({ pathname: '/' });
-			render(<Header/>);
+			render(<Header />);
 
 			const accueilLink = screen.getByRole('link', { name: '1jeune1solution (retour à l\'accueil)' });
 			expect(accueilLink).toBeVisible();
@@ -45,7 +45,7 @@ describe('Header', () => {
 			it('affiche la navigation avec le role correspondant', async () => {
 				const user = userEvent.setup();
 				mockUseRouter({ pathname: '/' });
-				render(<Header/>);
+				render(<Header />);
 
 				const header = screen.getByRole('banner');
 				const openNavButton = within(header).getByRole('button', { name: 'Offres' });
@@ -59,7 +59,7 @@ describe('Header', () => {
 			it('affiche le lien "Découvrir et trouver sa voie avec l’apprentissage" dans le menu des formations et orientations', async () => {
 				// GIVEN
 				mockUseRouter({ pathname: '/' });
-				render(<Header/>);
+				render(<Header />);
 				const navigationDesktop = screen.getByTestId('navigation-desktop');
 				const formationsEtOrientationNavItem = within(navigationDesktop).getByRole('button', { name: /^formations et orientation$/i });
 				const user = userEvent.setup();
@@ -76,7 +76,7 @@ describe('Header', () => {
 		describe('quand la page courante est "Accueil"', () => {
 			it('affiche le composant Header avec la navigation active sur "Accueil"', async () => {
 				mockUseRouter({ pathname: '/' });
-				render(<Header/>);
+				render(<Header />);
 
 				const navigationDesktop = screen.getByTestId('navigation-desktop');
 				const accueilNavItem = within(navigationDesktop).getByText('Accueil');
@@ -92,7 +92,7 @@ describe('Header', () => {
 			it('affiche le composant Header avec la navigation active sur "Emplois"', async () => {
 				const user = userEvent.setup();
 				mockUseRouter({ pathname: '/emplois' });
-				render(<Header/>);
+				render(<Header />);
 
 				const navigationDesktop = screen.getByTestId('navigation-desktop');
 				const accueilNavItem = within(navigationDesktop).getByText('Accueil');
@@ -117,7 +117,7 @@ describe('Header', () => {
 				mockUseRouter({ pathname: '/' });
 
 				// When
-				render(<Header/>);
+				render(<Header />);
 
 				// Then
 				const encartCampagne = screen.getByTestId('desktop-encart-campagne');
@@ -136,7 +136,7 @@ describe('Header', () => {
 				mockUseRouter({ pathname: '/' });
 
 				// When
-				render(<Header/>);
+				render(<Header />);
 
 				// Then
 				const encartCampagne = screen.queryByTestId('desktop-encart-campagne');
@@ -148,7 +148,7 @@ describe('Header', () => {
 			// GIVEN
 			mockUseRouter({ pathname: '/' });
 			process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '1';
-			render(<Header/>);
+			render(<Header />);
 			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
 			const user = userEvent.setup();
 
@@ -164,7 +164,7 @@ describe('Header', () => {
 			// GIVEN
 			mockUseRouter({ pathname: '/' });
 			process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '0';
-			render(<Header/>);
+			render(<Header />);
 			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
 			const user = userEvent.setup();
 
@@ -180,7 +180,7 @@ describe('Header', () => {
 			mockUseRouter({ pathname: '/' });
 			process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '1';
 			process.env.NEXT_PUBLIC_STAGES_SECONDE_URL = 'https://www.monstageenligne.example/';
-			render(<Header/>);
+			render(<Header />);
 			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
 			const user = userEvent.setup();
 
@@ -197,7 +197,7 @@ describe('Header', () => {
 			mockUseRouter({ pathname: '/' });
 			process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '0';
 			process.env.NEXT_PUBLIC_STAGES_SECONDE_URL = 'https://www.monstageenligne.example/';
-			render(<Header/>);
+			render(<Header />);
 			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
 			const user = userEvent.setup();
 
@@ -213,7 +213,7 @@ describe('Header', () => {
 			mockUseRouter({ pathname: '/' });
 			process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '1';
 			process.env.NEXT_PUBLIC_STAGES_SECONDE_URL = '';
-			render(<Header/>);
+			render(<Header />);
 			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
 			const user = userEvent.setup();
 
@@ -231,7 +231,7 @@ describe('Header', () => {
 				process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE = '1';
 
 				// WHEN
-				render(<Header/>);
+				render(<Header />);
 
 				// THEN
 				const lienEnquete = screen.getByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes - nouvelle fenêtre' });
@@ -246,7 +246,7 @@ describe('Header', () => {
 				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_URL = '';
 
 				// WHEN
-				render(<Header/>);
+				render(<Header />);
 
 				// THEN
 				const lienEnquete = screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes' });
@@ -260,7 +260,7 @@ describe('Header', () => {
 				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeY3bU5cQlKNCO6B5VRJhPe7j6LwOXLXBikLrzKVAEFkUQPYw';
 
 				// WHEN
-				render(<Header/>);
+				render(<Header />);
 
 				// THEN
 				const lienEnquete = screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes' });
@@ -279,7 +279,7 @@ describe('Header', () => {
 		describe('Par défaut', () => {
 			it('n‘affiche pas la navigation mobile', () => {
 				mockUseRouter({ pathname: '/' });
-				render(<Header/>);
+				render(<Header />);
 				const menu = screen.queryByRole('navigation', { name: 'menu principal' });
 				expect(menu).not.toBeInTheDocument();
 			});
@@ -295,7 +295,7 @@ describe('Header', () => {
 						mockUseRouter({ pathname: '/' });
 
 						// When
-						render(<Header/>);
+						render(<Header />);
 
 						// Then
 						const encartCampagne = screen.getByTestId('mobile-encart-campagne');
@@ -313,7 +313,7 @@ describe('Header', () => {
 						mockUseRouter({ pathname: '/' });
 
 						// When
-						render(<Header/>);
+						render(<Header />);
 
 						// Then
 						const encartCampagne = screen.queryByTestId('mobile-encart-campagne');
@@ -326,7 +326,7 @@ describe('Header', () => {
 			it('ouvre le menu de navigation mobile dans une modale', async () => {
 				mockUseRouter({ pathname: '/' });
 				const user = userEvent.setup();
-				render(<Header/>);
+				render(<Header />);
 				const burgerMenu = screen.getByRole('navigation', { name: 'ouvrir le menu principal' });
 				const button = within(burgerMenu).getByRole('button', { name: 'Menu' });
 				await user.click(button);
@@ -339,7 +339,7 @@ describe('Header', () => {
 			it('positionne le menu dans le bon sous menu de niveau 1', async () => {
 				const user = userEvent.setup();
 				mockUseRouter({ pathname: '/decouvrir-les-metiers' });
-				render(<Header/>);
+				render(<Header />);
 				const button = screen.getByRole('button', { name: 'Menu' });
 				await user.click(button);
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
@@ -352,7 +352,7 @@ describe('Header', () => {
 			it('positionne le menu dans le bon sous menu de niveau 2', async () => {
 				const user = userEvent.setup();
 				mockUseRouter({ pathname: '/je-deviens-mentor' });
-				render(<Header/>);
+				render(<Header />);
 				const button = screen.getByRole('button', { name: 'Menu' });
 				await user.click(button);
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
@@ -365,7 +365,7 @@ describe('Header', () => {
 			it('positionne le menu dans le bon sous menu de niveau 2 et permet de retourner en arrière', async () => {
 				const user = userEvent.setup();
 				mockUseRouter({ pathname: '/je-deviens-mentor' });
-				render(<Header/>);
+				render(<Header />);
 				const burger = screen.getByRole('button', { name: 'Menu' });
 				await user.click(burger);
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
@@ -382,7 +382,7 @@ describe('Header', () => {
 			it('ferme les autres catégories', async () => {
 				const user = userEvent.setup();
 				mockUseRouter({ pathname: '/' });
-				render(<Header/>);
+				render(<Header />);
 				const burgerMenu = screen.getByRole('navigation', { name: 'ouvrir le menu principal' });
 				const button = within(burgerMenu).getByRole('button', { name: 'Menu' });
 				await user.click(button);
@@ -403,7 +403,7 @@ describe('Header', () => {
 				const user = userEvent.setup();
 				mockUseRouter({ pathname: '/' });
 				render(
-					<Header/>,
+					<Header />,
 				);
 				const button = screen.getByRole('button', { name: 'Menu' });
 				await user.click(button);
@@ -423,7 +423,7 @@ describe('Header', () => {
 				// Given
 				mockUseRouter({ pathname: '/' });
 				render(
-					<Header/>,
+					<Header />,
 				);
 
 				const buttonNavEmployeurLabel = 'Je suis employeur';
@@ -448,7 +448,7 @@ describe('Header', () => {
 				// Given
 				mockUseRouter({ pathname: '/' });
 				render(
-					<Header/>,
+					<Header />,
 				);
 				const burgerMenu = screen.getByRole('button', { name: 'Menu' });
 				await userEvent.click(burgerMenu);

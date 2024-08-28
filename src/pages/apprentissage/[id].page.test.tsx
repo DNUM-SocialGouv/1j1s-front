@@ -42,7 +42,7 @@ describe('<AnnonceAlternancePage />', () => {
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()}>
-			<AnnonceAlternancePage alternanceSerialized={alternanceSerialized}/>
+			<AnnonceAlternancePage alternanceSerialized={alternanceSerialized} />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();

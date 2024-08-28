@@ -6,7 +6,7 @@ import analytics from '~/pages/benevolat/index.analytics';
 export default function RechercherMissionBénévolatPage() {
 	useAnalytics(analytics);
 
-	return <RechercherMission category={EngagementCategory.BENEVOLAT}/>;
+	return <RechercherMission category={EngagementCategory.BENEVOLAT} />;
 }
 
 export function getServerSideProps() {

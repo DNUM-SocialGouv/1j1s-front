@@ -22,7 +22,7 @@ describe('<App />', () => {
 			{ getLayout: (page: React.ReactElement) => <>{page}</> },
 		);
 
-		render(<App pageProps={{}} Component={Component} router={router}/>);
+		render(<App pageProps={{}} Component={Component} router={router} />);
 
 		const cible = screen.getByText('Cible');
 		await waitFor(() => expect(cible).toHaveFocus());

@@ -16,7 +16,7 @@ describe('<JeRecruteAfprPoeiPage />', () => {
 		mockSmallScreen();
 
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<JeRecruteAfprPoeiPage/>
+			<JeRecruteAfprPoeiPage />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -27,8 +27,7 @@ describe('<JeRecruteAfprPoeiPage />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<JeRecruteAfprPoeiPage />
 			</DependenciesProvider>,
 		);

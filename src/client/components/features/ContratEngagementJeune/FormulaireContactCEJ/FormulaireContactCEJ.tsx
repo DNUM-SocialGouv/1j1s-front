@@ -53,15 +53,14 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 		<form
 			className={styles.formulaire}
 			onSubmit={envoyerFormulaireDeContact}
-			aria-label="formulaire cej"
-		>
+			aria-label="formulaire cej">
 			<Champ>
 				<Champ.Label>
 					Prénom
 					<Champ.Label.Complement>Exemple : Jean</Champ.Label.Complement>
 				</Champ.Label>
-				<Champ.Input name="firstname" render={Input} required autoComplete="given-name"/>
-				<Champ.Error/>
+				<Champ.Input name="firstname" render={Input} required autoComplete="given-name" />
+				<Champ.Error />
 			</Champ>
 
 			<Champ>
@@ -69,8 +68,8 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 					Nom
 					<Champ.Label.Complement>Exemple : Dupont</Champ.Label.Complement>
 				</Champ.Label>
-				<Champ.Input name="lastname" render={Input} required autoComplete="family-name"/>
-				<Champ.Error/>
+				<Champ.Input name="lastname" render={Input} required autoComplete="family-name" />
+				<Champ.Error />
 			</Champ>
 
 			<Champ>
@@ -78,8 +77,8 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 					Adresse e-mail
 					<Champ.Label.Complement>Exemple : jean.dupont@gmail.com</Champ.Label.Complement>
 				</Champ.Label>
-				<Champ.Input name="mail" render={Input} required pattern={emailRegex} type="email" autoComplete="email"/>
-				<Champ.Error/>
+				<Champ.Input name="mail" render={Input} required pattern={emailRegex} type="email" autoComplete="email" />
+				<Champ.Error />
 			</Champ>
 
 			<Champ>
@@ -87,8 +86,8 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 					Téléphone
 					<Champ.Label.Complement>Exemple : 0606060606</Champ.Label.Complement>
 				</Champ.Label>
-				<Champ.Input name="phone" render={Input} required pattern={telFrRegex} type="tel" autoComplete="tel-national"/>
-				<Champ.Error/>
+				<Champ.Input name="phone" render={Input} required pattern={telFrRegex} type="tel" autoComplete="tel-national" />
+				<Champ.Error />
 			</Champ>
 
 			<Champ>
@@ -97,28 +96,26 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 					render={SelectSimple}
 					required
 					optionsAriaLabel={'années'}
-					name="age"
-				>
+					name="age">
 					{ageOptions.map((option) =>
 						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 					)}
 				</Champ.Input>
-				<Champ.Error/>
+				<Champ.Error />
 			</Champ>
 
 			<ComboboxCommune
 				required
 				label="Ville"
-				name="commune"
-			/>
+				name="commune" />
 
 			{isLoading
-				? <LoadingButton className={styles.formulaireButton}/>
-				: <ButtonComponent className={styles.formulaireButton} label="Envoyer la demande" type="submit"/>
+				? <LoadingButton className={styles.formulaireButton} />
+				: <ButtonComponent className={styles.formulaireButton} label="Envoyer la demande" type="submit" />
 			}
 
 			<div className={styles.formulaireDécharge}>
-				<DéchargeRGPD/>
+				<DéchargeRGPD />
 			</div>
 		</form>
 	);

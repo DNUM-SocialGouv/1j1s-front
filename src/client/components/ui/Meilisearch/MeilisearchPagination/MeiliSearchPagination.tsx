@@ -48,8 +48,7 @@ export function MeiliSearchPagination(props: MeilisearchPaginationProps & UsePag
 				numberOfPageList={numberOfPageList}
 				lastPage={lastPage}
 				isFirstPage={isFirstPage}
-				createURL={createURL}
-			/>
+				createURL={createURL} />
 		</div>
 	);
 }

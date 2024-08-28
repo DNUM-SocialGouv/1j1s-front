@@ -365,9 +365,10 @@ describe('<SelectMultiple/>', () => {
 			const user = userEvent.setup();
 			let selectValues;
 
-			render(<form aria-label="form" onSubmit={(formEvent) => {
-				selectValues = getAllFormData(formEvent, 'name');
-			}}>
+			render(<form aria-label="form"
+				onSubmit={(formEvent) => {
+					selectValues = getAllFormData(formEvent, 'name');
+				}}>
 				<SelectMultiple optionsAriaLabel={'options'} name={'name'}>
 					<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 					<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
@@ -413,9 +414,10 @@ describe('<SelectMultiple/>', () => {
 				const user = userEvent.setup();
 				let selectValues;
 
-				render(<form aria-label="form" onSubmit={(formEvent) => {
-					selectValues = getAllFormData(formEvent, 'name');
-				}}>
+				render(<form aria-label="form"
+					onSubmit={(formEvent) => {
+						selectValues = getAllFormData(formEvent, 'name');
+					}}>
 					<SelectMultiple optionsAriaLabel={'options'} name={'name'} defaultValue={['1']}>
 						<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 						<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
@@ -436,10 +438,12 @@ describe('<SelectMultiple/>', () => {
 			it('lorsque l‘utilisateur fait "Espace", l‘option qui a le focus visuel est ajoutée aux options séléctionnés et la liste d‘option ne se ferme pas', async () => {
 				const user = userEvent.setup();
 				let selectValues;
-				render(<form aria-label="form" onSubmit={(formEvent) => {
-					selectValues = getAllFormData(formEvent, 'name');
-				}}>
-					<SelectMultiple optionsAriaLabel={'options'} name={'name'}
+				render(<form aria-label="form"
+					onSubmit={(formEvent) => {
+						selectValues = getAllFormData(formEvent, 'name');
+					}}>
+					<SelectMultiple optionsAriaLabel={'options'}
+						name={'name'}
 						defaultValue={['1']}>
 						<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 						<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
@@ -487,7 +491,7 @@ describe('<SelectMultiple/>', () => {
 							<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 							<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
 						</SelectMultiple>
-						<input aria-label={'input label'}/>
+						<input aria-label={'input label'} />
 					</form>);
 
 					await user.tab();
@@ -508,7 +512,7 @@ describe('<SelectMultiple/>', () => {
 							<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 							<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
 						</SelectMultiple>
-						<input aria-label={'input label'}/>
+						<input aria-label={'input label'} />
 					</form>);
 
 					await user.tab();
@@ -526,10 +530,12 @@ describe('<SelectMultiple/>', () => {
 			it('lorsque l‘utilisateur fait "echap", ferme la liste d‘option sans séléctionner l‘option qui a le focus visuel', async () => {
 				const user = userEvent.setup();
 				let selectValues;
-				render(<form aria-label="form" onSubmit={(formEvent) => {
-					selectValues = getAllFormData(formEvent, 'name');
-				}}>
-					<SelectMultiple optionsAriaLabel={'options'} name={'name'}
+				render(<form aria-label="form"
+					onSubmit={(formEvent) => {
+						selectValues = getAllFormData(formEvent, 'name');
+					}}>
+					<SelectMultiple optionsAriaLabel={'options'}
+						name={'name'}
 						defaultValue={['1']}>
 						<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 						<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
@@ -858,15 +864,19 @@ describe('<SelectMultiple/>', () => {
 			const user = userEvent.setup();
 			let selectValues;
 
-			const component = (value: Array<string>) => <form role="form" aria-label={'test'} onSubmit={(formEvent) => {
-				selectValues = getAllFormData(formEvent, 'name');
-			}}>
-				<SelectMultiple optionsAriaLabel={'options'} value={value} name="name">
-					<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
-					<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
-				</SelectMultiple>
-				<button>Submit</button>
-			</form>;
+			const component = (value: Array<string>) => (
+				<form role="form"
+					aria-label={'test'}
+					onSubmit={(formEvent) => {
+						selectValues = getAllFormData(formEvent, 'name');
+					}}>
+					<SelectMultiple optionsAriaLabel={'options'} value={value} name="name">
+						<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
+						<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
+					</SelectMultiple>
+					<button>Submit</button>
+				</form>
+			);
 
 			const { rerender } = render(component(['1']));
 
@@ -880,9 +890,11 @@ describe('<SelectMultiple/>', () => {
 			const user = userEvent.setup();
 			let selectValues;
 
-			render(<form role="form" aria-label={'test'} onSubmit={(formEvent) => {
-				selectValues = getAllFormData(formEvent, 'name');
-			}}>
+			render(<form role="form"
+				aria-label={'test'}
+				onSubmit={(formEvent) => {
+					selectValues = getAllFormData(formEvent, 'name');
+				}}>
 				<SelectMultiple optionsAriaLabel={'options'} name="name" defaultValue={['1', '2']}>
 					<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 					<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>

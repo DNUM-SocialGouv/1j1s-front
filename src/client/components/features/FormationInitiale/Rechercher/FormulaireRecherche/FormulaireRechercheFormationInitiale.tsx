@@ -30,8 +30,7 @@ export function FormulaireRechercheFormationInitiale() {
 		<form
 			className={styles.RechercheFormationInitialeForm}
 			role="search"
-			onSubmit={submitForm}
-		>
+			onSubmit={submitForm}>
 			<Champ>
 				<Champ.Label>Domaine, mot-clé…
 					<Champ.Label.Complement>Exemples: boulanger, informatique</Champ.Label.Complement>
@@ -41,17 +40,16 @@ export function FormulaireRechercheFormationInitiale() {
 					value={inputMotCle}
 					name="motCle"
 					autoFocus
-					onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}/>
-				<Champ.Error/>
+					onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)} />
+				<Champ.Error />
 			</Champ>
 
 			<div className={styles.buttonWrapper}>
 				<ButtonComponent
 					label="Rechercher"
-					icon={<Icon name="magnifying-glass"/>}
+					icon={<Icon name="magnifying-glass" />}
 					iconPosition="right"
-					type="submit"
-				/>
+					type="submit" />
 			</div>
 		</form>
 	);

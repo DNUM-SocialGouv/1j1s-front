@@ -17,7 +17,7 @@ describe('<ConsulterMissionEngagementPage />', () => {
 		mockUseRouter({});
 
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<ConsulterMissionEngagementPage missionEngagement={anAmbassadeurDuDonDeVêtementMission()}/>
+			<ConsulterMissionEngagementPage missionEngagement={anAmbassadeurDuDonDeVêtementMission()} />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -27,8 +27,7 @@ describe('<ConsulterMissionEngagementPage />', () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<ConsulterMissionEngagementPage missionEngagement={anAmbassadeurDuDonDeVêtementMission()} />
 			</DependenciesProvider>,
 		);

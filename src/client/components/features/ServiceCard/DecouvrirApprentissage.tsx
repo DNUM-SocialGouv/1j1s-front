@@ -10,8 +10,7 @@ export function DecouvrirApprentissage() {
 			link="/choisir-apprentissage"
 			logo="/images/campagne-apprentissage-jeune-sans-texte.webp"
 			title="L’apprentissage est-il fait pour vous ?"
-			titleAs="h3"
-		>
+			titleAs="h3">
 			Découvrez tout sur l‘apprentissage et simulez la rémunération que vous pourriez avoir en devenant apprenti&middot;e !
 		</ServiceCard>
 	);

@@ -234,8 +234,7 @@ export default function Accueil() {
 		<>
 			<Head
 				title="Toutes les solutions pour l'avenir des jeunes | 1jeune1solution"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu" className={styles.accueil}>
 				<HeroWithIllustration image="/images/portraits-verticaux.webp">
 					<h1><HeroPrimaryText className={styles.heroTitle}>À chacun sa solution.</HeroPrimaryText></h1>
@@ -243,72 +242,77 @@ export default function Accueil() {
 						Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !
 					</HeroSecondaryText>
 					{
-						isVisibleCtaRedirectionEspaceJeune &&
-						<Link href={'/espace-jeune'} appearance={'asSecondaryButton'} className={styles.heroButton}>
-							<span className={styles.heroButtonLargeScreenText}>Découvrir les actualités et services jeunes</span>
-							<span className={styles.heroButtonSmallMediumScreenText}>Actualités et services jeunes</span>
-							<Link.Icon/>
-						</Link>
-					}
+						isVisibleCtaRedirectionEspaceJeune && (
+							<Link href={'/espace-jeune'} appearance={'asSecondaryButton'} className={styles.heroButton}>
+								<span className={styles.heroButtonLargeScreenText}>Découvrir les actualités et services jeunes</span>
+								<span className={styles.heroButtonSmallMediumScreenText}>Actualités et services jeunes</span>
+								<Link.Icon />
+							</Link>
+						)}
 				</HeroWithIllustration>
 
 				{isBanniereStagesSecondeVisible
-					&& <HeroWithIllustration image="/images/stages-seconde/banniere-stages-seconde.webp"
+					&& (
+						<HeroWithIllustration image="/images/stages-seconde/banniere-stages-seconde.webp"
 																	 className={classNames(styles.hero, styles.stageSecondeBanner)}>
-						{isBanniereStagesSecondePourCampagneDu25Mars ?
-							<>
-								<h2>
-									<HeroPrimaryText className={styles.heroTitle}>
+							{isBanniereStagesSecondePourCampagneDu25Mars ? (
+								<>
+									<h2>
+										<HeroPrimaryText className={styles.heroTitle}>
 										Un stage du 17 au 28 juin 2024
-									</HeroPrimaryText>
-								</h2>
-								<HeroSecondaryText>
+										</HeroPrimaryText>
+									</h2>
+									<HeroSecondaryText>
 									pour permettre aux élèves de seconde générale et technologique de diversifier leur connaissance des
 									métiers.
-								</HeroSecondaryText>
-								<Link href={urlHomePageStageDeSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
+									</HeroSecondaryText>
+									<Link href={urlHomePageStageDeSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
 									Proposer un stage ou candidater
-									<Link.Icon/>
-								</Link>
-							</> :
-							<>
-								<h2>
-									<HeroPrimaryText className={styles.heroTitle}>
+										<Link.Icon />
+									</Link>
+								</>
+							) : (
+								<>
+									<h2>
+										<HeroPrimaryText className={styles.heroTitle}>
 										Accueillez des élèves en stages de seconde générale et technologique.
-									</HeroPrimaryText>
-								</h2>
-								<HeroSecondaryText>
+										</HeroPrimaryText>
+									</h2>
+									<HeroSecondaryText>
 									Inspirez, transmettez, faites découvrir vos métiers.
-								</HeroSecondaryText>
-								<Link href={urlDepotOffreStagesSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
+									</HeroSecondaryText>
+									<Link href={urlDepotOffreStagesSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
 									Déposer votre offre de stage
-									<Link.Icon/>
-								</Link>
-							</>
-						}
-					</HeroWithIllustration>
+										<Link.Icon />
+									</Link>
+								</>
+							)}
+						</HeroWithIllustration>
+					)
 				}
 
 				{isBannerWorldSkillsVisible
-					&& <HeroWithIllustration image="/images/campagne-world-skills-2024.webp" className={classNames(styles.hero, styles.worldSkills)}>
-						<h2>
-							<HeroPrimaryText className={styles.heroTitle}>
+					&& (
+						<HeroWithIllustration image="/images/campagne-world-skills-2024.webp" className={classNames(styles.hero, styles.worldSkills)}>
+							<h2>
+								<HeroPrimaryText className={styles.heroTitle}>
 								WorldSkills Lyon 2024, la Compétition Mondiale des Métiers.
-							</HeroPrimaryText>
-						</h2>
-						<HeroSecondaryText>
+								</HeroPrimaryText>
+							</h2>
+							<HeroSecondaryText>
 							1jeune1solution s’engage en faveur de la jeunesse, venez nous rencontrer du 10 au 15 septembre lors de la compétition WorldSkills Lyon 2024.
-						</HeroSecondaryText>
-						<Link href="https://worldskills2024.com" appearance={'asSecondaryButton'} className={styles.heroButton}>
+							</HeroSecondaryText>
+							<Link href="https://worldskills2024.com" appearance={'asSecondaryButton'} className={styles.heroButton}>
 							Plus d’infos
-							<Link.Icon/>
-						</Link>
-					</HeroWithIllustration>
+								<Link.Icon />
+							</Link>
+						</HeroWithIllustration>
+					)
 				}
 
 				<section className={classNames(styles.section, styles.sectionNosOffres)}>
 					<h2 id="offres" className={styles.sectionHeader}>
-						<Icon name="brief-case" className={styles.sectionNosOffresHeaderIcon}/>
+						<Icon name="brief-case" className={styles.sectionNosOffresHeaderIcon} />
 						Offres
 					</h2>
 					<Container>
@@ -316,12 +320,12 @@ export default function Accueil() {
 							itemList={getCardList(offreCardListContent)}
 							numberOfVisibleItems={3}
 							seeMoreAriaLabel={'Voir plus de résultats sur les offres d‘emplois'}
-							seeLessAriaLabel={'Voir moins de résultats sur les offres d‘emplois'}/>
+							seeLessAriaLabel={'Voir moins de résultats sur les offres d‘emplois'} />
 					</Container>
 				</section>
 				<section className={classNames(styles.section, styles.sectionFormationsOrientation)}>
 					<h2 id="formation" className={styles.sectionHeader}>
-						<Icon name={'book'} className={styles.sectionFormationsOrientationHeaderIcon}/>
+						<Icon name={'book'} className={styles.sectionFormationsOrientationHeaderIcon} />
 						Formations et orientation
 					</h2>
 					<Container>
@@ -329,12 +333,12 @@ export default function Accueil() {
 							itemList={getCardList(formationEtOrientationCardListContent)}
 							numberOfVisibleItems={3}
 							seeMoreAriaLabel={'Voir plus de résultats sur les formations et orientation'}
-							seeLessAriaLabel={'Voir moins de résultats sur les formations et orientation'}/>
+							seeLessAriaLabel={'Voir moins de résultats sur les formations et orientation'} />
 					</Container>
 				</section>
 				<section className={classNames(styles.section, styles.sectionEngagementBénévolat)}>
 					<h2 id="engagement-benevolat" className={styles.sectionHeader}>
-						<Icon name="trophy" className={styles.sectionEngagementBénévolatHeaderIcon}/>
+						<Icon name="trophy" className={styles.sectionEngagementBénévolatHeaderIcon} />
 						Engagement
 					</h2>
 					<Container>
@@ -342,12 +346,12 @@ export default function Accueil() {
 							itemList={getCardList(engagementEtBenevolatCardListContent)}
 							numberOfVisibleItems={3}
 							seeMoreAriaLabel={'Voir plus de résultats sur les engagements et bénévolats'}
-							seeLessAriaLabel={'Voir moins de résultats sur les engagements et bénévolats'}/>
+							seeLessAriaLabel={'Voir moins de résultats sur les engagements et bénévolats'} />
 					</Container>
 				</section>
 				<section className={classNames(styles.section, styles.sectionLogement)}>
 					<h2 id="logement" className={styles.sectionHeader}>
-						<Icon name={'home'} className={styles.sectionLogementHeaderIcon}/>
+						<Icon name={'home'} className={styles.sectionLogementHeaderIcon} />
 						Logement
 					</h2>
 					<Container>
@@ -355,12 +359,12 @@ export default function Accueil() {
 							itemList={getCardList(logementCardListContent)}
 							numberOfVisibleItems={3}
 							seeMoreAriaLabel={'Voir plus de résultats sur les logements'}
-							seeLessAriaLabel={'Voir moins de résultats sur les logements'}/>
+							seeLessAriaLabel={'Voir moins de résultats sur les logements'} />
 					</Container>
 				</section>
 				<section className={classNames(styles.section, styles.sectionAidesOrientationAccompagnement)}>
 					<h2 id="aides-orientation-accompagnement" className={styles.sectionHeader}>
-						<Icon name={'compass'} className={styles.sectionAidesOrientationAccompagnementHeaderIcon}/>
+						<Icon name={'compass'} className={styles.sectionAidesOrientationAccompagnementHeaderIcon} />
 						Accompagnement
 					</h2>
 					<Container>
@@ -368,12 +372,12 @@ export default function Accueil() {
 							itemList={getCardList(accompagnementCardListContent)}
 							numberOfVisibleItems={3}
 							seeMoreAriaLabel={'Voir plus de résultats sur les aides et accompagnements'}
-							seeLessAriaLabel={'Voir moins de résultats sur les aides et accompagnements'}/>
+							seeLessAriaLabel={'Voir moins de résultats sur les aides et accompagnements'} />
 					</Container>
 				</section>
 				<section className={classNames(styles.section, styles.sectionAidesEtOutils)}>
 					<h2 id="aides-et-outils" className={styles.sectionHeader}>
-						<Icon name={'mark-pen'} className={styles.sectionAidesEtOutilsHeaderIcon}/>
+						<Icon name={'mark-pen'} className={styles.sectionAidesEtOutilsHeaderIcon} />
 						Aides et outils
 					</h2>
 					<Container>
@@ -381,7 +385,7 @@ export default function Accueil() {
 							itemList={getCardList(aideEtOutilCardListContent)}
 							numberOfVisibleItems={3}
 							seeMoreAriaLabel={'Voir plus de résultats sur les aides et outils'}
-							seeLessAriaLabel={'Voir moins de résultats sur les aides et outils'}/>
+							seeLessAriaLabel={'Voir moins de résultats sur les aides et outils'} />
 					</Container>
 				</section>
 			</main>

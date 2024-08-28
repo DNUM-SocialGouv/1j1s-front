@@ -15,15 +15,13 @@ export function FormulaireRechercheFicheMetier() {
 				className={styles.inputNomMetier}
 				label="Métier"
 				name="metier"
-				placeholder="Exemple : cuisinier"
-			/>
+				placeholder="Exemple : cuisinier" />
 			<MeilisearchSelectMultiple
 				className={styles.inputCentresInteret}
 				attribute="centres_interet"
 				limit={100}
 				label="Centres d‘intérêt"
-				sortBy={MEILISEARCH_SORT_BY_LABEL_ASC}
-			/>
+				sortBy={MEILISEARCH_SORT_BY_LABEL_ASC} />
 		</form>
 	);
 }

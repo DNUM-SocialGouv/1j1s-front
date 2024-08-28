@@ -31,7 +31,7 @@ describe('Etiquettes filtre emploi', () => {
 					typeLocalisation: 'DEPARTEMENT',
 				},
 			});
-			render(<EtiquettesFiltreOffreEmploi/>);
+			render(<EtiquettesFiltreOffreEmploi />);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 			expect(filtresRecherche).toBeInTheDocument();
@@ -46,7 +46,7 @@ describe('Etiquettes filtre emploi', () => {
 					tempsDeTravail: 'tempsPlein',
 				},
 			});
-			render(<EtiquettesFiltreOffreEmploi/>);
+			render(<EtiquettesFiltreOffreEmploi />);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 			const tempsDeTravail = within(filtresRecherche).getByText('Temps plein');
@@ -63,7 +63,7 @@ describe('Etiquettes filtre emploi', () => {
 					typeDeContrats: 'CDD,CDI,MIS',
 				},
 			});
-			render(<EtiquettesFiltreOffreEmploi/>);
+			render(<EtiquettesFiltreOffreEmploi />);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 			const cdi = within(filtresRecherche).getByText('CDI');
@@ -84,7 +84,7 @@ describe('Etiquettes filtre emploi', () => {
 					experienceExigence: 'S,D,E',
 				},
 			});
-			render(<EtiquettesFiltreOffreEmploi/>);
+			render(<EtiquettesFiltreOffreEmploi />);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 			const débutant = within(filtresRecherche).getByText('Moins de 1 an');
@@ -107,7 +107,7 @@ describe('Etiquettes filtre emploi', () => {
 						typeLocalisation: 'DEPARTEMENT',
 					},
 				});
-				render(<EtiquettesFiltreOffreEmploi/>);
+				render(<EtiquettesFiltreOffreEmploi />);
 
 				const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 				const localisation = within(filtresRecherche).getByText('Bourg-lès-Valence (26)');
@@ -126,7 +126,7 @@ describe('Etiquettes filtre emploi', () => {
 						typeLocalisation: 'COMMUNE',
 					},
 				});
-				render(<EtiquettesFiltreOffreEmploi/>);
+				render(<EtiquettesFiltreOffreEmploi />);
 
 				const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 				const localisation = within(filtresRecherche).getByText('Bourg-lès-Valence (26500)');

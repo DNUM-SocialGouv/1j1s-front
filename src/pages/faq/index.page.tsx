@@ -23,26 +23,29 @@ export default function FaqPage({ listeDeQuestionRéponse }: FaqPageProps) {
 		<>
 			<Head
 				title="FAQ | 1jeune1solution"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<Container className={styles.container}>
 					<h1 className={styles.titre}>FAQ - QUESTIONS FRÉQUEMMENT POSÉES</h1>
 					<h2 className={styles.sousTitre}>Que pouvons-nous faire pour vous ?</h2>
-					{listeDeQuestionRéponse?.length > 0 && <ul aria-label="Foire aux questions" className={styles.liste}>
-						{listeDeQuestionRéponse?.map((question) => <li key={question.slug}>
-							<Link href={`/faq/${question.slug}`}>
-								<h3>{question.problématique}</h3>
-								<Link.Icon name='angle-right'/>
-							</Link>
-						</li>) }
-					</ul>
+					{listeDeQuestionRéponse?.length > 0 && (
+						<ul aria-label="Foire aux questions" className={styles.liste}>
+							{listeDeQuestionRéponse?.map((question) => (
+								<li key={question.slug}>
+									<Link href={`/faq/${question.slug}`}>
+										<h3>{question.problématique}</h3>
+										<Link.Icon name='angle-right' />
+									</Link>
+								</li>
+							)) }
+						</ul>
+					)
 					}
 					<div className={styles.contact}>
 						<h3>Vous ne trouvez pas de réponse à votre question ?</h3>
 						<Link appearance={'asSecondaryButton'} href={`mailto:${MAIL_TO}`} prefetch={false}>
 							Nous contacter
-							<Link.Icon name="mail"/>
+							<Link.Icon name="mail" />
 						</Link>
 					</div>
 				</Container>

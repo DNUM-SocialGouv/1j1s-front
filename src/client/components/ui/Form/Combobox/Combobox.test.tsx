@@ -1615,7 +1615,7 @@ describe('<Combobox />', () => {
 					<Combobox.Option>test</Combobox.Option>
 					<Combobox.Option>Abc</Combobox.Option>
 					<Combobox.Option>def</Combobox.Option>
-					<Combobox.SyncMessagePasDeResultat/>
+					<Combobox.SyncMessagePasDeResultat />
 				</Combobox>,
 			);
 			const user = userEvent.setup();

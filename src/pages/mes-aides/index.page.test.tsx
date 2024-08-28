@@ -27,8 +27,7 @@ describe('MesAidesPage', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<MesAidesPage />
 			</DependenciesProvider>,
 		);
@@ -41,8 +40,7 @@ describe('MesAidesPage', () => {
 
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<MesAidesPage />
 			</DependenciesProvider>,
 		);
@@ -60,8 +58,7 @@ describe('MesAidesPage', () => {
 
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
+				analyticsService={analyticsService}>
 				<MesAidesPage />
 			</DependenciesProvider>,
 		);

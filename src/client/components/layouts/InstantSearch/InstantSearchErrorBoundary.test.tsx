@@ -25,7 +25,7 @@ describe('InstantSearchErrorBoundary', () => {
 	  spyOnInstantSearch.mockImplementation(() => mockUseInstantSearch({ error: undefined }));
 	  render(
 	    <InstantSearchErrorBoundary>
-		  <ChildrenComponent/>
+		  <ChildrenComponent />
 	    </InstantSearchErrorBoundary>,
 	  );
 	  const childrenComponentContent = screen.getByLabelText('composant enfant');
@@ -38,7 +38,7 @@ describe('InstantSearchErrorBoundary', () => {
 	  spyOnInstantSearch.mockImplementation(() => mockUseInstantSearch({ error: { message: 'MeilisearchCommunicationError', name: 'Error' } }));
 	  render(
 				<InstantSearchErrorBoundary>
-		  <ChildrenComponent/>
+		  <ChildrenComponent />
 				</InstantSearchErrorBoundary>,
 	  );
 

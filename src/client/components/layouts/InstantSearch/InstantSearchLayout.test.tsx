@@ -51,8 +51,7 @@ describe('<InstantSearchLayout />', () => {
 		const user = userEvent.setup();
 		render(
 			<DependenciesProvider
-				rechercheClientService={aRechercheClientService()}
-			>
+				rechercheClientService={aRechercheClientService()}>
 				<InstantSearchLayout
 					meilisearchIndex="fake"
 					titre="Titre"
@@ -64,7 +63,7 @@ describe('<InstantSearchLayout />', () => {
 					messageResultatRechercheLabelPluriel="résultats trouvés"
 					nombreDeSkeleton={1}
 					isAffichageListeDeResultatsDesktopDirectionRow={true}
-					resultatDeRecherche={() => <></>}/>
+					resultatDeRecherche={() => <></>} />
 			</DependenciesProvider>,
 		);
 		await screen.findByRole('heading', { name: /2 résultats trouvés/ });

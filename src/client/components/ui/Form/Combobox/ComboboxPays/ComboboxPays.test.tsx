@@ -56,7 +56,7 @@ describe('<ComboboxPays />', () => {
 			const user = userEvent.setup();
 			const onInvalid = jest.fn();
 			render(
-				<ComboboxPays paysList={[]} name='pays' label='Rechercher un pays' onInvalid={onInvalid}/>,
+				<ComboboxPays paysList={[]} name='pays' label='Rechercher un pays' onInvalid={onInvalid} />,
 			);
 
 			const combobox = screen.getByRole('combobox', { name: /Rechercher un pays/i });
@@ -173,8 +173,7 @@ describe('<ComboboxPays />', () => {
 					<ComboboxPays
 						paysList={paysList}
 						name='pays'
-						label='Rechercher un pays'
-					/>,
+						label='Rechercher un pays' />,
 				);
 
 				await user.type(screen.getByRole('combobox'), 'test');
@@ -199,8 +198,7 @@ describe('<ComboboxPays />', () => {
 					<ComboboxPays
 						paysList={paysList}
 						name='pays'
-						label='Rechercher un pays'
-					/>,
+						label='Rechercher un pays' />,
 				);
 
 				await user.type(screen.getByRole('combobox'), 'test');
@@ -290,8 +288,7 @@ describe('<ComboboxPays />', () => {
 			<ComboboxPays
 				paysList={paysList}
 				name='pays'
-				label='Rechercher un pays'
-			/>,
+				label='Rechercher un pays' />,
 		);
 
 		const deplierSuggestions = screen.getByRole('button', { name: 'pays' });
@@ -309,9 +306,7 @@ describe('<ComboboxPays />', () => {
 				<ComboboxPays
 					paysList={[]}
 					name='pays'
-					label='Rechercher un pays'
-						
-				/>,
+					label='Rechercher un pays' />,
 			);
 
 			const combobox = screen.getByRole('combobox');
@@ -329,8 +324,7 @@ describe('<ComboboxPays />', () => {
 				<ComboboxPays
 					paysList={[]}
 					name='pays'
-					label='Rechercher un pays'
-				/>,
+					label='Rechercher un pays' />,
 			);
 
 			const combobox = screen.getByRole('combobox');

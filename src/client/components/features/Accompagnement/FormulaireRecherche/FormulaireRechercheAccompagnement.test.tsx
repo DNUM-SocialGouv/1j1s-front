@@ -86,7 +86,7 @@ describe('FormulaireRechercheAccompagnement', () => {
 
 		render(
 			<DependenciesProvider localisationService={aLocalisationService()}>
-				<FormulaireRechercheAccompagnement/>
+				<FormulaireRechercheAccompagnement />
 			</DependenciesProvider>,
 		);
 

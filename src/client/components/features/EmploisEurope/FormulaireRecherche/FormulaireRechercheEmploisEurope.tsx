@@ -106,8 +106,7 @@ export function FormulaireRechercheEmploisEurope() {
 			ref={rechercheEmploiEuropeForm}
 			role="search"
 			aria-label="Rechercher une offre d'emploi en Europe"
-			onSubmit={updateRechercherEmploiEuropeQueryParams}
-		>
+			onSubmit={updateRechercherEmploiEuropeQueryParams}>
 			<div className={styles.filtresRechercherOffre}>
 				<Champ className={styles.metier}>
 					<Champ.Label>
@@ -119,9 +118,8 @@ export function FormulaireRechercheEmploisEurope() {
 						autoFocus
 						value={inputMotCle}
 						name="motCle"
-						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
-					/>
-					<Champ.Error/>
+						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)} />
+					<Champ.Error />
 				</Champ>
 
 				<ComboboxPays
@@ -129,18 +127,16 @@ export function FormulaireRechercheEmploisEurope() {
 					paysList={paysEuropeList}
 					labelComplement="Exemple : Belgique, Allemagne"
 					defaultValue={localisationDefaultValue}
-					placeholder="Sélectionnez vos choix"
-				/>
+					placeholder="Sélectionnez vos choix" />
 
 				<ButtonComponent
 					className={styles.buttonMoreFilterMobileOnly}
 					appearance="quaternary"
 					type="button"
-					icon={<Icon name="filter"/>}
+					icon={<Icon name="filter" />}
 					iconPosition="right"
 					label="Filtrer ma recherche"
-					onClick={() => setIsFiltresAvancesMobileOpen(!isFiltresAvancesMobileOpen)}
-				/>
+					onClick={() => setIsFiltresAvancesMobileOpen(!isFiltresAvancesMobileOpen)} />
 
 				<Champ className={classNames(styles.filtreDesktopOnly, styles.typeContrat)}>
 					<Champ.Label>
@@ -152,13 +148,12 @@ export function FormulaireRechercheEmploisEurope() {
 						optionsAriaLabel={'type de contrat'}
 						onChange={(option) => onChangeMultipleSelect(option, setInputTypeContrat)}
 						name="typeContrat"
-						value={inputTypeContrat}
-					>
+						value={inputTypeContrat}>
 						{typesContratEures.map((option) =>
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
 					</Champ.Input>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 
 				<Champ className={classNames(styles.filtreDesktopOnly, styles.tempsTravail)}>
@@ -171,13 +166,12 @@ export function FormulaireRechercheEmploisEurope() {
 						optionsAriaLabel={'temps de travail'}
 						onChange={(option) => onChangeMultipleSelect(option, setInputTempsDeTravail)}
 						name="tempsDeTravail"
-						value={inputTempsDeTravail}
-					>
+						value={inputTempsDeTravail}>
 						{tempsDeTravailEures.map((option) =>
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
 					</Champ.Input>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 
 				<Champ className={classNames(styles.filtreDesktopOnly, styles.niveauEtudes)}>
@@ -190,13 +184,12 @@ export function FormulaireRechercheEmploisEurope() {
 						optionsAriaLabel={'niveau d‘études'}
 						onChange={(option) => onChangeMultipleSelect(option, setInputNiveauEtude)}
 						name="niveauEtude"
-						value={inputNiveauEtude}
-					>
+						value={inputNiveauEtude}>
 						{niveauDEtudes.map((option) =>
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
 					</Champ.Input>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 
 				<Champ className={classNames(styles.filtreDesktopOnly, styles.domaines)}>
@@ -209,22 +202,20 @@ export function FormulaireRechercheEmploisEurope() {
 						optionsAriaLabel={'secteur d‘activité'}
 						onChange={(option) => onChangeMultipleSelect(option, setInputSecteurActivite)}
 						name="secteurActivite"
-						value={inputSecteurActivite}
-					>
+						value={inputSecteurActivite}>
 						{secteurActiviteEures.map((option) =>
 							<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 						)}
 					</Champ.Input>
-					<Champ.Error/>
+					<Champ.Error />
 				</Champ>
 			</div>
 			<div className={styles.buttonRechercher}>
 				<ButtonComponent
 					label="Rechercher"
-					icon={<Icon name="magnifying-glass"/>}
+					icon={<Icon name="magnifying-glass" />}
 					iconPosition="right"
-					type="submit"
-				/>
+					type="submit" />
 			</div>
 
 			<ModaleFiltreAvancee
@@ -238,8 +229,7 @@ export function FormulaireRechercheEmploisEurope() {
 				inputNiveauEtude={inputNiveauEtude}
 				inputTempsDeTravail={inputTempsDeTravail}
 				open={isFiltresAvancesMobileOpen}
-				onClick={applyFiltresAvances}
-			/>
+				onClick={applyFiltresAvances} />
 		</form>
 	);
 }

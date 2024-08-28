@@ -22,8 +22,7 @@ export default function RechercherOffreStagePage() {
 			<Head
 				title={'Rechercher un stage | 1jeune1solution'}
 				description="Des milliers d‘offres de stages sélectionnées pour vous"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<InstantSearchLayout
 				meilisearchIndex={MEILISEARCH_INDEX}
 				nombreDeResultatParPage={HITS_PER_PAGE}
@@ -35,8 +34,7 @@ export default function RechercherOffreStagePage() {
 				nombreDeSkeleton={2}
 				resultatDeRecherche={OffreDeStage}
 				tagList={<MeilisearchTagsList />}
-				isAffichageListeDeResultatsDesktopDirectionRow
-			/>
+				isAffichageListeDeResultatsDesktopDirectionRow />
 		</>
 	);
 }

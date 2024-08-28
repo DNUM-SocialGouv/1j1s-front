@@ -22,7 +22,7 @@ export function RéférencerEntreprises() {
 					href="/immersions/referencer-mon-entreprise"
 					appearance="asPrimaryButton">
 					Référencer mon entreprise
-					<Link.Icon/>
+					<Link.Icon />
 				</Link>
 			</Container>
 		</div>

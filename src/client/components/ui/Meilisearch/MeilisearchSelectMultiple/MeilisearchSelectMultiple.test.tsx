@@ -25,7 +25,7 @@ describe('MeilisearchSelectMultiple', () => {
 	});
 
 	it('je vois le select avec son label', () => {
-		render(<MeilisearchSelectMultiple attribute="test" label="test"/>);
+		render(<MeilisearchSelectMultiple attribute="test" label="test" />);
 
 		const select = screen.getByRole('combobox', { name: 'test' });
 		expect(select).toBeVisible();
@@ -41,7 +41,7 @@ describe('MeilisearchSelectMultiple', () => {
 			refine: jest.fn(),
 		}));
 
-		render(<MeilisearchSelectMultiple attribute="test" label="test"/>);
+		render(<MeilisearchSelectMultiple attribute="test" label="test" />);
 
 		await user.click(screen.getByRole('combobox', { name: 'test' }));
 
@@ -60,7 +60,7 @@ describe('MeilisearchSelectMultiple', () => {
 			refine,
 		}));
 
-		render(<MeilisearchSelectMultiple attribute="test" label="test"/>);
+		render(<MeilisearchSelectMultiple attribute="test" label="test" />);
 
 		await user.click(screen.getByRole('combobox', { name: 'test' }));
 		await user.click(screen.getByRole('option', { name: 'Audit' }));
@@ -80,7 +80,7 @@ describe('MeilisearchSelectMultiple', () => {
 			refine,
 		}));
 
-		render(<MeilisearchSelectMultiple attribute="test" label="test"/>);
+		render(<MeilisearchSelectMultiple attribute="test" label="test" />);
 
 		expect(screen.getByRole('option', { hidden: true, name: 'Audit' })).toHaveAttribute('aria-selected', 'true');
 		expect(screen.getByRole('option', { hidden: true, name: 'Dev' })).toHaveAttribute('aria-selected', 'true');

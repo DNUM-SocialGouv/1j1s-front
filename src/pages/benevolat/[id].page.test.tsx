@@ -21,7 +21,7 @@ describe('<ConsulterMissionEngagementPage />', () => {
 		mockSmallScreen();
 
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<ConsulterMissionEngagementPage missionEngagement={mission}/>
+			<ConsulterMissionEngagementPage missionEngagement={mission} />
 		</DependenciesProvider> );
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -35,8 +35,7 @@ describe('<ConsulterMissionEngagementPage />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-			>
+				analyticsService={aManualAnalyticsService()}>
 				<ConsulterMissionEngagementPage missionEngagement={mission} />);
 			</DependenciesProvider>);
 

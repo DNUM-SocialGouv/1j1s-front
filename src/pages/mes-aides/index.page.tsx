@@ -12,8 +12,7 @@ export default function MesAidesPage() {
 		<>
 			<Head
 				title="Mes aides financières | 1jeune1solution"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<div className={'background-white-lilac'}>
 					<HeroWithButtonLink
@@ -21,8 +20,7 @@ export default function MesAidesPage() {
 						content={heroAidesContent()}
 						buttonHref="https://mes-aides.1jeune1solution.beta.gouv.fr/simulation/individu/demandeur/date_naissance?utm_source=1jeune1solution"
 						buttonLabel="Commencer la simulation"
-						imgSrc="/images/aides-financières.webp"
-					/>
+						imgSrc="/images/aides-financières.webp" />
 
 				</div>
 			</main>

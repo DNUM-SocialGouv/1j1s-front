@@ -33,7 +33,7 @@ export function ResultatRechercherSolution(props: PropsWithChildren<ResultatRech
 	return (
 		<div className={classNames(styles.card, className)}>
 
-			{logo && <Image alt={logoAlt} src={logo} width={120} height={120}/>}
+			{logo && <Image alt={logoAlt} src={logo} width={120} height={120} />}
 
 			<div className={styles.mainContent}>
 				<header>
@@ -44,23 +44,21 @@ export function ResultatRechercherSolution(props: PropsWithChildren<ResultatRech
 				{children && <div>{children}</div>}
 			</div>
 
-			<span className={styles.separator}/>
+			<span className={styles.separator} />
 
 			{étiquetteOffreList.length > 0 &&
-				<TagList className={styles.tags} list={étiquetteOffreList} aria-label="Caractéristiques de l‘offre"/>}
+				<TagList className={styles.tags} list={étiquetteOffreList} aria-label="Caractéristiques de l‘offre" />}
 
-			{lienOffre &&
-				// NOTE (BRUJ 31-03-2023): L‘intégralité de la carte est cliquable grâce aux propriétés CSS
+			{lienOffre && (
 				<Link
 					id={idLink}
 					href={lienOffre}
 					appearance={'asQuaternaryButton'}
-					aria-labelledby={intituléLienOffre ? undefined : `${idIntitulé} ${idLink}`}
-				>
+					aria-labelledby={intituléLienOffre ? undefined : `${idIntitulé} ${idLink}`}>
 					{intituléLienOffre || 'En savoir plus'}
-					<Link.Icon name="angle-right"/>
+					<Link.Icon name="angle-right" />
 				</Link>
-			}
+  		)}
 		</div>
 	);
 }

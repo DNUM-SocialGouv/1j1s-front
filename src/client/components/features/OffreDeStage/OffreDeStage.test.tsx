@@ -33,7 +33,7 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 			const offreStage = anOffreDeStageIndexee({ domaines: [displayedDomain, DomainesStage.NON_RENSEIGNE] });
 
 			render(<DependenciesProvider dateService={aDateService()}>
-				<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+				<OffreDeStage hit={offreStage} sendEvent={someDummy} />
 			</DependenciesProvider>,
 			);
 
@@ -51,7 +51,7 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 			const offreStage = anOffreDeStageIndexee({ localisation: localisationWithCity });
 
 			render(<DependenciesProvider dateService={aDateService()}>
-				<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+				<OffreDeStage hit={offreStage} sendEvent={someDummy} />
 			</DependenciesProvider>,
 			);
 
@@ -65,7 +65,7 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 			const offreStage = anOffreDeStageIndexee({ localisation: localisationWithDepartment });
 
 			render(<DependenciesProvider dateService={aDateService()}>
-				<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+				<OffreDeStage hit={offreStage} sendEvent={someDummy} />
 			</DependenciesProvider>);
 
 			const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
@@ -83,7 +83,7 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 			const offreStage = anOffreDeStageIndexee({ localisation: localisationWithRegion });
 
 			render(<DependenciesProvider dateService={aDateService()}>
-				<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+				<OffreDeStage hit={offreStage} sendEvent={someDummy} />
 			</DependenciesProvider>);
 
 			const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
@@ -98,7 +98,7 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 			const offreStage = anOffreDeStageIndexee({ dureeCategorisee: 'Non renseigné' });
 
 			render(<DependenciesProvider dateService={aDateService()}>
-				<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+				<OffreDeStage hit={offreStage} sendEvent={someDummy} />
 			</DependenciesProvider>);
 
 			const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
@@ -117,7 +117,7 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 				jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 septembre 2024');
 
 				render(<DependenciesProvider dateService={dateService}>
-					<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+					<OffreDeStage hit={offreStage} sendEvent={someDummy} />
 				</DependenciesProvider>);
 
 				const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
@@ -142,7 +142,7 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 					.mockReturnValueOnce('30 septembre 2024');
 
 				render(<DependenciesProvider dateService={dateService}>
-					<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+					<OffreDeStage hit={offreStage} sendEvent={someDummy} />
 				</DependenciesProvider>);
 
 				const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
@@ -157,7 +157,7 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 				const offreStage = anOffreDeStageIndexee({ dateDeDebutMin: undefined });
 
 				render(<DependenciesProvider dateService={aDateService()}>
-					<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+					<OffreDeStage hit={offreStage} sendEvent={someDummy} />
 				</DependenciesProvider>);
 
 				const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
@@ -183,7 +183,7 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 			jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 septembre 2024');
 
 			render(<DependenciesProvider dateService={dateService}>
-				<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+				<OffreDeStage hit={offreStage} sendEvent={someDummy} />
 			</DependenciesProvider>);
 
 			const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });

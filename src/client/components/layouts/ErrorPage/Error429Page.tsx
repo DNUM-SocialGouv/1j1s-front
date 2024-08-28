@@ -8,8 +8,7 @@ export default function Error429Page() {
 		<>
 			<Head
 				title="Trop de requêtes | 1jeune1solution"
-				robots="noindex"
-			/>
+				robots="noindex" />
 			<main id="contenu">
 				<ErrorLayout>
 					<ErrorLayout.Title titleAs="h1">Trop de requêtes</ErrorLayout.Title>

@@ -25,8 +25,7 @@ export default function ConsulterOffreEmploiPage({ offreEmploi }: ConsulterOffre
 		<>
 			<Head
 				title={`${offreEmploi.intitulé} | 1jeune1solution`}
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<ConsulterOffreEmploi offreEmploi={offreEmploi} />
 		</>
 	);

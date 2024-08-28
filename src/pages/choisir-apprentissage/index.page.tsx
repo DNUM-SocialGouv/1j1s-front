@@ -21,9 +21,9 @@ export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps)
 
 	return (
 		<>
-			<Head title="Découvrir et trouver sa voie avec l’apprentissage | 1jeune1solution" robots="index,follow"/>
+			<Head title="Découvrir et trouver sa voie avec l’apprentissage | 1jeune1solution" robots="index,follow" />
 			<main id="contenu">
-				<CampagneApprentissageJeunes videos={props.videos}/>
+				<CampagneApprentissageJeunes videos={props.videos} />
 			</main>
 		</>
 	);

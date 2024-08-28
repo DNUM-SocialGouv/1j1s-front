@@ -53,21 +53,19 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.EMPLOYEUR}`} appearance={'asPrimaryButton'} className={styles.cta}>
 						<span className={styles.mobileOnly}>Simuler le coût d’embauche</span>
 						<span className={styles.desktopOnly}>Simuler le coût de l’embauche d’un apprenti</span>
-						<Link.Icon/>
+						<Link.Icon />
 					</Link>
 				</HeroWithIllustration>
 			</header>
-			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage :" raisons={raisons}
-			/>
-			<EnSavoirPlusApprentissageEntreprises/>
-			{ videos.length > 0 &&
+			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage :" raisons={raisons} />
+			<EnSavoirPlusApprentissageEntreprises />
+			{ videos.length > 0 && (
 				<VideosCampagneApprentissage
 					titre={'Ils ont choisi d’embaucher un apprenti ! Pourquoi pas vous ?'}
 					description={'Découvrez les témoignages des maîtres d’apprentissage et des apprentis qu’ils accompagnent au quotidien.'}
-					videos={videos}
-				/>
-			}
-			<InformationSurEmbaucheApprenti/>
+					videos={videos} />
+			)}
+			<InformationSurEmbaucheApprenti />
 		</>
 	);
 }

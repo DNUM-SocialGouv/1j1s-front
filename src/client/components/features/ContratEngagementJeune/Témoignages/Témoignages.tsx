@@ -9,8 +9,8 @@ import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMore
 export function Témoignages() {
 	return (
 		<>
-			<TémoignageKévin/>
-			<TémoignageLatifa/>
+			<TémoignageKévin />
+			<TémoignageLatifa />
 		</>
 	);
 }
@@ -21,7 +21,7 @@ function TémoignageKévin() {
 			<article>
 				<h2>Ce que le Contrat d‘Engagement Jeune proposera à Kévin</h2>
 				<div className={styles.portrait}>
-					<Image src={portraitKévin} alt=""/>
+					<Image src={portraitKévin} alt="" />
 				</div>
 				<div className={styles.bio}>
 					<p>Kévin, 18 ans</p>
@@ -61,7 +61,7 @@ function TémoignageLatifa() {
 			<article>
 				<h2>Ce que le Contrat d‘Engagement Jeune proposera à Latifa</h2>
 				<div className={styles.portrait}>
-					<Image src={portraitLatifa} alt=""/>
+					<Image src={portraitLatifa} alt="" />
 				</div>
 				<div className={styles.bio}>
 					<p>Latifa, 22 ans</p>

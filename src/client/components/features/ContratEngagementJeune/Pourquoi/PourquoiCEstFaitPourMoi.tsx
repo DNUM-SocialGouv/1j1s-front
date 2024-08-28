@@ -5,7 +5,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 
 
 export default function PourquoiCEstFaitPourMoi() {
-	const arrow = <Icon name={'arrow-right'} className={styles.arrow}/>;
+	const arrow = <Icon name={'arrow-right'} className={styles.arrow} />;
 
 	return (
 		<section className={styles.section}>

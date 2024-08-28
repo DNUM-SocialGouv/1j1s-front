@@ -14,8 +14,7 @@ export default function EuropePage() {
 		<>
 			<Head
 				title={'Trouver un emploi ou un volontariat en Europe  | 1jeune1solution'}
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<EmploiEnEuropeContent />
 		</>
 	);

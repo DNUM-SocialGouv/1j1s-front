@@ -17,13 +17,14 @@ export const InputWithUnit = React.forwardRef<HTMLInputElement, InputWithUnitPro
 	const idUnite = useId();
 	const inputRef = useSynchronizedRef(outerRef);
 
-	return <div className={styles.inputWithUnit}>
-		<Input
-			ref={inputRef}
-			className={classNames(className, styles.input)}
-			{...rest}
-			aria-describedby={`${idUnite} ${props['aria-describedby'] ?? ''}`}
-		/>
-		<abbr className={styles.remunerationUnite} title={nomDeLUnite} id={idUnite}>{unite}</abbr>
-	</div>;
+	return (
+		<div className={styles.inputWithUnit}>
+			<Input
+				ref={inputRef}
+				className={classNames(className, styles.input)}
+				{...rest}
+				aria-describedby={`${idUnite} ${props['aria-describedby'] ?? ''}`} />
+			<abbr className={styles.remunerationUnite} title={nomDeLUnite} id={idUnite}>{unite}</abbr>
+		</div>
+	);
 });

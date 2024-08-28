@@ -48,7 +48,7 @@ describe('ConsulterOffreDeStage', () => {
 	describe('affiche l’offre de stage avec les bonnes informations', () => {
 		it('affiche le nom du stage', () => {
 			render(<DependenciesProvider dateService={aDateService()}>
-				<ConsulterOffreDeStage offreDeStage={anOffreDeStage({ titre: 'stage en graphisme' })}/>
+				<ConsulterOffreDeStage offreDeStage={anOffreDeStage({ titre: 'stage en graphisme' })} />
 			</DependenciesProvider>);
 
 			const intituléOffreDeStage = screen.getByText('stage en graphisme');
@@ -59,7 +59,7 @@ describe('ConsulterOffreDeStage', () => {
 		it('affiche le nom de l‘employeur', () => {
 			render(<DependenciesProvider dateService={aDateService()}>
 				<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ employeur: { nom: 'Je suis le nom de l‘employeur' } })}/>
+					offreDeStage={anOffreDeStage({ employeur: { nom: 'Je suis le nom de l‘employeur' } })} />
 			</DependenciesProvider>);
 
 			const nomEntreprise = screen.getByText('Je suis le nom de l‘employeur');
@@ -72,7 +72,7 @@ describe('ConsulterOffreDeStage', () => {
 				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
 					<ConsulterOffreDeStage offreDeStage={anOffreDeStage({
 						description: 'Je suis une description du poste',
-					})}/>
+					})} />
 				</DependenciesProvider>, { queries });
 
 				const descriptionPoste = getByDescriptionTerm('Description du poste :');
@@ -83,7 +83,7 @@ describe('ConsulterOffreDeStage', () => {
 
 			it('quand elle n‘est pas fournie, n‘affiche pas la description du poste', () => {
 				render(<DependenciesProvider dateService={aDateService()}>
-					<ConsulterOffreDeStage offreDeStage={anOffreDeStage({ description: '' })}/>
+					<ConsulterOffreDeStage offreDeStage={anOffreDeStage({ description: '' })} />
 				</DependenciesProvider>);
 
 				const descriptionPoste = screen.queryByText('Description du poste :');
@@ -101,7 +101,7 @@ describe('ConsulterOffreDeStage', () => {
 					},
 				});
 				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
-					<ConsulterOffreDeStage offreDeStage={offreDeStage}/></DependenciesProvider>, { queries });
+					<ConsulterOffreDeStage offreDeStage={offreDeStage} /></DependenciesProvider>, { queries });
 
 				const descriptionEmployeur = getByDescriptionTerm('Description de l‘employeur :');
 
@@ -116,7 +116,7 @@ describe('ConsulterOffreDeStage', () => {
 							description: '',
 							nom: 'nom',
 						},
-					})}/>
+					})} />
 				</DependenciesProvider>);
 
 				const descriptionPoste = screen.queryByText('Description de l‘employeur :');
@@ -130,7 +130,7 @@ describe('ConsulterOffreDeStage', () => {
 			it('Lorsque la rémunération n‘est pas renseignée affiche "Non renseignée', () => {
 				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
 					<ConsulterOffreDeStage
-						offreDeStage={anOffreDeStage({ remunerationMax: undefined, remunerationMin: undefined })}/>
+						offreDeStage={anOffreDeStage({ remunerationMax: undefined, remunerationMin: undefined })} />
 				</DependenciesProvider>, { queries });
 
 				const remuneration = getByDescriptionTerm('Rémunération :');
@@ -142,7 +142,7 @@ describe('ConsulterOffreDeStage', () => {
 			it('lorsque la rémunération min et max est à 0, affiche "Aucune"', () => {
 				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
 					<ConsulterOffreDeStage
-						offreDeStage={anOffreDeStage({ remunerationMax: 0, remunerationMin: 0 })}/>
+						offreDeStage={anOffreDeStage({ remunerationMax: 0, remunerationMin: 0 })} />
 				</DependenciesProvider>, { queries });
 
 				const remunération = getByDescriptionTerm('Rémunération :');
@@ -155,7 +155,7 @@ describe('ConsulterOffreDeStage', () => {
 			it('lorsque la rémunération min et max sont identiques affiche cette rémunération', () => {
 				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
 					<ConsulterOffreDeStage
-						offreDeStage={anOffreDeStage({ remunerationMax: 1234, remunerationMin: 1234 })}/>
+						offreDeStage={anOffreDeStage({ remunerationMax: 1234, remunerationMin: 1234 })} />
 				</DependenciesProvider>, { queries });
 
 				const remunération = getByDescriptionTerm('Rémunération :');
@@ -169,7 +169,7 @@ describe('ConsulterOffreDeStage', () => {
 			it('lorsque la rémunération min et max sont proposées affiche l‘intervalle de rémunération', () => {
 				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
 					<ConsulterOffreDeStage
-						offreDeStage={anOffreDeStage({ remunerationMax: 2000, remunerationMin: 2 })}/>
+						offreDeStage={anOffreDeStage({ remunerationMax: 2000, remunerationMin: 2 })} />
 				</DependenciesProvider>, { queries });
 
 				const remuneration = getByDescriptionTerm('Rémunération :');
@@ -188,7 +188,7 @@ describe('ConsulterOffreDeStage', () => {
 							remunerationMax: undefined,
 							remunerationMin: undefined,
 							remunerationPeriode: RemunerationPeriode.YEARLY,
-						})}/>
+						})} />
 				</DependenciesProvider>, { queries });
 
 				const periodeDeRemuneration = queryByDescriptionTerm('Période de paiement :');
@@ -203,7 +203,7 @@ describe('ConsulterOffreDeStage', () => {
 							remunerationMax: 10000000,
 							remunerationMin: 10000000,
 							remunerationPeriode: undefined,
-						})}/>
+						})} />
 				</DependenciesProvider>, { queries });
 
 				const periodeDeRemuneration = getByDescriptionTerm('Période de paiement :');
@@ -223,7 +223,7 @@ describe('ConsulterOffreDeStage', () => {
 							remunerationMax: 10000000,
 							remunerationMin: 10000000,
 							remunerationPeriode,
-						})}/>
+						})} />
 				</DependenciesProvider>, { queries });
 
 				const periodeDeRemuneration = getByDescriptionTerm('Période de paiement :');
@@ -239,7 +239,7 @@ describe('ConsulterOffreDeStage', () => {
 				const offreDeStage = anOffreDeStage({ domaines: [DomainesStage.ACHAT, DomainesStage.CONSEIL] });
 
 				render(<DependenciesProvider dateService={aDateService()}>
-					<ConsulterOffreDeStage offreDeStage={offreDeStage}/>
+					<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 				</DependenciesProvider>);
 
 				const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
@@ -252,7 +252,7 @@ describe('ConsulterOffreDeStage', () => {
 				const offreDeStage = anOffreDeStage({ domaines: [DomainesStage.ACHAT, DomainesStage.NON_RENSEIGNE] });
 
 				render(<DependenciesProvider dateService={aDateService()}>
-					<ConsulterOffreDeStage offreDeStage={offreDeStage}/>
+					<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 				</DependenciesProvider>);
 
 				const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
@@ -267,7 +267,7 @@ describe('ConsulterOffreDeStage', () => {
 					const offreDeStage = anOffreDeStage({ localisation: localisation });
 
 					render(<DependenciesProvider dateService={aDateService()}>
-						<ConsulterOffreDeStage offreDeStage={offreDeStage}/>
+						<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 					</DependenciesProvider>);
 
 					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
@@ -280,7 +280,7 @@ describe('ConsulterOffreDeStage', () => {
 					const offreDeStage = anOffreDeStage({ localisation: localisation });
 
 					render(<DependenciesProvider dateService={aDateService()}>
-						<ConsulterOffreDeStage offreDeStage={offreDeStage}/>
+						<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 					</DependenciesProvider>);
 
 					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
@@ -293,7 +293,7 @@ describe('ConsulterOffreDeStage', () => {
 					const offreDeStage = anOffreDeStage({ localisation: localisation });
 
 					render(<DependenciesProvider dateService={aDateService()}>
-						<ConsulterOffreDeStage offreDeStage={offreDeStage}/>
+						<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 					</DependenciesProvider>);
 
 					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
@@ -306,7 +306,7 @@ describe('ConsulterOffreDeStage', () => {
 					const offreDeStage = anOffreDeStage({ dureeEnJour: 60 });
 
 					render(<DependenciesProvider dateService={aDateService()}>
-						<ConsulterOffreDeStage offreDeStage={offreDeStage}/>
+						<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 					</DependenciesProvider>);
 
 					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
@@ -321,7 +321,7 @@ describe('ConsulterOffreDeStage', () => {
 					jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 septembre 2024');
 
 					render(<DependenciesProvider dateService={dateService}>
-						<ConsulterOffreDeStage offreDeStage={offreDeStage}/>
+						<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 					</DependenciesProvider>);
 
 					const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
@@ -338,7 +338,7 @@ describe('ConsulterOffreDeStage', () => {
 						.mockReturnValueOnce('30 septembre 2024');
 
 					render(<DependenciesProvider dateService={dateService}>
-						<ConsulterOffreDeStage offreDeStage={offreDeStage}/>
+						<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 					</DependenciesProvider>);
 
 					expect(screen.getByText('Débute entre le 1 septembre 2024 et le 30 septembre 2024')).toBeVisible();
@@ -352,7 +352,7 @@ describe('ConsulterOffreDeStage', () => {
 					const offreDeStage = anOffreDeStage({ dateDeDebutMin: undefined });
 
 					render(<DependenciesProvider dateService={aDateService()}>
-						<ConsulterOffreDeStage offreDeStage={offreDeStage}/>
+						<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 					</DependenciesProvider>);
 
 					const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
@@ -366,7 +366,7 @@ describe('ConsulterOffreDeStage', () => {
 
 	it('permet de postuler à l‘offre de stage', () => {
 		render(<DependenciesProvider dateService={aDateService()}>
-			<ConsulterOffreDeStage offreDeStage={offreDeStage}/>
+			<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 		</DependenciesProvider>);
 
 		const linkPostulerOffreEmploi = screen.getByRole('link', { name: 'Postuler - nouvelle fenêtre' });

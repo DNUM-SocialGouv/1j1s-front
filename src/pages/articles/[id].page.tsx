@@ -23,8 +23,7 @@ export default function ConsulterArticlePage({ article }: ConsulterArticlePagePr
 		<>
 			<Head
 				title={`${article.titre} | 1jeune1solution`}
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<ConsulterArticle article={article} />
 		</>
 	);

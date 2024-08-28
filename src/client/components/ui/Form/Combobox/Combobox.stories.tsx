@@ -60,8 +60,7 @@ export const intégrationDansUnFormulaire: Story = {
 	render: ({ children, ...args }) => (
 		<form
 			onSubmit={(event) => { event.preventDefault(); alert('form submitted'); }}
-			className={styles.completeForm}
-		>
+			className={styles.completeForm}>
 			<label>
 				Mot clé
 				<Input readOnly value="Informatique" />
@@ -173,10 +172,14 @@ export const async: Story = {
 		return (
 			<>
 				<label htmlFor="pays">Pays</label>
-				<Combobox id="pays" filter={Combobox.noFilter} value={value} onChange={(_, newValue) => {
-					onChange(_, newValue);
-					setValue(newValue);
-				}} {...args}>
+				<Combobox id="pays"
+					filter={Combobox.noFilter}
+					value={value}
+					onChange={(_, newValue) => {
+						onChange(_, newValue);
+						setValue(newValue);
+					}}
+					{...args}>
 					{!loading && apiResults.map((result, index) => <Combobox.Option value={index} key={index}>{result}</Combobox.Option>)}
 					<Combobox.AsyncMessage>{loading ? 'Chargement ...' : `${apiResults.length} résultats trouvés`}</Combobox.AsyncMessage>
 				</Combobox>

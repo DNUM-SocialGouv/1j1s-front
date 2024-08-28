@@ -19,28 +19,28 @@ export function MessageResultatRecherche(props: MessageResultatRechercheProps) {
 		<Skeleton type="line" isLoading={isLoading} className={styles.nombreResultats}>
 			<>
 				<div role="status">
-					{numberOfResult === 1 &&
+					{numberOfResult === 1 && (
 						<h2 className={styles.stats}>
 							<span className={styles.nombreResultats}>{numberOfResult}</span>
 							{' ' + labelSingulier}
-							<Footnote.Reference to="partenaires" id="partenaires-reference"/>
+							<Footnote.Reference to="partenaires" id="partenaires-reference" />
 						</h2>
-					}
-					{numberOfResult > 1 &&
+					)}
+					{numberOfResult > 1 && (
 						<h2 className={styles.stats}>
 							<span className={styles.nombreResultats}>{numberOfResult}</span>
 							{' ' + labelPluriel}
-							<Footnote.Reference to="partenaires" id="partenaires-reference"/>
+							<Footnote.Reference to="partenaires" id="partenaires-reference" />
 						</h2>
-					}
+					)}
 				</div>
 				<div role="alert">
 					{
-						(numberOfResult === 0) &&
-						<div>
-							<ErrorComponent/>
-						</div>
-					}
+						(numberOfResult === 0) && (
+							<div>
+								<ErrorComponent />
+							</div>
+						)}
 				</div>
 			</>
 		</Skeleton>

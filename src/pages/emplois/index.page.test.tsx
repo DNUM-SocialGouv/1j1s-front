@@ -40,9 +40,8 @@ describe('Page Emploi', () => {
 			const { container } = render(
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
-					localisationService={aLocalisationService()}
-				>
-					<RechercherOffreEmploiPage resultats={aRésultatsRechercheOffre()}/>);
+					localisationService={aLocalisationService()}>
+					<RechercherOffreEmploiPage resultats={aRésultatsRechercheOffre()} />);
 				</DependenciesProvider>);
 
 			await screen.findByRole('list', { name: /Offres d‘emplois/i });
@@ -64,9 +63,8 @@ describe('Page Emploi', () => {
 				render(
 					<DependenciesProvider
 						analyticsService={aManualAnalyticsService()}
-						localisationService={aLocalisationService()}
-					>
-						<RechercherOffreEmploiPage resultats={offres}/>);
+						localisationService={aLocalisationService()}>
+						<RechercherOffreEmploiPage resultats={offres} />);
 					</DependenciesProvider>,
 				);
 

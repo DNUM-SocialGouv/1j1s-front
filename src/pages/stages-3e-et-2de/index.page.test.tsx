@@ -43,9 +43,8 @@ describe('Page stages de 3e et 2de', () => {
 					analyticsService={aManualAnalyticsService()}
 					stage3eEt2deService={aStage3eEt2deService()}
 					metierStage3eEt2deService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
-					<Stages3eEt2dePage/>
+					localisationService={aLocalisationService()}>
+					<Stages3eEt2dePage />
 				</DependenciesProvider>);
 
 			await screen.findByRole('heading', { name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3e et 2de' });
@@ -57,9 +56,8 @@ describe('Page stages de 3e et 2de', () => {
 					analyticsService={aManualAnalyticsService()}
 					stage3eEt2deService={aStage3eEt2deService()}
 					metierStage3eEt2deService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
-					<Stages3eEt2dePage/>
+					localisationService={aLocalisationService()}>
+					<Stages3eEt2dePage />
 				</DependenciesProvider>);
 			await screen.findByRole('heading', { name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3e et 2de' });
 			await expect(container).toBeAccessible();
@@ -71,9 +69,8 @@ describe('Page stages de 3e et 2de', () => {
 					analyticsService={aManualAnalyticsService()}
 					stage3eEt2deService={aStage3eEt2deService()}
 					metierStage3eEt2deService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
-					<Stages3eEt2dePage/>
+					localisationService={aLocalisationService()}>
+					<Stages3eEt2dePage />
 				</DependenciesProvider>);
 
 			await screen.findByRole('heading', { name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3e et 2de' });
@@ -92,9 +89,8 @@ describe('Page stages de 3e et 2de', () => {
 					analyticsService={analyticsService}
 					stage3eEt2deService={aStage3eEt2deService()}
 					metierStage3eEt2deService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
-					<Stages3eEt2dePage/>
+					localisationService={aLocalisationService()}>
+					<Stages3eEt2dePage />
 				</DependenciesProvider>,
 			);
 

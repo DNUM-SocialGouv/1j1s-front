@@ -24,7 +24,7 @@ describe('Page consulter fiche métier', () => {
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<ConsulterFicheMetierPage ficheMetier={aFicheMetier()}/>
+			<ConsulterFicheMetierPage ficheMetier={aFicheMetier()} />
 		</DependenciesProvider> );
 		
 		expect(container.outerHTML).toHTMLValidate();
@@ -35,9 +35,8 @@ describe('Page consulter fiche métier', () => {
 		const analyticsService = aManualAnalyticsService();
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
-				<ConsulterFicheMetierPage ficheMetier={ficheMetier}/>
+				analyticsService={analyticsService}>
+				<ConsulterFicheMetierPage ficheMetier={ficheMetier} />
 			</DependenciesProvider>,
 		);
 		await expect(container).toBeAccessible();
@@ -48,9 +47,8 @@ describe('Page consulter fiche métier', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
-				<ConsulterFicheMetierPage ficheMetier={ficheMetier}/>
+				analyticsService={analyticsService}>
+				<ConsulterFicheMetierPage ficheMetier={ficheMetier} />
 			</DependenciesProvider>,
 		);
 
@@ -66,9 +64,8 @@ describe('Page consulter fiche métier', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
-				<ConsulterFicheMetierPage ficheMetier={ficheMetier}/>
+				analyticsService={analyticsService}>
+				<ConsulterFicheMetierPage ficheMetier={ficheMetier} />
 			</DependenciesProvider>,
 		);
 

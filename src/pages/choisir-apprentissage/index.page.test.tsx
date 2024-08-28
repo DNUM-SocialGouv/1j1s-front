@@ -92,7 +92,7 @@ describe('Page Apprentissage Jeunes', () => {
 
 			const { container } = render(
 				<DependenciesProvider analyticsService={aManualAnalyticsService()} youtubeService={aVideoService()}>
-					<ApprentissageJeunes videos={videos}/>
+					<ApprentissageJeunes videos={videos} />
 				</DependenciesProvider> );
 
 			await screen.findByText('Avec l’apprentissage, vous apprenez directement');
@@ -114,9 +114,8 @@ describe('Page Apprentissage Jeunes', () => {
 			const { container } = render(
 				<DependenciesProvider
 					analyticsService={analyticsService}
-					youtubeService={aVideoService()}
-				>
-					<ApprentissageJeunes videos={videos}/>
+					youtubeService={aVideoService()}>
+					<ApprentissageJeunes videos={videos} />
 				</DependenciesProvider>,
 			);
 
@@ -129,7 +128,7 @@ describe('Page Apprentissage Jeunes', () => {
 		// WHEN
 			render(
 				<DependenciesProvider analyticsService={analyticsService}>
-					<ApprentissageJeunes videos={[]}/>
+					<ApprentissageJeunes videos={[]} />
 				</DependenciesProvider>,
 			);
 
@@ -142,7 +141,7 @@ describe('Page Apprentissage Jeunes', () => {
 		it('affiche la bonne page', () => {
 			render(
 				<DependenciesProvider analyticsService={analyticsService}>
-					<ApprentissageJeunes videos={[]}/>
+					<ApprentissageJeunes videos={[]} />
 				</DependenciesProvider>,
 			);
 
@@ -154,7 +153,7 @@ describe('Page Apprentissage Jeunes', () => {
 		it('affiche le titre du document', () => {
 			render(
 				<DependenciesProvider analyticsService={analyticsService}>
-					<ApprentissageJeunes videos={[]}/>
+					<ApprentissageJeunes videos={[]} />
 				</DependenciesProvider>,
 			);
 

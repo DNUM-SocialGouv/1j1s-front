@@ -93,16 +93,17 @@ export function NavItemWithSubItems({
 					label={subItem.label}
 					link={subItem.link}
 					isActive={router.pathname === subItem.link}
-					onClick={onNavItemSelected}
-				/>
+					onClick={onNavItemSelected} />
 			);
 		}
-		return <NavItemWithSubItems
-			key={subItem.label?.toString()}
-			className={styles.navItem}
-			navigationItemWithChildren={subItem}
-			onClick={onClick}
-			isMobile/>;
+		return (
+			<NavItemWithSubItems
+				key={subItem.label?.toString()}
+				className={styles.navItem}
+				navigationItemWithChildren={subItem}
+				onClick={onClick}
+				isMobile />
+		);
 	});
 
 	return (
@@ -114,7 +115,7 @@ export function NavItemWithSubItems({
 				<span className={styles.subNavItemButtonLabel} aria-current={isNavItemActive}>
 					{navigationItemWithChildren.label}
 				</span>
-				<Icon className={isExpanded ? styles.subNavItemButtonIconExpanded : styles.subNavItemButtonIcon} name="angle-down"/>
+				<Icon className={isExpanded ? styles.subNavItemButtonIconExpanded : styles.subNavItemButtonIcon} name="angle-down" />
 			</button>
 			{isExpanded && <ul className={styles.subNavItemList}>{subNav}</ul>}
 		</li>

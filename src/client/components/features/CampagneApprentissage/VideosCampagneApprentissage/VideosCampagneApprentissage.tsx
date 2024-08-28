@@ -31,15 +31,15 @@ export default function VideosCampagneApprentissage({
 
 	function getVideoButtonIcon(video: VideoCampagneApprentissage) {
 		return videoToDisplay === video ?
-			<Icon name="arrow-left"/> :
-			<Icon name="play-circle"/>;
+			<Icon name="arrow-left" /> :
+			<Icon name="play-circle" />;
 	}
 
 	return (
 		<section className={classNames(styles.sectionVideos, className)}>
 			<Container className={styles.container}>
 				<h2 className={styles.titreSection} id="titre-section-video" tabIndex={-1}>{titre}</h2>
-				<VideoFrame videoToDisplay={videoToDisplay} className={styles.video}/>
+				<VideoFrame videoToDisplay={videoToDisplay} className={styles.video} />
 				<details className={styles.transcription}>
 					<summary>Lire la transcription</summary>
 					<p className={styles.content}>{videoToDisplay.transcription}</p>
@@ -61,8 +61,7 @@ export default function VideosCampagneApprentissage({
 										icon={
 											getVideoButtonIcon(video)
 										}
-										iconPosition="left"
-									/>
+										iconPosition="left" />
 								</li>
 							))
 						}
@@ -73,7 +72,7 @@ export default function VideosCampagneApprentissage({
 							href={'https://www.youtube.com/playlist?list=PL380KraUhZWX2ZY_qMbydLn5lqIXpUvw1'}
 							className={styles.lienPlaylist}>
 							Découvrir tous les témoignages
-							<Link.Icon/>
+							<Link.Icon />
 						</Link>
 					</div>
 				</section>

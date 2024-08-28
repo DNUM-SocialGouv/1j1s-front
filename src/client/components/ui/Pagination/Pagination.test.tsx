@@ -24,7 +24,7 @@ describe('Pagination', () => {
 		it('affiche directement la page dans la pagination', () => {
 			mockUseRouter({ query: { page: '3' } });
 			render(
-				<Pagination numberOfResult={470} numberOfResultPerPage={30}/>,
+				<Pagination numberOfResult={470} numberOfResultPerPage={30} />,
 			);
 
 			expect(screen.getByRole('link', { current: true, name: '3' })).toBeInTheDocument();
@@ -35,7 +35,7 @@ describe('Pagination', () => {
 		it('doit afficher seulement les pages souhaitées', () => {
 			mockUseRouter({});
 			render(
-				<Pagination numberOfResult={70000} numberOfResultPerPage={15} maxPage={66}/>,
+				<Pagination numberOfResult={70000} numberOfResultPerPage={15} maxPage={66} />,
 			);
 
 			expect(screen.getByText('1')).toBeInTheDocument();
@@ -50,7 +50,7 @@ describe('Pagination', () => {
 			it('doit afficher les 4 premières pages, une ellipse, la page 16, Page suivante et le go to last page', () => {
 				mockUseRouter({});
 				render(
-					<Pagination numberOfResult={470} numberOfResultPerPage={30}/>,
+					<Pagination numberOfResult={470} numberOfResultPerPage={30} />,
 				);
 
 				expect(screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE }).getAttribute('aria-disabled')).toBe('true');
@@ -74,7 +74,7 @@ describe('Pagination', () => {
 					mockSmallScreen();
 					mockUseRouter({});
 					render(
-						<Pagination numberOfResult={470} numberOfResultPerPage={30}/>,
+						<Pagination numberOfResult={470} numberOfResultPerPage={30} />,
 					);
 
 					const page3 = screen.getByRole('link', { current: false, name: '3' });
@@ -100,7 +100,7 @@ describe('Pagination', () => {
 			it('doit afficher return to the first page, Page précédente, 4 pages avant et après la page 9, une ellipse, Page suivante et le go to last page', async () => {
 				mockUseRouter({});
 				render(
-					<Pagination numberOfResult={470} numberOfResultPerPage={30}/>,
+					<Pagination numberOfResult={470} numberOfResultPerPage={30} />,
 				);
 
 				const page5 = screen.getByRole('link', { current: false, name: '5' });
@@ -150,7 +150,7 @@ describe('Pagination', () => {
 
 				mockUseRouter({ push: routerPush });
 				render(
-					<Pagination numberOfResult={470} numberOfResultPerPage={30}/>,
+					<Pagination numberOfResult={470} numberOfResultPerPage={30} />,
 				);
 
 				// l‘utilisateur clique sur la troisière page
@@ -202,7 +202,7 @@ describe('Pagination', () => {
 		it('n‘affiche pas la pagination', () => {
 			mockUseRouter({});
 			render(
-				<Pagination numberOfResult={2} numberOfResultPerPage={25}/>,
+				<Pagination numberOfResult={2} numberOfResultPerPage={25} />,
 			);
 
 			expect(screen.queryByRole('list')).not.toBeInTheDocument();
@@ -213,7 +213,7 @@ describe('Pagination', () => {
 		it('affiche la pagination avec 2 pages', () => {
 			mockUseRouter({});
 			render(
-				<Pagination numberOfResult={12} numberOfResultPerPage={10}/>,
+				<Pagination numberOfResult={12} numberOfResultPerPage={10} />,
 			);
 			expect(screen.getByRole('link', { current: true, name: '1' })).toBeInTheDocument();
 			expect(screen.getByText('2')).toBeInTheDocument();
@@ -233,7 +233,7 @@ describe('Pagination', () => {
 		it('la flèche retour', async () => {
 			const user = userEvent.setup();
 			render(
-				<Pagination numberOfResult={70000} numberOfResultPerPage={15} maxPage={66}/>,
+				<Pagination numberOfResult={70000} numberOfResultPerPage={15} maxPage={66} />,
 			);
 
 			const linkPagePrécédente = screen.getByRole('link', { name: REVENIR_A_LA_PAGE_PRECENDENTE });
@@ -246,7 +246,7 @@ describe('Pagination', () => {
 		it('la flèche suivante', async () => {
 			const user = userEvent.setup();
 			render(
-				<Pagination numberOfResult={10} numberOfResultPerPage={2}/>,
+				<Pagination numberOfResult={10} numberOfResultPerPage={2} />,
 			);
 
 			const linkPagePrécédente = screen.getByRole('link', { name: ALLER_A_LA_PAGE_SUIVANTE });
@@ -258,7 +258,7 @@ describe('Pagination', () => {
 		it('la flèche aller au début', async () => {
 			const user = userEvent.setup();
 			render(
-				<Pagination numberOfResult={10} numberOfResultPerPage={2}/>,
+				<Pagination numberOfResult={10} numberOfResultPerPage={2} />,
 			);
 
 			const linkPagePrécédente = screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE });
@@ -270,7 +270,7 @@ describe('Pagination', () => {
 		it('la flèche aller à la fin', async () => {
 			const user = userEvent.setup();
 			render(
-				<Pagination numberOfResult={10} numberOfResultPerPage={2}/>,
+				<Pagination numberOfResult={10} numberOfResultPerPage={2} />,
 			);
 
 			const linkPagePrécédente = screen.getByRole('link', { name: ALLER_A_LA_DERNIERE_PAGE });

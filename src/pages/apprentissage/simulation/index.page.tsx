@@ -26,8 +26,7 @@ export default function SimulateurOffreAlternant() {
 		<main id="contenu">
 			<Head
 				title={`${titre} | 1jeune1solution`}
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<Hero>
 				<h1><HeroPrimaryText className={styles.heroTitle}>{titre}</HeroPrimaryText></h1>
 				<HeroSecondaryText className={styles.heroSubtitle}>
@@ -37,7 +36,7 @@ export default function SimulateurOffreAlternant() {
 			<Container>
 				<iframe className={styles.iframe}
 					title="Formulaire de simulation de la rémunération en apprentissage de la Délégation générale à l’emploi et à la formation professionnelle"
-					src={iframeSrc}/>
+					src={iframeSrc} />
 				<p className={styles.rgpd}>
 					Vous êtes informé que vos données sont collectées et traitées par la <abbr title="Délégation Générale À l’Emploi et à la Formation Professionnelle">DGEFP</abbr> pour traiter votre demande.
 					En cliquant sur « Commencer la simulation » vous reconnaissez avoir pris connaissance et accepté la <a href={POLITIQUE_DE_CONFIDENTIALITÉ_URL}>Politique de Confidentialité de la DGEFP</a>.

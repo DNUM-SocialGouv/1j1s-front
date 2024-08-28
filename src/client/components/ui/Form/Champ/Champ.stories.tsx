@@ -28,9 +28,10 @@ export const Required: Story = {
 		return(
 			<Champ {...args}>
 				<Champ.Label>Pays <Champ.Label.Complement>(requis)</Champ.Label.Complement></Champ.Label>
-				<Champ.Input render={Input} defaultValue="France" required={true}/>
-				<Champ.Error/>
-			</Champ>);
+				<Champ.Input render={Input} defaultValue="France" required={true} />
+				<Champ.Error />
+			</Champ>
+		);
 	},
 };
 
@@ -50,7 +51,7 @@ export const IndicationEtErreur: Story = {
 		<Champ {...args}>
 			<Champ.Label>Pays <Champ.Label.Complement>(requis)</Champ.Label.Complement></Champ.Label>
 			<Champ.Input render={Input} defaultValue="France" required validation={() => 'toot'} />
-			<Champ.Error/>
+			<Champ.Error />
 			<Champ.Hint>e.g. France</Champ.Hint>
 		</Champ>
 	),
@@ -70,8 +71,9 @@ export const ComposantNonInput: Story = {
 					<Combobox.Option>Espagne</Combobox.Option>
 					<Combobox.Option>Italie</Combobox.Option>
 				</Champ.Input>
-				<Champ.Error/>
-			</Champ>);
+				<Champ.Error />
+			</Champ>
+		);
 	},
 };
 
@@ -81,7 +83,7 @@ export const ComposantInputAvecValidationCustom: Story = {
 		<Champ {...args}>
 			<Champ.Label>Pays <Champ.Label.Complement>(entrer &ldquo;France&rdquo;)</Champ.Label.Complement></Champ.Label>
 			<Champ.Input render={Input} required validation={(value) => value === 'France' ? '' : 'Entrer "France"'} />
-			<Champ.Error/>
+			<Champ.Error />
 			<Champ.Hint>e.g. France</Champ.Hint>
 		</Champ>
 	),

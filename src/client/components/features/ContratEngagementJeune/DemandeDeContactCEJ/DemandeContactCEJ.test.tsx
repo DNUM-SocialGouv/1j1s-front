@@ -31,7 +31,7 @@ describe('<DemandeContactCEJ />', () => {
 		render(
 			<DependenciesProvider demandeDeContactService={demandeDeContactServiceMock}
 				localisationService={localisationService}>
-				<DemandeContactCEJ/>
+				<DemandeContactCEJ />
 			</DependenciesProvider>,
 		);
 	}
@@ -77,7 +77,7 @@ describe('<DemandeContactCEJ />', () => {
 				<DependenciesProvider
 					demandeDeContactService={demandeDeContactService}
 					localisationService={localisationService}>
-					<DemandeContactCEJ/>
+					<DemandeContactCEJ />
 				</DependenciesProvider>,
 			);
 			await user.click(screen.getByRole('button', { name: 'Demander à être contacté.e' }));
@@ -113,7 +113,7 @@ describe('<DemandeContactCEJ />', () => {
 					<DependenciesProvider
 						demandeDeContactService={demandeDeContactService}
 						localisationService={localisationService}>
-						<DemandeContactCEJ/>
+						<DemandeContactCEJ />
 					</DependenciesProvider>,
 				);
 
@@ -150,7 +150,7 @@ describe('<DemandeContactCEJ />', () => {
 					<DependenciesProvider
 						demandeDeContactService={demandeDeContactService}
 						localisationService={localisationService}>
-						<DemandeContactCEJ/>
+						<DemandeContactCEJ />
 					</DependenciesProvider>,
 				);
 
@@ -190,7 +190,7 @@ describe('<DemandeContactCEJ />', () => {
 					<DependenciesProvider
 						demandeDeContactService={demandeDeContactService}
 						localisationService={localisationService}>
-						<DemandeContactCEJ/>
+						<DemandeContactCEJ />
 					</DependenciesProvider>,
 				);
 

@@ -15,14 +15,14 @@ describe('<Label>', () => {
 
 	it('lorsque le champ est obligatoire, je vois l‘indicateur obligatoire', () => {
 		render(<Label>
-			Je suis le label <Label.Required/>
+			Je suis le label <Label.Required />
 		</Label>);
 		expect(screen.getByText(/(champ obligatoire)/)).toBeVisible();
 	});
 
 	it('lorsque le champ est optionnel, je vois l‘indicateur optionnel', () => {
 		render(<Label>
-			Je suis le label <Label.Optional/>
+			Je suis le label <Label.Optional />
 		</Label>);
 		expect(screen.getByText(/(champ optionnel)/)).toBeVisible();
 	});

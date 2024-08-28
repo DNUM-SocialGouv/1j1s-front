@@ -65,9 +65,8 @@ describe('Plan du site', () => {
 
 				render(
 					<DependenciesProvider
-						analyticsService={analyticsService}
-					>
-						<PlanDuSite/>
+						analyticsService={analyticsService}>
+						<PlanDuSite />
 					</DependenciesProvider>,
 				);
 
@@ -95,9 +94,8 @@ describe('Plan du site', () => {
 
 			render(
 				<DependenciesProvider
-					analyticsService={analyticsService}
-				>
-					<PlanDuSite/>
+					analyticsService={analyticsService}>
+					<PlanDuSite />
 				</DependenciesProvider>,
 			);
 
@@ -112,9 +110,8 @@ describe('Plan du site', () => {
 
 		render(
 			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
-				<PlanDuSite/>
+				analyticsService={analyticsService}>
+				<PlanDuSite />
 			</DependenciesProvider>,
 		);
 

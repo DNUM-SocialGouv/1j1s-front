@@ -50,7 +50,7 @@ describe('Page emplois en europe', () => {
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
 					emploiEuropeService={anEmploiEuropeService()}>
-					<EmploiEuropePage/>
+					<EmploiEuropePage />
 				</DependenciesProvider> );
 			
 			const boutonRecherche = screen.getByRole('button', { name: 'Rechercher' });
@@ -69,9 +69,8 @@ describe('Page emplois en europe', () => {
 			const { container } = render(
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
-					emploiEuropeService={anEmploiEuropeService()}
-				>
-					<EmploiEuropePage/>
+					emploiEuropeService={anEmploiEuropeService()}>
+					<EmploiEuropePage />
 				</DependenciesProvider>);
 			const boutonRecherche = screen.getByRole('button', { name: 'Rechercher' });
 			await user.click(boutonRecherche);
@@ -84,9 +83,8 @@ describe('Page emplois en europe', () => {
 			render(
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
-					emploiEuropeService={anEmploiEuropeService()}
-				>
-					<EmploiEuropePage/>
+					emploiEuropeService={anEmploiEuropeService()}>
+					<EmploiEuropePage />
 				</DependenciesProvider>);
 
 			expect(screen.getByRole('heading', {
@@ -100,9 +98,8 @@ describe('Page emplois en europe', () => {
 			render(
 				<DependenciesProvider
 					analyticsService={analyticsService}
-					emploiEuropeService={anEmploiEuropeService()}
-				>
-					<EmploiEuropePage/>
+					emploiEuropeService={anEmploiEuropeService()}>
+					<EmploiEuropePage />
 				</DependenciesProvider>,
 			);
 

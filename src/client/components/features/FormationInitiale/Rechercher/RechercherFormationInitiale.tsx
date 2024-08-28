@@ -77,22 +77,20 @@ export function RechercherFormationInitiale() {
 			<Head
 				title={title}
 				description="Des milliers de formations pour vous permettre de réaliser votre projet professionnel"
-				robots="index,follow"
-			/>
+				robots="index,follow" />
 			<main id="contenu">
 				<RechercherSolutionLayout
 					banniere={banniere()}
 					erreurRecherche={erreurRecherche}
-					formulaireRecherche={<FormulaireRechercheFormationInitiale/>}
+					formulaireRecherche={<FormulaireRechercheFormationInitiale />}
 					isChargement={isLoading}
 					isEtatInitial={empty(formationInitialeQuery)}
 					messageResultatRecherche={messageResultatRecherche}
 					nombreTotalSolutions={nombreDeResultat}
 					paginationOffset={NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE}
-					listeSolutionElement={<ListeFormationInitiale resultatList={resultatList}/>}
-				/>
+					listeSolutionElement={<ListeFormationInitiale resultatList={resultatList} />} />
 
-				<ListeDesServicesInteressants/>
+				<ListeDesServicesInteressants />
 			</main>
 		</>
 	);
@@ -100,12 +98,14 @@ export function RechercherFormationInitiale() {
 
 
 function banniere() {
-	return (<LightHero>
-		<h1>
-			<LightHeroPrimaryText>Des milliers de formations pour vous permettre</LightHeroPrimaryText>
-			<LightHeroSecondaryText>de réaliser votre projet professionnel</LightHeroSecondaryText>
-		</h1>
-	</LightHero>);
+	return (
+		<LightHero>
+			<h1>
+				<LightHeroPrimaryText>Des milliers de formations pour vous permettre</LightHeroPrimaryText>
+				<LightHeroSecondaryText>de réaliser votre projet professionnel</LightHeroSecondaryText>
+			</h1>
+		</LightHero>
+	);
 }
 
 interface ListResultatProps {
@@ -137,8 +137,7 @@ function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 						étiquetteOffreList={getTags(formation)}
 						intituléOffre={formation.libelle}
 						logo={'/images/logos/fallback.svg'}
-						lienOffre={getLienOffre(formation.identifiant)}
-					/>
+						lienOffre={getLienOffre(formation.identifiant)} />
 				</li>
 			))}
 		</ListeRésultatsRechercherSolution>
