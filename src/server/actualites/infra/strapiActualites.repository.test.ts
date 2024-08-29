@@ -67,7 +67,7 @@ describe('strapiActualitesRepository', () => {
 			expect(result).toStrictEqual(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 		});
 	});
-	describe('getActualitesAccueilList', () => {
+	describe('getActualitesEchantillonList', () => {
 		it('appelle le service strapi avec les bons paramètres', async () => {
 			// Given
 			const strapiService = aStrapiService();
@@ -75,7 +75,7 @@ describe('strapiActualitesRepository', () => {
 			jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiListeActualites()));
 
 			// When
-			await strapiActualites.getActualitesAccueilList();
+			await strapiActualites.getActualitesEchantillonList();
 
 			// Then
 			const expectedQuery = 'populate=deep';
@@ -83,14 +83,14 @@ describe('strapiActualitesRepository', () => {
 		});
 
 		describe('quand les actualités sont récupérées', () => {
-			it('lorsque le mapping est en succès, renvoie au plus	3 actualités', async () => {
+			it('lorsque le mapping est en succès, renvoie au plus 3 actualités', async () => {
 				// Given
 				const strapiService = aStrapiService();
 				const strapiActualites = new StrapiActualitesRepository(strapiService, anErrorManagementService());
 				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiLongueListeActualites()));
 
 				// When
-				const result = await strapiActualites.getActualitesAccueilList();
+				const result = await strapiActualites.getActualitesEchantillonList();
 
 				// Then
 				expect(result).toStrictEqual(createSuccess(anActualiteLongList().slice(0,3)));
@@ -108,7 +108,7 @@ describe('strapiActualitesRepository', () => {
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 				// When
-				const result = await strapiActualites.getActualitesAccueilList();
+				const result = await strapiActualites.getActualitesEchantillonList();
 
 				// Then
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(
@@ -128,7 +128,7 @@ describe('strapiActualitesRepository', () => {
 			jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 			// When
-			const result = await strapiActualites.getActualitesAccueilList();
+			const result = await strapiActualites.getActualitesEchantillonList();
 
 			//Then
 			expect(result).toStrictEqual(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));

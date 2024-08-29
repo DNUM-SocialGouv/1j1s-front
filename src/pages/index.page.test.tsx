@@ -15,6 +15,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import Accueil, { getStaticProps } from '~/pages/index.page';
+import { Actualite } from '~/server/actualites/domain/actualite';
 import { anActualiteList, anActualiteLongList } from '~/server/actualites/domain/actualite.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -34,7 +35,7 @@ describe('Page d’accueil', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<Accueil cartesActualites={anActualiteList()} />
+				<Accueil actualites={anActualiteList()} />
 			</DependenciesProvider>);
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -43,7 +44,7 @@ describe('Page d’accueil', () => {
 	it('n’a pas de défaut d’accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<Accueil cartesActualites={anActualiteList()} />
+				<Accueil actualites={anActualiteList()} />
 			</DependenciesProvider>,
 		);
 
@@ -56,7 +57,7 @@ describe('Page d’accueil', () => {
 				process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '1';
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil cartesActualites={anActualiteList()} />
+						<Accueil actualites={anActualiteList()} />
 					</DependenciesProvider>,
 				);
 				expect(screen.getByRole('link', { name: /Découvrir les actualités et services jeunes/ })).toBeVisible();
@@ -65,7 +66,7 @@ describe('Page d’accueil', () => {
 				process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil cartesActualites={anActualiteList()} />
+						<Accueil actualites={anActualiteList()} />
 					</DependenciesProvider>,
 				);
 				expect(screen.queryByRole('link', { name: /Découvrir les actualités et services jeunes/ })).not.toBeInTheDocument();
@@ -81,7 +82,7 @@ describe('Page d’accueil', () => {
 					// WHEN
 					render(
 						<DependenciesProvider analyticsService={analyticsService}>
-							<Accueil cartesActualites={anActualiteList()} />
+							<Accueil actualites={anActualiteList()} />
 						</DependenciesProvider>,
 					);
 
@@ -101,7 +102,7 @@ describe('Page d’accueil', () => {
 						// WHEN
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()} />
+								<Accueil actualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 
@@ -125,7 +126,7 @@ describe('Page d’accueil', () => {
 						// WHEN
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()} />
+								<Accueil actualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 
@@ -149,7 +150,7 @@ describe('Page d’accueil', () => {
 					// When
 					render(
 						<DependenciesProvider analyticsService={analyticsService}>
-							<Accueil cartesActualites={anActualiteList()} />
+							<Accueil actualites={anActualiteList()} />
 						</DependenciesProvider>,
 					);
 
@@ -163,7 +164,7 @@ describe('Page d’accueil', () => {
 					// When
 					render(
 						<DependenciesProvider analyticsService={analyticsService}>
-							<Accueil cartesActualites={anActualiteList()} />
+							<Accueil actualites={anActualiteList()} />
 						</DependenciesProvider>,
 					);
 
@@ -179,7 +180,7 @@ describe('Page d’accueil', () => {
 				// When
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil cartesActualites={anActualiteList()} />
+						<Accueil actualites={anActualiteList()} />
 					</DependenciesProvider>,
 				);
 
@@ -200,11 +201,12 @@ describe('Page d’accueil', () => {
 				it('n’affiche pas la section', async () => {
 					// Given
 					process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '1';
+					const aucuneActualiteOldAccueil: Array<Actualite> = [];
 
 					// When
 					render(
 						<DependenciesProvider analyticsService={analyticsService}>
-							<Accueil cartesActualites={anActualiteList()} />
+							<Accueil actualites={aucuneActualiteOldAccueil} />
 						</DependenciesProvider>,
 					);
 
@@ -212,18 +214,28 @@ describe('Page d’accueil', () => {
 					const headingActualites = screen.queryByRole('heading', { level: 2, name: 'Actualités' });
 					expect(headingActualites).not.toBeInTheDocument();
 				});
+				it('ne redirige pas vers une 404', async () => {
+					// Given
+					process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '1';
+
+					// When
+					const result = await getStaticProps();
+
+					// Then
+					expect(result).not.toMatchObject({ notFound: true });
+				});
 			});
 			describe('quand la feature old espace jeune est désactivée', () => {
 				it('appelle le serveur pour récupérer les 3 dernières actualités', async () => {
 					// Given
 					process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
-					jest.spyOn(dependencies.actualitesDependencies.consulterActualitesAccueilUseCase, 'handle').mockResolvedValue(createSuccess(anActualiteList()));
+					jest.spyOn(dependencies.actualitesDependencies.consulterActualitesEchantillonUseCase, 'handle').mockResolvedValue(createSuccess(anActualiteList()));
 
 					// When
 					await getStaticProps();
 
 					// Then
-					expect(dependencies.actualitesDependencies.consulterActualitesAccueilUseCase.handle).toHaveBeenCalledTimes(1);
+					expect(dependencies.actualitesDependencies.consulterActualitesEchantillonUseCase.handle).toHaveBeenCalledTimes(1);
 				});
 				describe('lorsque la récupération des actualités est un succès', () => {
 					it('affiche le titre', async () => {
@@ -233,7 +245,7 @@ describe('Page d’accueil', () => {
 						// When
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()} />
+								<Accueil actualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 
@@ -248,7 +260,7 @@ describe('Page d’accueil', () => {
 						// When
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()} />
+								<Accueil actualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 
@@ -265,7 +277,7 @@ describe('Page d’accueil', () => {
 						// When
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={actualiteListServer} />
+								<Accueil actualites={actualiteListServer} />
 							</DependenciesProvider>,
 						);
 
@@ -284,7 +296,7 @@ describe('Page d’accueil', () => {
 				describe('lorsque la récupération des actualités est un échec', () => {
 					it('redirige vers la page 404', async () => {
 						// Given
-						jest.spyOn(dependencies.actualitesDependencies.consulterActualitesAccueilUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+						jest.spyOn(dependencies.actualitesDependencies.consulterActualitesEchantillonUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 						// When
 						const result = await getStaticProps();
@@ -302,7 +314,7 @@ describe('Page d’accueil', () => {
 				// WHEN
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil cartesActualites={anActualiteList()} />
+						<Accueil actualites={anActualiteList()} />
 					</DependenciesProvider>,
 				);
 
@@ -318,7 +330,7 @@ describe('Page d’accueil', () => {
 						process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '0';
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()} />
+								<Accueil actualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 						expect(screen.queryByText('Jobs d’été')).not.toBeInTheDocument();
@@ -331,7 +343,7 @@ describe('Page d’accueil', () => {
 
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()} />
+								<Accueil actualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 
@@ -353,7 +365,7 @@ describe('Page d’accueil', () => {
 						// WHEN
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()} />
+								<Accueil actualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 
@@ -372,7 +384,7 @@ describe('Page d’accueil', () => {
 						// WHEN
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()} />
+								<Accueil actualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 
@@ -391,7 +403,7 @@ describe('Page d’accueil', () => {
 						process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()} />
+								<Accueil actualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 						expect(screen.queryByText('Formations initiales')).not.toBeInTheDocument();
@@ -403,7 +415,7 @@ describe('Page d’accueil', () => {
 
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()} />
+								<Accueil actualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 
@@ -422,7 +434,7 @@ describe('Page d’accueil', () => {
 						process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '0';
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()} />
+								<Accueil actualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 						expect(screen.queryByText('Aides au permis de conduire')).not.toBeInTheDocument();
@@ -434,7 +446,7 @@ describe('Page d’accueil', () => {
 
 						render(
 							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil cartesActualites={anActualiteList()} />
+								<Accueil actualites={anActualiteList()} />
 							</DependenciesProvider>,
 						);
 

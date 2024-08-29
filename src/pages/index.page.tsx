@@ -26,7 +26,7 @@ interface CardContent {
 }
 
 interface AccueilPageProps {
-	cartesActualites: Array<Actualite>
+	actualites: Array<Actualite>
 }
 
 export default function Accueil(accueilProps: AccueilPageProps) {
@@ -46,7 +46,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 
 	const isBannerWorldSkillsVisible = process.env.NEXT_PUBLIC_WORLD_SKILLS_FEATURE === '1';
 
-	const actualitesCardListContent: CardContent[] = accueilProps.cartesActualites.map((carte: Actualite): CardContent => {
+	const actualitesCardListContent: CardContent[] = accueilProps.actualites.map((carte: Actualite): CardContent => {
 		return {
 			children: <p>{carte.extraitContenu}</p>,
 			imageUrl: carte.bannière?.src || '',
@@ -328,7 +328,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 					)
 				}
 
-				{!isOldEspaceJeuneActif
+				{!isOldEspaceJeuneActif && actualitesCardListContent.length > 0
 					&& (
 						<section className={styles.section}>
 							<h2 id="actualites" className={styles.sectionHeader}>
@@ -435,17 +435,19 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 export async function getStaticProps(): Promise<GetStaticPropsResult<AccueilPageProps>> {
 	const isEspaceJeuneVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0';
 	if (!isEspaceJeuneVisible) {
-		return { notFound: true };
+		return {
+			props: { actualites: [] },
+		};
 	}
 
-	const cartesActualitesResponse = await dependencies.actualitesDependencies.consulterActualitesAccueilUseCase.handle();
+	const cartesActualitesResponse = await dependencies.actualitesDependencies.consulterActualitesEchantillonUseCase.handle();
 
 	if (isFailure(cartesActualitesResponse)) {
 		return { notFound: true, revalidate: 1 };
 	}
 
 	return {
-		props: { cartesActualites: JSON.parse(JSON.stringify(cartesActualitesResponse.result)) },
+		props: { actualites: JSON.parse(JSON.stringify(cartesActualitesResponse.result)) },
 		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
 	};
 }

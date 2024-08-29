@@ -33,7 +33,7 @@ export class StrapiActualitesRepository implements ActualitesRepository {
 		}
 	}
 
-	async getActualitesAccueilList(): Promise<Either<Array<Actualite>>> {
+	async getActualitesEchantillonList(): Promise<Either<Array<Actualite>>> {
 		const query = 'populate=deep';
 		const strapiActualitesList = await this.strapiService.getSingleType<StrapiListeActualites.ListeActualites>(RESOURCE_ACTUALITE, query);
 
