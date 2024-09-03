@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.342.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.342.4...v3.342.5) (2024-09-03)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#3289](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3289)) ([f805745](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f8057453726f7452eef40666f5e4b591f25470bf))
+* **deps:** update dependency axios to v1.7.7 ([#3297](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3297)) ([aa0fabc](https://github.com/DNUM-SocialGouv/1j1s-front/commit/aa0fabcf93450a6469894ac45910d6df2690dbeb))
+
 ## [3.342.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.342.3...v3.342.4) (2024-09-01)
 
 
