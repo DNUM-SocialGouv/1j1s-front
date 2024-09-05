@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.343.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.342.5...v3.343.0) (2024-09-05)
+
+
+### Features
+
+* **actualites:** ajoute la section Actualités à l'accueil ([#3276](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3276)) ([d3d5f6f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d3d5f6f1e436b6dc9228b7eaa0d83f86ba96ab52))
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.7.7 ([#3302](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3302)) ([fe7d5b9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fe7d5b9fb4050c172aa9c2a9d70e0ed38d17aa75))
+
 ## [3.342.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.342.4...v3.342.5) (2024-09-03)
 
 
