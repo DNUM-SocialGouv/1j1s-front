@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@meilisearch/instant-meilisearch": "0.20.0",
-    "@next/bundle-analyzer": "14.2.7",
+    "@next/bundle-analyzer": "14.2.8",
     "@sentry/nextjs": "7.119.0",
     "axios": "1.7.7",
     "axios-cache-interceptor": "1.5.3",
@@ -38,7 +38,7 @@
     "lodash.debounce": "4.0.8",
     "markdown-it": "14.1.0",
     "markdown-it-anchor": "9.1.0",
-    "next": "14.2.7",
+    "next": "14.2.8",
     "next-joi": "2.2.1",
     "phone": "3.1.50",
     "pino": "9.4.0",
