@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { GetStaticPropsResult } from 'next';
 import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
@@ -11,6 +12,9 @@ import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/index.analytics';
 import styles from '~/pages/index.module.scss';
+import { Actualite } from '~/server/actualites/domain/actualite';
+import { isFailure } from '~/server/errors/either';
+import { dependencies } from '~/server/start';
 
 
 interface CardContent {
@@ -21,7 +25,11 @@ interface CardContent {
 	title: string
 }
 
-export default function Accueil() {
+interface AccueilPageProps {
+	actualites: Array<Actualite>
+}
+
+export default function Accueil(accueilProps: AccueilPageProps) {
 	useAnalytics(analytics);
 
 	const isJobEteCardVisible = process.env.NEXT_PUBLIC_JOB_ETE_FEATURE === '1';
@@ -34,9 +42,19 @@ export default function Accueil() {
 	const urlDepotOffreStagesSeconde = process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL ?? '';
 	const urlHomePageStageDeSeconde = process.env.NEXT_PUBLIC_STAGES_SECONDE_HOMEPAGE_URL ?? '';
 
-	const isVisibleCtaRedirectionEspaceJeune = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
+	const isOldEspaceJeuneActif = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
 
 	const isBannerWorldSkillsVisible = process.env.NEXT_PUBLIC_WORLD_SKILLS_FEATURE === '1';
+
+	const actualitesCardListContent: CardContent[] = accueilProps.actualites.map((carte: Actualite): CardContent => {
+		return {
+			children: <p>{carte.extraitContenu}</p>,
+			imageUrl: carte.bannière?.src || '',
+			link: carte.link,
+			linkLabel: 'Lire l’actualité',
+			title: carte.titre,
+		};
+	});
 
 	const offreCardListContent: CardContent[] = [
 		{
@@ -242,7 +260,7 @@ export default function Accueil() {
 						Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !
 					</HeroSecondaryText>
 					{
-						isVisibleCtaRedirectionEspaceJeune && (
+						isOldEspaceJeuneActif && (
 							<Link href={'/espace-jeune'} appearance={'asSecondaryButton'} className={styles.heroButton}>
 								<span className={styles.heroButtonLargeScreenText}>Découvrir les actualités et services jeunes</span>
 								<span className={styles.heroButtonSmallMediumScreenText}>Actualités et services jeunes</span>
@@ -310,9 +328,30 @@ export default function Accueil() {
 					)
 				}
 
-				<section className={classNames(styles.section, styles.sectionNosOffres)}>
+				{!isOldEspaceJeuneActif && actualitesCardListContent.length > 0
+					&& (
+						<section className={styles.section}>
+							<h2 id="actualites" className={styles.sectionHeader}>
+								<Icon name="newspaper" className={styles.headerIcon} />
+							Actualités
+							</h2>
+							<Container className={styles.sectionListeActualites}>
+								<ul>
+									{getCardList(actualitesCardListContent).map((carte, index) => {
+										return ( <li key={index}>{carte}</li> );},
+									)}
+								</ul>
+								<Link href={'/actualites'} appearance={'asSecondaryButton'}>
+								Voir toutes les actualités
+									<Link.Icon />
+								</Link>
+							</Container>
+						</section>
+					)
+				}
+				<section className={styles.section}>
 					<h2 id="offres" className={styles.sectionHeader}>
-						<Icon name="brief-case" className={styles.sectionNosOffresHeaderIcon} />
+						<Icon name="brief-case" className={styles.headerIcon} />
 						Offres
 					</h2>
 					<Container>
@@ -323,9 +362,9 @@ export default function Accueil() {
 							seeLessAriaLabel={'Voir moins de résultats sur les offres d‘emplois'} />
 					</Container>
 				</section>
-				<section className={classNames(styles.section, styles.sectionFormationsOrientation)}>
+				<section className={styles.section}>
 					<h2 id="formation" className={styles.sectionHeader}>
-						<Icon name={'book'} className={styles.sectionFormationsOrientationHeaderIcon} />
+						<Icon name={'book'} className={styles.headerIcon} />
 						Formations et orientation
 					</h2>
 					<Container>
@@ -336,9 +375,9 @@ export default function Accueil() {
 							seeLessAriaLabel={'Voir moins de résultats sur les formations et orientation'} />
 					</Container>
 				</section>
-				<section className={classNames(styles.section, styles.sectionEngagementBénévolat)}>
+				<section className={styles.section}>
 					<h2 id="engagement-benevolat" className={styles.sectionHeader}>
-						<Icon name="trophy" className={styles.sectionEngagementBénévolatHeaderIcon} />
+						<Icon name="trophy" className={styles.headerIcon} />
 						Engagement
 					</h2>
 					<Container>
@@ -349,9 +388,9 @@ export default function Accueil() {
 							seeLessAriaLabel={'Voir moins de résultats sur les engagements et bénévolats'} />
 					</Container>
 				</section>
-				<section className={classNames(styles.section, styles.sectionLogement)}>
+				<section className={styles.section}>
 					<h2 id="logement" className={styles.sectionHeader}>
-						<Icon name={'home'} className={styles.sectionLogementHeaderIcon} />
+						<Icon name={'home'} className={styles.headerIcon} />
 						Logement
 					</h2>
 					<Container>
@@ -362,9 +401,9 @@ export default function Accueil() {
 							seeLessAriaLabel={'Voir moins de résultats sur les logements'} />
 					</Container>
 				</section>
-				<section className={classNames(styles.section, styles.sectionAidesOrientationAccompagnement)}>
+				<section className={styles.section}>
 					<h2 id="aides-orientation-accompagnement" className={styles.sectionHeader}>
-						<Icon name={'compass'} className={styles.sectionAidesOrientationAccompagnementHeaderIcon} />
+						<Icon name={'compass'} className={styles.headerIcon} />
 						Accompagnement
 					</h2>
 					<Container>
@@ -375,9 +414,9 @@ export default function Accueil() {
 							seeLessAriaLabel={'Voir moins de résultats sur les aides et accompagnements'} />
 					</Container>
 				</section>
-				<section className={classNames(styles.section, styles.sectionAidesEtOutils)}>
+				<section className={styles.section}>
 					<h2 id="aides-et-outils" className={styles.sectionHeader}>
-						<Icon name={'mark-pen'} className={styles.sectionAidesEtOutilsHeaderIcon} />
+						<Icon name={'mark-pen'} className={styles.headerIcon} />
 						Aides et outils
 					</h2>
 					<Container>
@@ -392,3 +431,23 @@ export default function Accueil() {
 		</>
 	);
 };
+
+export async function getStaticProps(): Promise<GetStaticPropsResult<AccueilPageProps>> {
+	const isEspaceJeuneVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0';
+	if (!isEspaceJeuneVisible) {
+		return {
+			props: { actualites: [] },
+		};
+	}
+
+	const cartesActualitesResponse = await dependencies.actualitesDependencies.consulterActualitesEchantillonUseCase.handle();
+
+	if (isFailure(cartesActualitesResponse)) {
+		return { notFound: true, revalidate: 1 };
+	}
+
+	return {
+		props: { actualites: JSON.parse(JSON.stringify(cartesActualitesResponse.result)) },
+		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
+	};
+}
