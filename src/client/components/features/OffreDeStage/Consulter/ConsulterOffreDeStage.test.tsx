@@ -8,6 +8,7 @@ import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aDateService } from '~/client/services/date/date.service.fixture';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode';
 import { anOffreDeStage, anOffreDeStageLocalisation } from '~/server/stages/domain/stages.fixture';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
@@ -47,7 +48,7 @@ describe('ConsulterOffreDeStage', () => {
 
 	describe('affiche l’offre de stage avec les bonnes informations', () => {
 		it('affiche le nom du stage', () => {
-			render(<DependenciesProvider dateService={aDateService()}>
+			render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 				<ConsulterOffreDeStage offreDeStage={anOffreDeStage({ titre: 'stage en graphisme' })} />
 			</DependenciesProvider>);
 
@@ -57,7 +58,7 @@ describe('ConsulterOffreDeStage', () => {
 		});
 
 		it('affiche le nom de l‘employeur', () => {
-			render(<DependenciesProvider dateService={aDateService()}>
+			render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 				<ConsulterOffreDeStage
 					offreDeStage={anOffreDeStage({ employeur: { nom: 'Je suis le nom de l‘employeur' } })} />
 			</DependenciesProvider>);
@@ -69,7 +70,7 @@ describe('ConsulterOffreDeStage', () => {
 
 		describe('description du poste', () => {
 			it('quand elle est fournie, affiche la description du poste', () => {
-				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+				const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<ConsulterOffreDeStage offreDeStage={anOffreDeStage({
 						description: 'Je suis une description du poste',
 					})} />
@@ -82,7 +83,7 @@ describe('ConsulterOffreDeStage', () => {
 			});
 
 			it('quand elle n‘est pas fournie, n‘affiche pas la description du poste', () => {
-				render(<DependenciesProvider dateService={aDateService()}>
+				render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<ConsulterOffreDeStage offreDeStage={anOffreDeStage({ description: '' })} />
 				</DependenciesProvider>);
 
@@ -100,7 +101,7 @@ describe('ConsulterOffreDeStage', () => {
 						nom: 'nom',
 					},
 				});
-				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+				const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<ConsulterOffreDeStage offreDeStage={offreDeStage} /></DependenciesProvider>, { queries });
 
 				const descriptionEmployeur = getByDescriptionTerm('Description de l‘employeur :');
@@ -110,7 +111,7 @@ describe('ConsulterOffreDeStage', () => {
 			});
 
 			it('quand elle n‘est pas fournie, n‘affiche pas la description de l‘employeur', () => {
-				render(<DependenciesProvider dateService={aDateService()}>
+				render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<ConsulterOffreDeStage offreDeStage={anOffreDeStage({
 						employeur: {
 							description: '',
@@ -128,7 +129,7 @@ describe('ConsulterOffreDeStage', () => {
 
 		describe('la rémunération du stage', () => {
 			it('Lorsque la rémunération n‘est pas renseignée affiche "Non renseignée', () => {
-				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+				const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<ConsulterOffreDeStage
 						offreDeStage={anOffreDeStage({ remunerationMax: undefined, remunerationMin: undefined })} />
 				</DependenciesProvider>, { queries });
@@ -140,7 +141,7 @@ describe('ConsulterOffreDeStage', () => {
 				expect(remuneration).toHaveTextContent('Non renseignée');
 			});
 			it('lorsque la rémunération min et max est à 0, affiche "Aucune"', () => {
-				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+				const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<ConsulterOffreDeStage
 						offreDeStage={anOffreDeStage({ remunerationMax: 0, remunerationMin: 0 })} />
 				</DependenciesProvider>, { queries });
@@ -153,7 +154,7 @@ describe('ConsulterOffreDeStage', () => {
 			});
 
 			it('lorsque la rémunération min et max sont identiques affiche cette rémunération', () => {
-				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+				const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<ConsulterOffreDeStage
 						offreDeStage={anOffreDeStage({ remunerationMax: 1234, remunerationMin: 1234 })} />
 				</DependenciesProvider>, { queries });
@@ -167,7 +168,7 @@ describe('ConsulterOffreDeStage', () => {
 			});
 
 			it('lorsque la rémunération min et max sont proposées affiche l‘intervalle de rémunération', () => {
-				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+				const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<ConsulterOffreDeStage
 						offreDeStage={anOffreDeStage({ remunerationMax: 2000, remunerationMin: 2 })} />
 				</DependenciesProvider>, { queries });
@@ -182,7 +183,7 @@ describe('ConsulterOffreDeStage', () => {
 		});
 		describe('période de rémunération', () => {
 			it('quand la rémunération n‘est pas renseignée n‘affiche pas la période de rémunération', () => {
-				const { queryByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+				const { queryByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<ConsulterOffreDeStage
 						offreDeStage={anOffreDeStage({
 							remunerationMax: undefined,
@@ -197,7 +198,7 @@ describe('ConsulterOffreDeStage', () => {
 				expect(periodeDeRemuneration).not.toBeInTheDocument();
 			});
 			it('quand la rémunération est renseignée mais la période de rémunération n‘est pas renseignée affiche "Par mois"', () => {
-				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+				const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<ConsulterOffreDeStage
 						offreDeStage={anOffreDeStage({
 							remunerationMax: 10000000,
@@ -217,7 +218,7 @@ describe('ConsulterOffreDeStage', () => {
 				[RemunerationPeriode.MONTHLY, 'Par mois'],
 				[RemunerationPeriode.YEARLY, 'Par an'],
 			])('quand la rémunération et la période de rémunération sont renseignées, affiche la période de rémunération', (remunerationPeriode, labelRemunerationAttendu) => {
-				const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+				const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<ConsulterOffreDeStage
 						offreDeStage={anOffreDeStage({
 							remunerationMax: 10000000,
@@ -238,7 +239,7 @@ describe('ConsulterOffreDeStage', () => {
 			it('concernant les domaines du stage', () => {
 				const offreDeStage = anOffreDeStage({ domaines: [DomainesStage.ACHAT, DomainesStage.CONSEIL] });
 
-				render(<DependenciesProvider dateService={aDateService()}>
+				render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 				</DependenciesProvider>);
 
@@ -251,7 +252,7 @@ describe('ConsulterOffreDeStage', () => {
 			it('n‘affiche pas le domaine non renseigné', () => {
 				const offreDeStage = anOffreDeStage({ domaines: [DomainesStage.ACHAT, DomainesStage.NON_RENSEIGNE] });
 
-				render(<DependenciesProvider dateService={aDateService()}>
+				render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 				</DependenciesProvider>);
 
@@ -266,7 +267,7 @@ describe('ConsulterOffreDeStage', () => {
 					const localisation = anOffreDeStageLocalisation({ ville: 'Paris' });
 					const offreDeStage = anOffreDeStage({ localisation: localisation });
 
-					render(<DependenciesProvider dateService={aDateService()}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 						<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 					</DependenciesProvider>);
 
@@ -279,7 +280,7 @@ describe('ConsulterOffreDeStage', () => {
 					const localisation = anOffreDeStageLocalisation({ departement: 'Val de marne' });
 					const offreDeStage = anOffreDeStage({ localisation: localisation });
 
-					render(<DependenciesProvider dateService={aDateService()}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 						<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 					</DependenciesProvider>);
 
@@ -292,7 +293,7 @@ describe('ConsulterOffreDeStage', () => {
 					const localisation = anOffreDeStageLocalisation({ region: 'Ile de France' });
 					const offreDeStage = anOffreDeStage({ localisation: localisation });
 
-					render(<DependenciesProvider dateService={aDateService()}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 						<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 					</DependenciesProvider>);
 
@@ -305,7 +306,7 @@ describe('ConsulterOffreDeStage', () => {
 				it('affiche une durée catégorisée quand elle est supérieure à 0', () => {
 					const offreDeStage = anOffreDeStage({ dureeEnJour: 60 });
 
-					render(<DependenciesProvider dateService={aDateService()}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 						<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 					</DependenciesProvider>);
 
@@ -320,7 +321,7 @@ describe('ConsulterOffreDeStage', () => {
 					const dateService = aDateService();
 					jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 septembre 2024');
 
-					render(<DependenciesProvider dateService={dateService}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={dateService}>
 						<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 					</DependenciesProvider>);
 
@@ -337,7 +338,7 @@ describe('ConsulterOffreDeStage', () => {
 						.mockReturnValueOnce('1 septembre 2024')
 						.mockReturnValueOnce('30 septembre 2024');
 
-					render(<DependenciesProvider dateService={dateService}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={dateService}>
 						<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 					</DependenciesProvider>);
 
@@ -351,7 +352,7 @@ describe('ConsulterOffreDeStage', () => {
 				it('n’affiche pas le tag de date de début quand il n‘y a pas de date de début', () => {
 					const offreDeStage = anOffreDeStage({ dateDeDebutMin: undefined });
 
-					render(<DependenciesProvider dateService={aDateService()}>
+					render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 						<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 					</DependenciesProvider>);
 
@@ -365,7 +366,7 @@ describe('ConsulterOffreDeStage', () => {
 	});
 
 	it('permet de postuler à l‘offre de stage', () => {
-		render(<DependenciesProvider dateService={aDateService()}>
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<ConsulterOffreDeStage offreDeStage={offreDeStage} />
 		</DependenciesProvider>);
 

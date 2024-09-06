@@ -10,6 +10,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import ConsulterMissionEngagementPage from '~/pages/benevolat/[id].page';
 import { anAmbassadeurDuDonDeVêtementMission } from '~/server/engagement/domain/missionEngagement.fixture';
 
@@ -20,9 +21,11 @@ describe('<ConsulterMissionEngagementPage />', () => {
 		mockUseRouter({});
 		mockSmallScreen();
 
-		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<ConsulterMissionEngagementPage missionEngagement={mission} />
-		</DependenciesProvider> );
+		const { container } = render(
+			<DependenciesProvider analyticsService={aManualAnalyticsService()} sessionStorageService={aStorageService()}>
+				<ConsulterMissionEngagementPage missionEngagement={mission} />
+			</DependenciesProvider>,
+		);
 
 		expect(container.outerHTML).toHTMLValidate();
 	});
@@ -35,6 +38,7 @@ describe('<ConsulterMissionEngagementPage />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
+				sessionStorageService={aStorageService()}
 				analyticsService={aManualAnalyticsService()}>
 				<ConsulterMissionEngagementPage missionEngagement={mission} />);
 			</DependenciesProvider>);

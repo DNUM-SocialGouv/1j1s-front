@@ -6,10 +6,12 @@ import { render, screen } from '@testing-library/react';
 
 import { ConsulterFormationAlternance } from '~/client/components/features/FormationAlternance/Consulter/ConsulterFormationAlternance';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import { Formation } from '~/server/formations/domain/formation';
 import { aFormation } from '~/server/formations/domain/formation.fixture';
 
-describe('ConsulterFormation', () => {
+describe('ConsulterFormationAlternance', () => {
 	beforeEach(() => {
 		mockUseRouter({});
 	});
@@ -28,7 +30,7 @@ describe('ConsulterFormation', () => {
 			titre: 'Développeur web',
 		});
 
-		render(<ConsulterFormationAlternance formation={formation} />);
+		render(<DependenciesProvider sessionStorageService={aStorageService()}><ConsulterFormationAlternance formation={formation} /></DependenciesProvider>);
 
 		const titre = screen.getByRole('heading', { level: 1, name: formation.titre });
 		expect(titre).toBeVisible();
@@ -61,7 +63,7 @@ describe('ConsulterFormation', () => {
 			titre: 'Développeur web',
 		});
 
-		render(<ConsulterFormationAlternance formation={formation} />);
+		render(<DependenciesProvider sessionStorageService={aStorageService()}><ConsulterFormationAlternance formation={formation} /></DependenciesProvider>);
 
 		const link = screen.getByRole('link', { name: 'Contacter l’établissement - nouvelle fenêtre' });
 		expect(link).toBeVisible();
@@ -81,7 +83,7 @@ describe('ConsulterFormation', () => {
 			titre: 'Développeur web',
 		});
 
-		render(<ConsulterFormationAlternance formation={formation} />);
+		render(<DependenciesProvider sessionStorageService={aStorageService()}><ConsulterFormationAlternance formation={formation} /></DependenciesProvider>);
 
 		const link = screen.queryByRole('link', { name: 'Contacter l’établissement - nouvelle fenêtre' });
 		expect(link).not.toBeInTheDocument();

@@ -10,6 +10,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import ConsulterArticlePage from '~/pages/articles/[id].page';
 import { anArticle } from '~/server/articles/domain/article.fixture';
 
@@ -19,9 +20,11 @@ describe('<ConsulterArticlePage />', () => {
 		mockSmallScreen();
 	});
 	it('doit rendre du HTML respectant la specification', () => {
-		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<ConsulterArticlePage article={anArticle()} />
-		</DependenciesProvider> );
+		const { container } = render(
+			<DependenciesProvider analyticsService={aManualAnalyticsService()} sessionStorageService={aStorageService()}>
+				<ConsulterArticlePage article={anArticle()} />
+			</DependenciesProvider>,
+		);
 
 		expect(container.outerHTML).toHTMLValidate();
 	});
@@ -30,6 +33,7 @@ describe('<ConsulterArticlePage />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
+				sessionStorageService={aStorageService()}
 				analyticsService={aManualAnalyticsService()}>
 				<ConsulterArticlePage article={anArticle()} />);
 			</DependenciesProvider>);

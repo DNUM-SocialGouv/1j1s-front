@@ -7,6 +7,8 @@ import { userEvent } from '@testing-library/user-event';
 
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 
 describe('ConsulterOffreLayout', () => {
 	describe('quand l’utilisateur clique sur le bouton retour', () => {
@@ -22,7 +24,8 @@ describe('ConsulterOffreLayout', () => {
 						params: '',
 					},
 				});
-				render(<ConsulterOffreLayout><></></ConsulterOffreLayout>);
+				render(<DependenciesProvider sessionStorageService={aStorageService({ get: jest.fn().mockReturnValue(true) })}><ConsulterOffreLayout><></>
+				</ConsulterOffreLayout></DependenciesProvider>);
 
 				await user.click(screen.getByRole('link', { name: 'Retour vers la page précédente' }));
 
@@ -43,7 +46,8 @@ describe('ConsulterOffreLayout', () => {
 						params: 'typeDeContrats=CDD&tempsDeTravail=tempsPlein&experienceExigence=D&page=1',
 					},
 				});
-				render(<ConsulterOffreLayout><></></ConsulterOffreLayout>);
+				render(<DependenciesProvider sessionStorageService={aStorageService({ get: jest.fn().mockReturnValue(true) })}><ConsulterOffreLayout><></>
+				</ConsulterOffreLayout></DependenciesProvider>);
 
 				await user.click(screen.getByRole('link', { name: 'Retour vers la page précédente' }));
 
@@ -59,7 +63,8 @@ describe('ConsulterOffreLayout', () => {
 					back: routerBack,
 					query: {},
 				});
-				render(<ConsulterOffreLayout><></></ConsulterOffreLayout>);
+				render(<DependenciesProvider sessionStorageService={aStorageService()}><ConsulterOffreLayout><></>
+				</ConsulterOffreLayout></DependenciesProvider>);
 
 				expect(screen.queryByRole('button', { name: 'Retour vers la page' })).not.toBeInTheDocument();
 			});

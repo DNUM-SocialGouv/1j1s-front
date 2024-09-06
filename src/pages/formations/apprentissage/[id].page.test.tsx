@@ -9,6 +9,7 @@ import { render, screen } from '@testing-library/react';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import ConsulterFormationPage, { getServerSideProps } from '~/pages/formations/apprentissage/[id].page';
 import { aGetServerSidePropsContext } from '~/server/aGetServerSidePropsContext.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -229,9 +230,11 @@ describe('Page Consulter Formations en Apprentissage', () => {
 		const formation = aFormation();
 		mockUseRouter({});
 
-		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<ConsulterFormationPage formation={formation} />
-		</DependenciesProvider>);
+		const { container } = render(
+			<DependenciesProvider analyticsService={aManualAnalyticsService()} sessionStorageService={aStorageService()}>
+				<ConsulterFormationPage formation={formation} />
+			</DependenciesProvider>,
+		);
 
 		expect(container.outerHTML).toHTMLValidate();
 	});
@@ -243,6 +246,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 
 		const { container } = render(
 			<DependenciesProvider
+				sessionStorageService={aStorageService()}
 				analyticsService={analyticsService}>
 				<ConsulterFormationPage formation={formation} />
 			</DependenciesProvider>,
@@ -258,6 +262,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 
 		render(
 			<DependenciesProvider
+				sessionStorageService={aStorageService()}
 				analyticsService={analyticsService}>
 				<ConsulterFormationPage formation={formation} />
 			</DependenciesProvider>,
@@ -274,6 +279,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 
 		render(
 			<DependenciesProvider
+				sessionStorageService={aStorageService()}
 				analyticsService={analyticsService}>
 				<ConsulterFormationPage formation={formation} />
 			</DependenciesProvider>,
