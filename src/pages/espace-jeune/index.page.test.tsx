@@ -174,7 +174,7 @@ describe('Page Espace Jeune', () => {
 				const mesuresJeunesSection = screen.getByRole('region', { name: 'les services jeunes' });
 
 				// THEN
-				const voirPlusDeServicesJeunesBouton = within(mesuresJeunesSection).getByRole('button', { name: 'Voir plus de résultats sur les services conçus pour les jeunes' });
+				const voirPlusDeServicesJeunesBouton = within(mesuresJeunesSection).getByRole('button', { name: 'Voir plus de services conçus pour les jeunes' });
 				expect(voirPlusDeServicesJeunesBouton).toBeVisible();
 			});
 
@@ -197,13 +197,13 @@ describe('Page Espace Jeune', () => {
 					</DependenciesProvider>,
 				);
 				const mesuresJeunesSection = screen.getByRole('region', { name: 'les services jeunes' });
-				const voirPlusDeServicesJeunesBouton = within(mesuresJeunesSection).getByRole('button', { name: 'Voir plus de résultats sur les services conçus pour les jeunes' });
+				const voirPlusDeServicesJeunesBouton = within(mesuresJeunesSection).getByRole('button', { name: 'Voir plus de services conçus pour les jeunes' });
 
 				// WHEN
 				await userEvent.click(voirPlusDeServicesJeunesBouton);
 
 				// THEN
-				const voirMoinsDeServicesJeunesBouton = within(mesuresJeunesSection).getByRole('button', { name: 'Voir moins de résultats sur les services conçus pour les jeunes' });
+				const voirMoinsDeServicesJeunesBouton = within(mesuresJeunesSection).getByRole('button', { name: 'Voir moins de services conçus pour les jeunes' });
 				expect(voirMoinsDeServicesJeunesBouton).toBeVisible();
 			});
 		});
