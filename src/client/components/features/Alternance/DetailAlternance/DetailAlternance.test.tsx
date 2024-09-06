@@ -10,6 +10,7 @@ import { aDetailAlternance } from '~/client/components/features/Alternance/Detai
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aDateService } from '~/client/services/date/date.service.fixture';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import { Alternance } from '~/server/alternances/domain/alternance';
 import { AlternanceStatus } from '~/server/alternances/infra/status';
 import { queries } from '~/test-utils';
@@ -24,7 +25,7 @@ describe('<Detail />', () => {
 	it('affiche le titre de l’annonce comme titre principal', () => {
 		const annonce = aDetailAlternance({ titre: 'Ma super alternance' });
 
-		render(<DependenciesProvider dateService={aDateService()}>
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>);
 
@@ -35,7 +36,7 @@ describe('<Detail />', () => {
 	it('affiche le nom de l’entreprise', () => {
 		const annonce = aDetailAlternance({ entreprise: { nom: 'Ma super entreprise' } });
 
-		render(<DependenciesProvider dateService={aDateService()}>
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>);
 
@@ -50,7 +51,7 @@ describe('<Detail />', () => {
 				typeDeContrat: ['CDD', 'CDI'],
 			});
 
-			render(<DependenciesProvider dateService={aDateService()}>
+			render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 				<DetailAlternance annonce={annonce} />
 			</DependenciesProvider>);
 
@@ -66,7 +67,7 @@ describe('<Detail />', () => {
 		it('affiche le lien pour postuler', () => {
 			const annonce = aDetailAlternance({ lienPostuler: 'https://example.com', source: Alternance.Source.FRANCE_TRAVAIL });
 
-			render(<DependenciesProvider dateService={aDateService()}>
+			render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 				<DetailAlternance annonce={annonce} />
 			</DependenciesProvider>);
 
@@ -78,7 +79,7 @@ describe('<Detail />', () => {
 		it('n’affiche pas le lien pour postuler lorsque l’url n’est pas renseignée', () => {
 			const annonce = aDetailAlternance({ lienPostuler: undefined, source: Alternance.Source.FRANCE_TRAVAIL });
 
-			render(<DependenciesProvider dateService={aDateService()}>
+			render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 				<DetailAlternance annonce={annonce} />
 			</DependenciesProvider>);
 
@@ -90,7 +91,7 @@ describe('<Detail />', () => {
 			const url = 'http://url.com/postuler?caller=1jeune1solution&itemId=123&type=matcha';
 			const annonce = aDetailAlternance({ id: '123', lienPostuler: url, source: Alternance.Source.FRANCE_TRAVAIL });
 
-			render(<DependenciesProvider dateService={aDateService()}>
+			render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 				<DetailAlternance annonce={annonce} />
 			</DependenciesProvider>);
 
@@ -108,7 +109,7 @@ describe('<Detail />', () => {
 				typeDeContrat: ['CDD', 'CDI'],
 			});
 
-			render(<DependenciesProvider dateService={aDateService()}>
+			render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 				<DetailAlternance annonce={annonce} />
 			</DependenciesProvider>);
 
@@ -124,7 +125,7 @@ describe('<Detail />', () => {
 		it('n’affiche pas le lien pour postuler a une offre France Travail', () => {
 			const annonce = aDetailAlternance({ lienPostuler: 'url', source: Alternance.Source.MATCHA });
 
-			render(<DependenciesProvider dateService={aDateService()}>
+			render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 				<DetailAlternance annonce={annonce} />
 			</DependenciesProvider>);
 
@@ -137,7 +138,7 @@ describe('<Detail />', () => {
 			it('n‘affiche pas l‘information que l‘offre est désactivée', () => {
 				const annonce = aDetailAlternance({ status: AlternanceStatus.ACTIVE });
 
-				render(<DependenciesProvider dateService={aDateService()}>
+				render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<DetailAlternance annonce={annonce} />
 				</DependenciesProvider>);
 
@@ -154,7 +155,7 @@ describe('<Detail />', () => {
 				const url = 'http://url.com/postuler?caller=1jeune1solution&itemId=123&type=matcha';
 				const annonce = aDetailAlternance({ id: '123', lienPostuler: url, source: Alternance.Source.MATCHA });
 
-				render(<DependenciesProvider dateService={aDateService()}>
+				render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<DetailAlternance annonce={annonce} />
 				</DependenciesProvider>);
 
@@ -170,7 +171,7 @@ describe('<Detail />', () => {
 			it('n’affiche pas un bouton pour postuler lorsque l’annonce n’a pas d’id', () => {
 				const annonce = aDetailAlternance({ id: undefined });
 
-				render(<DependenciesProvider dateService={aDateService()}>
+				render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<DetailAlternance annonce={annonce} />
 				</DependenciesProvider>);
 
@@ -183,7 +184,7 @@ describe('<Detail />', () => {
 		it('lorsque l‘offre est à l‘état annulé, affiche l‘information et pas de CTA', () => {
 			const annonce = aDetailAlternance({ source: Alternance.Source.MATCHA, status: AlternanceStatus.CANCELED });
 
-			render(<DependenciesProvider dateService={aDateService()}>
+			render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 				<DetailAlternance annonce={annonce} />
 			</DependenciesProvider>);
 
@@ -194,7 +195,7 @@ describe('<Detail />', () => {
 	it('affiche la description du contrat', () => {
 		const annonce = aDetailAlternance({ description: "C'est une super alternance !" });
 
-		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+		const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>, { queries });
 
@@ -206,7 +207,7 @@ describe('<Detail />', () => {
 		it('affiche la description du contrat', () => {
 			const annonce = aDetailAlternance({ description: "<p>C'est une super alternance !</p>" });
 
-			const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+			const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 				<DetailAlternance annonce={annonce} />
 			</DependenciesProvider>, { queries });
 
@@ -219,7 +220,7 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de description du contrat lorsque non-renseignée', () => {
 		const annonce = aDetailAlternance({ description: undefined });
 
-		render(<DependenciesProvider dateService={aDateService()}>
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>);
 
@@ -229,7 +230,7 @@ describe('<Detail />', () => {
 	it('affiche la description de l’entreprise', () => {
 		const annonce = aDetailAlternance({ descriptionEmployeur: "C'est une super entreprise !" });
 
-		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+		const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>, { queries });
 
@@ -241,7 +242,7 @@ describe('<Detail />', () => {
 		it('affiche la description de l’entreprise', () => {
 			const annonce = aDetailAlternance({ descriptionEmployeur: "<p>C'est une super entreprise !</p>" });
 
-			const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+			const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 				<DetailAlternance annonce={annonce} />
 			</DependenciesProvider>, { queries });
 
@@ -254,7 +255,7 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de description de l’entreprise lorsque non-renseignée', () => {
 		const annonce = aDetailAlternance({ descriptionEmployeur: undefined });
 
-		render(<DependenciesProvider dateService={aDateService()}>
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>);
 
@@ -264,7 +265,7 @@ describe('<Detail />', () => {
 	it('affiche les compétences types du métier', () => {
 		const annonce = aDetailAlternance({ compétences: ['Savoir faire des trucs', 'Connaître des choses'] });
 
-		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+		const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>, { queries });
 
@@ -280,7 +281,7 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc des compétences requises lorsque non-renseignées', () => {
 		const annonce = aDetailAlternance({ compétences: undefined });
 
-		render(<DependenciesProvider dateService={aDateService()}>
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>);
 
@@ -290,7 +291,7 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc des compétences types du métier lorsque aucune compétence requise', () => {
 		const annonce = aDetailAlternance({ compétences: [] });
 
-		render(<DependenciesProvider dateService={aDateService()}>
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>);
 
@@ -300,7 +301,7 @@ describe('<Detail />', () => {
 	it('affiche le niveau requis', () => {
 		const annonce = aDetailAlternance({ niveauRequis: 'CAP' });
 
-		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+		const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>, { queries });
 
@@ -311,7 +312,7 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de niveau requis lorsque non-renseignées', () => {
 		const annonce = aDetailAlternance({ niveauRequis: undefined });
 
-		render(<DependenciesProvider dateService={aDateService()}>
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>);
 
@@ -323,7 +324,7 @@ describe('<Detail />', () => {
 		const dateService = aDateService();
 		jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 janvier 2022');
 
-		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={dateService}>
+		const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={dateService}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>, { queries });
 
@@ -336,7 +337,7 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de la date de début de contrat lorsque non-renseignées', () => {
 		const annonce = aDetailAlternance({ dateDébut: undefined });
 
-		render(<DependenciesProvider dateService={aDateService()}>
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>);
 
@@ -346,7 +347,7 @@ describe('<Detail />', () => {
 	it('affiche le type de contrat', () => {
 		const annonce = aDetailAlternance({ typeDeContrat: ['Alternance'] });
 
-		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+		const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>, { queries });
 
@@ -357,7 +358,7 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de type de contrat lorsque non-renseignées', () => {
 		const annonce = aDetailAlternance({ typeDeContrat: undefined });
 
-		render(<DependenciesProvider dateService={aDateService()}>
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>);
 
@@ -367,7 +368,7 @@ describe('<Detail />', () => {
 	it('affiche la nature du contrat', () => {
 		const annonce = aDetailAlternance({ natureDuContrat: 'CDI' });
 
-		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+		const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>, { queries });
 
@@ -378,7 +379,7 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de nature du contrat lorsque non-renseignées', () => {
 		const annonce = aDetailAlternance({ natureDuContrat: undefined });
 
-		render(<DependenciesProvider dateService={aDateService()}>
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>);
 
@@ -388,7 +389,7 @@ describe('<Detail />', () => {
 	it('affiche la durée du contrat', () => {
 		const annonce = aDetailAlternance({ durée: '4 ans' });
 
-		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+		const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>, { queries });
 
@@ -401,7 +402,7 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de la durée du contrat lorsque non-renseignées', () => {
 		const annonce = aDetailAlternance({ durée: undefined });
 
-		render(<DependenciesProvider dateService={aDateService()}>
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>);
 
@@ -411,7 +412,7 @@ describe('<Detail />', () => {
 	it('affiche le rythme de l’alternance', () => {
 		const annonce = aDetailAlternance({ rythmeAlternance: '1 jour par semaine' });
 
-		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+		const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>, { queries });
 
@@ -422,7 +423,7 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de rythme de l’alternance lorsque non-renseignées', () => {
 		const annonce = aDetailAlternance({ rythmeAlternance: undefined });
 
-		render(<DependenciesProvider dateService={aDateService()}>
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>);
 
@@ -437,7 +438,7 @@ describe('<Detail />', () => {
 			},
 		});
 
-		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+		const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>, { queries });
 
@@ -451,7 +452,7 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc des contacts d’entreprise lorsqu’aucun n’est renseignées', () => {
 		const annonce = aDetailAlternance({ entreprise: {} });
 
-		render(<DependenciesProvider dateService={aDateService()}>
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>);
 
@@ -466,7 +467,7 @@ describe('<Detail />', () => {
 			},
 		});
 
-		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+		const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>, { queries });
 
@@ -486,7 +487,7 @@ describe('<Detail />', () => {
 			},
 		});
 
-		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+		const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
 		</DependenciesProvider>, { queries });
 

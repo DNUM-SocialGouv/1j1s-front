@@ -7,20 +7,37 @@ export type BrowserStorage = {
 };
 
 export class BrowserStorageService implements StorageService {
-	constructor(private storage: BrowserStorage) {}
+	constructor(private getStorage: () => BrowserStorage) {}
 
 	get<DataType>(key: string): DataType | null {
-		const value = this.storage.getItem(key);
+		let value;
+		try {
+			value = this.getStorage().getItem(key);
+		} catch {
+			throw new BrowserStorageService.StorageUnavailableError('storage unavailable');
+		}
 		if (value == null) { return null; }
 		return JSON.parse(value);
 	}
 
 	set<DataType>(key: string, value: DataType): void {
 		const serializedData = JSON.stringify(value);
-		this.storage.setItem(key, serializedData);
+		try {
+			this.getStorage().setItem(key, serializedData);
+		} catch {
+			throw new BrowserStorageService.StorageUnavailableError('storage unavailable');
+		}
 	}
 
 	remove(key: string): void {
-		this.storage.removeItem(key);
+		try {
+			this.getStorage().removeItem(key);
+		} catch {
+			throw new BrowserStorageService.StorageUnavailableError('storage unavailable');
+		}
 	}
+}
+
+export namespace BrowserStorageService {
+	export class StorageUnavailableError extends Error {}
 }

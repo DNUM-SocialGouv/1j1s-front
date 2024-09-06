@@ -10,6 +10,7 @@ import { HeadMock } from '~/client/components/head.mock';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import ConsulterEmploiEurope, { getServerSideProps } from '~/pages/emplois-europe/[id].page';
 import { aGetServerSidePropsContext } from '~/server/aGetServerSidePropsContext.fixture';
 import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
@@ -64,7 +65,7 @@ describe('<ConsulterEmploiEurope />', () => {
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const analyticsService = aManualAnalyticsService();
-		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>
+		const { container } = render(<DependenciesProvider sessionStorageService={aStorageService()} analyticsService={analyticsService}>
 			<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 		</DependenciesProvider>);
 
@@ -72,7 +73,7 @@ describe('<ConsulterEmploiEurope />', () => {
 	});
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const analyticsService = aManualAnalyticsService();
-		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>
+		const { container } = render(<DependenciesProvider sessionStorageService={aStorageService()} analyticsService={analyticsService}>
 			<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 		</DependenciesProvider>);
 
@@ -84,7 +85,7 @@ describe('<ConsulterEmploiEurope />', () => {
 		emploiEurope = anEmploiEurope({ titre: 'Bäcker' });
 
 		render(
-			<DependenciesProvider analyticsService={analyticsService}>
+			<DependenciesProvider sessionStorageService={aStorageService()} analyticsService={analyticsService}>
 				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 			</DependenciesProvider>,
 		);
@@ -97,7 +98,7 @@ describe('<ConsulterEmploiEurope />', () => {
 		emploiEurope = anEmploiEurope({ titre: undefined });
 
 		render(
-			<DependenciesProvider analyticsService={analyticsService}>
+			<DependenciesProvider sessionStorageService={aStorageService()} analyticsService={analyticsService}>
 				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 			</DependenciesProvider>,
 		);
@@ -110,7 +111,7 @@ describe('<ConsulterEmploiEurope />', () => {
 		emploiEurope = anEmploiEurope({ titre: 'Bäcker' });
 
 		render(
-			<DependenciesProvider analyticsService={analyticsService}>
+			<DependenciesProvider sessionStorageService={aStorageService()} analyticsService={analyticsService}>
 				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 			</DependenciesProvider>,
 		);
@@ -122,7 +123,7 @@ describe('<ConsulterEmploiEurope />', () => {
 	it('envoie les analytics de la page à son affichage', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
-			<DependenciesProvider analyticsService={analyticsService}>
+			<DependenciesProvider analyticsService={analyticsService} sessionStorageService={aStorageService()}>
 				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 			</DependenciesProvider>,
 		);

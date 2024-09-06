@@ -10,6 +10,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aDateService } from '~/client/services/date/date.service.fixture';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import ConsulterOffreStagePage from '~/pages/stages/[id].page';
 import { anOffreDeStage } from '~/server/stages/domain/stages.fixture';
 
@@ -21,9 +22,14 @@ describe('<ConsulterOffreStagePage />', () => {
 	});
 
 	it('doit rendre du HTML respectant la specification', () => {
-		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()}>
-			<ConsulterOffreStagePage offreDeStage={offreDeStage} />
-		</DependenciesProvider> );
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={aManualAnalyticsService()}
+				sessionStorageService={aStorageService()}
+				dateService={aDateService()}>
+				<ConsulterOffreStagePage offreDeStage={offreDeStage} />
+			</DependenciesProvider>,
+		);
 		
 		expect(container.outerHTML).toHTMLValidate();
 	});
@@ -32,6 +38,7 @@ describe('<ConsulterOffreStagePage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
+				sessionStorageService={aStorageService()}
 				dateService={aDateService()}>
 				<ConsulterOffreStagePage offreDeStage={offreDeStage} />
 			</DependenciesProvider>,
@@ -44,6 +51,7 @@ describe('<ConsulterOffreStagePage />', () => {
 		render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
+				sessionStorageService={aStorageService()}
 				dateService={aDateService()}>
 				<ConsulterOffreStagePage offreDeStage={offreDeStage} />
 			</DependenciesProvider>,

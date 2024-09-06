@@ -7,18 +7,10 @@ function useLocalStorage<T>(key: string): { get: () => T | null, set: (value: T)
 	const [fallbackStorage, setFallbackStorage] = useState<T | null>(null);
 	const localStorage = useDependency<StorageService>('localStorageService');
 
-	if (localStorage != null) {
-		return {
-			get: () => localStorage.get(key),
-			remove: (): void => localStorage.remove(key),
-			set: (value) => localStorage.set(key, value),
-		};
-	}
-
 	return {
-		get: () => fallbackStorage,
-		remove: () => setFallbackStorage(null),
-		set: setFallbackStorage,
+		get() { try { return localStorage.get<T>(key); } catch { return fallbackStorage; }},
+		remove() { try { localStorage.remove(key); } catch { setFallbackStorage(null); }},
+		set(value) { try { localStorage.set(key, value); } catch { setFallbackStorage(value); }},
 	};
 }
 
