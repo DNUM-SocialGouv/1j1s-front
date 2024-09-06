@@ -28,7 +28,7 @@
 
   input:valid + [role="combobox"],
   [role="combobox"]:not([data-touched="true"]) {
-    @extend %compensate-border-width;
+    @extend %border-no-error;
   }
   input:invalid + [role="combobox"][data-touched="true"] {
     @extend %error;
@@ -46,6 +46,7 @@
       gap: .5rem;
       align-items: center;
     }
+
     &:not([aria-multiselectable="true"]) {
       [role="option"]::before {
         @extend %radio;

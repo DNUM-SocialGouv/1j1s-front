@@ -47,11 +47,11 @@
   }
   & input[role="combobox"]:valid,
   & input[role="combobox"]:not([data-touched="true"]) {
-    @extend %compensate-border-width;
+    @extend %border-no-error;
     margin-right: 0;
 
     & ~ button {
-      @extend %compensate-border-width;
+      @extend %border-no-error;
       margin-left: 0;
     }
   }
