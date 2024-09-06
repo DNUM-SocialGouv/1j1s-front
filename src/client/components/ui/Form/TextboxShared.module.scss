@@ -80,6 +80,9 @@ $border-width-compensation: calc($error-border-width - $border-width);
   }
 
   & [role="option"] {
+    padding: .5rem 1ch;
+  }
+  & [role="option"] {
     cursor: pointer;
   }
 

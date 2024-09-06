@@ -3,11 +3,14 @@
 
 .combobox {
   @extend %comboboxes;
+  & > button {
+    font-size: inherit;
+    line-height: 1;
+  }
 
   display: grid;
   grid-template-columns: 1fr auto;
   & > button svg {
-    vertical-align: bottom;
     @extend %chevron;
   }
   & > [aria-expanded="true"] + button > svg {
@@ -53,14 +56,8 @@
     }
   }
 
-  & ul[role="listbox"] {
-    & li {
-      padding: .25rem 1ch;
-
-      &[role="option"]:hover,
-      &[role="option"][aria-selected="true"] {
-        @extend %hovered-option;
-      }
-    }
+  & [role="option"]:hover,
+  & [role="option"][aria-selected="true"] {
+    @extend %hovered-option;
   }
 }

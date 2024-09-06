@@ -34,35 +34,31 @@
     @extend %error;
   }
 
+  [role="option"]:hover,
+  [role="option"].optionVisuallyFocus {
+    @extend %hovered-option;
+  }
+
   ul[role="listbox"] {
-    li[role="option"] {
-      padding: .5rem 1ch;
-
-      &:hover,
-      &.optionVisuallyFocus {
-        @extend %hovered-option;
-      }
-    }
-
-    li[role="option"] {
+    [role="option"] {
       display: grid;
       grid-template-columns: auto 1fr;
       align-items: center;
     }
     &:not([aria-multiselectable="true"]) {
-      li[role="option"]::before {
+      [role="option"]::before {
         @extend %radio;
         margin-right: 0.5rem;
       }
-      li[role="option"][aria-selected="true"]::before {
+      [role="option"][aria-selected="true"]::before {
         @extend %radio-checked;
       }
     }
     &[aria-multiselectable="true"] {
-      li[role="option"]::before {
+      [role="option"]::before {
         @extend %checkbox;
       }
-      li[role="option"][aria-selected="true"]::before {
+      [role="option"][aria-selected="true"]::before {
         @extend %checkbox-checked;
       }
     }
