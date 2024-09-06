@@ -13,7 +13,7 @@ export class BrowserStorageService implements StorageService {
 		let value;
 		try {
 			value = this.getStorage().getItem(key);
-		} catch (e) {
+		} catch {
 			throw new BrowserStorageService.StorageUnavailableError('storage unavailable');
 		}
 		if (value == null) { return null; }
@@ -24,7 +24,7 @@ export class BrowserStorageService implements StorageService {
 		const serializedData = JSON.stringify(value);
 		try {
 			this.getStorage().setItem(key, serializedData);
-		} catch (e) {
+		} catch {
 			throw new BrowserStorageService.StorageUnavailableError('storage unavailable');
 		}
 	}
@@ -32,7 +32,7 @@ export class BrowserStorageService implements StorageService {
 	remove(key: string): void {
 		try {
 			this.getStorage().removeItem(key);
-		} catch (e) {
+		} catch {
 			throw new BrowserStorageService.StorageUnavailableError('storage unavailable');
 		}
 	}
