@@ -1,6 +1,6 @@
 import { StorageService } from './storage.service';
 
-export function addFallbackToStorageService(service: StorageService, fallback: StorageService): StorageService {
+export function getStorageServiceWithFallback(service: StorageService, fallback: StorageService): StorageService {
 	return {
 		get<DataType>(key: string): DataType | null {
 			try {

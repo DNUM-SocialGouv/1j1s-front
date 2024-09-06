@@ -1,7 +1,7 @@
-import { addFallbackToStorageService } from '~/client/services/storage/addFallbackToStorageService';
+import { getStorageServiceWithFallback } from '~/client/services/storage/getStorageServiceWithFallback';
 import { StorageService } from '~/client/services/storage/storage.service';
 
-describe('addFallbackToStorageService()', () => {
+describe('getStorageServiceWithFallback()', () => {
 	it('appelle le fallback quand le service par défaut n’est pas disponible', () => {
 		const defaultService: StorageService = {
 			get() { throw new Error(); },
@@ -13,7 +13,7 @@ describe('addFallbackToStorageService()', () => {
 			remove: jest.fn(),
 			set: jest.fn(),
 		};
-		const mergedService = addFallbackToStorageService(defaultService, fallbackService);
+		const mergedService = getStorageServiceWithFallback(defaultService, fallbackService);
 
 		const value = mergedService.get('key');
 		mergedService.set('key', 'value');
@@ -35,7 +35,7 @@ describe('addFallbackToStorageService()', () => {
 			remove: jest.fn(),
 			set: jest.fn(),
 		};
-		const mergedService = addFallbackToStorageService(defaultService, fallbackService);
+		const mergedService = getStorageServiceWithFallback(defaultService, fallbackService);
 
 		const value = mergedService.get('key');
 		mergedService.set('key', 'value');
@@ -57,7 +57,7 @@ describe('addFallbackToStorageService()', () => {
 			remove: jest.fn(),
 			set: jest.fn(),
 		};
-		const mergedService = addFallbackToStorageService(defaultService, fallbackService);
+		const mergedService = getStorageServiceWithFallback(defaultService, fallbackService);
 
 		const value = mergedService.get('key');
 		mergedService.set('key', 'value');

@@ -60,8 +60,8 @@ import {
 import {
 	StageDeposerOffreEtape3PersistenceService,
 } from '~/client/services/stageDeposerOffreEtape3Persistence/stageDeposerOffreEtape3Persistence.service';
-import { addFallbackToStorageService } from '~/client/services/storage/addFallbackToStorageService';
 import { BrowserStorageService } from '~/client/services/storage/browser.storage.service';
+import { getStorageServiceWithFallback } from '~/client/services/storage/getStorageServiceWithFallback';
 import { NullStorageService } from '~/client/services/storage/null.storage.service';
 import { StorageService } from '~/client/services/storage/storage.service';
 import { VideoService } from '~/client/services/video/video.service';
@@ -158,11 +158,11 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 	const localStorageService = new BrowserStorageService(() => window.localStorage);
 	const sessionStorageService = new BrowserStorageService(() => window.sessionStorage);
 	const stageDeposerOffreEtape1PersistenceService = new LocalStorageStageDeposerOffreEtape1PersistenceService(
-		addFallbackToStorageService(localStorageService, new NullStorageService()));
+		getStorageServiceWithFallback(localStorageService, new NullStorageService()));
 	const stageDeposerOffreEtape2PersistenceService = new SessionStorageStageDeposerOffreEtape2PersistenceService(
-		addFallbackToStorageService(sessionStorageService, new NullStorageService()));
+		getStorageServiceWithFallback(sessionStorageService, new NullStorageService()));
 	const stageDeposerOffreEtape3PersistenceService = new LocalStorageStageDeposerOffreEtape3PersistenceService(
-		addFallbackToStorageService(localStorageService, new NullStorageService()));
+		getStorageServiceWithFallback(localStorageService, new NullStorageService()));
 
 	return {
 		analyticsService,
