@@ -6,16 +6,12 @@
 
   display: grid;
   grid-template-columns: 1fr auto;
-
-  & > input {
-    background-color: transparent;
+  & > button svg {
+    vertical-align: bottom;
+    @extend %chevron;
   }
-
-  & > button {
-    vertical-align: middle;
-    & svg {
-      vertical-align: bottom;
-    }
+  & > [aria-expanded="true"] + button > svg {
+    @extend %chevron-expanded;
   }
 
   @extend %outlined;

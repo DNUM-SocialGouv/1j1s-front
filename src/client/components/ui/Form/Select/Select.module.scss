@@ -16,8 +16,14 @@
     font-size: inherit;
     line-height: inherit;
     display: grid;
+
     grid-template-columns: 1fr auto;
-    background-color: transparent;
+    & > svg {
+      @extend %chevron;
+    }
+    &[aria-expanded="true"] > svg {
+      @extend %chevron-expanded;
+    }
   }
 
   input:valid + [role="combobox"],

@@ -95,12 +95,10 @@ $border-width-compensation: calc($error-border-width - $border-width);
     }
   }
 
-  & button[role="combobox"] > svg,
-  & [role="combobox"] + button > svg{
+  %chevron {
     transition: transform 200ms linear;
   }
-  & button[role="combobox"][aria-expanded="true"] > svg,
-  & [role="combobox"][aria-expanded="true"] + button > svg {
+  %chevron-expanded {
     transform: rotate(-180deg);
   }
 }
