@@ -2,10 +2,13 @@
 @use "@styles/utilities";
 @use "@styles/components/form/variables";
 
+$checkbox-width: 1em;
+$checkbox-padding: .5rem;
+
 %checkbox {
   content: "";
-  width: 1rem;
-  height: 1rem;
+  width: $checkbox-width;
+  aspect-ratio: 1;
   background-size: 1rem;
   background-position: center;
   background-repeat: no-repeat;
@@ -42,7 +45,7 @@
 
   input[type=checkbox] + label {
     position: relative;
-    padding: 0.75rem 0 .75rem 2rem;
+    padding: 0.75rem 0 .75rem calc($checkbox-width + 2*$checkbox-padding);
     -webkit-tap-highlight-color: transparent;
     display: flex;
     flex-direction: row;
@@ -55,9 +58,9 @@
     @extend %checkbox;
     display: block;
     position: absolute;
-    top: 0;
-    left: 0.5rem;
-    margin-top: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    left: $checkbox-padding;
   }
 
   input[type=checkbox]:checked + label::before {
