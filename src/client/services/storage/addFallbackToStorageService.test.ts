@@ -24,6 +24,28 @@ describe('addFallbackToStorageService()', () => {
 		expect(fallbackService.set).toHaveBeenCalledWith('key', 'value');
 		expect(fallbackService.remove).toHaveBeenCalledWith('key');
 	});
+	it('appelle le service par défaut quand il est disponible', () => {
+		const defaultService: StorageService = {
+			get: jest.fn().mockReturnValue('value'),
+			remove: jest.fn(),
+			set: jest.fn(),
+		};
+		const fallbackService: StorageService = {
+			get: jest.fn().mockReturnValue('fallback value'),
+			remove: jest.fn(),
+			set: jest.fn(),
+		};
+		const mergedService = addFallbackToStorageService(defaultService, fallbackService);
+
+		const value = mergedService.get('key');
+		mergedService.set('key', 'value');
+		mergedService.remove('key');
+
+		expect(defaultService.get).toHaveBeenCalled();
+		expect(value).toBe('value');
+		expect(defaultService.set).toHaveBeenCalled();
+		expect(defaultService.remove).toHaveBeenCalled();
+	});
 	it('n’appelle pas le fallback quand le service par défaut est disponible', () => {
 		const defaultService: StorageService = {
 			get: jest.fn().mockReturnValue('value'),
