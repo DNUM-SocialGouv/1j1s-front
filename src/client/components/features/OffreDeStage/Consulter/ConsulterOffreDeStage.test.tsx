@@ -214,6 +214,7 @@ describe('ConsulterOffreDeStage', () => {
 			});
 			it.each([
 				[RemunerationPeriode.HOURLY, 'Par heure'],
+				[RemunerationPeriode.DAILY, 'Par jour'],
 				[RemunerationPeriode.MONTHLY, 'Par mois'],
 				[RemunerationPeriode.YEARLY, 'Par an'],
 			])('quand la rémunération et la période de rémunération sont renseignées, affiche la période de rémunération', (remunerationPeriode, labelRemunerationAttendu) => {
