@@ -9,7 +9,10 @@ import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
-import { NavigationItemWithChildren } from '~/client/components/layouts/Header/Navigation/NavigationStructure';
+import {
+	NavigationItem,
+	NavigationItemWithChildren,
+} from '~/client/components/layouts/Header/Navigation/NavigationStructure';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 
 import { NavItemWithSubItems } from './NavItemWithSubItems';
@@ -21,6 +24,13 @@ function aNavigationItem(overrides?: Partial<NavigationItemWithChildren>) {
 			{ label: 'Sub Item 2', link: '/sub2' },
 		],
 		label: 'Test Menu',
+		...overrides,
+	};
+}
+function aNavigationSubItem(overrides?: Partial<NavigationItem>) {
+	return {
+		label: 'Sub Item 1',
+		link: '/sub1',
 		...overrides,
 	};
 }
@@ -36,19 +46,34 @@ describe('NavItemWithSubItems', () => {
 		mockUseRouter({});
 	});
 
-	it('doit rendre le bouton du menu', () => {
-		render(<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />);
+	it('affiche le bouton du menu', () => {
+		const nav = aNavigationItem({ label: 'Menu' });
+
+		render(<NavItemWithSubItems navigationItemWithChildren={nav} />);
 		
-		expect(screen.getByRole('button', { name: 'Test Menu' })).toBeVisible();
+		expect(screen.getByRole('button', { name: 'Menu' })).toBeVisible();
+	});
+	it('masque le sous-menu par défaut', () => {
+		const nav = aNavigationItem({
+			children: [
+				aNavigationSubItem({ label: 'SubItem' }),
+			],
+			label: 'Menu',
+		});
+		render(<NavItemWithSubItems navigationItemWithChildren={nav} />);
+
+		const menuButton = screen.getByRole('button', { name: 'Menu' });
+		expect(menuButton).toHaveAttribute('aria-expanded', 'false');
+		const subMenu = screen.queryByRole('link', { name: 'SubItem' });
+		expect(subMenu).not.toBeInTheDocument();
 	});
 
 	describe('lorsque je clique sur le bouton du menu', () => {
-		it('doit afficher l‘attribut aria-expanded correctement', async () => {
+		it('doit afficher le sous-menu', async () => {
 			const user = userEvent.setup();
-
 			render(<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />);
+
 			const menuButton = screen.getByRole('button', { name: 'Test Menu' });
-      
 			expect(menuButton).toHaveAttribute('aria-expanded', 'false');
       
 			await user.click(menuButton);
