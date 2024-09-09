@@ -213,32 +213,34 @@ describe('NavItemWithSubItems', () => {
 	describe('lorsque j‘appuis sur la touche ECHAP', () => {
 		it('doit fermer le sous-menu', async () => {
 			const user = userEvent.setup();
-			render(<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />);
-			
-			await user.click(screen.getByRole('button', { name: 'Test Menu' }));
-			expect(screen.getByRole('link', { name: /Sub Item 1/i })).toBeVisible();
-      
+			const nav = aNavigationItem({
+				children: [ aNavigationSubItem({ label: 'SubItem' }) ],
+				label: 'Menu',
+			});
+			render(<NavItemWithSubItems navigationItemWithChildren={nav} />);
+			await user.click(screen.getByRole('button', { name: 'Menu' }));
+			const sousMenu = screen.getByRole('link', { name: 'SubItem' });
+
 			await user.keyboard(`{${KeyBoard.ESCAPE}}`);
-			expect(screen.queryByText('Sub Item 1')).not.toBeInTheDocument();
+
+			expect(sousMenu).not.toBeInTheDocument();
 		});
 	});
 
 	describe('lorsque je clique en dehors du sous-menu', () => {
-		it('doit être fermer', async () => {
+		it('ferme le sous-menu', async () => {
 			const user = userEvent.setup();
+			const nav = aNavigationItem({
+				children: [ aNavigationSubItem({ label: 'SubItem' }) ],
+				label: 'Menu',
+			});
+			render(<NavItemWithSubItems navigationItemWithChildren={nav} />);
+			await user.click(screen.getByRole('button', { name: 'Menu' }));
+			const sousMenu = screen.getByRole('link', { name: /SubItem/i });
 
-			render(
-				<div>
-					<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />
-					<div data-testid="outside">Outside</div>
-				</div>,
-			);
-    
-			await user.click(screen.getByRole('button', { name: 'Test Menu' }));
-			expect(screen.getByRole('link', { name: /Sub Item 1/i })).toBeVisible();
-    
-			await user.click(screen.getByTestId('outside'));
-			expect(screen.queryByText('Sub Item 1')).not.toBeInTheDocument();
+			await user.click(document.body);
+
+			expect(sousMenu).not.toBeInTheDocument();
 		});
 	});
 
