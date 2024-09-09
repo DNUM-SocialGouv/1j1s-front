@@ -37,19 +37,6 @@ export function NavItemWithSubItems({
 		setIsExpanded(isNavItemActive && isMobile);
 	}, [isNavItemActive, isMobile]);
 
-	const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
-		if (!optionRef.current?.contains(event.target as Node)) {
-			setIsExpanded(false);
-		}
-	}, []);
-
-	const closeOptionsOnSpaceOutside = useCallback((event: KeyboardEvent) => {
-		if (!optionRef.current?.contains(event.target as Node) && event.key === KeyBoard.SPACE) {
-			setIsExpanded(false);
-		}
-	}, []);
-
-
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLLIElement>) {
 		const newFocusStillInSubItems = event.currentTarget.contains(event.relatedTarget);
 		
@@ -74,16 +61,12 @@ export function NavItemWithSubItems({
 	}
 
 	useEffect(function setEventListenerOnMount() {
-		document.addEventListener('mouseup', closeOptionsOnClickOutside);
 		document.addEventListener('keyup', closeMenuOnEscape);
-		document.addEventListener('keyup', closeOptionsOnSpaceOutside);
 
 		return () => {
-			document.removeEventListener('mouseup', closeOptionsOnClickOutside);
 			document.removeEventListener('keyup', closeMenuOnEscape);
-			document.removeEventListener('keyup', closeOptionsOnSpaceOutside);
 		};
-	}, [closeMenuOnEscape, closeOptionsOnClickOutside, closeOptionsOnSpaceOutside]);
+	}, [closeMenuOnEscape]);
 
 	const subNav = navigationItemWithChildren.children.map((subItem) => {
 		if (isNavigationItem(subItem)) {
