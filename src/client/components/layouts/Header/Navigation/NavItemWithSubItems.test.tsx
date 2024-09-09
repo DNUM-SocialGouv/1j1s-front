@@ -136,7 +136,6 @@ describe('NavItemWithSubItems', () => {
 			expect(linkMenu).toHaveAttribute('aria-current', 'true');
 		});
 	});
-
 	describe('lorsque la page actuelle n’appartient pas au sous-menu', () => {
 		// FIXME (GAFI 09-09-2024): le aria-current est actuellement sur le span
 		it.skip('marque le bouton comme section pas actuelle', async () => {
@@ -173,20 +172,22 @@ describe('NavItemWithSubItems', () => {
 		});
 	});
 
-	describe('lorsque le focus n‘est plus dans le sous menu', () => {
-		it('doit le fermer', async () => {
+	describe('lorsque le menu perd le focus', () => {
+		it('ferme le sous-menu', async () => {
 			const user = userEvent.setup();
-
-			render(<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />);
-
-			const button = screen.getByRole('button', { name: 'Test Menu' });
+			const nav = aNavigationItem({
+				children: [ aNavigationSubItem({ label: 'SubItem' }) ],
+				label: 'Menu',
+			});
+			render(<NavItemWithSubItems navigationItemWithChildren={nav} />);
+			const button = screen.getByRole('button', { name: 'Menu' });
 			await user.click(button);
+			const subItem = screen.getByRole('link', { name: 'SubItem' });
 
-			expect(screen.getByRole('link', { name: /Sub Item 1/i })).toBeVisible();
+			await userEvent.tab();
+			await userEvent.tab();
 
-			fireEvent.blur(button);
-
-			expect(screen.queryByText('Sub Item 1')).not.toBeInTheDocument();
+			expect(subItem).not.toBeInTheDocument();
 		});
 	});
 
