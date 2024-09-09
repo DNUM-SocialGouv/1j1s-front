@@ -9,20 +9,25 @@ import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
+import { NavigationItemWithChildren } from '~/client/components/layouts/Header/Navigation/NavigationStructure';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 
 import { NavItemWithSubItems } from './NavItemWithSubItems';
 
-const mockNavigationItemWithChildren = {
-	children: [
-		{ label: 'Sub Item 1', link: '/sub1' },
-		{ label: 'Sub Item 2', link: '/sub2' },
-	],
-	label: 'Test Menu',
-};
+function aNavigationItem(overrides?: Partial<NavigationItemWithChildren>) {
+	return {
+		children: [
+			{ label: 'Sub Item 1', link: '/sub1' },
+			{ label: 'Sub Item 2', link: '/sub2' },
+		],
+		label: 'Test Menu',
+		...overrides,
+	};
+}
 
 describe('NavItemWithSubItems', () => {
 	beforeAll(() => {
+		// FIXME (GAFI 09-09-2024): À cleaner une fois que les tests seront moins liés à l'implémentation
 		Object.defineProperty(window, 'location', {
 			value: { 
 				assign: jest.fn(), 
@@ -32,7 +37,7 @@ describe('NavItemWithSubItems', () => {
 	});
 
 	it('doit rendre le bouton du menu', () => {
-		render(<NavItemWithSubItems navigationItemWithChildren={mockNavigationItemWithChildren} />);
+		render(<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />);
 		
 		expect(screen.getByRole('button', { name: 'Test Menu' })).toBeVisible();
 	});
@@ -41,7 +46,7 @@ describe('NavItemWithSubItems', () => {
 		it('doit afficher l‘attribut aria-expanded correctement', async () => {
 			const user = userEvent.setup();
 
-			render(<NavItemWithSubItems navigationItemWithChildren={mockNavigationItemWithChildren} />);
+			render(<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />);
 			const menuButton = screen.getByRole('button', { name: 'Test Menu' });
       
 			expect(menuButton).toHaveAttribute('aria-expanded', 'false');
@@ -53,7 +58,7 @@ describe('NavItemWithSubItems', () => {
 		it('doit jongler sur la visibilité du menu au clic', async () => {
 			const user = userEvent.setup();
 
-			render(<NavItemWithSubItems navigationItemWithChildren={mockNavigationItemWithChildren} />);
+			render(<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />);
 			const menuButton = screen.getByRole('button', { name: 'Test Menu' });
       
 			await user.click(menuButton);
@@ -70,7 +75,7 @@ describe('NavItemWithSubItems', () => {
 				
 			render(
 				<NavItemWithSubItems 
-					navigationItemWithChildren={mockNavigationItemWithChildren} 
+					navigationItemWithChildren={aNavigationItem()}
 					onClick={mockOnClick} />,
 			);
 		
@@ -95,7 +100,7 @@ describe('NavItemWithSubItems', () => {
 
 		it('doit afficher l‘attribut aria-current à true', async () => {
 			const user = userEvent.setup();
-			render(<NavItemWithSubItems navigationItemWithChildren={mockNavigationItemWithChildren} />);
+			render(<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />);
     
 			const menuButton = screen.getByRole('button', { name: 'Test Menu' });
 			await user.click(menuButton);
@@ -110,7 +115,7 @@ describe('NavItemWithSubItems', () => {
 		it('doit afficher l‘attribut aria-current à false', async () => {
 			const user = userEvent.setup();
 
-			render(<NavItemWithSubItems navigationItemWithChildren={mockNavigationItemWithChildren} />);
+			render(<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />);
 		
 			const menuButton = screen.getByRole('button', { name: 'Test Menu' });
 			await user.click(menuButton);
@@ -126,7 +131,7 @@ describe('NavItemWithSubItems', () => {
 		it('doit le fermer', async () => {
 			const user = userEvent.setup();
 
-			render(<NavItemWithSubItems navigationItemWithChildren={mockNavigationItemWithChildren} />);
+			render(<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />);
 
 			const button = screen.getByRole('button', { name: 'Test Menu' });
 			await user.click(button);
@@ -143,7 +148,7 @@ describe('NavItemWithSubItems', () => {
 		it('ne doit pas fermer le sous-menu', async () => {
 			const user = userEvent.setup();
 
-			render(<NavItemWithSubItems navigationItemWithChildren={mockNavigationItemWithChildren} />);
+			render(<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />);
 
 			const menuButton = screen.getByRole('button', { name: 'Test Menu' });
 			await user.click(menuButton);
@@ -160,7 +165,7 @@ describe('NavItemWithSubItems', () => {
 	describe('lorsque j‘appuis sur la touche ECHAP', () => {
 		it('doit fermer le sous-menu', async () => {
 			const user = userEvent.setup();
-			render(<NavItemWithSubItems navigationItemWithChildren={mockNavigationItemWithChildren} />);
+			render(<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />);
 			
 			await user.click(screen.getByRole('button', { name: 'Test Menu' }));
 			expect(screen.getByRole('link', { name: /Sub Item 1/i })).toBeVisible();
@@ -176,7 +181,7 @@ describe('NavItemWithSubItems', () => {
 
 			render(
 				<div>
-					<NavItemWithSubItems navigationItemWithChildren={mockNavigationItemWithChildren} />
+					<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />
 					<div data-testid="outside">Outside</div>
 				</div>,
 			);
