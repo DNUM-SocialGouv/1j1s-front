@@ -55,9 +55,7 @@ describe('NavItemWithSubItems', () => {
 	});
 	it('masque le sous-menu par défaut', () => {
 		const nav = aNavigationItem({
-			children: [
-				aNavigationSubItem({ label: 'SubItem' }),
-			],
+			children: [ aNavigationSubItem({ label: 'SubItem' }) ],
 			label: 'Menu',
 		});
 		render(<NavItemWithSubItems navigationItemWithChildren={nav} />);
@@ -71,27 +69,35 @@ describe('NavItemWithSubItems', () => {
 	describe('lorsque je clique sur le bouton du menu', () => {
 		it('doit afficher le sous-menu', async () => {
 			const user = userEvent.setup();
-			render(<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />);
+			const nav = aNavigationItem({
+				children: [ aNavigationSubItem({ label: 'SubItem' }) ],
+				label: 'Menu',
+			});
+			render(<NavItemWithSubItems navigationItemWithChildren={nav} />);
 
-			const menuButton = screen.getByRole('button', { name: 'Test Menu' });
-			expect(menuButton).toHaveAttribute('aria-expanded', 'false');
-      
+			const menuButton = screen.getByRole('button', { name: 'Menu' });
 			await user.click(menuButton);
+
 			expect(menuButton).toHaveAttribute('aria-expanded', 'true');
+			expect(screen.getByRole('link', { name: /SubItem/i })).toBeVisible();
 		});
 
-		it('doit jongler sur la visibilité du menu au clic', async () => {
-			const user = userEvent.setup();
+		describe('et que le menu est déjà déplié', () => {
+			it('masque le menu', async () => {
+				const user = userEvent.setup();
+				const nav = aNavigationItem({
+					children: [ aNavigationSubItem({ label: 'SubItem' }) ],
+					label: 'Menu',
+				});
+				render(<NavItemWithSubItems navigationItemWithChildren={nav} />);
+				const menuButton = screen.getByRole('button', { name: 'Menu' });
+				await user.click(menuButton);
 
-			render(<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />);
-			const menuButton = screen.getByRole('button', { name: 'Test Menu' });
-      
-			await user.click(menuButton);
-			expect(screen.getByRole('link', { name: /Sub Item 1/i })).toBeVisible();
-      
-			await user.click(menuButton);
+				await user.click(menuButton);
 
-			expect(screen.queryByText('Sub Item 1')).not.toBeInTheDocument();
+				expect(menuButton).toHaveAttribute('aria-expanded', 'false');
+				expect(screen.queryByText('SubItem')).not.toBeInTheDocument();
+			});
 		});
 
 		it('lorsque l‘utilisateur clique sur un lien, appelle la props onClick une fois', async () => {
