@@ -47,7 +47,7 @@ export function NavItemWithSubItems({
 		
 	}, []);
 
-	const closeMenuOnEscape = useCallback((event: KeyboardEvent) => {
+	const closeMenuOnEscape = useCallback((event: React.KeyboardEvent) => {
 		if (event.key === KeyBoard.ESCAPE) {
 			setIsExpanded(false);
 		}
@@ -59,14 +59,6 @@ export function NavItemWithSubItems({
 			onClick();
 		}
 	}
-
-	useEffect(function setEventListenerOnMount() {
-		document.addEventListener('keyup', closeMenuOnEscape);
-
-		return () => {
-			document.removeEventListener('keyup', closeMenuOnEscape);
-		};
-	}, [closeMenuOnEscape]);
 
 	const subNav = navigationItemWithChildren.children.map((subItem) => {
 		if (isNavigationItem(subItem)) {
@@ -90,7 +82,8 @@ export function NavItemWithSubItems({
 	});
 
 	return (
-		<li ref={optionRef} className={className} onBlur={onBlur}>
+		// FIXME (GAFI 09-09-2024): Il faudrait ajouter une reprise de focus dans le keyup quand sur un sous-menu
+		<li ref={optionRef} className={className} onBlur={onBlur} onKeyUp={closeMenuOnEscape}>
 			<button
 				className={classNames(styles.subNavItemButton)}
 				onClick={() => setIsExpanded(!isExpanded)}
