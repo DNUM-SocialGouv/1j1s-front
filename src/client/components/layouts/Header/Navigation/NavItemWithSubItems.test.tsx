@@ -191,21 +191,22 @@ describe('NavItemWithSubItems', () => {
 		});
 	});
 
-	describe('lorsque le focus est dans le sous menu', () => {
+	describe('lorsque le focus entre dans le sous menu', () => {
 		it('ne doit pas fermer le sous-menu', async () => {
 			const user = userEvent.setup();
+			const nav = aNavigationItem({
+				children: [ aNavigationSubItem({ label: 'SubItem' }) ],
+				label: 'Menu',
+			});
+			render(<NavItemWithSubItems navigationItemWithChildren={nav} />);
+			const button = screen.getByRole('button', { name: 'Menu' });
+			await user.click(button);
+			const subItem = screen.getByRole('link', { name: 'SubItem' });
 
-			render(<NavItemWithSubItems navigationItemWithChildren={aNavigationItem()} />);
+			await userEvent.tab();
 
-			const menuButton = screen.getByRole('button', { name: 'Test Menu' });
-			await user.click(menuButton);
-
-			expect(screen.getByRole('link', { name: /Sub Item 1/i })).toBeVisible();
-
-			const subItem = screen.getByRole('link', { name: /Sub Item 2/i });
-			fireEvent.focusIn(subItem);
-
-			expect(screen.getByText('Sub Item 2')).toBeVisible();
+			expect(subItem).toBeVisible();
+			expect(subItem).toHaveFocus();
 		});
 	});
 
