@@ -37,12 +37,6 @@ function aNavigationSubItem(overrides?: Partial<NavigationItem>) {
 
 describe('NavItemWithSubItems', () => {
 	beforeAll(() => {
-		// FIXME (GAFI 09-09-2024): À cleaner une fois que les tests seront moins liés à l'implémentation
-		Object.defineProperty(window, 'location', {
-			value: { 
-				assign: jest.fn(), 
-			},
-		});
 		mockUseRouter({});
 	});
 
@@ -245,21 +239,21 @@ describe('NavItemWithSubItems', () => {
 	});
 
 	it('lorsque l‘utilisateur clique sur un lien, appelle la props onClick une fois', async () => {
-		const mockOnClick = jest.fn();
+		// FIXME (GAFI 09-09-2024): Idéalement, on voudrait passer l'event au handler pour pouvoir faire un preventDefault
+		//	et même passer en composition pour ne pas avoir à le gérer à la main
+		const onClick = jest.fn();
 		const user = userEvent.setup();
-
 		render(
 			<NavItemWithSubItems
 				navigationItemWithChildren={aNavigationItem()}
-				onClick={mockOnClick} />,
+				onClick={onClick} />,
 		);
-
 		const button = screen.getByRole('button', { name: 'Test Menu' });
 		await user.click(button);
 
 		const subItem = screen.getByRole('link', { name: /Sub Item 1/i });
 		await user.click(subItem);
 
-		expect(mockOnClick).toHaveBeenCalledTimes(1);
+		expect(onClick).toHaveBeenCalledTimes(1);
 	});
 });
