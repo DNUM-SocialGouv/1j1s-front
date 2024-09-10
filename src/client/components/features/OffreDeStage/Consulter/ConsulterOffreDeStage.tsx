@@ -21,6 +21,8 @@ const mapPeriodePaiementLabel = (remunerationPeriode?: RemunerationPeriode) => {
 	switch (remunerationPeriode) {
 		case RemunerationPeriode.HOURLY:
 			return 'Par heure';
+		case RemunerationPeriode.DAILY:
+			return 'Par jour';
 		case RemunerationPeriode.MONTHLY:
 			return 'Par mois';
 		case RemunerationPeriode.YEARLY:
