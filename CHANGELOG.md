@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.343.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.343.1...v3.343.2) (2024-09-10)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#3316](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3316)) ([823a2ea](https://github.com/DNUM-SocialGouv/1j1s-front/commit/823a2ea847824b7f75f9e7b7508392e96714411e))
+* **stages:** ajoute la rémunération quotidienne ([#3308](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3308)) ([03611c7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/03611c7583bfb2d7137413e9cf84714f1c3c42f2))
+
 ## [3.343.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.343.0...v3.343.1) (2024-09-10)
 
 
