@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.343.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.343.0...v3.343.1) (2024-09-10)
+
+
+### Bug Fixes
+
+* Check l'état du local ou sessionStorage au runtime ([#3050](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3050)) ([1726a8e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1726a8ec8459c4fa4d07f7f14563473a4da168d8))
+* **deps:** update all non-major dependencies to v14.2.8 ([#3305](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3305)) ([ae8a342](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ae8a342d2dbe9f5bfcc4020596cb22946cdf5a75))
+* **deps:** update dependency markdown-it-anchor to v9.2.0 ([#3312](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3312)) ([9ea4e74](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9ea4e74bcf9d111a642884527a2b77d0633aea50))
+
 ## [3.343.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.342.5...v3.343.0) (2024-09-05)
 
 
