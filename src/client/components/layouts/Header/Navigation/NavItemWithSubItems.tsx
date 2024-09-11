@@ -82,7 +82,6 @@ export function NavItemWithSubItems({
 	});
 
 	return (
-		// FIXME (GAFI 09-09-2024): Il faudrait ajouter une reprise de focus dans le keyup quand sur un sous-menu
 		<li ref={optionRef} className={className} onBlur={onBlur} onKeyUp={closeMenuOnEscape}>
 			<button
 				className={classNames(styles.subNavItemButton)}

@@ -256,4 +256,7 @@ describe('NavItemWithSubItems', () => {
 
 		expect(onClick).toHaveBeenCalledTimes(1);
 	});
+
+	it.todo('reprise de focus à la fermeture du sous-menu quand le focus est dans le sous-menu');
+	it.todo('En mobile, le menu ne doit pas se fermer à la perte du focus (ça ressemble plus à un disclosure ou accordéon)');
 });
