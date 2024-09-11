@@ -96,6 +96,7 @@ describe('NavItemWithSubItems', () => {
 
 	describe('lorsque la page actuelle appartient au sous-menu', () => {
 		// FIXME (GAFI 09-09-2024): le aria-current est actuellement sur le span
+		// eslint-disable-next-line jest/no-disabled-tests
 		it.skip('marque le bouton comme section actuelle', async () => {
 			mockUseRouter({ pathname: '/current-page' });
 			const nav = aNavigationItem({
@@ -132,6 +133,7 @@ describe('NavItemWithSubItems', () => {
 	});
 	describe('lorsque la page actuelle n’appartient pas au sous-menu', () => {
 		// FIXME (GAFI 09-09-2024): le aria-current est actuellement sur le span
+		// eslint-disable-next-line jest/no-disabled-tests
 		it.skip('marque le bouton comme section pas actuelle', async () => {
 			mockUseRouter({ pathname: '/current-page' });
 			const nav = aNavigationItem({
