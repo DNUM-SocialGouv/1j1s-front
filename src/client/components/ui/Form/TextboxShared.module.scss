@@ -10,28 +10,98 @@ $border-radius: 1.25rem;
 $border-width: 1px;
 $border-width-compensation: calc($error-border-width - $border-width);
 
+%disabled {
+  color: $color-text-disabled;
+  background-color: $color-background-disabled;
+  cursor: not-allowed;
+}
+
+%bordered {
+  border-radius: $border-radius;
+  border: $border-width solid $color-border;
+  padding: 0.5rem 1rem;
+}
+
+%error {
+  border-color: $color-error;
+  border-width: $error-border-width;
+}
+%border-no-error {
+  margin: $border-width-compensation;
+}
+
 %input {
   color: $color-text;
   background-color: transparent;
-  padding: 0.5rem 1rem;
-  border-radius: $border-radius;
-  border: $border-width solid $color-border;
+  @extend %bordered;
   @include utilities.text-interactive-medium;
 
   &:disabled,
-  &:read-only {
-    color: $color-text-disabled;
-    background-color: $color-background-disabled;
-    cursor: not-allowed;
+  &:not(button):read-only {
+    @extend %disabled;
   }
 
   &[data-touched="true"]:invalid {
-    border-color: $color-error;
-    border-width: $error-border-width;
+    @extend %error;
   }
-
   &:valid,
   &:not([data-touched="true"]) {
-    margin: $border-width-compensation;
+    @extend %border-no-error;
+  }
+}
+
+%comboboxes {
+  $color-list-border: $color-border;
+  $color-list-background: utilities.$color-background-primary;
+  $color-option-hover: utilities.$color-background-primary-alternative;
+  @include utilities.text-interactive-medium;
+  & [role="combobox"] {
+    @extend %input;
+  }
+
+  position: relative;
+  & [role="listbox"] {
+    z-index: 1;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    margin-top: 2px;
+  }
+
+  & [role="listbox"] {
+    border: 1px solid $color-list-border;
+    border-radius: $border-radius;
+    background-color: $color-list-background;
+  }
+
+  & [role="listbox"] {
+    max-height: 10em;
+    overflow-y: scroll;
+  }
+
+  & [role="option"] {
+    padding: .5rem 1ch;
+  }
+  & [role="option"] {
+    cursor: pointer;
+  }
+
+  %hovered-option {
+    background-color: $color-option-hover;
+    font-weight: bold;
+  }
+
+  & li[role="none"]:has([role="group"]) {
+    font-weight: bold;
+    & > * {
+      font-weight: initial;
+    }
+  }
+
+  %chevron {
+    transition: transform 200ms linear;
+  }
+  %chevron-expanded {
+    transform: rotate(-180deg);
   }
 }

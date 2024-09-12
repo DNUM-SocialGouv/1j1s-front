@@ -5,92 +5,61 @@
 @use "src/client/components/ui/Checkbox/Checkbox.module";
 @use "src/client/components/ui/Radio/Radio.module";
 
-$color-text: inputStyles.$color-text;
-$color-border: inputStyles.$color-border;
-$color-text-disabled: inputStyles.$color-text-disabled;
-$error-border-width: inputStyles.$error-border-width;
-$color-background-disabled: inputStyles.$color-background-disabled;
-$color-error: inputStyles.$color-error;
-$border-width-compensation: inputStyles.$border-width-compensation;
-$color-list-border: $color-border;
-$color-list-background: utilities.$color-background-primary;
-$color-option-hover: utilities.$color-background-primary-alternative;
-$color-category-separator: $color-border;
-$border-radius: inputStyles.$border-radius;
-$border-width: inputStyles.$border-width;
-
 .container {
-  position: relative;
-  border-radius: $border-radius;
+  @extend %comboboxes;
 
   & [role="combobox"] {
     width: 100%;
     text-align: left;
     cursor: pointer;
     @extend %outlined;
-    @include utilities.text-interactive-medium;
+    font-size: inherit;
+    line-height: inherit;
     display: grid;
-    grid-template-columns: 1fr auto;
-    border: $border-width solid $color-border;
-    border-radius: $border-radius;
-    padding: 0.5rem 1rem;
-    background-color: transparent;
 
-    &[aria-expanded="true"] svg {
-      transform: rotate(-180deg);
-      transition: transform 200ms linear;
+    grid-template-columns: 1fr auto;
+    & > svg {
+      @extend %chevron;
+    }
+    &[aria-expanded="true"] > svg {
+      @extend %chevron-expanded;
     }
   }
 
+  input:valid + [role="combobox"],
+  [role="combobox"]:not([data-touched="true"]) {
+    @extend %border-no-error;
+  }
   input:invalid + [role="combobox"][data-touched="true"] {
-    border-color: $color-error;
-    border-width: $error-border-width;
+    @extend %error;
+  }
+
+  [role="option"]:hover,
+  [role="option"].optionVisuallyFocus {
+    @extend %hovered-option;
   }
 
   ul[role="listbox"] {
-    z-index: 1;
-    position: absolute;
-    top: 100%;
-    width: 100%;
-    border: 1px solid $color-list-border;
-    border-radius: $border-radius;
-    background-color: $color-list-background;
-    margin-top: 1px;
-    max-height: 10em;
-    overflow-y: scroll;
-
-    li[role="option"] {
+    [role="option"] {
       display: grid;
       grid-template-columns: auto 1fr;
+      gap: .5rem;
       align-items: center;
-      padding: .5rem 1ch;
-      cursor: pointer;
-
-      &:hover,
-      &.optionVisuallyFocus {
-        background-color: $color-option-hover;
-        font-weight: bold;
-      }
     }
 
     &:not([aria-multiselectable="true"]) {
-      li[role="option"]::before {
+      [role="option"]::before {
         @extend %radio;
-        margin-right: 0.5rem;
       }
-
-      li[role="option"][aria-selected="true"]::before {
+      [role="option"][aria-selected="true"]::before {
         @extend %radio-checked;
       }
     }
-
-
     &[aria-multiselectable="true"] {
-      li[role="option"]::before {
+      [role="option"]::before {
         @extend %checkbox;
       }
-
-      li[role="option"][aria-selected="true"]::before {
+      [role="option"][aria-selected="true"]::before {
         @extend %checkbox-checked;
       }
     }

@@ -2,119 +2,62 @@
 @use "../TextboxShared.module" as inputStyles;
 
 .combobox {
-  $color-text: inputStyles.$color-text;
-  $color-border: inputStyles.$color-border;
-  $color-text-disabled: inputStyles.$color-text-disabled;
-  $error-border-width: inputStyles.$error-border-width;
-  $color-background-disabled: inputStyles.$color-background-disabled;
-  $color-error: inputStyles.$color-error;
-  $border-width-compensation: inputStyles.$border-width-compensation;
-  $color-list-border: $color-border;
-  $color-list-background: utilities.$color-background-primary;
-  $color-option-hover: utilities.$color-background-primary-alternative;
-  $color-category-separator: $color-border;
-  $border-radius: inputStyles.$border-radius;
-  $border-width: inputStyles.$border-width;
+  @extend %comboboxes;
+  & > button {
+    font-size: inherit;
+    line-height: 1;
+  }
 
-  position: relative;
   display: grid;
   grid-template-columns: 1fr auto;
-  color: $color-text;
-
-  & input {
-    @include utilities.text-interactive-medium;
-    background-color: transparent;
-    padding: 0.5rem 1rem;
+  & > button svg {
+    @extend %chevron;
+  }
+  & > [aria-expanded="true"] + button > svg {
+    @extend %chevron-expanded;
   }
 
-  & button {
-    vertical-align: middle;
-    & svg {
-      vertical-align: bottom;
-      transition: transform 75ms ease-in-out;
-    }
-    &[aria-expanded="true"] svg {
-      transform: rotate(-180deg);
-    }
-  }
-
-  border-radius: $border-radius;
   @extend %outlined;
+  border-radius: inputStyles.$border-radius;
   & input,
   & button {
-    @extend %no-outline
+    @extend %no-outline;
   }
 
   // NOTE (GAFI 27-06-2023): Impossible de changer la couleur de la bordure quand disabled si elle est sur la div parent
-  & input {
-    border: $border-width solid $color-border;
+  & input[role="combobox"] {
     border-right: none;
-    border-radius: $border-radius 0 0 $border-radius;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    padding-right: 0;
   }
-  & button {
-    border: $border-width solid $color-border;
+  & input[role="combobox"] + button {
+    @extend %bordered;
     border-left: none;
-    border-radius: 0 $border-radius $border-radius 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
   }
-  & input:disabled,
-  & input:read-only,
   & button:disabled {
-    color: $color-text-disabled;
-    background-color: $color-background-disabled;
-    cursor: not-allowed;
+    @extend %disabled;
   }
 
   & input[role="combobox"][data-touched="true"]:invalid,
   & input[role="combobox"][data-touched="true"]:invalid ~ button {
-    border-color: $color-error;
-    border-width: $error-border-width;
+    @extend %error;
   }
   & input[role="combobox"]:valid,
   & input[role="combobox"]:not([data-touched="true"]) {
-    // NOTE (GAFI 06-07-2023): Compense la bordure plus épaisse quand en erreur
+    @extend %border-no-error;
     margin-right: 0;
 
     & ~ button {
-      margin:
-              $border-width-compensation
-              $border-width-compensation
-              $border-width-compensation
-              0;
+      @extend %border-no-error;
+      margin-left: 0;
     }
   }
 
-  & ul[role="listbox"] {
-    z-index: 1;
-    position: absolute;
-    top: 100%;
-    width: 100%;
-    border: 1px solid $color-list-border;
-    border-radius: $border-radius;
-    background-color: $color-list-background;
-    margin-top: 4px;
-
-    max-height: 10em;
-    overflow-y: scroll;
-
-    & li {
-      padding: .25rem 1ch;
-
-      &[role="option"] {
-        cursor: pointer;
-      }
-      &[role="option"]:hover,
-      &[role="option"][aria-selected="true"] {
-        background-color: $color-option-hover;
-        font-weight: bold;
-      }
-    }
-
-    & li[role="none"] {
-      font-weight: bold;
-
-      & * {
-        font-weight: initial;
-      }
-    }
+  & [role="option"]:hover,
+  & [role="option"][aria-selected="true"] {
+    @extend %hovered-option;
   }
 }

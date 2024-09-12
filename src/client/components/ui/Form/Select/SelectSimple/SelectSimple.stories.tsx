@@ -23,6 +23,7 @@ export const exemple: Story = {
 		<>
 			<label htmlFor="pays">Pays</label>
 			<SelectSimple id="pays" {...args}>
+				<SelectSimple.Option value="">Aucun</SelectSimple.Option>
 				{children.map((child) => <SelectSimple.Option value={child} key={child}>{child}</SelectSimple.Option>)}
 			</SelectSimple>
 		</>
@@ -36,6 +37,7 @@ export const disabled: Story = {
 		<>
 			<label htmlFor="pays">Pays</label>
 			<SelectSimple id="pays" {...args}>
+				<SelectSimple.Option value="">Aucun</SelectSimple.Option>
 				{children.map((child) => <SelectSimple.Option value={child} key={child}>{child}</SelectSimple.Option>)}
 			</SelectSimple>
 		</>

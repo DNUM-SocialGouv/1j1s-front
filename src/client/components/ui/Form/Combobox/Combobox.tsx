@@ -212,11 +212,6 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					onInput={(event) => onInputProps(event, event.currentTarget.value)}
 					required={required}
 					{...inputProps} />
-				<Input
-					type="hidden"
-					name={valueName ?? (name && `${name}.value`)}
-					value={matchingOptionValue}
-					required={requireValidOption} />
 				<button
 					onClick={() => {
 						dispatch(new Actions.ToggleList());
@@ -239,6 +234,11 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					aria-label={optionsAriaLabel}>
 					{children}
 				</ul>
+				<Input
+					type="hidden"
+					name={valueName ?? (name && `${name}.value`)}
+					value={matchingOptionValue}
+					required={requireValidOption} />
 			</div>
 		</ComboboxProvider>
 	);

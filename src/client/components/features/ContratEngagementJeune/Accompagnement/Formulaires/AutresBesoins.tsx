@@ -39,27 +39,21 @@ export default function AutresBesoins26ans(
 					<legend className={styles.question}>Rencontrez-vous d’autres besoins ?</legend>
 					<div className={styles.autresBesoinsReponsesWrapper}>
 						<Checkbox
-							className={styles.reponse}
 							name={NAME_CHECKBOX}
 							label="Logement" />
 						<Checkbox
-							className={styles.reponse}
 							name={NAME_CHECKBOX}
 							label="Santé" />
 						<Checkbox
-							className={styles.reponse}
 							name={NAME_CHECKBOX}
 							label="Difficultés administratives ou juridiques" />
 						<Checkbox
-							className={styles.reponse}
 							name={NAME_CHECKBOX}
 							label="Problématique d‘accès aux droits" />
 						<Checkbox
-							className={styles.reponse}
 							name={NAME_CHECKBOX}
 							label="Maîtrise de français" />
 						<Checkbox
-							className={styles.reponse}
 							name={NAME_CHECKBOX}
 							label="Contraintes familiales" />
 					</div>
