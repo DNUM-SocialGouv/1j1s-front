@@ -180,5 +180,6 @@ describe('Annonce Component', () => {
 		const url = screen.getByRole('link');
 		expect(url).toBeInTheDocument();
 		expect(url).toHaveAttribute('href', '/logements/annonces/un-slug-appart-a-louer');
+		expect(url).toHaveAttribute('aria-labelledby');
 	});
 });
