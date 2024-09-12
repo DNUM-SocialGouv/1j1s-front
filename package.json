@@ -78,7 +78,7 @@
     "@typescript-eslint/eslint-plugin": "8.4.0",
     "cypress": "13.14.2",
     "eslint": "8.57.0",
-    "eslint-config-next": "14.2.10",
+    "eslint-config-next": "14.2.11",
     "eslint-plugin-cypress": "3.5.0",
     "eslint-plugin-react": "7.35.2",
     "eslint-plugin-storybook": "0.8.0",
