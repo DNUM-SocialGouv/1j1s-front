@@ -1,0 +1,25 @@
+@use "@styles/utilities-deprecated";
+
+.section {
+  padding-inline: 1rem;
+  margin-bottom: 3rem;
+}
+
+.cartesActualitesList {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  flex-direction: column;
+}
+
+.carteActualite {
+  @include utilities-deprecated.media(medium) {
+    width: 22.5rem;
+  }
+}
+
+.carteActualiteDescription {
+  @include utilities-deprecated.line-clamp(3);
+}

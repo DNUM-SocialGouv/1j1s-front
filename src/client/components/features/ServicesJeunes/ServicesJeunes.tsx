@@ -27,8 +27,8 @@ export function ServicesJeunes(props: ServicesJeunesProps) {
 				<SeeMoreItemList
 					seeLessLabel="Voir moins de services"
 					seeMoreLabel="Voir plus de services"
-					seeLessAriaLabel={'Voir moins de résultats sur les services conçus pour les jeunes'}
-					seeMoreAriaLabel={'Voir plus de résultats sur les services conçus pour les jeunes'}
+					seeLessAriaLabel={'Voir moins de services conçus pour les jeunes'}
+					seeMoreAriaLabel={'Voir plus de services conçus pour les jeunes'}
 					numberOfVisibleItems={NUMBER_OF_VISIBLE_ITEMS}
 					itemList={cardListToDisplay} />
 			</Container>
