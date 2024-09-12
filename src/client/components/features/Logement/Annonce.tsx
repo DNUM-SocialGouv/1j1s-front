@@ -22,7 +22,7 @@ export function AnnonceDeLogement(props: HitProps<AnnonceDeLogementIndexee>) {
 
 	return (
 		<Card layout="vertical" className={styles.Card}>
-			<Card.Title id="annonceTitre" titleAs="h3" className={styles.cardTextContent}>{annonce.titre}</Card.Title>
+			<Card.Title id={`annonceTitre-${annonce.slug}`} titleAs="h3" className={styles.cardTextContent}>{annonce.titre}</Card.Title>
 			<CardImage imageSrcList={annonce.imagesUrl} />
 
 			<span className={classNames(styles.CardEnTete, styles.cardTextContent)}>
@@ -52,7 +52,7 @@ export function AnnonceDeLogement(props: HitProps<AnnonceDeLogementIndexee>) {
 					className={styles.CardFooterCallToAction}
 					prefetch={false}
 					appearance={'asQuaternaryButton'}
-					aria-labelledby='annonceTitre Lire l‘annonce'>
+					aria-labelledby={`annonceTitre-${annonce.slug} Lire l‘annonce`}>
 					Lire l‘annonce
 					<Link.Icon />
 				</Link>
