@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.344.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.343.3...v3.344.0) (2024-09-12)
+
+
+### Features
+
+* **services-jeunes:** crée la page simple ([#3307](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3307)) ([ccd7038](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ccd70384d1c1ca760d5f33df6e322990f5407c29))
+
 ## [3.343.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.343.2...v3.343.3) (2024-09-12)
 
 
