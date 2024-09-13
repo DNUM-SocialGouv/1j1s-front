@@ -21,10 +21,10 @@ export function ConsulterArticle({ article }: ConsulterArticleProps) {
 		<>
 			<main className={classNames('fr-container', styles.consulterArticle)}>
 				<BackButton className={styles.consulterArticleButtonRetour} />
-				<h1 className={styles.titre}>{titre}</h1>
+				<h1 className={classNames(styles.titre, styles.blocTexte)}>{titre}</h1>
 				{/* eslint-disable-next-line @next/next/no-img-element */}
 				{bannièreSrc && <img src={bannièreSrc} alt={bannièreAlt} decoding="async" loading="lazy" />}
-				<MarkdownToHtml markdown={contenu} className={classNames(styles.contenu, MarkdownToHtmlStyles.normalize)} />
+				<MarkdownToHtml markdown={contenu} className={classNames(styles.blocTexte, MarkdownToHtmlStyles.normalize)} />
 			</main>
 		</>
 	);
