@@ -6,6 +6,7 @@ export function mapArticle(articleResponse: StrapiArticle): Article {
 	return {
 		bannière: flatMapSingleImage(articleResponse.banniere),
 		contenu: articleResponse.contenu,
+		dateDerniereMiseAJour: articleResponse.updatedAt,
 		slug: articleResponse.slug,
 		titre: articleResponse.titre,
 	};
