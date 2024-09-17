@@ -2,6 +2,8 @@ import { Head, Html, Main, NextScript } from 'next/document';
 import Script from 'next/script';
 import React from 'react';
 
+import { ID_TOP_ELEMENT } from '../client/components/ui/Bouée/Bouée';
+
 export default function Document() {
 	return (
 		<Html lang="fr">
@@ -28,7 +30,7 @@ export default function Document() {
 				<meta name="msapplication-wide310x150logo" content="/favicons/mstile-310x150.png" />
 				<meta name="msapplication-square310x310logo" content="/favicons/mstile-310x310.png" />
 			</Head>
-			<body>
+			<body id={ID_TOP_ELEMENT}>
 				<Main />
 				<NextScript />
 				{ process.env.NODE_ENV === 'production' && (
