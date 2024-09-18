@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.344.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.344.0...v3.344.1) (2024-09-18)
+
+
+### Bug Fixes
+
+* Fix la redirection sur une ancre après utilisation de la bouée ([#3330](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3330)) ([5671985](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5671985d735101c6ce59dfd2a3024809807494e4))
+
 ## [3.344.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.343.3...v3.344.0) (2024-09-12)
 
 
