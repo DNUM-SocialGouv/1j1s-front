@@ -37,19 +37,6 @@ export function NavItemWithSubItems({
 		setIsExpanded(isNavItemActive && isMobile);
 	}, [isNavItemActive, isMobile]);
 
-	const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
-		if (!optionRef.current?.contains(event.target as Node)) {
-			setIsExpanded(false);
-		}
-	}, []);
-
-	const closeOptionsOnSpaceOutside = useCallback((event: KeyboardEvent) => {
-		if (!optionRef.current?.contains(event.target as Node) && event.key === KeyBoard.SPACE) {
-			setIsExpanded(false);
-		}
-	}, []);
-
-
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLLIElement>) {
 		const newFocusStillInSubItems = event.currentTarget.contains(event.relatedTarget);
 		
@@ -60,7 +47,7 @@ export function NavItemWithSubItems({
 		
 	}, []);
 
-	const closeMenuOnEscape = useCallback((event: KeyboardEvent) => {
+	const closeMenuOnEscape = useCallback((event: React.KeyboardEvent) => {
 		if (event.key === KeyBoard.ESCAPE) {
 			setIsExpanded(false);
 		}
@@ -72,18 +59,6 @@ export function NavItemWithSubItems({
 			onClick();
 		}
 	}
-
-	useEffect(function setEventListenerOnMount() {
-		document.addEventListener('mouseup', closeOptionsOnClickOutside);
-		document.addEventListener('keyup', closeMenuOnEscape);
-		document.addEventListener('keyup', closeOptionsOnSpaceOutside);
-
-		return () => {
-			document.removeEventListener('mouseup', closeOptionsOnClickOutside);
-			document.removeEventListener('keyup', closeMenuOnEscape);
-			document.removeEventListener('keyup', closeOptionsOnSpaceOutside);
-		};
-	}, [closeMenuOnEscape, closeOptionsOnClickOutside, closeOptionsOnSpaceOutside]);
 
 	const subNav = navigationItemWithChildren.children.map((subItem) => {
 		if (isNavigationItem(subItem)) {
@@ -107,7 +82,7 @@ export function NavItemWithSubItems({
 	});
 
 	return (
-		<li ref={optionRef} className={className} onBlur={onBlur}>
+		<li ref={optionRef} className={className} onBlur={onBlur} onKeyUp={closeMenuOnEscape}>
 			<button
 				className={classNames(styles.subNavItemButton)}
 				onClick={() => setIsExpanded(!isExpanded)}
