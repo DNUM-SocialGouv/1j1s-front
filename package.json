@@ -29,7 +29,7 @@
     "@next/bundle-analyzer": "14.2.10",
     "@sentry/nextjs": "7.119.0",
     "axios": "1.7.7",
-    "axios-cache-interceptor": "1.5.3",
+    "axios-cache-interceptor": "1.6.0",
     "classnames": "2.5.1",
     "dompurify": "3.1.6",
     "fast-xml-parser": "4.5.0",
