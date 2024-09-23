@@ -31,7 +31,7 @@ export function LinkCard({ children, className, imageUrl, link, linkLabel, title
 
 			<div className={styles.cardContent}>
 				<div className={styles.cardContentHeader}>
-					<LinkCardTitle id={idLink} className={styles.cardTitle}>{title}</LinkCardTitle>
+					<LinkCardTitle id={idIntitule} className={styles.cardTitle}>{title}</LinkCardTitle>
 					<span className={styles.cardAction}>
 						<span className="sr-only">{linkLabel}</span>
 						<Link aria-labelledby={`${idIntitule}, ${idLink}`} id={idLink} href={link} className={classNames('underline-none')} prefetch={false}>
