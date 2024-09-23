@@ -34,8 +34,8 @@ export function LinkCard({ children, className, imageUrl, link, linkLabel, title
 					<LinkCardTitle id={idLink} className={styles.cardTitle}>{title}</LinkCardTitle>
 					<span className={styles.cardAction}>
 						<span className="sr-only">{linkLabel}</span>
-						<Link id={idLink} href={link} className={classNames('underline-none')} prefetch={false}>
-							<Link.Icon aria-labelledby={`${idIntitule}, ${idLink} en savoir plus`} name='angle-right' aria-hidden="false" />
+						<Link aria-labelledby={`${idIntitule}, ${idLink}`} id={idLink} href={link} className={classNames('underline-none')} prefetch={false}>
+							<Link.Icon name='angle-right' aria-hidden="false" />
 						</Link>
 					</span>
 				</div>
