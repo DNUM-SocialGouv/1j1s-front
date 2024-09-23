@@ -68,7 +68,7 @@ $card-border-color: utilities.$color-background-border;
       content: '';
       position: absolute;
       inset: 0;
-      background-color: rgba(0, 0, 0, 0);
+      background-color: transparent;
     }
   }
 
