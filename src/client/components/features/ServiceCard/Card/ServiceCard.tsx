@@ -1,8 +1,9 @@
 import classNames from 'classnames';
-import React, { useId } from 'react';
+import React, { useId, useMemo } from 'react';
 
 import { HtmlHeadingTag } from '~/client/components/props';
 import { Card } from '~/client/components/ui/Card/Card';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
@@ -50,9 +51,14 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 	const isInternalLink = useIsInternalLink(link);
 	const linkTitle = !isInternalLink ? `${linkLabel} - nouvelle fenêtre` : 'En savoir plus';
 
+	const icon = useMemo(function () {
+		return <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'} />;
+	}, [isInternalLink]);
+
 	return (
 		<Card
 			layout={'vertical'}
+			data-testid={`card-${idIntitulé}`}
 			className={classNames(
 				styles.card,
 				className,
@@ -62,17 +68,16 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 			<Card.Content className={styles.cardBody}>
 				<Card.Title id={idIntitulé} titleAs={titleAs} className={styles.cardTitle}>{title}</Card.Title>
 				<p>{children}</p>
-				<span className={styles.cardAction}>
-					<Link
-						id={idLink}
-						href={link}
-						appearance={'asQuaternaryButton'}
-						aria-labelledby={`${idIntitulé} ${idLink}`}
-						className={styles.cardAction}>
-						{linkTitle}
-						<Link.Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'} />
-					</Link>
-				</span>
+				<Link
+					href={link}
+					title={linkTitle}
+					aria-labelledby={`${idIntitulé} ${idLink}`}
+					className={styles.cardAction}
+					id={idLink}>
+					<span className={styles.cardAction}>
+						<Card.FakeLink appearance={'quaternary'} label={linkLabel} icon={icon} />
+					</span>
+				</Link>
 			</Card.Content>
 		</Card>
 	);
