@@ -124,7 +124,7 @@ describe('StatistiquesFormation', () => {
 			render(<StatistiquesFormationAlternance statistiques={statistiques()} />);
 
 			const article =  screen.getByRole('link');
-			expect(article).toHaveTextContent('Découvrez le dispositif InserJeunes');
+			expect(article).toHaveTextContent('Lire l\'article');
 			expect(article).toBeVisible();
 
 		});
