@@ -24,13 +24,16 @@ export function ServicesJeunes(props: ServicesJeunesProps) {
 	return (
 		<>
 			<Container className={styles.container}>
-				<SeeMoreItemList
-					seeLessLabel="Voir moins de services"
-					seeMoreLabel="Voir plus de services"
-					seeLessAriaLabel={'Voir moins de services conçus pour les jeunes'}
-					seeMoreAriaLabel={'Voir plus de services conçus pour les jeunes'}
-					numberOfVisibleItems={NUMBER_OF_VISIBLE_ITEMS}
-					itemList={cardListToDisplay} />
+				{ props.cardList.length > 0 ? (
+					<SeeMoreItemList
+						seeLessLabel="Voir moins de services"
+						seeMoreLabel="Voir plus de services"
+						seeLessAriaLabel={'Voir moins de services conçus pour les jeunes'}
+						seeMoreAriaLabel={'Voir plus de services conçus pour les jeunes'}
+						numberOfVisibleItems={NUMBER_OF_VISIBLE_ITEMS}
+						itemList={cardListToDisplay} />
+				)
+					: <p>Aucun service disponible. Veuillez modifier votre sélection.</p>}
 			</Container>
 		</>
 	);

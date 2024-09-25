@@ -17,19 +17,19 @@ interface MockUseRouter {
 	isReady?: boolean
 }
 
-export function mockUseRouter({ asPath = '', pathname = '', query = {}, route = '', prefetch = jest.fn(), push = jest.fn(), reload = jest.fn(), replace = jest.fn(), back = jest.fn(), isReady = true }: MockUseRouter) {
-	useRouter.mockImplementation(() => ({
-		asPath,
-		back,
-		isReady,
-		pathname,
-		prefetch,
-		push,
-		query,
-		reload,
-		replace,
-		route,
-	} as unknown as NextRouter));
+export function mockUseRouter(overrides: Partial<MockUseRouter>) {
+	const routerMock = { asPath : '',
+		back : jest.fn(),
+		isReady : true,
+		pathname : '',
+		prefetch : jest.fn(),
+		push : jest.fn(),
+		query : {},
+		reload : jest.fn(),
+		replace : jest.fn(),
+		route : '',
+		...overrides };
+	useRouter.mockImplementation(() => (routerMock));
 }
 
 export const createMockRouter = (router?: Partial<NextRouter>): NextRouter => {

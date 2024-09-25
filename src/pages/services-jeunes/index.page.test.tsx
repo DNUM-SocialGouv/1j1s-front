@@ -5,6 +5,7 @@ import '~/test-utils';
 
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import { useSearchParams } from 'next/navigation';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
@@ -13,6 +14,7 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import ServicesJeunePage, { getStaticProps } from '~/pages/services-jeunes/index.page';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { aServiceJeune, aServiceJeuneList } from '~/server/services-jeunes/domain/servicesJeunes.fixture';
 import { dependencies } from '~/server/start';
 
@@ -30,10 +32,20 @@ jest.mock('~/server/start', () => ({
 	},
 }));
 
+jest.mock('next/navigation', () => ({
+	usePathname: jest.fn().mockReturnValue('/services-jeunes'),
+	useSearchParams: jest.fn(),
+}));
+
+const mockUseSearchParams = useSearchParams as jest.Mock;
+
 describe('Page Services Jeunes', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 		mockUseRouter({});
+		mockUseSearchParams.mockImplementation(() => {
+			return { getAll: jest.fn().mockReturnValue([]) };
+		});
 		mockScrollIntoView();
 	});
 	afterEach(() => {
@@ -131,83 +143,195 @@ describe('Page Services Jeunes', () => {
 		});
 
 		describe('Si des services jeunes sont récupérés', () => {
-			it('affiche au maximum 6 services initialement', () => {
-				// Given
-				const serviceJeuneList = [
-					aServiceJeune({ titre: 'service 1' }),
-					aServiceJeune({ titre: 'service 2' }),
-					aServiceJeune({ titre: 'service 3' }),
-					aServiceJeune({ titre: 'service 4' }),
-					aServiceJeune({ titre: 'service 5' }),
-					aServiceJeune({ titre: 'service 6' }),
-					aServiceJeune({ titre: 'service 7' }),
-				];
-				const analyticsService = aManualAnalyticsService();
+			describe('Sélection des filtres', () => {
+				describe('aucun filtre n’est renseigné', () => {
+					it('affiche l’ensemble des types de services', () => {
+						// Given
+						const serviceJeuneList = [
+							aServiceJeune({ categorie: ServiceJeune.Categorie.ACCOMPAGNEMENT }),
+							aServiceJeune({ categorie: ServiceJeune.Categorie.AIDES_FINANCIERES }),
+							aServiceJeune({ categorie: ServiceJeune.Categorie.ENGAGEMENT }),
+							aServiceJeune({ categorie: ServiceJeune.Categorie.ENTREE_VIE_PROFESSIONELLE }),
+							aServiceJeune({ categorie: ServiceJeune.Categorie.LOGEMENT }),
+							aServiceJeune({ categorie: ServiceJeune.Categorie.ORIENTATION_FORMATION }),
+						];
 
-				// When
-				render(
-					<DependenciesProvider analyticsService={analyticsService}>
-						<ServicesJeunePage serviceJeuneList={serviceJeuneList} />
-					</DependenciesProvider>,
-				);
+						// When
+						render(
+							<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+								<ServicesJeunePage serviceJeuneList={serviceJeuneList} />
+							</DependenciesProvider>,
+						);
 
-				// Then
-				const mesuresJeunesSection = screen.getByRole('region', { name: 'les services jeunes' });
-				const servicesJeunesList = within(mesuresJeunesSection).getAllByRole('listitem');
-				expect(servicesJeunesList.length).toBe(6);
+						// Then
+						const [/* tagList */, servicesJeunesList] = screen.getAllByRole('list');
+						const servicesJeunesResultats = within(servicesJeunesList).getAllByRole('listitem');
+						expect(servicesJeunesResultats.length).toBe(6);
+					});
+				});
+				describe('au moins un filtre est renseigné', () => {
+					it('affiche la liste des filtres dans des étiquettes', () => {
+						// Given
+						mockUseRouter({ push: jest.fn() });
+						mockUseSearchParams.mockImplementation(() => {
+							return { getAll: jest.fn().mockReturnValue(['Accompagnement', 'Logement', 'Engagement']) };
+						});
+
+						const serviceJeuneList = [
+							aServiceJeune({ categorie: ServiceJeune.Categorie.ACCOMPAGNEMENT }),
+							aServiceJeune({ categorie: ServiceJeune.Categorie.AIDES_FINANCIERES }),
+							aServiceJeune({ categorie: ServiceJeune.Categorie.ENGAGEMENT }),
+							aServiceJeune({ categorie: ServiceJeune.Categorie.ENTREE_VIE_PROFESSIONELLE }),
+							aServiceJeune({ categorie: ServiceJeune.Categorie.LOGEMENT }),
+							aServiceJeune({ categorie: ServiceJeune.Categorie.ORIENTATION_FORMATION }),
+						];
+
+						// When
+						render(
+							<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+								<ServicesJeunePage serviceJeuneList={serviceJeuneList} />
+							</DependenciesProvider>,
+						);
+
+						// Then
+						const [/* tagList */, servicesJeunesList] = screen.getAllByRole('list');
+						const servicesJeunesEtiquettes = within(servicesJeunesList).getAllByRole('listitem');
+						expect(servicesJeunesEtiquettes.length).toBe(3);
+					});
+					it('supprime le filtre au clic sur son étiquette', async () => {
+						// Given
+						const routerPush = jest.fn();
+						mockUseRouter({ push: routerPush });
+
+						const mockedUseSearchParams = () => {
+							return { getAll: jest.fn()
+								.mockReturnValue(['Accompagnement', 'Logement', 'Engagement']),
+							};
+						};
+						mockUseSearchParams.mockImplementation(mockedUseSearchParams);
+						const user = userEvent.setup();
+
+						const serviceJeuneList = [
+							aServiceJeune({ categorie: ServiceJeune.Categorie.ACCOMPAGNEMENT }),
+							aServiceJeune({ categorie: ServiceJeune.Categorie.AIDES_FINANCIERES }),
+						];
+
+						// When
+						render(
+							<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+								<ServicesJeunePage serviceJeuneList={serviceJeuneList} />
+							</DependenciesProvider>,
+						);
+						const [ tagList /* servicesJeunesList */] = screen.getAllByRole('list');
+						const servicesJeunesEtiquettes = within(tagList).getAllByRole('listitem');
+						expect(servicesJeunesEtiquettes.length).toBe(3);
+
+						const resetButton = within(servicesJeunesEtiquettes[0]).getByRole('button');
+						await user.click(resetButton);
+
+						// Then
+						expect(routerPush).toHaveBeenCalledTimes(1);
+						expect(routerPush).toHaveBeenCalledWith(expect.not.stringContaining('filtre=Accompagnement'), undefined, expect.anything());
+						expect(routerPush).toHaveBeenCalledWith(expect.stringContaining('filtre=Logement'), undefined, expect.anything());
+						expect(routerPush).toHaveBeenCalledWith(expect.stringContaining('filtre=Engagement'), undefined, expect.anything());
+					});
+					it('affiche les services des catégories filtrées', () => {
+						mockUseSearchParams.mockImplementation(() => {
+							return { getAll: jest.fn().mockReturnValue(['Accompagnement']) };
+						});
+						const serviceJeuneList = [
+							aServiceJeune({ categorie: ServiceJeune.Categorie.ACCOMPAGNEMENT }),
+							aServiceJeune({ categorie: ServiceJeune.Categorie.AIDES_FINANCIERES }),
+							aServiceJeune({ categorie: ServiceJeune.Categorie.ENGAGEMENT }),
+							aServiceJeune({ categorie: ServiceJeune.Categorie.ENTREE_VIE_PROFESSIONELLE }),
+							aServiceJeune({ categorie: ServiceJeune.Categorie.LOGEMENT }),
+							aServiceJeune({ categorie: ServiceJeune.Categorie.ORIENTATION_FORMATION }),
+						];
+
+						// When
+						render(
+							<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+								<ServicesJeunePage serviceJeuneList={serviceJeuneList} />
+							</DependenciesProvider>,
+						);
+
+						// Then
+						const [/* tagList */, servicesJeunesList] = screen.getAllByRole('list');
+						const servicesJeunesResultats = within(servicesJeunesList).getAllByRole('listitem');
+						expect(servicesJeunesResultats.length).toBe(1);
+					});
+				});
 			});
-			it('affiche un bouton voir plus quand il y a plus de 6 services', () => {
+			describe('Liste de résultats', () => {
+				it('affiche un message d’erreur quand aucun service n’est disponible', () => {
+					// Given
+					mockUseSearchParams.mockImplementation(() => {
+						return { getAll: jest.fn().mockReturnValue(['Accompagnement']) };
+					});
+					const serviceJeuneList = [
+						aServiceJeune({ categorie: ServiceJeune.Categorie.AIDES_FINANCIERES }),
+					];
+
+					// When
+					render(
+						<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+							<ServicesJeunePage serviceJeuneList={serviceJeuneList} />
+						</DependenciesProvider>,
+					);
+
+					// Then
+					const messageErreur = screen.getByText('Aucun service disponible. Veuillez modifier votre sélection.');
+					expect(messageErreur).toBeVisible();
+				});
+				it('affiche au maximum 6 services initialement', () => {
 				// Given
-				const serviceJeuneList = [
-					aServiceJeune({ titre: 'service 1' }),
-					aServiceJeune({ titre: 'service 2' }),
-					aServiceJeune({ titre: 'service 3' }),
-					aServiceJeune({ titre: 'service 4' }),
-					aServiceJeune({ titre: 'service 5' }),
-					aServiceJeune({ titre: 'service 6' }),
-					aServiceJeune({ titre: 'service 7' }),
-				];
-				const analyticsService = aManualAnalyticsService();
+					const serviceJeuneList = new Array(7).fill(aServiceJeune());
 
-				// When
-				render(
-					<DependenciesProvider analyticsService={analyticsService}>
-						<ServicesJeunePage serviceJeuneList={serviceJeuneList} />
-					</DependenciesProvider>,
-				);
+					// When
+					render(
+						<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+							<ServicesJeunePage serviceJeuneList={serviceJeuneList} />
+						</DependenciesProvider>,
+					);
 
-				// Then
-				const mesuresJeunesSection = screen.getByRole('region', { name: 'les services jeunes' });
-				const voirPlusDeServicesJeunesBouton = within(mesuresJeunesSection).getByRole('button', { name: 'Voir plus de services conçus pour les jeunes' });
-				expect(voirPlusDeServicesJeunesBouton).toBeVisible();
-			});
-			it('affiche un bouton voir moins quand plus de 6 services jeunes sont visibles', async () => {
+					// Then
+					const [/* tagList */, servicesJeunesList] = screen.getAllByRole('list');
+					const servicesJeunesResultats = within(servicesJeunesList).getAllByRole('listitem');
+					expect(servicesJeunesResultats.length).toBe(6);
+				});
+				it('affiche un bouton voir plus quand il y a plus de 6 services', () => {
 				// Given
-				const serviceJeuneList = [
-					aServiceJeune({ titre: 'service 1' }),
-					aServiceJeune({ titre: 'service 2' }),
-					aServiceJeune({ titre: 'service 3' }),
-					aServiceJeune({ titre: 'service 4' }),
-					aServiceJeune({ titre: 'service 5' }),
-					aServiceJeune({ titre: 'service 6' }),
-					aServiceJeune({ titre: 'service 7' }),
-				];
-				const analyticsService = aManualAnalyticsService();
+					const serviceJeuneList = new Array(7).fill(aServiceJeune());
 
-				render(
-					<DependenciesProvider analyticsService={analyticsService}>
-						<ServicesJeunePage  serviceJeuneList={serviceJeuneList} />
-					</DependenciesProvider>,
-				);
-				const mesuresJeunesSection = screen.getByRole('region', { name: 'les services jeunes' });
-				const voirPlusDeServicesJeunesBouton = within(mesuresJeunesSection).getByRole('button', { name: 'Voir plus de services conçus pour les jeunes' });
+					// When
+					render(
+						<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+							<ServicesJeunePage serviceJeuneList={serviceJeuneList} />
+						</DependenciesProvider>,
+					);
 
-				// When
-				await userEvent.click(voirPlusDeServicesJeunesBouton);
+					// Then
+					const voirPlusDeServicesJeunesBouton = screen.getByRole('button', { name: 'Voir plus de services conçus pour les jeunes' });
+					expect(voirPlusDeServicesJeunesBouton).toBeVisible();
+				});
+				it('affiche un bouton voir moins quand plus de 6 services jeunes sont visibles', async () => {
+				// Given
+					const serviceJeuneList = new Array(7).fill(aServiceJeune());
 
-				// Then
-				const voirMoinsDeServicesJeunesBouton = within(mesuresJeunesSection).getByRole('button', { name: 'Voir moins de services conçus pour les jeunes' });
-				expect(voirMoinsDeServicesJeunesBouton).toBeVisible();
+					render(
+						<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+							<ServicesJeunePage  serviceJeuneList={serviceJeuneList} />
+						</DependenciesProvider>,
+					);
+					const voirPlusDeServicesJeunesBouton = screen.getByRole('button', { name: 'Voir plus de services conçus pour les jeunes' });
+
+					// When
+					await userEvent.click(voirPlusDeServicesJeunesBouton);
+
+					// Then
+					const voirMoinsDeServicesJeunesBouton = screen.getByRole('button', { name: 'Voir moins de services conçus pour les jeunes' });
+					expect(voirMoinsDeServicesJeunesBouton).toBeVisible();
+				});
 			});
 		});
 	});

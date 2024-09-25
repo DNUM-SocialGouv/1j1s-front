@@ -1,9 +1,16 @@
 import { GetStaticPropsResult } from 'next';
-import React from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 
 import { ServicesJeunes } from '~/client/components/features/ServicesJeunes/ServicesJeunes';
 import { Head } from '~/client/components/head/Head';
+import { Container } from '~/client/components/layouts/Container/Container';
+import { Champ } from '~/client/components/ui/Form/Champ/Champ';
+import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
+import { Icon } from '~/client/components/ui/Icon/Icon';
+import { TagList } from '~/client/components/ui/Tag/TagList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/espace-jeune/index.analytics';
 import { isFailure } from '~/server/errors/either';
@@ -19,23 +26,57 @@ interface ServicesJeunePageProps {
 export default function ServicesJeunesPage({ serviceJeuneList }: ServicesJeunePageProps) {
 	useAnalytics(analytics);
 
+	const searchParams = useSearchParams();
+	const router = useRouter();
+	const pathname = usePathname();
+
+	const [filtreList, setFiltreList] = useState(searchParams.getAll('filtre') ?? []);
+	const filtreListString = searchParams.getAll('filtre').toString();
+	useEffect(() => {
+		setFiltreList(searchParams.getAll('filtre') ?? []);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [setFiltreList, filtreListString]);
+
+	function toggleFiltreAndUpdateQueryParams(filtre: string) {
+		let newFiltreList = [];
+		if(filtreList.includes(filtre)) {
+			newFiltreList = filtreList.filter((element) => element !== filtre);
+		} else {
+			newFiltreList = filtreList.concat(filtre);
+		}
+
+		const params = new URLSearchParams();
+		newFiltreList.map((filtre) => {
+			params.append('filtre', filtre);
+		});
+
+		setFiltreList(newFiltreList);
+		router.push(pathname + '?' + params.toString(), undefined, { shallow: true });
+	}
+
+	const servicesJeunesVisibles = filtreList.length > 0 ? serviceJeuneList.filter((service) => {
+		return filtreList.includes(service.categorie!);
+	}) : serviceJeuneList;
+
 	return (
 		<>
 			<Head
 				title="Services jeunes | 1jeune1solution"
 				robots="index,follow" />
 			<main id="contenu">
-				<LightHero>
-					<h2>
-						<LightHeroPrimaryText>Services jeunes, retrouvez les services conçus pour vous :</LightHeroPrimaryText>
-						<LightHeroSecondaryText>
-							entrée dans la vie professionnelle, orientation, formation, accompagnement, logement, aides et outils
-						</LightHeroSecondaryText>
-					</h2>
-				</LightHero>
-				<section className={styles.section} aria-label="les services jeunes">
-					<ServicesJeunes cardList={serviceJeuneList} />
-				</section>
+				<Container className={styles.container}>
+					<LightHero>
+						<h2>
+							<LightHeroPrimaryText>Retrouvez les services conçus pour vous :</LightHeroPrimaryText>
+							<LightHeroSecondaryText>
+								entrée dans la vie professionnelle, orientation, formation, accompagnement, logement, aides et outils
+							</LightHeroSecondaryText>
+						</h2>
+					</LightHero>
+					<SelectionTypeService filtreList={filtreList} toggle={toggleFiltreAndUpdateQueryParams} />
+					<EtiquettesFiltresCliquables filtreList={filtreList} toggle={toggleFiltreAndUpdateQueryParams} />
+					<ServicesJeunes cardList={servicesJeunesVisibles} />
+				</Container>
 			</main>
 		</>
 	);
@@ -59,5 +100,63 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<ServicesJeu
 		},
 		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
 	};
+}
+
+interface SelectionTypeServiceProps {
+	filtreList: string[]
+	toggle: (filtre: string) => void
+}
+
+function SelectionTypeService({ filtreList, toggle }: SelectionTypeServiceProps) {
+	return (
+		<form>
+			<Champ>
+				<Champ.Label>
+				Types de services
+					<Champ.Label.Complement>Sélectionnez votre/vos choix</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input
+					render={SelectMultiple}
+					value={filtreList}
+					name={'typeService'}
+					onChange={(option) => {
+						const filtre = option.dataset.value ?? option.textContent;
+						toggle(String(filtre));
+					}}
+					optionsAriaLabel={'Types de services'}>
+					{Object.values(ServiceJeune.Categorie).map((option, index) =>
+						<SelectMultiple.Option key={index} value={option}>{option}</SelectMultiple.Option>,
+					)}
+				</Champ.Input>
+				<Champ.Error />
+			</Champ>
+		</form>
+	);
+}
+
+interface EtiquettesFiltresCliquablesProps {
+	filtreList: string[]
+	toggle: (filtre: string) => void
+}
+
+function EtiquettesFiltresCliquables({ filtreList, toggle }: EtiquettesFiltresCliquablesProps) {
+	return (
+		<TagList list={filtreList.map((filtre, index) => {
+			return (
+				<button key={index}
+					title={'Supprimer le filtre ' + filtre}
+					onClick={
+						(event) => {
+							event.preventDefault();
+							toggle(filtre);
+						}
+					}>
+					{filtre}
+					<Icon name={'close'} />
+				</button>
+			);
+		},
+		)} />
+	);
 }
 
