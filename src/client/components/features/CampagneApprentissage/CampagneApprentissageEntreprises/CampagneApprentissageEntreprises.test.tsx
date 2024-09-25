@@ -22,37 +22,38 @@ describe('CampagneApprentissageEntreprises', () => {
 		jest.clearAllMocks();
 	});
 
-	it('affiche le titre de la page', () => {
-		// WHEN
-		render(
-			<DependenciesProvider youtubeService={aVideoService()}>
-				<CampagneApprentissageEntreprises videos={[]} />
-			</DependenciesProvider>,
-		);
-		const titre = screen.getByRole('heading', { level: 1, name: /L’apprentissage, pour mon entreprise c’est le bon choix\u00A0!/i });
+	describe('Encart de présentation de l’apprentissage pour les employeurs', () => {
+		it('affiche le titre de la page', () => {
+			// WHEN
+			render(
+				<DependenciesProvider youtubeService={aVideoService()}>
+					<CampagneApprentissageEntreprises videos={[]} />
+				</DependenciesProvider>,
+			);
+			const titre = screen.getByRole('heading', { level: 1, name: /L’apprentissage, pour mon entreprise c’est le bon choix\u00A0!/i });
 
-		// THEN
-		expect(titre).toBeVisible();
+			// THEN
+			expect(titre).toBeVisible();
+		});
+		it('affiche un lien vers la simulation pour les employeurs', () => {
+			// GIVEN
+			mockLargeScreen();
+			// WHEN
+			render(
+				<DependenciesProvider youtubeService={aVideoService()}>
+					<CampagneApprentissageEntreprises videos={[]} />
+				</DependenciesProvider>,
+			);
+
+			// THEN
+			const simulation = screen.getByRole('link', { name: /Simuler le coût de l’embauche d’un apprenti/i });
+			expect(simulation).toBeVisible();
+			expect(simulation).toHaveAttribute('href', '/apprentissage/simulation?simulateur=employeur');
+		});
 	});
 
-	it('affiche un lien vers la simulation pour les employeurs', () => {
-		// GIVEN
-		mockLargeScreen();
-		// WHEN
-		render(
-			<DependenciesProvider youtubeService={aVideoService()}>
-				<CampagneApprentissageEntreprises videos={[]} />
-			</DependenciesProvider>,
-		);
-
-		// THEN
-		const simulation = screen.getByRole('link', { name: /Simuler le coût de l’embauche d’un apprenti/i });
-		expect(simulation).toBeVisible();
-		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation?simulateur=employeur');
-	});
-
-	describe('affiche une première section pour les raisons de choisir l’apprentissage', () => {
-		it('comportant un titre', () => {
+	describe('Section bonnes raisons de choisir l’apprentissage', () => {
+		it('comporte un titre', () => {
 			// WHEN
 			render(
 				<DependenciesProvider youtubeService={aVideoService()}>
@@ -65,8 +66,7 @@ describe('CampagneApprentissageEntreprises', () => {
 			const titre = within(sectionRaison).getByRole('heading', { level: 2, name: /5 bonnes raisons de choisir l’apprentissage :/i });
 			expect(titre).toBeVisible();
 		});
-
-		it('comportant une liste des raisons', () => {
+		it('comporte une liste des raisons', () => {
 			// GIVEN
 			const expectedRaisonList = [
 				'Former votre futur collaborateur',
@@ -94,7 +94,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		});
 	});
 
-	describe('EnSavoirPlusApprentissageEntreprises', () => {
+	describe('Encart redirections internes vers la FAQ et le dépot d’offre', () => {
 		it('je vois les informations pour accéder à la FAQ parents-enfants', () => {
 			render(
 				<DependenciesProvider youtubeService={aVideoService()}>
@@ -121,66 +121,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		});
 	});
 
-	describe('affiche une section informative sur l’embauche d’un apprenti', () => {
-		describe('affiche une sous section pour se renseigner', () => {
-			it('comprenant un titre', () => {
-				// WHEN
-				render(
-					<DependenciesProvider youtubeService={aVideoService()}>
-						<CampagneApprentissageEntreprises videos={[]} />
-					</DependenciesProvider>,
-				);
-
-				// THEN
-				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
-				const titre = within(section).getByRole('heading', { level: 2, name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
-				expect(titre).toBeVisible();
-			});
-
-			it('comprenant un lien externe vers des renseignements', () => {
-				// WHEN
-				render(
-					<DependenciesProvider youtubeService={aVideoService()}>
-						<CampagneApprentissageEntreprises videos={[]} />
-					</DependenciesProvider>,
-				);
-
-				// THEN
-				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
-				const link = within(section).getByRole('link', { name: 'Se renseigner sur l’embauche - nouvelle fenêtre' });
-				expect(link).toBeVisible();
-				expect(link).toHaveAttribute('href', 'https://travail-emploi.gouv.fr/formation-professionnelle/formation-en-alternance-10751/apprentissage/embaucher-un-apprenti/' );
-			});
-		});
-
-		describe('affiche une sous section pour l’aide financière', () => {
-			it('comprenant un titre et une description', () => {
-				// WHEN
-				render(<CampagneApprentissageEntreprises videos={[]} />);
-
-				// THEN
-				const section = screen.getByRole('region', { name: 'Vous envisagez de recruter un apprenti\u00A0? Vous pouvez bénéficier d’une aide financière' });
-				const titre = within(section).getByRole('heading', { level: 2, name: /Vous envisagez de recruter un apprenti ?/i });
-				const description = within(section).getByText('Cette aide de 6000 euros maximum est versée pour la première année de contrat, jusqu’au niveau master');
-				expect(titre).toBeVisible();
-				expect(description).toBeVisible();
-			});
-
-			it('comprenant un lien externe vers une explication sur l’aide financière', () => {
-				// WHEN
-				render(<CampagneApprentissageEntreprises videos={[]} />);
-
-				// THEN
-				const section = screen.getByRole('region', { name: 'Vous envisagez de recruter un apprenti\u00A0? Vous pouvez bénéficier d’une aide financière' });
-				const link = within(section).getByRole('link', { name: 'En savoir plus - nouvelle fenêtre' });
-				expect(link).toBeVisible();
-				expect(link).toHaveAttribute('href', 'https://travail-emploi.gouv.fr/formation-professionnelle/entreprise-et-alternance/aides-au-recrutement-d-un-alternant/article/aide-2023-aux-employeurs-qui-recrutent-en-alternance' );
-			});
-		});
-
-	});
-
-	describe('VideosCampagneApprentissage', () => {
+	describe('Section témoignages vidéos', () => {
 		const aVideoCampagneApprentissagesList = [
 			aVideoCampagneApprentissage(),
 			aVideoCampagneApprentissage({
@@ -335,6 +276,63 @@ describe('CampagneApprentissageEntreprises', () => {
 
 				await user.click(ouvrirTranscription);
 				expect(screen.getByText(premièreVideoCampagne.transcription)).toBeVisible();
+			});
+		});
+	});
+
+	describe('Section redirections externes sur l’embauche d’un apprenti', () => {
+		describe('affiche une sous section pour se renseigner', () => {
+			it('comprenant un titre', () => {
+				// WHEN
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
+
+				// THEN
+				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
+				const titre = within(section).getByRole('heading', { level: 2, name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
+				expect(titre).toBeVisible();
+			});
+
+			it('comprenant un lien externe vers des renseignements', () => {
+				// WHEN
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
+
+				// THEN
+				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
+				const link = within(section).getByRole('link', { name: 'Se renseigner sur l’embauche - nouvelle fenêtre' });
+				expect(link).toBeVisible();
+				expect(link).toHaveAttribute('href', 'https://travail-emploi.gouv.fr/formation-professionnelle/formation-en-alternance-10751/apprentissage/embaucher-un-apprenti/' );
+			});
+		});
+		describe('affiche une sous section pour l’aide financière', () => {
+			it('comprenant un titre et une description', () => {
+				// WHEN
+				render(<CampagneApprentissageEntreprises videos={[]} />);
+
+				// THEN
+				const section = screen.getByRole('region', { name: 'Vous envisagez de recruter un apprenti\u00A0? Vous pouvez bénéficier d’une aide financière' });
+				const titre = within(section).getByRole('heading', { level: 2, name: /Vous envisagez de recruter un apprenti ?/i });
+				const description = within(section).getByText('Cette aide de 6000 euros maximum est versée pour la première année de contrat, jusqu’au niveau master');
+				expect(titre).toBeVisible();
+				expect(description).toBeVisible();
+			});
+
+			it('comprenant un lien externe vers une explication sur l’aide financière', () => {
+				// WHEN
+				render(<CampagneApprentissageEntreprises videos={[]} />);
+
+				// THEN
+				const section = screen.getByRole('region', { name: 'Vous envisagez de recruter un apprenti\u00A0? Vous pouvez bénéficier d’une aide financière' });
+				const link = within(section).getByRole('link', { name: 'En savoir plus - nouvelle fenêtre' });
+				expect(link).toBeVisible();
+				expect(link).toHaveAttribute('href', 'https://travail-emploi.gouv.fr/formation-professionnelle/entreprise-et-alternance/aides-au-recrutement-d-un-alternant/article/aide-2023-aux-employeurs-qui-recrutent-en-alternance' );
 			});
 		});
 	});
