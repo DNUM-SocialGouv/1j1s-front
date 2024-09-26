@@ -84,7 +84,7 @@ const employeurNav = (): NavigationItemWithChildren => ({
 				{ label: 'Je deviens mentor', link: '/je-deviens-mentor' },
 				{ label: 'Je propose des immersions', link: '/immersions' },
 				{ label: 'Je forme les jeunes grâce à l‘emploi', link: '/je-recrute-afpr-poei' },
-				...(process.env.NEXT_PUBLIC_CAMPAGNE_ALTERNANCE_FEATURE === '1' ? [{ label: 'Découvrir et trouver sa voie grâce à l’apprentissage', link: '/choisir-apprentissage' }] : []),
+				...(process.env.NEXT_PUBLIC_CAMPAGNE_ALTERNANCE_FEATURE === '1' ? [{ label: 'Je recrute un apprenti', link: '/choisir-apprentissage' }] : []),
 			],
 			label: 'Recruter et agir pour les jeunes',
 		},
