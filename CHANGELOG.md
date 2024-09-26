@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.345.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.344.1...v3.345.0) (2024-09-26)
+
+
+### Features
+
+* **Annonce:** ajouter attribut aria-labelledby sur le lien des annonces ([#3324](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3324)) ([92248c7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/92248c77f732b4c649fda2caa784f8e24a417eae))
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#3325](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3325)) ([f000d27](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f000d2759e218e8160f248d5aead350c1e83d870))
+* **deps:** update dependency axios-cache-interceptor to v1.6.0 ([#3327](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3327)) ([7115348](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7115348f3ca7bba31fae0f30870a8b7e82d55cd1))
+
 ## [3.344.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.344.0...v3.344.1) (2024-09-18)
 
 
