@@ -47,7 +47,7 @@ export default function Footer() {
 							<p className={styles.footerPropriétaire}>
 								<span>Ministère</span>
 								<span>du travail</span>
-								<span>et de l'emploi</span>
+								<span>et de l&apos;emploi</span>
 							</p>
 							<div className={styles.footerDevise}>
 								<Image src="/images/logos/devise.svg" alt="Liberté Égalité Fraternité" width={52} height={37} />
