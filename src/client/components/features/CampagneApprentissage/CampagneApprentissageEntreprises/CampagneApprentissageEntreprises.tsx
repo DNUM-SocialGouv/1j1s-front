@@ -45,17 +45,20 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 		},
 	];
 
+	const campagneApprentissageEstEnCours = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
 	return (
 		<>
 			<header className={styles.titrePage}>
-				<HeroWithIllustration image={'/images/campagne-apprentissage-entreprise-avec-texte.webp'} className={styles.hero}>
-					<h1>L’apprentissage, pour mon entreprise <span className={styles.avoidLineBreakInside}>c’est le bon choix&nbsp;!</span></h1>
-					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.EMPLOYEUR}`} appearance={'asPrimaryButton'} className={styles.cta}>
-						<span className={styles.mobileOnly}>Simuler le coût d’embauche</span>
-						<span className={styles.desktopOnly}>Simuler le coût de l’embauche d’un apprenti</span>
-						<Link.Icon />
-					</Link>
-				</HeroWithIllustration>
+				{!campagneApprentissageEstEnCours && (
+					<HeroWithIllustration image={'/images/campagne-apprentissage-entreprise-avec-texte.webp'} className={styles.hero}>
+						<h1>L’apprentissage, pour mon entreprise <span className={styles.avoidLineBreakInside}>c’est le bon choix&nbsp;!</span></h1>
+						<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.EMPLOYEUR}`} appearance={'asPrimaryButton'} className={styles.cta}>
+							<span className={styles.mobileOnly}>Simuler le coût d’embauche</span>
+							<span className={styles.desktopOnly}>Simuler le coût de l’embauche d’un apprenti</span>
+							<Link.Icon />
+						</Link>
+					</HeroWithIllustration>
+				)}
 			</header>
 			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage :" raisons={raisons} />
 			<EnSavoirPlusApprentissageEntreprises />
