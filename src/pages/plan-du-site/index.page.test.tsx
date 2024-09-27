@@ -14,6 +14,7 @@ describe('Plan du site', () => {
 			process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 			process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '1';
 			process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '1';
+			process.env.NEXT_PUBLIC_CAMPAGNE_ALTERNANCE_FEATURE = '0';
 		});
 
 		it.each`
@@ -82,6 +83,7 @@ describe('Plan du site', () => {
 			process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 			process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '0';
 			process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '0';
+			process.env.NEXT_PUBLIC_CAMPAGNE_ALTERNANCE_FEATURE = '0';
 		});
 
 		it.each`
