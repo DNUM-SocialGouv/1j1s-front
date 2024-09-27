@@ -36,16 +36,22 @@ describe('CampagneApprentissageEntreprises', () => {
 						<CampagneApprentissageEntreprises videos={[]} />
 					</DependenciesProvider>,
 				);
-				const titre = screen.getByRole('heading', { level: 1, name: /L’apprentissage, pour mon entreprise c’est le bon choix\u00A0!/i });
+				const titre = screen.queryByRole('heading', { level: 1, name: /L’apprentissage, pour mon entreprise c’est le bon choix\u00A0!/i });
 
 				// Then
 				expect(titre).toBeVisible();
 			});
-			// TODO test à implémenter
-			it('masque le nouveau titre', async () => {
-			  // Given
-			  // When
-			  // Then
+			it('masque le nouveau titre', () => {
+				// When
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
+				const titre = screen.queryByRole('heading', { level: 1, name: /Avec l’apprentissage, recrutez la future pépite de votre entreprise\u00A0!/i });
+
+				// Then
+				expect(titre).not.toBeInTheDocument();
 			});
 
 			it('affiche le lien vers la simulation pour les employeurs', () => {
@@ -63,11 +69,17 @@ describe('CampagneApprentissageEntreprises', () => {
 				expect(simulation).toBeVisible();
 				expect(simulation).toHaveAttribute('href', '/apprentissage/simulation?simulateur=employeur');
 			});
-			// TODO test à implémenter
-			it('masque le lien vers le dépot d’offres', async () => {
-			  // Given
-			  // When
-			  // Then
+			it('masque le lien vers le dépot d’offres', () => {
+				// When
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
+
+				// Then
+				const simulation = screen.queryByRole('link', { name: /Déposer mon offre d’apprentissage/i });
+				expect(simulation).not.toBeInTheDocument();
 			});
 		});
 		describe('Encart redirections internes vers la FAQ et le dépot d’offre', () => {
@@ -331,14 +343,17 @@ describe('CampagneApprentissageEntreprises', () => {
 				// Then
 				expect(titre).not.toBeInTheDocument();
 			});
-			// TODO à implémenter
-			it('affiche le nouveau titre', async () => {
-				// Given
-
+			it('affiche le nouveau titre', () => {
 				// When
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
+				const titre = screen.getByRole('heading', { level: 1, name: /Avec l’apprentissage, recrutez la future pépite de votre entreprise\u00A0!/i });
 
 				// Then
-
+				expect(titre).toBeVisible();
 			});
 
 			it('masque le lien vers la simulation pour les employeurs', () => {
@@ -356,14 +371,18 @@ describe('CampagneApprentissageEntreprises', () => {
 				const simulation = screen.queryByRole('link', { name: /Simuler le coût de l’embauche d’un apprenti/i });
 				expect(simulation).not.toBeInTheDocument();
 			});
-			// TODO à implémenter
-			it('affiche le lien vers le dépot d’offres', async () => {
-				// Given
-
+			it('affiche le lien vers le dépot d’offres', () => {
 				// When
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
 
 				// Then
-
+				const simulation = screen.getByRole('link', { name: /Déposer mon offre d’apprentissage/i });
+				expect(simulation).toBeVisible();
+				expect(simulation).toHaveAttribute('href', '/apprentissage/deposer-offre');
 			});
 		});
 	});

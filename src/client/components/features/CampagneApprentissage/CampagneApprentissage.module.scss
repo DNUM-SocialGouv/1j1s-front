@@ -27,6 +27,11 @@
   & .hero {
     background-color: utilities-deprecated.$color-background;
 
+    & p {
+      color: utilities.$color-text-primary;
+
+      margin-top: 1rem;
+    }
 
     & .cta {
       width: 100%;
@@ -38,6 +43,13 @@
 
       @include utilities.media(large) {
         margin-top: 5rem;
+      }
+    }
+
+    & p + .cta {
+
+      @include utilities.media(large) {
+        margin-top: 2rem;
       }
     }
   }
