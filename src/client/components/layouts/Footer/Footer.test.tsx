@@ -22,13 +22,11 @@ describe('Footer', () => {
 
 		const logo1 = screen.getByText('Ministère');
 		const logo2 = screen.getByText('du travail');
-		const logo3 = screen.getByText('de la santé');
-		const logo4 = screen.getByText('et des solidarités');
+		const logo3 = screen.getByText('et de l\'emploi');
 
 		expect(logo1).toBeVisible();
 		expect(logo2).toBeVisible();
 		expect(logo3).toBeVisible();
-		expect(logo4).toBeVisible();
 	});
 
 	it('renders Footer component with a link to legifrance.gouv.fr', () => {
