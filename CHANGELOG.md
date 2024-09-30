@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.346.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.345.0...v3.346.0) (2024-09-29)
+
+
+### Features
+
+* **accueil:** modifier le logo du ministere ([#3347](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3347)) ([652f7e2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/652f7e2d38b5956de5be3fa14cacc21ef83f9e77))
+
+
+### Bug Fixes
+
+* **deps:** update dependency dompurify to v3.1.7 ([#3344](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3344)) ([f8559c9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f8559c936aa3400977ac1f75b3f3a3c922b557f3))
+
 ## [3.345.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.344.1...v3.345.0) (2024-09-26)
 
 
