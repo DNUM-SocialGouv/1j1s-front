@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.346.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.346.0...v3.346.1) (2024-09-30)
+
+
+### Bug Fixes
+
+* Fix l'alignement des radios et checkboxes ([#3309](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3309)) ([1e53794](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1e537947e6e118e13732a7f753d887bc42095ae5))
+
 ## [3.346.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.345.0...v3.346.0) (2024-09-29)
 
 
