@@ -45,7 +45,7 @@ $checkbox-padding: .5rem;
 
   input[type=checkbox] + label {
     position: relative;
-    padding: 0.75rem 0 .75rem calc($checkbox-width + 2*$checkbox-padding);
+    padding: 0.75rem 0 0.75rem calc($checkbox-width + 2 * $checkbox-padding);
     -webkit-tap-highlight-color: transparent;
     display: flex;
     flex-direction: row;

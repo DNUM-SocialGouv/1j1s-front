@@ -42,7 +42,7 @@ $radio-padding: .5rem;
   input[type=radio] + label {
     position: relative;
     // FIXME (GAFI 06-09-2024): Probablement moyen de faire beaucoup mieux avec du grid
-    padding: 0.75rem 0 .75rem calc($radio-width + 2*$radio-padding);
+    padding: 0.75rem 0 0.75rem calc($radio-width + 2 * $radio-padding);
     -webkit-tap-highlight-color: transparent;
     display: flex;
     flex-direction: row;
