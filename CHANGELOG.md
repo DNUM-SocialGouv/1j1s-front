@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.347.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.346.1...v3.347.0) (2024-10-01)
+
+
+### Features
+
+* **NavigationStructure:** ajout point entrée menu employeur ([#3346](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3346)) ([b88b71b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b88b71ba279eb637300276ab04910d561895940e))
+
 ## [3.346.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.346.0...v3.346.1) (2024-09-30)
 
 
