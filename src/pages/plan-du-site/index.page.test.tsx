@@ -14,7 +14,7 @@ describe('Plan du site', () => {
 			process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 			process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '1';
 			process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '1';
-			process.env.NEXT_PUBLIC_CAMPAGNE_ALTERNANCE_FEATURE = '0';
+			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
 		});
 
 		it.each`
@@ -54,6 +54,7 @@ describe('Plan du site', () => {
 		${'Je deviens mentor'}                                    | ${'/je-deviens-mentor'}
 		${'Je propose des immersions'}                            | ${'/immersions'}
 		${'Je forme les jeunes grâce à l‘emploi'}                 | ${'/je-recrute-afpr-poei'}
+		${'Je recrute un apprenti'} 							                | ${'/apprentissage-entreprises'}
 		${'Découvrir les mesures employeurs'}                     | ${'/mesures-employeurs'}
 		${'Accéder à mon espace'}                                 | ${'/mon-espace'}
 		${'Conditions Générales d’utilisation'}                   | ${'/cgu'}
@@ -83,14 +84,15 @@ describe('Plan du site', () => {
 			process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 			process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '0';
 			process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '0';
-			process.env.NEXT_PUBLIC_CAMPAGNE_ALTERNANCE_FEATURE = '0';
+			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
 		});
 
 		it.each`
 		nom                                                       | path
-		${'Stages de 3e et 2de'}                                | ${'/stages-3e-et-2de'}
+		${'Stages de 3e et 2de'}                                	| ${'/stages-3e-et-2de'}
 		${'Emplois en Europe'}                                    | ${'/emplois-europe'}
-		${'Formations initiales'}                                 | ${'/formations-initiales'}`
+		${'Formations initiales'}                                 | ${'/formations-initiales'}
+		${'Je recrute un apprenti'}																| ${'/apprentissage-entreprises'}`
 		('La page $nom n’est pas présente', async ({ nom }) => {
 			const analyticsService = aManualAnalyticsService();
 
