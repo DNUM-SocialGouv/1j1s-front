@@ -46,29 +46,42 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 	];
 
 	const campagneApprentissageEstEnCours = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
+
+	function nouveauBandeauDeCampagne() {
+		return (
+			<HeroWithIllustration image={'/images/campagne-apprentissage-entreprise-avec-texte.webp'} className={styles.hero}>
+				<h1>Avec l’apprentissage, recrutez la future pépite de votre entreprise&nbsp;!</h1>
+				<p>Des milliers de jeunes motivés, avec des compétences à revendre, n’attendent que
+				vous pour démarrer leur contrat d’apprentissage.</p>
+				<Link href={'/apprentissage/deposer-offre'} appearance={'asPrimaryButton'} className={styles.cta}>
+				Déposer mon offre d’apprentissage
+					<Link.Icon />
+				</Link>
+			</HeroWithIllustration>
+		);
+	}
+
+	function ancienBandeauDeCampagne() {
+		return (
+			<HeroWithIllustration image={'/images/campagne-apprentissage-entreprise-avec-texte.webp'} className={styles.hero}>
+				<h1>L’apprentissage, pour mon entreprise <span
+					className={styles.avoidLineBreakInside}>c’est le bon choix&nbsp;!</span></h1>
+				<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.EMPLOYEUR}`}
+					appearance={'asPrimaryButton'}
+					className={styles.cta}>
+					<span className={styles.mobileOnly}>Simuler le coût d’embauche</span>
+					<span className={styles.desktopOnly}>Simuler le coût de l’embauche d’un apprenti</span>
+					<Link.Icon />
+				</Link>
+			</HeroWithIllustration>
+		);
+	}
+
 	return (
 		<>
 			<header className={styles.titrePage}>
-				{campagneApprentissageEstEnCours ? (
-					<HeroWithIllustration image={'/images/campagne-apprentissage-entreprise-avec-texte.webp'} className={styles.hero}>
-						<h1>Avec l’apprentissage, recrutez la future pépite de votre entreprise&nbsp;!</h1>
-						<p>Des milliers de jeunes motivés, avec des compétences à revendre, n’attendent que vous pour démarrer leur contrat d’apprentissage.</p>
-						<Link href={'/apprentissage/deposer-offre'} appearance={'asPrimaryButton'} className={styles.cta}>
-							Déposer mon offre d’apprentissage
-							<Link.Icon />
-						</Link>
-					</HeroWithIllustration>
-				)
-					: (
-						<HeroWithIllustration image={'/images/campagne-apprentissage-entreprise-avec-texte.webp'} className={styles.hero}>
-							<h1>L’apprentissage, pour mon entreprise <span className={styles.avoidLineBreakInside}>c’est le bon choix&nbsp;!</span></h1>
-							<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.EMPLOYEUR}`} appearance={'asPrimaryButton'} className={styles.cta}>
-								<span className={styles.mobileOnly}>Simuler le coût d’embauche</span>
-								<span className={styles.desktopOnly}>Simuler le coût de l’embauche d’un apprenti</span>
-								<Link.Icon />
-							</Link>
-						</HeroWithIllustration>
-					)}
+				{campagneApprentissageEstEnCours ? nouveauBandeauDeCampagne()
+					: ancienBandeauDeCampagne()}
 			</header>
 			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage :" raisons={raisons} />
 			<EnSavoirPlusApprentissageEntreprises />
