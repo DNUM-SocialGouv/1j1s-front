@@ -25,7 +25,7 @@ describe('CampagneApprentissageEntreprises', () => {
 	describe('Avant la campagne du 22 octobre 2024 sur l’apprentissage', () => {
 		beforeEach(() => {
 			// Given
-			  process.env.NEXT_PUBLIC_CAMPAGNE_ALTERNANCE_FEATURE = '0';
+			  process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
 		});
 
 		describe('Encart de présentation de l’apprentissage pour les employeurs', () => {
@@ -36,7 +36,7 @@ describe('CampagneApprentissageEntreprises', () => {
 						<CampagneApprentissageEntreprises videos={[]} />
 					</DependenciesProvider>,
 				);
-				const titre = screen.queryByRole('heading', { level: 1, name: /L’apprentissage, pour mon entreprise c’est le bon choix\u00A0!/i });
+				const titre = screen.getByRole('heading', { level: 1, name: 'L’apprentissage, pour mon entreprise c’est le bon choix\u00A0!' });
 
 				// Then
 				expect(titre).toBeVisible();
@@ -48,7 +48,7 @@ describe('CampagneApprentissageEntreprises', () => {
 						<CampagneApprentissageEntreprises videos={[]} />
 					</DependenciesProvider>,
 				);
-				const titre = screen.queryByRole('heading', { level: 1, name: /Avec l’apprentissage, recrutez la future pépite de votre entreprise\u00A0!/i });
+				const titre = screen.queryByRole('heading', { level: 1, name: 'Avec l’apprentissage, recrutez la future pépite de votre entreprise\u00A0' });
 
 				// Then
 				expect(titre).not.toBeInTheDocument();
@@ -78,7 +78,7 @@ describe('CampagneApprentissageEntreprises', () => {
 				);
 
 				// Then
-				const simulation = screen.queryByRole('link', { name: /Déposer mon offre d’apprentissage/i });
+				const simulation = screen.queryByRole('link', { name: 'Déposer mon offre d’apprentissage' });
 				expect(simulation).not.toBeInTheDocument();
 			});
 		});
@@ -159,7 +159,7 @@ describe('CampagneApprentissageEntreprises', () => {
 				const boutons = titresVideos.map((titreVideo) => within(titreVideo).getByRole('button'));
 
 				expect(titresVideos.length).toBe(aVideoCampagneApprentissagesList.length);
-				expect(titresVideos[0].textContent).toBe(aVideoCampagneApprentissagesList[0].titre);
+				expect(titresVideos[0]).toHaveTextContent(aVideoCampagneApprentissagesList[0].titre);
 				expect(boutons[0]).toBeVisible();
 			});
 			describe('si je n’ai pas sélectionné de vidéo', () => {
@@ -327,7 +327,7 @@ describe('CampagneApprentissageEntreprises', () => {
 	describe('Pendant et après la campagne du 22 octobre 2024 sur l’apprentissage', () => {
 		beforeEach(() => {
 			// Given
-			process.env.NEXT_PUBLIC_CAMPAGNE_ALTERNANCE_FEATURE = '1';
+			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
 		});
 
 		describe('Encart de présentation de l’apprentissage pour les employeurs', () => {
@@ -338,7 +338,7 @@ describe('CampagneApprentissageEntreprises', () => {
 						<CampagneApprentissageEntreprises videos={[]} />
 					</DependenciesProvider>,
 				);
-				const titre = screen.queryByRole('heading', { level: 1, name: /L’apprentissage, pour mon entreprise c’est le bon choix\u00A0!/i });
+				const titre = screen.queryByRole('heading', { level: 1, name: 'L’apprentissage, pour mon entreprise c’est le bon choix\u00A0!' });
 
 				// Then
 				expect(titre).not.toBeInTheDocument();
@@ -350,7 +350,7 @@ describe('CampagneApprentissageEntreprises', () => {
 						<CampagneApprentissageEntreprises videos={[]} />
 					</DependenciesProvider>,
 				);
-				const titre = screen.getByRole('heading', { level: 1, name: /Avec l’apprentissage, recrutez la future pépite de votre entreprise\u00A0!/i });
+				const titre = screen.getByRole('heading', { level: 1, name: 'Avec l’apprentissage, recrutez la future pépite de votre entreprise\u00A0!' });
 
 				// Then
 				expect(titre).toBeVisible();
