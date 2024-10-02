@@ -42,8 +42,8 @@ Pour les besoins de développement du frontend, on pourra créer du contenu en r
    * `ENVIRONMENT=local`
    * `NODE_ENV=local`
    * `SENTRY_ENV=local`
-   * `REDIS_URL=http://localhost:6379` ou `REDIS_URL=` remplacer par l'url redis de recette
-2. Seulement si le cache est local : Lancer le service de cache avec `docker-compose up -d redis`
+   * `REDIS_URL=redis://default:mypassword@localhost:6379`
+2. Lancer le service de cache avec `docker-compose up -d redis`
 3. Relancer le projet en mode développement avec `npm run dev`
 4. Les accès au CMS de recette sont sur le Keepass au cas où les développements nécessitent de manipuler les données
 
