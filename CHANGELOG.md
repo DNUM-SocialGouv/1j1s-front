@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.348.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.347.0...v3.348.0) (2024-10-02)
+
+
+### Features
+
+* **campagne:** modifie le hero de presentation apprentissage employeur ([#3349](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3349)) ([1675c84](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1675c846ac4e0eb070eb1b5536bb0eef47a4bd27))
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies to v14.2.14 ([#3354](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3354)) ([2484ea7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2484ea74973867662aa97dd45b5efc6e69bcb99c))
+
 ## [3.347.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.346.1...v3.347.0) (2024-10-01)
 
 
