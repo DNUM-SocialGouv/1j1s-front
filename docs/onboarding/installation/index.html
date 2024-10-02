@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.5.2">
 <title data-rh="true">Lancer le projet 1j1s-front | Documentation Technique 1jeune1solution</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="robots" content="noindex, nofollow"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://dnum-socialgouv.github.io/1j1s-front/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://dnum-socialgouv.github.io/1j1s-front/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://dnum-socialgouv.github.io/1j1s-front/docs/onboarding/installation"><meta data-rh="true" property="og:locale" content="fr"><meta data-rh="true" name="docusaurus_locale" content="fr"><meta data-rh="true" name="docsearch:language" content="fr"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Lancer le projet 1j1s-front | Documentation Technique 1jeune1solution"><meta data-rh="true" name="description" content="13 Août 2024"><meta data-rh="true" property="og:description" content="13 Août 2024"><link data-rh="true" rel="icon" href="/1j1s-front/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://dnum-socialgouv.github.io/1j1s-front/docs/onboarding/installation"><link data-rh="true" rel="alternate" href="https://dnum-socialgouv.github.io/1j1s-front/docs/onboarding/installation" hreflang="fr"><link data-rh="true" rel="alternate" href="https://dnum-socialgouv.github.io/1j1s-front/docs/onboarding/installation" hreflang="x-default"><link rel="stylesheet" href="/1j1s-front/assets/css/styles.b87c1633.css">
-<script src="/1j1s-front/assets/js/runtime~main.e2b8e608.js" defer="defer"></script>
+<script src="/1j1s-front/assets/js/runtime~main.1aa7d187.js" defer="defer"></script>
 <script src="/1j1s-front/assets/js/main.e0cac254.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -51,10 +51,10 @@
 <li><code>ENVIRONMENT=local</code></li>
 <li><code>NODE_ENV=local</code></li>
 <li><code>SENTRY_ENV=local</code></li>
-<li><code>REDIS_URL=http://localhost:6379</code> ou <code>REDIS_URL=</code> remplacer par l&#x27;url redis de recette</li>
+<li><code>REDIS_URL=redis://default:mypassword@localhost:6379</code></li>
 </ul>
 </li>
-<li>Seulement si le cache est local : Lancer le service de cache avec <code>docker-compose up -d redis</code></li>
+<li>Lancer le service de cache avec <code>docker-compose up -d redis</code></li>
 <li>Relancer le projet en mode développement avec <code>npm run dev</code></li>
 <li>Les accès au CMS de recette sont sur le Keepass au cas où les développements nécessitent de manipuler les données</li>
 </ol>
