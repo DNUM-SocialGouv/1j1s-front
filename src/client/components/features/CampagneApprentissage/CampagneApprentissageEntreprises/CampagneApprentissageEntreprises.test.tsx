@@ -385,6 +385,20 @@ describe('CampagneApprentissageEntreprises', () => {
 				expect(simulation).toHaveAttribute('href', '/apprentissage/deposer-offre');
 			});
 		});
+		describe('Section verbatims apprentis', () => {
+		  it('affiche une section titrée', () => {
+		    // When
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
+		    // Then
+				const section = screen.getByRole('region', { name: 'Découvrez les témoignages des apprentis.' });
+				const titre = within(section).getByRole('heading', { level: 2, name: 'Pour vous, le plus compliqué sera de trouver un apprenti. Découvrez les témoignages des apprentis.' });
+				expect(titre).toBeVisible();
+		  });
+		});
 	});
 	
 	describe('Invariants', () => {
