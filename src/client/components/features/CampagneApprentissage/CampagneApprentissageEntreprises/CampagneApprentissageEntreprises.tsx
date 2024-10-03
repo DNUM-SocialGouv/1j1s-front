@@ -12,6 +12,7 @@ import {
 } from '~/client/components/features/CampagneApprentissage/RaisonsDeChoisirApprentissage/RaisonsDeChoisirApprentissage';
 import VideosCampagneApprentissage
 	from '~/client/components/features/CampagneApprentissage/VideosCampagneApprentissage/VideosCampagneApprentissage';
+import { Container } from '~/client/components/layouts/Container/Container';
 import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
@@ -90,6 +91,13 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 					titre={'Ils ont choisi d’embaucher un apprenti ! Pourquoi pas vous ?'}
 					description={'Découvrez les témoignages des maîtres d’apprentissage et des apprentis qu’ils accompagnent au quotidien.'}
 					videos={videos} />
+			)}
+			{campagneApprentissageEstEnCours && (
+				<section aria-labelledby={'titre-section-verbatims'} className={styles.sectionVerbatims}>
+					<Container>
+						<h2>Pour vous, le plus compliqué sera de trouver un apprenti. <span id={'titre-section-verbatims'}>Découvrez les témoignages des apprentis.</span></h2>
+					</Container>
+				</section>
 			)}
 			<InformationSurEmbaucheApprenti />
 		</>
