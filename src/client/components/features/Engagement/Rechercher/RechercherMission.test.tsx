@@ -20,6 +20,7 @@ describe('RechercherMission', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 		mockScrollIntoView();
+		mockUseRouter({});
 	});
 
 	afterEach(() => {
