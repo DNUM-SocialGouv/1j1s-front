@@ -123,10 +123,14 @@ describe('StatistiquesFormation', () => {
 		it('affiche un article inserjeunes', () => {
 			render(<StatistiquesFormationAlternance statistiques={statistiques()} />);
 
-			const article =  screen.getByRole('link');
-			expect(article).toHaveTextContent('Lire l\'article');
-			expect(article).toBeVisible();
-
+			const partenaires = screen.getByRole('list', { name: 'Liste des partenaires et des services' });
+			const titre = within(partenaires).getByRole('heading', { name: 'Découvrez le dispositif InserJeunes' });
+			expect(titre).toBeVisible();
+			const lien =  within(partenaires).getByRole('link');
+			expect(lien).toBeVisible();
+			expect(lien).toHaveTextContent("Lire l'article");
+			expect(lien).toHaveAccessibleName(expect.stringContaining('Découvrez le dispositif InserJeunes'));
+			expect(lien).toHaveAccessibleName(expect.stringContaining("Lire l'article"));
 		});
 
 	});
