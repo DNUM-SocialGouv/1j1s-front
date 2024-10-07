@@ -115,7 +115,7 @@ $card-border-color: utilities.$color-background-border;
     }
 
     & .cardAction {
-      @extend %linkWithRightIcon;
+      align-self: flex-end;
     }
   }
 }

@@ -51,10 +51,6 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 	const isInternalLink = useIsInternalLink(link);
 	const linkTitle = !isInternalLink ? `${linkLabel} - nouvelle fenêtre` : 'En savoir plus';
 
-	const icon = useMemo(function () {
-		return <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'} />;
-	}, [isInternalLink]);
-
 	return (
 		<Card
 			layout={'vertical'}
@@ -73,10 +69,10 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 					title={linkTitle}
 					aria-labelledby={`${idIntitulé} ${idLink}`}
 					className={styles.cardAction}
+					appearance="asQuaternaryButton"
 					id={idLink}>
-					<span className={styles.cardAction}>
-						<Card.FakeLink appearance={'quaternary'} label={linkLabel} icon={icon} />
-					</span>
+					{linkLabel}
+					<Link.Icon />
 				</Link>
 			</Card.Content>
 		</Card>
