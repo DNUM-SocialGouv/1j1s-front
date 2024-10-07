@@ -319,7 +319,7 @@ describe('Page d’accueil', () => {
 				);
 
 				// THEN
-				const redirectionVersStagesDEtudes = screen.getByRole('link', { name: 'Stages d’études' });
+				const redirectionVersStagesDEtudes = screen.getByRole('link', { name: 'Stages d’études Voir les offres' });
 				expect(redirectionVersStagesDEtudes).toBeVisible();
 				expect(redirectionVersStagesDEtudes).toHaveAttribute('href', '/stages');
 			});
@@ -370,7 +370,7 @@ describe('Page d’accueil', () => {
 						);
 
 						// THEN
-						const redirectionVersStages3eEt2de = screen.getByRole('link', { name: 'Stages de 3e et 2de' });
+						const redirectionVersStages3eEt2de = screen.getByRole('link', { name: 'Stages de 3e et 2de Voir les offres' });
 						expect(redirectionVersStages3eEt2de).toBeVisible();
 						expect(redirectionVersStages3eEt2de).toHaveAttribute('href', '/stages-3e-et-2de');
 					});
@@ -419,7 +419,7 @@ describe('Page d’accueil', () => {
 							</DependenciesProvider>,
 						);
 
-						const link = screen.getByRole('link', { name: 'Formations initiales' });
+						const link = screen.getByRole('link', { name: 'Formations initiales En savoir plus' });
 						expect(link).toBeVisible();
 						expect(link).toHaveAttribute('href', '/formations-initiales');
 					});
@@ -450,7 +450,8 @@ describe('Page d’accueil', () => {
 							</DependenciesProvider>,
 						);
 
-						const link = screen.getByRole('link', { name: 'Aides financières au logement' });
+						// FIXME (GAFI 07-10-2024): On test le lien "Aides au logement" quand les aides au permis de conduire activé ?
+						const link = screen.getByRole('link', { name: 'Aides financières au logement Voir les aides' });
 						expect(link).toBeVisible();
 						expect(link).toHaveAttribute('href', '/logements/aides-logement');
 					});
