@@ -21,6 +21,7 @@ export function LinkCard({ children, className, imageUrl, link, linkLabel, title
 	}
 
 	const idIntitule = useId();
+	const idLien = useId();
 
 	return (
 		<article className={classNames(styles.card, className)}>
@@ -32,9 +33,13 @@ export function LinkCard({ children, className, imageUrl, link, linkLabel, title
 				<div className={styles.cardContentHeader}>
 					<LinkCardTitle id={idIntitule} className={styles.cardTitle}>{title}</LinkCardTitle>
 					<span className={styles.cardAction}>
-						<span className="sr-only">{linkLabel}</span>
-						<Link aria-labelledby={`${idIntitule}`} href={link} className={classNames('underline-none')} prefetch={false}>
-							<Link.Icon name='angle-right' aria-hidden="false" />
+						<Link aria-labelledby={`${idIntitule} ${idLien}`}
+							href={link}
+							className={classNames('underline-none')}
+							id={idLien}
+							prefetch={false}>
+							<span className="sr-only">{linkLabel}</span>
+							<Link.Icon name="angle-right" aria-hidden="false" />
 						</Link>
 					</span>
 				</div>
