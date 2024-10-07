@@ -1,9 +1,8 @@
 import classNames from 'classnames';
-import React, { useId, useMemo } from 'react';
+import React, { useId } from 'react';
 
 import { HtmlHeadingTag } from '~/client/components/props';
 import { Card } from '~/client/components/ui/Card/Card';
-import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
@@ -49,7 +48,7 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 	const idIntitulé = useId();
 
 	const isInternalLink = useIsInternalLink(link);
-	const linkTitle = !isInternalLink ? `${linkLabel} - nouvelle fenêtre` : 'En savoir plus';
+	const linkTitle = !isInternalLink ? `${linkLabel} - nouvelle fenêtre` : undefined;
 
 	return (
 		<Card
