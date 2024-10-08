@@ -394,8 +394,8 @@ describe('CampagneApprentissageEntreprises', () => {
 					</DependenciesProvider>,
 				);
 		    // Then
-				const section = screen.getByRole('region', { name: 'Découvrez les témoignages des apprentis.' });
-				const titre = within(section).getByRole('heading', { level: 2, name: 'Pour vous, le plus compliqué sera de trouver un apprenti. Découvrez les témoignages des apprentis.' });
+				const section = screen.getByRole('region', { name: 'Découvrez les témoignages de ces personnes.' });
+				const titre = within(section).getByRole('heading', { level: 2, name: 'Pour vous, le plus compliqué sera de trouver un apprenti. Découvrez les témoignages de ces personnes.' });
 				expect(titre).toBeVisible();
 		  });
 		});
