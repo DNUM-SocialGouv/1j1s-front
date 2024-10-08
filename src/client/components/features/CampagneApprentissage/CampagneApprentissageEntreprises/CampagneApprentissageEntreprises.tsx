@@ -13,8 +13,10 @@ import {
 import VideosCampagneApprentissage
 	from '~/client/components/features/CampagneApprentissage/VideosCampagneApprentissage/VideosCampagneApprentissage';
 import { Container } from '~/client/components/layouts/Container/Container';
+import { PresentationCard } from '~/client/components/ui/Card/Presentation/PresentationCard';
 import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
 import { Link } from '~/client/components/ui/Link/Link';
+import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
 import { VideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage';
 
@@ -78,6 +80,49 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 		);
 	}
 
+	const verbatimsApprentisListe = [
+		{
+			imageUrl: '/images/bénévolat.webp',
+			nomApprenti: 'Tarik',
+			verbatim: 'Lorem ipsum odor amet, consectetuer adipiscing elit. Erat aliquet massa aliquam est pretium ante nisi maecenas arcu.',
+		},
+		{
+			imageUrl: '/images/emploi.webp',
+			nomApprenti: 'Laura',
+			verbatim: 'Lorem ipsum odor amet, consectetuer adipiscing elit. Erat aliquet massa aliquam est pretium ante nisi maecenas arcu.',
+		},
+		{
+			imageUrl: '/images/jobs-ete.webp',
+			nomApprenti: 'Marc',
+			verbatim: 'Lorem ipsum odor amet, consectetuer adipiscing elit. Erat aliquet massa aliquam est pretium ante nisi maecenas arcu.',
+		},
+		{
+			imageUrl: '/images/alternance.webp',
+			nomApprenti: 'Sandrine',
+			verbatim: 'Lorem ipsum odor amet, consectetuer adipiscing elit. Erat aliquet massa aliquam est pretium ante nisi maecenas arcu.',
+		},
+		{
+			imageUrl: '/images/bénévolat.webp',
+			nomApprenti: 'Tarik',
+			verbatim: 'Lorem ipsum odor amet, consectetuer adipiscing elit. Erat aliquet massa aliquam est pretium ante nisi maecenas arcu.',
+		},
+		{
+			imageUrl: '/images/emploi.webp',
+			nomApprenti: 'Laura',
+			verbatim: 'Lorem ipsum odor amet, consectetuer adipiscing elit. Erat aliquet massa aliquam est pretium ante nisi maecenas arcu.',
+		},
+		{
+			imageUrl: '/images/jobs-ete.webp',
+			nomApprenti: 'Marc',
+			verbatim: 'Lorem ipsum odor amet, consectetuer adipiscing elit. Erat aliquet massa aliquam est pretium ante nisi maecenas arcu.',
+		},
+		{
+			imageUrl: '/images/alternance.webp',
+			nomApprenti: 'Sandrine',
+			verbatim: 'Lorem ipsum odor amet, consectetuer adipiscing elit. Erat aliquet massa aliquam est pretium ante nisi maecenas arcu.',
+		},
+	];
+
 	return (
 		<>
 			<header className={styles.titrePage}>
@@ -96,6 +141,23 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 				<section aria-labelledby={'titre-section-verbatims'} className={styles.sectionVerbatims}>
 					<Container>
 						<h2>Pour vous, le plus compliqué sera de trouver un apprenti. <span id={'titre-section-verbatims'}>Découvrez les témoignages des apprentis.</span></h2>
+						<SeeMoreItemList
+							itemList={verbatimsApprentisListe.map((verbatim, index) => {
+								return (
+									<PresentationCard
+										className={styles.card}
+										key={index}
+										imageSrc={verbatim.imageUrl}
+										titleLabel={verbatim.nomApprenti}
+										titleHeadingTag="h3"
+										imageFit="cover">
+										{verbatim.verbatim}
+									</PresentationCard>
+								);
+							})}
+							numberOfVisibleItems={4}
+							seeMoreAriaLabel={'Voir plus'}
+							seeLessAriaLabel={'Voir moins'} />
 					</Container>
 				</section>
 			)}
