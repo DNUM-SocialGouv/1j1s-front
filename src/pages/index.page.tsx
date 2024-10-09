@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { GetStaticPropsResult } from 'next';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -9,9 +9,7 @@ import { HeroPrimaryText, HeroSecondaryText, HeroWithIllustration } from '~/clie
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
-import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import { MarketingService } from '~/client/services/marketing/marketing.service';
 import analytics from '~/pages/index.analytics';
 import styles from '~/pages/index.module.scss';
 import { Actualite } from '~/server/actualites/domain/actualite';
