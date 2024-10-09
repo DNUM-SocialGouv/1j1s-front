@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.349.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.348.0...v3.349.0) (2024-10-09)
+
+
+### Features
+
+* **LinkCard & ServiceCard:** correction clic sur la carte ([#3329](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3329)) ([d58b4fd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d58b4fd94b880c67fef0ab8759933dc9895dda05))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/nextjs to v7.119.1 ([#3359](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3359)) ([a14ab2d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a14ab2dbafd5894329cc25bcfe08a9017d1503b8))
+
 ## [3.348.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.347.0...v3.348.0) (2024-10-02)
 
 
