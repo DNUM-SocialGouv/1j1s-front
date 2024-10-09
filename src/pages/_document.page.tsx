@@ -33,7 +33,7 @@ export default function Document() {
 			<body id={ID_TOP_ELEMENT}>
 				<Main />
 				<NextScript />
-				{ /*process.env.NODE_ENV === 'production'*/true && (
+				{ process.env.NODE_ENV === 'production' && (
 					// eslint-disable-next-line @next/next/no-sync-scripts
 					<script
 						src={`/scripts/tarteaucitron/tarteaucitron.js?v=${encodeURI(process.env.NEXT_PUBLIC_APPLICATION_VERSION)}`} />
