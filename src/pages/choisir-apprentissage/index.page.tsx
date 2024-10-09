@@ -4,7 +4,9 @@ import {
 	CampagneApprentissageJeunes,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/CampagneApprentissageJeunes';
 import { Head } from '~/client/components/head/Head';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import { MarketingService } from '~/client/services/marketing/marketing.service';
 import styles from '~/pages/apprentissage/index.module.scss';
 import { VideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage';
 import { isFailure } from '~/server/errors/either';
@@ -19,6 +21,8 @@ type ApprentissageJeunesPageProps = {
 
 export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps) {
 	useAnalytics(analyticsPageConfig);
+	const adformService: MarketingService = useDependency('marketingService');
+	adformService.trackPage('2024-10-1jeune1solution.gouv.fr-PageAccueil-PageAccueil');
 
 	return (
 		<>

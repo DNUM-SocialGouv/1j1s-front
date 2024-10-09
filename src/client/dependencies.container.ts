@@ -33,6 +33,7 @@ import { LoggerService } from '~/client/services/logger.service';
 import { AdformMarketingService } from '~/client/services/marketing/adform/adform.marketing.service';
 import { MarketingService } from '~/client/services/marketing/marketing.service';
 import { NullMarketingService } from '~/client/services/marketing/null/null.marketing.service';
+import SeedtagMarketingService from '~/client/services/marketing/seedtag/seedtag.marketing.service';
 import { BffAlternanceMetierService } from '~/client/services/metiers/bff.alternance.metier.service';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { BffMissionEngagementService } from '~/client/services/missionEngagement/bff.missionEngagement.service';
@@ -90,6 +91,7 @@ export type Dependencies = {
 	stageDeposerOffreEtape3PersistenceService: StageDeposerOffreEtape3PersistenceService
 	localStorageService: StorageService
 	sessionStorageService: StorageService
+	seedtagService: MarketingService
 }
 
 class DependencyInitException extends Error {
@@ -117,6 +119,7 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 	const emploiEuropeService = new BffEmploiEuropeService(httpClientService);
 	const stageService = new BffStageService(httpClientService);
 	const cookiesService = getCookieService();
+	const seedtagService = new SeedtagMarketingService(cookiesService);
 	const marketingService = process.env.NEXT_PUBLIC_CAMPAGNE_ADFORM_FEATURE === '1'
 		? new AdformMarketingService(cookiesService)
 		: new NullMarketingService();
@@ -178,6 +181,7 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		metierStage3eEt2deService,
 		missionEngagementService,
 		rechercheClientService,
+		seedtagService,
 		sessionStorageService,
 		stage3eEt2deService,
 		stageDeposerOffreEtape1PersistenceService,

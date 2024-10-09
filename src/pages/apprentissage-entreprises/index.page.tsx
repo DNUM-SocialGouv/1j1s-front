@@ -1,11 +1,14 @@
 import { GetServerSidePropsResult } from 'next';
+import { useEffect } from 'react';
 
 import {
 	CampagneApprentissageEntreprises,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/CampagneApprentissageEntreprises';
 import { Head } from '~/client/components/head/Head';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import styles from '~/pages/apprentissage/index.module.scss';
+import { MarketingService } from '~/client/services/marketing/marketing.service';
 import analyticsPageConfig from '~/pages/apprentissage-entreprises/index.analytics';
 import { VideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage';
 import { isFailure } from '~/server/errors/either';
@@ -17,6 +20,13 @@ type ApprentissageEntreprisesPageProps = {
 
 export default function ApprentissageEntreprises ({ videos }: ApprentissageEntreprisesPageProps) {
 	useAnalytics(analyticsPageConfig);
+	const adformService: MarketingService = useDependency('marketingService');
+	adformService.trackPage('2024-09-1jeune1solution.gouv.fr-PageAccueil-PageAccueil');
+	const seedtagService: MarketingService = useDependency('seedtagService');
+	useEffect(() => {
+		seedtagService.trackPage('');
+	}, [seedtagService]);
+
 
 	return (
 		<>
