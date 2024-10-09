@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { ReactElement, ReactNode, useEffect, useMemo } from 'react';
+import React, { ReactElement, ReactNode, useEffect, useMemo, useRef } from 'react';
 
 import ErrorServer from '~/client/components/layouts/Error/ErrorServer';
 import { Layout } from '~/client/components/layouts/Layout';
@@ -34,11 +34,27 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
 	usePageHistory();
 
+	// FIXME (GAFI 08-10-2024): Extraire dans un hook pour expliciter
 	useEffect(() => {
+		// FIXME (GAFI 08-10-2024): apparement il y a un truc qui s'appelle router.scrollToHash().
+		//	Tester si ça déplace bien le focus aussi, pas juste le viewport
 		const [/* full path */, targetId] = router.asPath.match(/^[^#]*#(.+)$/) ?? [];
 		if (targetId) {
 			document.getElementById(targetId)?.focus();
 		}
+	}, [router.asPath, sessionId]);
+
+
+	const previousPath = useRef('');
+	useEffect(() => {
+		console.log(previousPath.current, router.asPath);
+		if (previousPath.current && previousPath.current !== router.asPath) {
+			console.log('trigger jobs');
+			// FIXME (GAFI 08-10-2024): Déplacer dans le service
+			// @ts-ignore
+			window.tarteaucitron.triggerJobsAfterAjaxCall();
+		}
+		previousPath.current = router.asPath;
 	}, [router.asPath, sessionId]);
 
 	const getLayout = Component.getLayout ?? defaultLayout;
