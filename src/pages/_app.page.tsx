@@ -47,10 +47,13 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
 	const previousPath = useRef('');
 	useEffect(() => {
+		// eslint-disable-next-line
 		console.log(previousPath.current, router.asPath);
 		if (previousPath.current && previousPath.current !== router.asPath) {
+			// eslint-disable-next-line
 			console.log('trigger jobs');
 			// FIXME (GAFI 08-10-2024): Déplacer dans le service
+			// eslint-disable-next-line
 			// @ts-ignore
 			window.tarteaucitron.triggerJobsAfterAjaxCall();
 		}
