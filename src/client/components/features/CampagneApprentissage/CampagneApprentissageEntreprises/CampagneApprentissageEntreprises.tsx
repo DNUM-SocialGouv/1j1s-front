@@ -151,7 +151,9 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 					</Container>
 				</section>
 			)}
-			<InformationSurEmbaucheApprenti />
+			{(!campagneApprentissageEstEnCours &&
+				<InformationSurEmbaucheApprenti />
+			)}
 		</>
 	);
 }
