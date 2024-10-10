@@ -1,4 +1,5 @@
 import { GetServerSidePropsResult } from 'next';
+import { useEffect } from 'react';
 
 import {
 	CampagneApprentissageJeunes,
@@ -23,6 +24,14 @@ export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps)
 	useAnalytics(analyticsPageConfig);
 	const adformService: MarketingService = useDependency('marketingService');
 	adformService.trackPage('2024-10-1jeune1solution.gouv.fr-PageAccueil-PageAccueil');
+	const tiktokService: MarketingService = useDependency('tiktokService');
+	console.log('in render');
+	tiktokService.trackPage('');
+	useEffect(() => {
+		return () => {
+			tiktokService.trackPage('off');
+		};
+	});
 
 	return (
 		<>
