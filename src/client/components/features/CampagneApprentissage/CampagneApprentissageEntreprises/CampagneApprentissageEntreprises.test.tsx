@@ -399,6 +399,28 @@ describe('CampagneApprentissageEntreprises', () => {
 				expect(titre).toBeVisible();
 		  });
 		});
+		describe('Section redirections externes sur l’embauche d’un apprenti', () => {
+			it('masque la sous section pour se renseigner', () => {
+				// When
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
+
+				// Then
+				const section = screen.queryByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
+				expect(section).not.toBeInTheDocument();
+			});
+			it('masque la sous section pour l’aide financière', () => {
+				// When
+				render(<CampagneApprentissageEntreprises videos={[]} />);
+
+				// Then
+				const section = screen.queryByRole('region', { name: 'Vous envisagez de recruter un apprenti\u00A0? Vous pouvez bénéficier d’une aide financière' });
+				expect(section).not.toBeInTheDocument();
+			});
+		});
 	});
 	
 	describe('Invariants', () => {
