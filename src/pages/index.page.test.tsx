@@ -192,6 +192,58 @@ describe('Page d’accueil', () => {
 				expect(voirStageSecondeButton).toHaveAttribute('href', 'https://worldskills2024.com');
 			});
 		});
+		
+		describe('Apprentissage Octobre 2024', () => {
+			describe('feature flip', () => {
+				it('affiche la bannière si le feature flip est activé', () => {
+					// Given
+					process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
+
+					// When
+					render(
+						<DependenciesProvider analyticsService={analyticsService}>
+							<Accueil actualites={anActualiteList()} />
+						</DependenciesProvider>,
+					);
+
+					// Then
+					expect(screen.getByText('Placeholder campagne apprentissage.')).toBeVisible();
+				});
+				it('n’affiche pas la bannière si le feature flip est désactivé', () => {
+					// Given
+					process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
+
+					// When
+					render(
+						<DependenciesProvider analyticsService={analyticsService}>
+							<Accueil actualites={anActualiteList()} />
+						</DependenciesProvider>,
+					);
+
+					// Then
+					expect(screen.queryByText('Placeholder campagne apprentissage.')).not.toBeInTheDocument();
+				});
+			});
+
+			it('la bannière contient les wording de la campagne apprentissage', () => {
+				// Given
+				process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
+
+				// When
+				render(
+					<DependenciesProvider analyticsService={analyticsService}>
+						<Accueil actualites={anActualiteList()} />
+					</DependenciesProvider>,
+				);
+
+				// Then
+				const heading = screen.getByRole('heading', { level: 2, name: 'Placeholder campagne apprentissage.' });
+				expect(heading).toBeVisible();
+				const voirPlusButton = screen.getByRole('link', { name: 'En savoir plus - nouvelle fenêtre' });
+				expect(voirPlusButton).toBeVisible();
+				expect(voirPlusButton).toHaveAttribute('href', 'http://localhost:3000/poi');
+			});
+		});
 	});
 
 	describe('Sections', () => {

@@ -1,0 +1,13 @@
+@use "@styles/utilities";
+
+.contenu {
+  & > :nth-child(odd) {
+    background-color: utilities.$color-background-primary;
+  }
+
+  & > :nth-child(even) {
+    background-color: utilities.$color-background-primary-alternative;
+  }
+}
+
+

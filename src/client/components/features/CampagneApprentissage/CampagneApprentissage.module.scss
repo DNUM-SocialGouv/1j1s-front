@@ -18,6 +18,7 @@
   }
 }
 
+
 .titrePage {
   & h1 {
     @extend %headline;
@@ -25,7 +26,7 @@
   }
 
   & .hero {
-    background-color: utilities-deprecated.$color-background;
+    background-color: inherit;
 
     & p {
       color: utilities.$color-text-primary;
@@ -52,5 +53,25 @@
         margin-top: 2rem;
       }
     }
+  }
+}
+
+.sectionVerbatims {
+  padding: 1.75rem 1rem;
+
+  @include utilities-deprecated.media(large) {
+    padding: 5rem 1rem;
+  }
+
+  & h2 {
+    @extend %headline;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  & .card {
+    max-width: 18rem;
+    width: 100%;
   }
 }
