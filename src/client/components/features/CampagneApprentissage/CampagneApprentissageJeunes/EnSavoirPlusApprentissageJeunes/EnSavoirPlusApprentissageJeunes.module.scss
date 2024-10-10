@@ -1,14 +1,6 @@
 @use "@styles/utilities-deprecated";
 
 .enSavoirPlus {
-  &Parents {
-    background-color: utilities-deprecated.$color-background-white-lilac;
-
-    @include utilities-deprecated.media(large) {
-      background-color: inherit;
-    }
-  }
-
   &Parents, &Employeurs {
     display: flex;
     flex-direction: column;
