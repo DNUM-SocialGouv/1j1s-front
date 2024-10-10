@@ -46,6 +46,8 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 
 	const isBannerWorldSkillsVisible = process.env.NEXT_PUBLIC_WORLD_SKILLS_FEATURE === '1';
 
+	const isCampagneApprentissageVisible = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
+
 	const actualitesCardListContent: CardContent[] = accueilProps.actualites.map((carte: Actualite): CardContent => {
 		return {
 			children: <p>{carte.extraitContenu}</p>,
@@ -322,6 +324,25 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 							</HeroSecondaryText>
 							<Link href="https://worldskills2024.com" appearance={'asSecondaryButton'} className={styles.heroButton}>
 							Plus d’infos
+								<Link.Icon />
+							</Link>
+						</HeroWithIllustration>
+					)
+				}
+
+				{isCampagneApprentissageVisible
+					&& (
+						<HeroWithIllustration image="/images/alternance.webp" className={styles.hero}>
+							<h2>
+								<HeroPrimaryText className={styles.heroTitle}>
+									Placeholder campagne apprentissage.
+								</HeroPrimaryText>
+							</h2>
+							<HeroSecondaryText>
+								Lorem ipsum odor amet, consectetuer adipiscing elit. Ultrices lacinia inceptos dolor, molestie rutrum vestibulum. Urna mollis mus mollis nulla adipiscing habitant convallis sodales.
+							</HeroSecondaryText>
+							<Link href="http://localhost:3000/poi" appearance={'asSecondaryButton'} className={styles.heroButton}>
+								En savoir plus
 								<Link.Icon />
 							</Link>
 						</HeroWithIllustration>
