@@ -120,7 +120,9 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 					: ancienBandeauDeCampagne()}
 			</header>
 			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage :" raisons={raisons} />
-			<EnSavoirPlusApprentissageEntreprises />
+			{(!campagneApprentissageEstEnCours &&
+				<EnSavoirPlusApprentissageEntreprises />
+			)}
 			{ videos.length > 0 && (
 				<VideosCampagneApprentissage
 					titre={'Ils ont choisi d’embaucher un apprenti ! Pourquoi pas vous ?'}

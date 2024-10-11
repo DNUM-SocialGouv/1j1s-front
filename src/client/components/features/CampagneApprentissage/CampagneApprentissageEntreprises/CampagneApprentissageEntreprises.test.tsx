@@ -83,7 +83,7 @@ describe('CampagneApprentissageEntreprises', () => {
 			});
 		});
 		describe('Encart redirections internes vers la FAQ et le dépot d’offre', () => {
-			it('je vois les informations pour accéder à la FAQ parents-enfants', () => {
+			it('affiche les informations pour accéder à la FAQ parents-enfants', () => {
 				render(
 					<DependenciesProvider youtubeService={aVideoService()}>
 						<CampagneApprentissageEntreprises videos={[]} />
@@ -95,7 +95,7 @@ describe('CampagneApprentissageEntreprises', () => {
 				})).toBeVisible();
 				expect(screen.getByRole('link', { name: 'Consulter la FAQ' })).toHaveAttribute('href', '/faq/apprentissage-employeurs-apprentis');
 			});
-			it('je vois les informations pour accéder à la page d‘apprentissage pour les employeurs', () => {
+			it('affiche les informations pour accéder à la page d‘apprentissage pour les employeurs', () => {
 				render(
 					<DependenciesProvider youtubeService={aVideoService()}>
 						<CampagneApprentissageEntreprises videos={[]} />
@@ -383,6 +383,30 @@ describe('CampagneApprentissageEntreprises', () => {
 				const simulation = screen.getByRole('link', { name: /Déposer mon offre d’apprentissage/i });
 				expect(simulation).toBeVisible();
 				expect(simulation).toHaveAttribute('href', '/apprentissage/deposer-offre');
+			});
+		});
+		describe('Encart redirections internes vers la FAQ et le dépot d’offre', () => {
+			it('masque les informations pour accéder à la FAQ parents-enfants', () => {
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
+				expect(screen.queryByRole('heading', {
+					level: 2,
+					name: 'On répond à toutes vos questions sur l’apprentissage',
+				})).not.toBeInTheDocument();
+			});
+			it('masque les informations pour accéder à la page d‘apprentissage pour les employeurs', () => {
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
+				expect(screen.queryByRole('heading', {
+					level: 2,
+					name: 'Vous êtes à la recherche d’un apprenti ?',
+				})).not.toBeInTheDocument();
 			});
 		});
 		describe('Section verbatims apprentis', () => {
