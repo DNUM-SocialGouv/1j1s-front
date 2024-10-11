@@ -24,6 +24,10 @@ export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps)
 	useAnalytics(analyticsPageConfig);
 	const adformService: MarketingService = useDependency('marketingService');
 	adformService.trackPage('2024-10-1jeune1solution.gouv.fr-PageAccueil-PageAccueil');
+	useEffect(() => {
+		// @ts-ignore
+		return () => adformService.trackPage(undefined);
+	}, []);
 	const tiktokService: MarketingService = useDependency('tiktokService');
 	console.log('in render');
 	tiktokService.trackPage('');
