@@ -72,6 +72,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 			{
 				dependenciesContainerInstance && (
 					<DependenciesProvider {...dependenciesContainerInstance}>
+
+
 						{getLayout(
 							pageProps.error
 								? <ErrorServer error={pageProps.error} />
