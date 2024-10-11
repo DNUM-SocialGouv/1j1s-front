@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import type { StorybookConfig } from "@storybook/nextjs";
 const path = require('path');
 

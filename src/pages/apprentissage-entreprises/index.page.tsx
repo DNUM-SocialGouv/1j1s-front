@@ -31,6 +31,8 @@ export default function ApprentissageEntreprises ({ videos }: ApprentissageEntre
 		seedtagService.trackPage('');
 	}, [seedtagService]);
 
+	const azerionService: MarketingService = useDependency('azerionService');
+	azerionService.trackPage('');
 
 	return (
 		<>
