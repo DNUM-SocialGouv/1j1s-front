@@ -16,7 +16,6 @@ export default class TiktokMarketingService implements MarketingService {
 		if (pagename === 'off') {
 			this.cookiesService.addUser('tiktokId', undefined);
 		}
-		console.log('in trackPage');
 		this.cookiesService.addUser('tiktokId', TiktokMarketingService.TIKTOK_ID);
 	}
 }

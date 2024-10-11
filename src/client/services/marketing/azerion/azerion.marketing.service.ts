@@ -27,6 +27,6 @@ export default class AzerionMarketingService implements MarketingService {
 		};
 		this.cookieService.addService('azerion', config);
 	}
-	trackPage(pagename: string): void {
+	trackPage(): void {
 	}
 }
