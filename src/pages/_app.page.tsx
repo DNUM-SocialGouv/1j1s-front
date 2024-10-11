@@ -58,6 +58,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 			window.tarteaucitron.triggerJobsAfterAjaxCall();
 		}
 		previousPath.current = router.asPath;
+		return () => { document.dispatchEvent(new Event('navigate')); };
 	}, [router.asPath, sessionId]);
 
 	const getLayout = Component.getLayout ?? defaultLayout;
