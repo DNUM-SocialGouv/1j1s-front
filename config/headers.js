@@ -5,7 +5,7 @@ const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.meilisearch.io/multi-search
 const ANALYTICS_SOURCES = `${process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN} ${process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_HOST}`;
 const contentSecurityPolicy = `
   default-src 'self' ${TRUSTED_SOURCES};
-  script-src 'self' ${ANALYTICS_SOURCES} https://*.adform.net www.googletagmanager.com analytics.tiktok.com;
+  script-src 'self' ${ANALYTICS_SOURCES} https://*.adform.net www.googletagmanager.com analytics.tiktok.com *.adnxs.com;
   img-src 'self' *.google.com data: ${STRAPI_MEDIA_HOST} ${ANALYTICS_SOURCES} img.youtube.com jedonnemonavis.numerique.gouv.fr *.adnxs.com *.doubleclick.net;
   style-src 'self' 'unsafe-inline' ${ANALYTICS_SOURCES};
   frame-ancestors 'none';
