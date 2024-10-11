@@ -17,6 +17,9 @@ export default class AzerionMarketingService implements MarketingService {
 					pixel.alt = '';
 					pixel.setAttribute('style', 'position: absolute; transform: translateX(-101%);');
 					document.body.prepend(pixel);
+					document.addEventListener('navigate', () => {
+						pixel.remove();
+					});
 				}
 			},
 			key: 'azerion',
