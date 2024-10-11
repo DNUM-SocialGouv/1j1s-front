@@ -34,7 +34,16 @@ export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps)
 		return () => {
 			tiktokService.trackPage('off');
 		};
-	});
+		// eslint-disable-next-line
+	}, []);
+	const amnetService: MarketingService = useDependency('amnetService');
+	amnetService.trackPage('');
+	useEffect(() => {
+		return () => {
+			amnetService.trackPage('off');
+		};
+		// eslint-disable-next-line
+	}, []);
 
 	return (
 		<>
