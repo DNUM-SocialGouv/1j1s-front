@@ -6,12 +6,13 @@ const ANALYTICS_SOURCES = `${process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN} ${process
 const contentSecurityPolicy = `
   default-src 'self' ${TRUSTED_SOURCES};
   script-src 'self' ${ANALYTICS_SOURCES} https://*.adform.net www.googletagmanager.com analytics.tiktok.com;
-  img-src 'self' *.google.com data: ${STRAPI_MEDIA_HOST} ${ANALYTICS_SOURCES} img.youtube.com jedonnemonavis.numerique.gouv.fr secure.adnxs.com;
+  img-src 'self' *.google.com data: ${STRAPI_MEDIA_HOST} ${ANALYTICS_SOURCES} img.youtube.com jedonnemonavis.numerique.gouv.fr *.adnxs.com *.doubleclick.net;
   style-src 'self' 'unsafe-inline' ${ANALYTICS_SOURCES};
   frame-ancestors 'none';
-  frame-src 'self' *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube-nocookie.com simulateur-alternance.1jeune1solution.gouv.fr https://*.adform.net mes-aides.francetravail.fr;
+  frame-src 'self' *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube-nocookie.com simulateur-alternance.1jeune1solution.gouv.fr https://*.adform.net mes-aides.francetravail.fr *.doubleclick.net;
   form-action 'self';
   base-uri 'none';
+  connect-src 'self' ${TRUSTED_SOURCES} analytics.tiktok.com;
 `;
 
 const SECURITY_MODE_HEADERS = [{
