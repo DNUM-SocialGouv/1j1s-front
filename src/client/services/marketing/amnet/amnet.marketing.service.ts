@@ -1,3 +1,6 @@
+/* eslint-disable */
+// @ts-nocheck
+
 import { CookiesService } from '../../cookies/cookies.service';
 import { MarketingService } from '../marketing.service';
 
@@ -9,7 +12,6 @@ export default class AmnetMarketingService implements MarketingService {
 	constructor(cookieService: CookiesService) {
 		this.cookieService = cookieService;
 		const config = {
-
 			// FIXME ajouter cookies issus de adsrvr et de zemanta
 			cookies: ['anj', 'icu', 'sess', 'uids', 'usersync', 'uuid2'],
 			js: function () {
