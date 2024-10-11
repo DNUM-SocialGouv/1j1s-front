@@ -7,6 +7,9 @@ import {
 	InformationSurEmbaucheApprenti,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/InformationSurEmbaucheApprenti/InformationSurEmbaucheApprenti';
 import {
+	NewInformationSurEmbaucheApprenti,
+} from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/NewInformationSurEmbaucheApprenti/NewInformationSurEmbaucheApprenti';
+import {
 	Raisons,
 	RaisonsDeChoisirApprentissage,
 } from '~/client/components/features/CampagneApprentissage/RaisonsDeChoisirApprentissage/RaisonsDeChoisirApprentissage';
@@ -153,9 +156,8 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 					</Container>
 				</section>
 			)}
-			{(!campagneApprentissageEstEnCours &&
-				<InformationSurEmbaucheApprenti />
-			)}
+			{(campagneApprentissageEstEnCours ? <NewInformationSurEmbaucheApprenti /> :
+				<InformationSurEmbaucheApprenti />)}
 		</>
 	);
 }
