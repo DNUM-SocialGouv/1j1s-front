@@ -175,6 +175,7 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 
 	return {
 		analyticsService,
+		azerionService,
 		cookiesService,
 		dateService,
 		demandeDeContactService,
@@ -187,7 +188,6 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		metierStage3eEt2deService,
 		missionEngagementService,
 		rechercheClientService,
-		azerionService,
 		seedtagService,
 		sessionStorageService,
 		stage3eEt2deService,

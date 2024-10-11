@@ -23,8 +23,9 @@ export default function ApprentissageEntreprises ({ videos }: ApprentissageEntre
 	const adformService: MarketingService = useDependency('marketingService');
 	adformService.trackPage('2024-09-1jeune1solution.gouv.fr-PageAccueil-PageAccueil');
 	useEffect(() => {
-		// @ts-ignore
+		// @ts-expect-error
 		return () => adformService.trackPage(undefined);
+		// eslint-disable-next-line
 	}, []);
 	const seedtagService: MarketingService = useDependency('seedtagService');
 	useEffect(() => {
