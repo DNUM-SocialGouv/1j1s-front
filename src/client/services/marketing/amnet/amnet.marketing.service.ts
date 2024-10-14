@@ -43,6 +43,26 @@ export default class AmnetMarketingService implements MarketingService {
 					// @ts-ignore
 					window.pixie('event', 'PageView');
 				});
+
+				// eslint-disable-next-line
+				// @ts-ignore
+				window.tarteaucitron.addScript('https://js.adsrvr.org/up_loader.1.1.0.js', '', function () {
+					// eslint-disable-next-line
+					// @ts-ignore
+					// eslint-disable-next-line
+					ttd_dom_ready(function () {
+						// eslint-disable-next-line
+						// @ts-ignore
+						// eslint-disable-next-line
+						if (typeof TTDUniversalPixelApi === 'function') {
+							// eslint-disable-next-line
+							// @ts-ignore
+							// eslint-disable-next-line
+							const universalPixelApi = new TTDUniversalPixelApi();
+							universalPixelApi.init('qj8wadw', ['muuud1z'], 'https://insight.adsrvr.org/track/up');
+						}
+					});
+				});
 			},
 			key: 'amnet',
 			name: 'Amnet',
