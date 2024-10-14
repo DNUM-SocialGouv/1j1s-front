@@ -3,23 +3,71 @@ import { MarketingService } from '../marketing.service';
 
 export default class AmnetMarketingService implements MarketingService {
 	private cookieService: CookiesService;
+	private static readonly amnetId = '0cfe1200-c50d-4658-a08d-8967a78bfaeb';
 
 	constructor(cookieService: CookiesService) {
 		this.cookieService = cookieService;
 		const config = {
-			key: 'xandr',
+			cookies: ['anj', 'icu', 'sess', 'uids', 'usersync', 'uuid2'],
+			js: function () {
+				'use strict';
+				if (window.tarteaucitron.user.amnetId === undefined) {
+					return;
+				}
+				// eslint-disable-next-line
+				// @ts-ignore
+				if (!window.pixie) {
+					// eslint-disable-next-line
+					// @ts-ignore
+					const n = window.pixie = function (e, i, a) {
+						// eslint-disable-next-line
+						// @ts-ignore
+						n.actionQueue.push({
+							action: e,
+							actionValue: i,
+							params: a,
+						});
+					};
+					// eslint-disable-next-line
+					// @ts-ignore
+					n.actionQueue = [];
+				}
+
+				// eslint-disable-next-line
+				// @ts-ignore
+				window.tarteaucitron.addScript('https://acdn.adnxs.com/dmp/up/pixie.js', '', function () {
+					// eslint-disable-next-line
+					// @ts-ignore
+					window.pixie('init', window.tarteaucitron.user.amnetId);
+					// eslint-disable-next-line
+					// @ts-ignore
+					window.pixie('event', 'PageView');
+					const pixel = document.createElement('img');
+					pixel.src = `https://ib.adnxs.com/pixie?pi=${AmnetMarketingService.amnetId}&e=PageView&script=0`;
+					pixel.width = 1;
+					pixel.height = 1;
+					pixel.alt = '';
+					pixel.setAttribute('style', 'position: absolute; transform: translateX(-101%);');
+					document.body.prepend(pixel);
+					document.addEventListener('navigate', () => {
+						pixel.remove();
+					});
+				});
+			},
+			key: 'amnet',
 			name: 'Amnet',
-			type: /* FIXME (GAFI 11-10-2024): */ 'ads',
-			uri: /* FIXME (GAFI 11-10-2024): */ 'https://www.xandr.com/privacy/cookie-policy/',
+			needConsent: true,
+			type: 'ads',
+			uri: 'https://support.google.com/displayvideo/topic/3528231?hl=en&ref_topic=9059505&sjid=9933903973918710720-EU',
 		};
-		this.cookieService.addService('xandr', config);
+		this.cookieService.addService('amnet', config);
 	}
 
 	trackPage(pagename: string): void {
 		if (pagename === 'off') {
-			this.cookieService.addUser('xandrId', undefined);
+			this.cookieService.addUser('amnetId', undefined);
 		} else {
-			this.cookieService.addUser('xandrId', '0cfe1200-c50d-4658-a08d-8967a78bfaeb');
+			this.cookieService.addUser('amnetId', AmnetMarketingService.amnetId);
 		}
 	}
 }
