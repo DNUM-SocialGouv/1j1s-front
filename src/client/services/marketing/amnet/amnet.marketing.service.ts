@@ -42,16 +42,6 @@ export default class AmnetMarketingService implements MarketingService {
 					// eslint-disable-next-line
 					// @ts-ignore
 					window.pixie('event', 'PageView');
-					const pixel = document.createElement('img');
-					pixel.src = `https://ib.adnxs.com/pixie?pi=${AmnetMarketingService.amnetId}&e=PageView&script=0`;
-					pixel.width = 1;
-					pixel.height = 1;
-					pixel.alt = '';
-					pixel.setAttribute('style', 'position: absolute; transform: translateX(-101%);');
-					document.body.prepend(pixel);
-					document.addEventListener('navigate', () => {
-						pixel.remove();
-					});
 				});
 			},
 			key: 'amnet',
