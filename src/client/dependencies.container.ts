@@ -34,6 +34,7 @@ import { AdformMarketingService } from '~/client/services/marketing/adform/adfor
 import AmnetMarketingService from '~/client/services/marketing/amnet/amnet.marketing.service';
 import AzerionMarketingService from '~/client/services/marketing/azerion/azerion.marketing.service';
 import { MarketingService } from '~/client/services/marketing/marketing.service';
+import MetaMarketingService from '~/client/services/marketing/meta/meta.marketing.service';
 import { NullMarketingService } from '~/client/services/marketing/null/null.marketing.service';
 import SeedtagMarketingService from '~/client/services/marketing/seedtag/seedtag.marketing.service';
 import TiktokMarketingService from '~/client/services/marketing/TikTok/tiktok.marketing.service';
@@ -98,6 +99,7 @@ export type Dependencies = {
 	tiktokService: MarketingService
 	azerionService: MarketingService
 	amnetService: MarketingService
+	metaService: MarketingService
 }
 
 class DependencyInitException extends Error {
@@ -129,6 +131,7 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 	const tiktokService = new TiktokMarketingService(cookiesService);
 	const azerionService = new AzerionMarketingService(cookiesService);
 	const amnetService = new AmnetMarketingService(cookiesService);
+	const metaService = new MetaMarketingService(cookiesService);
 	const marketingService = process.env.NEXT_PUBLIC_CAMPAGNE_ADFORM_FEATURE === '1'
 		? new AdformMarketingService(cookiesService)
 		: new NullMarketingService();
@@ -188,6 +191,7 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		localStorageService,
 		localisationService,
 		marketingService,
+		metaService,
 		metierLbaService,
 		metierStage3eEt2deService,
 		missionEngagementService,
