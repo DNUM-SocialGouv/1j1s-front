@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 
 import EnSavoirPlusApprentissage
@@ -16,6 +17,7 @@ import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
 import { VideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage';
 
 import styles from '../CampagneApprentissage.module.scss';
+import stylesApprenti from './CampagneApprentissageJeunes.module.scss';
 
 interface CampagneApprentissageJeunesProps {
 	videos: Array<VideoCampagneApprentissage>
@@ -46,18 +48,49 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 		},
 	];
 
+	const campagneApprentissageEstEnCours = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
+
+	function nouveauBandeauDeCampagne() {
+		return (
+			<HeroWithIllustration image={'/images/campagne-apprentissage-jeune-oct-2024.webp'}
+																 className={classNames(styles.hero, stylesApprenti.hero)}>
+				<h1>Avec l’apprentissage, vous apprenez directement <span
+					className={styles.avoidLineBreakInside}>sur le terrain</span> <span className={styles.avoidLineBreakInside}>et vous êtes payés !</span>
+				</h1>
+				<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.ALTERNANT}`}
+					appearance={'asPrimaryButton'}
+					className={styles.cta}>
+					<span>
+							Simuler votre rémunération <span className={styles.desktopOnly}>en tant qu’apprenti</span>
+					</span>
+					<Link.Icon />
+				</Link>
+			</HeroWithIllustration>
+		);
+	}
+
+	function ancienBandeauDeCampagne() {
+		return (
+			<HeroWithIllustration image={'/images/campagne-apprentissage-jeune-avec-texte.webp'} className={styles.hero}>
+				<h1>Avec l’apprentissage, vous apprenez directement <span
+					className={styles.avoidLineBreakInside}>sur le terrain</span> <span className={styles.avoidLineBreakInside}>et vous êtes payés !</span>
+				</h1>
+				<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.ALTERNANT}`}
+					appearance={'asPrimaryButton'}
+					className={styles.cta}>
+					<span>
+							Simuler votre rémunération <span className={styles.desktopOnly}>en tant qu’apprenti</span>
+					</span>
+					<Link.Icon />
+				</Link>
+			</HeroWithIllustration>
+		);
+	}
+
 	return (
 		<>
 			<header className={styles.titrePage}>
-				<HeroWithIllustration image={'/images/campagne-apprentissage-jeune-avec-texte.webp'} className={styles.hero}>
-					<h1>Avec l’apprentissage, vous apprenez directement <span className={styles.avoidLineBreakInside}>sur le terrain</span> <span className={styles.avoidLineBreakInside}>et vous êtes payés !</span></h1>
-					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.ALTERNANT}`} appearance={'asPrimaryButton'} className={styles.cta}>
-						<span>
-							Simuler votre rémunération <span className={styles.desktopOnly}>en tant qu’apprenti</span>
-						</span>
-						<Link.Icon />
-					</Link>
-				</HeroWithIllustration>
+				{campagneApprentissageEstEnCours ? nouveauBandeauDeCampagne() : ancienBandeauDeCampagne()}
 			</header>
 			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage" raisons={raisons} />
 			{ videos.length > 0 && (
