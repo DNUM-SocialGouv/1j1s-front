@@ -68,49 +68,16 @@ export default class AmnetMarketingService implements MarketingService {
 				});
 
 
-				// eslint-disable-next-line
-				// @ts-ignore
-				if (window.zemApi) {
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					const toArray = function (object: any) {
-						return Object.prototype.toString.call(object) === '[object Array]' ? object : [object];
-					};
-
-					// eslint-disable-next-line
-					// @ts-ignore
-					window.zemApi.marketerId = toArray(window.zemApi.marketerId).concat(toArray(AmnetMarketingService.zemTagId));
-					return;
-				}
-
-				// eslint-disable-next-line
-				// @ts-ignore
-				// eslint-disable-next-line
-				const api = window.zemApi = function (...args: any[]) {
-
-					// eslint-disable-next-line
-					// @ts-ignore
-					// eslint-disable-next-line
-					api.dispatch ? api.dispatch.apply(api, args) : api.queue.push(args);
-				};
-				// eslint-disable-next-line
-				// @ts-ignore
-				window.zemApi.version = '1.0';
-				// eslint-disable-next-line
-				// @ts-ignore
-				window.zemApi.loaded = true;
-				// eslint-disable-next-line
-				// @ts-ignore
-				window.zemApi.marketerId = AmnetMarketingService.zemTagId;
-				// eslint-disable-next-line
-				// @ts-ignore
-				window.zemApi.queue = [];
-
-				// eslint-disable-next-line
-				// @ts-ignore
-				window.tarteaucitron.addScript('https://js-tag.zemanta.com/zcpt.js', '', function () {
-					// eslint-disable-next-line
-					// @ts-ignore
-					window.zemApi('track', 'PAGE_VIEW');
+				const pixel = document.createElement('img');
+				pixel.src = 'https://p1.zemanta.com/v2/p/ns/118693/PAGE_VIEW/';
+				pixel.width = 1;
+				pixel.height = 1;
+				pixel.alt = '';
+				pixel.referrerPolicy = 'no-referrer-when-downgrade';
+				pixel.setAttribute('style', 'position: absolute; transform: translateX(-101%);');
+				document.body.prepend(pixel);
+				document.addEventListener('navigate', () => {
+					pixel.remove();
 				});
 			},
 			key: 'amnet',
