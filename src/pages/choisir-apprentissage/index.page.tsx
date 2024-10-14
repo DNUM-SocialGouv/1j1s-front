@@ -45,6 +45,14 @@ export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps)
 		};
 		// eslint-disable-next-line
 	}, []);
+	const metaService: MarketingService = useDependency('metaService');
+	amnetService.trackPage('');
+	useEffect(() => {
+		return () => {
+			metaService.trackPage('off');
+		};
+		// eslint-disable-next-line
+	}, []);
 
 	return (
 		<>
