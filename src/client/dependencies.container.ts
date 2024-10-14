@@ -177,6 +177,7 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		getStorageServiceWithFallback(localStorageService, new NullStorageService()));
 
 	return {
+		amnetService,
 		analyticsService,
 		azerionService,
 		cookiesService,
@@ -191,7 +192,6 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		metierStage3eEt2deService,
 		missionEngagementService,
 		rechercheClientService,
-		amnetService,
 		seedtagService,
 		sessionStorageService,
 		stage3eEt2deService,
