@@ -55,7 +55,7 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 
 	function nouveauBandeauDeCampagne() {
 		return (
-			<HeroWithIllustration image={'/images/campagne-apprentissage-entreprise-avec-texte.webp'} className={styles.hero}>
+			<HeroWithIllustration image={'/images/campagne-apprentissage-employeur.webp'} className={styles.hero}>
 				<h1>Avec l’apprentissage, recrutez la future pépite de votre entreprise&nbsp;!</h1>
 				<p>Des milliers de jeunes motivés, avec des compétences à revendre, n’attendent que
 				vous pour démarrer leur contrat d’apprentissage.</p>
