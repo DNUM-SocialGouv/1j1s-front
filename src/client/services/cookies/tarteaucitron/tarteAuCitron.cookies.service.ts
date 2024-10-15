@@ -58,7 +58,10 @@ export class TarteAuCitronCookiesService implements CookiesService {
 
 	addService(nom: string, config?: TarteAuCitron.ServiceConfig<unknown>): void {
 		if (config != undefined) {
-			this.tarteaucitron.services[nom] = config;
+			this.tarteaucitron.services[nom] = {
+				...(this.tarteaucitron.services[nom] ?? {}),
+				...config,
+			};
 		}
 		this.tarteaucitron.job?.push(nom);
 	}
