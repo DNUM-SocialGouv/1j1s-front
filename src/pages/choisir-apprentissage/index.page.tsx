@@ -46,7 +46,7 @@ export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps)
 		// eslint-disable-next-line
 	}, []);
 	const metaService: MarketingService = useDependency('metaService');
-	amnetService.trackPage('');
+	metaService.trackPage('');
 	useEffect(() => {
 		return () => {
 			metaService.trackPage('off');
