@@ -6,7 +6,6 @@ $gap-between-sections: 1.5rem;
 $color-background-stages-seconde: #51BCB3;
 $color-background-world-skills: #2E1651;
 $color-background-world-skills: #2E1651;
-$color-title-campagne-apprentissage: #E8CF31;
 
 .accueil > :not(:last-child)  {
   margin-bottom: $gap-between-sections;
@@ -59,7 +58,7 @@ $color-title-campagne-apprentissage: #E8CF31;
   }
   &.apprentissage {
     h2 {
-      color: $color-title-campagne-apprentissage;
+      color: utilities.$color-title-apprentissage-2024;
       padding-bottom: 1.25rem;
     }
   }
