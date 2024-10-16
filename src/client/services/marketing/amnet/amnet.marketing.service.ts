@@ -15,7 +15,7 @@ export default class AmnetMarketingService implements MarketingService {
 	private addOutbrain() {
 		const config = {
 			// FIXME ajouter cookies issus de zemanta
-			cookies: ['anj', 'icu', 'sess', 'uids', 'usersync', 'uuid2'],
+			cookies: ['OptanonAlertBoxClosed', 'OptanonConsent', '_ga', '_ga_41WGBLDQWL', '_ga_9F6YJJKMSZ', '_gid', 'obuid', 'zuid'],
 			js: function () {
 				'use strict';
 				if (!window.tarteaucitron.user.xandrId) return;
@@ -42,7 +42,7 @@ export default class AmnetMarketingService implements MarketingService {
 	private addAdsrvr() {
 		const config = {
 			// FIXME ajouter cookies issus de adsrvr
-			cookies: ['anj', 'icu', 'sess', 'uids', 'usersync', 'uuid2'],
+			cookies: ['TDCPM', 'TDID'],
 			js: function () {
 				'use strict';
 				if (!window.tarteaucitron.user.xandrId) return;
