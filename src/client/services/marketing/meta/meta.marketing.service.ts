@@ -12,7 +12,7 @@ export default class MetaMarketingService implements MarketingService {
 		this.cookieService = cookieService;
 		const config = {
 
-			cookies: ['xs', 'sb', 'fr', 'datr', 'dpr', 'c_user'],
+			cookies: ['xs', 'sb', 'fr', 'datr', 'dpr', 'c_user', '_fbp'],
 			js: function () {
 				'use strict';
 				if (!window.tarteaucitron.user.metaId) return;
