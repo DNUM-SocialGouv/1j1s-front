@@ -1278,7 +1278,7 @@ tarteaucitron.services.xandr = {
 		});
 	},
 	key: 'xandr',
-	name: 'Xandr (Universal)',
+	name: 'Amnet - Xandr',
 	needConsent: true,
 	type: 'ads',
 	uri: 'https://www.xandr.com/privacy/cookie-policy/',
@@ -6005,11 +6005,28 @@ tarteaucitron.services.outbrain = {
 	cookies: [],
 	js: function () {
 		'use strict';
-
-		tarteaucitron.addScript('https://widgets.outbrain.com/outbrain.js');
+		if (tarteaucitron.user.zemTagId == null) {
+			return;
+		}
+		if (window.zemApi) {
+			return;
+		}
+		var api = window.zemApi = function() {
+			api.dispatch ? api.dispatch.apply(api, arguments) : api.queue.push(arguments);
+		};
+		api.version = '1.0';
+		api.loaded = true;
+		api.marketerId = [tarteaucitron.user.zemTagId];
+		document.addEventListener('navigate', () => {
+			api.marketerId = []
+		})
+		api.queue = [];
+		tarteaucitron.addScript('//js-tag.zemanta.com/zcpt.js', undefined,function() {
+			window.zemApi('track', 'PAGE_VIEW');
+		}, undefined, 'defer', 'true');
 	},
 	key: 'outbrain',
-	name: 'Outbrain',
+	name: 'Amnet - Outbrain',
 	needConsent: true,
 	type: 'ads',
 	uri: 'https://www.outbrain.com/fr/advertisers/guidelines/',
