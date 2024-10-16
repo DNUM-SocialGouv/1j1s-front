@@ -6370,7 +6370,7 @@ tarteaucitron.services.weborama = {
 
 // tiktok
 tarteaucitron.services.tiktok = {
-	cookies: [],
+	cookies: ['_tt_enable_cookie', '_ttp'],
 	js: function () {
 		'use strict';
 
