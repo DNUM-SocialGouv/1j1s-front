@@ -76,7 +76,7 @@ export default class SeedtagMarketingService implements MarketingService {
 			// @ts-ignore
 			window.gtag('event', 'conversion', {
 				allow_custom_scripts: true,
-				send_to: `${SeedtagMarketingService.ADS_ID}/invmedia/gae_d0+standard`,
+				send_to: `${SeedtagMarketingService.ADS_ID}/invmedia/fr_ga005+standard`,
 				u2: '[URL_Info]',
 			});
 
