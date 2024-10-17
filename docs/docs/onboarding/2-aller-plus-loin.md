@@ -22,7 +22,7 @@ sidebar_position: 2
 | npm run e2e (headless)     | Lance les tests cypress (nécessite que le site tourne)                   |
 | npm run e2e:open           | Lance les tests cypress (nécessite que le site tourne)                   |
 | npm run storybook          | Lance la documentation interactive des composants / assets Sass en local |
-| npm run build:storybook    | Build une version statique de la documentation storybook                 |
+| npm run storybook:build    | Build une version statique de la documentation storybook                 |
 | docker-compose up -d redis | Lance redis en local (nécessite de réaffecter la variable `REDIS_URL`)   |
 
 ## Configuration locale du CMS et de Meilisearch

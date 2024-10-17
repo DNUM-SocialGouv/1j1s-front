@@ -6,13 +6,10 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 2.5rem;
-  }
 
-  &DepotOffre {
-    background-color: utilities-deprecated.$color-background-white-lilac;
-    @include utilities-deprecated.media(large) {
-      background-color: revert;
-    }
+    max-width: 100%;
+    margin: 0;
+    padding: 0 2rem;
   }
 
   &Faq, &DepotOffre {

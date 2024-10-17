@@ -28,6 +28,10 @@ jest.mock('~/server/start', () => ({
 }));
 
 describe('<ApprentissageEntreprises />', () => {
+	beforeEach(() => {
+	  jest.clearAllMocks();
+	});
+
 	it('doit rendre du HTML respectant la specification', () => {
 		mockSmallScreen();
 		const videos = [
@@ -48,8 +52,7 @@ describe('<ApprentissageEntreprises />', () => {
 
 		expect(container.outerHTML).toHTMLValidate();
 	});
-
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n’a pas de défaut d‘accessibilité', async () => {
 		mockSmallScreen();
 		const videos = [
 			aVideoCampagneApprentissage(),
@@ -74,34 +77,55 @@ describe('<ApprentissageEntreprises />', () => {
 
 	describe('getServerSideProps', () => {
 
-		describe('quand les vidéos ne sont pas récupérées', () => {
-			it('renvoie une liste vide pour les vidéos', async () => {
-				(dependencies.campagneApprentissageDependencies.recupererVideosCampagneApprentissageUseCase.handle as jest.Mock).mockReturnValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+		describe('Avant la campagne du 22 octobre 2024 sur l’apprentissage', () => {
+			beforeEach(() => {
+				// Given
+				process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
+			});
+			describe('quand les vidéos ne sont pas récupérées', () => {
+				it('renvoie une liste vide pour les vidéos', async () => {
+					(dependencies.campagneApprentissageDependencies.recupererVideosCampagneApprentissageUseCase.handle as jest.Mock).mockReturnValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
-				const result = await getServerSideProps();
+					const result = await getServerSideProps();
 
-				expect(result).toMatchObject({ props: {
-					videos: [],
-				} });
+					expect(result).toMatchObject({ props: {
+						videos: [],
+					} });
+				});
+			});
+			describe('quand les vidéos sont récupérées', () => {
+				it('renvoie les props', async () => {
+					const videos = [
+						aVideoCampagneApprentissage(),
+						aVideoCampagneApprentissage({
+							titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+							transcription: '[transcription]',
+							videoId: '7zD4PCOiUvw',
+						}),
+					];
+					(dependencies.campagneApprentissageDependencies.recupererVideosCampagneApprentissageUseCase.handle as jest.Mock).mockReturnValue(createSuccess(videos));
+
+					const result = await getServerSideProps();
+
+					expect(result).toMatchObject({ props: {
+						videos: videos,
+					} });
+				});
 			});
 		});
-
-		describe('quand les vidéos sont récupérées', () => {
-			it('renvoie les props', async () => {
-				const videos = [
-					aVideoCampagneApprentissage(),
-					aVideoCampagneApprentissage({
-						titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
-						transcription: '[transcription]',
-						videoId: '7zD4PCOiUvw',
-					}),
-				];
-				(dependencies.campagneApprentissageDependencies.recupererVideosCampagneApprentissageUseCase.handle as jest.Mock).mockReturnValue(createSuccess(videos));
-
+		describe('Pendant et après la campagne du 22 octobre 2024 sur l’apprentissage', () => {
+			beforeEach(() => {
+				// Given
+				process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
+			});
+			it('ne renvoie pas de vidéos et ne requête pas le service', async () => {
+				// When
 				const result = await getServerSideProps();
 
+				// Then
+				expect(dependencies.campagneApprentissageDependencies.recupererVideosCampagneApprentissageUseCase.handle).not.toHaveBeenCalled();
 				expect(result).toMatchObject({ props: {
-					videos: videos,
+					videos: null,
 				} });
 			});
 		});
