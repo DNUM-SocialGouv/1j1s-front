@@ -14,8 +14,7 @@ export default class AmnetMarketingService implements MarketingService {
 	}
 	private addOutbrain() {
 		const config = {
-			// FIXME ajouter cookies issus de zemanta
-			cookies: ['OptanonAlertBoxClosed', 'OptanonConsent', '_ga', '_ga_41WGBLDQWL', '_ga_9F6YJJKMSZ', '_gid', 'obuid', 'zuid'],
+			cookies: ['sync', 'zpb', 'zpbid', 'zuid'], // from https://www.zemanta.com/cookies/
 			js: function () {
 				'use strict';
 				if (!window.tarteaucitron.user.xandrId) return;
@@ -41,7 +40,6 @@ export default class AmnetMarketingService implements MarketingService {
 	}
 	private addAdsrvr() {
 		const config = {
-			// FIXME ajouter cookies issus de adsrvr
 			cookies: ['TDCPM', 'TDID'],
 			js: function () {
 				'use strict';
