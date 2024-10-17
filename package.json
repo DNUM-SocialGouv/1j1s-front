@@ -25,7 +25,7 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
-    "@meilisearch/instant-meilisearch": "0.20.1",
+    "@meilisearch/instant-meilisearch": "0.21.1",
     "@next/bundle-analyzer": "14.2.15",
     "@sentry/nextjs": "7.119.2",
     "axios": "1.7.7",
@@ -41,8 +41,8 @@
     "next": "14.2.15",
     "next-joi": "2.2.1",
     "phone": "3.1.51",
-    "pino": "9.4.0",
-    "pino-sentry": "0.14.1",
+    "pino": "9.5.0",
+    "pino-sentry": "0.15.0",
     "react": "18.3.1",
     "react-autosuggest": "10.1.0",
     "react-dom": "18.3.1",
