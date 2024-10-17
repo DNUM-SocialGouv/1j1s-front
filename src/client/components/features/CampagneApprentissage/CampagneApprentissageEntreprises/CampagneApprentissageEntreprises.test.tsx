@@ -409,6 +409,21 @@ describe('CampagneApprentissageEntreprises', () => {
 				})).not.toBeInTheDocument();
 			});
 		});
+		describe('Section témoignages vidéos', () => {
+			it('masque les vidéos', () => {
+				// Given
+				const serverSideVideos = null;
+
+				// When
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageEntreprises videos={serverSideVideos} />
+					</DependenciesProvider>,
+				);
+				// Then
+				expect(screen.queryByRole('region', { name: /Ils ont choisi d’embaucher un apprenti ! Pourquoi pas vous ?/i })).not.toBeInTheDocument();
+			});
+		});
 		describe('Section verbatims apprentis', () => {
 		  it('affiche une section titrée', () => {
 		    // When

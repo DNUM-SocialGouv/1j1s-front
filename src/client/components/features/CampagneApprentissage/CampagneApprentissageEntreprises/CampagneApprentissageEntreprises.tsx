@@ -24,7 +24,7 @@ import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
 import { VideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage';
 
 interface CampagneApprentissageEntreprisesProps {
-	videos: Array<VideoCampagneApprentissage>
+	videos: Array<VideoCampagneApprentissage> | null
 }
 
 export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissageEntreprisesProps) {
@@ -126,7 +126,7 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 			{(!campagneApprentissageEstEnCours &&
 				<EnSavoirPlusApprentissageEntreprises />
 			)}
-			{ videos.length > 0 && (
+			{ videos && videos.length > 0 && (
 				<VideosCampagneApprentissage
 					titre={'Ils ont choisi d’embaucher un apprenti ! Pourquoi pas vous ?'}
 					description={'Découvrez les témoignages des maîtres d’apprentissage et des apprentis qu’ils accompagnent au quotidien.'}

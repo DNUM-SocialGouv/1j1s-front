@@ -12,7 +12,7 @@ import { isFailure } from '~/server/errors/either';
 import { dependencies } from '~/server/start';
 
 type ApprentissageEntreprisesPageProps = {
-	videos: VideoCampagneApprentissage[];
+	videos: VideoCampagneApprentissage[] | null;
 }
 
 export default function ApprentissageEntreprises ({ videos }: ApprentissageEntreprisesPageProps) {
@@ -29,6 +29,15 @@ export default function ApprentissageEntreprises ({ videos }: ApprentissageEntre
 }
 
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<ApprentissageEntreprisesPageProps>> {
+	const campagneApprentissageEstEnCours = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
+	if (campagneApprentissageEstEnCours) {
+		return {
+			props: {
+				videos: null,
+			},
+		};
+	}
+
 	const videos = await dependencies.campagneApprentissageDependencies.recupererVideosCampagneApprentissageUseCase.handle();
 	if (isFailure(videos)) {
 		return {
