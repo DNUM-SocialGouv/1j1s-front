@@ -46,20 +46,14 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
 
 	const previousPath = useRef('');
+	const cookiesService = dependenciesContainerInstance.cookiesService;
 	useEffect(() => {
-		// eslint-disable-next-line
-		console.log(previousPath.current, router.asPath);
 		if (previousPath.current && previousPath.current !== router.asPath) {
-			// eslint-disable-next-line
-			console.log('trigger jobs');
-			// FIXME (GAFI 08-10-2024): Déplacer dans le service
-			// eslint-disable-next-line
-			// @ts-ignore
-			window.tarteaucitron.triggerJobsAfterAjaxCall();
+			cookiesService.triggerJobs();
 		}
 		previousPath.current = router.asPath;
 		return () => { document.dispatchEvent(new Event('navigate')); };
-	}, [router.asPath, sessionId]);
+	}, [cookiesService, router.asPath, sessionId]);
 
 	const getLayout = Component.getLayout ?? defaultLayout;
 	return (
