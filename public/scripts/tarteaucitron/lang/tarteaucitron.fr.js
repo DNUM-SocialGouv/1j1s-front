@@ -7,6 +7,7 @@ tarteaucitron.lang = {
   alertBig: 'vous acceptez l‘utilisation de services tiers pouvant installer des cookies',
   alertBigClick: 'En poursuivant votre navigation,',
   alertBigPrivacy: 'Ce site utilise des cookies et vous donne le contrôle sur ceux que vous souhaitez activer',
+	// FIXME (GAFI 08-10-2024): Renomme juste la catégorie Ads avec les infos des campagnes ...
   ads: {
     details: 'Les campagnes d’informations gouvernementales permettent le partage d’informations utiles diffusées dans le cadre de grandes campagnes d’information, ou en cas de crise.',
     title: 'Campagnes d’informations gouvernementales',
