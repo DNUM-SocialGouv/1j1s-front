@@ -103,7 +103,7 @@ describe('useAnalytics()', () => {
 		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith(pageTags);
 	});
 
-	it('n’envoie pas les analytics quand les cookies sont refusés', async () => {
+	it('envoie quand même les analytics exemptés quand les cookies sont refusés', async () => {
 		const analyticsService = aManualAnalyticsService({ isAllowed: () => false });
 
 		render(
@@ -112,7 +112,7 @@ describe('useAnalytics()', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(analyticsService.envoyerAnalyticsPageVue).not.toHaveBeenCalled();
+		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledTimes(1);
 	});
 	it('n’envoie qu’une fois les analytics quand l’utilisateur accepte plusieurs fois les cookies', async () => {
 		const analyticsService = aManualAnalyticsService({ isAllowed: () => false });
