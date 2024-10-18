@@ -83,7 +83,7 @@ describe('CampagneApprentissageEntreprises', () => {
 			});
 		});
 		describe('Encart redirections internes vers la FAQ et le dépot d’offre', () => {
-			it('je vois les informations pour accéder à la FAQ parents-enfants', () => {
+			it('affiche les informations pour accéder à la FAQ parents-enfants', () => {
 				render(
 					<DependenciesProvider youtubeService={aVideoService()}>
 						<CampagneApprentissageEntreprises videos={[]} />
@@ -95,7 +95,7 @@ describe('CampagneApprentissageEntreprises', () => {
 				})).toBeVisible();
 				expect(screen.getByRole('link', { name: 'Consulter la FAQ' })).toHaveAttribute('href', '/faq/apprentissage-employeurs-apprentis');
 			});
-			it('je vois les informations pour accéder à la page d‘apprentissage pour les employeurs', () => {
+			it('affiche les informations pour accéder à la page d‘apprentissage pour les employeurs', () => {
 				render(
 					<DependenciesProvider youtubeService={aVideoService()}>
 						<CampagneApprentissageEntreprises videos={[]} />
@@ -269,28 +269,28 @@ describe('CampagneApprentissageEntreprises', () => {
 		describe('Section redirections externes sur l’embauche d’un apprenti', () => {
 			describe('affiche une sous section pour se renseigner', () => {
 				it('comprenant un titre', () => {
-					// WHEN
+					// When
 					render(
 						<DependenciesProvider youtubeService={aVideoService()}>
 							<CampagneApprentissageEntreprises videos={[]} />
 						</DependenciesProvider>,
 					);
 
-					// THEN
+					// Then
 					const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
 					const titre = within(section).getByRole('heading', { level: 2, name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
 					expect(titre).toBeVisible();
 				});
 
 				it('comprenant un lien externe vers des renseignements', () => {
-					// WHEN
+					// When
 					render(
 						<DependenciesProvider youtubeService={aVideoService()}>
 							<CampagneApprentissageEntreprises videos={[]} />
 						</DependenciesProvider>,
 					);
 
-					// THEN
+					// Then
 					const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
 					const link = within(section).getByRole('link', { name: 'Se renseigner sur l’embauche - nouvelle fenêtre' });
 					expect(link).toBeVisible();
@@ -299,10 +299,10 @@ describe('CampagneApprentissageEntreprises', () => {
 			});
 			describe('affiche une sous section pour l’aide financière', () => {
 				it('comprenant un titre et une description', () => {
-					// WHEN
+					// When
 					render(<CampagneApprentissageEntreprises videos={[]} />);
 
-					// THEN
+					// Then
 					const section = screen.getByRole('region', { name: 'Vous envisagez de recruter un apprenti\u00A0? Vous pouvez bénéficier d’une aide financière' });
 					const titre = within(section).getByRole('heading', { level: 2, name: /Vous envisagez de recruter un apprenti ?/i });
 					const description = within(section).getByText('Cette aide de 6000 euros maximum est versée pour la première année de contrat, jusqu’au niveau master');
@@ -311,10 +311,10 @@ describe('CampagneApprentissageEntreprises', () => {
 				});
 
 				it('comprenant un lien externe vers une explication sur l’aide financière', () => {
-					// WHEN
+					// When
 					render(<CampagneApprentissageEntreprises videos={[]} />);
 
-					// THEN
+					// Then
 					const section = screen.getByRole('region', { name: 'Vous envisagez de recruter un apprenti\u00A0? Vous pouvez bénéficier d’une aide financière' });
 					const link = within(section).getByRole('link', { name: 'En savoir plus - nouvelle fenêtre' });
 					expect(link).toBeVisible();
@@ -338,9 +338,9 @@ describe('CampagneApprentissageEntreprises', () => {
 						<CampagneApprentissageEntreprises videos={[]} />
 					</DependenciesProvider>,
 				);
-				const titre = screen.queryByRole('heading', { level: 1, name: 'L’apprentissage, pour mon entreprise c’est le bon choix\u00A0!' });
 
 				// Then
+				const titre = screen.queryByRole('heading', { level: 1, name: 'L’apprentissage, pour mon entreprise c’est le bon choix\u00A0!' });
 				expect(titre).not.toBeInTheDocument();
 			});
 			it('affiche le nouveau titre', () => {
@@ -350,9 +350,9 @@ describe('CampagneApprentissageEntreprises', () => {
 						<CampagneApprentissageEntreprises videos={[]} />
 					</DependenciesProvider>,
 				);
-				const titre = screen.getByRole('heading', { level: 1, name: 'Avec l’apprentissage, recrutez la future pépite de votre entreprise\u00A0!' });
 
 				// Then
+				const titre = screen.getByRole('heading', { level: 1, name: 'Avec l’apprentissage, recrutez la future pépite de votre entreprise\u00A0!' });
 				expect(titre).toBeVisible();
 			});
 
@@ -383,6 +383,92 @@ describe('CampagneApprentissageEntreprises', () => {
 				const simulation = screen.getByRole('link', { name: /Déposer mon offre d’apprentissage/i });
 				expect(simulation).toBeVisible();
 				expect(simulation).toHaveAttribute('href', '/apprentissage/deposer-offre');
+			});
+		});
+		describe('Encart redirections internes vers la FAQ et le dépot d’offre', () => {
+			it('masque les informations pour accéder à la FAQ parents-enfants', () => {
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
+				expect(screen.queryByRole('heading', {
+					level: 2,
+					name: 'On répond à toutes vos questions sur l’apprentissage',
+				})).not.toBeInTheDocument();
+			});
+			it('masque les informations pour accéder à la page d‘apprentissage pour les employeurs', () => {
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
+				expect(screen.queryByRole('heading', {
+					level: 2,
+					name: 'Vous êtes à la recherche d’un apprenti ?',
+				})).not.toBeInTheDocument();
+			});
+		});
+		describe('Section témoignages vidéos', () => {
+			it('masque les vidéos', () => {
+				// Given
+				const serverSideVideos = null;
+
+				// When
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageEntreprises videos={serverSideVideos} />
+					</DependenciesProvider>,
+				);
+				// Then
+				expect(screen.queryByRole('region', { name: /Ils ont choisi d’embaucher un apprenti ! Pourquoi pas vous ?/i })).not.toBeInTheDocument();
+			});
+		});
+		describe('Section verbatims apprentis', () => {
+		  it('affiche une section titrée', () => {
+		    // When
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
+		    // Then
+				const section = screen.getByRole('region', { name: 'Découvrez les témoignages de ces personnes.' });
+				const titre = within(section).getByRole('heading', { level: 2, name: 'Pour vous, le plus compliqué sera de trouver un apprenti. Découvrez les témoignages de ces personnes.' });
+				expect(titre).toBeVisible();
+		  });
+		});
+		describe('Section redirections externes sur l’embauche d’un apprenti', () => {
+			it('masque la sous-section pour se renseigner', () => {
+				// When
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
+
+				// Then
+				const section = screen.queryByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
+				expect(section).not.toBeInTheDocument();
+			});
+			it('masque la sous-section pour l’aide financière', () => {
+				// When
+				render(<CampagneApprentissageEntreprises videos={[]} />);
+
+				// Then
+				const section = screen.queryByRole('region', { name: 'Vous envisagez de recruter un apprenti\u00A0? Vous pouvez bénéficier d’une aide financière' });
+				expect(section).not.toBeInTheDocument();
+			});
+			it('affiche une sous-section redirection FAQ', () => {
+				// When
+				render(<CampagneApprentissageEntreprises videos={[]} />);
+
+				// Then
+				const section = screen.getByRole('region', { name: 'Vous souhaitez en savoir plus sur l’apprentissage ?' });
+				const cta = within(section).getByRole('link', { name: 'Découvrez la FAQ' });
+				expect(section).toBeVisible();
+				expect(cta).toBeVisible();
+				expect(cta).toHaveAttribute('href', '/faq/apprentissage-employeurs-apprentis');
 			});
 		});
 	});

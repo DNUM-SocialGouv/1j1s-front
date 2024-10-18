@@ -12,7 +12,6 @@ $padding-horizontal: 1rem;
 
 .raisons {
   @extend %container;
-  background-color: utilities-deprecated.$color-background-white-lilac;
 
   & h2 {
     @extend %subheading;

@@ -1,0 +1,54 @@
+@use "@styles/utilities-deprecated";
+
+.articleList {
+  @extend %max-container;
+  padding: 1rem;
+  list-style: none;
+  
+  & > li {
+    padding-block: 1rem;
+  }
+
+  &Wrapper {
+    background-color: utilities-deprecated.$color-background-white-lilac;
+  }
+
+  @include utilities-deprecated.media(xlarge) {
+    margin: auto;
+    padding-inline: 0;
+  }
+}
+
+
+.card {
+  position: relative;
+
+  .illustration {
+    height: 180px;
+
+    img {
+      object-fit: cover;
+    }
+
+    &Contain {
+      img {
+        object-fit: contain;
+      }
+    }
+  }
+
+  .content {
+    @extend %text-regular;
+    padding-block: 1.25rem;
+    padding-inline: 1.5rem;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .title {
+    @extend %text-medium;
+    @include utilities-deprecated.line-clamp(2);
+    margin-bottom: 0.5rem;
+  }
+}

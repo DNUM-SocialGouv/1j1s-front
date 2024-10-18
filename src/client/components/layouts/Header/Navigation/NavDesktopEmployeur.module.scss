@@ -60,7 +60,7 @@ $background-color-NavItem-hover :color.adjust($background-color-NavItem, utiliti
     height: 0;
 
     &.expanded {
-      height: var(--contentHeight, 25rem);
+      height: auto;
       border-top: 1px solid utilities-deprecated.$color-separator;
     }
 

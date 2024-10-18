@@ -5,6 +5,7 @@ $colorHeroButtonOutline: utilities.$color-cta-background-secondary;
 $gap-between-sections: 1.5rem;
 $color-background-stages-seconde: #51BCB3;
 $color-background-world-skills: #2E1651;
+$color-background-world-skills: #2E1651;
 
 .accueil > :not(:last-child)  {
   margin-bottom: $gap-between-sections;
@@ -52,8 +53,14 @@ $color-background-world-skills: #2E1651;
       }
     }
   }
-  &.worldSkills{
+  &.worldSkills {
     background-color: $color-background-world-skills;
+  }
+  &.apprentissage {
+    h2 {
+      color: utilities.$color-title-apprentissage-2024;
+      padding-bottom: 1.25rem;
+    }
   }
 }
 

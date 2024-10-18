@@ -46,6 +46,8 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 
 	const isBannerWorldSkillsVisible = process.env.NEXT_PUBLIC_WORLD_SKILLS_FEATURE === '1';
 
+	const isCampagneApprentissageVisible = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
+
 	const actualitesCardListContent: CardContent[] = accueilProps.actualites.map((carte: Actualite): CardContent => {
 		return {
 			children: <p>{carte.extraitContenu}</p>,
@@ -322,6 +324,25 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 							</HeroSecondaryText>
 							<Link href="https://worldskills2024.com" appearance={'asSecondaryButton'} className={styles.heroButton}>
 							Plus d’infos
+								<Link.Icon />
+							</Link>
+						</HeroWithIllustration>
+					)
+				}
+
+				{isCampagneApprentissageVisible
+					&& (
+						<HeroWithIllustration image="/images/campagne-apprentissage-banniere.webp" className={classNames(styles.hero, styles.apprentissage)}>
+							<h2>
+								<HeroPrimaryText className={styles.heroTitle}>
+									Employeurs ou futurs apprentis
+								</HeroPrimaryText>
+							</h2>
+							<HeroSecondaryText>
+								Du 22 au 30 octobre, 1jeune1solution vous propose un article par jour pour répondre à toutes vos questions sur l’apprentissage.
+							</HeroSecondaryText>
+							<Link href="/articles/avantages-apprentissage-employeurs-apprentis" appearance={'asSecondaryButton'} className={styles.heroButton}>
+								Lire l’article
 								<Link.Icon />
 							</Link>
 						</HeroWithIllustration>

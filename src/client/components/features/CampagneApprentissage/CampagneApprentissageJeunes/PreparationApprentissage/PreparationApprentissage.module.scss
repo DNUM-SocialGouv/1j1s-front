@@ -23,13 +23,6 @@
       }
     }
 
-    & .choixApprentissage{
-      background-color: utilities-deprecated.$color-background-white-lilac;
-      @include utilities-deprecated.media(large) {
-        background-color: utilities-deprecated.$color-background;
-      }
-      }
-
     & .link {
       justify-content: center;
       max-width: 60ch;

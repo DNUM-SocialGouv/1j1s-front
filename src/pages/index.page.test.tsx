@@ -192,6 +192,58 @@ describe('Page d’accueil', () => {
 				expect(voirStageSecondeButton).toHaveAttribute('href', 'https://worldskills2024.com');
 			});
 		});
+		
+		describe('Apprentissage Octobre 2024', () => {
+			describe('feature flip', () => {
+				it('affiche la bannière si le feature flip est activé', () => {
+					// Given
+					process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
+
+					// When
+					render(
+						<DependenciesProvider analyticsService={analyticsService}>
+							<Accueil actualites={anActualiteList()} />
+						</DependenciesProvider>,
+					);
+
+					// Then
+					expect(screen.getByText('Employeurs ou futurs apprentis')).toBeVisible();
+				});
+				it('n’affiche pas la bannière si le feature flip est désactivé', () => {
+					// Given
+					process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
+
+					// When
+					render(
+						<DependenciesProvider analyticsService={analyticsService}>
+							<Accueil actualites={anActualiteList()} />
+						</DependenciesProvider>,
+					);
+
+					// Then
+					expect(screen.queryByText('Employeurs ou futurs apprentis')).not.toBeInTheDocument();
+				});
+			});
+
+			it('la bannière contient les wording de la campagne apprentissage', () => {
+				// Given
+				process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
+
+				// When
+				render(
+					<DependenciesProvider analyticsService={analyticsService}>
+						<Accueil actualites={anActualiteList()} />
+					</DependenciesProvider>,
+				);
+
+				// Then
+				const heading = screen.getByRole('heading', { level: 2, name: 'Employeurs ou futurs apprentis' });
+				expect(heading).toBeVisible();
+				const voirPlusButton = screen.getByRole('link', { name: 'Lire l’article' });
+				expect(voirPlusButton).toBeVisible();
+				expect(voirPlusButton).toHaveAttribute('href', '/articles/avantages-apprentissage-employeurs-apprentis');
+			});
+		});
 	});
 
 	describe('Sections', () => {
