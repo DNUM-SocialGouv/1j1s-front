@@ -14,25 +14,19 @@ export default class MetaMarketingService implements MarketingService {
 
 			cookies: ['xs', 'sb', 'fr', 'datr', 'dpr', 'c_user', '_fbp'],
 			js: function () {
-				'use strict';
-				if (!window.tarteaucitron.user.metaId) return;
-				if (!window.fbq) {
-					const n = window.fbq = function (...args: any[]) {
-						n.callMethod ? n.callMethod.apply(n, args) : n.queue.push(args);
-					};
-					if (!window._fbq) {
-						window._fbq = n;
-					}
-					n.push = n;
-					n.loaded = !0;
-					n.version = '2.0';
-					n.queue = [];
-				}
 
-				window.tarteaucitron.addScript(`https://connect.facebook.net/${window.tarteaucitron.getLocale()}/fbevents.js`, '', function () {
-					window.fbq('init', window.tarteaucitron.user.metaId);
-					window.fbq('track', 'PageView');
-				});
+				if (location.pathname === '/choisir-apprentissage') {
+					const pixel = document.createElement('img');
+					pixel.src = `https://www.facebook.com/tr?id=${MetaMarketingService.metaId}&ev=PageView&noscript=1`;
+					pixel.width = 1;
+					pixel.height = 1;
+					pixel.alt = '';
+					pixel.setAttribute('style', 'position: absolute; transform: translateX(-101%);');
+					document.body.prepend(pixel);
+					document.addEventListener('navigate', () => {
+						pixel.remove();
+					});
+				}
 			},
 			key: 'meta',
 			name: 'Meta',
@@ -45,10 +39,5 @@ export default class MetaMarketingService implements MarketingService {
 	}
 
 	trackPage(pagename: string): void {
-		if (pagename === 'off') {
-			this.cookieService.addUser('metaId', undefined);
-		} else {
-			this.cookieService.addUser('metaId', MetaMarketingService.metaId);
-		}
 	}
 }
