@@ -9,7 +9,7 @@ function useAnalytics(pageTags: PageTags): ManualAnalyticsService {
 	const analyticsAlreadySent = useRef(false);
 
 	const sendAnalytics = useCallback(() => {
-		if (analyticsService.isAllowed() && !analyticsAlreadySent.current) {
+		if (!analyticsAlreadySent.current) {
 			analyticsService.envoyerAnalyticsPageVue(pageTags);
 			analyticsAlreadySent.current = true;
 		}
