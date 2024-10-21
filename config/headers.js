@@ -3,15 +3,17 @@ const LOCAL_MODE_HEADERS = [];
 const STRAPI_MEDIA_HOST = new URL(process.env.STRAPI_MEDIA_URL).hostname;
 const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.meilisearch.io/multi-search *.meilisearch.com/multi-search 1j1s-front.osc-fr1.scalingo.io *.1jeune1solution.gouv.fr';
 const ANALYTICS_SOURCES = `${process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN} ${process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_HOST}`;
+// FIXME (GAFI 16-10-2024): Si on passait par un Record<CSPKeys, string[]>, ça pourrait nous éviter les typos et améliorer la lisibilité
 const contentSecurityPolicy = `
   default-src 'self' ${TRUSTED_SOURCES};
-  script-src 'self' ${ANALYTICS_SOURCES} https://*.adform.net;
-  img-src 'self' *.google.com data: ${STRAPI_MEDIA_HOST} ${ANALYTICS_SOURCES} img.youtube.com jedonnemonavis.numerique.gouv.fr;
+  script-src 'self' ${ANALYTICS_SOURCES} https://*.adform.net www.googletagmanager.com analytics.tiktok.com *.adnxs.com *.adsrvr.org *.facebook.com *.facebook.net;
+  img-src 'self' *.google.com data: ${STRAPI_MEDIA_HOST} ${ANALYTICS_SOURCES} img.youtube.com jedonnemonavis.numerique.gouv.fr *.adnxs.com *.adsrvr.org *.doubleclick.net p1.zemanta.com *.facebook.com;
   style-src 'self' 'unsafe-inline' ${ANALYTICS_SOURCES};
   frame-ancestors 'none';
-  frame-src 'self' *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube-nocookie.com simulateur-alternance.1jeune1solution.gouv.fr https://*.adform.net mes-aides.francetravail.fr;
+  frame-src 'self' *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube-nocookie.com simulateur-alternance.1jeune1solution.gouv.fr https://*.adform.net mes-aides.francetravail.fr *.doubleclick.net *.adsrvr.org;
   form-action 'self';
   base-uri 'none';
+  connect-src 'self' ${TRUSTED_SOURCES} analytics.tiktok.com *.facebook.com *.adnxs.com;
 `;
 
 const SECURITY_MODE_HEADERS = [{

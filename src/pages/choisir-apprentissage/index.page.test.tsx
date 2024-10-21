@@ -12,6 +12,7 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aMarketingService } from '~/client/services/marketing/marketing.service.fixture';
 import { aVideoService } from '~/client/services/video/video.service.fixture';
 import { aVideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -51,9 +52,11 @@ describe('Page Apprentissage Jeunes', () => {
 
 				const result = await getServerSideProps();
 
-				expect(result).toMatchObject({ props: {
-					videos: [],
-				} });
+				expect(result).toMatchObject({
+					props: {
+						videos: [],
+					},
+				});
 			});
 		});
 
@@ -62,7 +65,7 @@ describe('Page Apprentissage Jeunes', () => {
 				const videos = [
 					aVideoCampagneApprentissage(),
 					aVideoCampagneApprentissage({
-						titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+						titre: 'Qu\'est-ce que le Contrat d\'Engagement Jeune CEJ ?',
 						transcription: '[transcription]',
 						videoId: '7zD4PCOiUvw',
 					}),
@@ -71,9 +74,11 @@ describe('Page Apprentissage Jeunes', () => {
 
 				const result = await getServerSideProps();
 
-				expect(result).toMatchObject({ props: {
-					videos: videos,
-				} });
+				expect(result).toMatchObject({
+					props: {
+						videos: videos,
+					},
+				});
 			});
 		});
 	});
@@ -84,16 +89,22 @@ describe('Page Apprentissage Jeunes', () => {
 			const videos = [
 				aVideoCampagneApprentissage(),
 				aVideoCampagneApprentissage({
-					titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+					titre: 'Qu\'est-ce que le Contrat d\'Engagement Jeune CEJ ?',
 					transcription: '[transcription]',
 					videoId: '7zD4PCOiUvw',
 				}),
 			];
 
 			const { container } = render(
-				<DependenciesProvider analyticsService={aManualAnalyticsService()} youtubeService={aVideoService()}>
+				<DependenciesProvider
+					marketingService={aMarketingService()}
+					amnetService={aMarketingService()}
+					metaService={aMarketingService()}
+					tiktokService={aMarketingService()}
+					analyticsService={aManualAnalyticsService()}
+					youtubeService={aVideoService()}>
 					<ApprentissageJeunes videos={videos} />
-				</DependenciesProvider> );
+				</DependenciesProvider>);
 
 			await screen.findByText('Avec l’apprentissage, vous apprenez directement');
 
@@ -105,7 +116,7 @@ describe('Page Apprentissage Jeunes', () => {
 			const videos = [
 				aVideoCampagneApprentissage(),
 				aVideoCampagneApprentissage({
-					titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+					titre: 'Qu\'est-ce que le Contrat d\'Engagement Jeune CEJ ?',
 					transcription: '[transcription]',
 					videoId: '7zD4PCOiUvw',
 				}),
@@ -113,6 +124,10 @@ describe('Page Apprentissage Jeunes', () => {
 
 			const { container } = render(
 				<DependenciesProvider
+					marketingService={aMarketingService()}
+					amnetService={aMarketingService()}
+					metaService={aMarketingService()}
+					tiktokService={aMarketingService()}
 					analyticsService={analyticsService}
 					youtubeService={aVideoService()}>
 					<ApprentissageJeunes videos={videos} />
@@ -125,9 +140,14 @@ describe('Page Apprentissage Jeunes', () => {
 		});
 
 		it('affiche une section principale avec ancre pour le lien d‘évitement', () => {
-		// WHEN
+			// WHEN
 			render(
-				<DependenciesProvider analyticsService={analyticsService}>
+				<DependenciesProvider
+					marketingService={aMarketingService()}
+					amnetService={aMarketingService()}
+					metaService={aMarketingService()}
+					tiktokService={aMarketingService()}
+					analyticsService={analyticsService}>
 					<ApprentissageJeunes videos={[]} />
 				</DependenciesProvider>,
 			);
@@ -140,19 +160,32 @@ describe('Page Apprentissage Jeunes', () => {
 
 		it('affiche la bonne page', () => {
 			render(
-				<DependenciesProvider analyticsService={analyticsService}>
+				<DependenciesProvider
+					marketingService={aMarketingService()}
+					amnetService={aMarketingService()}
+					metaService={aMarketingService()}
+					tiktokService={aMarketingService()}
+					analyticsService={analyticsService}>
 					<ApprentissageJeunes videos={[]} />
 				</DependenciesProvider>,
 			);
 
-			const titrePage = screen.getByRole('heading', { level: 1, name: /Avec l’apprentissage, vous apprenez directement sur le terrain et vous êtes payés !/i });
+			const titrePage = screen.getByRole('heading', {
+				level: 1,
+				name: /Avec l’apprentissage, vous apprenez directement sur le terrain et vous êtes payés !/i,
+			});
 
 			expect(titrePage).toBeVisible();
 		});
 
 		it('affiche le titre du document', () => {
 			render(
-				<DependenciesProvider analyticsService={analyticsService}>
+				<DependenciesProvider
+					marketingService={aMarketingService()}
+					amnetService={aMarketingService()}
+					metaService={aMarketingService()}
+					tiktokService={aMarketingService()}
+					analyticsService={analyticsService}>
 					<ApprentissageJeunes videos={[]} />
 				</DependenciesProvider>,
 			);

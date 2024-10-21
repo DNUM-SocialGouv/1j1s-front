@@ -9,6 +9,7 @@ import { render, screen } from '@testing-library/react';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aMarketingService } from '~/client/services/marketing/marketing.service.fixture';
 import { aVideoService } from '~/client/services/video/video.service.fixture';
 import { aVideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -45,6 +46,9 @@ describe('<ApprentissageEntreprises />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
+				marketingService={aMarketingService()}
+				seedtagService={aMarketingService()}
+				azerionService={aMarketingService()}
 				analyticsService={aManualAnalyticsService()}
 				youtubeService={aVideoService()}>
 				<ApprentissageEntreprises videos={videos} />
@@ -52,6 +56,7 @@ describe('<ApprentissageEntreprises />', () => {
 
 		expect(container.outerHTML).toHTMLValidate();
 	});
+
 	it('n’a pas de défaut d‘accessibilité', async () => {
 		mockSmallScreen();
 		const videos = [
@@ -65,6 +70,9 @@ describe('<ApprentissageEntreprises />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
+				marketingService={aMarketingService()}
+				seedtagService={aMarketingService()}
+				azerionService={aMarketingService()}
 				analyticsService={aManualAnalyticsService()}
 				youtubeService={aVideoService()}>
 				<ApprentissageEntreprises videos={videos} />);
