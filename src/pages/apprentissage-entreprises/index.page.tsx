@@ -7,8 +7,8 @@ import {
 import { Head } from '~/client/components/head/Head';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import styles from '~/pages/apprentissage/index.module.scss';
 import { MarketingService } from '~/client/services/marketing/marketing.service';
+import styles from '~/pages/apprentissage/index.module.scss';
 import analyticsPageConfig from '~/pages/apprentissage-entreprises/index.analytics';
 import { VideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage';
 import { isFailure } from '~/server/errors/either';
