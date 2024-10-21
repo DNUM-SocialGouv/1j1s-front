@@ -466,8 +466,8 @@ describe('CampagneApprentissageEntreprises', () => {
 				render(<CampagneApprentissageEntreprises videos={[]} />);
 
 				// Then
-				const section = screen.getByRole('region', { name: 'Vous souhaitez en savoir plus sur l’apprentissage ?' });
-				const cta = within(section).getByRole('link', { name: 'Découvrez la FAQ' });
+				const section = screen.getByRole('region', { name: 'Vous voulez en savoir plus sur l’apprentissage ?' });
+				const cta = within(section).getByRole('link', { name: 'Consultez notre FAQ' });
 				expect(section).toBeVisible();
 				expect(cta).toBeVisible();
 				expect(cta).toHaveAttribute('href', '/faq/apprentissage-employeurs-apprentis');

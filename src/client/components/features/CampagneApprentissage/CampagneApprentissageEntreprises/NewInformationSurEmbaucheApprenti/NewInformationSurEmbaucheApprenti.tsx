@@ -10,11 +10,14 @@ export function NewInformationSurEmbaucheApprenti() {
 	return (
 		<Container className={styles.informationSurEmbauche}>
 			<section aria-labelledby={'titre-section-aide'} className={styles.aideFinanciere}>
-				<h2 id={'titre-section-aide'}>
-					Vous souhaitez en savoir plus sur l’apprentissage ?
-				</h2>
+				<hgroup>
+					<h2 id={'titre-section-aide'}>
+					Vous voulez en savoir plus sur l’apprentissage ?
+					</h2>
+					<p>Nous avons toutes les réponses à vos questions !</p>
+				</hgroup>
 				<Link href={'/faq/apprentissage-employeurs-apprentis'} appearance={'asPrimaryButton'} className={styles.link}>
-						Découvrez la FAQ
+						Consultez notre FAQ
 					<Link.Icon />
 				</Link>
 			</section>
