@@ -1,5 +1,20 @@
 # Changelog
 
+## [3.350.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.349.1...v3.350.0) (2024-10-21)
+
+
+### Features
+
+* Ajoute la version exempte de consentement d'Eulerian ([#3376](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3376)) ([57f3e90](https://github.com/DNUM-SocialGouv/1j1s-front/commit/57f3e903133428d0638826c81e65d3762c0f2ac4))
+* Ajoute le tracking pour la campagne apprentissage ([#3363](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3363)) ([62a2581](https://github.com/DNUM-SocialGouv/1j1s-front/commit/62a25818f5071b492fc9d79273c09f46b730068d))
+* **campagne:** Accueil, Page Employeur, Page Apprenti ([#3356](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3356)) ([4dbd88a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4dbd88aebb5f038d92824780ae5d514f2d3ab746))
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#3360](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3360)) ([603503c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/603503c5e5a5fedfabdb3aac94f33c16c3e6554c))
+* **deps:** update all non-major dependencies ([#3370](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3370)) ([29de875](https://github.com/DNUM-SocialGouv/1j1s-front/commit/29de87506edd8de62c606e82664b00a9e82e49d8))
+
 ## [3.349.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.349.0...v3.349.1) (2024-10-14)
 
 
