@@ -64,7 +64,7 @@ export default class SeedtagMarketingService implements MarketingService {
 			name: 'Seedtag',
 			needConsent: true,
 			type: 'ads',
-			uri: /* FIXME (GAFI 08-10-2024): */  'https://eulerian.com/vie-privee',
+			uri: 'https://www.seedtag.com/fr/cookies-policy/',
 		};
 		this.cookiesService.addService(SeedtagMarketingService.SEEDTAG_SERVICE_NAME, config);
 	}

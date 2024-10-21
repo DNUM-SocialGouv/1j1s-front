@@ -1281,7 +1281,7 @@ tarteaucitron.services.xandr = {
 	name: 'Amnet - Xandr',
 	needConsent: true,
 	type: 'ads',
-	uri: 'https://www.xandr.com/privacy/cookie-policy/',
+	uri: 'https://support.google.com/displayvideo/topic/3528231?hl=en&ref_topic=9059505&sjid=9933903973918710720-EU',
 };
 
 // xandr segment
@@ -6387,8 +6387,8 @@ tarteaucitron.services.tiktok = {
 	key: 'tiktok',
 	name: 'Tiktok',
 	needConsent: true,
-	type: 'analytic',
-	uri: 'https://www.tiktok.com/legal/tiktok-website-cookies-policy',
+	type: 'ads',
+	uri: 'https://www.tiktok.com/legal/page/global/cookie-policy/fr',
 };
 
 // Klaviyo

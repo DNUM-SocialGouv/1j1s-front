@@ -25,8 +25,8 @@ export default class AzerionMarketingService implements MarketingService {
 			key: 'azerion',
 			name: 'Azerion',
 			needConsent: true,
-			type: /* FIXME (GAFI 11-10-2024): */'analytic',
-			uri: /* FIXME (GAFI 11-10-2024): */ 'https://www.tiktok.com/legal/tiktok-website-cookies-policy',
+			type: 'ads',
+			uri: 'https://www.azerion.com/azerion-global-corporate-cookie-notice/',
 		};
 		this.cookieService.addService('azerion', config);
 	}
