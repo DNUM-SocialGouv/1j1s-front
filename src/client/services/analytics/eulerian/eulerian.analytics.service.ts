@@ -78,16 +78,14 @@ export class EulerianAnalyticsService implements ManualAnalyticsService {
 	}
 
 	public envoyerAnalyticsPageVue(pageTags: PageTags): void {
-		if (this.isAllowed()) {
-			const datalayer: Array<string> = [];
-			Object.entries(SITE_TAGS).forEach(([key, value]) => {
-				datalayer.push(key, value);
-			});
-			Object.entries(pageTags).forEach(([key, value]) => {
-				datalayer.push(key, value);
-			});
-			this.pushDatalayer(datalayer);
-		}
+		const datalayer: Array<string> = [];
+		Object.entries(SITE_TAGS).forEach(([key, value]) => {
+			datalayer.push(key, value);
+		});
+		Object.entries(pageTags).forEach(([key, value]) => {
+			datalayer.push(key, value);
+		});
+		this.pushDatalayer(datalayer);
 	}
 
 	public isAllowed(): boolean {

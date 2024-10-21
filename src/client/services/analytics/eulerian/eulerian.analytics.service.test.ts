@@ -54,7 +54,7 @@ describe('EulerianAnalyticsService', () => {
 		});
 
 		describe('quand le consentement n’est pas autorisé', () => {
-			it('n’envoie aucun événement page au tracking', () => {
+			it('envoie quand même l’événement page exempté au tracking', () => {
 				const cookiesService = aCookiesService({ isServiceAllowed: () => false });
 				const analyticsService = new EulerianAnalyticsService(cookiesService);
 				const analyticsPageConfig: PageTags = {
@@ -66,7 +66,7 @@ describe('EulerianAnalyticsService', () => {
 
 				analyticsService.envoyerAnalyticsPageVue(analyticsPageConfig);
 
-				expect(eulerianAnalyticsPushSpy).not.toHaveBeenCalled();
+				expect(eulerianAnalyticsPushSpy).toHaveBeenCalledTimes(1);
 			});
 		});
 	});
