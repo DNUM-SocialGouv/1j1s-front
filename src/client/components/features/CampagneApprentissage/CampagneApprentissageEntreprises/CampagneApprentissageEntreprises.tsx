@@ -135,7 +135,10 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 			{campagneApprentissageEstEnCours && (
 				<section aria-labelledby={'titre-section-verbatims'} className={styles.sectionVerbatims}>
 					<Container>
-						<h2>Pour vous, le plus compliqué sera de trouver un apprenti. <span id={'titre-section-verbatims'}>Découvrez les témoignages de ces personnes.</span></h2>
+						<hgroup>
+							<h2 id={'titre-section-verbatims'}>Ils ont choisi de former des apprentis, pourquoi pas vous ?</h2>
+							<p>Découvrez les témoignages de Fabrice, Gaël, Julien, et de leurs apprentis !</p>
+						</hgroup>
 						<SeeMoreItemList
 							itemList={verbatimsApprentisListe.map((verbatim, index) => {
 								return (

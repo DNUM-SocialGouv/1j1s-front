@@ -433,9 +433,11 @@ describe('CampagneApprentissageEntreprises', () => {
 					</DependenciesProvider>,
 				);
 		    // Then
-				const section = screen.getByRole('region', { name: 'Découvrez les témoignages de ces personnes.' });
-				const titre = within(section).getByRole('heading', { level: 2, name: 'Pour vous, le plus compliqué sera de trouver un apprenti. Découvrez les témoignages de ces personnes.' });
+				const section = screen.getByRole('region', { name: 'Ils ont choisi de former des apprentis, pourquoi pas vous ?' });
+				const titre = within(section).getByRole('heading', { level: 2, name: 'Ils ont choisi de former des apprentis, pourquoi pas vous ?' });
+				const sousTitre = within(section).getByText('Découvrez les témoignages de Fabrice, Gaël, Julien, et de leurs apprentis !');
 				expect(titre).toBeVisible();
+				expect(sousTitre).toBeVisible();
 		  });
 		});
 		describe('Section redirections externes sur l’embauche d’un apprenti', () => {
@@ -464,8 +466,8 @@ describe('CampagneApprentissageEntreprises', () => {
 				render(<CampagneApprentissageEntreprises videos={[]} />);
 
 				// Then
-				const section = screen.getByRole('region', { name: 'Vous souhaitez en savoir plus sur l’apprentissage ?' });
-				const cta = within(section).getByRole('link', { name: 'Découvrez la FAQ' });
+				const section = screen.getByRole('region', { name: 'Vous voulez en savoir plus sur l’apprentissage ?' });
+				const cta = within(section).getByRole('link', { name: 'Consultez notre FAQ' });
 				expect(section).toBeVisible();
 				expect(cta).toBeVisible();
 				expect(cta).toHaveAttribute('href', '/faq/apprentissage-employeurs-apprentis');

@@ -62,11 +62,26 @@
     padding: 5rem 1rem;
   }
 
+  & hgroup {
+    margin-bottom: 2.5rem;
+  }
+
   & h2 {
     @extend %headline;
     font-weight: bold;
-    text-align: center;
-    margin-bottom: 2.5rem;
+
+    @include utilities.media(large) {
+      text-align: center;
+    }
+  }
+
+  & h2 + p {
+    @extend %subheading;
+    color: utilities.$color-title-primary-contrast;
+    
+    @include utilities.media(large) {
+      text-align: center;
+    }
   }
 
   & .temoignage {
