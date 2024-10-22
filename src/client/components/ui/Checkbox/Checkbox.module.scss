@@ -10,9 +10,6 @@ $checkbox-padding: .5rem;
   content: "";
   width: $checkbox-width;
   aspect-ratio: 1;
-  background-size: 1rem;
-  background-position: center;
-  background-repeat: no-repeat;
   border-radius: 0.25rem;
   box-shadow: inset 0 0 0 1px utilities-deprecated.$color-on-surface;
   vertical-align: baseline;
@@ -23,6 +20,9 @@ $checkbox-padding: .5rem;
 %checkbox-checked {
   background-color: utilities-deprecated.$color-primary;
   background-image: url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23fff' d='M10 15.17l9.2-9.2 1.4 1.42L10 18l-6.36-6.36 1.4-1.42z'/></svg>");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .checkbox {
