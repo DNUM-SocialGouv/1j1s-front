@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.351.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.350.0...v3.351.0) (2024-10-21)
+
+
+### Features
+
+* **campagne:** wording page employeurs verbatims et FAQ ([#3380](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3380)) ([ff34909](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ff349095d505692532fa572f07511099b3421334))
+
+
+### Bug Fixes
+
+* **campagne:** ajoute guillemets aux verbatims ([#3383](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3383)) ([970e7cd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/970e7cdc3daec46752c3bb5d0f7ac376fcfe7eb0))
+* **deps:** update dependency @mdx-js/react to v3.1.0 ([#3378](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3378)) ([fa869ad](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fa869ad3522b912d0b559e3033772e6e4fde7f6a))
+* **deps:** update dependency axios-cache-interceptor to v1.6.1 ([#3377](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3377)) ([eb8aa3d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/eb8aa3d8d87ebfbaca261024c942d6367874ae7e))
+
 ## [3.350.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.349.1...v3.350.0) (2024-10-21)
 
 
