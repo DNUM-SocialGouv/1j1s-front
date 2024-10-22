@@ -6,6 +6,7 @@ $checkbox-width: 1rem;
 $checkbox-padding: .5rem;
 
 %checkbox {
+  // FIXME (GAFI 22-10-2024): Passer le content dans les composants qui utilisent cette mixin
   content: "";
   width: $checkbox-width;
   aspect-ratio: 1;
@@ -14,6 +15,9 @@ $checkbox-padding: .5rem;
   background-repeat: no-repeat;
   border-radius: 0.25rem;
   box-shadow: inset 0 0 0 1px utilities-deprecated.$color-on-surface;
+  vertical-align: baseline;
+  // NOTE (GAFI 22-10-2024): Compense pour la baseline de Marianne qui est cassée
+  transform: translateY(.1em);
 }
 
 %checkbox-checked {
@@ -22,8 +26,6 @@ $checkbox-padding: .5rem;
 }
 
 .checkbox {
-  position: relative;
-
   label {
     display: block;
     color: utilities-deprecated.$color-on-surface;
@@ -31,39 +33,27 @@ $checkbox-padding: .5rem;
   }
 
   input[type=checkbox] {
-    position: absolute;
     margin: 0;
-    opacity: 0;
-    top: 50%;
-    transform: translateY(-50%);
-
-    &:focus + label:before {
-      outline: 2px solid utilities-deprecated.$color-primary;
-      outline-offset: 2px;
-    }
+    appearance: none;
+    outline-offset: 2px;
+    margin-inline: $checkbox-padding;
   }
 
   input[type=checkbox] + label {
     position: relative;
-    padding: 0.75rem 0 0.75rem calc($checkbox-width + 2 * $checkbox-padding);
     -webkit-tap-highlight-color: transparent;
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
     flex-wrap: wrap;
   }
 
-  input[type=checkbox] + label::before {
+  input[type=checkbox] {
     @extend %checkbox;
-    display: block;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: $checkbox-padding;
   }
 
-  input[type=checkbox]:checked + label::before {
+  input[type=checkbox]:checked {
     @extend %checkbox-checked;
   }
 }
