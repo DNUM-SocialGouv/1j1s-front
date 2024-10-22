@@ -207,7 +207,7 @@ describe('Page d’accueil', () => {
 					);
 
 					// Then
-					expect(screen.getByText('Employeurs ou futurs apprentis')).toBeVisible();
+					expect(screen.getByText('Employeurs ou futurs apprentis ?')).toBeVisible();
 				});
 				it('n’affiche pas la bannière si le feature flip est désactivé', () => {
 					// Given
@@ -221,7 +221,7 @@ describe('Page d’accueil', () => {
 					);
 
 					// Then
-					expect(screen.queryByText('Employeurs ou futurs apprentis')).not.toBeInTheDocument();
+					expect(screen.queryByText('Employeurs ou futurs apprentis ?')).not.toBeInTheDocument();
 				});
 			});
 
@@ -237,7 +237,7 @@ describe('Page d’accueil', () => {
 				);
 
 				// Then
-				const heading = screen.getByRole('heading', { level: 2, name: 'Employeurs ou futurs apprentis' });
+				const heading = screen.getByRole('heading', { level: 2, name: 'Employeurs ou futurs apprentis ?' });
 				expect(heading).toBeVisible();
 				const voirPlusButton = screen.getByRole('link', { name: 'Lire l’article' });
 				expect(voirPlusButton).toBeVisible();
