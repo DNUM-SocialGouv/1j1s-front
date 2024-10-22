@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.351.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.351.0...v3.351.1) (2024-10-22)
+
+
+### Bug Fixes
+
+* **campagne:** ajoute ? au titre de la campagne ([#3386](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3386)) ([98e1c79](https://github.com/DNUM-SocialGouv/1j1s-front/commit/98e1c79e34f7e9b3c9be77440d16dd4459855bf3))
+
 ## [3.351.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.350.0...v3.351.0) (2024-10-21)
 
 
