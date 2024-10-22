@@ -11,10 +11,8 @@ $checkbox-padding: .5rem;
   width: $checkbox-width;
   aspect-ratio: 1;
   border-radius: 0.25rem;
-  box-shadow: inset 0 0 0 1px utilities-deprecated.$color-on-surface;
+  border: 1px solid utilities-deprecated.$color-on-surface;
   vertical-align: baseline;
-  // NOTE (GAFI 22-10-2024): Compense pour la baseline de Marianne qui est cassée
-  transform: translateY(.1em);
 }
 
 %checkbox-checked {
@@ -27,26 +25,15 @@ $checkbox-padding: .5rem;
 
 .checkbox {
   label {
-    display: block;
+    display: inline;
     color: utilities-deprecated.$color-on-surface;
     @extend %label-champ;
   }
 
   input[type=checkbox] {
-    margin: 0;
     appearance: none;
     outline-offset: 2px;
     margin-inline: $checkbox-padding;
-  }
-
-  input[type=checkbox] + label {
-    position: relative;
-    -webkit-tap-highlight-color: transparent;
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    flex-wrap: wrap;
   }
 
   input[type=checkbox] {
