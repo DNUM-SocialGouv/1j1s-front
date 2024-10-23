@@ -57,6 +57,7 @@
     }
     &[aria-multiselectable="true"] {
       [role="option"]::before {
+        content: "";
         @extend %checkbox;
       }
       [role="option"][aria-selected="true"]::before {

@@ -5,8 +5,6 @@ $checkbox-width: 1rem;
 $checkbox-padding: .5rem;
 
 %checkbox {
-  // FIXME (GAFI 22-10-2024): Passer le content dans les composants qui utilisent cette mixin
-  content: "";
   width: $checkbox-width;
   aspect-ratio: 1;
   border-radius: 0.25rem;
