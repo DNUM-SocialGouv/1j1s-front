@@ -21,6 +21,8 @@ $checkbox-padding: .5rem;
 }
 
 .checkbox {
+  // FIXME (GAFI 23-10-2024): Déplacer la gestion du layout dans les parents
+  margin-block: 0.75rem;
   label {
     display: inline;
     color: utilities.$color-text-primary;
