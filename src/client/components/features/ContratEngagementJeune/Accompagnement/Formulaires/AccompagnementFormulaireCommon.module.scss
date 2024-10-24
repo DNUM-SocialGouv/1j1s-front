@@ -47,13 +47,16 @@
     }
   }
 
-  fieldset .autresBesoinsReponsesWrapper input[type=checkbox] + label {
-    display: block;
-    text-align: center;
-    @extend %action;
-
-    &::before {
-      display: none;
+  fieldset .autresBesoinsReponsesWrapper {
+    // FIXME (GAFI 23-10-2024): passer la classe directement aux checkboxes plutôt qu'au wrapper ?
+    & input[type=checkbox] {
+      position: absolute;
+      opacity: 0;
+    }
+    & label {
+      display: block;
+      text-align: center;
+      @extend %action;
     }
   }
 
