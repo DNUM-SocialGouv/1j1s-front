@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.351.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.351.2...v3.351.3) (2024-10-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency phone to v3.1.52 ([#3393](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3393)) ([77f12e1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/77f12e1c7210d3c0987c28a069e15761ec1356e2))
+
 ## [3.351.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.351.1...v3.351.2) (2024-10-24)
 
 
