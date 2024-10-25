@@ -23,7 +23,6 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from '../Select.module.scss';
 import { getOptionsElement, SelectSimpleAction, SelectSimpleReducer } from './SelectSimpleReducer';
 
-const ERROR_LABEL_REQUIRED_SIMPLE = 'Séléctionnez un élément de la liste';
 const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
@@ -59,18 +58,22 @@ export function SelectSimple(props: SelectSimpleProps) {
 	const [touched, setTouched] = useState<boolean>(false);
 	const [placeholder, setPlaceholder] = useState<string>();
 
-	const [state, dispatch] = useReducer(
+	const [{
+		activeDescendant,
+		open,
+		selectedValue,
+	}, dispatch] = useReducer(
 		SelectSimpleReducer, {
 			activeDescendant: undefined,
-			isListOptionsOpen: false,
-			optionSelectedValue: defaultValue ? defaultValue : '',
+			open: false,
 			refListOption: listboxRef,
-			valueTypedByUser: '',
+			selectedValue: defaultValue ? defaultValue : '',
+			userInput: '',
 			visibleOptions: [],
 		},
 	);
 
-	const optionSelectedValue = value ?? state.optionSelectedValue;
+	const optionSelectedValue = value ?? selectedValue;
 
 	const placeholderWhenValueSelected = useCallback(() => {
 		if (optionSelectedValue) {
@@ -98,18 +101,14 @@ export function SelectSimple(props: SelectSimpleProps) {
 		dispatch(new SelectSimpleAction.CloseList());
 		onTouchProps(true);
 		setTouched(true);
-
-		if (required && !optionSelectedValue) {
-			inputHiddenRef.current?.setCustomValidity(ERROR_LABEL_REQUIRED_SIMPLE);
-		}
 		inputHiddenRef.current?.checkValidity();
-	}, [onTouchProps, optionSelectedValue, required]);
+	}, [onTouchProps]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
-		if (state.activeDescendant) {
-			document.getElementById(state.activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+		if (activeDescendant) {
+			document.getElementById(activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 		}
-	}, [state.activeDescendant]);
+	}, [activeDescendant]);
 
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLButtonElement>) {
 		const newFocusStillInSelect = event.currentTarget.contains(event.relatedTarget);
@@ -139,31 +138,28 @@ export function SelectSimple(props: SelectSimpleProps) {
 		const isUserTypeLetter = event.key.length === 1 && event.key !== KeyBoard.SPACE && !altKey && !ctrlKey && !metaKey;
 		if (isUserTypeLetter) {
 			event.preventDefault();
-			if (!state.isListOptionsOpen) {
-				dispatch(new SelectSimpleAction.OpenList());
-			}
 			dispatch(new SelectSimpleAction.FocusOptionMatchingUserInput(key));
 			handlefocusOnTypeLetterDebounce();
 		}
 
 		switch (key) {
 			case KeyBoard.PAGE_UP:
-				if (state.isListOptionsOpen) {
+				if (open) {
 					event.preventDefault();
 					dispatch(new SelectSimpleAction.PreviousOption(10));
 				}
 				break;
 			case KeyBoard.PAGE_DOWN:
-				if (state.isListOptionsOpen) {
+				if (open) {
 					event.preventDefault();
 					dispatch(new SelectSimpleAction.NextOption(10));
 				}
 				break;
 			case KeyBoard.ARROW_UP:
 			case KeyBoard.IE_ARROW_UP:
-				if (state.isListOptionsOpen) {
+				if (open) {
 					if (altKey) {
-						if (state.activeDescendant) { selectOption(state.activeDescendant); };
+						if (activeDescendant) { selectOption(activeDescendant); };
 					} else {
 						dispatch(new SelectSimpleAction.PreviousOption());
 					}
@@ -174,7 +170,7 @@ export function SelectSimple(props: SelectSimpleProps) {
 				break;
 			case KeyBoard.ARROW_DOWN:
 			case KeyBoard.IE_ARROW_DOWN:
-				if (state.isListOptionsOpen) {
+				if (open) {
 					dispatch(new SelectSimpleAction.NextOption());
 				} else {
 					dispatch(new SelectSimpleAction.OpenList());
@@ -183,14 +179,14 @@ export function SelectSimple(props: SelectSimpleProps) {
 				break;
 			case KeyBoard.ESCAPE:
 			case KeyBoard.IE_ESCAPE:
-				if (state.isListOptionsOpen) event.preventDefault();
+				if (open) event.preventDefault();
 				closeList();
 				break;
 			case KeyBoard.SPACE:
 			case KeyBoard.ENTER: {
-				if (state.isListOptionsOpen) {
-					if (state.activeDescendant) {
-						selectOption(state.activeDescendant);
+				if (open) {
+					if (activeDescendant) {
+						selectOption(activeDescendant);
 						event.preventDefault();
 					}
 				} else {
@@ -200,15 +196,15 @@ export function SelectSimple(props: SelectSimpleProps) {
 				break;
 			}
 			case KeyBoard.TAB: {
-				if (state.isListOptionsOpen) {
-					if (state.activeDescendant) {
-						selectOption(state.activeDescendant);
+				if (open) {
+					if (activeDescendant) {
+						selectOption(activeDescendant);
 					}
 				}
 				break;
 			}
 			case KeyBoard.HOME: {
-				if (!state.isListOptionsOpen) {
+				if (!open) {
 					dispatch(new SelectSimpleAction.OpenList());
 				}
 				dispatch(new SelectSimpleAction.FocusFirstOption());
@@ -216,7 +212,7 @@ export function SelectSimple(props: SelectSimpleProps) {
 				break;
 			}
 			case KeyBoard.END: {
-				if (!state.isListOptionsOpen) {
+				if (!open) {
 					dispatch(new SelectSimpleAction.OpenList());
 				}
 				dispatch(new SelectSimpleAction.FocusLastOption());
@@ -227,11 +223,11 @@ export function SelectSimple(props: SelectSimpleProps) {
 				break;
 
 		}
-	}, [closeList, handlefocusOnTypeLetterDebounce, selectOption, state]);
+	}, [activeDescendant, closeList, handlefocusOnTypeLetterDebounce, open, selectOption]);
 
 	return (
 		<SelectContext.Provider value={{
-			activeDescendant: state.activeDescendant,
+			activeDescendant: activeDescendant,
 			isCurrentItemSelected,
 			onOptionSelection: selectOption,
 		}}>
@@ -249,10 +245,10 @@ export function SelectSimple(props: SelectSimpleProps) {
 					role="combobox"
 					aria-controls={listboxId}
 					aria-haspopup="listbox"
-					aria-expanded={state.isListOptionsOpen}
+					aria-expanded={open}
 					data-touched={touched}
 					onClick={() => dispatch(new SelectSimpleAction.ToggleList())}
-					aria-activedescendant={state.activeDescendant}
+					aria-activedescendant={activeDescendant}
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}
 					{...rest}>
@@ -265,7 +261,7 @@ export function SelectSimple(props: SelectSimpleProps) {
 					aria-label={optionsAriaLabel}
 					id={listboxId}
 					tabIndex={-1}
-					hidden={!state.isListOptionsOpen}>
+					hidden={!open}>
 					{children}
 				</ul>
 			</div>
