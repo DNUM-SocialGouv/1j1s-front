@@ -17,7 +17,7 @@ export function Radio({ id: propsId, label, className, ...rest } : RadioProps) {
 				type="radio"
 				{...rest}
 				id={id} />
-			<label className={styles.label} htmlFor={id}>
+			<label htmlFor={id}>
 				{label}
 			</label>
 		</div>
