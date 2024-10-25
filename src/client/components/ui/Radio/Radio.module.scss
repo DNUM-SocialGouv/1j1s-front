@@ -1,4 +1,3 @@
-@use "@styles/utilities-deprecated";
 @use "@styles/utilities";
 @use "@styles/components/form/variables";
 
@@ -6,61 +5,37 @@ $radio-width: 1rem;
 $radio-padding: .5rem;
 
 %radio {
-  content: "";
   width: $radio-width;
   aspect-ratio: 1;
   border-radius: 50%;
-  box-shadow: inset 0 0 0 1px utilities-deprecated.$color-on-surface;
+  border: 1px solid utilities.$color-text-primary;
 }
 
 %radio-checked {
-  background-color: utilities-deprecated.$color-primary;
-  box-shadow: inset 0 0 0 1px utilities-deprecated.$color-on-surface, inset 0 0 0 4px #fff, inset 0 0 0 10px utilities-deprecated.$color-primary;
+  background-color: utilities.$color-primary;
+  box-shadow: inset 0 0 0 calc($radio-width / 4) utilities.$color-background-primary;
 }
 
 .radioButton {
-  position: relative;
-
-  .label {
-    display: block;
-    color: utilities-deprecated.$color-on-surface;
+  // FIXME (GAFI 23-10-2024): Déplacer la gestion du layout dans les parents
+  margin-block: 0.75rem;
+  label {
+    display: inline;
+    color: utilities.$color-text-primary;
     @extend %label-champ;
   }
 
   input[type=radio] {
-    position: absolute;
-    opacity: 0;
-    top: 50%;
-    transform: translateY(-50%);
-
-    &:focus + label::before {
-      outline: 2px solid utilities.$color-primary;
-      outline-offset: 2px;
-    }
+    appearance: none;
+    outline-offset: 2px;
+    margin-inline: $radio-padding;
   }
 
-  input[type=radio] + label {
-    position: relative;
-    // FIXME (GAFI 06-09-2024): Probablement moyen de faire beaucoup mieux avec du grid
-    padding: 0.75rem 0 0.75rem calc($radio-width + 2 * $radio-padding);
-    -webkit-tap-highlight-color: transparent;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
-
-  input[type=radio] + label::before {
-    display: block;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: $radio-padding;
+  input[type=radio] {
     @extend %radio
   }
 
-  input[type=radio]:checked + label::before {
+  input[type=radio]:checked {
     @extend %radio-checked;
   }
 }
