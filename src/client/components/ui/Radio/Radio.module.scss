@@ -6,8 +6,6 @@ $radio-width: 1rem;
 $radio-padding: .5rem;
 
 %radio {
-  // FIXME (GAFI 25-10-2024): À déplacer à l'usage
-  content: "";
   width: $radio-width;
   aspect-ratio: 1;
   border-radius: 50%;
@@ -20,48 +18,25 @@ $radio-padding: .5rem;
 }
 
 .radioButton {
-  position: relative;
-
-  .label {
-    display: block;
-    color: utilities-deprecated.$color-on-surface;
+  // FIXME (GAFI 23-10-2024): Déplacer la gestion du layout dans les parents
+  margin-block: 0.75rem;
+  label {
+    display: inline;
+    color: utilities.$color-text-primary;
     @extend %label-champ;
   }
 
   input[type=radio] {
-    position: absolute;
-    opacity: 0;
-    top: 50%;
-    transform: translateY(-50%);
-
-    &:focus + label::before {
-      outline: 2px solid utilities.$color-primary;
-      outline-offset: 2px;
-    }
+    appearance: none;
+    outline-offset: 2px;
+    margin-inline: $radio-padding;
   }
 
-  input[type=radio] + label {
-    position: relative;
-    // FIXME (GAFI 06-09-2024): Probablement moyen de faire beaucoup mieux avec du grid
-    padding: 0.75rem 0 0.75rem calc($radio-width + 2 * $radio-padding);
-    -webkit-tap-highlight-color: transparent;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
-
-  input[type=radio] + label::before {
-    display: block;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: $radio-padding;
+  input[type=radio] {
     @extend %radio
   }
 
-  input[type=radio]:checked + label::before {
+  input[type=radio]:checked {
     @extend %radio-checked;
   }
 }

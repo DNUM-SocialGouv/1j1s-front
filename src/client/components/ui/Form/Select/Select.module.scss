@@ -49,6 +49,7 @@
 
     &:not([aria-multiselectable="true"]) {
       [role="option"]::before {
+        content: "";
         @extend %radio;
       }
       [role="option"][aria-selected="true"]::before {
