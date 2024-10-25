@@ -46,10 +46,9 @@ describe('<SelectSimpleSimple/>', () => {
 			expect(onInvalid).not.toHaveBeenCalled();
 		});
 
-		it('lorsque le select est requis et que l‘utilisateur n‘a pas séléctionné d‘option, il ne peux pas soumettre le formulaire', async () => {
+		it('lorsque le select est requis et que l‘utilisateur n‘a pas sélectionné d‘option, il ne peux pas soumettre le formulaire', async () => {
 			const onSubmit = jest.fn();
 			const user = userEvent.setup();
-
 			render(<form onSubmit={onSubmit} aria-label={'form'}>
 				<SelectSimple optionsAriaLabel={'options'} required>
 					<SelectSimple.Option value="1">options 1</SelectSimple.Option>
@@ -59,13 +58,13 @@ describe('<SelectSimpleSimple/>', () => {
 			</form>);
 
 			await user.click(screen.getByRole('button', { name: 'Submit' }));
+
 			expect(onSubmit).not.toHaveBeenCalled();
 		});
 
-		it('lorsque le select est requis et que l‘utilisateur ouvre puis ferme le select sans selectionner d‘option, appelle onInvalid et affiche le message d‘erreur', async () => {
+		it('lorsque le select est requis et que l‘utilisateur ouvre puis ferme le select sans sélectionner d‘option, appelle onInvalid', async () => {
 			const user = userEvent.setup();
 			const onInvalid = jest.fn();
-
 			render(<SelectSimple optionsAriaLabel={'options'} required onInvalid={onInvalid}>
 				<SelectSimple.Option value="1">options 1</SelectSimple.Option>
 				<SelectSimple.Option value="2">options 2</SelectSimple.Option>
@@ -78,10 +77,9 @@ describe('<SelectSimpleSimple/>', () => {
 			expect(onInvalid).toHaveBeenCalledTimes(1);
 		});
 
-		it('lorsque le select est requis et en erreur, lorsque l‘utilisateur séléctionne une option le select n‘est plus en erreur', async () => {
+		it('lorsque le select est requis et en erreur, lorsque l‘utilisateur sélectionne une option le select n‘est plus en erreur', async () => {
 			const onInvalid = jest.fn();
 			const user = userEvent.setup();
-
 			render(<>
 				<SelectSimple
 					optionsAriaLabel={'options'}
@@ -91,16 +89,16 @@ describe('<SelectSimpleSimple/>', () => {
 					<SelectSimple.Option value="2">options 2</SelectSimple.Option>
 				</SelectSimple>
 			</>);
-
 			await user.tab();
 			await user.keyboard(KeyBoard.ENTER);
 			await user.keyboard(KeyBoard.ESCAPE);
+			onInvalid.mockReset();
 
 			await user.keyboard(KeyBoard.ENTER);
 			await user.keyboard(KeyBoard.ARROW_DOWN);
 			await user.keyboard(KeyBoard.ENTER);
 
-			expect(onInvalid).toHaveBeenCalledTimes(1);
+			expect(onInvalid).toHaveBeenCalledTimes(0);
 			expect(screen.getByRole('textbox', { hidden: true })).toBeValid();
 		});
 	});
@@ -718,7 +716,7 @@ describe('<SelectSimpleSimple/>', () => {
 		});
 	});
 
-	describe('label de l‘option séléctionné (placeholder)', () => {
+	describe('label de l‘option sélectionné (placeholder)', () => {
 		it('affiche le placeholder lorsqu‘un placeholder est donné en props', () => {
 
 			render(<SelectSimple optionsAriaLabel={'options'} placeholder={'placeholder'}>
@@ -835,7 +833,7 @@ describe('<SelectSimpleSimple/>', () => {
 	});
 
 	describe('touched', () => {
-		it('lorsque l‘utilisateur n‘a pas interragit avec le champ, le select n‘est pas touched', () => {
+		it('lorsque l‘utilisateur n‘a pas interagit avec le champ, le select n‘est pas touched', () => {
 			const onTouch = jest.fn();
 
 			render(<SelectSimple optionsAriaLabel={'options'} onTouch={onTouch}>
@@ -865,7 +863,7 @@ describe('<SelectSimpleSimple/>', () => {
 			expect(combobox).toHaveAttribute('data-touched', 'true');
 		});
 
-		it('lorsque l‘utilisateur ouvre puis selectionne une option, le select est touched', async () => {
+		it('lorsque l‘utilisateur ouvre puis sélectionne une option, le select est touched', async () => {
 			const user = userEvent.setup();
 			const onTouch = jest.fn();
 
