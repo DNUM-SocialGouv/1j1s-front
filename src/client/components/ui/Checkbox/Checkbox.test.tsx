@@ -4,7 +4,7 @@
 
 import { render, screen } from '@testing-library/react';
 
-import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
+import { Checkbox } from './Checkbox';
 
 describe('<Checkbox />', () => {
 	it('affiche une checkbox', () => {
