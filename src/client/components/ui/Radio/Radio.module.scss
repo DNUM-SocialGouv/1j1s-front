@@ -1,4 +1,3 @@
-@use "@styles/utilities-deprecated";
 @use "@styles/utilities";
 @use "@styles/components/form/variables";
 
@@ -13,8 +12,8 @@ $radio-padding: .5rem;
 }
 
 %radio-checked {
-  background-color: utilities-deprecated.$color-primary;
-  box-shadow: inset 0 0 0 calc($radio-width / 4) utilities-deprecated.$white;
+  background-color: utilities.$color-primary;
+  box-shadow: inset 0 0 0 calc($radio-width / 4) utilities.$color-background-primary;
 }
 
 .radioButton {
