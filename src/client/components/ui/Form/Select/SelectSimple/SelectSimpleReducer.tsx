@@ -9,7 +9,7 @@ export type SelectSimpleState = {
 	userInput: string
 }
 
-export function getOptionsElement(refListOption: RefObject<HTMLUListElement>) {
+export function getOptionsElement(refListOption: RefObject<HTMLElement>) {
 	return Array.from(refListOption.current?.querySelectorAll('[role="option"]') ?? []);
 }
 
@@ -65,6 +65,15 @@ export namespace SelectSimpleAction {
 		}
 	}
 
+	export class ClearUserInput implements SelectSimpleAction {
+		execute(previousState: SelectSimpleState): SelectSimpleState {
+			return {
+				...previousState,
+				userInput: '',
+			};
+		}
+	}
+
 	export class FocusOptionMatchingUserInput implements SelectSimpleAction {
 		private readonly userInputKey: string;
 
@@ -95,6 +104,7 @@ export namespace SelectSimpleAction {
 			return {
 				...previousState,
 				activeDescendant: getOptionsElement(previousState.refListOption)[0]?.id,
+				open: true,
 			};
 		}
 	}
@@ -105,6 +115,7 @@ export namespace SelectSimpleAction {
 			return {
 				...previousState,
 				activeDescendant: lastOption?.id,
+				open: true,
 			};
 		}
 	}

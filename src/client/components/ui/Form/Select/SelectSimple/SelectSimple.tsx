@@ -3,6 +3,7 @@ import React, {
 	FocusEvent,
 	FormEventHandler,
 	KeyboardEvent,
+	RefObject,
 	SyntheticEvent,
 	useCallback,
 	useEffect,
@@ -23,11 +24,11 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from '../Select.module.scss';
 import { getOptionsElement, SelectSimpleAction, SelectSimpleReducer } from './SelectSimpleReducer';
 
-const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
+const DEFAULT_PLACEHOLDER = 'Sélectionnez votre choix';
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
 export type SelectSimpleProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onChange' | 'onInvalid'> & {
-	value?: string;
+	value?: Value;
 	onChange?: (value: HTMLElement) => void;
 	defaultValue?: string;
 	onTouch?: (touched: boolean) => void,
@@ -37,61 +38,55 @@ export type SelectSimpleProps = Omit<React.ComponentPropsWithoutRef<'button'>, '
 	optionsAriaLabel: string;
 }
 
-export function SelectSimple(props: SelectSimpleProps) {
-	const {
-		optionsAriaLabel,
-		children,
-		value,
-		placeholder: placeholderProps,
-		name,
-		onChange: onChangeProps = doNothing,
-		onInvalid: onInvalidProps = doNothing,
-		onTouch: onTouchProps = doNothing,
-		defaultValue,
-		required,
-		...rest
-	} = props;
+type Value = string;
+
+export function SelectSimple({
+	optionsAriaLabel,
+	children,
+	value: valueProps,
+	placeholder: placeholderProps,
+	name,
+	onChange: onChangeProps = doNothing,
+	onInvalid: onInvalidProps = doNothing,
+	onTouch: onTouchProps = doNothing,
+	defaultValue,
+	required,
+	...rest
+}: SelectSimpleProps) {
 	const listboxRef = useRef<HTMLUListElement>(null);
 	const inputHiddenRef = useRef<HTMLInputElement>(null);
 	const listboxId = useId();
 
 	const [touched, setTouched] = useState<boolean>(false);
-	const [placeholder, setPlaceholder] = useState<string>();
 
 	const [{
 		activeDescendant,
 		open,
-		selectedValue,
+		selectedValue: valueState,
 	}, dispatch] = useReducer(
 		SelectSimpleReducer, {
 			activeDescendant: undefined,
 			open: false,
 			refListOption: listboxRef,
-			selectedValue: defaultValue ? defaultValue : '',
+			selectedValue: defaultValue ?? '',
 			userInput: '',
 			visibleOptions: [],
 		},
 	);
 
-	const optionSelectedValue = value ?? selectedValue;
-
-	const placeholderWhenValueSelected = useCallback(() => {
-		if (optionSelectedValue) {
-			const options = getOptionsElement(listboxRef);
-			const optionSelected = options.find((option) => option.getAttribute('data-value') === optionSelectedValue);
-			return optionSelected?.textContent;
-		}
-	}, [optionSelectedValue]);
+	const value = valueProps ?? valueState;
+	const placeholder = useDisplayName(value, listboxRef, placeholderProps);
 
 	useEffect(() => {
-		setPlaceholder(placeholderWhenValueSelected() ?? placeholderProps ?? SELECT_PLACEHOLDER_SINGULAR);
-	}, [optionSelectedValue, placeholderProps, placeholderWhenValueSelected]);
+		if (touched) {
+			inputHiddenRef.current?.checkValidity();
+		}
+	}, [value, touched]);
 
 	const selectOption = useCallback((optionId: string) => {
 		setTouched(true);
 		onTouchProps(true);
 
-		inputHiddenRef.current?.setCustomValidity('');
 		dispatch(new SelectSimpleAction.SelectOption(optionId));
 		const option = document.getElementById(optionId);
 		if (option) onChangeProps(option);
@@ -101,7 +96,6 @@ export function SelectSimple(props: SelectSimpleProps) {
 		dispatch(new SelectSimpleAction.CloseList());
 		onTouchProps(true);
 		setTouched(true);
-		inputHiddenRef.current?.checkValidity();
 	}, [onTouchProps]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
@@ -121,25 +115,21 @@ export function SelectSimple(props: SelectSimpleProps) {
 	}, [closeList]);
 
 	const isCurrentItemSelected = useCallback((optionValue?: string) => {
-		return optionSelectedValue === optionValue;
-	}, [optionSelectedValue]);
+		return value === optionValue;
+	}, [value]);
 
-	const resetValueTypedByUser = useCallback(() => {
-		dispatch(new SelectSimpleAction.SetValueTypedByUser(''));
+	const clearUserInput = useMemo(() => {
+		return debounce(() => dispatch(new SelectSimpleAction.ClearUserInput()), DEFAULT_DEBOUNCE_TIMEOUT);
 	}, []);
-
-	const handlefocusOnTypeLetterDebounce = useMemo(() => {
-		return debounce(resetValueTypedByUser, DEFAULT_DEBOUNCE_TIMEOUT);
-	}, [resetValueTypedByUser]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
 		const { key, altKey, ctrlKey, metaKey } = event;
 
-		const isUserTypeLetter = event.key.length === 1 && event.key !== KeyBoard.SPACE && !altKey && !ctrlKey && !metaKey;
-		if (isUserTypeLetter) {
+		const searchableCharacter = event.key.length === 1 && event.key !== KeyBoard.SPACE && !altKey && !ctrlKey && !metaKey;
+		if (searchableCharacter) {
 			event.preventDefault();
 			dispatch(new SelectSimpleAction.FocusOptionMatchingUserInput(key));
-			handlefocusOnTypeLetterDebounce();
+			clearUserInput();
 		}
 
 		switch (key) {
@@ -179,8 +169,10 @@ export function SelectSimple(props: SelectSimpleProps) {
 				break;
 			case KeyBoard.ESCAPE:
 			case KeyBoard.IE_ESCAPE:
-				if (open) event.preventDefault();
-				closeList();
+				if (open) {
+					event.preventDefault();
+					closeList();
+				}
 				break;
 			case KeyBoard.SPACE:
 			case KeyBoard.ENTER: {
@@ -204,17 +196,11 @@ export function SelectSimple(props: SelectSimpleProps) {
 				break;
 			}
 			case KeyBoard.HOME: {
-				if (!open) {
-					dispatch(new SelectSimpleAction.OpenList());
-				}
 				dispatch(new SelectSimpleAction.FocusFirstOption());
 				event.preventDefault();
 				break;
 			}
 			case KeyBoard.END: {
-				if (!open) {
-					dispatch(new SelectSimpleAction.OpenList());
-				}
 				dispatch(new SelectSimpleAction.FocusLastOption());
 				event.preventDefault();
 				break;
@@ -223,7 +209,7 @@ export function SelectSimple(props: SelectSimpleProps) {
 				break;
 
 		}
-	}, [activeDescendant, closeList, handlefocusOnTypeLetterDebounce, open, selectOption]);
+	}, [activeDescendant, closeList, clearUserInput, open, selectOption]);
 
 	return (
 		<SelectContext.Provider value={{
@@ -239,7 +225,7 @@ export function SelectSimple(props: SelectSimpleProps) {
 					aria-hidden={'true'}
 					name={name}
 					onInvalid={onInvalidProps}
-					value={optionSelectedValue} />
+					value={value} />
 				<button
 					type="button"
 					role="combobox"
@@ -277,6 +263,24 @@ function cancelEvent(event: SyntheticEvent) {
 
 function doNothing() {
 	return;
+}
+
+function useDisplayName(value: Value | undefined, listRef: RefObject<HTMLElement>, placeholder?: string): string {
+	const [displayName, setDisplayName] = useState<string>('');
+
+	const getDisplayName = useCallback((value: Value | undefined) => {
+		if (!value) return undefined;
+
+		const options = getOptionsElement(listRef);
+		const optionSelected = options.find((option) => option.getAttribute('data-value') === value);
+		return optionSelected?.textContent;
+	}, [listRef]);
+
+	useEffect(() => {
+		setDisplayName(getDisplayName(value) ?? placeholder ?? DEFAULT_PLACEHOLDER);
+	}, [value, placeholder, getDisplayName]);
+
+	return displayName;
 }
 
 SelectSimple.Option = SelectOption;
