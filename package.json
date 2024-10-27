@@ -87,7 +87,7 @@
     "jest": "29.7.0",
     "jest-axe": "9.0.0",
     "jest-environment-jsdom": "29.7.0",
-    "next-test-api-route-handler": "4.0.12",
+    "next-test-api-route-handler": "4.0.14",
     "nock": "13.5.5",
     "sass": "1.80.4",
     "storybook": "8.3.6",
