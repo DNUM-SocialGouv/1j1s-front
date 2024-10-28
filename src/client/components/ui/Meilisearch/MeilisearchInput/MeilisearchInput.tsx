@@ -1,15 +1,13 @@
 import classNames from 'classnames';
 import React, {
 	ChangeEvent,
-	useEffect,
-	useRef,
+	useId,
 	useState,
 } from 'react';
 import {
 	useSearchBox,
 	UseSearchBoxProps,
 } from 'react-instantsearch';
-import { v4 as uuidv4 } from 'uuid';
 
 import { Icon } from '../../Icon/Icon';
 import styles from './MeilisearchInput.module.scss';
@@ -26,14 +24,14 @@ export const MeilisearchInput = (props: MeilisearchCustomSearchBoxProps & UseSea
 	const {
 		label,
 		name,
-		id,
+		id: idProps,
 		placeholder,
 		resetTitle,
 		className,
 	} = props;
 	const { refine, clear, query } = useSearchBox(props);
-	const uuid = uuidv4();
-	const inputRef = useRef(id || uuid);
+	const internalId = useId();
+	const inputId = idProps ?? internalId;
 
 	const DEFAULT_RESET_TITLE = 'Vider le champ de recherche';
 	const [value, setValue] = useState(query);
@@ -48,16 +46,12 @@ export const MeilisearchInput = (props: MeilisearchCustomSearchBoxProps & UseSea
 		clear();
 	};
 
-	useEffect(() => {
-		inputRef.current = id || uuid;
-	}, [id, uuid]);
-
 	return (
 		<div className={classNames(className)}>
-			<label className={styles.label} htmlFor={inputRef.current}>{label}</label>
+			<label className={styles.label} htmlFor={inputId}>{label}</label>
 			<span className={styles.customSearchBoxInputWrapper}>
 				<input
-					id={inputRef.current}
+					id={inputId}
 					type="text"
 					name={name}
 					placeholder={placeholder}

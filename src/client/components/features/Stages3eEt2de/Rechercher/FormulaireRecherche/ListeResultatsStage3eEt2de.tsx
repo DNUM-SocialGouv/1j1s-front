@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
@@ -23,12 +21,12 @@ export function ListeResultatsStage3eEt2de({ resultatList }: ListeResultatsStage
 	return (
 		<ListeRésultatsRechercherSolution
 			aria-label={'Stages de 3e et 2de'}>
-			{resultatList.resultats.map((stage3eEt2de) => ResultatStage3eEt2de(stage3eEt2de))}
+			{resultatList.resultats.map((stage, index) => <ResultatStage3eEt2de stage3eEt2de={stage} key={index} />)}
 		</ListeRésultatsRechercherSolution>
 	);
 }
 
-function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
+function ResultatStage3eEt2de({ stage3eEt2de }: { stage3eEt2de: Stage3eEt2de }) {
 	const étiquetteOffreList: string[] = [];
 
 	if (stage3eEt2de.nombreDeSalaries) {
@@ -61,7 +59,7 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 	const intituleLienOffre = stage3eEt2de.modeDeContact ? getLinkLabel(stage3eEt2de.modeDeContact) : undefined;
 
 	return (
-		<li key={uuidv4()}>
+		<li>
 			<ResultatRechercherSolution
 				intituléOffre={stage3eEt2de.nomEntreprise}
 				sousTitreOffre={(

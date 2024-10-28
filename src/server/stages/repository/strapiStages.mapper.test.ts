@@ -7,8 +7,8 @@ import { aStrapiOffreDeStage, aStrapiOffreDeStageDepot } from '~/server/stages/r
 import { mapOffreStage, mapToStrapiDepotOffreDeStage } from '~/server/stages/repository/strapiStages.mapper';
 
 const uuidMocked = '123456789';
-jest.mock('uuid', () => {
-	return ({ v4: () => uuidMocked });
+jest.mock('crypto', () => {
+	return ({ randomUUID: () => uuidMocked });
 });
 
 describe('strapiStage mapper', () => {
@@ -163,6 +163,5 @@ describe('strapiStage mapper', () => {
 			expect(offreDeStageMapped).toEqual(expectedResult);
 		});
 	});
-
 });
 

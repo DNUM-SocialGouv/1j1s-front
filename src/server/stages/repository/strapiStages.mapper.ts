@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from 'crypto';
 
 import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode';
 import { OffreDeStage, OffreStageDepot } from '~/server/stages/domain/stages';
@@ -55,7 +55,7 @@ export function mapToStrapiDepotOffreDeStage(body: OffreStageDepot.OffreDeStageD
 			nom: body.employeur.nom,
 			siteUrl: body.employeur.siteUrl || null,
 		},
-		identifiantSource: uuidv4(),
+		identifiantSource: randomUUID(),
 		localisation: {
 			adresse: body.localisation.adresse,
 			codePostal: body.localisation.codePostal,

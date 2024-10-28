@@ -9,7 +9,7 @@ import { aStrapiOffreDeStageDepot } from '~/server/stages/repository/strapiStage
 import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
 
 
-jest.mock('uuid', () => ({ v4: () => '123456789' }));
+jest.mock('crypto', () => ({ randomUUID: () => '123456789' }));
 
 describe('enregistrer une offre de stage', () => {
 	const jwt = '3456789098765RFVBGFDRTYHJNfKJHGV';
