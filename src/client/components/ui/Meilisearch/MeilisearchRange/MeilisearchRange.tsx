@@ -1,7 +1,6 @@
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { useRange, UseRangeProps } from 'react-instantsearch';
-import { v4 as uuidv4 } from 'uuid';
 
 import { KeyBoard } from '../../../keyboard/keyboard.enum';
 import { ButtonComponent } from '../../Button/ButtonComponent';
@@ -29,9 +28,9 @@ export function MeilisearchRange(props: UseRangeProps & MeilisearchRangeProps) {
   const [minValue, setMinValue] = useState<number | EmptyInput>('');
   const [maxValue, setMaxValue] = useState<number | EmptyInput>('');
   const rangeBoxRef = useRef<HTMLDivElement>(null);
-  const labelledBy = useRef(uuidv4());
-  const inputMinRef = useRef(uuidv4());
-  const inputMaxRef = useRef(uuidv4());
+  const buttonId = useId();
+  const inputMinId = useId();
+  const inputMaxId = useId();
   const BUTTON_LABEL = 'Appliquer';
 
   useEffect(function updateMinValue() {
@@ -55,6 +54,8 @@ export function MeilisearchRange(props: UseRangeProps & MeilisearchRangeProps) {
   }, [isRangeBoxOpen]);
 
   useEffect(function setEventListenerOnMount() {
+  	// FIXME (GAFI 28-10-2024): À placer plutôt sur le onBlur du composant au global pour éviter le flicker
+  	// 	quand on click sur le label
   	document.addEventListener('mousedown', closeRangeBoxOnClickOutside);
   	document.addEventListener('keyup', closeRangeBoxOnEscape);
 
@@ -92,10 +93,10 @@ export function MeilisearchRange(props: UseRangeProps & MeilisearchRangeProps) {
 
   const renderRangeBox = () => (
   	<fieldset className={styles.rangeBox}>
-  		<label className={styles.label} htmlFor={inputMinRef.current}>Minimum</label>
+  		<label className={styles.label} htmlFor={inputMinId}>Minimum</label>
   		<span className={styles.customRangeInputWrapper}>
   			<input
-  				id={inputMinRef.current}
+  				id={inputMinId}
   				type="number"
   				min={min}
   				max={max}
@@ -103,10 +104,10 @@ export function MeilisearchRange(props: UseRangeProps & MeilisearchRangeProps) {
   				onChange={onMinInputChange} />
   			<span>{unite}</span>
   		</span>
-  		<label className={styles.label} htmlFor={inputMaxRef.current}>Maximum</label>
+  		<label className={styles.label} htmlFor={inputMaxId}>Maximum</label>
   		<span className={classNames(styles.customRangeInputWrapper)}>
   			<input
-  				id={inputMaxRef.current}
+  				id={inputMaxId}
   				type="number"
   				min={min}
   				max={max}
@@ -120,13 +121,13 @@ export function MeilisearchRange(props: UseRangeProps & MeilisearchRangeProps) {
 
   return (
   	<div className={classNames(className)} data-testid={props['data-testid']}>
-  		<label className={styles.label} id={labelledBy.current}>{label}</label>
+  		<label className={styles.label} htmlFor={buttonId}>{label}</label>
   		<div ref={rangeBoxRef} className={styles.selectContainer}>
   			<button
   				type="button"
   				aria-haspopup="listbox"
   				aria-expanded={isRangeBoxOpen}
-  				aria-labelledby={labelledBy.current}
+  				id={buttonId}
   				className={styles.button}
   				onClick={() => setIsRangeBoxOpen(!isRangeBoxOpen)}>
   				<span>{displayPlaceholder()}</span>

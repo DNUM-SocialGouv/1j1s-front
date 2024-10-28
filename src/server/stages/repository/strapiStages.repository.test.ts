@@ -9,7 +9,7 @@ import { StrapiStagesRepository } from '~/server/stages/repository/strapiStages.
 
 
 const RESOURCE_OFFRE_DE_STAGE = 'offres-de-stage';
-jest.mock('uuid', () => ({ v4: () => '123456789' }));
+jest.mock('crypto', () => ({ randomUUID: () => '123456789' }));
 
 describe('strapiStagesRepository', () => {
 	describe('getOffreDeStageBySlug', () => {

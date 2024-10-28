@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import {
 	FormulaireRechercherFormationAlternance,
@@ -130,7 +129,7 @@ function ListeFormation({ résultatList, queryParams }: ListeRésultatProps) {
 
 		<ListeRésultatsRechercherSolution aria-label="Formations en alternance">
 			{résultatList.map((formation) => (
-				<li key={uuidv4()}>
+				<li key={formation.id}>
 					<ResultatRechercherSolution
 						lienOffre={getLienOffre(formation, queryParams)}
 						intituléOffre={formation.titre}

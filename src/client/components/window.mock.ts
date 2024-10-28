@@ -81,3 +81,11 @@ export function mockTarteAuCitron(override?: Partial<TarteAuCitron>) {
 		writable: true,
 	});
 }
+
+export function mockUUID(override?: string) {
+	Object.defineProperty(window, 'crypto', {
+		value: {
+			randomUUID: () => override ?? '1b376eeb-87b8-451f-9735-32a885a0839a',
+		},
+	});
+}

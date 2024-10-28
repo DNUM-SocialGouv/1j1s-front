@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 import { isStorageAvailable } from '~/client/utils/isStorageAvailable';
 
@@ -11,7 +10,8 @@ function useSessionId (): string | undefined {
 		if (isStorageAvailable('sessionStorage')) {
 			let sessionId = sessionStorage ? sessionStorage.getItem(SESSION_ID) : undefined;
 			if (!sessionId) {
-				sessionId = uuidv4();
+				// FIXME (GAFI 28-10-2024): Idéalement à injecter
+				sessionId = window.crypto.randomUUID();
 				sessionStorage.setItem(SESSION_ID, sessionId);
 			}
 			setValue(sessionId);
