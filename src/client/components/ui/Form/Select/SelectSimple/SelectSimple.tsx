@@ -89,12 +89,12 @@ export function SelectSimple({
 
 		dispatch(new SelectSimpleAction.SelectOption(optionId));
 		const option = document.getElementById(optionId);
-		if (option) onChangeProps(option);
+		if (option) { onChangeProps(option); }
 	}, [onChangeProps]);
 
 	const closeList = useCallback(() => {
 		dispatch(new SelectSimpleAction.CloseList());
-	}, [onTouchProps]);
+	}, []);
 
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (activeDescendant) {
@@ -156,7 +156,7 @@ export function SelectSimple({
 			case KeyBoard.IE_ARROW_UP:
 				if (open) {
 					if (altKey) {
-						if (activeDescendant) { selectOption(activeDescendant); };
+						if (activeDescendant) { selectOption(activeDescendant); }
 					} else {
 						dispatch(new SelectSimpleAction.PreviousOption());
 					}
@@ -277,7 +277,7 @@ function useDisplayName(value: Value | undefined, listRef: RefObject<HTMLElement
 	const [displayName, setDisplayName] = useState<string>('');
 
 	const getDisplayName = useCallback((value: Value | undefined) => {
-		if (!value) return undefined;
+		if (!value) { return undefined; }
 
 		const options = getOptionsElement(listRef);
 		const optionSelected = options.find((option) => option.getAttribute('data-value') === value);
