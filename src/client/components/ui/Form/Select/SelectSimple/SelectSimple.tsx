@@ -20,6 +20,7 @@ import { Input } from '~/client/components/ui/Form/Input';
 import { SelectContext } from '~/client/components/ui/Form/Select/SelectContext';
 import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption/SelectOption';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { useTouchedInput } from '~/client/hooks/useTouchedInput';
 
 import styles from '../Select.module.scss';
 import { getOptionsElement, SelectSimpleAction, SelectSimpleReducer } from './SelectSimpleReducer';
@@ -47,6 +48,7 @@ export function SelectSimple({
 	placeholder: placeholderProps,
 	name,
 	onChange: onChangeProps = doNothing,
+	onFocus: onFocusProps = doNothing,
 	onInvalid: onInvalidProps = doNothing,
 	onTouch: onTouchProps = doNothing,
 	defaultValue,
@@ -57,7 +59,7 @@ export function SelectSimple({
 	const inputHiddenRef = useRef<HTMLInputElement>(null);
 	const listboxId = useId();
 
-	const [touched, setTouched] = useState<boolean>(false);
+	const { saveValueOnFocus, setTouchedOnBlur, touched } = useTouchedInput();
 
 	const [{
 		activeDescendant,
@@ -84,18 +86,14 @@ export function SelectSimple({
 	}, [value, touched]);
 
 	const selectOption = useCallback((optionId: string) => {
-		setTouched(true);
-		onTouchProps(true);
 
 		dispatch(new SelectSimpleAction.SelectOption(optionId));
 		const option = document.getElementById(optionId);
 		if (option) onChangeProps(option);
-	}, [onChangeProps, onTouchProps]);
+	}, [onChangeProps]);
 
 	const closeList = useCallback(() => {
 		dispatch(new SelectSimpleAction.CloseList());
-		onTouchProps(true);
-		setTouched(true);
 	}, [onTouchProps]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
@@ -104,6 +102,11 @@ export function SelectSimple({
 		}
 	}, [activeDescendant]);
 
+	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLButtonElement>) {
+		saveValueOnFocus(value ?? '');
+		onFocusProps(event);
+	}, [onFocusProps, saveValueOnFocus, value]);
+
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLButtonElement>) {
 		const newFocusStillInSelect = event.currentTarget.contains(event.relatedTarget);
 		if (newFocusStillInSelect) {
@@ -111,8 +114,12 @@ export function SelectSimple({
 			return;
 		}
 
+		const touched = setTouchedOnBlur(value ?? '');
+		if (touched) {
+			onTouchProps(touched);
+		}
 		closeList();
-	}, [closeList]);
+	}, [closeList, onTouchProps, setTouchedOnBlur, value]);
 
 	const isCurrentItemSelected = useCallback((optionValue?: string) => {
 		return value === optionValue;
@@ -237,6 +244,7 @@ export function SelectSimple({
 					aria-activedescendant={activeDescendant}
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}
+					onFocus={onFocus}
 					{...rest}>
 					{placeholder}
 					<Icon name={'angle-down'} />

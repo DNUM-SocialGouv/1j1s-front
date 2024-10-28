@@ -62,18 +62,19 @@ describe('<SelectSimpleSimple/>', () => {
 			expect(onSubmit).not.toHaveBeenCalled();
 		});
 
-		it('lorsque le select est requis et que l‘utilisateur ouvre puis ferme le select sans sélectionner d‘option, appelle onInvalid', async () => {
+		it('lorsque le select est requis et que l‘utilisateur sélectionne une valeur vide et quitte le champ, appelle onInvalid', async () => {
 			const user = userEvent.setup();
 			const onInvalid = jest.fn();
-			render(<SelectSimple optionsAriaLabel={'options'} required onInvalid={onInvalid}>
+			render(<SelectSimple optionsAriaLabel={'options'} required defaultValue='1' onInvalid={onInvalid}>
+				<SelectSimple.Option value="">aucune option</SelectSimple.Option>
 				<SelectSimple.Option value="1">options 1</SelectSimple.Option>
 				<SelectSimple.Option value="2">options 2</SelectSimple.Option>
 			</SelectSimple>,
 			);
 
+			await user.click(screen.getByRole('combobox'));
+			await user.click(screen.getByRole('option', { name: 'aucune option' }));
 			await user.tab();
-			await user.keyboard(KeyBoard.ENTER);
-			await user.keyboard(KeyBoard.ESCAPE);
 			expect(onInvalid).toHaveBeenCalledTimes(1);
 		});
 
@@ -846,7 +847,7 @@ describe('<SelectSimpleSimple/>', () => {
 			expect(combobox).toHaveAttribute('data-touched', 'false');
 		});
 
-		it('lorsque l‘utilisateur ouvre puis ferme le select, le select est touched', async () => {
+		it('lorsque l‘utilisateur ouvre puis ferme le select et quitte le champ, le select n’est pas touched', async () => {
 			const user = userEvent.setup();
 			const onTouch = jest.fn();
 
@@ -858,12 +859,13 @@ describe('<SelectSimpleSimple/>', () => {
 			const combobox = screen.getByRole('combobox');
 			await user.click(combobox);
 			await user.keyboard(KeyBoard.ESCAPE);
+			await user.tab();
 
-			expect(onTouch).toHaveBeenCalledWith(true);
-			expect(combobox).toHaveAttribute('data-touched', 'true');
+			expect(onTouch).not.toHaveBeenCalled();
+			expect(combobox).toHaveAttribute('data-touched', 'false');
 		});
 
-		it('lorsque l‘utilisateur ouvre puis sélectionne une option, le select est touched', async () => {
+		it('lorsque l‘utilisateur ouvre puis sélectionne une option et quitte le champ, le select est touched', async () => {
 			const user = userEvent.setup();
 			const onTouch = jest.fn();
 
@@ -875,6 +877,7 @@ describe('<SelectSimpleSimple/>', () => {
 			const combobox = screen.getByRole('combobox');
 			await user.click(combobox);
 			await user.click(screen.getByRole('option', { name: 'options 1' }));
+			await user.tab();
 
 			expect(onTouch).toHaveBeenCalledWith(true);
 			expect(combobox).toHaveAttribute('data-touched', 'true');
