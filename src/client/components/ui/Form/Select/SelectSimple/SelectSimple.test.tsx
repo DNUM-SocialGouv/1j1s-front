@@ -35,6 +35,16 @@ describe('<SelectSimpleSimple/>', () => {
 	});
 
 	describe('gestion erreur', () => {
+		it('lorsque le select est requis, marque le champ comme requis', () => {
+			render(<SelectSimple optionsAriaLabel={'options'} required>
+				<SelectSimple.Option value="1">options 1</SelectSimple.Option>
+				<SelectSimple.Option value="2">options 2</SelectSimple.Option>
+			</SelectSimple>,
+			);
+
+			expect(screen.getByRole('combobox')).toBeRequired();
+		});
+
 		it('lorsque le select est requis mais pas touché, n‘appelle pas onInvalid', () => {
 			const onInvalid = jest.fn();
 			render(<SelectSimple optionsAriaLabel={'options'} required onInvalid={onInvalid}>

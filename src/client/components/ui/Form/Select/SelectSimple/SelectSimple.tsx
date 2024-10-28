@@ -240,6 +240,7 @@ export function SelectSimple({
 					aria-haspopup="listbox"
 					aria-expanded={open}
 					data-touched={touched}
+					aria-required={required}
 					onClick={() => dispatch(new SelectSimpleAction.ToggleList())}
 					aria-activedescendant={activeDescendant}
 					onKeyDown={onKeyDown}

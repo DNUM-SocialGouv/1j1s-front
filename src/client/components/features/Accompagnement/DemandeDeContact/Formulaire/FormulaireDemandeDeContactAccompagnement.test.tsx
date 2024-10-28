@@ -95,7 +95,6 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 	});
 
 	it('a un champ Age obligatoire', async () => {
-		const user = userEvent.setup();
 		render(
 			<DependenciesProvider
 				localisationService={aLocalisationService()}
@@ -108,10 +107,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 		);
 
 		const combobox = screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' });
-		await user.click(combobox);
-		await user.keyboard(KeyBoard.ESCAPE);
-
-		expect(combobox).toHaveAccessibleDescription(/Séléctionnez un élément de la liste/);
+		expect(combobox).toBeRequired();
 	});
 
 	describe('quand l’utilisateur souhaite contacter un établissement', () => {

@@ -70,13 +70,10 @@ describe('<FormulaireDeContactCEJ />', () => {
 	});
 
 	it('a un champ Age obligatoire', async () => {
-		const user = userEvent.setup();
 		renderComponent();
-		const combobox = screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' });
-		await user.click(combobox);
-		await user.keyboard(KeyBoard.ESCAPE);
 
-		expect(combobox).toHaveAccessibleDescription(/Séléctionnez un élément de la liste/);
+		const combobox = screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' });
+		expect(combobox).toBeRequired();
 	});
 
 	describe('Quand l’utilisateur clique sur Envoyer la demande', () => {
