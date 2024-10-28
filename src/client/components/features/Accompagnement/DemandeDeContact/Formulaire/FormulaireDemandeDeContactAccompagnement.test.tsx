@@ -8,7 +8,6 @@ import { userEvent } from '@testing-library/user-event';
 import {
 	FormulaireDemandeDeContactAccompagnement,
 } from '~/client/components/features/Accompagnement/DemandeDeContact/Formulaire/FormulaireDemandeDeContactAccompagnement';
-import { KeyBoard } from '~/client/components/keyboard.fixture';
 import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
