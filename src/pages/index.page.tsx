@@ -335,7 +335,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 						<HeroWithIllustration image="/images/campagne-apprentissage-banniere.webp" className={classNames(styles.hero, styles.apprentissage)}>
 							<h2>
 								<HeroPrimaryText className={styles.heroTitle}>
-									Contrat, éligibilité ? Avantages ? 
+									Contrat, éligibilité ? Avantages ?
 								</HeroPrimaryText>
 							</h2>
 							<HeroSecondaryText>
