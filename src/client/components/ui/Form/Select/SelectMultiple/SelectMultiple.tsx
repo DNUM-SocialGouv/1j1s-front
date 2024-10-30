@@ -235,9 +235,8 @@ export function SelectMultiple(props: SelectMultipleProps) {
 					value={optionsSelectedValues[0] || ''} />
 				{optionsSelectedValues.slice(1).map((optionValue) => (
 					<Input
-						tabIndex={-1}
+						type="hidden"
 						key={optionValue}
-						aria-hidden="true"
 						name={name}
 						value={optionValue} />
 				))}
