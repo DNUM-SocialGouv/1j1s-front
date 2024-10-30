@@ -799,8 +799,8 @@ describe('<SelectMultiple/>', () => {
 		});
 	});
 
-	describe('label options séléctionnées (placeholder)', () => {
-		it('lorsqu‘aucune option est séléctionnée, je vois le placeholder par défaut', () => {
+	describe('label options sélectionnées (placeholder)', () => {
+		it('lorsqu‘aucune option est sélectionnée, je vois le placeholder par défaut', () => {
 
 			render(<SelectMultiple optionsAriaLabel={'options'}>
 				<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
@@ -810,7 +810,7 @@ describe('<SelectMultiple/>', () => {
 			expect(screen.getByRole('combobox')).toHaveTextContent(SELECT_MULTIPLE_LABEL_DEFAULT_OPTION);
 		});
 
-		it('lorsqu‘une seule option est séléctionnée, je vois dans le placeholder au singulier', async () => {
+		it('lorsqu‘une seule option est sélectionnée, je vois dans le placeholder au singulier', async () => {
 			const user = userEvent.setup();
 
 			render(<SelectMultiple optionsAriaLabel={'options'}>
@@ -821,10 +821,10 @@ describe('<SelectMultiple/>', () => {
 			await user.click(screen.getByRole('combobox'));
 			await user.click(screen.getByRole('option', { name: 'options 1' }));
 
-			expect(screen.getByRole('combobox')).toHaveTextContent('1 choix séléctionné');
+			expect(screen.getByRole('combobox')).toHaveTextContent('1 choix sélectionné');
 		});
 
-		it('lorsqu‘au moins deux options sont séléctionnées, je vois le nombre d‘options séléctionnées au pluriel dans le placeholder', async () => {
+		it('lorsqu‘au moins deux options sont sélectionnées, je vois le nombre d‘options sélectionnées au pluriel dans le placeholder', async () => {
 			const user = userEvent.setup();
 
 			render(<SelectMultiple optionsAriaLabel={'options'}>
@@ -836,7 +836,7 @@ describe('<SelectMultiple/>', () => {
 			await user.click(screen.getByRole('option', { name: 'options 1' }));
 			await user.click(screen.getByRole('option', { name: 'options 2' }));
 
-			expect(screen.getByRole('combobox')).toHaveTextContent('2 choix séléctionnés');
+			expect(screen.getByRole('combobox')).toHaveTextContent('2 choix sélectionnés');
 		});
 	});
 

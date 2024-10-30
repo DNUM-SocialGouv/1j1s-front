@@ -212,8 +212,8 @@ export function SelectMultiple(props: SelectMultipleProps) {
 
 	function PlaceholderSelectedOptions() {
 		const optionsSelectedValueLength = optionsSelectedValues.length;
-		if (optionsSelectedValueLength > 1) return `${optionsSelectedValueLength} choix séléctionnés`;
-		if (optionsSelectedValueLength === 1) return '1 choix séléctionné';
+		if (optionsSelectedValueLength > 1) return `${optionsSelectedValueLength} choix sélectionnés`;
+		if (optionsSelectedValueLength === 1) return '1 choix sélectionné';
 		if (placeholder) return placeholder;
 		return SELECT_PLACEHOLDER_MULTIPLE;
 	}
