@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.351.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.351.3...v3.351.4) (2024-10-30)
+
+
+### Bug Fixes
+
+* Dégrade gracieusement lorsque pas de randomUUID ([#3411](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3411)) ([a63100b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a63100b426e2bfc2a0f26c29ad4b92d07976014e))
+* **deps:** update dependency @meilisearch/instant-meilisearch to v0.22.0 ([#3407](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3407)) ([f44b9b4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f44b9b4837ef400bf7033cc3f4fab6ab10c554ff))
+* **deps:** update dependency phone to v3.1.53 ([#3410](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3410)) ([d9eb85a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d9eb85a8d78b9539757740a638cff79fe9ec2426))
+
 ## [3.351.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.351.2...v3.351.3) (2024-10-25)
 
 
