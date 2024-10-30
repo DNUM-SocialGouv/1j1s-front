@@ -335,14 +335,14 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 						<HeroWithIllustration image="/images/campagne-apprentissage-banniere.webp" className={classNames(styles.hero, styles.apprentissage)}>
 							<h2>
 								<HeroPrimaryText className={styles.heroTitle}>
-									Employeurs ou futurs apprentis ?
+									Contrat, éligibilité ? Avantages ? 
 								</HeroPrimaryText>
 							</h2>
 							<HeroSecondaryText>
-								Du 22 au 30 octobre, 1jeune1solution vous propose un article par jour pour répondre à toutes vos questions sur l’apprentissage.
+								Retrouvez toutes les réponses à vos questions sur l’apprentissage dans notre FAQ.
 							</HeroSecondaryText>
-							<Link href="/articles/avantages-apprentissage-employeurs-apprentis" appearance={'asSecondaryButton'} className={styles.heroButton}>
-								Lire l’article
+							<Link href="/faq/apprentissage-employeurs-apprentis" appearance={'asSecondaryButton'} className={styles.heroButton}>
+								Consultez notre FAQ
 								<Link.Icon />
 							</Link>
 						</HeroWithIllustration>
