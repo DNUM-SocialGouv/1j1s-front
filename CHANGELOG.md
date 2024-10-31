@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.352.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.351.4...v3.352.0) (2024-10-31)
+
+
+### Features
+
+* **campagne:** modification banniere apprentis ([#3412](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3412)) ([1f1a812](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1f1a81217a232feb6d3f04a217f5ede0982de7b3))
+
 ## [3.351.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.351.3...v3.351.4) (2024-10-30)
 
 
