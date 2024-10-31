@@ -207,7 +207,7 @@ describe('Page d’accueil', () => {
 					);
 
 					// Then
-					expect(screen.getByText('Employeurs ou futurs apprentis ?')).toBeVisible();
+					expect(screen.getByText('Contrat, éligibilité ? Avantages ?')).toBeVisible();
 				});
 				it('n’affiche pas la bannière si le feature flip est désactivé', () => {
 					// Given
@@ -221,7 +221,7 @@ describe('Page d’accueil', () => {
 					);
 
 					// Then
-					expect(screen.queryByText('Employeurs ou futurs apprentis ?')).not.toBeInTheDocument();
+					expect(screen.queryByText('Contrat, éligibilité ? Avantages ?')).not.toBeInTheDocument();
 				});
 			});
 
@@ -237,11 +237,11 @@ describe('Page d’accueil', () => {
 				);
 
 				// Then
-				const heading = screen.getByRole('heading', { level: 2, name: 'Employeurs ou futurs apprentis ?' });
+				const heading = screen.getByRole('heading', { level: 2, name: 'Contrat, éligibilité ? Avantages ?' });
 				expect(heading).toBeVisible();
-				const voirPlusButton = screen.getByRole('link', { name: 'Lire l’article' });
+				const voirPlusButton = screen.getByRole('link', { name: 'Consultez notre FAQ' });
 				expect(voirPlusButton).toBeVisible();
-				expect(voirPlusButton).toHaveAttribute('href', '/articles/avantages-apprentissage-employeurs-apprentis');
+				expect(voirPlusButton).toHaveAttribute('href', '/faq/apprentissage-employeurs-apprentis');
 			});
 		});
 	});
