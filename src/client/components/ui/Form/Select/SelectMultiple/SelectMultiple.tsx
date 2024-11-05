@@ -43,7 +43,7 @@ export type SelectMultipleProps = Omit<React.ComponentPropsWithoutRef<'button'>,
 export function SelectMultiple({
 	optionsAriaLabel,
 	children,
-	value,
+	value: valueProps,
 	placeholder,
 	name,
 	onChange: onChangeProps = doNothing,
@@ -59,7 +59,11 @@ export function SelectMultiple({
 	const listboxId = useId();
 
 	const [touched, setTouched] = useState<boolean>(false);
-	const [state, dispatch] = useReducer(
+	const [{
+		optionsSelectedValues,
+		activeDescendant,
+		isListOptionsOpen,
+	}, dispatch] = useReducer(
 		SelectMultipleReducer, {
 			activeDescendant: undefined,
 			isListOptionsOpen: false,
@@ -69,7 +73,7 @@ export function SelectMultiple({
 			visibleOptions: [],
 		},
 	);
-	const optionsSelectedValues = value ?? state.optionsSelectedValues;
+	const value = valueProps ?? optionsSelectedValues;
 
 	const selectOption = useCallback((optionId: string) => {
 		firstInputHiddenRef.current?.setCustomValidity('');
@@ -86,17 +90,17 @@ export function SelectMultiple({
 		setTouched(true);
 		onTouchProps(true);
 
-		if (required && optionsSelectedValues.length === 0) {
+		if (required && value.length === 0) {
 			firstInputHiddenRef.current?.setCustomValidity(ERROR_LABEL_REQUIRED_MULTIPLE);
 		}
 		firstInputHiddenRef.current?.checkValidity();
-	}, [onTouchProps, optionsSelectedValues.length, required]);
+	}, [onTouchProps, value.length, required]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
-		if (state.activeDescendant) {
-			document.getElementById(state.activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+		if (activeDescendant) {
+			document.getElementById(activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 		}
-	}, [state.activeDescendant]);
+	}, [activeDescendant]);
 
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLButtonElement>) {
 		const newFocusStillInCombobox = event.currentTarget.contains(event.relatedTarget);
@@ -109,8 +113,8 @@ export function SelectMultiple({
 	}, [closeList]);
 
 	const isCurrentItemSelected = useCallback((optionValue: string) => {
-		return optionsSelectedValues.includes(optionValue);
-	}, [optionsSelectedValues]);
+		return value.includes(optionValue);
+	}, [value]);
 
 	const resetValueTypedByUser = useCallback(() => {
 		dispatch(new SelectMultipleAction.SetValueTypedByUser(''));
@@ -126,7 +130,7 @@ export function SelectMultiple({
 		const isUserTypeLetter = event.key.length === 1 && event.key !== KeyBoard.SPACE && !altKey && !ctrlKey && !metaKey;
 		if (isUserTypeLetter) {
 			event.preventDefault();
-			if (!state.isListOptionsOpen) {
+			if (!isListOptionsOpen) {
 				dispatch(new SelectMultipleAction.OpenList());
 			}
 			dispatch(new SelectMultipleAction.FocusOptionMatchingUserInput(key));
@@ -136,9 +140,9 @@ export function SelectMultiple({
 		switch (event.key) {
 			case KeyBoard.ARROW_UP:
 			case KeyBoard.IE_ARROW_UP:
-				if (state.isListOptionsOpen) {
+				if (isListOptionsOpen) {
 					if (altKey) {
-						if (state.activeDescendant) { selectOption(state.activeDescendant); };
+						if (activeDescendant) { selectOption(activeDescendant); };
 						dispatch(new SelectMultipleAction.CloseList());
 					} else {
 						dispatch(new SelectMultipleAction.PreviousOption());
@@ -150,7 +154,7 @@ export function SelectMultiple({
 				break;
 			case KeyBoard.ARROW_DOWN:
 			case KeyBoard.IE_ARROW_DOWN:
-				if (state.isListOptionsOpen) {
+				if (isListOptionsOpen) {
 					dispatch(new SelectMultipleAction.NextOption());
 				} else {
 					dispatch(new SelectMultipleAction.OpenList());
@@ -158,25 +162,25 @@ export function SelectMultiple({
 				event.preventDefault();
 				break;
 			case KeyBoard.PAGE_UP:
-				if (state.isListOptionsOpen) {
+				if (isListOptionsOpen) {
 					event.preventDefault();
 					dispatch(new SelectMultipleAction.PreviousOption(10));
 				}
 				break;
 			case KeyBoard.PAGE_DOWN:
-				if (state.isListOptionsOpen) {
+				if (isListOptionsOpen) {
 					event.preventDefault();
 					dispatch(new SelectMultipleAction.NextOption(10));
 				}
 				break;
 			case KeyBoard.ESCAPE:
 			case KeyBoard.IE_ESCAPE:
-				if (state.isListOptionsOpen) event.preventDefault();
+				if (isListOptionsOpen) event.preventDefault();
 				closeList();
 				break;
 			case KeyBoard.SPACE:
 			case KeyBoard.ENTER: {
-				if (state.isListOptionsOpen) {
+				if (isListOptionsOpen) {
 					const selectedOptionID = event.currentTarget.getAttribute('aria-activedescendant');
 					if (selectedOptionID) {
 						selectOption(selectedOptionID);
@@ -189,7 +193,7 @@ export function SelectMultiple({
 				break;
 			}
 			case KeyBoard.HOME: {
-				if (!state.isListOptionsOpen) {
+				if (!isListOptionsOpen) {
 					dispatch(new SelectMultipleAction.OpenList());
 				}
 				dispatch(new SelectMultipleAction.FocusFirstOption());
@@ -197,7 +201,7 @@ export function SelectMultiple({
 				break;
 			}
 			case KeyBoard.END: {
-				if (!state.isListOptionsOpen) {
+				if (!isListOptionsOpen) {
 					dispatch(new SelectMultipleAction.OpenList());
 				}
 				dispatch(new SelectMultipleAction.FocusLastOption());
@@ -207,10 +211,10 @@ export function SelectMultiple({
 			default:
 				break;
 		}
-	}, [closeList, handlefocusOnTypeLetterDebounce, selectOption, state]);
+	}, [activeDescendant, closeList, handlefocusOnTypeLetterDebounce, isListOptionsOpen, selectOption]);
 
 	function PlaceholderSelectedOptions() {
-		const optionsSelectedValueLength = optionsSelectedValues.length;
+		const optionsSelectedValueLength = value.length;
 		if (optionsSelectedValueLength > 1) return `${optionsSelectedValueLength} choix sélectionnés`;
 		if (optionsSelectedValueLength === 1) return '1 choix sélectionné';
 		if (placeholder) return placeholder;
@@ -219,7 +223,7 @@ export function SelectMultiple({
 
 	return (
 		<SelectContext.Provider value={{
-			activeDescendant: state.activeDescendant,
+			activeDescendant: activeDescendant,
 			isCurrentItemSelected,
 			onOptionSelection: selectOption,
 		}}>
@@ -231,8 +235,8 @@ export function SelectMultiple({
 					required={required}
 					aria-hidden="true"
 					name={name}
-					value={optionsSelectedValues[0] || ''} />
-				{optionsSelectedValues.slice(1).map((optionValue) => (
+					value={value[0] || ''} />
+				{value.slice(1).map((optionValue) => (
 					<Input
 						type="hidden"
 						key={optionValue}
@@ -244,10 +248,10 @@ export function SelectMultiple({
 					role="combobox"
 					aria-controls={listboxId}
 					aria-haspopup="listbox"
-					aria-expanded={state.isListOptionsOpen}
+					aria-expanded={isListOptionsOpen}
 					data-touched={touched}
 					onClick={() => dispatch(new SelectMultipleAction.ToggleList())}
-					aria-activedescendant={state.activeDescendant}
+					aria-activedescendant={activeDescendant}
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}
 					aria-required={required}
@@ -262,7 +266,7 @@ export function SelectMultiple({
 					aria-label={optionsAriaLabel}
 					id={listboxId}
 					tabIndex={-1}
-					hidden={!state.isListOptionsOpen}>
+					hidden={!isListOptionsOpen}>
 					{children}
 				</ul>
 			</div>
