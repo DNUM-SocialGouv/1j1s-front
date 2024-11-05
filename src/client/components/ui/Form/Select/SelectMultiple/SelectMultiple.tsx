@@ -26,7 +26,6 @@ import styles from '../Select.module.scss';
 import { SelectContext } from '../SelectContext';
 
 const SELECT_PLACEHOLDER_MULTIPLE = 'Sélectionnez vos choix';
-const ERROR_LABEL_REQUIRED_MULTIPLE = 'Sélectionnez au moins un élément de la liste';
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
 export type SelectMultipleProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onChange' | 'onInvalid'> & {
@@ -90,11 +89,8 @@ export function SelectMultiple({
 		setTouched(true);
 		onTouchProps(true);
 
-		if (required && value.length === 0) {
-			firstInputHiddenRef.current?.setCustomValidity(ERROR_LABEL_REQUIRED_MULTIPLE);
-		}
 		firstInputHiddenRef.current?.checkValidity();
-	}, [onTouchProps, value.length, required]);
+	}, [onTouchProps]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (activeDescendant) {
