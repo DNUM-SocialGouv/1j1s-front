@@ -17,6 +17,7 @@ import React, {
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
+import { isSearchableCharacter } from '~/client/components/ui/Form/Select/Select.utils';
 import { SelectContext } from '~/client/components/ui/Form/Select/SelectContext';
 import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption/SelectOption';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -125,9 +126,9 @@ export function SelectSimple({
 	}, []);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
-		const { key, altKey, ctrlKey, metaKey } = event;
+		const { key, altKey } = event;
 
-		const searchableCharacter = event.key.length === 1 && event.key !== KeyBoard.SPACE && !altKey && !ctrlKey && !metaKey;
+		const searchableCharacter = isSearchableCharacter(event.nativeEvent);
 		if (searchableCharacter) {
 			event.preventDefault();
 			dispatch(new SelectSimpleAction.FocusOptionMatchingUserInput(key));

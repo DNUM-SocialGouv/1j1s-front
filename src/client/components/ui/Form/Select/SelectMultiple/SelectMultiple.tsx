@@ -15,6 +15,7 @@ import React, {
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
+import { isSearchableCharacter } from '~/client/components/ui/Form/Select/Select.utils';
 import {
 	SelectMultipleAction,
 	SelectMultipleReducer,
@@ -121,10 +122,10 @@ export function SelectMultiple({
 	}, [resetValueTypedByUser]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
-		const { key, altKey, ctrlKey, metaKey } = event;
+		const { key, altKey } = event;
 
-		const isUserTypeLetter = event.key.length === 1 && event.key !== KeyBoard.SPACE && !altKey && !ctrlKey && !metaKey;
-		if (isUserTypeLetter) {
+		const searchableCharacter = isSearchableCharacter(event.nativeEvent);
+		if (searchableCharacter) {
 			event.preventDefault();
 			if (!isListOptionsOpen) {
 				dispatch(new SelectMultipleAction.OpenList());
