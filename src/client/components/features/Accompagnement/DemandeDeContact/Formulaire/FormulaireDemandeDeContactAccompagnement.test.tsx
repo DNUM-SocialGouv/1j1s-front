@@ -8,7 +8,6 @@ import { userEvent } from '@testing-library/user-event';
 import {
 	FormulaireDemandeDeContactAccompagnement,
 } from '~/client/components/features/Accompagnement/DemandeDeContact/Formulaire/FormulaireDemandeDeContactAccompagnement';
-import { KeyBoard } from '~/client/components/keyboard.fixture';
 import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
@@ -95,7 +94,6 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 	});
 
 	it('a un champ Age obligatoire', async () => {
-		const user = userEvent.setup();
 		render(
 			<DependenciesProvider
 				localisationService={aLocalisationService()}
@@ -108,10 +106,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 		);
 
 		const combobox = screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' });
-		await user.click(combobox);
-		await user.keyboard(KeyBoard.ESCAPE);
-
-		expect(combobox).toHaveAccessibleDescription(/Séléctionnez un élément de la liste/);
+		expect(combobox).toBeRequired();
 	});
 
 	describe('quand l’utilisateur souhaite contacter un établissement', () => {

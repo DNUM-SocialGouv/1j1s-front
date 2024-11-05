@@ -1,15 +1,15 @@
 import { RefObject } from 'react';
 
 export type SelectSimpleState = {
-	isListOptionsOpen: boolean,
+	open: boolean,
 	activeDescendant: string | undefined,
-	optionSelectedValue: string | undefined,
+	selectedValue: string | undefined,
 	refListOption: RefObject<HTMLUListElement>
 	visibleOptions: Array<string>
-	valueTypedByUser: string
+	userInput: string
 }
 
-export function getOptionsElement(refListOption: RefObject<HTMLUListElement>) {
+export function getOptionsElement(refListOption: RefObject<HTMLElement>) {
 	return Array.from(refListOption.current?.querySelectorAll('[role="option"]') ?? []);
 }
 
@@ -27,7 +27,7 @@ export namespace SelectSimpleAction {
 			return {
 				...previousState,
 				activeDescendant: activeDescendant,
-				isListOptionsOpen: true,
+				open: true,
 			};
 		}
 	}
@@ -36,15 +36,15 @@ export namespace SelectSimpleAction {
 		execute(previousState: SelectSimpleState): SelectSimpleState {
 			return {
 				...previousState,
-				isListOptionsOpen: false,
+				open: false,
 			};
 		}
 	}
 
 	export class ToggleList implements SelectSimpleAction {
 		execute(previousState: SelectSimpleState): SelectSimpleState {
-			const { isListOptionsOpen } = previousState;
-			return isListOptionsOpen
+			const { open } = previousState;
+			return open
 				? new CloseList().execute(previousState)
 				: new OpenList().execute(previousState);
 		}
@@ -60,7 +60,16 @@ export namespace SelectSimpleAction {
 		execute(previousState: SelectSimpleState): SelectSimpleState {
 			return {
 				...previousState,
-				valueTypedByUser: this.newValue,
+				userInput: this.newValue,
+			};
+		}
+	}
+
+	export class ClearUserInput implements SelectSimpleAction {
+		execute(previousState: SelectSimpleState): SelectSimpleState {
+			return {
+				...previousState,
+				userInput: '',
 			};
 		}
 	}
@@ -77,14 +86,15 @@ export namespace SelectSimpleAction {
 				return optionElement.textContent?.toLowerCase().startsWith(allUserInput.toLowerCase());
 			}
 
-			const allUserInput = previousState.valueTypedByUser.concat(this.userInputKey);
+			const allUserInput = previousState.userInput.concat(this.userInputKey);
 			const optionsElement = getOptionsElement(previousState.refListOption);
 			const firstOptionMatchingUserInput = optionsElement.find(optionMatchUserInput);
 
 			return {
 				...previousState,
 				activeDescendant: firstOptionMatchingUserInput?.id ?? previousState.activeDescendant,
-				valueTypedByUser: allUserInput,
+				open: true,
+				userInput: allUserInput,
 			};
 		}
 	}
@@ -94,6 +104,7 @@ export namespace SelectSimpleAction {
 			return {
 				...previousState,
 				activeDescendant: getOptionsElement(previousState.refListOption)[0]?.id,
+				open: true,
 			};
 		}
 	}
@@ -104,6 +115,7 @@ export namespace SelectSimpleAction {
 			return {
 				...previousState,
 				activeDescendant: lastOption?.id,
+				open: true,
 			};
 		}
 	}
@@ -123,7 +135,7 @@ export namespace SelectSimpleAction {
 			return {
 				...previousState,
 				activeDescendant: nextDescendant?.id,
-				isListOptionsOpen: true,
+				open: true,
 			};
 		}
 	}
@@ -143,7 +155,7 @@ export namespace SelectSimpleAction {
 			return {
 				...previousState,
 				activeDescendant: previousDescendant?.id,
-				isListOptionsOpen: true,
+				open: true,
 			};
 		}
 	}
@@ -161,7 +173,7 @@ export namespace SelectSimpleAction {
 			const closeListState = new CloseList().execute(previousState);
 			return {
 				...closeListState,
-				optionSelectedValue: this.option?.getAttribute('data-value') ?? '',
+				selectedValue: this.option?.getAttribute('data-value') ?? '',
 			};
 		}
 	}

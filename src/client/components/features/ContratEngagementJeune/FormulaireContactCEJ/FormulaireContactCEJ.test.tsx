@@ -6,7 +6,6 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { KeyBoard } from '~/client/components/keyboard.fixture';
 import { mockScrollIntoView } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aDemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service.fixture';
@@ -70,13 +69,10 @@ describe('<FormulaireDeContactCEJ />', () => {
 	});
 
 	it('a un champ Age obligatoire', async () => {
-		const user = userEvent.setup();
 		renderComponent();
-		const combobox = screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' });
-		await user.click(combobox);
-		await user.keyboard(KeyBoard.ESCAPE);
 
-		expect(combobox).toHaveAccessibleDescription(/Séléctionnez un élément de la liste/);
+		const combobox = screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' });
+		expect(combobox).toBeRequired();
 	});
 
 	describe('Quand l’utilisateur clique sur Envoyer la demande', () => {
