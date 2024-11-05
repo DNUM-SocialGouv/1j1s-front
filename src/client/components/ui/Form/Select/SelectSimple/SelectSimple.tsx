@@ -91,10 +91,6 @@ export function SelectSimple({
 		if (option) { onChangeProps(option); }
 	}, [onChangeProps]);
 
-	const closeList = useCallback(() => {
-		dispatch(new SelectSimpleAction.CloseList());
-	}, []);
-
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (activeDescendant) {
 			document.getElementById(activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -117,8 +113,8 @@ export function SelectSimple({
 		if (touched) {
 			onTouchProps(touched);
 		}
-		closeList();
-	}, [closeList, onTouchProps, setTouchedOnBlur, value]);
+		dispatch(new SelectSimpleAction.CloseList());
+	}, [onTouchProps, setTouchedOnBlur, value]);
 
 	const isSelected = useCallback(function isSelected(optionValue?: string) {
 		return value === optionValue;
@@ -177,7 +173,7 @@ export function SelectSimple({
 			case KeyBoard.IE_ESCAPE:
 				if (open) {
 					event.preventDefault();
-					closeList();
+					dispatch(new SelectSimpleAction.CloseList());
 				}
 				break;
 			case KeyBoard.SPACE:
@@ -215,7 +211,7 @@ export function SelectSimple({
 				break;
 
 		}
-	}, [activeDescendant, closeList, clearUserInput, open, selectOption]);
+	}, [activeDescendant, clearUserInput, open, selectOption]);
 
 	return (
 		<SelectContext.Provider value={{
