@@ -35,6 +35,15 @@ describe('<SelectMultiple/>', () => {
 	});
 
 	describe('gestion erreur', () => {
+		it('lorsque le select est requis, marque le champ comme requis', () => {
+			render(<SelectMultiple optionsAriaLabel={'options'} required>
+				<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
+				<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
+			</SelectMultiple>,
+			);
+
+			expect(screen.getByRole('combobox')).toBeRequired();
+		});
 		it('lorsque le select est requis mais pas touché, n‘appelle pas onInvalid', () => {
 			const onInvalid = jest.fn();
 			render(<SelectMultiple optionsAriaLabel={'options'} required onInvalid={onInvalid}>
@@ -46,7 +55,7 @@ describe('<SelectMultiple/>', () => {
 			expect(onInvalid).not.toHaveBeenCalled();
 		});
 
-		it('lorsque le select est requis et que l‘utilisateur n‘a pas séléctionné d‘option, il ne peux pas soumettre le formulaire', async () => {
+		it('lorsque le select est requis et que l‘utilisateur n‘a pas sélectionné d‘option, il ne peux pas soumettre le formulaire', async () => {
 			const onSubmit = jest.fn();
 			const user = userEvent.setup();
 
@@ -62,7 +71,7 @@ describe('<SelectMultiple/>', () => {
 			expect(onSubmit).not.toHaveBeenCalled();
 		});
 
-		it('lorsque le select est requis et que l‘utilisateur ouvre puis ferme le select sans selectionner d‘option, appelle onInvalid et affiche le message d‘erreur', async () => {
+		it('lorsque le select est requis et que l‘utilisateur ouvre puis ferme le select sans sélectionner d‘option, appelle onInvalid et affiche le message d‘erreur', async () => {
 			const user = userEvent.setup();
 			const onInvalid = jest.fn();
 
@@ -78,7 +87,7 @@ describe('<SelectMultiple/>', () => {
 			expect(onInvalid).toHaveBeenCalledTimes(1);
 		});
 
-		it('lorsque le select est requis et en erreur, lorsque l‘utilisateur séléctionne une option le select n‘est plus en erreur', async () => {
+		it('lorsque le select est requis et en erreur, lorsque l‘utilisateur sélectionne une option le select n‘est plus en erreur', async () => {
 			const onInvalid = jest.fn();
 			const user = userEvent.setup();
 

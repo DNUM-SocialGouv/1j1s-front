@@ -251,6 +251,7 @@ export function SelectMultiple(props: SelectMultipleProps) {
 					aria-activedescendant={state.activeDescendant}
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}
+					aria-required={required}
 					{...rest}>
 					<PlaceholderSelectedOptions />
 					<Icon name={'angle-down'} />
