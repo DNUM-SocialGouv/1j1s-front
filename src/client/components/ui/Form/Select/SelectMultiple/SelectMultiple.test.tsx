@@ -71,7 +71,7 @@ describe('<SelectMultiple/>', () => {
 			expect(onSubmit).not.toHaveBeenCalled();
 		});
 
-		it('lorsque le select est requis et que l‘utilisateur désélectionne toutes les options, appelle onInvalid et affiche le message d‘erreur', async () => {
+		it('lorsque le select est requis et que l‘utilisateur désélectionne toutes les options, appelle onInvalid', async () => {
 			const user = userEvent.setup();
 			const onInvalid = jest.fn();
 			render(<SelectMultiple optionsAriaLabel={'options'} defaultValue={['1']} required onInvalid={onInvalid}>
@@ -371,7 +371,7 @@ describe('<SelectMultiple/>', () => {
 			});
 		});
 
-		it('l‘utilisateur sélectionne une option avec la souris, l‘option est ajoutée aux options sélectionnés', async () => {
+		it('l‘utilisateur sélectionne une option avec la souris, l‘option est ajoutée aux options sélectionnées', async () => {
 			const user = userEvent.setup();
 			let selectValues;
 
@@ -851,7 +851,7 @@ describe('<SelectMultiple/>', () => {
 	});
 
 	describe('props', () => {
-		it('appelle onChange quand une valeur est sélectionné', async () => {
+		it('appelle onChange quand une option est sélectionnée', async () => {
 			const user = userEvent.setup();
 			const onChange = jest.fn();
 			render(<SelectMultiple optionsAriaLabel={'options'} onChange={onChange}>

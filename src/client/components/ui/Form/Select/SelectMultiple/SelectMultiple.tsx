@@ -130,8 +130,7 @@ export function SelectMultiple({
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
 		const { key, altKey } = event;
 
-		const searchableCharacter = isSearchableCharacter(event.nativeEvent);
-		if (searchableCharacter) {
+		if (isSearchableCharacter(event.nativeEvent)) {
 			event.preventDefault();
 			dispatch(new SelectMultipleAction.FocusOptionMatchingUserInput(key));
 			handleFocusOnTypeLetterDebounce();
