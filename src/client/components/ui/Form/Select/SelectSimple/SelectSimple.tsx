@@ -79,14 +79,13 @@ export function SelectSimple({
 	const value = valueProps ?? valueState;
 	const placeholder = useDisplayName(value, listboxRef, placeholderProps);
 
-	useEffect(() => {
+	useEffect(function checkValidityOnChange() {
 		if (touched) {
 			inputHiddenRef.current?.checkValidity();
 		}
 	}, [value, touched]);
 
-	const selectOption = useCallback((optionId: string) => {
-
+	const selectOption = useCallback(function selectOption(optionId: string) {
 		dispatch(new SelectSimpleAction.SelectOption(optionId));
 		const option = document.getElementById(optionId);
 		if (option) { onChangeProps(option); }
@@ -121,7 +120,7 @@ export function SelectSimple({
 		closeList();
 	}, [closeList, onTouchProps, setTouchedOnBlur, value]);
 
-	const isCurrentItemSelected = useCallback((optionValue?: string) => {
+	const isSelected = useCallback(function isSelected(optionValue?: string) {
 		return value === optionValue;
 	}, [value]);
 
@@ -221,7 +220,7 @@ export function SelectSimple({
 	return (
 		<SelectContext.Provider value={{
 			activeDescendant: activeDescendant,
-			isCurrentItemSelected,
+			isCurrentItemSelected: isSelected,
 			onOptionSelection: selectOption,
 		}}>
 			<div className={styles.container}>
