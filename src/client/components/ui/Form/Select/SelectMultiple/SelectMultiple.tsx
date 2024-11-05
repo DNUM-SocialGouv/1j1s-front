@@ -92,10 +92,6 @@ export function SelectMultiple({
 		}
 	}, [value, touched]);
 
-	const closeList = useCallback(() => {
-		dispatch(new SelectMultipleAction.CloseList());
-	}, []);
-
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (activeDescendant) {
 			document.getElementById(activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -112,8 +108,8 @@ export function SelectMultiple({
 		if (touched) {
 			onTouchProps(touched);
 		}
-		closeList();
-	}, [closeList, onTouchProps, setTouchedOnBlur, value]);
+		dispatch(new SelectMultipleAction.CloseList());
+	}, [onTouchProps, setTouchedOnBlur, value]);
 	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLButtonElement>) {
 		saveValueOnFocus(value);
 		onFocusProps(event);
@@ -127,7 +123,7 @@ export function SelectMultiple({
 		dispatch(new SelectMultipleAction.SetValueTypedByUser(''));
 	}, []);
 
-	const handlefocusOnTypeLetterDebounce = useMemo(() => {
+	const handleFocusOnTypeLetterDebounce = useMemo(() => {
 		return debounce(resetValueTypedByUser, DEFAULT_DEBOUNCE_TIMEOUT);
 	}, [resetValueTypedByUser]);
 
@@ -138,7 +134,7 @@ export function SelectMultiple({
 		if (searchableCharacter) {
 			event.preventDefault();
 			dispatch(new SelectMultipleAction.FocusOptionMatchingUserInput(key));
-			handlefocusOnTypeLetterDebounce();
+			handleFocusOnTypeLetterDebounce();
 		}
 
 		switch (event.key) {
@@ -180,7 +176,7 @@ export function SelectMultiple({
 			case KeyBoard.ESCAPE:
 			case KeyBoard.IE_ESCAPE:
 				if (isListOptionsOpen) { event.preventDefault(); }
-				closeList();
+				dispatch(new SelectMultipleAction.CloseList());
 				break;
 			case KeyBoard.SPACE:
 			case KeyBoard.ENTER: {
@@ -209,7 +205,7 @@ export function SelectMultiple({
 			default:
 				break;
 		}
-	}, [activeDescendant, closeList, handlefocusOnTypeLetterDebounce, isListOptionsOpen, selectOption]);
+	}, [activeDescendant, handleFocusOnTypeLetterDebounce, isListOptionsOpen, selectOption]);
 
 	function PlaceholderSelectedOptions() {
 		const optionsSelectedValueLength = value.length;
