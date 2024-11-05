@@ -8,7 +8,7 @@ import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/apprentissage/deposer-offre/index.analytics';
 import styles from '~/pages/apprentissage/deposer-offre/index.module.scss';
 
-const SOURCE_LBA_IFRAME = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}espace-pro/widget/1J1S`;
+const SOURCE_LBA_IFRAME = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}espace-pro/widget/1J1S?utm_source=1j1s&utm_medium=widget&utm_campaign=widget-depot-offre1j1s`;
 const POLITIQUE_CONFIDENTIALITÉ_URL = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}politique-de-confidentialite`;
 const CONDITIONS_GÉNÉRALES_UTILISATION_URL = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}cgu`;
 const FORMULAIRE_DEPOT_OFFRE_LBA_URL = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}espace-pro/creation/entreprise/redirec_from_widget_1j1s`;
