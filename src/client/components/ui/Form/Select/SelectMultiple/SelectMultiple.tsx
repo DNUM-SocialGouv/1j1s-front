@@ -127,9 +127,6 @@ export function SelectMultiple({
 		const searchableCharacter = isSearchableCharacter(event.nativeEvent);
 		if (searchableCharacter) {
 			event.preventDefault();
-			if (!isListOptionsOpen) {
-				dispatch(new SelectMultipleAction.OpenList());
-			}
 			dispatch(new SelectMultipleAction.FocusOptionMatchingUserInput(key));
 			handlefocusOnTypeLetterDebounce();
 		}
@@ -190,17 +187,11 @@ export function SelectMultiple({
 				break;
 			}
 			case KeyBoard.HOME: {
-				if (!isListOptionsOpen) {
-					dispatch(new SelectMultipleAction.OpenList());
-				}
 				dispatch(new SelectMultipleAction.FocusFirstOption());
 				event.preventDefault();
 				break;
 			}
 			case KeyBoard.END: {
-				if (!isListOptionsOpen) {
-					dispatch(new SelectMultipleAction.OpenList());
-				}
 				dispatch(new SelectMultipleAction.FocusLastOption());
 				event.preventDefault();
 				break;
