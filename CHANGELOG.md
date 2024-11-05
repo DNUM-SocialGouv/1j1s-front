@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.354.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.353.0...v3.354.0) (2024-11-05)
+
+
+### Features
+
+* Validation à la volée du select simple ([#3398](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3398)) ([26be351](https://github.com/DNUM-SocialGouv/1j1s-front/commit/26be3516b8e05ad09666a3cb6de5d21044f38c76))
+
 ## [3.353.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.352.1...v3.353.0) (2024-11-05)
 
 
