@@ -5,28 +5,29 @@ import React, {
 	KeyboardEvent,
 	SyntheticEvent,
 	useCallback,
+	useEffect,
 	useId,
 	useLayoutEffect,
 	useMemo,
 	useReducer,
 	useRef,
-	useState,
 } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
+import { isSearchableCharacter } from '~/client/components/ui/Form/Select/Select.utils';
 import {
 	SelectMultipleAction,
 	SelectMultipleReducer,
 } from '~/client/components/ui/Form/Select/SelectMultiple/SelectMultipleReducer';
 import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption/SelectOption';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { useTouchedInput } from '~/client/hooks/useTouchedInput';
 
 import styles from '../Select.module.scss';
 import { SelectContext } from '../SelectContext';
 
 const SELECT_PLACEHOLDER_MULTIPLE = 'Sélectionnez vos choix';
-const ERROR_LABEL_REQUIRED_MULTIPLE = 'Séléctionnez au moins un élément de la liste';
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
 export type SelectMultipleProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onChange' | 'onInvalid'> & {
@@ -40,27 +41,32 @@ export type SelectMultipleProps = Omit<React.ComponentPropsWithoutRef<'button'>,
 	optionsAriaLabel: string;
 }
 
-export function SelectMultiple(props: SelectMultipleProps) {
-	const {
-		optionsAriaLabel,
-		children,
-		value,
-		placeholder,
-		name,
-		onChange: onChangeProps = doNothing,
-		onInvalid: onInvalidProps = doNothing,
-		onTouch: onTouchProps = doNothing,
-		defaultValue,
-		required,
-		...rest
-	} = props;
+export function SelectMultiple({
+	optionsAriaLabel,
+	children,
+	value: valueProps,
+	placeholder,
+	name,
+	onChange: onChangeProps = doNothing,
+	onInvalid: onInvalidProps = doNothing,
+	onTouch: onTouchProps = doNothing,
+	onFocus: onFocusProps = doNothing,
+	defaultValue,
+	required,
+	...rest
+}: SelectMultipleProps) {
 	const listboxRef = useRef<HTMLUListElement>(null);
 	const firstInputHiddenRef = useRef<HTMLInputElement>(null);
 
 	const listboxId = useId();
 
-	const [touched, setTouched] = useState<boolean>(false);
-	const [state, dispatch] = useReducer(
+	const { saveValueOnFocus, setTouchedOnBlur, touched } = useTouchedInput<Array<string>>();
+
+	const [{
+		optionsSelectedValues,
+		activeDescendant,
+		isListOptionsOpen,
+	}, dispatch] = useReducer(
 		SelectMultipleReducer, {
 			activeDescendant: undefined,
 			isListOptionsOpen: false,
@@ -70,34 +76,27 @@ export function SelectMultiple(props: SelectMultipleProps) {
 			visibleOptions: [],
 		},
 	);
-	const optionsSelectedValues = value ?? state.optionsSelectedValues;
+	const value = valueProps ?? optionsSelectedValues;
 
 	const selectOption = useCallback((optionId: string) => {
 		firstInputHiddenRef.current?.setCustomValidity('');
-		onTouchProps(true);
-		setTouched(true);
 
 		dispatch(new SelectMultipleAction.SelectOption(optionId));
 		const option = document.getElementById(optionId);
-		if (option) onChangeProps(option);
-	}, [onChangeProps, onTouchProps]);
+		if (option) { onChangeProps(option); }
+	}, [onChangeProps]);
 
-	const closeList = useCallback(() => {
-		dispatch(new SelectMultipleAction.CloseList());
-		setTouched(true);
-		onTouchProps(true);
-
-		if (required && optionsSelectedValues.length === 0) {
-			firstInputHiddenRef.current?.setCustomValidity(ERROR_LABEL_REQUIRED_MULTIPLE);
+	useEffect(() => {
+		if (touched) {
+			firstInputHiddenRef.current?.checkValidity();
 		}
-		firstInputHiddenRef.current?.checkValidity();
-	}, [onTouchProps, optionsSelectedValues.length, required]);
+	}, [value, touched]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
-		if (state.activeDescendant) {
-			document.getElementById(state.activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+		if (activeDescendant) {
+			document.getElementById(activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 		}
-	}, [state.activeDescendant]);
+	}, [activeDescendant]);
 
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLButtonElement>) {
 		const newFocusStillInCombobox = event.currentTarget.contains(event.relatedTarget);
@@ -105,41 +104,44 @@ export function SelectMultiple(props: SelectMultipleProps) {
 			cancelEvent(event);
 			return;
 		}
-
-		closeList();
-	}, [closeList]);
+		const touched = setTouchedOnBlur(value);
+		if (touched) {
+			onTouchProps(touched);
+		}
+		dispatch(new SelectMultipleAction.CloseList());
+	}, [onTouchProps, setTouchedOnBlur, value]);
+	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLButtonElement>) {
+		saveValueOnFocus(value);
+		onFocusProps(event);
+	}, [onFocusProps, saveValueOnFocus, value]);
 
 	const isCurrentItemSelected = useCallback((optionValue: string) => {
-		return optionsSelectedValues.includes(optionValue);
-	}, [optionsSelectedValues]);
+		return value.includes(optionValue);
+	}, [value]);
 
 	const resetValueTypedByUser = useCallback(() => {
 		dispatch(new SelectMultipleAction.SetValueTypedByUser(''));
 	}, []);
 
-	const handlefocusOnTypeLetterDebounce = useMemo(() => {
+	const handleFocusOnTypeLetterDebounce = useMemo(() => {
 		return debounce(resetValueTypedByUser, DEFAULT_DEBOUNCE_TIMEOUT);
 	}, [resetValueTypedByUser]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
-		const { key, altKey, ctrlKey, metaKey } = event;
+		const { key, altKey } = event;
 
-		const isUserTypeLetter = event.key.length === 1 && event.key !== KeyBoard.SPACE && !altKey && !ctrlKey && !metaKey;
-		if (isUserTypeLetter) {
+		if (isSearchableCharacter(event.nativeEvent)) {
 			event.preventDefault();
-			if (!state.isListOptionsOpen) {
-				dispatch(new SelectMultipleAction.OpenList());
-			}
 			dispatch(new SelectMultipleAction.FocusOptionMatchingUserInput(key));
-			handlefocusOnTypeLetterDebounce();
+			handleFocusOnTypeLetterDebounce();
 		}
 
 		switch (event.key) {
 			case KeyBoard.ARROW_UP:
 			case KeyBoard.IE_ARROW_UP:
-				if (state.isListOptionsOpen) {
+				if (isListOptionsOpen) {
 					if (altKey) {
-						if (state.activeDescendant) { selectOption(state.activeDescendant); };
+						if (activeDescendant) { selectOption(activeDescendant); }
 						dispatch(new SelectMultipleAction.CloseList());
 					} else {
 						dispatch(new SelectMultipleAction.PreviousOption());
@@ -151,7 +153,7 @@ export function SelectMultiple(props: SelectMultipleProps) {
 				break;
 			case KeyBoard.ARROW_DOWN:
 			case KeyBoard.IE_ARROW_DOWN:
-				if (state.isListOptionsOpen) {
+				if (isListOptionsOpen) {
 					dispatch(new SelectMultipleAction.NextOption());
 				} else {
 					dispatch(new SelectMultipleAction.OpenList());
@@ -159,25 +161,25 @@ export function SelectMultiple(props: SelectMultipleProps) {
 				event.preventDefault();
 				break;
 			case KeyBoard.PAGE_UP:
-				if (state.isListOptionsOpen) {
+				if (isListOptionsOpen) {
 					event.preventDefault();
 					dispatch(new SelectMultipleAction.PreviousOption(10));
 				}
 				break;
 			case KeyBoard.PAGE_DOWN:
-				if (state.isListOptionsOpen) {
+				if (isListOptionsOpen) {
 					event.preventDefault();
 					dispatch(new SelectMultipleAction.NextOption(10));
 				}
 				break;
 			case KeyBoard.ESCAPE:
 			case KeyBoard.IE_ESCAPE:
-				if (state.isListOptionsOpen) event.preventDefault();
-				closeList();
+				if (isListOptionsOpen) { event.preventDefault(); }
+				dispatch(new SelectMultipleAction.CloseList());
 				break;
 			case KeyBoard.SPACE:
 			case KeyBoard.ENTER: {
-				if (state.isListOptionsOpen) {
+				if (isListOptionsOpen) {
 					const selectedOptionID = event.currentTarget.getAttribute('aria-activedescendant');
 					if (selectedOptionID) {
 						selectOption(selectedOptionID);
@@ -190,17 +192,11 @@ export function SelectMultiple(props: SelectMultipleProps) {
 				break;
 			}
 			case KeyBoard.HOME: {
-				if (!state.isListOptionsOpen) {
-					dispatch(new SelectMultipleAction.OpenList());
-				}
 				dispatch(new SelectMultipleAction.FocusFirstOption());
 				event.preventDefault();
 				break;
 			}
 			case KeyBoard.END: {
-				if (!state.isListOptionsOpen) {
-					dispatch(new SelectMultipleAction.OpenList());
-				}
 				dispatch(new SelectMultipleAction.FocusLastOption());
 				event.preventDefault();
 				break;
@@ -208,19 +204,19 @@ export function SelectMultiple(props: SelectMultipleProps) {
 			default:
 				break;
 		}
-	}, [closeList, handlefocusOnTypeLetterDebounce, selectOption, state]);
+	}, [activeDescendant, handleFocusOnTypeLetterDebounce, isListOptionsOpen, selectOption]);
 
 	function PlaceholderSelectedOptions() {
-		const optionsSelectedValueLength = optionsSelectedValues.length;
-		if (optionsSelectedValueLength > 1) return `${optionsSelectedValueLength} choix séléctionnés`;
-		if (optionsSelectedValueLength === 1) return '1 choix séléctionné';
-		if (placeholder) return placeholder;
+		const optionsSelectedValueLength = value.length;
+		if (optionsSelectedValueLength > 1) { return `${optionsSelectedValueLength} choix sélectionnés`; }
+		if (optionsSelectedValueLength === 1) { return '1 choix sélectionné'; }
+		if (placeholder) { return placeholder; }
 		return SELECT_PLACEHOLDER_MULTIPLE;
 	}
 
 	return (
 		<SelectContext.Provider value={{
-			activeDescendant: state.activeDescendant,
+			activeDescendant: activeDescendant,
 			isCurrentItemSelected,
 			onOptionSelection: selectOption,
 		}}>
@@ -232,12 +228,11 @@ export function SelectMultiple(props: SelectMultipleProps) {
 					required={required}
 					aria-hidden="true"
 					name={name}
-					value={optionsSelectedValues[0] || ''} />
-				{optionsSelectedValues.slice(1).map((optionValue) => (
+					value={value[0] || ''} />
+				{value.slice(1).map((optionValue) => (
 					<Input
-						tabIndex={-1}
+						type="hidden"
 						key={optionValue}
-						aria-hidden="true"
 						name={name}
 						value={optionValue} />
 				))}
@@ -246,12 +241,14 @@ export function SelectMultiple(props: SelectMultipleProps) {
 					role="combobox"
 					aria-controls={listboxId}
 					aria-haspopup="listbox"
-					aria-expanded={state.isListOptionsOpen}
+					aria-expanded={isListOptionsOpen}
 					data-touched={touched}
 					onClick={() => dispatch(new SelectMultipleAction.ToggleList())}
-					aria-activedescendant={state.activeDescendant}
+					onFocus={onFocus}
+					aria-activedescendant={activeDescendant}
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}
+					aria-required={required}
 					{...rest}>
 					<PlaceholderSelectedOptions />
 					<Icon name={'angle-down'} />
@@ -263,7 +260,7 @@ export function SelectMultiple(props: SelectMultipleProps) {
 					aria-label={optionsAriaLabel}
 					id={listboxId}
 					tabIndex={-1}
-					hidden={!state.isListOptionsOpen}>
+					hidden={!isListOptionsOpen}>
 					{children}
 				</ul>
 			</div>

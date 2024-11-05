@@ -84,6 +84,7 @@ export namespace SelectMultipleAction {
 			return {
 				...previousState,
 				activeDescendant: firstOptionMatchingUserInput?.id ?? previousState.activeDescendant,
+				isListOptionsOpen: true,
 				valueTypedByUser: allUserInput,
 			};
 		}
@@ -94,6 +95,7 @@ export namespace SelectMultipleAction {
 			return {
 				...previousState,
 				activeDescendant: getOptionsElement(previousState.refListOption)[0]?.id,
+				isListOptionsOpen: true,
 			};
 		}
 	}
@@ -104,6 +106,7 @@ export namespace SelectMultipleAction {
 			return {
 				...previousState,
 				activeDescendant: lastOption?.id,
+				isListOptionsOpen: true,
 			};
 		}
 	}

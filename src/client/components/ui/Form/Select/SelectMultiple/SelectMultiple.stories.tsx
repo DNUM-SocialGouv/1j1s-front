@@ -1,11 +1,14 @@
 import { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
 
+import { ButtonComponent as Button } from '../../../Button/ButtonComponent';
+import { Champ } from '../../Champ/Champ';
 import { SelectMultiple } from './SelectMultiple';
 
 const meta: Meta<typeof SelectMultiple> = {
 	argTypes: {
 		children: {
-			control: 'array',
+			control: 'object',
 		},
 	},
 	args: {
@@ -16,7 +19,9 @@ const meta: Meta<typeof SelectMultiple> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof SelectMultiple>;
+type SelectProps = React.ComponentPropsWithRef<typeof SelectMultiple>;
+type Controls = Omit<SelectProps, 'children'> & { children: string[] };
+type Story = StoryObj<Controls>;
 export const exemple: Story = {
 	args: {},
 	render: ({ children, ...args }) => (
@@ -39,5 +44,26 @@ export const disabled: Story = {
 				{children.map((child) => <SelectMultiple.Option value={child} key={child}>{child}</SelectMultiple.Option>)}
 			</SelectMultiple>
 		</>
+	),
+};
+export const validation: Story = {
+	args: {
+		name: 'pays',
+		required: true,
+	},
+	render: ({ children, ...args }) => (
+		<form onSubmit={(event) => {
+			event.preventDefault();
+			alert(Array.from(new FormData(event.currentTarget).entries()));
+		}}>
+			<Champ>
+				<Champ.Label>Pays</Champ.Label>
+				<Champ.Input render={SelectMultiple} {...args}>
+					{children.map((child) => <SelectMultiple.Option value={child} key={child}>{child}</SelectMultiple.Option>)}
+				</Champ.Input>
+				<Champ.Error />
+			</Champ>
+			<Button label="Envoyer" />
+		</form>
 	),
 };

@@ -35,6 +35,15 @@ describe('<SelectMultiple/>', () => {
 	});
 
 	describe('gestion erreur', () => {
+		it('lorsque le select est requis, marque le champ comme requis', () => {
+			render(<SelectMultiple optionsAriaLabel={'options'} required>
+				<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
+				<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
+			</SelectMultiple>,
+			);
+
+			expect(screen.getByRole('combobox')).toBeRequired();
+		});
 		it('lorsque le select est requis mais pas touché, n‘appelle pas onInvalid', () => {
 			const onInvalid = jest.fn();
 			render(<SelectMultiple optionsAriaLabel={'options'} required onInvalid={onInvalid}>
@@ -46,7 +55,7 @@ describe('<SelectMultiple/>', () => {
 			expect(onInvalid).not.toHaveBeenCalled();
 		});
 
-		it('lorsque le select est requis et que l‘utilisateur n‘a pas séléctionné d‘option, il ne peux pas soumettre le formulaire', async () => {
+		it('lorsque le select est requis et que l‘utilisateur n‘a pas sélectionné d‘option, il ne peux pas soumettre le formulaire', async () => {
 			const onSubmit = jest.fn();
 			const user = userEvent.setup();
 
@@ -62,26 +71,27 @@ describe('<SelectMultiple/>', () => {
 			expect(onSubmit).not.toHaveBeenCalled();
 		});
 
-		it('lorsque le select est requis et que l‘utilisateur ouvre puis ferme le select sans selectionner d‘option, appelle onInvalid et affiche le message d‘erreur', async () => {
+		it('lorsque le select est requis et que l‘utilisateur désélectionne toutes les options, appelle onInvalid', async () => {
 			const user = userEvent.setup();
 			const onInvalid = jest.fn();
-
-			render(<SelectMultiple optionsAriaLabel={'options'} required onInvalid={onInvalid}>
+			render(<SelectMultiple optionsAriaLabel={'options'} defaultValue={['1']} required onInvalid={onInvalid}>
 				<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 				<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
 			</SelectMultiple>,
 			);
 
+			const select = screen.getByRole('combobox');
+			await user.click(select);
+			const option = screen.getByRole('option', { selected: true });
+			await user.click(option);
 			await user.tab();
-			await user.keyboard(KeyBoard.ENTER);
-			await user.keyboard(KeyBoard.ESCAPE);
+
 			expect(onInvalid).toHaveBeenCalledTimes(1);
 		});
 
-		it('lorsque le select est requis et en erreur, lorsque l‘utilisateur séléctionne une option le select n‘est plus en erreur', async () => {
+		it('lorsque le select est requis et en erreur, lorsque l‘utilisateur sélectionne une option le select n‘est plus en erreur', async () => {
 			const onInvalid = jest.fn();
 			const user = userEvent.setup();
-
 			render(<>
 				<SelectMultiple
 					optionsAriaLabel={'options'}
@@ -91,16 +101,16 @@ describe('<SelectMultiple/>', () => {
 					<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
 				</SelectMultiple>
 			</>);
-
 			await user.tab();
 			await user.keyboard(KeyBoard.ENTER);
 			await user.keyboard(KeyBoard.ESCAPE);
+			onInvalid.mockReset();
 
 			await user.keyboard(KeyBoard.ENTER);
 			await user.keyboard(KeyBoard.ARROW_DOWN);
 			await user.keyboard(KeyBoard.ENTER);
 
-			expect(onInvalid).toHaveBeenCalledTimes(1);
+			expect(onInvalid).toHaveBeenCalledTimes(0);
 			expect(screen.getByRole('textbox', { hidden: true })).toBeValid();
 		});
 	});
@@ -361,7 +371,7 @@ describe('<SelectMultiple/>', () => {
 			});
 		});
 
-		it('l‘utilisateur séléctionne une option avec la souris, l‘option est ajoutée aux options séléctionnés', async () => {
+		it('l‘utilisateur sélectionne une option avec la souris, l‘option est ajoutée aux options sélectionnées', async () => {
 			const user = userEvent.setup();
 			let selectValues;
 
@@ -385,7 +395,7 @@ describe('<SelectMultiple/>', () => {
 			expect(selectValues).toEqual(['1', '2']);
 		});
 
-		it('l‘utilisateur séléctionne une option avec la souris, l‘option prend l‘attribut aria-selected et la liste d‘option ne se ferme pas', async () => {
+		it('l‘utilisateur sélectionne une option avec la souris, l‘option prend l‘attribut aria-selected et la liste d‘option ne se ferme pas', async () => {
 			const user = userEvent.setup();
 			const onChange = jest.fn();
 
@@ -799,8 +809,8 @@ describe('<SelectMultiple/>', () => {
 		});
 	});
 
-	describe('label options séléctionnées (placeholder)', () => {
-		it('lorsqu‘aucune option est séléctionnée, je vois le placeholder par défaut', () => {
+	describe('label options sélectionnées (placeholder)', () => {
+		it('lorsqu‘aucune option est sélectionnée, je vois le placeholder par défaut', () => {
 
 			render(<SelectMultiple optionsAriaLabel={'options'}>
 				<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
@@ -810,7 +820,7 @@ describe('<SelectMultiple/>', () => {
 			expect(screen.getByRole('combobox')).toHaveTextContent(SELECT_MULTIPLE_LABEL_DEFAULT_OPTION);
 		});
 
-		it('lorsqu‘une seule option est séléctionnée, je vois dans le placeholder au singulier', async () => {
+		it('lorsqu‘une seule option est sélectionnée, je vois dans le placeholder au singulier', async () => {
 			const user = userEvent.setup();
 
 			render(<SelectMultiple optionsAriaLabel={'options'}>
@@ -821,10 +831,10 @@ describe('<SelectMultiple/>', () => {
 			await user.click(screen.getByRole('combobox'));
 			await user.click(screen.getByRole('option', { name: 'options 1' }));
 
-			expect(screen.getByRole('combobox')).toHaveTextContent('1 choix séléctionné');
+			expect(screen.getByRole('combobox')).toHaveTextContent('1 choix sélectionné');
 		});
 
-		it('lorsqu‘au moins deux options sont séléctionnées, je vois le nombre d‘options séléctionnées au pluriel dans le placeholder', async () => {
+		it('lorsqu‘au moins deux options sont sélectionnées, je vois le nombre d‘options sélectionnées au pluriel dans le placeholder', async () => {
 			const user = userEvent.setup();
 
 			render(<SelectMultiple optionsAriaLabel={'options'}>
@@ -836,12 +846,12 @@ describe('<SelectMultiple/>', () => {
 			await user.click(screen.getByRole('option', { name: 'options 1' }));
 			await user.click(screen.getByRole('option', { name: 'options 2' }));
 
-			expect(screen.getByRole('combobox')).toHaveTextContent('2 choix séléctionnés');
+			expect(screen.getByRole('combobox')).toHaveTextContent('2 choix sélectionnés');
 		});
 	});
 
 	describe('props', () => {
-		it('appelle onChange quand une valeur est selectionné', async () => {
+		it('appelle onChange quand une option est sélectionnée', async () => {
 			const user = userEvent.setup();
 			const onChange = jest.fn();
 			render(<SelectMultiple optionsAriaLabel={'options'} onChange={onChange}>
@@ -925,7 +935,7 @@ describe('<SelectMultiple/>', () => {
 	});
 
 	describe('touched', () => {
-		it('lorsque l‘utilisateur n‘a pas interragit avec le champ, le select n‘est pas touched', () => {
+		it('lorsque l‘utilisateur n‘a pas interagit avec le champ, le select n‘est pas touched', () => {
 			const onTouch = jest.fn();
 
 			render(<SelectMultiple optionsAriaLabel={'options'} onTouch={onTouch}>
@@ -938,7 +948,7 @@ describe('<SelectMultiple/>', () => {
 			expect(combobox).toHaveAttribute('data-touched', 'false');
 		});
 
-		it('lorsque l‘utilisateur ouvre puis ferme le select, le select est touched', async () => {
+		it('lorsque l‘utilisateur ouvre puis ferme le select et quitte le champ, le select n’est pas touched', async () => {
 			const user = userEvent.setup();
 			const onTouch = jest.fn();
 
@@ -951,13 +961,12 @@ describe('<SelectMultiple/>', () => {
 			await user.click(combobox);
 			await user.keyboard(KeyBoard.ESCAPE);
 
-			expect(onTouch).toHaveBeenCalledTimes(1);
-			expect(onTouch).toHaveBeenCalledWith(true);
-			expect(combobox).toHaveAttribute('data-touched', 'true');
+			expect(onTouch).not.toHaveBeenCalled();
+			expect(combobox).toHaveAttribute('data-touched', 'false');
 		})
 		;
 
-		it('lorsque l‘utilisateur ouvre puis selectionne une option, le select est touched', async () => {
+		it('lorsque l‘utilisateur ouvre puis sélectionne une option et quitte le champ, le select est touched', async () => {
 			const user = userEvent.setup();
 			const onTouch = jest.fn();
 
@@ -969,6 +978,7 @@ describe('<SelectMultiple/>', () => {
 			const combobox = screen.getByRole('combobox');
 			await user.click(combobox);
 			await user.click(screen.getByRole('option', { name: 'options 1' }));
+			await user.tab();
 
 			expect(onTouch).toHaveBeenCalledWith(true);
 			expect(combobox).toHaveAttribute('data-touched', 'true');
