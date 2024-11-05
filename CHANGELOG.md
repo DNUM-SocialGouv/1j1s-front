@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.353.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.352.1...v3.353.0) (2024-11-05)
+
+
+### Features
+
+* Ajoute le tracking sur l'iframe LBA ([#3416](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3416)) ([9e50a0b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9e50a0b35b27d80d8dfad9c79d1d84ba8c26f208))
+
 ## [3.352.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.352.0...v3.352.1) (2024-11-05)
 
 
