@@ -5,12 +5,12 @@ import React, {
 	KeyboardEvent,
 	SyntheticEvent,
 	useCallback,
+	useEffect,
 	useId,
 	useLayoutEffect,
 	useMemo,
 	useReducer,
 	useRef,
-	useState,
 } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
@@ -22,6 +22,7 @@ import {
 } from '~/client/components/ui/Form/Select/SelectMultiple/SelectMultipleReducer';
 import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption/SelectOption';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { useTouchedInput } from '~/client/hooks/useTouchedInput';
 
 import styles from '../Select.module.scss';
 import { SelectContext } from '../SelectContext';
@@ -49,6 +50,7 @@ export function SelectMultiple({
 	onChange: onChangeProps = doNothing,
 	onInvalid: onInvalidProps = doNothing,
 	onTouch: onTouchProps = doNothing,
+	onFocus: onFocusProps = doNothing,
 	defaultValue,
 	required,
 	...rest
@@ -58,7 +60,8 @@ export function SelectMultiple({
 
 	const listboxId = useId();
 
-	const [touched, setTouched] = useState<boolean>(false);
+	const { saveValueOnFocus, setTouchedOnBlur, touched } = useTouchedInput<Array<string>>();
+
 	const [{
 		optionsSelectedValues,
 		activeDescendant,
@@ -77,21 +80,21 @@ export function SelectMultiple({
 
 	const selectOption = useCallback((optionId: string) => {
 		firstInputHiddenRef.current?.setCustomValidity('');
-		onTouchProps(true);
-		setTouched(true);
 
 		dispatch(new SelectMultipleAction.SelectOption(optionId));
 		const option = document.getElementById(optionId);
 		if (option) { onChangeProps(option); }
-	}, [onChangeProps, onTouchProps]);
+	}, [onChangeProps]);
+
+	useEffect(() => {
+		if (touched) {
+			firstInputHiddenRef.current?.checkValidity();
+		}
+	}, [value, touched]);
 
 	const closeList = useCallback(() => {
 		dispatch(new SelectMultipleAction.CloseList());
-		setTouched(true);
-		onTouchProps(true);
-
-		firstInputHiddenRef.current?.checkValidity();
-	}, [onTouchProps]);
+	}, []);
 
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (activeDescendant) {
@@ -105,9 +108,16 @@ export function SelectMultiple({
 			cancelEvent(event);
 			return;
 		}
-
+		const touched = setTouchedOnBlur(value);
+		if (touched) {
+			onTouchProps(touched);
+		}
 		closeList();
-	}, [closeList]);
+	}, [closeList, onTouchProps, setTouchedOnBlur, value]);
+	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLButtonElement>) {
+		saveValueOnFocus(value);
+		onFocusProps(event);
+	}, [onFocusProps, saveValueOnFocus, value]);
 
 	const isCurrentItemSelected = useCallback((optionValue: string) => {
 		return value.includes(optionValue);
@@ -239,6 +249,7 @@ export function SelectMultiple({
 					aria-expanded={isListOptionsOpen}
 					data-touched={touched}
 					onClick={() => dispatch(new SelectMultipleAction.ToggleList())}
+					onFocus={onFocus}
 					aria-activedescendant={activeDescendant}
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}
