@@ -40,20 +40,19 @@ export type SelectMultipleProps = Omit<React.ComponentPropsWithoutRef<'button'>,
 	optionsAriaLabel: string;
 }
 
-export function SelectMultiple(props: SelectMultipleProps) {
-	const {
-		optionsAriaLabel,
-		children,
-		value,
-		placeholder,
-		name,
-		onChange: onChangeProps = doNothing,
-		onInvalid: onInvalidProps = doNothing,
-		onTouch: onTouchProps = doNothing,
-		defaultValue,
-		required,
-		...rest
-	} = props;
+export function SelectMultiple({
+	optionsAriaLabel,
+	children,
+	value,
+	placeholder,
+	name,
+	onChange: onChangeProps = doNothing,
+	onInvalid: onInvalidProps = doNothing,
+	onTouch: onTouchProps = doNothing,
+	defaultValue,
+	required,
+	...rest
+}: SelectMultipleProps) {
 	const listboxRef = useRef<HTMLUListElement>(null);
 	const firstInputHiddenRef = useRef<HTMLInputElement>(null);
 
