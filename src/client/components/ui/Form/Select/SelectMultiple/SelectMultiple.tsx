@@ -26,7 +26,7 @@ import styles from '../Select.module.scss';
 import { SelectContext } from '../SelectContext';
 
 const SELECT_PLACEHOLDER_MULTIPLE = 'Sélectionnez vos choix';
-const ERROR_LABEL_REQUIRED_MULTIPLE = 'Séléctionnez au moins un élément de la liste';
+const ERROR_LABEL_REQUIRED_MULTIPLE = 'Sélectionnez au moins un élément de la liste';
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
 export type SelectMultipleProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onChange' | 'onInvalid'> & {
