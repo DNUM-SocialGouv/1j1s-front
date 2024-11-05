@@ -82,7 +82,7 @@ export function SelectMultiple({
 
 		dispatch(new SelectMultipleAction.SelectOption(optionId));
 		const option = document.getElementById(optionId);
-		if (option) onChangeProps(option);
+		if (option) { onChangeProps(option); }
 	}, [onChangeProps, onTouchProps]);
 
 	const closeList = useCallback(() => {
@@ -142,7 +142,7 @@ export function SelectMultiple({
 			case KeyBoard.IE_ARROW_UP:
 				if (isListOptionsOpen) {
 					if (altKey) {
-						if (activeDescendant) { selectOption(activeDescendant); };
+						if (activeDescendant) { selectOption(activeDescendant); }
 						dispatch(new SelectMultipleAction.CloseList());
 					} else {
 						dispatch(new SelectMultipleAction.PreviousOption());
@@ -175,7 +175,7 @@ export function SelectMultiple({
 				break;
 			case KeyBoard.ESCAPE:
 			case KeyBoard.IE_ESCAPE:
-				if (isListOptionsOpen) event.preventDefault();
+				if (isListOptionsOpen) { event.preventDefault(); }
 				closeList();
 				break;
 			case KeyBoard.SPACE:
@@ -215,9 +215,9 @@ export function SelectMultiple({
 
 	function PlaceholderSelectedOptions() {
 		const optionsSelectedValueLength = value.length;
-		if (optionsSelectedValueLength > 1) return `${optionsSelectedValueLength} choix sélectionnés`;
-		if (optionsSelectedValueLength === 1) return '1 choix sélectionné';
-		if (placeholder) return placeholder;
+		if (optionsSelectedValueLength > 1) { return `${optionsSelectedValueLength} choix sélectionnés`; }
+		if (optionsSelectedValueLength === 1) { return '1 choix sélectionné'; }
+		if (placeholder) { return placeholder; }
 		return SELECT_PLACEHOLDER_MULTIPLE;
 	}
 
