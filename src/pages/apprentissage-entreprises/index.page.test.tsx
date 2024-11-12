@@ -50,6 +50,7 @@ describe('<ApprentissageEntreprises />', () => {
 				seedtagService={aMarketingService()}
 				azerionService={aMarketingService()}
 				analyticsService={aManualAnalyticsService()}
+				floodlightService={aMarketingService()}
 				youtubeService={aVideoService()}>
 				<ApprentissageEntreprises videos={videos} />
 			</DependenciesProvider> );
@@ -74,6 +75,7 @@ describe('<ApprentissageEntreprises />', () => {
 				seedtagService={aMarketingService()}
 				azerionService={aMarketingService()}
 				analyticsService={aManualAnalyticsService()}
+				floodlightService={aMarketingService()}
 				youtubeService={aVideoService()}>
 				<ApprentissageEntreprises videos={videos} />);
 			</DependenciesProvider>);
