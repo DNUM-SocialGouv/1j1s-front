@@ -1,0 +1,9 @@
+@use "@styles/utilities";
+
+.card {
+  max-width: 22.5rem;
+
+  & > p {
+    @include utilities.line-clamp(3);
+  }
+}

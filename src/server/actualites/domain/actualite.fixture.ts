@@ -2,6 +2,7 @@ import { Actualite } from '~/server/actualites/domain/actualite';
 import { anArticle } from '~/server/articles/domain/article.fixture';
 import { anImage } from '~/server/cms/domain/image.fixture';
 
+// FIXME (GAFI 14-11-2024): Mettre des vraies valeurs
 export function anActualite(override?: Partial<Actualite>) {
 	return {
 		article: anArticle(),
