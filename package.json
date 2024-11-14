@@ -27,7 +27,7 @@
   "dependencies": {
     "@meilisearch/instant-meilisearch": "0.22.0",
     "@next/bundle-analyzer": "14.2.17",
-    "@sentry/nextjs": "7.119.2",
+    "@sentry/nextjs": "7.120.0",
     "axios": "1.7.7",
     "axios-cache-interceptor": "1.6.2",
     "classnames": "2.5.1",
