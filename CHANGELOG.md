@@ -1,5 +1,21 @@
 # Changelog
 
+## [3.355.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.354.0...v3.355.0) (2024-11-14)
+
+
+### Features
+
+* Validation à la volée du select multiple ([#3425](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3425)) ([0529b2d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0529b2d119e78ac577e17662c22d01fae1d150f0))
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#3428](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3428)) ([0c81fc3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0c81fc3af1224047afc4ec49c2af2c6fd01c6090))
+* **deps:** update all non-major dependencies to v14.2.18 ([#3437](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3437)) ([c74f969](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c74f969fe548e3c109063421032a7ca79e9331dc))
+* **deps:** update all non-major dependencies to v7.13.7 ([#3424](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3424)) ([04ace24](https://github.com/DNUM-SocialGouv/1j1s-front/commit/04ace24c24204df42ce8ad0b6a697b77327fb5a8))
+* **deps:** update dependency @sentry/nextjs to v7.120.0 ([#3436](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3436)) ([c8deee2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c8deee2de66423c366c2f67e5b883783d8f1a3b2))
+* **deps:** update dependency dompurify to v3.2.0 ([#3434](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3434)) ([a98fcfd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a98fcfdfe6d4d0c646b0077ca76cfb2bd4346d7d))
+
 ## [3.354.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.353.0...v3.354.0) (2024-11-05)
 
 
