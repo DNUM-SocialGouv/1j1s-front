@@ -1,9 +1,9 @@
 import { aStrapiArticle } from '~/server/articles/infra/strapiArticle.fixture';
-
 import {
 	aStrapiImage,
 	aStrapiSingleRelation,
-} from '../../cms/infra/repositories/strapi.fixture';
+} from '~/server/cms/infra/repositories/strapi.fixture';
+
 import { StrapiListeActualites } from './strapiActualites';
 
 export function aStrapiListeActualites(override?: Partial<StrapiListeActualites.ListeActualites>): StrapiListeActualites.ListeActualites {
