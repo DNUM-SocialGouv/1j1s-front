@@ -62,6 +62,23 @@ $color-background-world-skills: #2E1651;
       padding-bottom: 1.25rem;
     }
   }
+
+  &.handicap {
+    // FIXME (GAFI 15-11-2024):
+    background-color: hsl(42, 97%, 65%);
+    color: hsl(199, 39%, 23%);
+
+    & > h2,
+    & > p {
+      color: inherit;
+    }
+    & a {
+      color: white;
+      background-color: hsl(199, 39%, 23%);
+      border: none;
+      outline-color: hsl(199, 39%, 23%);
+    }
+  }
 }
 
 .card {
