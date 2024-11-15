@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.356.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.355.1...v3.356.0) (2024-11-15)
+
+
+### Features
+
+* Bannière campagne handicap ([#3443](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3443)) ([b6f1bb4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b6f1bb496d6f17ff531e73f1545e0610ba769fcc))
+
 ## [3.355.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.355.0...v3.355.1) (2024-11-15)
 
 
