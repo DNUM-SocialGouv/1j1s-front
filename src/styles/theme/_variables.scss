@@ -96,6 +96,14 @@ $color-groupe-3-blue: #407BFF;
 $color-title-apprentissage-2024: #E8CF31;
 
 /* ***************
+ * Complementary colors - Campagne Semaine du handicap
+ * ***************/
+$color-primary-campagne-handicap: #FCC84F;
+$color-secondary-campagne-handicap: #244352;
+$color-text-on-primary-campagne-handicap: $color-secondary-campagne-handicap;
+$color-text-on-secondary-campagne-handicap: #FFFFFF;
+
+/* ***************
  * Shadows
  * ***************/
 $box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);

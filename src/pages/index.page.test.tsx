@@ -244,6 +244,58 @@ describe('Page d’accueil', () => {
 				expect(voirPlusButton).toHaveAttribute('href', '/faq/apprentissage-employeurs-apprentis');
 			});
 		});
+
+		describe('Semaine du handicap', () => {
+			describe('feature flip', () => {
+				it('affiche la bannière si le feature flip est activé', () => {
+					// Given
+					process.env.NEXT_PUBLIC_CAMPAGNE_HANDICAP = '1';
+
+					// When
+					render(
+						<DependenciesProvider analyticsService={analyticsService}>
+							<Accueil actualites={anActualiteList()} />
+						</DependenciesProvider>,
+					);
+
+					// Then
+					expect(screen.getByText('Semaine européenne pour l’emploi des personnes handicapées')).toBeVisible();
+				});
+				it('n’affiche pas la bannière si le feature flip est désactivé', () => {
+					// Given
+					process.env.NEXT_PUBLIC_CAMPAGNE_HANDICAP = '0';
+
+					// When
+					render(
+						<DependenciesProvider analyticsService={analyticsService}>
+							<Accueil actualites={anActualiteList()} />
+						</DependenciesProvider>,
+					);
+
+					// Then
+					expect(screen.queryByText('Semaine européenne pour l’emploi des personnes handicapées')).not.toBeInTheDocument();
+				});
+			});
+
+			it('la bannière contient les wording de la campagne apprentissage', () => {
+				// Given
+				process.env.NEXT_PUBLIC_CAMPAGNE_HANDICAP = '1';
+
+				// When
+				render(
+					<DependenciesProvider analyticsService={analyticsService}>
+						<Accueil actualites={anActualiteList()} />
+					</DependenciesProvider>,
+				);
+
+				// Then
+				const heading = screen.getByRole('heading', { level: 2, name: 'Semaine européenne pour l’emploi des personnes handicapées' });
+				expect(heading).toBeVisible();
+				const voirPlusButton = screen.getByRole('link', { name: 'Lire l’article' });
+				expect(voirPlusButton).toBeVisible();
+				expect(voirPlusButton).toHaveAttribute('href', '/articles/semaine-emploi-handicap');
+			});
+		});
 	});
 
 	describe('Sections', () => {
