@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.356.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.356.0...v3.356.1) (2024-11-18)
+
+
+### Bug Fixes
+
+* Fix transparence image campagne handicap ([#3445](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3445)) ([2305308](https://github.com/DNUM-SocialGouv/1j1s-front/commit/230530816dfc5cf44b029440758453ba9971b51e))
+
 ## [3.356.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.355.1...v3.356.0) (2024-11-15)
 
 
