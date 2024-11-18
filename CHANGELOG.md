@@ -1,5 +1,42 @@
 # Changelog
 
+## [3.356.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.356.0...v3.356.1) (2024-11-18)
+
+
+### Bug Fixes
+
+* Fix transparence image campagne handicap ([#3445](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3445)) ([2305308](https://github.com/DNUM-SocialGouv/1j1s-front/commit/230530816dfc5cf44b029440758453ba9971b51e))
+
+## [3.356.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.355.1...v3.356.0) (2024-11-15)
+
+
+### Features
+
+* Bannière campagne handicap ([#3443](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3443)) ([b6f1bb4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b6f1bb496d6f17ff531e73f1545e0610ba769fcc))
+
+## [3.355.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.355.0...v3.355.1) (2024-11-15)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies to v7.13.8 ([#3439](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3439)) ([a81fa13](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a81fa13b9697a4be22abdd53360342c8de7fca8e))
+
+## [3.355.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.354.0...v3.355.0) (2024-11-14)
+
+
+### Features
+
+* Validation à la volée du select multiple ([#3425](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3425)) ([0529b2d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0529b2d119e78ac577e17662c22d01fae1d150f0))
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#3428](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3428)) ([0c81fc3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0c81fc3af1224047afc4ec49c2af2c6fd01c6090))
+* **deps:** update all non-major dependencies to v14.2.18 ([#3437](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3437)) ([c74f969](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c74f969fe548e3c109063421032a7ca79e9331dc))
+* **deps:** update all non-major dependencies to v7.13.7 ([#3424](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3424)) ([04ace24](https://github.com/DNUM-SocialGouv/1j1s-front/commit/04ace24c24204df42ce8ad0b6a697b77327fb5a8))
+* **deps:** update dependency @sentry/nextjs to v7.120.0 ([#3436](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3436)) ([c8deee2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c8deee2de66423c366c2f67e5b883783d8f1a3b2))
+* **deps:** update dependency dompurify to v3.2.0 ([#3434](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3434)) ([a98fcfd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a98fcfdfe6d4d0c646b0077ca76cfb2bd4346d7d))
+
 ## [3.354.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.353.0...v3.354.0) (2024-11-05)
 
 

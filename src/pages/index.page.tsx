@@ -48,6 +48,8 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 
 	const isCampagneApprentissageVisible = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
 
+	const isCampagneHandicapVisible = process.env.NEXT_PUBLIC_CAMPAGNE_HANDICAP === '1';
+
 	const actualitesCardListContent: CardContent[] = accueilProps.actualites.map((carte: Actualite): CardContent => {
 		return {
 			children: <p>{carte.extraitContenu}</p>,
@@ -348,6 +350,22 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 						</HeroWithIllustration>
 					)
 				}
+
+				{isCampagneHandicapVisible && (
+					<HeroWithIllustration image="/images/campagne-handicap.png" className={classNames(styles.hero, styles.handicap)}>
+						<h2>
+							<HeroPrimaryText className={styles.heroTitle}>
+								Semaine européenne pour l’emploi des personnes handicapées
+							</HeroPrimaryText>
+						</h2>
+						<HeroSecondaryText>
+							Du 18 au 24 novembre, <b>1jeune1solution</b> se mobilise, et vous propose un article par jour pour sensibiliser au handicap et promouvoir l’inclusion professionnelle.						</HeroSecondaryText>
+						<Link href="/articles/semaine-emploi-handicap" appearance={'asSecondaryButton'} className={styles.heroButton}>
+							Lire l’article
+							<Link.Icon />
+						</Link>
+					</HeroWithIllustration>
+				)}
 
 				{!isOldEspaceJeuneActif && actualitesCardListContent.length > 0
 					&& (
