@@ -352,7 +352,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 				}
 
 				{isCampagneHandicapVisible && (
-					<HeroWithIllustration image="/images/campagne-handicap.webp" className={classNames(styles.hero, styles.handicap)}>
+					<HeroWithIllustration image="/images/campagne-handicap.png" className={classNames(styles.hero, styles.handicap)}>
 						<h2>
 							<HeroPrimaryText className={styles.heroTitle}>
 								Semaine européenne pour l’emploi des personnes handicapées
