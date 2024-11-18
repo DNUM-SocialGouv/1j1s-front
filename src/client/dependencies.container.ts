@@ -33,6 +33,8 @@ import { LoggerService } from '~/client/services/logger.service';
 import { AdformMarketingService } from '~/client/services/marketing/adform/adform.marketing.service';
 import AmnetMarketingService from '~/client/services/marketing/amnet/amnet.marketing.service';
 import AzerionMarketingService from '~/client/services/marketing/azerion/azerion.marketing.service';
+import FloodlightMarketingService from '~/client/services/marketing/floodlight/floodlight.marketing.service';
+import GoogleTagManagerService from '~/client/services/marketing/googleTagManager.service';
 import { MarketingService } from '~/client/services/marketing/marketing.service';
 import MetaMarketingService from '~/client/services/marketing/meta/meta.marketing.service';
 import { NullMarketingService } from '~/client/services/marketing/null/null.marketing.service';
@@ -100,6 +102,7 @@ export type Dependencies = {
 	azerionService: MarketingService
 	amnetService: MarketingService
 	metaService: MarketingService
+	floodlightService: MarketingService
 }
 
 class DependencyInitException extends Error {
@@ -127,7 +130,9 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 	const emploiEuropeService = new BffEmploiEuropeService(httpClientService);
 	const stageService = new BffStageService(httpClientService);
 	const cookiesService = getCookieService();
-	const seedtagService = new SeedtagMarketingService(cookiesService);
+	const googleTagManagerService = new GoogleTagManagerService();
+	const seedtagService = new SeedtagMarketingService(cookiesService, googleTagManagerService);
+	const floodlightService = new FloodlightMarketingService(cookiesService, googleTagManagerService);
 	const tiktokService = new TiktokMarketingService(cookiesService);
 	const azerionService = new AzerionMarketingService(cookiesService);
 	const amnetService = new AmnetMarketingService(cookiesService);
@@ -187,6 +192,7 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		dateService,
 		demandeDeContactService,
 		emploiEuropeService,
+		floodlightService,
 		formationInitialeService,
 		localStorageService,
 		localisationService,

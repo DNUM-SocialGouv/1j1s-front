@@ -28,9 +28,11 @@ export default function ApprentissageEntreprises ({ videos }: ApprentissageEntre
 		// eslint-disable-next-line
 	}, []);
 	const seedtagService: MarketingService = useDependency('seedtagService');
+	const floodlightService: MarketingService = useDependency('floodlightService');
 	useEffect(() => {
 		seedtagService.trackPage('');
-	}, [seedtagService]);
+		floodlightService.trackPage('');
+	}, [floodlightService, seedtagService]);
 
 	const azerionService: MarketingService = useDependency('azerionService');
 	azerionService.trackPage('');
