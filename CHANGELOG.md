@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.357.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.356.1...v3.357.0) (2024-11-18)
+
+
+### Features
+
+* Ajoute le service floodlight ([#3435](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3435)) ([975b0f5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/975b0f5e1133915aec4d2ebde4926cdd903ae10c))
+
 ## [3.356.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.356.0...v3.356.1) (2024-11-18)
 
 
