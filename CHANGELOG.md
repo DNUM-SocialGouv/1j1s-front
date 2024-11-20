@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.357.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.357.1...v3.357.2) (2024-11-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dompurify to v3.2.1 ([#3452](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3452)) ([c5a9f91](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c5a9f915ca9ab9563d3955e111a8723e02017d5c))
+* Fix le tracker floodlight ([#3455](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3455)) ([0b55a4a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0b55a4a1705c2ce74b2ea1f0723df840bfd836ed))
+
 ## [3.357.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.357.0...v3.357.1) (2024-11-20)
 
 
