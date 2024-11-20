@@ -5,8 +5,8 @@ import '~/test-utils';
 
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { useSearchParams } from 'next/navigation';
 
+import { mockUsePathname, mockUseSearchParams } from '~/client/components/next-navigation.mock';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
@@ -32,20 +32,11 @@ jest.mock('~/server/start', () => ({
 	},
 }));
 
-jest.mock('next/navigation', () => ({
-	usePathname: jest.fn().mockReturnValue('/services-jeunes'),
-	useSearchParams: jest.fn(),
-}));
-
-const mockUseSearchParams = useSearchParams as jest.Mock;
-
 describe('Page Services Jeunes', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 		mockUseRouter({});
-		mockUseSearchParams.mockImplementation(() => {
-			return { getAll: jest.fn().mockReturnValue([]) };
-		});
+		mockUseSearchParams({ getAll: jest.fn().mockReturnValue([]) });
 		mockScrollIntoView();
 	});
 	afterEach(() => {
@@ -173,9 +164,7 @@ describe('Page Services Jeunes', () => {
 					it('affiche la liste des filtres dans des étiquettes', () => {
 						// Given
 						mockUseRouter({ push: jest.fn() });
-						mockUseSearchParams.mockImplementation(() => {
-							return { getAll: jest.fn().mockReturnValue(['Accompagnement', 'Logement', 'Engagement']) };
-						});
+						mockUseSearchParams({ getAll: jest.fn().mockReturnValue(['Accompagnement', 'Logement', 'Engagement']) });
 
 						const serviceJeuneList = [
 							aServiceJeune({ categorie: ServiceJeune.Categorie.ACCOMPAGNEMENT }),
@@ -202,13 +191,8 @@ describe('Page Services Jeunes', () => {
 						// Given
 						const routerPush = jest.fn();
 						mockUseRouter({ push: routerPush });
-
-						const mockedUseSearchParams = () => {
-							return { getAll: jest.fn()
-								.mockReturnValue(['Accompagnement', 'Logement', 'Engagement']),
-							};
-						};
-						mockUseSearchParams.mockImplementation(mockedUseSearchParams);
+						mockUseSearchParams({ getAll: jest.fn().mockReturnValue(['Accompagnement', 'Logement', 'Engagement']) });
+						mockUsePathname('/services-jeunes');
 						const user = userEvent.setup();
 
 						const serviceJeuneList = [
@@ -236,9 +220,8 @@ describe('Page Services Jeunes', () => {
 						expect(routerPush).toHaveBeenCalledWith(expect.stringContaining('filtre=Engagement'), undefined, expect.anything());
 					});
 					it('affiche les services des catégories filtrées', () => {
-						mockUseSearchParams.mockImplementation(() => {
-							return { getAll: jest.fn().mockReturnValue(['Accompagnement']) };
-						});
+						mockUseSearchParams({ getAll: jest.fn().mockReturnValue(['Accompagnement']) });
+
 						const serviceJeuneList = [
 							aServiceJeune({ categorie: ServiceJeune.Categorie.ACCOMPAGNEMENT }),
 							aServiceJeune({ categorie: ServiceJeune.Categorie.AIDES_FINANCIERES }),
@@ -265,9 +248,7 @@ describe('Page Services Jeunes', () => {
 			describe('Liste de résultats', () => {
 				it('affiche un message d’erreur quand aucun service n’est disponible', () => {
 					// Given
-					mockUseSearchParams.mockImplementation(() => {
-						return { getAll: jest.fn().mockReturnValue(['Accompagnement']) };
-					});
+					mockUseSearchParams({ getAll: jest.fn().mockReturnValue(['Accompagnement']) });
 					const serviceJeuneList = [
 						aServiceJeune({ categorie: ServiceJeune.Categorie.AIDES_FINANCIERES }),
 					];
