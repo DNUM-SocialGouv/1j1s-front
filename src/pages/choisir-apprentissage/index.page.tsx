@@ -56,7 +56,8 @@ export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps)
 	const floodlightService = useDependency<MarketingService>('floodlightService');
 	useEffect(() => {
 		floodlightService.trackPage('');
-	});
+		// eslint-disable-next-line
+	}, []);
 
 	return (
 		<>
