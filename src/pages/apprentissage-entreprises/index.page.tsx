@@ -32,7 +32,8 @@ export default function ApprentissageEntreprises ({ videos }: ApprentissageEntre
 	useEffect(() => {
 		seedtagService.trackPage('');
 		floodlightService.trackPage('');
-	}, [floodlightService, seedtagService]);
+		// eslint-disable-next-line
+	}, []);
 
 	const azerionService: MarketingService = useDependency('azerionService');
 	azerionService.trackPage('');
