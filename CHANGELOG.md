@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.357.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.357.2...v3.357.3) (2024-11-20)
+
+
+### Bug Fixes
+
+* Fix CSP tracker Google tag manager ([#3456](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3456)) ([f59d3b1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f59d3b1f2bf90992408ef507f50a5d8b63cb7b5c))
+
 ## [3.357.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.357.1...v3.357.2) (2024-11-20)
 
 
