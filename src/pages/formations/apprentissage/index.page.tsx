@@ -1,11 +1,13 @@
 import Joi from 'joi';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import RechercherFormationAlternance
 	from '~/client/components/features/FormationAlternance/Rechercher/RechercherFormationAlternance';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import { MarketingService } from '~/client/services/marketing/marketing.service';
 import empty from '~/client/utils/empty';
 import { transformQueryToArray } from '~/pages/api/utils/joi/joi.util';
 import { queryToArray } from '~/pages/api/utils/queryToArray.util';
@@ -36,6 +38,11 @@ type RechercherFormationApprentissagePageProps = {
 
 export default function FormationAlternancePage(props: RechercherFormationApprentissagePageProps) {
 	useAnalytics(analytics);
+	const floodlightService: MarketingService = useDependency('floodlightService');
+	useEffect(() => {
+		floodlightService.trackPage('');
+		// eslint-disable-next-line
+	}, []);
 
 	return (
 		<RechercherFormationAlternance {...props} />

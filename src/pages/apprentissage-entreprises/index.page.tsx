@@ -28,10 +28,8 @@ export default function ApprentissageEntreprises ({ videos }: ApprentissageEntre
 		// eslint-disable-next-line
 	}, []);
 	const seedtagService: MarketingService = useDependency('seedtagService');
-	const floodlightService: MarketingService = useDependency('floodlightService');
 	useEffect(() => {
 		seedtagService.trackPage('');
-		floodlightService.trackPage('');
 		// eslint-disable-next-line
 	}, []);
 
