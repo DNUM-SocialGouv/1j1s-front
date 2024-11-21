@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.357.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.357.3...v3.357.4) (2024-11-21)
+
+
+### Bug Fixes
+
+* Fix appel tracker floodlight sur bonne page ([#3458](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3458)) ([5f423e4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5f423e498edaf8f46745d1c86c28e57d3f4ce29d))
+
 ## [3.357.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.357.2...v3.357.3) (2024-11-20)
 
 
