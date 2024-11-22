@@ -20,22 +20,28 @@ export default class SnapchatMarketingService implements MarketingService {
 			js: function () {
 				'use strict';
 
+				// eslint-disable-next-line no-undef
 				if (tarteaucitron.user.snapchatId === undefined) {
 					return;
 				}
 
-				var a = window.snaptr = function () {
+				const a = window.snaptr = function () {
+					// eslint-disable-next-line prefer-rest-params, prefer-spread
 					a.handleRequest ? a.handleRequest.apply(a, arguments) : a.queue.push(arguments);
 				};
 				a.queue = [];
+				// eslint-disable-next-line no-undef
 				window.snaptr('init', tarteaucitron.user.snapchatId, {});
 
+				// eslint-disable-next-line no-undef
 				tarteaucitron.addScript('https://sc-static.net/scevent.min.js', undefined, () => {
 					service.ready = true;
 					document.dispatchEvent(new CustomEvent('snapchat_ready'));
 				});
 
+				// eslint-disable-next-line no-undef
 				if (typeof tarteaucitron.user.snapchatMore === 'function') {
+					// eslint-disable-next-line no-undef
 					tarteaucitron.user.snapchatMore();
 				}
 			},
