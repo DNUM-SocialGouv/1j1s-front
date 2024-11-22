@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.358.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.357.4...v3.358.0) (2024-11-22)
+
+
+### Features
+
+* Ajoute le tracker Snapchat ([#3463](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3463)) ([ec7df05](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ec7df05fd198f595ca8a57b9115eccaf0bf43e23))
+
 ## [3.357.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.357.3...v3.357.4) (2024-11-21)
 
 
