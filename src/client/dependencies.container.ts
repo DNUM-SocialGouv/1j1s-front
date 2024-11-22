@@ -39,6 +39,7 @@ import { MarketingService } from '~/client/services/marketing/marketing.service'
 import MetaMarketingService from '~/client/services/marketing/meta/meta.marketing.service';
 import { NullMarketingService } from '~/client/services/marketing/null/null.marketing.service';
 import SeedtagMarketingService from '~/client/services/marketing/seedtag/seedtag.marketing.service';
+import SnapchatMarketingService from '~/client/services/marketing/snapchat/snapchat.marketing.service';
 import TiktokMarketingService from '~/client/services/marketing/TikTok/tiktok.marketing.service';
 import { BffAlternanceMetierService } from '~/client/services/metiers/bff.alternance.metier.service';
 import { MetierService } from '~/client/services/metiers/metier.service';
@@ -103,6 +104,7 @@ export type Dependencies = {
 	amnetService: MarketingService
 	metaService: MarketingService
 	floodlightService: MarketingService
+	snapchatService: MarketingService
 }
 
 class DependencyInitException extends Error {
@@ -134,6 +136,7 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 	const seedtagService = new SeedtagMarketingService(cookiesService, googleTagManagerService);
 	const floodlightService = new FloodlightMarketingService(cookiesService, googleTagManagerService);
 	const tiktokService = new TiktokMarketingService(cookiesService);
+	const snapchatService = new SnapchatMarketingService(cookiesService);
 	const azerionService = new AzerionMarketingService(cookiesService);
 	const amnetService = new AmnetMarketingService(cookiesService);
 	const metaService = new MetaMarketingService(cookiesService);
@@ -204,6 +207,7 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		rechercheClientService,
 		seedtagService,
 		sessionStorageService,
+		snapchatService,
 		stage3eEt2deService,
 		stageDeposerOffreEtape1PersistenceService,
 		stageDeposerOffreEtape2PersistenceService,
