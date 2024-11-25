@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.358.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.358.0...v3.358.1) (2024-11-25)
+
+
+### Bug Fixes
+
+* Fix les CSP pour le tracker Snapchat ([#3468](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3468)) ([1359f95](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1359f9515d818f47351b8912dd3c4ec115453cc6))
+
 ## [3.358.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.357.4...v3.358.0) (2024-11-22)
 
 
