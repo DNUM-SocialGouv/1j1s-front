@@ -6,14 +6,14 @@ const ANALYTICS_SOURCES = `${process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN} ${process
 // FIXME (GAFI 16-10-2024): Si on passait par un Record<CSPKeys, string[]>, ça pourrait nous éviter les typos et améliorer la lisibilité
 const contentSecurityPolicy = `
   default-src 'self' ${TRUSTED_SOURCES};
-  script-src 'self' ${ANALYTICS_SOURCES} https://*.adform.net www.googletagmanager.com analytics.tiktok.com *.adnxs.com *.adsrvr.org *.facebook.com *.facebook.net;
+  script-src 'self' ${ANALYTICS_SOURCES} https://*.adform.net www.googletagmanager.com analytics.tiktok.com *.adnxs.com *.adsrvr.org *.facebook.com *.facebook.net sc-static.net tr.snapchat.com;
   img-src 'self' *.google.com data: ${STRAPI_MEDIA_HOST} ${ANALYTICS_SOURCES} img.youtube.com jedonnemonavis.numerique.gouv.fr *.adnxs.com *.adsrvr.org *.doubleclick.net p1.zemanta.com *.facebook.com;
   style-src 'self' 'unsafe-inline' ${ANALYTICS_SOURCES};
   frame-ancestors 'none';
-  frame-src 'self' *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube-nocookie.com simulateur-alternance.1jeune1solution.gouv.fr https://*.adform.net mes-aides.francetravail.fr *.doubleclick.net *.adsrvr.org;
+  frame-src 'self' *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube-nocookie.com simulateur-alternance.1jeune1solution.gouv.fr https://*.adform.net mes-aides.francetravail.fr *.doubleclick.net *.adsrvr.org tr.snapchat.com;
   form-action 'self';
   base-uri 'none';
-  connect-src 'self' ${TRUSTED_SOURCES} analytics.tiktok.com *.facebook.com *.adnxs.com www.google.com;
+  connect-src 'self' ${TRUSTED_SOURCES} analytics.tiktok.com *.facebook.com *.adnxs.com www.google.com tr.snapchat.com;
 `;
 
 const SECURITY_MODE_HEADERS = [{
