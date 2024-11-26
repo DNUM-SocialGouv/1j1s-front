@@ -29,16 +29,16 @@ export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps)
 		return () => adformService.trackPage(undefined);
 		// eslint-disable-next-line
 	}, []);
-	const snapchatService: MarketingService = useDependency('snapchatService');
+	const tiktokService: MarketingService = useDependency('tiktokService');
+	tiktokService.trackPage('');
 	useEffect(() => {
-		snapchatService.trackPage('');
+		return () => {
+			tiktokService.trackPage('off');
+		};
 		// eslint-disable-next-line
 	}, []);
 	const amnetService: MarketingService = useDependency('amnetService');
-	useEffect(() => {
-		amnetService.trackPage('');
-		// eslint-disable-next-line
-	}, []);
+	amnetService.trackPage('');
 	useEffect(() => {
 		return () => {
 			amnetService.trackPage('off');
