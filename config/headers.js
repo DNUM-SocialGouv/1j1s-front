@@ -13,7 +13,7 @@ const contentSecurityPolicy = `
   frame-src 'self' *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube-nocookie.com simulateur-alternance.1jeune1solution.gouv.fr https://*.adform.net mes-aides.francetravail.fr *.doubleclick.net *.adsrvr.org;
   form-action 'self';
   base-uri 'none';
-  connect-src 'self' ${TRUSTED_SOURCES} analytics.tiktok.com *.facebook.com *.adnxs.com www.google.com;
+  connect-src 'self' ${TRUSTED_SOURCES} analytics.tiktok.com *.facebook.com *.adnxs.com;
 `;
 
 const SECURITY_MODE_HEADERS = [{
