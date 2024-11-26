@@ -15,6 +15,7 @@ describe('Plan du site', () => {
 			process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '1';
 			process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '1';
 			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
+			process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
 		});
 
 		it.each`
@@ -57,6 +58,7 @@ describe('Plan du site', () => {
 		${'Je recrute un apprenti'} 							                | ${'/apprentissage-entreprises'}
 		${'Découvrir les mesures employeurs'}                     | ${'/mesures-employeurs'}
 		${'Accéder à mon espace'}                                 | ${'/mon-espace'}
+		${'Services Jeunes'}                  					          | ${'/services-jeunes'}
 		${'Conditions Générales d’utilisation'}                   | ${'/cgu'}
 		${'Accessibilité : Partiellement conforme'}               | ${'/accessibilite'}
 		${'Mentions légales'}                                     | ${'/mentions-legales'}
@@ -85,6 +87,7 @@ describe('Plan du site', () => {
 			process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '0';
 			process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '0';
 			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
+			process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
 		});
 
 		it.each`
@@ -92,7 +95,8 @@ describe('Plan du site', () => {
 		${'Stages de 3e et 2de'}                                	| ${'/stages-3e-et-2de'}
 		${'Emplois en Europe'}                                    | ${'/emplois-europe'}
 		${'Formations initiales'}                                 | ${'/formations-initiales'}
-		${'Je recrute un apprenti'}																| ${'/apprentissage-entreprises'}`
+		${'Je recrute un apprenti'}																| ${'/apprentissage-entreprises'}
+		${'Espace Jeune'}                  					      		    | ${'/espace-jeune'}`
 		('La page $nom n’est pas présente', async ({ nom }) => {
 			const analyticsService = aManualAnalyticsService();
 

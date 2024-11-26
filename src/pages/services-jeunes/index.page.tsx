@@ -30,7 +30,9 @@ export default function ServicesJeunesPage({ serviceJeuneList }: ServicesJeunePa
 	const router = useRouter();
 	const pathname = usePathname();
 
-	const sanitizedFiltreList = searchParams.getAll('filtre').filter((filtre) => Object.values(ServiceJeune.CodeCategorie).includes(filtre));
+	const sanitizedFiltreList = searchParams.getAll('filtre').filter(
+		(filtre) => Object.values(ServiceJeune.CodeCategorie).includes(filtre as ServiceJeune.CodeCategorie),
+	) as ServiceJeune.CodeCategorie[];
 	const [filtreList, setFiltreList] = useState(sanitizedFiltreList ?? []);
 	const filtreListString = sanitizedFiltreList.toString();
 	useEffect(() => {
@@ -103,8 +105,8 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<ServicesJeu
 }
 
 interface SelectionTypeServiceProps {
-	filtreList: string[]
-	toggle: (filtre: string) => void
+	filtreList: ServiceJeune.CodeCategorie[]
+	toggle: (filtre: ServiceJeune.CodeCategorie) => void
 }
 
 function SelectionTypeService({ filtreList, toggle }: SelectionTypeServiceProps) {
@@ -120,8 +122,8 @@ function SelectionTypeService({ filtreList, toggle }: SelectionTypeServiceProps)
 					value={filtreList}
 					name={'typeService'}
 					onChange={(option) => {
-						const filtre = option.dataset.value ?? option.textContent;
-						toggle(String(filtre));
+						const filtre = option.dataset.value;
+						toggle(filtre as ServiceJeune.CodeCategorie);
 					}}
 					optionsAriaLabel={'Types de services'}>
 					{Object.values(ServiceJeune.CodeCategorie).map((codeCategorie: ServiceJeune.CodeCategorie, index) =>
@@ -135,8 +137,8 @@ function SelectionTypeService({ filtreList, toggle }: SelectionTypeServiceProps)
 }
 
 interface EtiquettesFiltresCliquablesProps {
-	filtreList: string[]
-	toggle: (filtre: string) => void
+	filtreList: ServiceJeune.CodeCategorie[]
+	toggle: (filtre: ServiceJeune.CodeCategorie) => void
 }
 
 function EtiquettesFiltresCliquables({ filtreList, toggle }: EtiquettesFiltresCliquablesProps) {

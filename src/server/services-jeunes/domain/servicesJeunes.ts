@@ -19,12 +19,7 @@ export namespace ServiceJeune {
 	}
 
 	export interface Categorie {
-		code: 'accompagnement'
-			| 'aidesFinancieres'
-			| 'engagement'
-			| 'vieProfessionnelle'
-			| 'logement'
-			| 'orienterFormer'
+		code: CodeCategorie
 		libelle: string
 	}
 }
