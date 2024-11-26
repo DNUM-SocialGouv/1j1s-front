@@ -6,25 +6,15 @@ import { MarketingService } from '../marketing.service';
 
 export default class SeedtagMarketingService implements MarketingService {
 	static readonly SEEDTAG_SERVICE_NAME = 'seedtag';
-	private ready = false;
 
 	constructor(private readonly cookiesService: CookiesService, private readonly gtagService: GoogleTagManagerService) {
-		// eslint-disable-next-line @typescript-eslint/no-this-alias
-		const service = this;
 		// eslint-disable-next-line
 		type ConfigObject = any;
 		const config: TarteAuCitron.ServiceConfig<ConfigObject> = {
 			cookies: this.gtagService.cookies(),
 			js: function () {
 				'use strict';
-				const promise = gtagService.mount();
-				promise.then(() => {
-					// eslint-disable-next-line
-					// @ts-ignore
-					window.gtag('config', GoogleTagManagerService.ADS_ID);
-					service.ready = true;
-					document.dispatchEvent(new CustomEvent('seedtag_ready'));
-				});
+				gtagService.mount();
 			},
 			key: SeedtagMarketingService.SEEDTAG_SERVICE_NAME,
 			name: 'Seedtag',
@@ -37,9 +27,7 @@ export default class SeedtagMarketingService implements MarketingService {
 
 	// eslint-disable-next-line
 	trackPage(pagename: string): void {
-		const cookiesService = this.cookiesService;
 		function sendAnalytics() {
-			if (!cookiesService.isServiceAllowed(SeedtagMarketingService.SEEDTAG_SERVICE_NAME)) { return; }
 			// eslint-disable-next-line
 			// @ts-ignore
 			window.gtag('event', 'conversion', {
@@ -47,13 +35,8 @@ export default class SeedtagMarketingService implements MarketingService {
 				send_to: `${GoogleTagManagerService.ADS_ID}/invmedia/fr_ga005+standard`,
 				u2: '[URL_Info]',
 			});
-		}
-		if (!this.cookiesService.isServiceAllowed(SeedtagMarketingService.SEEDTAG_SERVICE_NAME)) { return; }
 
-		if (this.ready) {
-			sendAnalytics();
-		} else {
-			document.addEventListener('seedtag_ready', sendAnalytics, { once: true });
 		}
+		document.addEventListener('gtag_ready', sendAnalytics);
 	}
 }
