@@ -38,11 +38,6 @@ function useTriggerServicesOnNavigation(cookiesService: CookiesService) {
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
 	const sessionId = useSessionId();
 
-	/* isClientSide permet de générer l'essentiel de la page uniquement côté client
-	 Il est nécessaire pour le moment car la codebase contient toujours des appels à des méthodes comme useBreakpoint
-	 qui causent des hydration mismatch = différence de rendu entre serveur et premier chargement du JS côté client
-	La suppression de isClientSide permettra un rendu SSR / SSG complet */
-
 	const dependenciesContainerInstance = useMemo(() => dependenciesContainer(sessionId), [sessionId]);
 	const router = useRouter();
 
