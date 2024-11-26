@@ -159,4 +159,15 @@ describe('TarteAuCitronCookiesService', () => {
 			expect(tarteaucitron.userInterface.openPanel).toHaveBeenCalledTimes(1);
 		});
 	});
+
+	describe('triggerServices', () => {
+		it('appelle triggerJobsAfterAjaxCall', () => {
+			const tarteaucitron = aTarteAuCitron({ triggerJobsAfterAjaxCall: jest.fn() });
+			const cookiesService = new TarteAuCitronCookiesService(tarteaucitron);
+
+			cookiesService.triggerServices();
+
+			expect(tarteaucitron.triggerJobsAfterAjaxCall).toHaveBeenCalled();
+		});
+	});
 });

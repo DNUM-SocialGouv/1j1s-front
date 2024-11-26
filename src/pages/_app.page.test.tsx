@@ -8,8 +8,16 @@ import React from 'react';
 
 import { createMockRouter, mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockUUID } from '~/client/components/window.mock';
+import { Dependencies } from '~/client/dependencies.container';
+import { aCookiesService } from '~/client/services/cookies/cookies.service.fixture';
 
 import App from './_app.page';
+
+
+const mockDependencies: Partial<Dependencies> = {
+	cookiesService: aCookiesService(),
+};
+jest.mock('~/client/dependencies.container', () => (() => mockDependencies));
 
 describe('<App />', () => {
 	beforeAll(() => {
@@ -30,5 +38,40 @@ describe('<App />', () => {
 
 		const cible = screen.getByText('Cible');
 		await waitFor(() => expect(cible).toHaveFocus());
+	});
+	describe('Trigger services tiers', () => {
+		it('ne trigger pas les cookies à l’arrivée sur la page', () => {
+			// NOTE (GAFI 26-11-2024): Les services sont automatiquement triggered au chargement de tarteaucitron
+			const router = createMockRouter() as Router;
+			mockUseRouter({});
+			mockDependencies.cookiesService = aCookiesService({ triggerServices: jest.fn() });
+			const Component = Object.assign(
+				function Component() {
+					return null;
+				},
+				{ getLayout: (page: React.ReactElement) => <>{page}</> },
+			);
+
+			render(<App pageProps={{}} Component={Component} router={router} />);
+
+			expect(mockDependencies.cookiesService.triggerServices).not.toHaveBeenCalled();
+		});
+		it('trigger les cookies au changement de page', () => {
+			mockDependencies.cookiesService = aCookiesService({ triggerServices: jest.fn() });
+			const router = createMockRouter() as Router;
+			mockUseRouter({ asPath: '/page-1' });
+			const Component = Object.assign(
+				function Component() {
+					return null;
+				},
+				{ getLayout: (page: React.ReactElement) => <>{page}</> },
+			);
+			const { rerender } = render(<App pageProps={{}} Component={Component} router={router} />);
+
+			mockUseRouter({ asPath: '/page-2' });
+			rerender(<App pageProps={{}} Component={Component} router={router} />);
+
+			expect(mockDependencies.cookiesService.triggerServices).toHaveBeenCalledTimes(1);
+		});
 	});
 });

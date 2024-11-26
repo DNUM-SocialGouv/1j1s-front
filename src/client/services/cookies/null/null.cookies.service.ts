@@ -21,7 +21,7 @@ export class NullCookiesService implements CookiesService {
 		return;
 	}
 
-	triggerJobs(): void {
+	triggerServices() {
 		return;
 	}
 }

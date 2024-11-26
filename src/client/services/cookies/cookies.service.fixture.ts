@@ -7,7 +7,7 @@ export function aCookiesService(override?: Partial<CookiesService>): CookiesServ
 		allowService: jest.fn(),
 		isServiceAllowed: jest.fn(() => true),
 		openPanel: jest.fn(),
-		triggerJobs: jest.fn(),
+		triggerServices: jest.fn(),
 		...override,
 	};
 }

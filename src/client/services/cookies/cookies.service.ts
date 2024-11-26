@@ -14,5 +14,5 @@ export interface CookiesService {
 
   openPanel(): void;
 
-	triggerJobs(): void;
+	triggerServices(): void;
 }
