@@ -2,7 +2,7 @@ import { Image } from '~/server/cms/domain/image';
 
 export interface ServiceJeune {
 	titre: string
-	categorie?: ServiceJeune.Categorie
+	categorie: ServiceJeune.Categorie
 	banniere?: Image
 	concerne: string
 	link?: string

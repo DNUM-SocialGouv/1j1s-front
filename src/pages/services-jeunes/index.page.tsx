@@ -23,6 +23,10 @@ interface ServicesJeunePageProps {
 	serviceJeuneList: Array<ServiceJeune>
 }
 
+function isCategorieServiceJeune(filtre: string): filtre is ServiceJeune.CodeCategorie {
+	return Object.values(ServiceJeune.CodeCategorie).includes(filtre as ServiceJeune.CodeCategorie);
+}
+
 export default function ServicesJeunesPage({ serviceJeuneList }: ServicesJeunePageProps) {
 	useAnalytics(analytics);
 
@@ -30,15 +34,22 @@ export default function ServicesJeunesPage({ serviceJeuneList }: ServicesJeunePa
 	const router = useRouter();
 	const pathname = usePathname();
 
-	const sanitizedFiltreList = searchParams.getAll('filtre').filter(
-		(filtre) => Object.values(ServiceJeune.CodeCategorie).includes(filtre as ServiceJeune.CodeCategorie),
-	) as ServiceJeune.CodeCategorie[];
+	const sanitizedFiltreList = searchParams.getAll('filtre').filter(isCategorieServiceJeune);
 	const [filtreList, setFiltreList] = useState(sanitizedFiltreList ?? []);
 	const filtreListString = sanitizedFiltreList.toString();
 	useEffect(() => {
 		setFiltreList(sanitizedFiltreList ?? []);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [setFiltreList, filtreListString]);
+
+	function updateQueryParams(filtreList: ServiceJeune.CodeCategorie[]) {
+		const params = new URLSearchParams();
+		filtreList.map((filtre) => {
+			params.append('filtre', filtre);
+		});
+		const pathAndQueryString = pathname + (filtreList.length > 0 ? ('?' + params.toString()) : '');
+		router.push(pathAndQueryString, undefined, { shallow: true });
+	}
 
 	function toggleFiltreAndUpdateQueryParams(filtre: ServiceJeune.CodeCategorie) {
 		let newFiltreList = [];
@@ -47,19 +58,13 @@ export default function ServicesJeunesPage({ serviceJeuneList }: ServicesJeunePa
 		} else {
 			newFiltreList = filtreList.concat(filtre);
 		}
-
-		const params = new URLSearchParams();
-		newFiltreList.map((filtre) => {
-			params.append('filtre', filtre);
-		});
-
 		setFiltreList(newFiltreList);
-		router.push(pathname + '?' + params.toString(), undefined, { shallow: true });
+		updateQueryParams(newFiltreList);
 	}
 
-	const servicesJeunesVisibles = filtreList.length > 0 ? serviceJeuneList.filter((service) => {
-		return filtreList.includes(service.categorie!.code);
-	}) : serviceJeuneList;
+	const servicesJeunesVisibles = filtreList.length > 0
+		? serviceJeuneList.filter((service) => { return filtreList.includes(service.categorie.code);})
+		: serviceJeuneList;
 
 	return (
 		<>
