@@ -53,10 +53,6 @@ export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps)
 		};
 		// eslint-disable-next-line
 	}, []);
-	const floodlightService = useDependency<MarketingService>('floodlightService');
-	useEffect(() => {
-		floodlightService.trackPage('');
-	});
 
 	return (
 		<>

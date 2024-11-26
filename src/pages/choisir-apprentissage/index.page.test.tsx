@@ -102,7 +102,6 @@ describe('Page Apprentissage Jeunes', () => {
 					metaService={aMarketingService()}
 					tiktokService={aMarketingService()}
 					analyticsService={aManualAnalyticsService()}
-					floodlightService={aMarketingService()}
 					youtubeService={aVideoService()}>
 					<ApprentissageJeunes videos={videos} />
 				</DependenciesProvider>);
@@ -129,7 +128,6 @@ describe('Page Apprentissage Jeunes', () => {
 					amnetService={aMarketingService()}
 					metaService={aMarketingService()}
 					tiktokService={aMarketingService()}
-					floodlightService={aMarketingService()}
 					analyticsService={analyticsService}
 					youtubeService={aVideoService()}>
 					<ApprentissageJeunes videos={videos} />
@@ -149,7 +147,6 @@ describe('Page Apprentissage Jeunes', () => {
 					amnetService={aMarketingService()}
 					metaService={aMarketingService()}
 					tiktokService={aMarketingService()}
-					floodlightService={aMarketingService()}
 					analyticsService={analyticsService}>
 					<ApprentissageJeunes videos={[]} />
 				</DependenciesProvider>,
@@ -168,7 +165,6 @@ describe('Page Apprentissage Jeunes', () => {
 					amnetService={aMarketingService()}
 					metaService={aMarketingService()}
 					tiktokService={aMarketingService()}
-					floodlightService={aMarketingService()}
 					analyticsService={analyticsService}>
 					<ApprentissageJeunes videos={[]} />
 				</DependenciesProvider>,
@@ -189,7 +185,6 @@ describe('Page Apprentissage Jeunes', () => {
 					amnetService={aMarketingService()}
 					metaService={aMarketingService()}
 					tiktokService={aMarketingService()}
-					floodlightService={aMarketingService()}
 					analyticsService={analyticsService}>
 					<ApprentissageJeunes videos={[]} />
 				</DependenciesProvider>,
