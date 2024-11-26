@@ -3,17 +3,11 @@
 
 export default class GoogleTagManagerService {
 	static readonly ADS_ID = 'DC-10089018';
-	private status: 'unmounted' | 'mounting' | 'mounted' = 'unmounted';
-	private pending = [];
+	private mounted = false;
 
-	async mount() {
-		if (this.status === 'mounted') { return; }
-		// eslint-disable-next-line @typescript-eslint/no-this-alias
-		const service = this;
-		const result = new Promise((resolve) => {this.pending.push(resolve);});
-		if (this.status === 'mounting') { return result; }
+	mount() {
+		if (this.mounted) { return; }
 
-		this.status = 'mounting';
 		window.dataLayer = window.dataLayer || [];
 		window.tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + GoogleTagManagerService.ADS_ID, '', function () {
 			window.gtag = function gtag() {
@@ -21,14 +15,19 @@ export default class GoogleTagManagerService {
 				window.dataLayer.push(arguments);
 			};
 			window.gtag('js', new Date());
+			const additional_config_info = (window.timeExpire !== undefined) ? {
+				anonymize_ip: true,
+				cookie_expires: window.timeExpire / 1000,
+			} : { anonymize_ip: true };
+
+			window.gtag('config', GoogleTagManagerService.ADS_ID, additional_config_info);
 
 			if (typeof window.tarteaucitron.user.googleadsMore === 'function') {
 				window.tarteaucitron.user.googleadsMore();
 			}
-			service.pending.forEach((resolve) => resolve());
-			service.status = 'mounted';
+			document.dispatchEvent(new CustomEvent('gtag_ready'));
 		});
-		return result;
+		this.mounted = true;
 	}
 
 	cookies() {
