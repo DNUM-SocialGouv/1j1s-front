@@ -14,7 +14,7 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/espace-jeune/index.analytics';
 import { isFailure } from '~/server/errors/either';
-import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
+import { mapCodeCategorieServiceJeuneToLibelle, ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { dependencies } from '~/server/start';
 
 import styles from './index.module.scss';
@@ -30,14 +30,15 @@ export default function ServicesJeunesPage({ serviceJeuneList }: ServicesJeunePa
 	const router = useRouter();
 	const pathname = usePathname();
 
-	const [filtreList, setFiltreList] = useState(searchParams.getAll('filtre') ?? []);
-	const filtreListString = searchParams.getAll('filtre').toString();
+	const sanitizedFiltreList = searchParams.getAll('filtre').filter((filtre) => Object.values(ServiceJeune.CodeCategorie).includes(filtre));
+	const [filtreList, setFiltreList] = useState(sanitizedFiltreList ?? []);
+	const filtreListString = sanitizedFiltreList.toString();
 	useEffect(() => {
-		setFiltreList(searchParams.getAll('filtre') ?? []);
+		setFiltreList(sanitizedFiltreList ?? []);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [setFiltreList, filtreListString]);
 
-	function toggleFiltreAndUpdateQueryParams(filtre: string) {
+	function toggleFiltreAndUpdateQueryParams(filtre: ServiceJeune.CodeCategorie) {
 		let newFiltreList = [];
 		if(filtreList.includes(filtre)) {
 			newFiltreList = filtreList.filter((element) => element !== filtre);
@@ -55,7 +56,7 @@ export default function ServicesJeunesPage({ serviceJeuneList }: ServicesJeunePa
 	}
 
 	const servicesJeunesVisibles = filtreList.length > 0 ? serviceJeuneList.filter((service) => {
-		return filtreList.includes(service.categorie!);
+		return filtreList.includes(service.categorie!.code);
 	}) : serviceJeuneList;
 
 	return (
@@ -89,7 +90,6 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<ServicesJeu
 	}
 	
 	const serviceJeuneList = await dependencies.servicesJeunesDependencies.consulterLesServicesJeunesUseCase.handle();
-
 	if (isFailure(serviceJeuneList)) {
 		return { notFound: true, revalidate: 1 };
 	}
@@ -124,8 +124,8 @@ function SelectionTypeService({ filtreList, toggle }: SelectionTypeServiceProps)
 						toggle(String(filtre));
 					}}
 					optionsAriaLabel={'Types de services'}>
-					{Object.values(ServiceJeune.Categorie).map((option, index) =>
-						<SelectMultiple.Option key={index} value={option}>{option}</SelectMultiple.Option>,
+					{Object.values(ServiceJeune.CodeCategorie).map((codeCategorie: ServiceJeune.CodeCategorie, index) =>
+						<SelectMultiple.Option key={index} value={codeCategorie}>{mapCodeCategorieServiceJeuneToLibelle(codeCategorie)}</SelectMultiple.Option>,
 					)}
 				</Champ.Input>
 				<Champ.Error />
@@ -141,17 +141,18 @@ interface EtiquettesFiltresCliquablesProps {
 
 function EtiquettesFiltresCliquables({ filtreList, toggle }: EtiquettesFiltresCliquablesProps) {
 	return (
-		<TagList list={filtreList.map((filtre, index) => {
+		<TagList list={filtreList.map((codeCategorie: ServiceJeune.CodeCategorie, index) => {
+			const libelle = mapCodeCategorieServiceJeuneToLibelle(codeCategorie);
 			return (
 				<button key={index}
-					title={'Supprimer le filtre ' + filtre}
+					title={'Supprimer le filtre ' + libelle}
 					onClick={
 						(event) => {
 							event.preventDefault();
-							toggle(filtre);
+							toggle(codeCategorie);
 						}
 					}>
-					{filtre}
+					{libelle}
 					<Icon name={'close'} />
 				</button>
 			);

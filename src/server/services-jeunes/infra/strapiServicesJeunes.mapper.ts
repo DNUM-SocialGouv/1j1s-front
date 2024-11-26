@@ -1,7 +1,7 @@
 import { StrapiArticle } from '~/server/articles/infra/strapiArticle';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { flatMapSingleRelation } from '~/server/cms/infra/repositories/strapi.utils';
-import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
+import { mapCodeCategorieServiceJeuneToLibelle, ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { StrapiMesuresJeunes } from '~/server/services-jeunes/infra/strapiMesuresJeunes';
 
 export function mapToServicesJeunes(strapiMesuresJeunes: StrapiMesuresJeunes.MesuresJeunesParCategorie): Array<ServiceJeune> {
@@ -38,17 +38,35 @@ function mapServiceJeune(strapiMesureJeune: StrapiMesuresJeunes.MesureJeune, cat
 function mapServiceJeuneCategorie(mesureJeuneKey: keyof StrapiMesuresJeunes.MesuresJeunesParCategorie): ServiceJeune.Categorie {
 	switch (mesureJeuneKey) {
 		case 'accompagnement':
-			return ServiceJeune.Categorie.ACCOMPAGNEMENT;
+			return {
+				code: ServiceJeune.CodeCategorie.ACCOMPAGNEMENT,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ACCOMPAGNEMENT),
+			};
 		case 'orienterFormer':
-			return ServiceJeune.Categorie.ORIENTATION_FORMATION;
+			return {
+				code: ServiceJeune.CodeCategorie.ORIENTATION_FORMATION,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ORIENTATION_FORMATION),
+			};
 		case 'vieProfessionnelle':
-			return ServiceJeune.Categorie.ENTREE_VIE_PROFESSIONELLE;
+			return {
+				code: ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE),
+			};
 		case 'aidesFinancieres':
-			return ServiceJeune.Categorie.AIDES_FINANCIERES;
+			return {
+				code: ServiceJeune.CodeCategorie.AIDES_FINANCIERES,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.AIDES_FINANCIERES),
+			};
 		case 'engagement':
-			return ServiceJeune.Categorie.ENGAGEMENT;
+			return {
+				code: ServiceJeune.CodeCategorie.ENGAGEMENT,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENGAGEMENT),
+			};
 		case 'logement':
-			return ServiceJeune.Categorie.LOGEMENT;
+			return {
+				code: ServiceJeune.CodeCategorie.LOGEMENT,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.LOGEMENT),
+			};
 	}
 }
 
