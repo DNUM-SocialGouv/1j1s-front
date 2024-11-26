@@ -1257,10 +1257,10 @@ tarteaucitron.services.xandr = {
 		});
 	},
 	key: 'xandr',
-	name: 'Amnet - Xandr',
+	name: 'Xandr (Universal)',
 	needConsent: true,
 	type: 'ads',
-	uri: 'https://support.google.com/displayvideo/topic/3528231?hl=en&ref_topic=9059505&sjid=9933903973918710720-EU',
+	uri: 'https://www.xandr.com/privacy/cookie-policy/',
 };
 
 // xandr segment
@@ -5984,28 +5984,11 @@ tarteaucitron.services.outbrain = {
 	cookies: [],
 	js: function () {
 		'use strict';
-		if (tarteaucitron.user.zemTagId == null) {
-			return;
-		}
-		if (window.zemApi) {
-			return;
-		}
-		var api = window.zemApi = function() {
-			api.dispatch ? api.dispatch.apply(api, arguments) : api.queue.push(arguments);
-		};
-		api.version = '1.0';
-		api.loaded = true;
-		api.marketerId = [tarteaucitron.user.zemTagId];
-		document.addEventListener('navigate', () => {
-			api.marketerId = []
-		})
-		api.queue = [];
-		tarteaucitron.addScript('//js-tag.zemanta.com/zcpt.js', undefined,function() {
-			window.zemApi('track', 'PAGE_VIEW');
-		}, undefined, 'defer', 'true');
+
+		tarteaucitron.addScript('https://widgets.outbrain.com/outbrain.js');
 	},
 	key: 'outbrain',
-	name: 'Amnet - Outbrain',
+	name: 'Outbrain',
 	needConsent: true,
 	type: 'ads',
 	uri: 'https://www.outbrain.com/fr/advertisers/guidelines/',
@@ -6349,7 +6332,7 @@ tarteaucitron.services.weborama = {
 
 // tiktok
 tarteaucitron.services.tiktok = {
-	cookies: ['_tt_enable_cookie', '_ttp'],
+	cookies: [],
 	js: function () {
 		'use strict';
 
@@ -6366,8 +6349,8 @@ tarteaucitron.services.tiktok = {
 	key: 'tiktok',
 	name: 'Tiktok',
 	needConsent: true,
-	type: 'ads',
-	uri: 'https://www.tiktok.com/legal/page/global/cookie-policy/fr',
+	type: 'analytic',
+	uri: 'https://www.tiktok.com/legal/tiktok-website-cookies-policy',
 };
 
 // Klaviyo

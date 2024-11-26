@@ -20,8 +20,4 @@ export class NullCookiesService implements CookiesService {
 	openPanel(): void {
 		return;
 	}
-
-	triggerJobs(): void {
-		return;
-	}
 }
