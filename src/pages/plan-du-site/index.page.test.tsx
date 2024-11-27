@@ -14,9 +14,9 @@ describe('Plan du site', () => {
 			process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 			process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '1';
 			process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '1';
-			process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '1';
 			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
 			process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
+			process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '1';
 		});
 
 		it.each`
@@ -25,34 +25,40 @@ describe('Plan du site', () => {
 		
 		${'Emplois'}                                              | ${'/emplois'}
 		${'Stages d’études'}                                      | ${'/stages'}
-		${'Stages de 3e et 2de'}                                | ${'/stages-3e-et-2de'}
+		${'Stages de 3e et 2de'}                                	| ${'/stages-3e-et-2de'}
 		${'Contrats d’alternance'}                                | ${'/apprentissage'}
 		${'Jobs d‘été'}                                           | ${'/jobs-ete'}
 		${'Jobs étudiants'}                                       | ${'/jobs-etudiants'}
 		${'Emplois en Europe'}                                    | ${'/emplois-europe'}
+		${'Découvrir les services jeunes liés aux offres'}        | ${'/services-jeunes?filtre=vieProfessionnelle'}
 		
 		${'Formations initiales'}                                 | ${'/formations-initiales'}
 		${'Formations en apprentissage'}                          | ${'/formations/apprentissage'}
 		${'Découvrir les métiers'}                                | ${'/decouvrir-les-metiers'}
 		${'Participer à des évènements'}                          | ${'/evenements'}
 		${'Découvrir et trouver sa voie avec l’apprentissage'}    | ${'/choisir-apprentissage'}
+		${'Découvrir les services jeunes liés aux formations et à l’orientation'}   | ${'/services-jeunes?filtre=orienterFormer'}
 		
 		${'Bénévolat'}                                            | ${'/benevolat'}
 		${'Service civique'}                                      | ${'/service-civique'}
+		${'Découvrir les services jeunes liés à l’engagement civique'}        			| ${'/services-jeunes?filtre=engagement'}
 		
 		${'Annonces'}                                             | ${'/logements/annonces'}
 		${'Aides financières au logement'}                        | ${'/logements/aides-logement'}
 		${'Découvrir tous nos conseils'}                      	  | ${'/logements/conseils'}
+		${'Découvrir les services jeunes liés au logement'}       | ${'/services-jeunes?filtre=logement'}
 		
 		${'Contrat Engagement Jeune'}                             | ${'/contrat-engagement-jeune'}
 		${'Echanger avec un mentor'}                              | ${'/mentorat'}
 		${'Trouver une structure d’accompagnement'}               | ${'/accompagnement'}
 		${'Entreprendre : financements, aides et accompagnement'} | ${'/entreprendre'}
 		${'Expérience en Europe'}                                 | ${'/experience-europe'}
+		${'Découvrir les services jeunes liés à l’accompagnement'}      						| ${'/services-jeunes?filtre=accompagnement'}
 		
 		${'Simulateur d’aides financières'}                       | ${'/mes-aides'}
 		${'Aides au permis de conduire'}	           	            | ${'/1jeune1permis'}
 		${'Créer son CV personnalisé'}                            | ${'/creer-mon-cv'}
+		${'Découvrir les services jeunes liés aux aides financières'}      					| ${'/services-jeunes?filtre=aidesFinancieres'}
 		
 		${'Rejoindre la mobilisation'}                            | ${'/les-entreprises-s-engagent'}
 		${'Je recrute'}                                           | ${'/je-recrute'}
@@ -93,7 +99,7 @@ describe('Plan du site', () => {
 			process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '0';
 			process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '0';
 			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
-			process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
+			process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '1';
 			process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '0';
 		});
 
@@ -102,9 +108,14 @@ describe('Plan du site', () => {
 		${'Stages de 3e et 2de'}                                	| ${'/stages-3e-et-2de'}
 		${'Emplois en Europe'}                                    | ${'/emplois-europe'}
 		${'Formations initiales'}                                 | ${'/formations-initiales'}
+		${'Aides au permis de conduire'}	           	            | ${'/1jeune1permis'}
 		${'Je recrute un apprenti'}																| ${'/apprentissage-entreprises'}
-		${'Espace Jeune'}                  					      		    | ${'/espace-jeune'}
-		${'Aides au permis de conduire'}	           	            | ${'/1jeune1permis'}`
+		${'Découvrir les services jeunes liés aux offres'}        | ${'/services-jeunes?filtre=vieProfessionnelle'}
+		${'Découvrir les services jeunes liés aux formations et à l’orientation'}   | ${'/services-jeunes?filtre=orienterFormer'}
+		${'Découvrir les services jeunes liés à l’engagement civique'}        			| ${'/services-jeunes?filtre=engagement'}
+		${'Découvrir les services jeunes liés au logement'}       | ${'/services-jeunes?filtre=logement'}
+		${'Découvrir les services jeunes liés à l’accompagnement'}      						| ${'/services-jeunes?filtre=accompagnement'}
+		${'Découvrir les services jeunes liés aux aides financières'}      					| ${'/services-jeunes?filtre=aidesFinancieres'}`
 		('La page $nom n’est pas présente', async ({ nom }) => {
 			const analyticsService = aManualAnalyticsService();
 
