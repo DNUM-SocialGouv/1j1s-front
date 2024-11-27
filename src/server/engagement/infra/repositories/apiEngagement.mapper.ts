@@ -52,7 +52,7 @@ export function mapMission(mission: RésultatsMissionEngagementResponse): Missio
 		description: data.description,
 		duréeContrat: data.duration,
 		débutContrat: mapDateDébutContratLong(data.startAt),
-		id: data.id || data.clientId,
+		id: data._id,
 		localisation: fullLocalisation,
 		nomEntreprise: data.associationName || data.organizationName,
 		titre: data.title,
@@ -94,7 +94,7 @@ export function mapMissionList(missionList: Array<MissionEngagementResponse>): A
 		return {
 			description: mission.description,
 			débutContrat: mapDateDébutContrat(mission.startAt),
-			id: mission.id || mission.clientId,
+			id: mission._id,
 			logoUrl: mission.organizationLogo,
 			nomEntreprise: mission.associationName || mission.organizationName,
 			titre: mission.title,
