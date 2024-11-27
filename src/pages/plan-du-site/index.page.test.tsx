@@ -14,6 +14,7 @@ describe('Plan du site', () => {
 			process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 			process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '1';
 			process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '1';
+			process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '1';
 			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
 			process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
 		});
@@ -29,25 +30,28 @@ describe('Plan du site', () => {
 		${'Jobs d‘été'}                                           | ${'/jobs-ete'}
 		${'Jobs étudiants'}                                       | ${'/jobs-etudiants'}
 		${'Emplois en Europe'}                                    | ${'/emplois-europe'}
-		${'Expérience en Europe'}                                 | ${'/experience-europe'}
 		
 		${'Formations initiales'}                                 | ${'/formations-initiales'}
 		${'Formations en apprentissage'}                          | ${'/formations/apprentissage'}
 		${'Découvrir les métiers'}                                | ${'/decouvrir-les-metiers'}
 		${'Participer à des évènements'}                          | ${'/evenements'}
+		${'Découvrir et trouver sa voie avec l’apprentissage'}    | ${'/choisir-apprentissage'}
 		
 		${'Bénévolat'}                                            | ${'/benevolat'}
 		${'Service civique'}                                      | ${'/service-civique'}
 		
 		${'Annonces'}                                             | ${'/logements/annonces'}
 		${'Aides financières au logement'}                        | ${'/logements/aides-logement'}
+		${'Découvrir tous nos conseils'}                      	  | ${'/logements/conseils'}
 		
 		${'Contrat Engagement Jeune'}                             | ${'/contrat-engagement-jeune'}
 		${'Echanger avec un mentor'}                              | ${'/mentorat'}
 		${'Trouver une structure d’accompagnement'}               | ${'/accompagnement'}
 		${'Entreprendre : financements, aides et accompagnement'} | ${'/entreprendre'}
+		${'Expérience en Europe'}                                 | ${'/experience-europe'}
 		
 		${'Simulateur d’aides financières'}                       | ${'/mes-aides'}
+		${'Aides au permis de conduire'}	           	            | ${'/1jeune1permis'}
 		${'Créer son CV personnalisé'}                            | ${'/creer-mon-cv'}
 		
 		${'Rejoindre la mobilisation'}                            | ${'/les-entreprises-s-engagent'}
@@ -58,7 +62,9 @@ describe('Plan du site', () => {
 		${'Je recrute un apprenti'} 							                | ${'/apprentissage-entreprises'}
 		${'Découvrir les mesures employeurs'}                     | ${'/mesures-employeurs'}
 		${'Accéder à mon espace'}                                 | ${'/mon-espace'}
+		
 		${'Services Jeunes'}                  					          | ${'/services-jeunes'}
+		${'Foire aux questions'}                 								  | ${'/faq'}
 		${'Conditions Générales d’utilisation'}                   | ${'/cgu'}
 		${'Accessibilité : Partiellement conforme'}               | ${'/accessibilite'}
 		${'Mentions légales'}                                     | ${'/mentions-legales'}
@@ -88,6 +94,7 @@ describe('Plan du site', () => {
 			process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '0';
 			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
 			process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
+			process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '0';
 		});
 
 		it.each`
@@ -96,7 +103,8 @@ describe('Plan du site', () => {
 		${'Emplois en Europe'}                                    | ${'/emplois-europe'}
 		${'Formations initiales'}                                 | ${'/formations-initiales'}
 		${'Je recrute un apprenti'}																| ${'/apprentissage-entreprises'}
-		${'Espace Jeune'}                  					      		    | ${'/espace-jeune'}`
+		${'Espace Jeune'}                  					      		    | ${'/espace-jeune'}
+		${'Aides au permis de conduire'}	           	            | ${'/1jeune1permis'}`
 		('La page $nom n’est pas présente', async ({ nom }) => {
 			const analyticsService = aManualAnalyticsService();
 
