@@ -61,11 +61,10 @@ describe('mapEngagement', () => {
 			const resultatsRechercheApiEngagement: RésultatsRechercheMissionEngagementResponse = aResultatsRechercheMissionEngagementResponse({
 				hits: [
 					{
+						_id: 'id',
 						associationName: 'associationName',
 						city: 'Nantes',
-						clientId: 'clientId',
 						description: 'description',
-						id: 'id',
 						openToMinors: 'yes',
 						organizationLogo: 'http://organizationLogo.com/image.png',
 						organizationName: 'organizationName',
@@ -76,11 +75,10 @@ describe('mapEngagement', () => {
 						title: 'title',
 					},
 					{
+						_id: 'id2',
 						associationName: undefined,
 						city: undefined,
-						clientId: 'clientId2',
 						description: 'description2',
-						id: undefined,
 						openToMinors: 'no',
 						organizationLogo: undefined,
 						organizationName: 'organizationName2',
@@ -113,7 +111,7 @@ describe('mapEngagement', () => {
 					{
 						description: 'description2',
 						débutContrat: undefined,
-						id: 'clientId2',
+						id: 'id2',
 						localisation: undefined,
 						nomEntreprise: 'organizationName2',
 						titre: 'title2',

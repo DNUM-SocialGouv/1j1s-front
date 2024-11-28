@@ -5,7 +5,6 @@ interface Location {
 
 export interface MissionEngagementResponse {
   location?: Location
-  clientId: string
   publisherId: string
   city?: string
   description: string
@@ -16,7 +15,7 @@ export interface MissionEngagementResponse {
   startAt?: string
   title: string
   openToMinors?: string
-  id?: string
+  _id: string
 	organizationLogo?: string
 }
 
