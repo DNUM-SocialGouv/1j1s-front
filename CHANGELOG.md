@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.358.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.358.2...v3.358.3) (2024-11-28)
+
+
+### Bug Fixes
+
+* Update le schéma de l'API engagement ([#3478](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3478)) ([2cffd92](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2cffd92ff29024cebbd1c99ff96bbaddf8147cc8))
+
 ## [3.358.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.358.1...v3.358.2) (2024-11-27)
 
 
