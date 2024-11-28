@@ -82,7 +82,6 @@ export default function ServicesJeunesPage({ serviceJeuneList }: ServicesJeunePa
 						</h2>
 					</LightHero>
 					<SelectionTypeService filtreList={filtreList} toggle={toggleFiltreAndUpdateQueryParams} />
-					<EtiquettesFiltresCliquables filtreList={filtreList} toggle={toggleFiltreAndUpdateQueryParams} />
 					<ServicesJeunes cardList={servicesJeunesVisibles} />
 				</Container>
 			</main>
@@ -137,6 +136,7 @@ function SelectionTypeService({ filtreList, toggle }: SelectionTypeServiceProps)
 				</Champ.Input>
 				<Champ.Error />
 			</Champ>
+			<EtiquettesFiltresCliquables filtreList={filtreList} toggle={toggle} />
 		</form>
 	);
 }
@@ -148,23 +148,24 @@ interface EtiquettesFiltresCliquablesProps {
 
 function EtiquettesFiltresCliquables({ filtreList, toggle }: EtiquettesFiltresCliquablesProps) {
 	return (
-		<TagList list={filtreList.map((codeCategorie: ServiceJeune.CodeCategorie, index) => {
-			const libelle = mapCodeCategorieServiceJeuneToLibelle(codeCategorie);
-			return (
-				<button key={index}
-					title={'Supprimer le filtre ' + libelle}
-					onClick={
-						(event) => {
-							event.preventDefault();
-							toggle(codeCategorie);
-						}
-					}>
-					{libelle}
-					<Icon name={'close'} />
-				</button>
-			);
-		},
-		)} />
+		<TagList className={styles.etiquettes}
+			list={filtreList.map((codeCategorie: ServiceJeune.CodeCategorie, index) => {
+				const libelle = mapCodeCategorieServiceJeuneToLibelle(codeCategorie);
+				return (
+					<button key={index}
+						title={'Supprimer le filtre ' + libelle}
+						onClick={
+							(event) => {
+								event.preventDefault();
+								toggle(codeCategorie);
+							}
+						}>
+						{libelle}
+						<Icon name={'close'} />
+					</button>
+				);
+			},
+			)} />
 	);
 }
 
