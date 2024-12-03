@@ -5,15 +5,11 @@ jobs:
   lhci:
     name: Lighthouse
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 20.x ]
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version-file: '.nvmrc'
           cache: npm
       - name: Install Lighthouse CI
         run: npm install -g @lhci/cli@0.12.x
