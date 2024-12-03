@@ -15,7 +15,7 @@ interface FlippingCardProps {
 	imageUrl?: string
 	link?: string
 	title: string
-	category?: string
+	category?: ServiceJeune.Categorie
 	titleAs?: HtmlHeadingTag
 	flippingCardContent: string
 	className?: string
@@ -31,18 +31,18 @@ export function FlippingCard(props: FlippingCardProps) {
 	const flipButton = useRef<HTMLButtonElement>(null);
 
 	const categoryClass = useMemo(() => {
-		switch (category) {
-			case ServiceJeune.Categorie.ACCOMPAGNEMENT:
+		switch (category?.code) {
+			case ServiceJeune.CodeCategorie.ACCOMPAGNEMENT:
 				return styles.categoryAccompagnement;
-			case ServiceJeune.Categorie.ORIENTATION_FORMATION:
+			case ServiceJeune.CodeCategorie.ORIENTATION_FORMATION:
 				return styles.categoryOrienterFormer;
-			case ServiceJeune.Categorie.ENTREE_VIE_PROFESSIONELLE:
+			case ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE:
 				return styles.categoryVieProfessionnelle;
-			case ServiceJeune.Categorie.AIDES_FINANCIERES:
+			case ServiceJeune.CodeCategorie.AIDES_FINANCIERES:
 				return styles.categoryAidesFinancieres;
-			case ServiceJeune.Categorie.ENGAGEMENT:
+			case ServiceJeune.CodeCategorie.ENGAGEMENT:
 				return styles.categoryEngagement;
-			case ServiceJeune.Categorie.LOGEMENT:
+			case ServiceJeune.CodeCategorie.LOGEMENT:
 				return styles.categoryLogement;
 		}
 	}, [category]);
@@ -73,7 +73,7 @@ export function FlippingCard(props: FlippingCardProps) {
 		<div className={classNames(styles.cardWrapper, { [styles.flipped]: isAnimationOn }, className)} {...rest}>
 			<div className={classNames(styles.card, styles.recto)}>
 				<Image src={imageUrl ?? '/images/image-par-defaut-carte.webp'} alt="" width={360} height={180} />
-				{category && <div className={classNames(styles.category, categoryClass)}>{category}</div>}
+				{category && <div className={classNames(styles.category, categoryClass)}>{category.libelle}</div>}
 
 				<div className={styles.body}>
 					<CardTitle className={styles.bodyTitle} titleAs={titleAs}>{title}</CardTitle>

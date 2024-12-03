@@ -35,6 +35,10 @@ const offresNav = (): NavigationItemWithChildren => ({
 			label: 'Emplois en Europe ',
 			link: '/emplois-europe',
 		}] : []),
+		...(process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0' ? [{
+			label: 'Découvrir les services jeunes liés aux offres',
+			link: '/services-jeunes?filtre=vieProfessionnelle',
+		}]: []),
 	],
 	label: 'Offres',
 });
@@ -52,6 +56,10 @@ const orientationNav = (): NavigationItemWithChildren => ({
 		{ label: 'Découvrir les métiers', link: '/decouvrir-les-metiers' },
 		{ label: 'Participer à des évènements', link: '/evenements' },
 		{ label: 'Découvrir et trouver sa voie avec l’apprentissage', link: '/choisir-apprentissage' },
+		...(process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0' ? [{
+			label: 'Découvrir les services jeunes liés aux formations et à l’orientation',
+			link: '/services-jeunes?filtre=orienterFormer',
+		}]: []),
 	],
 	label: 'Formations et orientation',
 });
@@ -63,6 +71,10 @@ const accompagnementNav = (): NavigationItemWithChildren => ({
 		{ label: 'Trouver une structure d’accompagnement', link: '/accompagnement' },
 		{ label: 'Entreprendre : financements, aides et accompagnement', link: '/entreprendre' },
 		{ label: 'Expérience en Europe', link: '/experience-europe' },
+		...(process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0' ? [{
+			label: 'Découvrir les services jeunes liés à l’accompagnement',
+			link: '/services-jeunes?filtre=accompagnement',
+		}]: []),
 	],
 	label: 'Accompagnement',
 });
@@ -71,6 +83,10 @@ const engagementNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Bénévolat', link: '/benevolat' },
 		{ label: 'Service civique', link: '/service-civique' },
+		...(process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0' ? [{
+			label: 'Découvrir les services jeunes liés à l’engagement civique',
+			link: '/services-jeunes?filtre=engagement',
+		}]: []),
 	],
 	label: 'Engagement',
 });
@@ -100,6 +116,10 @@ const logementsNav = (): NavigationItemWithChildren => ({
 		{ label: 'Annonces', link: '/logements/annonces' },
 		{ label: 'Aides financières au logement', link: '/logements/aides-logement' },
 		{ label: 'Découvrir tous nos conseils', link: '/logements/conseils' },
+		...(process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0' ? [{
+			label: 'Découvrir les services jeunes liés au logement',
+			link: '/services-jeunes?filtre=logement',
+		}]: []),
 	],
 	label: 'Logement',
 });
@@ -112,6 +132,10 @@ const aidesEtOutilsNav = (): NavigationItemWithChildren => ({
 			link: '/1jeune1permis',
 		}] : []),
 		{ label: 'Créer son CV personnalisé', link: '/creer-mon-cv' },
+		...(process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0' ? [{
+			label: 'Découvrir les services jeunes liés aux aides financières',
+			link: '/services-jeunes?filtre=aidesFinancieres',
+		}]: []),
 	],
 	label: 'Aides et outils',
 });

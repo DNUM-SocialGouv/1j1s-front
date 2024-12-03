@@ -15,8 +15,10 @@ import styles from '~/pages/plan-du-site/index.module.scss';
 
 export default function PlanDuSite() {
 	useAnalytics(analytics);
+	const isServicesJeunesVisibles = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0';
 
 	function displayNavigationTree(item: NavigationItem | NavigationItemWithChildren) {
+
 		if (isNavigationItem(item)) {
 			return (
 				<li key={item.link}><Link href={item.link}>{item.label}</Link></li>
@@ -55,7 +57,12 @@ export default function PlanDuSite() {
 						{displayNavigationTree(navigationItemList().aidesEtOutilsNav)}
 						{displayNavigationTree(navigationItemList().employeurNav)}
 
-						<li><Link href="/espace-jeune">Espace Jeune</Link></li>
+						<li>
+							{isServicesJeunesVisibles ?
+								<Link href="/services-jeunes">Services Jeunes</Link> :
+								<Link href="/espace-jeune">Espace Jeune</Link>
+							}
+						</li>
 						<li><Link href="/faq">Foire aux questions</Link></li>
 						<li><Link href="/cgu">Conditions Générales d’utilisation</Link></li>
 						<li><Link href="/accessibilite">Accessibilité : Partiellement conforme</Link></li>

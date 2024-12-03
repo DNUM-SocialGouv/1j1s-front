@@ -5,10 +5,6 @@
 }
 
 .container {
-  @include utilities.media(medium) {
-    padding-top: 2rem;
-  }
-
   & div > ul > li {
     flex-grow: 1;
     flex-basis: 100%;
