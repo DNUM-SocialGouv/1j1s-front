@@ -25,7 +25,7 @@ describe('ComboboxLocalisation', () => {
 
 	it('vérifie la validité de l’input utilisateur', async () => {
 		const user = userEvent.setup();
-		const localisationServiceMock = aLocalisationService();
+		const localisationServiceMock = aLocalisationService({ isInvalidLocalisationQuery: jest.fn() });
 
 		render(
 			<DependenciesProvider localisationService={localisationServiceMock}>

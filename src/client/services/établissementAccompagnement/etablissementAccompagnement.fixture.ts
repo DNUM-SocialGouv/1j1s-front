@@ -6,9 +6,10 @@ import {
 	anEtablissementAccompagnementList,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 
-export function anEtablissementAccompagnementService(): EtablissementAccompagnementService {
+export function anEtablissementAccompagnementService(overrides?: Partial<EtablissementAccompagnementService> ): EtablissementAccompagnementService {
 	return {
-		envoyerDemandeContact: jest.fn().mockResolvedValue(createSuccess(undefined)),
-		rechercher: jest.fn().mockResolvedValue(createSuccess(anEtablissementAccompagnementList())),
+		envoyerDemandeContact: async () => createSuccess(undefined),
+		rechercher: async () => createSuccess(anEtablissementAccompagnementList()),
+		...overrides,
 	};
 }

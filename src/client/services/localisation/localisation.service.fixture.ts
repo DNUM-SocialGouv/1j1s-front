@@ -16,9 +16,9 @@ export function aLocalisationServiceWithEmptyResultat(): LocalisationService {
 
 export function aLocalisationService(override?: Partial<LocalisationService>): LocalisationService {
 	return {
-		isInvalidLocalisationQuery: jest.fn().mockReturnValue(false),
-		rechercherCommune: jest.fn().mockResolvedValue(createSuccess({ résultats: aCommuneList() })),
-		rechercherLocalisation: jest.fn().mockResolvedValue(createSuccess(aLocalisationList())),
+		isInvalidLocalisationQuery: () => false,
+		rechercherCommune: async () => createSuccess({ résultats: aCommuneList() }),
+		rechercherLocalisation: async () => createSuccess(aLocalisationList()),
 		...override,
 	};
 }
