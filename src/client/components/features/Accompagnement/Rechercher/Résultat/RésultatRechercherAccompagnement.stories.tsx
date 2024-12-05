@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import {
+	anEtablissementAccompagnementService,
+} from '~/client/services/établissementAccompagnement/etablissementAccompagnement.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
+import {
+	TypeÉtablissement,
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import {
 	anEtablissementAccompagnement,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 
-import {
-	TypeÉtablissement,
-} from '../../../../../../server/etablissement-accompagnement/domain/etablissementAccompagnement';
-import { DependenciesProvider } from '../../../../../context/dependenciesContainer.context';
-import {
-	anEtablissementAccompagnementService,
-} from '../../../../../services/établissementAccompagnement/etablissementAccompagnement.fixture';
-import { aLocalisationService } from '../../../../../services/localisation/localisation.service.fixture';
 import { RésultatRechercherAccompagnement } from './RésultatRechercherAccompagnement';
 
 const meta: Meta<typeof RésultatRechercherAccompagnement> = {
