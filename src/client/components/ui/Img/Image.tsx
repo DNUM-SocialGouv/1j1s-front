@@ -3,8 +3,19 @@ import React, { useState } from 'react';
 
 const PLACEHOLDER_SRC = '/images/placeholder.webp';
 
-type ImageProps = React.ComponentPropsWithoutRef<typeof NextImage>;
+// NOTE (GAFI 05-12-2024): Next impose d'avoir soit `fill`, soit `width` et `height` au runtime, mais pas dans le typage
+type ImageProps = Omit<React.ComponentPropsWithoutRef<typeof NextImage>, 'width' | 'height' | 'fill'> & ({
+	fill: Required<React.ComponentPropsWithoutRef<typeof NextImage>['fill']>
+	width?: React.ComponentPropsWithoutRef<typeof NextImage>['width']
+	height?: React.ComponentPropsWithoutRef<typeof NextImage>['height']
+} | {
+	fill?: React.ComponentPropsWithoutRef<typeof NextImage>['fill']
+	width: Required<React.ComponentPropsWithoutRef<typeof NextImage>['width']>
+	height: Required<React.ComponentPropsWithoutRef<typeof NextImage>['height']>
+
+});
 type ImageRef = React.ComponentRef<typeof NextImage>;
+
 export const Image = React.forwardRef<ImageRef, ImageProps>(function Image({
 	src,
 	onError: onErrorProps = doNothing,
