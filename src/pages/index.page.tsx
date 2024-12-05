@@ -15,6 +15,7 @@ import styles from '~/pages/index.module.scss';
 import { Actualite } from '~/server/actualites/domain/actualite';
 import { isFailure } from '~/server/errors/either';
 import { dependencies } from '~/server/start';
+import { ISODateTime } from '~/shared/ISODateTime';
 
 
 interface CardContent {
@@ -25,11 +26,25 @@ interface CardContent {
 	title: string
 }
 
+type SerializedActualite = Omit<Actualite, 'dateMiseAJour'> & {
+	dateMiseAJour: ISODateTime
+}
 interface AccueilPageProps {
-	actualites: Array<Actualite>
+	actualites: Array<SerializedActualite>
+}
+function deserialize(actualites: Array<SerializedActualite>): Array<Actualite> {
+	return actualites.map((actualite) => ({
+		...actualite,
+		dateMiseAJour: new Date(actualite.dateMiseAJour),
+	}));
+}
+function serialize(cartesActualitesResponse: Array<Actualite>): Array<SerializedActualite> {
+	return JSON.parse(JSON.stringify(cartesActualitesResponse));
 }
 
 export default function Accueil(accueilProps: AccueilPageProps) {
+	const actualites = deserialize(accueilProps.actualites);
+
 	useAnalytics(analytics);
 
 	const isJobEteCardVisible = process.env.NEXT_PUBLIC_JOB_ETE_FEATURE === '1';
@@ -50,7 +65,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 
 	const isCampagneHandicapVisible = process.env.NEXT_PUBLIC_CAMPAGNE_HANDICAP === '1';
 
-	const actualitesCardListContent: CardContent[] = accueilProps.actualites.map((carte: Actualite): CardContent => {
+	const actualitesCardListContent: CardContent[] = actualites.map((carte: Actualite): CardContent => {
 		return {
 			children: <p>{carte.extraitContenu}</p>,
 			imageUrl: carte.bannière?.src || '',
@@ -486,7 +501,7 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<AccueilPage
 	}
 
 	return {
-		props: { actualites: JSON.parse(JSON.stringify(cartesActualitesResponse.result)) },
+		props: { actualites: serialize(cartesActualitesResponse.result) },
 		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
 	};
 }
