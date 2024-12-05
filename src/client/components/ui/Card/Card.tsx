@@ -80,19 +80,18 @@ function CardLink(props: CardLinkProps & React.ComponentPropsWithoutRef<typeof L
 	return <Link className={classNames(className, styles.cardLink)} href={href} {...rest}>{label}</Link>;
 }
 
-interface CardImageProps {
-	src: string;
-	alt?: string;
-	sizes?: string;
-	ariaHidden?: boolean;
+type CardImageProps = Omit<React.ComponentPropsWithoutRef<typeof Image>, 'alt'> & {
+	alt?: string,
 }
 
-function CardImage(props: CardImageProps & React.ComponentPropsWithoutRef<'div'>) {
-	const { className, src, alt = '', sizes = '100vw', ...rest } = props;
+function CardImage({
+	className,
+	alt = '',
+	sizes = '100vw',
+	...rest
+}: CardImageProps) {
 	return (
-		<div className={classNames(styles.cardImageWrapper, className)} {...rest}>
-			<Image src={src} alt={alt} fill={true} sizes={sizes} />
-		</div>
+		<Image className={classNames(styles.cardImage, className)} alt={alt} sizes={sizes} {...rest} />
 	);
 }
 
