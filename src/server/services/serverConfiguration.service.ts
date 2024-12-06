@@ -31,6 +31,7 @@ export default class ServerConfigurationService implements ConfigurationService 
 			FRANCE_TRAVAIL_CONNECT_CLIENT_SECRET: ServerConfigurationService.getOrThrowError('FRANCE_TRAVAIL_CONNECT_CLIENT_SECRET'),
 			FRANCE_TRAVAIL_CONNECT_SCOPE: ServerConfigurationService.getOrThrowError('FRANCE_TRAVAIL_CONNECT_SCOPE').replace(/,/g, ' '),
 			FRANCE_TRAVAIL_CONNECT_URL: ServerConfigurationService.getOrThrowError('FRANCE_TRAVAIL_CONNECT_URL'),
+			FRANCE_TRAVAIL_IMAGES_HOSTNAME: ServerConfigurationService.getOrThrowError('FRANCE_TRAVAIL_IMAGES_HOSTNAME'),
 			MAILER_SERVICE_ACTIVE: ServerConfigurationService.getOrDefault('MAILER_SERVICE_ACTIVE', '0'),
 
 			MAILER_SERVICE_REDIRECT_TO: ServerConfigurationService.getOrDefault('MAILER_SERVICE_REDIRECT_TO', ''),
@@ -125,6 +126,7 @@ export interface EnvironmentVariables {
 	readonly FRANCE_TRAVAIL_CONNECT_CLIENT_SECRET: string
 	readonly FRANCE_TRAVAIL_CONNECT_SCOPE: string
 	readonly FRANCE_TRAVAIL_CONNECT_URL: string
+	readonly FRANCE_TRAVAIL_IMAGES_HOSTNAME: string
 	readonly REDIS_URL: string
 	readonly STRAPI_AUTH: string
 	readonly STRAPI_URL_API: string

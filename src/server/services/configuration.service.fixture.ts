@@ -38,6 +38,7 @@ export class ConfigurationServiceFixture implements ConfigurationService {
 			FRANCE_TRAVAIL_CONNECT_CLIENT_SECRET: 'FRANCE_TRAVAIL_CONNECT_CLIENT_SECRET',
 			FRANCE_TRAVAIL_CONNECT_SCOPE: 'FRANCE_TRAVAIL_CONNECT_SCOPE',
 			FRANCE_TRAVAIL_CONNECT_URL: 'https://entreprise.francetravail.fr',
+			FRANCE_TRAVAIL_IMAGES_HOSTNAME: '**.francetravail.fr',
 			MAILER_SERVICE_ACTIVE: '',
 			MAILER_SERVICE_REDIRECT_TO: '',
 			NEXT_PUBLIC_1J1S_DOMAIN: '1jeune1solution.gouv.fr',
