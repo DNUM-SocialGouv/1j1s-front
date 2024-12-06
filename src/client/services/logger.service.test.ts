@@ -1,27 +1,24 @@
-import * as Sentry from '@sentry/nextjs';
-
+import { mockCaptureMessage, mockGetCurrentScope } from '~/client/components/sentry-nextjs.mock';
 import { LoggerService } from '~/client/services/logger.service';
-
-jest.mock('@sentry/nextjs');
-
-const SentryMock = jest.mocked(Sentry, { shallow: true });
-const SentryScopeMock = {
-	setTag: jest.fn(),
-} as unknown as Sentry.Scope;
-SentryMock.configureScope.mockImplementation((callback) => {
-	callback(SentryScopeMock);
-});
 
 describe('LoggerService', () => {
 	const sessionId = 'ma-session-id';
+	const captureMessage = jest.fn();
 
+	beforeEach(() => {
+		mockCaptureMessage(captureMessage);
+	  mockGetCurrentScope({});
+	});
+	afterEach(() => {
+	  jest.clearAllMocks();
+	});
 	describe('error', () => {
 		it('appelle le logger error avec les bons paramètres', () => {
 			const loggerService = new LoggerService(sessionId);
 			const message = 'mon erreur message';
 			loggerService.error(message);
 
-			expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'error');
+			expect(captureMessage).toHaveBeenCalledWith(message, 'error');
 		});
 	});
 
@@ -31,7 +28,7 @@ describe('LoggerService', () => {
 			const message = 'mon info message';
 			loggerService.info(message);
 
-			expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'info');
+			expect(captureMessage).toHaveBeenCalledWith(message, 'info');
 		});
 	});
 
@@ -41,19 +38,22 @@ describe('LoggerService', () => {
 			const message = 'mon warn message';
 			loggerService.warn(message);
 
-			expect(SentryMock.captureMessage).toHaveBeenCalledWith(message, 'warning');
+			expect(captureMessage).toHaveBeenCalledWith(message, 'warning');
 		});
 	});
 
 	describe('setTransactionId', () => {
-		const transactionId = 'ma-transaction-id';
 
 		it('appelle setTag avec le transactionId', () => {
+			const mockSetTag = jest.fn();
+			mockGetCurrentScope({ setTag: mockSetTag });
+			
+			const transactionId = 'ma-transaction-id';
 			const loggerService = new LoggerService(sessionId);
 
 			loggerService.setTransactionId(transactionId);
 
-			expect(SentryScopeMock.setTag).toHaveBeenCalledWith(
+			expect(mockSetTag).toHaveBeenCalledWith(
 				'transaction_id',
 				transactionId,
 			);

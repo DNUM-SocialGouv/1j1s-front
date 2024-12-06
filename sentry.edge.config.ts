@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/nextjs';
-import { SeverityLevel } from '@sentry/nextjs';
 
 const DEFAULT_SENTRY_ENVIRONMENT = 'local';
 const USER_AGENT_BLACKLIST = process.env.NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST?.split(',');
@@ -38,7 +37,7 @@ process.env.NODE_ENV === 'production' && Sentry.init({
 	enabled: true,
 	environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || DEFAULT_SENTRY_ENVIRONMENT,
 	initialScope: {
-		level: process.env.NEXT_PUBLIC_SENTRY_LOG_LEVEL as SeverityLevel,
+		level: process.env.NEXT_PUBLIC_SENTRY_LOG_LEVEL as Sentry.SeverityLevel,
 	},
 	release: releaseName(),
 	sendClientReports: SEND_DATA,

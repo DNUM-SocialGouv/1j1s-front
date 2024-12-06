@@ -2,9 +2,7 @@ import * as Sentry from '@sentry/nextjs';
 
 export class LoggerService {
 	constructor(sessionId?: string) {
-		Sentry.configureScope((scope: Sentry.Scope) => {
-			scope.setTag('session_id', sessionId);
-		});
+		Sentry.getCurrentScope().setTag('session_id', sessionId);
 	}
 
 	private static log(
@@ -27,8 +25,6 @@ export class LoggerService {
 	}
 
 	setTransactionId(transactionId: string): void {
-		Sentry.configureScope((scope) => {
-			scope.setTag('transaction_id', transactionId);
-		});
+		Sentry.getCurrentScope().setTag('transaction_id', transactionId);
 	}
 }
