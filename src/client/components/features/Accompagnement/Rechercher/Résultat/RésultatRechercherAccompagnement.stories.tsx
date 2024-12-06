@@ -36,7 +36,10 @@ type Story = StoryObj<typeof RésultatRechercherAccompagnement>;
 
 export const MissionLocale: Story = {
 	args: {
-		etablissement: anEtablissementAccompagnement({ type: TypeÉtablissement.MISSION_LOCALE }),
+		etablissement: anEtablissementAccompagnement({
+			email: 'contact@mission-locale.fr',
+			type: TypeÉtablissement.MISSION_LOCALE,
+		}),
 	},
 };
 export const MissionLocaleSansEmail: Story = {
@@ -46,11 +49,17 @@ export const MissionLocaleSansEmail: Story = {
 };
 export const InfoJeune: Story = {
 	args: {
-		etablissement: anEtablissementAccompagnement({ type: TypeÉtablissement.INFO_JEUNE }),
+		etablissement: anEtablissementAccompagnement({
+			email: 'contact@info-jeune.fr',
+			type: TypeÉtablissement.INFO_JEUNE,
+		}),
 	},
 };
 export const FranceTravail: Story = {
 	args: {
-		etablissement: anEtablissementAccompagnement({ type: TypeÉtablissement.FRANCE_TRAVAIL }),
+		etablissement: anEtablissementAccompagnement({
+			email: 'contact@francetravail.fr',
+			type: TypeÉtablissement.FRANCE_TRAVAIL,
+		}),
 	},
 };
