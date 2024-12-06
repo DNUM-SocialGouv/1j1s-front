@@ -78,7 +78,7 @@
     "cypress": "13.16.1",
     "eslint": "8.57.1",
     "eslint-config-next": "14.2.20",
-    "eslint-plugin-cypress": "3.6.0",
+    "eslint-plugin-cypress": "4.1.0",
     "eslint-plugin-react": "7.37.2",
     "eslint-plugin-storybook": "0.11.1",
     "eslint-plugin-testing-library": "7.1.0",
