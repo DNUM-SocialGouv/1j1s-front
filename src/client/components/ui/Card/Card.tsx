@@ -80,10 +80,12 @@ function CardLink(props: CardLinkProps & React.ComponentPropsWithoutRef<typeof L
 	return <Link className={classNames(className, styles.cardLink)} href={href} {...rest}>{label}</Link>;
 }
 
-type CardImageProps = Omit<React.ComponentPropsWithoutRef<typeof Image>, 'alt'> & {
-	alt?: string,
+// NOTE (GAFI 06-12-2024): https://github.com/microsoft/TypeScript/issues/31501
+type OmitUnion<T, K extends keyof T> = T extends object ? Omit<T, K> : never
+type ImageProps = React.ComponentPropsWithoutRef<typeof Image>;
+type CardImageProps = OmitUnion<ImageProps, 'alt'> & {
+	alt?: ImageProps['alt'],
 }
-
 function CardImage({
 	className,
 	alt = '',
