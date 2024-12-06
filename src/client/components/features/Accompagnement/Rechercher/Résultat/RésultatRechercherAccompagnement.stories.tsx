@@ -1,43 +1,56 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
-	JourSemaine,
-	TypeÉtablissement,
-} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
+	anEtablissementAccompagnementService,
+} from '~/client/services/établissementAccompagnement/etablissementAccompagnement.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
+import {
+	anEtablissementAccompagnement,
+	anEtablissementAccompagnementFranceTravail,
+	anEtablissementAccompagnementInfoJeunes,
+	anEtablissementAccompagnementMissionLocale,
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 
 import { RésultatRechercherAccompagnement } from './RésultatRechercherAccompagnement';
 
 const meta: Meta<typeof RésultatRechercherAccompagnement> = {
 	args: {
-		établissement: {
-			adresse: '14 rue de la montagne Sainte Geneviève',
-			email: 'mail@adress.com',
-			horaires: [
-				{
-					heures: [
-						{
-							début: '9h',
-							fin: '12h',
-						},
-					],
-					jour: JourSemaine.LUNDI,
-				},
-			],
-			id: '1',
-			nom: 'Mission Locale de Paris',
-			telephone: '01 02 03 04 05',
-			type: TypeÉtablissement.MISSION_LOCALE,
-		},
+		etablissement: anEtablissementAccompagnement(),
 	},
 	component: RésultatRechercherAccompagnement,
+	render: (args) => {
+		return (
+			<DependenciesProvider
+				établissementAccompagnementService={anEtablissementAccompagnementService()}
+				localisationService={aLocalisationService()}>
+				<RésultatRechercherAccompagnement {...args} />
+			</DependenciesProvider>
+		);
+	},
 	title: 'Components/Feature/RésultatRechercherAccompagnement',
 };
 
 export default meta;
 type Story = StoryObj<typeof RésultatRechercherAccompagnement>;
 
-export const Default: Story = {
+export const MissionLocale: Story = {
 	args: {
-
+		etablissement: anEtablissementAccompagnementMissionLocale(),
+	},
+};
+export const MissionLocaleSansEmail: Story = {
+	args: {
+		etablissement: anEtablissementAccompagnementMissionLocale({ email: undefined }),
+	},
+};
+export const InfoJeune: Story = {
+	args: {
+		etablissement: anEtablissementAccompagnementInfoJeunes(),
+	},
+};
+export const FranceTravail: Story = {
+	args: {
+		etablissement: anEtablissementAccompagnementFranceTravail(),
 	},
 };

@@ -14,7 +14,7 @@ import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { radiusList } from '~/server/localisations/domain/localisation';
 import {
-	aCommune,
+	aCommune, aCommuneList,
 	aRésultatsRechercheCommune,
 } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
 
@@ -169,6 +169,7 @@ describe('<ComboboxCommune/>', () => {
 		// GIVEN
 		const user = userEvent.setup();
 		const localisationService = aLocalisationService();
+		jest.spyOn(localisationService, 'rechercherCommune');
 
 		render(<DependenciesProvider localisationService={localisationService}>
 			<ComboboxCommune label={'commune'} />
@@ -251,7 +252,9 @@ describe('<ComboboxCommune/>', () => {
 	describe('lorsque je fais une recherche avec au moins 3 caractères', () => {
 		it('appelle le service lorsque l‘utilisateur tape 3 caractères', async () => {
 			const user = userEvent.setup();
-			const localisationService = aLocalisationService();
+			const localisationService = aLocalisationService({
+				rechercherCommune: jest.fn().mockResolvedValue(createSuccess({ résultats: aCommuneList() })),
+			});
 
 			render(<DependenciesProvider localisationService={localisationService}>
 				<ComboboxCommune label={'comboboxLabel'} />

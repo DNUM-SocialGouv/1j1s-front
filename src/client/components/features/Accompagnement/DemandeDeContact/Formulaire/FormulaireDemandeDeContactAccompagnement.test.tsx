@@ -112,14 +112,16 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 	describe('quand l’utilisateur souhaite contacter un établissement', () => {
 		it('envoie une demande de contact', async () => {
 			const user = userEvent.setup();
-			const localisationService = aLocalisationService();
+			const localisationService = aLocalisationService({
+				rechercherCommune: jest.fn().mockResolvedValue(createSuccess({
+					résultats: [aCommune({
+						codePostal: '75006',
+						ville: 'Paris',
+					})],
+				})),
+			});
 			const établissementAccompagnementService = anEtablissementAccompagnementService();
-			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
-				résultats: [aCommune({
-					codePostal: '75006',
-					ville: 'Paris',
-				})],
-			}));
+			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact');
 
 			render(
 				<DependenciesProvider
