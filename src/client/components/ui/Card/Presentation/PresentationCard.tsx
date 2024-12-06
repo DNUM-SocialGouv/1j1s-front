@@ -24,7 +24,7 @@ export function PresentationCard({
 
 	return (
 		<Card className={classNames(className, styles.card)} layout={'vertical'}>
-			<Card.Image className={imageClassName} src={imageSrc} aria-hidden />
+			<Card.Image className={imageClassName} src={imageSrc} aria-hidden width={320} height={180} />
 			<Card.Content className={styles.content}>
 				<Card.Title className={styles.title} titleAs={titleHeadingTag}>{titleLabel}</Card.Title>
 				{children}

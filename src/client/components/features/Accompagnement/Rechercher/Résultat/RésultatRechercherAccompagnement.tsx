@@ -93,7 +93,7 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 		<>
 			<Card layout={'vertical'} className={styles.card}>
 				<Card.Content className={styles.content}>
-					<Card.Image className={styles.logo} src={logoÉtablissement} aria-hidden />
+					<Card.Image className={styles.logo} src={logoÉtablissement} height={108} width={108} alt="" />
 					<div className={styles.mainInfoEtablissement}>
 						<Card.Title className={styles.title} titleAs={'h3'}>
 							{etablissement.nom}

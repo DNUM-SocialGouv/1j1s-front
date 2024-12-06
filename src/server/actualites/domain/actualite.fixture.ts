@@ -5,11 +5,14 @@ import { anImage } from '~/server/cms/domain/image.fixture';
 export function anActualite(override?: Partial<Actualite>) {
 	return {
 		article: anArticle(),
-		bannière: anImage(),
-		contenu: 'Contenu',
-		extraitContenu: 'Contenu',
-		link: '/articles/aide-a-l-embauche-d-un-jeune-en-parcours-emploi-competences-pec-jeunes-dans-le-secteur-non-marchand',
-		titre: 'Titre',
+		bannière: {
+			alt: '',
+			src: 'https://cos-njord-dgefp-1j1s-integ.storage-eb4.cegedim.cloud/strapi-medias/recrutement_apprentissage_10e5e2e702.png',
+		},
+		contenu: '👉Découvrez les structures disponibles pour vous accompagner et vous apporter les bonnes réponses selon votre situation.',
+		extraitContenu: '👉Découvrez les structures disponibles pour vous accompagner et vous apporter les bonnes réponses selon votre …',
+		link: '/articles/quelles-sont-les-structures-qui-peuvent-accompagner-les-jeunes',
+		titre: 'Quelles sont les structures qui peuvent accompagner les jeunes ?',
 		...override,
 	};
 }
