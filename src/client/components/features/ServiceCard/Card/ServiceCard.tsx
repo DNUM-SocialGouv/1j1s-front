@@ -59,7 +59,7 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 				className,
 				styles.serviceCard,
 				imageFit === 'cover' && styles.cardCover)}>
-			<Card.Image className={styles.cardLogo} src={logo} alt={logoAlt} />
+			<Card.Image className={styles.cardLogo} src={logo} width={140} height={140} alt={logoAlt} />
 			<Card.Content className={styles.cardBody}>
 				<Card.Title id={idIntitulé} titleAs={titleAs} className={styles.cardTitle}>{title}</Card.Title>
 				<p>{children}</p>

@@ -120,7 +120,7 @@ describe('Page Actualités', () => {
 
 			it('affiche la liste des actualités', () => {
 				const carteActualites = [
-					anActualite({ extraitContenu: 'Je suis un extrait', titre: 'Actualité 1' }),
+					anActualite({ contenu: 'Je suis un extrait', titre: 'Actualité 1' }),
 					anActualite({ titre: 'Actualité 2' }),
 					anActualite({ titre: 'Actualité 3' }),
 				];
