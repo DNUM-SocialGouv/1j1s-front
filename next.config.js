@@ -30,10 +30,6 @@ function getImagesRemotePattern() {
 }
 
 const CMS_HOST = getHostName(process.env.STRAPI_URL_API);
-const API_FRANCE_TRAVAIL_HOST = getHostName(process.env.FRANCE_TRAVAIL_CONNECT_URL);
-// FIXME (SULI 26-03-2024): Ce host est présent pour pouvoir afficher les images venant de pole-emploi, les urls de ces images n'ont pas été migré en francetravail
-// TODO (SULI 26-03-2024):  à supprimer lorsque les offres renverront des urls d'image à jour
-const API_POLE_EMPLOI_HOST = getHostName('https://entreprise.pole-emploi.fr');
 const STRAPI_MEDIA_URL = getHostName(process.env.STRAPI_MEDIA_URL);
 
 
@@ -58,11 +54,7 @@ const moduleExports = {
 		remotePatterns: [
 			...getImagesRemotePattern(),
 			{
-				hostname: API_FRANCE_TRAVAIL_HOST,
-				protocol: 'https',
-			},
-			{
-				hostname: API_POLE_EMPLOI_HOST,
+				hostname: process.env.FRANCE_TRAVAIL_IMAGES_HOSTNAME,
 				protocol: 'https',
 			},
 			{
