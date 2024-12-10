@@ -9,7 +9,10 @@ export function flatMapSingleRelation<ReturnType>(relation: Strapi.SingleRelatio
 	return data;
 }
 
-
+// FIXME (GAFI 14-11-2024): Une version plus safe existe avec la Regex /^.{size}\w*/ qui prend <size> caractères puis,
+//	autant que nécessaire pour terminer le mot
+//	Also, une seconde version existe pour la description des offres de logement qui prend en compte aussi un buffer de
+//	taille minimum pour le reste du contenu (pour éviter d'avoir un bouton "voir plus" qui n'affiche qu'un seul mot de plus)
 export function getExtraitContenu(contenu: string, size = 120): string {
 	if (contenu.length < size) return contenu;
 	const end = contenu.substring(size);
