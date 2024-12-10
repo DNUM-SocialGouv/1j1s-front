@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.358.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.358.6...v3.358.7) (2024-12-10)
+
+
+### Bug Fixes
+
+* **config:** utilise la bonne url pour les images ft ([#3498](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3498)) ([a69a560](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a69a560268d8e6f7d56a6b9d5cce7ad6527bb8be))
+* **deps:** update all non-major dependencies ([#3502](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3502)) ([e9fc723](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e9fc723a3bae16d865e43867b4060a149b5152a6))
+
 ## [3.358.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.358.5...v3.358.6) (2024-12-06)
 
 
