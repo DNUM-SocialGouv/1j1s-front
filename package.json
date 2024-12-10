@@ -97,6 +97,12 @@
   "overrides": {
     "@socialgouv/eslint-config-recommended": {
       "eslint": "^8.28.0"
+    },
+    "jest-axe": {
+      "axe-core": "4.10.2"
+    },
+    "@types/jest-axe": {
+      "axe-core": "4.10.2"
     }
   },
   "lint-staged": {
