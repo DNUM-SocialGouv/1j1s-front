@@ -28,11 +28,11 @@ export function ArticleCard({
 	imageFit = 'cover',
 	linkLabel = 'Lire l‘article',
 }: ArticleCardProps & React.HTMLAttributes<HTMLLinkElement>) {
-	const imageClassName = classNames(styles.illustration, imageFit === 'contain' && styles.illustrationContain);
+	const imageClassName = classNames(styles.illustration, imageFit === 'contain' && styles.contain);
 
 	return (
 		<Card className={classNames(className, styles.card)} layout={'vertical'}>
-			<Card.Image className={imageClassName} src={imageSrc} aria-hidden />
+			<Card.Image className={imageClassName} src={imageSrc} width={320} height={180} aria-hidden />
 			<Card.Content className={styles.content}>
 				<Card.Title className={styles.title} titleAs={titleHeadingTag}>{titleLabel}</Card.Title>
 				{children}

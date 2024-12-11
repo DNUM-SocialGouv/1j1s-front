@@ -11,7 +11,6 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ActualitesPage, { getStaticProps } from '~/pages/actualites/index.page';
 import { anActualite, anActualiteList } from '~/server/actualites/domain/actualite.fixture';
-import { anArticle } from '~/server/articles/domain/article.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { dependencies } from '~/server/start';
@@ -120,7 +119,7 @@ describe('Page Actualités', () => {
 
 			it('affiche la liste des actualités', () => {
 				const carteActualites = [
-					anActualite({ extraitContenu: 'Je suis un extrait', titre: 'Actualité 1' }),
+					anActualite({ contenu: 'Je suis un extrait', titre: 'Actualité 1' }),
 					anActualite({ titre: 'Actualité 2' }),
 					anActualite({ titre: 'Actualité 3' }),
 				];
@@ -137,38 +136,6 @@ describe('Page Actualités', () => {
 				const premiereActualite = actualitesList[0];
 				expect(within(premiereActualite).getByRole('heading', { level: 2, name: 'Actualité 1' })).toBeVisible();
 				expect(within(premiereActualite).getByText('Je suis un extrait')).toBeVisible();
-			});
-
-			describe('lien de redirection de l‘actualité', () => {
-				it('lorsque l‘actualité n‘est pas relié à un article, affiche le lien avec le bon wording', () => {
-					const carteActualites = [anActualite({ article: undefined, link: 'https://test.com' })];
-
-					render(
-						<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-							<ActualitesPage cartesActualites={carteActualites} />
-						</DependenciesProvider>,
-					);
-
-					const premiereActualite = screen.getByRole('listitem');
-					const lienArticle = within(premiereActualite).getByRole('link', { name: 'En savoir plus' });
-					expect(lienArticle).toBeVisible();
-					expect(lienArticle).toHaveAttribute('href', 'https://test.com');
-				});
-
-				it('lorsque l‘actualité est relié à un article, affiche le lien avec le bon wording', () => {
-					const carteActualites = [anActualite({ article: anArticle(), link: '/article' })];
-
-					render(
-						<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-							<ActualitesPage cartesActualites={carteActualites} />
-						</DependenciesProvider>,
-					);
-
-					const premiereActualite = screen.getByRole('listitem');
-					const lienArticle = within(premiereActualite).getByRole('link', { name: 'Lire l‘article' });
-					expect(lienArticle).toBeVisible();
-					expect(lienArticle).toHaveAttribute('href', '/article');
-				});
 			});
 
 			describe('bouton voir plus/voir moins', () => {

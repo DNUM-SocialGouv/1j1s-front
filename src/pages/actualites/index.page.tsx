@@ -1,9 +1,9 @@
 import { GetStaticPropsResult } from 'next';
 import React, { useMemo } from 'react';
 
+import ActualiteCard from '~/client/components/features/Actualites/ActualiteCard';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
@@ -23,19 +23,9 @@ export default function ActualitesPage({ cartesActualites }: ActualitesPageProps
 	useAnalytics(analytics);
 
 	const articleCardList = useMemo(() => {
-		return cartesActualites.map((carte, index) => {
-			const isExternalLink = !carte.article;
+		return cartesActualites.map((carte) => {
 			return (
-				<ArticleCard
-					key={index}
-					imageSrc={carte.bannière?.src || ''}
-					titleLabel={carte.titre}
-					link={carte.link}
-					linkLabel={isExternalLink ? 'En savoir plus' : undefined}
-					iconName={isExternalLink ? 'external-redirection' : undefined}
-					titleHeadingTag={'h2'}>
-					<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
-				</ArticleCard>
+				<ActualiteCard actualite={carte} key={carte.titre} />
 			);
 		});
 	}, [cartesActualites]);

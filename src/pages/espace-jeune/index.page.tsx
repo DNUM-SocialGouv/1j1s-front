@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import { GetStaticPropsResult } from 'next';
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
+import ActualiteCard from '~/client/components/features/Actualites/ActualiteCard';
 import { ServicesJeunes } from '~/client/components/features/ServicesJeunes/ServicesJeunes';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
@@ -27,29 +27,11 @@ const MAX_VISIBLE_ACTUALITES_LENGTH = 3;
 export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: EspaceJeunePageProps) {
 	useAnalytics(analytics);
 
-	const getCarteActualiteLinkLabel = useCallback(({ article }: Actualite): string | undefined => {
-		if (!article) return 'En savoir plus';
-	}, []);
-	const getCarteActualiteLinkIcon = useCallback(({ article }: Actualite) => {
-		if (!article) return 'external-redirection';
-	}, []);
-
 	const articleCardList: React.ReactNode[] = useMemo(() => {
-		return cartesActualites.map((carte, index) => (
-			<ArticleCard
-				className={styles.carteActualite}
-				key={index}
-				imageSrc={carte.bannière?.src || ''}
-				titleLabel={carte.titre}
-				link={carte.link}
-				linkLabel={getCarteActualiteLinkLabel(carte)}
-				iconName={getCarteActualiteLinkIcon(carte)}
-				titleHeadingTag={'h3'}>
-				<p className={styles.carteActualiteDescription}>{carte.extraitContenu}</p>
-			</ArticleCard>
-		),
-		);
-	}, [cartesActualites, getCarteActualiteLinkIcon, getCarteActualiteLinkLabel]);
+		return cartesActualites.map((carte) => (
+			<ActualiteCard actualite={carte} headingLevel={'h3'} key={carte.titre} className={styles.carteActualite} />
+		));
+	}, [cartesActualites]);
 
 	return (
 		<>

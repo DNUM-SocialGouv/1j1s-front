@@ -1,6 +1,13 @@
-import { anActualiteList, anActualiteLongList } from '~/server/actualites/domain/actualite.fixture';
-import { aStrapiListeActualites, aStrapiLongueListeActualites } from '~/server/actualites/infra/strapiActualites.fixture';
+import { anActualite, anActualiteLongList } from '~/server/actualites/domain/actualite.fixture';
+import {
+	aStrapiActualite,
+	aStrapiListeActualites,
+	aStrapiLongueListeActualites,
+} from '~/server/actualites/infra/strapiActualites.fixture';
 import { StrapiActualitesRepository } from '~/server/actualites/infra/strapiActualites.repository';
+import { anArticle } from '~/server/articles/domain/article.fixture';
+import { aStrapiArticle } from '~/server/articles/infra/strapiArticle.fixture';
+import { aStrapiImage, aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
 import { aStrapiService } from '~/server/cms/infra/repositories/strapi.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -23,12 +30,55 @@ describe('strapiActualitesRepository', () => {
 
 		describe('quand les actualités sont récupérées', () => {
 			it('lorsque le mapping est en succès, renvoie les actualités', async () => {
-				const strapiService = aStrapiService();
-				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiListeActualites()));
+				const strapiListeActus = aStrapiListeActualites({ listeActualites: [
+					aStrapiActualite({
+						article: aStrapiSingleRelation(aStrapiArticle({
+							banniere: aStrapiSingleRelation(aStrapiImage({
+								alternativeText: '',
+								url: 'https://image.example.com/',
+							})),
+							contenu: 'Contenu article',
+							slug: 'titre-article',
+							titre: 'Titre article',
+							updatedAt: '2024-01-01T00:00:00.000Z',
+						})),
+						banniere: aStrapiSingleRelation(aStrapiImage({
+							alternativeText: '',
+							url: 'https://image.example.com/',
+						})),
+						contenu: 'Contenu',
+						titre: 'Titre',
+						url: 'https://www.google.com',
+					})],
+				});
+				const strapiService = aStrapiService({
+					getSingleType: jest.fn().mockResolvedValue(createSuccess(strapiListeActus)),
+				});
 				const strapiActualites = new StrapiActualitesRepository(strapiService, anErrorManagementService());
 
 				const result = await strapiActualites.getActualitesList();
-				expect(result).toStrictEqual(createSuccess(anActualiteList()));
+				expect(result).toStrictEqual(createSuccess([
+					anActualite({
+						article: anArticle({
+							bannière:  {
+								alt: '',
+								src: 'https://image.example.com/',
+							},
+									 contenu: 'Contenu article',
+					         dateDerniereMiseAJour: '2024-01-01T00:00:00.000Z',
+					         slug: 'titre-article',
+					         titre: 'Titre article',
+						}),
+						bannière: {
+							alt: '',
+							src: 'https://image.example.com/',
+						},
+						contenu: 'Contenu',
+						extraitContenu: 'Contenu',
+						link: '/articles/titre-article',
+						titre: 'Titre',
+					}),
+				]));
 			});
 
 			it('lorsque le mapping est en échec, appelle le service de gestion d’erreur avec l’erreur et le contexte', async () => {
