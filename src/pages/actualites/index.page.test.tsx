@@ -139,38 +139,6 @@ describe('Page Actualités', () => {
 				expect(within(premiereActualite).getByText('Je suis un extrait')).toBeVisible();
 			});
 
-			describe('lien de redirection de l‘actualité', () => {
-				it('lorsque l‘actualité n‘est pas relié à un article, affiche le lien avec le bon wording', () => {
-					const carteActualites = [anActualite({ article: undefined, link: 'https://test.com' })];
-
-					render(
-						<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-							<ActualitesPage cartesActualites={carteActualites} />
-						</DependenciesProvider>,
-					);
-
-					const premiereActualite = screen.getByRole('listitem');
-					const lienArticle = within(premiereActualite).getByRole('link', { name: 'En savoir plus' });
-					expect(lienArticle).toBeVisible();
-					expect(lienArticle).toHaveAttribute('href', 'https://test.com');
-				});
-
-				it('lorsque l‘actualité est relié à un article, affiche le lien avec le bon wording', () => {
-					const carteActualites = [anActualite({ article: anArticle(), link: '/article' })];
-
-					render(
-						<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-							<ActualitesPage cartesActualites={carteActualites} />
-						</DependenciesProvider>,
-					);
-
-					const premiereActualite = screen.getByRole('listitem');
-					const lienArticle = within(premiereActualite).getByRole('link', { name: 'Lire l‘article' });
-					expect(lienArticle).toBeVisible();
-					expect(lienArticle).toHaveAttribute('href', '/article');
-				});
-			});
-
 			describe('bouton voir plus/voir moins', () => {
 				it('n‘affiche pas le bouton voir plus si moins de 4 actualités', () => {
 					const carteActualites = [

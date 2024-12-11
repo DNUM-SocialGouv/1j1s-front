@@ -40,7 +40,7 @@ describe('<ActualiteCard />', () => {
 		const lienArticle = screen.getByRole('link');
 		expect(lienArticle).toBeVisible();
 		expect(lienArticle).toHaveAttribute('href', expect.stringContaining('/mon-article'));
-		expect(lienArticle).toHaveAccessibleName('Lire l‘article');
+		expect(lienArticle).toHaveAccessibleName("Lire l'article");
 	});
 	it('affiche le lien externe quand présent', () => {
 		const actualite = anActualite({
@@ -53,6 +53,7 @@ describe('<ActualiteCard />', () => {
 		const lienArticle = screen.getByRole('link');
 		expect(lienArticle).toBeVisible();
 		expect(lienArticle).toHaveAttribute('href', expect.stringContaining('https://www.example.com/mon-article'));
-		expect(lienArticle).toHaveAccessibleName('En savoir plus');
+		expect(lienArticle).toHaveAccessibleName(expect.stringContaining('En savoir plus'));
+		expect(lienArticle).toHaveAccessibleName(expect.stringContaining('nouvelle fenêtre'));
 	});
 });

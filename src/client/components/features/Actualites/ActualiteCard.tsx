@@ -1,4 +1,5 @@
-import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
+import { Card } from '~/client/components/ui/Card/Card';
+import { Link } from '~/client/components/ui/Link/Link';
 import { Actualite } from '~/server/actualites/domain/actualite';
 import { getExtraitContenu } from '~/server/cms/infra/repositories/strapi.utils';
 
@@ -16,17 +17,23 @@ export default function ActualiteCard({ actualite }: ActualiteCardProps) {
 	const extrait = getExtraitContenu(actualite.contenu);
 
 	return (
-		<ArticleCard
-			imageSrc={actualite.bannière?.src || ''}
-			titleLabel={actualite.titre}
-			link={actualite.link}
-			linkLabel={isExternalLink ? 'En savoir plus' : undefined}
-			iconName={isExternalLink ? 'external-redirection' : undefined}
-			// FIXME (GAFI 14-11-2024): À variabiliser ?
-			titleHeadingTag={'h2'}
-			className={styles.card}>
-			{/* // FIXME (GAFI 14-11-2024): Checker si on a toujours besoin de article.extraitContenu maintenant que c'est sur le front  */}
-			<p>{extrait}</p>
-		</ArticleCard>
+		<Card className={styles.card} layout={'vertical'}>
+			{actualite.bannière && (
+				<Card.Image
+					src={actualite.bannière.src}
+					alt={actualite.bannière.alt}
+					className={styles.imgWrapper}
+					width={320}
+					height={180} />
+			)}
+			<Card.Content className={styles.content}>
+				<Card.Title className={styles.title} titleAs={'h2'}>{actualite.titre}</Card.Title>
+				{extrait}
+				<Link appearance={'asQuaternaryButton'} href={actualite.link}>
+					{isExternalLink ? 'En savoir plus' : "Lire l'article"}
+					<Link.Icon />
+				</Link>
+			</Card.Content>
+		</Card>
 	);
 }
