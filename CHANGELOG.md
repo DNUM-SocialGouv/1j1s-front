@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.358.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.358.7...v3.358.8) (2024-12-11)
+
+
+### Bug Fixes
+
+* **deps:** lis le nom accessible des boutons sur les tests a11y ([#3505](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3505)) ([4c5a8c7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4c5a8c7033db8c4196f0867bb23f830afe4f97cb))
+* **deps:** update dependency @sentry/nextjs to v8.43.0 ([#3508](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3508)) ([8e6b462](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8e6b46298530ffba5958b4005979aced7181a261))
+
 ## [3.358.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.358.6...v3.358.7) (2024-12-10)
 
 
