@@ -14,7 +14,7 @@ import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import Accueil, { getStaticProps } from '~/pages/index.page';
+import { Accueil, getStaticProps } from '~/pages/index.page';
 import { Actualite } from '~/server/actualites/domain/actualite';
 import { anActualiteList, anActualiteLongList } from '~/server/actualites/domain/actualite.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';

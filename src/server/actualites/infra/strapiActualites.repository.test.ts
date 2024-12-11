@@ -1,4 +1,4 @@
-import { anActualite, anActualiteLongList } from '~/server/actualites/domain/actualite.fixture';
+import { anActualite } from '~/server/actualites/domain/actualite.fixture';
 import {
 	aStrapiActualite,
 	aStrapiListeActualites,

@@ -29,8 +29,11 @@ interface CardContent {
 type SerializedActualite = Omit<Actualite, 'dateMiseAJour'> & {
 	dateMiseAJour: ISODateTime
 }
-interface AccueilPageProps {
+interface SerializedAccueilPageProps {
 	actualites: Array<SerializedActualite>
+}
+interface AccueilPageProps {
+	actualites: Array<Actualite>
 }
 function deserialize(actualites: Array<SerializedActualite>): Array<Actualite> {
 	return actualites.map((actualite) => ({
@@ -42,9 +45,12 @@ function serialize(cartesActualitesResponse: Array<Actualite>): Array<Serialized
 	return JSON.parse(JSON.stringify(cartesActualitesResponse));
 }
 
-export default function Accueil(accueilProps: AccueilPageProps) {
-	const actualites = deserialize(accueilProps.actualites);
+export default function Deserialize(props: SerializedAccueilPageProps) {
+	const deserializedActus = deserialize(props.actualites);
+	return <Accueil	actualites={deserializedActus} />;
+}
 
+export function Accueil({ actualites }: AccueilPageProps) {
 	useAnalytics(analytics);
 
 	const isJobEteCardVisible = process.env.NEXT_PUBLIC_JOB_ETE_FEATURE === '1';
@@ -484,9 +490,9 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 			</main>
 		</>
 	);
-};
+}
 
-export async function getStaticProps(): Promise<GetStaticPropsResult<AccueilPageProps>> {
+export async function getStaticProps(): Promise<GetStaticPropsResult<SerializedAccueilPageProps>> {
 	const isEspaceJeuneVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0';
 	if (!isEspaceJeuneVisible) {
 		return {
