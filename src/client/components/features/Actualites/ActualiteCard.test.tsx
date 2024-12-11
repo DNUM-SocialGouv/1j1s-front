@@ -56,4 +56,14 @@ describe('<ActualiteCard />', () => {
 		expect(lienArticle).toHaveAccessibleName(expect.stringContaining('En savoir plus'));
 		expect(lienArticle).toHaveAccessibleName(expect.stringContaining('nouvelle fenêtre'));
 	});
+	it('utilise le niveau de titre donné en props', () => {
+		render(<ActualiteCard actualite={anActualite()} headingLevel={'h6'} />);
+
+		expect(screen.getByRole('heading', { level: 6 })).toBeVisible();
+	});
+	it('utilise le niveau de titre h2 par défaut', () => {
+		render(<ActualiteCard actualite={anActualite()} />);
+
+		expect(screen.getByRole('heading', { level: 2 })).toBeVisible();
+	});
 });

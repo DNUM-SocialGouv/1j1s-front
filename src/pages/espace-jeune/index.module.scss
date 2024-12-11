@@ -38,6 +38,8 @@
 }
 
 .carteActualite {
+  height: 100%;
+
   @include utilities-deprecated.media(medium) {
     width: 22.5rem;
   }

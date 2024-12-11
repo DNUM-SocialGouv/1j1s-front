@@ -11,7 +11,6 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ActualitesPage, { getStaticProps } from '~/pages/actualites/index.page';
 import { anActualite, anActualiteList } from '~/server/actualites/domain/actualite.fixture';
-import { anArticle } from '~/server/articles/domain/article.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { dependencies } from '~/server/start';
