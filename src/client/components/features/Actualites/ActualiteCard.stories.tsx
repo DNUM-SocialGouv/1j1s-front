@@ -26,3 +26,11 @@ export const lienExterne: Story = {
 		actualite: anActualite({ article: undefined, link: 'https://www.example.com/test' }),
 	},
 };
+export const ContenuCourt: Story = {
+	args: {
+		actualite: anActualite({
+			contenu: '💪 Relevez le défi du Mois et découvrez tous les bienfaits d\'une vie sans tabac !',
+			titre: 'Le Mois sans tabac revient !',
+		}),
+	},
+};
