@@ -1,0 +1,22 @@
+import * as stories from './SelectSimple.stories';
+import { Controls, Meta, Primary } from "@storybook/blocks";
+
+<Meta of={stories} />
+
+# Select Simple
+
+## Definition
+
+Le composant permet de sélectionner un unique élément parmi une liste fixe. Cette implémentation vise à reproduire le comportement d'un `select` natif sans son attribut `multiple`. On pourra aussi se référer au pattern ARIA [select-only combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/).
+
+Ce composant expose un sous-composant `SelectSimple.Option` pour définir la liste des choix.
+
+<Primary/>
+
+À la différence du [Combobox](/docs/components-form-combobox--docs), l'utilisateur est contraint de choisir une option dans la liste et ne peut pas renseigner un champ à la main.
+
+## Props
+
+Le composant accepte les props ci-dessous ainsi tous [les attributs d'un `button` HTML natif](https://developer.mozilla.org/fr/docs/Web/HTML/Element/button):
+
+<Controls />
