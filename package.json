@@ -2,7 +2,7 @@
   "name": "1j1s-front",
   "engines": {
     "node": "22",
-    "npm": "10"
+    "npm": "11"
   },
   "version": "3.358.8",
   "private": true,
