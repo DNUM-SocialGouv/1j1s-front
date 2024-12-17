@@ -10,16 +10,38 @@ import useAnalytics from '~/client/hooks/useAnalytics';
 import { Actualite } from '~/server/actualites/domain/actualite';
 import { isFailure } from '~/server/errors/either';
 import { dependencies } from '~/server/start';
+import { ISODateTime } from '~/shared/ISODateTime';
 
 import analytics from './index.analytics';
 import styles from './index.module.scss';
 
+type SerializedActualite = Omit<Actualite, 'dateMiseAJour'> & {
+	dateMiseAJour?: ISODateTime
+}
+interface SerializedActualitesPageProps {
+	cartesActualites: Array<SerializedActualite>
+}
 interface ActualitesPageProps {
 	cartesActualites: Array<Actualite>
 }
 
 const MAX_VISIBLE_ACTUALITES = 3;
-export default function ActualitesPage({ cartesActualites }: ActualitesPageProps) {
+
+function deserialize(actualites: Array<SerializedActualite>): Array<Actualite> {
+	return actualites.map((actualite) => ({
+		...actualite,
+		dateMiseAJour: actualite.dateMiseAJour ? new Date(actualite.dateMiseAJour) : undefined,
+	}));
+}
+function serialize(cartesActualitesResponse: Array<Actualite>): Array<SerializedActualite> {
+	return JSON.parse(JSON.stringify(cartesActualitesResponse));
+}
+
+export default function Deserialize(props: SerializedActualitesPageProps) {
+	const deserializedActus = deserialize(props.cartesActualites);
+	return <ActualitesPage cartesActualites={deserializedActus} />;
+}
+export function ActualitesPage({ cartesActualites }: ActualitesPageProps) {
 	useAnalytics(analytics);
 
 	const articleCardList = useMemo(() => {
@@ -54,7 +76,7 @@ export default function ActualitesPage({ cartesActualites }: ActualitesPageProps
 	);
 }
 
-export async function getStaticProps(): Promise<GetStaticPropsResult<ActualitesPageProps>> {
+export async function getStaticProps(): Promise<GetStaticPropsResult<SerializedActualitesPageProps>> {
 	const isEspaceJeuneVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0';
 	if (!isEspaceJeuneVisible) {
 		return { notFound: true };
@@ -68,7 +90,7 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<ActualitesP
 
 	return {
 		props: {
-			cartesActualites: JSON.parse(JSON.stringify(cartesActualitesResponse.result)),
+			cartesActualites: serialize(cartesActualitesResponse.result),
 		},
 		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
 	};

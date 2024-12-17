@@ -10,7 +10,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import EspaceJeunePage, { getStaticProps } from '~/pages/espace-jeune/index.page';
+import { EspaceJeunePage, getStaticProps } from '~/pages/espace-jeune/index.page';
 import { anActualite, anActualiteList } from '~/server/actualites/domain/actualite.fixture';
 import { aServiceJeune, aServiceJeuneList } from '~/server/services-jeunes/domain/servicesJeunes.fixture';
 

@@ -27,7 +27,7 @@ interface CardContent {
 }
 
 type SerializedActualite = Omit<Actualite, 'dateMiseAJour'> & {
-	dateMiseAJour: ISODateTime
+	dateMiseAJour?: ISODateTime
 }
 interface SerializedAccueilPageProps {
 	actualites: Array<SerializedActualite>
@@ -38,7 +38,7 @@ interface AccueilPageProps {
 function deserialize(actualites: Array<SerializedActualite>): Array<Actualite> {
 	return actualites.map((actualite) => ({
 		...actualite,
-		dateMiseAJour: new Date(actualite.dateMiseAJour),
+		dateMiseAJour: actualite.dateMiseAJour ? new Date(actualite.dateMiseAJour) : undefined,
 	}));
 }
 function serialize(cartesActualitesResponse: Array<Actualite>): Array<SerializedActualite> {
