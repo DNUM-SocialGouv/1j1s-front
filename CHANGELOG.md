@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.358.9](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.358.8...v3.358.9) (2024-12-17)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#3518](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3518)) ([3a4be83](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3a4be83e6e024c3e4a5f5bf6d86e911f038cb145))
+* **deps:** update dependency @sentry/nextjs to v8.45.0 ([#3512](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3512)) ([5946d64](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5946d64a44f82bd92442d136a15b1cba21f0efaa))
+* **deps:** update dependency @sentry/nextjs to v8.46.0 ([#3521](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3521)) ([e73a2fb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e73a2fb936f20409ee667ca33aa91e49e6b29af6))
+* **deps:** update dependency phone to v3.1.56 ([#3519](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3519)) ([6f3e823](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6f3e8232774bfff60b34595523f88f723f373477))
+* **deps:** update dependency prism-react-renderer to v2.4.1 ([#3510](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3510)) ([2437504](https://github.com/DNUM-SocialGouv/1j1s-front/commit/24375043534edcb0b54c513d036b02af3d07e4af))
+
 ## [3.358.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.358.7...v3.358.8) (2024-12-11)
 
 
