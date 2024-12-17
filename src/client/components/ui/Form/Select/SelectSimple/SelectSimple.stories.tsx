@@ -73,3 +73,17 @@ export const validation: Story = {
 		</form>
 	),
 };
+
+export const defaultValue: Story = {
+	args: {
+		defaultValue: 'France',
+	},
+	render: ({ children, ...args }) => (
+		<>
+			<label htmlFor="pays">Pays</label>
+			<SelectSimple id="pays" {...args}>
+				{children.map((child) => <SelectSimple.Option value={child} key={child}>{child}</SelectSimple.Option>)}
+			</SelectSimple>
+		</>
+	),
+};

@@ -22,6 +22,7 @@ export default meta;
 type SelectProps = React.ComponentPropsWithRef<typeof SelectMultiple>;
 type Controls = Omit<SelectProps, 'children'> & { children: string[] };
 type Story = StoryObj<Controls>;
+
 export const exemple: Story = {
 	args: {},
 	render: ({ children, ...args }) => (
@@ -33,6 +34,7 @@ export const exemple: Story = {
 		</>
 	),
 };
+
 export const disabled: Story = {
 	args: {
 		disabled: true,
@@ -46,6 +48,7 @@ export const disabled: Story = {
 		</>
 	),
 };
+
 export const validation: Story = {
 	args: {
 		name: 'pays',
@@ -65,5 +68,19 @@ export const validation: Story = {
 			</Champ>
 			<Button label="Envoyer" />
 		</form>
+	),
+};
+
+export const defaultValue: Story = {
+	args: {
+		defaultValue: ['France', 'Japon'],
+	},
+	render: ({ children, ...args }) => (
+		<>
+			<label htmlFor="pays">Pays</label>
+			<SelectMultiple id="pays" {...args}>
+				{children.map((child) => <SelectMultiple.Option value={child} key={child}>{child}</SelectMultiple.Option>)}
+			</SelectMultiple>
+		</>
 	),
 };
