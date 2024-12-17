@@ -46,6 +46,11 @@
     align-self: flex-end;
     @include utilities.text-small;
   }
+  & time:empty {
+    visibility: hidden;
+    // NOTE (GAFI 17-12-2024): equivalent à 1lh dans ce cas précis mais meilleur support
+    height: 1.2em;
+  }
 
   & a {
     margin-top: 1.25rem;

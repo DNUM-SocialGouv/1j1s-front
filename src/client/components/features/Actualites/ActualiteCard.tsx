@@ -34,7 +34,7 @@ export default function ActualiteCard({ actualite, headingLevel = 'h2', classNam
 						height={180} />
 				)}
 				<Card.Content className={styles.content}>
-					{actualite.dateMiseAJour && <Date date={actualite.dateMiseAJour} />}
+					{actualite.dateMiseAJour ? <Date date={actualite.dateMiseAJour} /> : <time></time>}
 					<Card.Title className={styles.title} titleAs={headingLevel}>{actualite.titre}</Card.Title>
 					<p>{extrait}</p>
 					<Link appearance={'asQuaternaryButton'} href={actualite.link}>
