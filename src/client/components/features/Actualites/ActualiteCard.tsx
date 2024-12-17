@@ -3,6 +3,8 @@ import React from 'react';
 
 import { Card } from '~/client/components/ui/Card/Card';
 import { Link } from '~/client/components/ui/Link/Link';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { DateService } from '~/client/services/date/date.service';
 import { Actualite } from '~/server/actualites/domain/actualite';
 import { getExtraitContenu } from '~/server/cms/infra/repositories/strapi.utils';
 
@@ -16,6 +18,8 @@ type ActualiteCardProps = Omit<React.ComponentPropsWithRef<typeof Card>, 'layout
 };
 
 export default function ActualiteCard({ actualite, headingLevel = 'h2', className, ...rest }: ActualiteCardProps) {
+	const dateService = useDependency<DateService>('dateService');
+
 	// FIXME (GAFI 14-11-2024): Passer plutôt par actualite.lien, actualite.article n'est pas utilisé dans le composant
 	//	ou bien utiliser actualite.article.slug dans le composant
 	const isExternalLink = actualite.article == null;
@@ -23,23 +27,25 @@ export default function ActualiteCard({ actualite, headingLevel = 'h2', classNam
 	const extrait = getExtraitContenu(actualite.contenu);
 
 	return (
-		<Card className={classNames(styles.card, className)} layout='vertical' {...rest}>
-			{actualite.bannière && (
-				<Card.Image
-					src={actualite.bannière.src}
-					alt={actualite.bannière.alt}
-					className={styles.imgWrapper}
-					width={320}
-					height={180} />
-			)}
-			<Card.Content className={styles.content}>
-				<Card.Title className={styles.title} titleAs={headingLevel}>{actualite.titre}</Card.Title>
-				<p>{extrait}</p>
-				<Link appearance={'asQuaternaryButton'} href={actualite.link}>
-					{isExternalLink ? 'En savoir plus' : "Lire l'article"}
-					<Link.Icon />
-				</Link>
-			</Card.Content>
-		</Card>
+		<article>
+			<Card className={classNames(styles.card, className)} layout="vertical" {...rest}>
+				{actualite.bannière && (
+					<Card.Image
+						src={actualite.bannière.src}
+						alt={actualite.bannière.alt}
+						width={320}
+						height={180} />
+				)}
+				<Card.Content className={styles.content}>
+					{actualite.dateMiseAJour && <time dateTime={actualite.dateMiseAJour.toISOString()}>{dateService.formatToHumanReadableDate(actualite.dateMiseAJour)}</time>}
+					<Card.Title className={styles.title} titleAs={headingLevel}>{actualite.titre}</Card.Title>
+					<p>{extrait}</p>
+					<Link appearance={'asQuaternaryButton'} href={actualite.link}>
+						{isExternalLink ? 'En savoir plus' : 'Lire l\'article'}
+						<Link.Icon />
+					</Link>
+				</Card.Content>
+			</Card>
+		</article>
 	);
 }
