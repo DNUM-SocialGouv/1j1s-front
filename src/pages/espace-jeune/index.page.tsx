@@ -39,7 +39,7 @@ function deserialize(actualites: Array<SerializedActualite>): Array<Actualite> {
 		dateMiseAJour: actualite.dateMiseAJour ? new Date(actualite.dateMiseAJour) : undefined,
 	}));
 }
-function serialize(cartesActualitesResponse: unknown): Record<string, unknown> {
+function serialize<SerializedType, InitialType>(cartesActualitesResponse: InitialType): SerializedType {
 	return JSON.parse(JSON.stringify(cartesActualitesResponse));
 }
 
@@ -96,7 +96,7 @@ export function EspaceJeunePage({ cartesActualites, serviceJeuneList }: EspaceJe
 	);
 }
 
-export async function getStaticProps(): Promise<GetStaticPropsResult<EspaceJeunePageProps>> {
+export async function getStaticProps(): Promise<GetStaticPropsResult<SerializedEspaceJeunePageProps>> {
 	const isEspaceJeuneVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
 	if (!isEspaceJeuneVisible) {
 		return { notFound: true };
