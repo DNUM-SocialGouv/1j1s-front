@@ -23,30 +23,7 @@ type EspaceJeunePageProps = {
 	cartesActualites: Array<Actualite>
 	serviceJeuneList: Array<ServiceJeune>
 }
-type SerializedActualite = Omit<Actualite, 'dateMiseAJour'> & {
-	dateMiseAJour?: ISODateTime
-}
-type SerializedEspaceJeunePageProps = {
-	cartesActualites: Array<SerializedActualite>
-	serviceJeuneList: Array<ServiceJeune>
-}
-
-
 const MAX_VISIBLE_ACTUALITES_LENGTH = 3;
-function deserialize(actualites: Array<SerializedActualite>): Array<Actualite> {
-	return actualites.map((actualite) => ({
-		...actualite,
-		dateMiseAJour: actualite.dateMiseAJour ? new Date(actualite.dateMiseAJour) : undefined,
-	}));
-}
-function serialize<SerializedType, InitialType>(cartesActualitesResponse: InitialType): SerializedType {
-	return JSON.parse(JSON.stringify(cartesActualitesResponse));
-}
-
-export default function Deserialize(props: SerializedEspaceJeunePageProps) {
-	const deserializedActus = deserialize(props.cartesActualites);
-	return <Accueil	actualites={deserializedActus} />;
-}
 
 export function EspaceJeunePage({ cartesActualites, serviceJeuneList }: EspaceJeunePageProps) {
 	useAnalytics(analytics);
@@ -96,6 +73,26 @@ export function EspaceJeunePage({ cartesActualites, serviceJeuneList }: EspaceJe
 	);
 }
 
+type SerializedActualite = Omit<Actualite, 'dateMiseAJour'> & {
+	dateMiseAJour?: ISODateTime
+}
+type SerializedEspaceJeunePageProps = {
+	cartesActualites: Array<SerializedActualite>
+	serviceJeuneList: Array<ServiceJeune>
+}
+function deserialize(actualites: Array<SerializedActualite>): Array<Actualite> {
+	return actualites.map((actualite) => ({
+		...actualite,
+		dateMiseAJour: actualite.dateMiseAJour ? new Date(actualite.dateMiseAJour) : undefined,
+	}));
+}
+function serialize<SerializedType, InitialType>(cartesActualitesResponse: InitialType): SerializedType {
+	return JSON.parse(JSON.stringify(cartesActualitesResponse));
+}
+export default function Deserialize(props: SerializedEspaceJeunePageProps) {
+	const deserializedActus = deserialize(props.cartesActualites);
+	return <Accueil	actualites={deserializedActus} />;
+}
 export async function getStaticProps(): Promise<GetStaticPropsResult<SerializedEspaceJeunePageProps>> {
 	const isEspaceJeuneVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
 	if (!isEspaceJeuneVisible) {

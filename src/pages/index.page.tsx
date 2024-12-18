@@ -26,30 +26,9 @@ interface CardContent {
 	title: string
 }
 
-type SerializedActualite = Omit<Actualite, 'dateMiseAJour'> & {
-	dateMiseAJour?: ISODateTime
-}
-interface SerializedAccueilPageProps {
-	actualites: Array<SerializedActualite>
-}
 interface AccueilPageProps {
 	actualites: Array<Actualite>
 }
-function deserialize(actualites: Array<SerializedActualite>): Array<Actualite> {
-	return actualites.map((actualite) => ({
-		...actualite,
-		dateMiseAJour: actualite.dateMiseAJour ? new Date(actualite.dateMiseAJour) : undefined,
-	}));
-}
-function serialize(cartesActualitesResponse: Array<Actualite>): Array<SerializedActualite> {
-	return JSON.parse(JSON.stringify(cartesActualitesResponse));
-}
-
-export default function Deserialize(props: SerializedAccueilPageProps) {
-	const deserializedActus = deserialize(props.actualites);
-	return <Accueil	actualites={deserializedActus} />;
-}
-
 export function Accueil({ actualites }: AccueilPageProps) {
 	useAnalytics(analytics);
 
@@ -297,20 +276,20 @@ export function Accueil({ actualites }: AccueilPageProps) {
 				{isBanniereStagesSecondeVisible
 					&& (
 						<HeroWithIllustration image="/images/stages-seconde/banniere-stages-seconde.webp"
-																	 className={classNames(styles.hero, styles.stageSecondeBanner)}>
+							className={classNames(styles.hero, styles.stageSecondeBanner)}>
 							{isBanniereStagesSecondePourCampagneDu25Mars ? (
 								<>
 									<h2>
 										<HeroPrimaryText className={styles.heroTitle}>
-										Un stage du 17 au 28 juin 2024
+											Un stage du 17 au 28 juin 2024
 										</HeroPrimaryText>
 									</h2>
 									<HeroSecondaryText>
-									pour permettre aux élèves de seconde générale et technologique de diversifier leur connaissance des
-									métiers.
+										pour permettre aux élèves de seconde générale et technologique de diversifier leur connaissance des
+										métiers.
 									</HeroSecondaryText>
 									<Link href={urlHomePageStageDeSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
-									Proposer un stage ou candidater
+										Proposer un stage ou candidater
 										<Link.Icon />
 									</Link>
 								</>
@@ -318,14 +297,14 @@ export function Accueil({ actualites }: AccueilPageProps) {
 								<>
 									<h2>
 										<HeroPrimaryText className={styles.heroTitle}>
-										Accueillez des élèves en stages de seconde générale et technologique.
+											Accueillez des élèves en stages de seconde générale et technologique.
 										</HeroPrimaryText>
 									</h2>
 									<HeroSecondaryText>
-									Inspirez, transmettez, faites découvrir vos métiers.
+										Inspirez, transmettez, faites découvrir vos métiers.
 									</HeroSecondaryText>
 									<Link href={urlDepotOffreStagesSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
-									Déposer votre offre de stage
+										Déposer votre offre de stage
 										<Link.Icon />
 									</Link>
 								</>
@@ -339,14 +318,14 @@ export function Accueil({ actualites }: AccueilPageProps) {
 						<HeroWithIllustration image="/images/campagne-world-skills-2024.webp" className={classNames(styles.hero, styles.worldSkills)}>
 							<h2>
 								<HeroPrimaryText className={styles.heroTitle}>
-								WorldSkills Lyon 2024, la Compétition Mondiale des Métiers.
+									WorldSkills Lyon 2024, la Compétition Mondiale des Métiers.
 								</HeroPrimaryText>
 							</h2>
 							<HeroSecondaryText>
-							1jeune1solution s’engage en faveur de la jeunesse, venez nous rencontrer du 10 au 15 septembre lors de la compétition WorldSkills Lyon 2024.
+								1jeune1solution s’engage en faveur de la jeunesse, venez nous rencontrer du 10 au 15 septembre lors de la compétition WorldSkills Lyon 2024.
 							</HeroSecondaryText>
 							<Link href="https://worldskills2024.com" appearance={'asSecondaryButton'} className={styles.heroButton}>
-							Plus d’infos
+								Plus d’infos
 								<Link.Icon />
 							</Link>
 						</HeroWithIllustration>
@@ -393,7 +372,7 @@ export function Accueil({ actualites }: AccueilPageProps) {
 						<section className={styles.section}>
 							<h2 id="actualites" className={styles.sectionHeader}>
 								<Icon name="newspaper" className={styles.headerIcon} />
-							Actualités
+								Actualités
 							</h2>
 							<Container className={styles.sectionListeActualites}>
 								<ul>
@@ -402,7 +381,7 @@ export function Accueil({ actualites }: AccueilPageProps) {
 									)}
 								</ul>
 								<Link href={'/actualites'} appearance={'asSecondaryButton'}>
-								Voir toutes les actualités
+									Voir toutes les actualités
 									<Link.Icon />
 								</Link>
 							</Container>
@@ -490,6 +469,26 @@ export function Accueil({ actualites }: AccueilPageProps) {
 			</main>
 		</>
 	);
+}
+
+type SerializedActualite = Omit<Actualite, 'dateMiseAJour'> & {
+	dateMiseAJour?: ISODateTime
+}
+interface SerializedAccueilPageProps {
+	actualites: Array<SerializedActualite>
+}
+function deserialize(actualites: Array<SerializedActualite>): Array<Actualite> {
+	return actualites.map((actualite) => ({
+		...actualite,
+		dateMiseAJour: actualite.dateMiseAJour ? new Date(actualite.dateMiseAJour) : undefined,
+	}));
+}
+function serialize(cartesActualitesResponse: Array<Actualite>): Array<SerializedActualite> {
+	return JSON.parse(JSON.stringify(cartesActualitesResponse));
+}
+export default function Deserialize(props: SerializedAccueilPageProps) {
+	const deserializedActus = deserialize(props.actualites);
+	return <Accueil	actualites={deserializedActus} />;
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<SerializedAccueilPageProps>> {
