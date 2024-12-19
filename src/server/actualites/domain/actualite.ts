@@ -8,4 +8,5 @@ export interface Actualite {
 	contenu: string
 	link: string
 	titre: string
+	dateMiseAJour?: Date
 }
