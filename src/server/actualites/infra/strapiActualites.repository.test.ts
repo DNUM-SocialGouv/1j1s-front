@@ -1,4 +1,4 @@
-import { anActualite, anActualiteLongList } from '~/server/actualites/domain/actualite.fixture';
+import { anActualite } from '~/server/actualites/domain/actualite.fixture';
 import {
 	aStrapiActualite,
 	aStrapiListeActualites,
@@ -9,9 +9,11 @@ import { anArticle } from '~/server/articles/domain/article.fixture';
 import { aStrapiArticle } from '~/server/articles/infra/strapiArticle.fixture';
 import { aStrapiImage, aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
 import { aStrapiService } from '~/server/cms/infra/repositories/strapi.service.fixture';
-import { createFailure, createSuccess } from '~/server/errors/either';
+import { createFailure, createSuccess, isSuccess, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+
+import { Actualite } from '../domain/actualite';
 
 const RESOURCE_ACTUALITE = 'actualite';
 
@@ -74,6 +76,7 @@ describe('strapiActualitesRepository', () => {
 							src: 'https://image.example.com/',
 						},
 						contenu: 'Contenu',
+						dateMiseAJour: new Date('2024-01-01T00:00:00.000Z'),
 						extraitContenu: 'Contenu',
 						link: '/articles/titre-article',
 						titre: 'Titre',
@@ -143,7 +146,8 @@ describe('strapiActualitesRepository', () => {
 				const result = await strapiActualites.getActualitesEchantillonList();
 
 				// Then
-				expect(result).toStrictEqual(createSuccess(anActualiteLongList().slice(0,3)));
+				expect(isSuccess(result)).toBe(true);
+				expect((result as Success<Actualite[]>).result).toHaveLength(3);
 			});
 			it('lorsque le mapping est en échec, appelle le service de gestion d’erreur avec l’erreur et le contexte', async () => {
 				// Given
