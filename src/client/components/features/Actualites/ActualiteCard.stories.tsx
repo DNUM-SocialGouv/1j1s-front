@@ -1,7 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
-import { anActualite } from '../../../../server/actualites/domain/actualite.fixture';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { JsDateService } from '~/client/services/date/js/js.date.service';
+import { anActualite } from '~/server/actualites/domain/actualite.fixture';
+
 import ActualiteCard from './ActualiteCard';
 
 const meta: Meta<typeof ActualiteCard> = {
@@ -14,6 +17,11 @@ const meta: Meta<typeof ActualiteCard> = {
 		actualite: anActualite(),
 	},
 	component: ActualiteCard,
+	render: (args) => (
+		<DependenciesProvider dateService={new JsDateService()}>
+			<ActualiteCard {...args} />
+		</DependenciesProvider>
+	),
 	title: 'Components/Cards/ActualiteCard',
 };
 
@@ -32,5 +40,10 @@ export const ContenuCourt: Story = {
 			contenu: '💪 Relevez le défi du Mois et découvrez tous les bienfaits d\'une vie sans tabac !',
 			titre: 'Le Mois sans tabac revient !',
 		}),
+	},
+};
+export const avecDateMiseAJour: Story = {
+	args: {
+		actualite: anActualite({ dateMiseAJour: new Date('2024-01-01') }),
 	},
 };
