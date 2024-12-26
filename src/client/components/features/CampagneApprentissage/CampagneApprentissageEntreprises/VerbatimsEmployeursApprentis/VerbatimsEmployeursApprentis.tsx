@@ -4,8 +4,8 @@ import styles
 	from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/VerbatimsEmployeursApprentis/VerbatimsEmployeursApprentis.module.scss';
 
 import { Container } from '../../../../layouts/Container/Container';
-import { PresentationCard } from '../../../../ui/Card/Presentation/PresentationCard';
 import SeeMoreItemList from '../../../../ui/SeeMore/SeeMoreItemList';
+import { PresentationCard } from './PresentationCard';
 
 interface VerbatimsEmployeursApprentisProps {
 	verbatimsListe: Array<{

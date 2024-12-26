@@ -3,7 +3,8 @@ import React from 'react';
 
 import { HtmlHeadingTag } from '~/client/components/props';
 import { Card } from '~/client/components/ui/Card/Card';
-import styles from '~/client/components/ui/Card/Presentation/PresentationCard.module.scss';
+
+import styles from './PresentationCard.module.scss';
 
 interface PresentationCardProps {
 	imageSrc: string
