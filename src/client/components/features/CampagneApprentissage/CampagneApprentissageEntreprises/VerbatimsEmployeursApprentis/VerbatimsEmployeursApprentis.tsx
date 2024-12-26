@@ -30,8 +30,7 @@ export function VerbatimsEmployeursApprentis({ verbatimsListe }: VerbatimsEmploy
 								key={index}
 								imageSrc={verbatim.imageUrl}
 								titleLabel={verbatim.nomApprenti}
-								titleHeadingTag="h3"
-								imageFit="cover">
+								titleHeadingTag="h3">
 								{verbatim.verbatim}
 							</PresentationCard>
 						);

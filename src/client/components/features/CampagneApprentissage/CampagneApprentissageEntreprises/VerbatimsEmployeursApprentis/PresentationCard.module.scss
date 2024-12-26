@@ -23,15 +23,10 @@
 .card {
   position: relative;
 
-  // FIXME (GAFI 05-12-2024): Dupliqué de ArticleCard, trouver une abstraction
   img.illustration {
     width: 100%;
     height: 180px;
     object-fit: cover;
-
-    &.contain {
-      object-fit: contain;
-    }
   }
 
   .content {
