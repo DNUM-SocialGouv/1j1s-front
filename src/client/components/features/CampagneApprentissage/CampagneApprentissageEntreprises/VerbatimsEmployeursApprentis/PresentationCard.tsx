@@ -1,9 +1,11 @@
 import classNames from 'classnames';
 import React from 'react';
 
+import styles
+	from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/VerbatimsEmployeursApprentis/PresentationCard.module.scss';
 import { HtmlHeadingTag } from '~/client/components/props';
 import { Card } from '~/client/components/ui/Card/Card';
-import styles from '~/client/components/ui/Card/Presentation/PresentationCard.module.scss';
+
 
 interface PresentationCardProps {
 	imageSrc: string
@@ -18,13 +20,11 @@ export function PresentationCard({
 	imageSrc,
 	titleLabel,
 	titleHeadingTag,
-	imageFit = 'cover',
 }: PresentationCardProps & React.HTMLAttributes<HTMLLinkElement>) {
-	const imageClassName = classNames(styles.illustration, imageFit === 'contain' && styles.illustrationContain);
 
 	return (
 		<Card className={classNames(className, styles.card)} layout={'vertical'}>
-			<Card.Image className={imageClassName} src={imageSrc} aria-hidden width={320} height={180} />
+			<Card.Image className={styles.illustration} src={imageSrc} aria-hidden width={320} height={180} />
 			<Card.Content className={styles.content}>
 				<Card.Title className={styles.title} titleAs={titleHeadingTag}>{titleLabel}</Card.Title>
 				{children}

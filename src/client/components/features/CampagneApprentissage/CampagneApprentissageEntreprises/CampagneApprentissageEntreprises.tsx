@@ -10,16 +10,16 @@ import {
 	NewInformationSurEmbaucheApprenti,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/NewInformationSurEmbaucheApprenti/NewInformationSurEmbaucheApprenti';
 import {
+	VerbatimsEmployeursApprentis,
+} from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/VerbatimsEmployeursApprentis/VerbatimsEmployeursApprentis';
+import {
 	Raisons,
 	RaisonsDeChoisirApprentissage,
 } from '~/client/components/features/CampagneApprentissage/RaisonsDeChoisirApprentissage/RaisonsDeChoisirApprentissage';
 import VideosCampagneApprentissage
 	from '~/client/components/features/CampagneApprentissage/VideosCampagneApprentissage/VideosCampagneApprentissage';
-import { Container } from '~/client/components/layouts/Container/Container';
-import { PresentationCard } from '~/client/components/ui/Card/Presentation/PresentationCard';
 import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
 import { Link } from '~/client/components/ui/Link/Link';
-import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
 import { VideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage';
 
@@ -132,34 +132,12 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 					description={'Découvrez les témoignages des maîtres d’apprentissage et des apprentis qu’ils accompagnent au quotidien.'}
 					videos={videos} />
 			)}
-			{campagneApprentissageEstEnCours && (
-				<section aria-labelledby={'titre-section-verbatims'} className={styles.sectionVerbatims}>
-					<Container>
-						<hgroup>
-							<h2 id={'titre-section-verbatims'}>Ils ont choisi de former des apprentis, pourquoi pas vous ?</h2>
-							<p>Découvrez les témoignages de Fabrice, Gaël, Julien, et de leurs apprentis !</p>
-						</hgroup>
-						<SeeMoreItemList
-							itemList={verbatimsApprentisListe.map((verbatim, index) => {
-								return (
-									<PresentationCard
-										className={styles.temoignage}
-										key={index}
-										imageSrc={verbatim.imageUrl}
-										titleLabel={verbatim.nomApprenti}
-										titleHeadingTag="h3"
-										imageFit="cover">
-										{verbatim.verbatim}
-									</PresentationCard>
-								);
-							})}
-							numberOfVisibleItems={3}
-							seeMoreAriaLabel={'Voir plus de témoignages'}
-							seeLessAriaLabel={'Voir moins de témoignages'} />
-					</Container>
-				</section>
-			)}
-			{(campagneApprentissageEstEnCours ? <NewInformationSurEmbaucheApprenti /> :
+			{(campagneApprentissageEstEnCours ? (
+				<>
+					<VerbatimsEmployeursApprentis verbatimsListe={verbatimsApprentisListe} />
+					<NewInformationSurEmbaucheApprenti />
+				</>
+			) :
 				<InformationSurEmbaucheApprenti />)}
 		</>
 	);
