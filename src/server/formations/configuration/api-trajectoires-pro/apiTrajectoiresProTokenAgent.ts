@@ -22,6 +22,7 @@ export class ApiTrajectoiresProTokenAgent implements TokenAgent {
 			},
 			{
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				timeout: 2000,
 			},
 		);
 		
