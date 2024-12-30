@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.358.13](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.358.12...v3.358.13) (2024-12-30)
+
+
+### Bug Fixes
+
+* **inserjeunes:** échoue en timeout si le refresh token tarde ([#3539](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3539)) ([d9db371](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d9db3711dc482fd595e1e9176ea8714db0c89960))
+
 ## [3.358.12](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.358.11...v3.358.12) (2024-12-27)
 
 
