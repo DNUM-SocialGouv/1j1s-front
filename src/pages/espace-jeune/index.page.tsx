@@ -10,21 +10,22 @@ import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/clien
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/espace-jeune/index.analytics';
+import { Accueil } from '~/pages/index.page';
 import { Actualite } from '~/server/actualites/domain/actualite';
 import { isFailure } from '~/server/errors/either';
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { dependencies } from '~/server/start';
+import { ISODateTime } from '~/shared/ISODateTime';
 
 import styles from './index.module.scss';
 
-interface EspaceJeunePageProps {
-	cartesActualites: Actualite[]
+type EspaceJeunePageProps = {
+	cartesActualites: Array<Actualite>
 	serviceJeuneList: Array<ServiceJeune>
 }
-
 const MAX_VISIBLE_ACTUALITES_LENGTH = 3;
 
-export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: EspaceJeunePageProps) {
+export function EspaceJeunePage({ cartesActualites, serviceJeuneList }: EspaceJeunePageProps) {
 	useAnalytics(analytics);
 
 	const articleCardList: React.ReactNode[] = useMemo(() => {
@@ -72,7 +73,27 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 	);
 }
 
-export async function getStaticProps(): Promise<GetStaticPropsResult<EspaceJeunePageProps>> {
+type SerializedActualite = Omit<Actualite, 'dateMiseAJour'> & {
+	dateMiseAJour?: ISODateTime
+}
+type SerializedEspaceJeunePageProps = {
+	cartesActualites: Array<SerializedActualite>
+	serviceJeuneList: Array<ServiceJeune>
+}
+function deserialize(actualites: Array<SerializedActualite>): Array<Actualite> {
+	return actualites.map((actualite) => ({
+		...actualite,
+		dateMiseAJour: actualite.dateMiseAJour ? new Date(actualite.dateMiseAJour) : undefined,
+	}));
+}
+function serialize<SerializedType, InitialType>(cartesActualitesResponse: InitialType): SerializedType {
+	return JSON.parse(JSON.stringify(cartesActualitesResponse));
+}
+export default function Deserialize(props: SerializedEspaceJeunePageProps) {
+	const deserializedActus = deserialize(props.cartesActualites);
+	return <Accueil	actualites={deserializedActus} />;
+}
+export async function getStaticProps(): Promise<GetStaticPropsResult<SerializedEspaceJeunePageProps>> {
 	const isEspaceJeuneVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
 	if (!isEspaceJeuneVisible) {
 		return { notFound: true };
@@ -87,8 +108,8 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<EspaceJeune
 
 	return {
 		props: {
-			cartesActualites: JSON.parse(JSON.stringify(cartesActualitesResponse.result)),
-			serviceJeuneList: JSON.parse(JSON.stringify(serviceJeuneList.result)),
+			cartesActualites: serialize(cartesActualitesResponse.result),
+			serviceJeuneList: serialize(serviceJeuneList.result),
 		},
 		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
 	};
