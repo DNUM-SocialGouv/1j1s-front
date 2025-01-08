@@ -30,7 +30,7 @@
   [role="combobox"]:not([data-touched="true"]) {
     @extend %border-no-error;
   }
-  input:invalid + [role="combobox"][data-touched="true"] {
+  input:user-invalid + [role="combobox"]{
     @extend %error;
   }
 
