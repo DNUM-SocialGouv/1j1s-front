@@ -9,7 +9,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import ActualitesPage, { getStaticProps } from '~/pages/actualites/index.page';
+import { ActualitesPage, getStaticProps } from '~/pages/actualites/index.page';
 import { anActualite, anActualiteList } from '~/server/actualites/domain/actualite.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';

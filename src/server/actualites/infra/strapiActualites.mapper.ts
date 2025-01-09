@@ -14,6 +14,7 @@ export function mapStrapiListeActualites(strapiListeActualités: StrapiListeActu
 			article: article && mapArticle(article),
 			bannière: flatMapSingleImage(strapiActualité.banniere),
 			contenu: strapiActualité.contenu,
+			dateMiseAJour: article?.updatedAt && new Date(article.updatedAt),
 			extraitContenu: getExtraitContenu(strapiActualité.contenu, 110),
 			link: article ? `/articles/${article.slug}` : strapiActualité.url,
 			titre: strapiActualité.titre,
