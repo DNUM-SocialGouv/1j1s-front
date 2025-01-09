@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@meilisearch/instant-meilisearch": "0.23.0",
-    "@next/bundle-analyzer": "14.2.22",
+    "@next/bundle-analyzer": "14.2.23",
     "@sentry/nextjs": "8.48.0",
     "axios": "1.7.9",
     "axios-cache-interceptor": "1.6.2",
@@ -38,7 +38,7 @@
     "lodash.debounce": "4.0.8",
     "markdown-it": "14.1.0",
     "markdown-it-anchor": "9.2.0",
-    "next": "14.2.22",
+    "next": "14.2.23",
     "next-joi": "2.2.1",
     "phone": "3.1.57",
     "pino": "9.6.0",
@@ -46,8 +46,8 @@
     "react": "18.3.1",
     "react-autosuggest": "10.1.0",
     "react-dom": "18.3.1",
-    "react-instantsearch": "7.13.9",
-    "react-instantsearch-router-nextjs": "7.13.9",
+    "react-instantsearch": "7.13.10",
+    "react-instantsearch-router-nextjs": "7.13.10",
     "redis": "4.7.0",
     "reflect-metadata": "0.2.2",
     "sharp": "0.33.5"
