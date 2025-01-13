@@ -19,7 +19,7 @@ Se référer au package.json pour les versions utilisées
 
 ## Premier run
 
-1. `nvm install` et `nvm use` pour spécifier la version de node utilisée
+1. Lancez la commande `nvm install` et la commande `nvm use` pour spécifier la version de node utilisée
 2. Installez les dépendances avec `npm ci`
 3. Copiez le `.env.test` vers `.env`
 4. Lancez le projet en mode développement avec `npm run dev`
@@ -32,20 +32,23 @@ Se référer au package.json pour les versions utilisées
 * Pages Formulaires :
   * ✅ S'affichent et proposent des résultats : Les API mockées avec des résultats en mémoire.
   * ❌ Ne s'affiche pas (404 ou 500) : Quand des résultats sont demandées au chargement de la page (API externe, CMS ou contenu indexé via Meilisearch)
-  * 🔶 S'affichent et ne proposent pas de résultats : Quand les résultats sont demandées uniquement à l'aide du CTA `Recherhcer 🔍`
+  * 🔶 S'affichent et ne proposent pas de résultats : Quand les résultats sont demandées uniquement à l'aide du CTA `Rechercher 🔍`
 
 ## Alimenter les ressources externes
 
-Pour les besoins de développement du frontend, on pourra créer du contenu en recette directement et le nettoyer ensuite.
-
-1. Remplacer le contenu de `.env` avec l'environnement Scalingo 1j1s-front, à l'exception de :
+1. Écraser le contenu de `.env` avec le contenu Scalingo > 1j1s-front > Environment, on peut s'aider du mode `Bulk edit` 
+2. Remplacer les variables suivantes avec les valeurs notées ci-dessous :
    * `ENVIRONMENT=local`
    * `NODE_ENV=local`
    * `SENTRY_ENV=local`
    * `REDIS_URL=redis://default:mypassword@localhost:6379`
 2. Lancer le service de cache avec `docker-compose up -d redis`
 3. Relancer le projet en mode développement avec `npm run dev`
-4. Les accès au CMS de recette sont sur le Keepass au cas où les développements nécessitent de manipuler les données
+
+On est à la suite de ces étapes avec un front local branché aux infrastructures de recette, dont le CMS.
+
+Pour les besoins de développement du frontend, on pourra créer du contenu en recette directement et le nettoyer ensuite. 
+Les accès au CMS de recette sont sur le Keepass au cas où les développements nécessitent de manipuler les données.
 
 La configuration locale du CMS sera utilisée généralement pour les tâches sensibles concernant les données, ce que l'on retrouvera lors des développements sur le CMS ou sur l'ETL.
 
