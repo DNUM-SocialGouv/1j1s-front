@@ -41,8 +41,6 @@ Se référer au package.json pour les versions utilisées
    * `ENVIRONMENT=local`
    * `NODE_ENV=local`
    * `SENTRY_ENV=local`
-   * `REDIS_URL=redis://default:mypassword@localhost:6379`
-2. Lancer le service de cache avec `docker-compose up -d redis`
 3. Relancer le projet en mode développement avec `npm run dev`
 
 On est à la suite de ces étapes avec un front local branché aux infrastructures de recette, dont le CMS.
