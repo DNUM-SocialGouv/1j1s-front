@@ -92,26 +92,53 @@ describe('Page d’accueil', () => {
 			});
 			describe('quand le feature flip des stages seconde est actif', () => {
 				describe('quand le feature flip de la recherche de stages de seconde est actif', () => {
-					it('la bannière contient les wording de la campagne du 25 mars 2024', () => {
-						// GIVEN
-						const fakeUrlVoirStageSeconde = 'https://url-voir-offres-de-stages-de-seconde.fr';
-						process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE = '1';
-						process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '1';
-						process.env.NEXT_PUBLIC_STAGES_SECONDE_HOMEPAGE_URL = fakeUrlVoirStageSeconde;
+					describe('quand la campagne employeur a démarré mais pas la campagne jeune', () => {
+						it('la bannière contient les wording de la campagne employeur 2025', () => {
+							// GIVEN
+							const fakeUrlVoirStageSeconde = 'https://url-voir-offres-de-stages-de-seconde.fr';
+							process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE = '1';
+							process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '1';
+							process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_JEUNE_FEATURE = '0';
+							process.env.NEXT_PUBLIC_STAGES_SECONDE_HOMEPAGE_URL = fakeUrlVoirStageSeconde;
 
-						// WHEN
-						render(
-							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil actualites={anActualiteList()} />
-							</DependenciesProvider>,
-						);
+							// WHEN
+							render(
+								<DependenciesProvider analyticsService={analyticsService}>
+									<Accueil actualites={anActualiteList()} />
+								</DependenciesProvider>,
+							);
 
-						// THEN
-						const headingStage2nd = screen.getByRole('heading', { level: 2, name: 'Un stage du 17 au 28 juin 2024' });
-						expect(headingStage2nd).toBeVisible();
-						const voirStageSecondeButton = screen.getByRole('link', { name: 'Proposer un stage ou candidater - nouvelle fenêtre' });
-						expect(voirStageSecondeButton).toBeVisible();
-						expect(voirStageSecondeButton).toHaveAttribute('href', fakeUrlVoirStageSeconde);
+							// THEN
+							const headingStage2nd = screen.getByRole('heading', { level: 2, name: 'Un stage du 16 au 27 juin 2025' });
+							expect(headingStage2nd).toBeVisible();
+							const voirStageSecondeButton = screen.getByRole('link', { name: 'Proposer un stage - nouvelle fenêtre' });
+							expect(voirStageSecondeButton).toBeVisible();
+							expect(voirStageSecondeButton).toHaveAttribute('href', fakeUrlVoirStageSeconde);
+						});
+					});
+					describe('quand les campagnes jeunes et employeurs ont démarré', () => {
+						it('la bannière contient les wording de la campagne employeur 2025', () => {
+							// GIVEN
+							const fakeUrlVoirStageSeconde = 'https://url-voir-offres-de-stages-de-seconde.fr';
+							process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE = '1';
+							process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '1';
+							process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_JEUNE_FEATURE = '1';
+							process.env.NEXT_PUBLIC_STAGES_SECONDE_HOMEPAGE_URL = fakeUrlVoirStageSeconde;
+
+							// WHEN
+							render(
+								<DependenciesProvider analyticsService={analyticsService}>
+									<Accueil actualites={anActualiteList()} />
+								</DependenciesProvider>,
+							);
+
+							// THEN
+							const headingStage2nd = screen.getByRole('heading', { level: 2, name: 'Un stage du 16 au 27 juin 2025' });
+							expect(headingStage2nd).toBeVisible();
+							const voirStageSecondeButton = screen.getByRole('link', { name: 'Proposer un stage ou candidater - nouvelle fenêtre' });
+							expect(voirStageSecondeButton).toBeVisible();
+							expect(voirStageSecondeButton).toHaveAttribute('href', fakeUrlVoirStageSeconde);
+						});
 					});
 				});
 
