@@ -14,7 +14,6 @@ describe('Plan du site', () => {
 			process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 			process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '1';
 			process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '1';
-			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
 			process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
 			process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '1';
 		});
@@ -98,7 +97,6 @@ describe('Plan du site', () => {
 			process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 			process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '0';
 			process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '0';
-			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
 			process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '1';
 			process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '0';
 		});
@@ -109,7 +107,6 @@ describe('Plan du site', () => {
 		${'Emplois en Europe'}                                    | ${'/emplois-europe'}
 		${'Formations initiales'}                                 | ${'/formations-initiales'}
 		${'Aides au permis de conduire'}	           	            | ${'/1jeune1permis'}
-		${'Je recrute un apprenti'}																| ${'/apprentissage-entreprises'}
 		${'Découvrir les services jeunes liés aux offres'}        | ${'/services-jeunes?filtre=vieProfessionnelle'}
 		${'Découvrir les services jeunes liés aux formations et à l’orientation'}   | ${'/services-jeunes?filtre=orienterFormer'}
 		${'Découvrir les services jeunes liés à l’engagement civique'}        			| ${'/services-jeunes?filtre=engagement'}
