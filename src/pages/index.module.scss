@@ -45,7 +45,6 @@ $color-background-world-skills: #2E1651;
 
     img {
       object-fit: cover;
-      object-position: 90% 0;
       display: none;
 
       @include utilities.media(xlarge) {

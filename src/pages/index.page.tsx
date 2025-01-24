@@ -38,7 +38,8 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 	const is1Jeune1PermisVisible = process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE === '1';
 
 	const isBanniereStagesSecondeVisible = process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE === '1';
-	const isBanniereStagesSecondePourCampagneDu25Mars = process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE === '1';
+	const isBanniereStagesSecondePourCampagne2025 = process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE === '1';
+	const isBanniereStagesSecondePourCampagne2025Jeune = process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_JEUNE_FEATURE === '1';
 	const urlDepotOffreStagesSeconde = process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL ?? '';
 	const urlHomePageStageDeSeconde = process.env.NEXT_PUBLIC_STAGES_SECONDE_HOMEPAGE_URL ?? '';
 
@@ -275,13 +276,13 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 
 				{isBanniereStagesSecondeVisible
 					&& (
-						<HeroWithIllustration image="/images/stages-seconde/banniere-stages-seconde.webp"
+						<HeroWithIllustration image="/images/stages-seconde/banniere-stages-seconde-3.webp"
 																	 className={classNames(styles.hero, styles.stageSecondeBanner)}>
-							{isBanniereStagesSecondePourCampagneDu25Mars ? (
+							{isBanniereStagesSecondePourCampagne2025 ? (
 								<>
 									<h2>
 										<HeroPrimaryText className={styles.heroTitle}>
-										Un stage du 17 au 28 juin 2024
+										Un stage du 16 au 27 juin 2025
 										</HeroPrimaryText>
 									</h2>
 									<HeroSecondaryText>
@@ -289,7 +290,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 									métiers.
 									</HeroSecondaryText>
 									<Link href={urlHomePageStageDeSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
-									Proposer un stage ou candidater
+										Proposer un stage {isBanniereStagesSecondePourCampagne2025Jeune && ' ou candidater'}
 										<Link.Icon />
 									</Link>
 								</>

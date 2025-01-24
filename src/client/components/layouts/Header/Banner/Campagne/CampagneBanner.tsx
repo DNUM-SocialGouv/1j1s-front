@@ -4,9 +4,12 @@ import { Link } from '~/client/components/ui/Link/Link';
 
 import styles from './CampagneBanner.module.scss';
 
-export const ENCART_CAMPAGNE_URL = 'https://www.1jeune1solution.gouv.fr/articles/programme-competition-mondiale-des-metiers-world-skills-lyon-2024';
-const TITRE = 'Retrouvez le programme de la 47e édition des WorldSkills Lyon 2024';
-//const SOUS_TITRE = 'Faites la différence et déposez facilement une offre de stage.';
+
+const isCampagneJeuneActive = process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_JEUNE_FEATURE === '1';
+
+const ENCART_CAMPAGNE_URL = process.env.NEXT_PUBLIC_STAGES_SECONDE_URL ?? '';
+const TITRE = 'Proposer un stage' + (isCampagneJeuneActive ? ' ou candidater !' : ' !');
+const SOUS_TITRE = 'Du 16 au 27 juin pour permettre aux élèves de seconde générale et technologique de diversifier leur connaissance des métiers.';
 
 export function CampagneBannerMobile() {
 	const displayCampagneEnCoursBanner = process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE === '1';
@@ -25,7 +28,7 @@ export function CampagneBannerDesktop() {
 		<Link href={ENCART_CAMPAGNE_URL} className={styles.headerBannerDektop} data-testid="desktop-encart-campagne">
 			<p>
 				<span className={styles.title}>{TITRE}</span>
-				{/*<span className={styles.content}>{SOUS_TITRE}</span>*/}
+				<span className={styles.content}>{SOUS_TITRE}</span>
 			</p>
 			<Link.Icon className={styles.icon} name="angle-right" />
 		</Link>
