@@ -31,16 +31,8 @@ import { BffLocalisationService } from '~/client/services/localisation/bff.local
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { LoggerService } from '~/client/services/logger.service';
 import { AdformMarketingService } from '~/client/services/marketing/adform/adform.marketing.service';
-import AmnetMarketingService from '~/client/services/marketing/amnet/amnet.marketing.service';
-import AzerionMarketingService from '~/client/services/marketing/azerion/azerion.marketing.service';
-import FloodlightMarketingService from '~/client/services/marketing/floodlight/floodlight.marketing.service';
-import GoogleTagManagerService from '~/client/services/marketing/googleTagManager.service';
 import { MarketingService } from '~/client/services/marketing/marketing.service';
-import MetaMarketingService from '~/client/services/marketing/meta/meta.marketing.service';
 import { NullMarketingService } from '~/client/services/marketing/null/null.marketing.service';
-import SeedtagMarketingService from '~/client/services/marketing/seedtag/seedtag.marketing.service';
-import SnapchatMarketingService from '~/client/services/marketing/snapchat/snapchat.marketing.service';
-import TiktokMarketingService from '~/client/services/marketing/TikTok/tiktok.marketing.service';
 import { BffAlternanceMetierService } from '~/client/services/metiers/bff.alternance.metier.service';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { BffMissionEngagementService } from '~/client/services/missionEngagement/bff.missionEngagement.service';
@@ -98,13 +90,6 @@ export type Dependencies = {
 	stageDeposerOffreEtape3PersistenceService: StageDeposerOffreEtape3PersistenceService
 	localStorageService: StorageService
 	sessionStorageService: StorageService
-	seedtagService: MarketingService
-	tiktokService: MarketingService
-	azerionService: MarketingService
-	amnetService: MarketingService
-	metaService: MarketingService
-	floodlightService: MarketingService
-	snapchatService: MarketingService
 }
 
 class DependencyInitException extends Error {
@@ -132,14 +117,6 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 	const emploiEuropeService = new BffEmploiEuropeService(httpClientService);
 	const stageService = new BffStageService(httpClientService);
 	const cookiesService = getCookieService();
-	const googleTagManagerService = new GoogleTagManagerService();
-	const seedtagService = new SeedtagMarketingService(cookiesService, googleTagManagerService);
-	const floodlightService = new FloodlightMarketingService(cookiesService, googleTagManagerService);
-	const tiktokService = new TiktokMarketingService(cookiesService);
-	const snapchatService = new SnapchatMarketingService(cookiesService);
-	const azerionService = new AzerionMarketingService(cookiesService);
-	const amnetService = new AmnetMarketingService(cookiesService);
-	const metaService = new MetaMarketingService(cookiesService);
 	const marketingService = process.env.NEXT_PUBLIC_CAMPAGNE_ADFORM_FEATURE === '1'
 		? new AdformMarketingService(cookiesService)
 		: new NullMarketingService();
@@ -188,32 +165,25 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		getStorageServiceWithFallback(localStorageService, new NullStorageService()));
 
 	return {
-		amnetService,
 		analyticsService,
-		azerionService,
 		cookiesService,
 		dateService,
 		demandeDeContactService,
 		emploiEuropeService,
-		floodlightService,
 		formationInitialeService,
 		localStorageService,
 		localisationService,
 		marketingService,
-		metaService,
 		metierLbaService,
 		metierStage3eEt2deService,
 		missionEngagementService,
 		rechercheClientService,
-		seedtagService,
 		sessionStorageService,
-		snapchatService,
 		stage3eEt2deService,
 		stageDeposerOffreEtape1PersistenceService,
 		stageDeposerOffreEtape2PersistenceService,
 		stageDeposerOffreEtape3PersistenceService,
 		stageService,
-		tiktokService,
 		youtubeService,
 		établissementAccompagnementService,
 	};

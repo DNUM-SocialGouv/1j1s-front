@@ -12,7 +12,6 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import { aMarketingService } from '~/client/services/marketing/marketing.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import FormationAlternancePage, { getServerSideProps } from '~/pages/formations/apprentissage/index.page';
 import { aGetServerSidePropsContext } from '~/server/aGetServerSidePropsContext.fixture';
@@ -82,7 +81,6 @@ describe('Page Formations en Apprentissage', () => {
 				<DependenciesProvider
 					analyticsService={analyticsService}
 					metierLbaService={aMetierService()}
-					floodlightService={aMarketingService()}
 					localisationService={aLocalisationService()}>
 					<FormationAlternancePage />
 				</DependenciesProvider>,
@@ -108,7 +106,6 @@ describe('Page Formations en Apprentissage', () => {
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
 					metierLbaService={aMetierService()}
-					floodlightService={aMarketingService()}
 					localisationService={aLocalisationService()}>
 					<FormationAlternancePage resultats={resultats} />
 				</DependenciesProvider>,

@@ -6,7 +6,6 @@ export function aTarteAuCitron(override?: Partial<TarteAuCitron>): TarteAuCitron
 		job: undefined,
 		services: {},
 		state: {},
-		triggerJobsAfterAjaxCall: jest.fn(),
 		user: {},
 		userInterface: {
 			openPanel: jest.fn(),
