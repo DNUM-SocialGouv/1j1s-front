@@ -6,29 +6,18 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { Link } from '~/client/components/ui/Link/Link';
 
 export function InformationSurEmbaucheApprenti() {
-	const embaucherUnApprentiLink = 'https://travail-emploi.gouv.fr/formation-professionnelle/formation-en-alternance-10751/apprentissage/embaucher-un-apprenti/';
-	const enSavoirPlusSurAideLink = 'https://travail-emploi.gouv.fr/formation-professionnelle/entreprise-et-alternance/aides-au-recrutement-d-un-alternant/article/aide-2023-aux-employeurs-qui-recrutent-en-alternance';
 
 	return (
 		<Container className={styles.informationSurEmbauche}>
-			<section aria-labelledby={'titre-section-renseignement'} className={styles.renseignement}>
-				<h2 id={'titre-section-renseignement'}>
-					Comme eux, vous souhaitez faire <span>le choix de l’apprentissage&nbsp;?</span>
-				</h2>
-				<Link href={embaucherUnApprentiLink} appearance={'asSecondaryButton'} className={styles.link}>
-					Se renseigner sur l’embauche
-					<Link.Icon />
-				</Link>
-			</section>
 			<section aria-labelledby={'titre-section-aide'} className={styles.aideFinanciere}>
-				<h2 id={'titre-section-aide'}>
-					Vous envisagez de recruter un apprenti&nbsp;? <span>Vous pouvez bénéficier d’une aide financière</span>
-				</h2>
-				<p className={styles.description}>
-						Cette aide de 6000 euros maximum est versée pour la première année de contrat, jusqu’au niveau master
-				</p>
-				<Link href={enSavoirPlusSurAideLink} appearance={'asSecondaryButton'} className={styles.link}>
-						En savoir plus
+				<hgroup>
+					<h2 id={'titre-section-aide'}>
+					Vous voulez en savoir plus sur l’apprentissage ?
+					</h2>
+					<p>Nous avons toutes les réponses à vos questions !</p>
+				</hgroup>
+				<Link href={'/faq/apprentissage-employeurs-apprentis'} appearance={'asPrimaryButton'} className={styles.link}>
+						Consultez notre FAQ
 					<Link.Icon />
 				</Link>
 			</section>

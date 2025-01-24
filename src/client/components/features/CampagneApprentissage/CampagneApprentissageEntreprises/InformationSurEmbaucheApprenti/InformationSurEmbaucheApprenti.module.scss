@@ -1,30 +1,15 @@
-@use '@styles/utilities-deprecated';
+@use '@styles/utilities';
 
 .informationSurEmbauche {
+  max-width: 100%;
 
-  @include utilities-deprecated.media(large) {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 2.5rem;
-
-    max-width: 100%;
-    margin: 0;
-    padding: 0 2rem;
-  }
-
-  & .renseignement {
-    & span {
-      display: inline-block;
-    }
-  }
-
-  & .renseignement, & .aideFinanciere {
+  & .aideFinanciere {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     padding: 1.75rem 1rem;
 
-    @include utilities-deprecated.media(large) {
+    @include utilities.media(large) {
       gap: 2.5rem;
       padding: 5rem 1rem
     }
@@ -36,16 +21,25 @@
 
   & h2 {
     @extend %subheading;
-    color: utilities-deprecated.$color-primary;
+    color: utilities.$color-primary;
     flex-grow: 1;
 
-    @include utilities-deprecated.media(large) {
+    @include utilities.media(large) {
+      text-align: center;
+    }
+  }
+
+  & h2 + p {
+    @extend %subheading;
+    color: utilities.$color-title-primary-contrast;
+
+    @include utilities.media(large) {
       text-align: center;
     }
   }
 
   & .description {
-    @include utilities-deprecated.media(large) {
+    @include utilities.media(large) {
       text-align: center;
     }
   }
@@ -56,7 +50,7 @@
     justify-content: center;
     align-self: center;
 
-    @include utilities-deprecated.media(large) {
+    @include utilities.media(large) {
       max-width: fit-content;
     }
   }
