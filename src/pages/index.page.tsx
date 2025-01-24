@@ -276,7 +276,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 
 				{isBanniereStagesSecondeVisible
 					&& (
-						<HeroWithIllustration image="/images/stages-seconde/banniere-stages-seconde-3.webp"
+						<HeroWithIllustration image="/images/stages-seconde/banniere-stages-seconde.webp"
 																	 className={classNames(styles.hero, styles.stageSecondeBanner)}>
 							{isBanniereStagesSecondePourCampagne2025 ? (
 								<>
