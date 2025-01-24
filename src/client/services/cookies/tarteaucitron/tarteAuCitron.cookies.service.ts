@@ -16,7 +16,8 @@ export type TarteAuCitron = {
     respond: (bouton: HTMLButtonElement, value: boolean) => void,
     openPanel: () => void,
   }
-	state: Record<TarteAuCitron.ServiceName, boolean>;
+	state: Record<TarteAuCitron.ServiceName, boolean>,
+	triggerJobsAfterAjaxCall: () => void,
 }
 
 export class TarteAuCitronCookiesService implements CookiesService {
@@ -83,5 +84,9 @@ export class TarteAuCitronCookiesService implements CookiesService {
 
 	openPanel(): void {
 		return this.tarteaucitron.userInterface.openPanel();
+	}
+
+	triggerServices() {
+		this.tarteaucitron.triggerJobsAfterAjaxCall();
 	}
 }
