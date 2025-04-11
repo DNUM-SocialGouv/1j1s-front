@@ -1,5 +1,23 @@
 # Changelog
 
+## [3.359.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.358.16...v3.359.0) (2025-04-11)
+
+
+### Features
+
+* **apprentissage:** termine la campagne et pérennise le contenu des pages ([#3567](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3567)) ([d273a5a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d273a5a79e416f3578e4841f84f2a59e98b65af3))
+* **campagne:** met à jour la campagne de stages pour 2025 ([#3566](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3566)) ([c1bb737](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c1bb737d9b6aba6541befb53771f8d8fec887d63))
+* Revert trackers ([#3471](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3471)) ([6878dd5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6878dd53fa78a4dcde094f536f87de5df48da7eb))
+* Update CEJ allocation ([#3578](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3578)) ([578fea3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/578fea3bf81c5eaf8deabc40244717ed648a3b24))
+
+
+### Bug Fixes
+
+* **campagne:** lie la bonne image sur la bannière ([#3568](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3568)) ([1a8cd97](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1a8cd97dd1dd87f205a9d34235142705cff75a7f))
+* **deps:** update all non-major dependencies to v7.14.0 ([#3559](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3559)) ([76341aa](https://github.com/DNUM-SocialGouv/1j1s-front/commit/76341aace82096c7091ae4f3b85883c7cb910083))
+* **scalingo:** ajoute la var d'env campagne stages jeune ([#3575](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3575)) ([66fe9d6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/66fe9d6b853eb1ccb7291ad69e3f973971e7e8ea))
+* Trigger les services tiers à la navigation ([#3473](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3473)) ([f7a7d8f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f7a7d8f4e0a3c9e067749e751b1bb5e06488a0e6))
+
 ## [3.358.16](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.358.15...v3.358.16) (2025-01-14)
 
 
