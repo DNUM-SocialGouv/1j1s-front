@@ -30,7 +30,7 @@ export default function QuEstCeQueCEst() {
 							<b>Un programme intensif</b> d’au minimum 15 à 20 heures par semaine composé de différents types d‘activités
 						</li>
 						<li>
-							<b>Une allocation pouvant aller jusqu‘à 528 euros par mois</b> en fonction de mes ressources et à
+							<b>Une allocation pouvant aller jusqu‘à 561,68 euros par mois</b> en fonction de mes ressources et à
 							condition que je respecte mes engagements
 						</li>
 					</ul>
