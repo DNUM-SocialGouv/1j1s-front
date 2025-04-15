@@ -1,5 +1,7 @@
 import { Alternance } from '~/server/alternances/domain/alternance';
-import { aRechercheAlternance } from '~/server/alternances/domain/alternance.fixture';
+import {
+	aRechercheAlternance,
+} from '~/server/alternances/domain/alternance.fixture';
 
 import {
 	aContractResponse,
@@ -11,7 +13,7 @@ import {
 	aRecruiterResponse,
 	aWorkplaceResponse,
 } from './apiAlternance.fixture';
-import { mapRechercheAlternanceListe } from './apiAlternance.mapper';
+import { mapDetailAlternance, mapRechercheAlternanceListe } from './apiAlternance.mapper';
 import Source = Alternance.Source;
 
 describe('mapRechercheAlternance', () => {
@@ -144,6 +146,24 @@ describe('mapRechercheAlternance', () => {
 				entrepriseList: expect.anything(),
 				offreList: [],
 			});
+		});
+	});
+});
+
+describe('mapDetail', () => {
+	describe('mapDetailMatcha', () => {
+		it('lorsque le type de contrat est vide, renvoie l‘offre sans type de contrat', () => {
+			const input = aJobResponse({
+				contract: aContractResponse({
+					type: [],
+				}),
+			});
+
+			const result = mapDetailAlternance(input);
+
+			expect(result).toEqual(expect.objectContaining({
+				typeDeContrat: [],
+			}));
 		});
 	});
 });

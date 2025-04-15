@@ -1,4 +1,5 @@
 import { Alternance, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
+import { AlternanceStatus } from '~/server/alternances/infra/status';
 
 import { AlternanceApiJobsResponse } from './apiAlternance';
 
@@ -32,11 +33,17 @@ function mapRecruiterResult(recruiter: AlternanceApiJobsResponse.Recruiter): Res
 	};
 }
 
-function mapJobResult(job: AlternanceApiJobsResponse.Job): ResultatRechercheAlternance.Offre | null {
+function mapSource(source: string): Alternance.Source | null {
 	const sources = ['offres_emploi_lba', 'OFFRES_EMPLOI_LBA', 'recruteurs_lba', 'RECRUTEURS_LBA', 'France Travail'];
-	if (!sources.includes(job.identifier.partner_label)) {
-		return null;
-	}
+	if (!sources.includes(source)) return null;
+	return source === 'France Travail' ? Alternance.Source.FRANCE_TRAVAIL : Alternance.Source.MATCHA;
+}
+
+function mapJobResult(job: AlternanceApiJobsResponse.Job): ResultatRechercheAlternance.Offre | null {
+	const source = mapSource(job.identifier.partner_label);
+	if (!source) { return null; }
+	if (!job.identifier.id) { return null; }
+
 	return {
 		entreprise: {
 			adresse: job.workplace.location.address,
@@ -46,7 +53,7 @@ function mapJobResult(job: AlternanceApiJobsResponse.Job): ResultatRechercheAlte
 		id: job.identifier.id ?? job.identifier.partner_job_id,
 		localisation: job.workplace.location.address,
 		niveauRequis: job.offer.target_diploma?.label,
-		source: job.identifier.partner_label === 'France Travail' ? Alternance.Source.FRANCE_TRAVAIL : Alternance.Source.MATCHA,
+		source,
 		titre: job.offer.title,
 		typeDeContrat: job.contract.type,
 	};
@@ -58,6 +65,30 @@ export function mapRechercheAlternanceListe(response: AlternanceApiJobsResponse)
 		offreList: response.jobs.map(mapJobResult).filter(nonNull),
 	};
 };
+
+export function mapDetailAlternance(response: AlternanceApiJobsResponse.Job): Alternance {
+	return {
+		compétences: response.offer.desired_skills,
+		dateDébut: response.contract.start ? new Date(response.contract.start) : null,
+		description: response.offer.description,
+		descriptionEmployeur: response.workplace.description,
+		durée: response.contract.duration ? `${response.contract.duration} mois` : null,
+		entreprise: {
+			adresse: response.workplace.location.address,
+			nom: response.workplace.name,
+			téléphone: response.apply.phone,
+		},
+		id: response.identifier.id ?? response.identifier.partner_job_id,
+		lienPostuler: response.apply.url,
+		localisation: response.workplace.location.address,
+		niveauRequis: response.offer.target_diploma?.label,
+		rythmeAlternance: null,
+		source: Alternance.Source.MATCHA,
+		status: response.offer.status === 'Active' ? AlternanceStatus.ACTIVE : AlternanceStatus.CANCELED,
+		titre: response.offer.title,
+		typeDeContrat: response.contract.type,
+	};
+}
 
 function nonNull<T>(element: T | null | undefined) {
 	return element != null;

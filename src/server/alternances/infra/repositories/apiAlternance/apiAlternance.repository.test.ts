@@ -1,5 +1,7 @@
+import { Alternance } from '~/server/alternances/domain/alternance';
 import { anAlternanceFiltre } from '~/server/alternances/domain/alternance.fixture';
-import { createFailure, Failure } from '~/server/errors/either';
+import { aMatchaResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
+import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ApiValidationError } from '~/server/services/error/apiValidationError';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
@@ -10,8 +12,9 @@ import {
 } from '~/server/services/http/publicHttpClient.service.fixture';
 
 import {
+	aJobIdentifierResponse,
 	aJobResponse,
-	anAlternanceApiRechercheResponse,
+	anAlternanceApiRechercheResponse, anOfferResponse,
 } from './apiAlternance.fixture';
 import {
 	ApiAlternanceRepository,
@@ -19,7 +22,7 @@ import {
 
 describe('apiAlternanceRepository', () => {
 	describe('search', () => {
-		it('appelle l’api LaBonneAlternance', () => {
+		it('appelle l’api Alternance', () => {
 			// Given
 			const httpClientService = anAuthenticatedHttpClientService();
 			const repository = new ApiAlternanceRepository(httpClientService, anErrorManagementService());
@@ -130,6 +133,109 @@ describe('apiAlternanceRepository', () => {
 			// Then
 			expect(errorManagementService.logValidationError).not.toHaveBeenCalled();
 			expect(result.instance).toEqual('success');
+		});
+	});
+
+	describe('get', () => {
+		it('retourne l’alternance renvoyée par l’API', async () => {
+			// Given
+			const httpClientService = anAuthenticatedHttpClientService();
+			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aJobResponse({
+				identifier: aJobIdentifierResponse({
+					id: 'abc',
+				}),
+			})));
+			const repository = new ApiAlternanceRepository(httpClientService, anErrorManagementService());
+
+			// When
+			const result = await repository.get('abc') as Success<Alternance>;
+
+			// Then
+			expect(result.result.id).toEqual('abc');
+		});
+		it('retourne une erreur quand il y a une erreur', async () => {
+			// Given
+			const httpError = anHttpError(500);
+			const httpClientService = anAuthenticatedHttpClientService({
+				get: jest.fn(async () => {
+					throw httpError;
+				}),
+			});
+			const expectedFailure = ErreurMetier.DEMANDE_INCORRECTE;
+			const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
+			const repository = new ApiAlternanceRepository(httpClientService, errorManagementService);
+			(httpClientService.get as jest.Mock).mockRejectedValue(anHttpError(500));
+
+			// When
+			const result = await repository.get('abc');
+
+			// Then
+			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+				apiSource: 'API Alternance',
+				contexte: 'get détail annonce alternance',
+				message: 'impossible de récupérer le détail d‘une offre d‘alternance',
+			});
+			expect(result.instance).toEqual('failure');
+			expect((result as Failure).errorType).toEqual(expectedFailure);
+		});
+		it('appelle le management d’erreur de validation quand il y a une erreur de validation et continue l’execution', async () => {
+			const httpClientService = anAuthenticatedHttpClientService();
+			const invalidResponse = aJobResponse({
+				offer: anOfferResponse({
+					// @ts-expect-error
+					title: 1,
+				}),
+			});
+			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(invalidResponse));
+			const errorManagementService = anErrorManagementService();
+			const repository = new ApiAlternanceRepository(httpClientService, errorManagementService);
+
+			const expectedApiValidationError = new ApiValidationError(
+				[
+					{
+						context: {
+							key: 'title',
+							label: 'offer.title',
+							value: 1,
+						},
+						message: '"offer.title" must be a string',
+						path: ['offer', 'title'],
+						type: 'string.base',
+					},
+				],
+				invalidResponse);
+
+			// When
+			const result = await repository.get('abc');
+
+			// Then
+			expect(errorManagementService.logValidationError).toHaveBeenCalledWith(
+				expect.any(ApiValidationError),
+				expect.anything(),
+			);
+			expect(errorManagementService.logValidationError).toHaveBeenCalledWith(
+				expectedApiValidationError,
+				{
+					apiSource: 'API Alternance',
+					contexte: 'get détail annonce alternance',
+					message: 'erreur de validation du schéma de l’api',
+				},
+			);
+			expect(result.instance).toEqual('success');
+		});
+
+		it('appelle l’api laBonneAlternance avec l’endpoint /job/v1/offer', async () => {
+			// Given
+			const httpClientService = anAuthenticatedHttpClientService();
+			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
+			const repository = new ApiAlternanceRepository(httpClientService, anErrorManagementService());
+
+			// When
+			await repository.get('abc');
+
+			// Then
+			expect(httpClientService.get).toHaveBeenCalledTimes(1);
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('/job/v1/offer'));
 		});
 	});
 });

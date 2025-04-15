@@ -68,17 +68,19 @@ export const anOfferResponse = makeFixture<AlternanceApiJobsResponse.Job.Offer>(
 	],
 });
 
+export const aJobIdentifierResponse = makeFixture<AlternanceApiJobsResponse.Job.Identifier>({
+	id: '6687165396d52b5e01b409545',
+	partner_job_id: 'b16a546a-e61f-4028-b5a3-1a7bbfaa4e3d',
+	partner_label: 'France Travail',
+});
+
 export const aJobResponse = makeFixture<AlternanceApiJobsResponse.Job>({
 	apply: {
 		phone: '+33 1 99 00 00 00',
 		url: 'https://labonnealternance.apprentissage.beta.gouv.fr/recherche-apprentissage?display=list&page=fiche&type=matcha&itemId=664752a2ebe24062b758c641',
 	},
 	contract: aContractResponse(),
-	identifier: {
-		id: '6687165396d52b5e01b409545',
-		partner_job_id: 'b16a546a-e61f-4028-b5a3-1a7bbfaa4e3d',
-		partner_label: 'France Travail',
-	},
+	identifier: aJobIdentifierResponse(),
 	offer: anOfferResponse(),
 	workplace: aWorkplaceResponse(),
 });

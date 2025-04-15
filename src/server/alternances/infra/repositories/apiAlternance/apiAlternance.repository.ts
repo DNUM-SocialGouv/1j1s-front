@@ -6,7 +6,7 @@ import { ErrorManagementService } from '~/server/services/error/errorManagement.
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 
 import { AlternanceApiJobsResponse } from './apiAlternance';
-import { mapRechercheAlternanceListe } from './apiAlternance.mapper';
+import { mapDetailAlternance, mapRechercheAlternanceListe } from './apiAlternance.mapper';
 
 export class ApiAlternanceRepository implements AlternanceRepository {
 	constructor(
@@ -42,7 +42,25 @@ export class ApiAlternanceRepository implements AlternanceRepository {
 		return await this.httpClient.get<AlternanceApiJobsResponse>(endpoint);
 	}
 
-	get(id: string): Promise<Either<Alternance>> {
-		throw '// FIXME (GAFI 15-04-2025):  Not implemented' + id;
+	async get(id: string): Promise<Either<Alternance>> {
+		try {
+			const response = await this.httpClient.get<AlternanceApiJobsResponse.Job>(`/job/v1/offer/${id}`);
+			const apiValidationError = validateApiResponse<AlternanceApiJobsResponse.Job>(response.data, AlternanceApiJobsResponse.validationSchema.job);
+
+			if (apiValidationError) {
+				this.errorManagementServiceSearch.logValidationError(apiValidationError, {
+					apiSource: 'API Alternance',
+					contexte: 'get détail annonce alternance',
+					message: 'erreur de validation du schéma de l’api',
+				});
+			}
+			return createSuccess(mapDetailAlternance(response.data));
+		} catch (error) {
+			return this.errorManagementServiceSearch.handleFailureError(error, {
+				apiSource: 'API Alternance',
+				contexte: 'get détail annonce alternance',
+				message: 'impossible de récupérer le détail d‘une offre d‘alternance',
+			});
+		}
 	}
 }

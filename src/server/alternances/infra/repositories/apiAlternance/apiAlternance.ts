@@ -107,7 +107,7 @@ export namespace AlternanceApiJobsResponse {
 			url: Joi.string(),
 		}).options({ allowUnknown: true });
 
-		const job = Joi.object({
+		export const job = Joi.object({
 			apply,
 			contract: Joi.object({
 				duration: Joi.number().allow(null),
