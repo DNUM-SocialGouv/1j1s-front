@@ -11,6 +11,8 @@ export class ConfigurationServiceFixture implements ConfigurationService {
 	constructor(overrides?: Partial<EnvironmentVariables>) {
 		this.variables = {
 			API_ADRESSE_BASE_URL: 'https://api-adresse.data.gouv.fr/',
+			API_ALTERNANCE_TOKEN: 'token',
+			API_ALTERNANCE_URL: 'https://api-recette.apprentissage.beta.gouv.fr/api/',
 			API_ENGAGEMENT_API_KEY_TOKEN: 'API_ENGAGEMENT_API_KEY_TOKEN',
 			API_ENGAGEMENT_BASE_URL: 'https://api.api-engagement.beta.gouv.fr/v0/',
 			API_ETABLISSEMENTS_PUBLICS: '',

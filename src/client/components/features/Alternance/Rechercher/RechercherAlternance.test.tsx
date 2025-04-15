@@ -117,7 +117,6 @@ describe('RechercherAlternance', () => {
 				id: '0123456789',
 				nom: 'UN NOM 1',
 				secteurs: ['secteur 1', 'secteur 2'],
-				ville: 'une ville',
 			}),
 			aRechercheEntrepriseAlternance({
 				candidaturePossible: false,

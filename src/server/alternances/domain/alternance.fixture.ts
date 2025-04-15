@@ -41,7 +41,6 @@ export const aRechercheEntrepriseAlternance = (override?: Partial<ResultatRecher
 		nom: 'un nom',
 		nombreSalariés: { max: 9, min: 0 },
 		secteurs: ['secteur 1', 'secteur 2'],
-		ville: 'une ville',
 		...override,
 	};
 };

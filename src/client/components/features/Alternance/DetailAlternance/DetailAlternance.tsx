@@ -164,7 +164,8 @@ export function DetailAlternance({ annonce }: { annonce: Alternance }) {
 			<ModalComponent close={toggleModal} isOpen={isModalOpen} aria-label="Formulaire de candidature à l’annonce">
 				<ModalComponent.Content>
 					<iframe
-						src={annonce.lienPostuler}
+						// FIXME (GAFI 31-03-2025): Qu'est-ce qu'il se passe si pas de lien postuler ?
+						src={annonce.lienPostuler ?? undefined}
 						title="Formulaire de candidature à l’annonce"
 						className={styles.iframe}
 						tabIndex={0} />
