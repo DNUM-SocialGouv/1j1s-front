@@ -4,6 +4,8 @@ export default class ServerConfigurationService implements ConfigurationService 
 	getConfiguration(): EnvironmentVariables {
 		return {
 			API_ADRESSE_BASE_URL: ServerConfigurationService.getOrThrowError('API_ADRESSE_BASE_URL'),
+			API_ALTERNANCE_TOKEN: ServerConfigurationService.getOrThrowError('API_ALTERNANCE_TOKEN'),
+			API_ALTERNANCE_URL: ServerConfigurationService.getOrThrowError('API_ALTERNANCE_URL'),
 			API_ENGAGEMENT_API_KEY_TOKEN: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_API_KEY_TOKEN'),
 			API_ENGAGEMENT_BASE_URL: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_BASE_URL'),
 			API_ETABLISSEMENTS_PUBLICS: ServerConfigurationService.getOrThrowError('API_ETABLISSEMENTS_PUBLICS'),
@@ -105,6 +107,8 @@ export interface EnvironmentVariables {
 	readonly API_LA_BONNE_ALTERNANCE_CALLER: string
 	readonly API_LA_BONNE_ALTERNANCE_IS_ALTERNANCE_MOCK_ACTIVE: boolean
 	readonly API_LA_BONNE_ALTERNANCE_URL: string
+	readonly API_ALTERNANCE_URL: string
+	readonly API_ALTERNANCE_TOKEN: string
 	readonly API_ONISEP_BASE_URL: string
 	readonly API_ONISEP_ACCOUNT_EMAIL: string
 	readonly API_ONISEP_ACCOUNT_PASSWORD: string

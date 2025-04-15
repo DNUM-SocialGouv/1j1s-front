@@ -122,7 +122,6 @@ function mapRésultatRechercherAlternanceLbaEntreprise(entreprise: LbaCompanies)
 		nom: entreprise.company.name,
 		nombreSalariés: entreprise.company?.size ? getNombreSalariés(entreprise.company.size) : undefined,
 		secteurs: entreprise.nafs?.map((naf) => naf.label),
-		ville: entreprise.place?.city,
 	};
 }
 
