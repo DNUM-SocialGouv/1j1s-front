@@ -25,15 +25,15 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
-    "@meilisearch/instant-meilisearch": "0.23.0",
+    "@meilisearch/instant-meilisearch": "0.26.0",
     "@next/bundle-analyzer": "14.2.23",
     "@sentry/nextjs": "8.48.0",
     "axios": "1.7.9",
-    "axios-cache-interceptor": "1.6.2",
+    "axios-cache-interceptor": "1.7.0",
     "classnames": "2.5.1",
     "dompurify": "3.2.3",
     "fast-xml-parser": "4.5.1",
-    "ioredis": "5.4.2",
+    "ioredis": "5.6.1",
     "joi": "17.13.3",
     "lodash.debounce": "4.0.8",
     "markdown-it": "14.1.0",
@@ -46,11 +46,11 @@
     "react": "18.3.1",
     "react-autosuggest": "10.1.0",
     "react-dom": "18.3.1",
-    "react-instantsearch": "7.14.0",
-    "react-instantsearch-router-nextjs": "7.14.0",
+    "react-instantsearch": "7.15.5",
+    "react-instantsearch-router-nextjs": "7.15.5",
     "redis": "4.7.0",
     "reflect-metadata": "0.2.2",
-    "sharp": "0.33.5"
+    "sharp": "0.34.1"
   },
   "devDependencies": {
     "@socialgouv/eslint-config-recommended": "1.131.0",
