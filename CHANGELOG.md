@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.359.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.359.0...v3.359.1) (2025-04-24)
+
+
+### Bug Fixes
+
+* Ne set plus le cache quand en erreur ([#3582](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3582)) ([93bb2f2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/93bb2f251218ab9ba4bcebc613ddb12854c59b3e))
+
 ## [3.359.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.358.16...v3.359.0) (2025-04-11)
 
 
