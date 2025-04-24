@@ -137,6 +137,24 @@ describe('ApiFranceTravailOffreRepository', () => {
 
 					expect(cacheService.set).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI_KEY', aRésultatsRechercheOffreEmploiApiResponse(), 24);
 				});
+				it('ne set pas les informations dans le cache si une erreur se produit', async () => {
+					jest
+						.spyOn(httpClientServiceWithAuthentification, 'get')
+						.mockResolvedValue(anAxiosResponse('payload invalide'));
+
+					jest
+						.spyOn(franceTravailParametreBuilderService, 'buildCommonParamètresRecherche')
+						.mockResolvedValue('range=0-14');
+
+					jest.spyOn(cacheService, 'get').mockResolvedValue(null);
+					jest.spyOn(cacheService, 'set');
+
+					const offreFiltre = anOffreÉchantillonFiltre();
+
+					await apiFranceTravailOffreRepository.search(offreFiltre);
+
+					expect(cacheService.set).not.toHaveBeenCalled();
+				});
 			});
 
 			describe('quand les informations sont déjà en cache', () => {
