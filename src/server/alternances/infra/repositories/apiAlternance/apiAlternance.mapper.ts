@@ -33,15 +33,14 @@ function mapRecruiterResult(recruiter: AlternanceApiJobsResponse.Recruiter): Res
 	};
 }
 
-function mapSource(source: string): Alternance.Source | null {
-	const sources = ['offres_emploi_lba', 'OFFRES_EMPLOI_LBA', 'recruteurs_lba', 'RECRUTEURS_LBA', 'France Travail'];
-	if (!sources.includes(source)) return null;
-	return source === 'France Travail' ? Alternance.Source.FRANCE_TRAVAIL : Alternance.Source.MATCHA;
+function mapSource(source: string): Alternance.Source {
+	return source === 'France Travail'
+		? Alternance.Source.FRANCE_TRAVAIL
+		: Alternance.Source.MATCHA;
 }
 
 function mapJobResult(job: AlternanceApiJobsResponse.Job): ResultatRechercheAlternance.Offre | null {
 	const source = mapSource(job.identifier.partner_label);
-	if (!source) { return null; }
 	if (!job.identifier.id) { return null; }
 
 	return {
