@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.359.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.359.1...v3.359.2) (2025-04-25)
+
+
+### Bug Fixes
+
+* Fix le cache quand les jobs étudiant sont en erreur ([#3584](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3584)) ([4ef99d8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4ef99d89040533291a61239847a729fa4dc6c760))
+
 ## [3.359.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.359.0...v3.359.1) (2025-04-24)
 
 
