@@ -101,8 +101,9 @@ export class ApiFranceTravailJobEtudiantRepository implements OffreRepository {
 				const response = await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse>(
 					`/search?range=${range}&${this.paramètreParDéfaut}`,
 				);
+				const resultat = createSuccess(mapRésultatsRechercheOffre(response.data));
 				this.cacheService.set(this.ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY, response.data, 24);
-				return createSuccess(mapRésultatsRechercheOffre(response.data));
+				return resultat;
 			} catch (error) {
 				return this.apiFranceTravailOffreErrorManagementSearch.handleFailureError(error, {
 					apiSource: 'API France Travail',
