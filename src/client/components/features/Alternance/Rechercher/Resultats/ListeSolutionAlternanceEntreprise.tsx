@@ -14,7 +14,6 @@ export function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
 }): React.ReactElement {
 	const getTags = (entreprise: Entreprise) => {
 		const tags: Array<string> = [];
-		if (entreprise.ville) tags.push(entreprise.ville);
 		if (entreprise.nombreSalariés) {
 			if (entreprise.nombreSalariés.min === entreprise.nombreSalariés.max && entreprise.nombreSalariés.max > 0) {
 				tags.push(`${entreprise.nombreSalariés.min} salariés`);

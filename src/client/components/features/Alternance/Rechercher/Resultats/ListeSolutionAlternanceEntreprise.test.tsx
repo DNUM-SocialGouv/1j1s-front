@@ -15,20 +15,6 @@ describe('les tags', () => {
 		mockSmallScreen();
 	});
 
-	it('je vois le tag de localisation', () => {
-		const anEntreprisesList = [
-			aRechercheEntrepriseAlternance({
-				ville: 'Paris',
-			}),
-		];
-
-		render(<ListeSolutionAlternanceEntreprise entrepriseList={anEntreprisesList} />);
-
-		const tagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
-		const tags = within(tagsList).getAllByRole('listitem');
-		expect(tags[0]).toHaveTextContent('Paris');
-	});
-
 	describe('nombre d‘employés', () => {
 		it('lorsque le nombre d‘employé min et max sont égaux, voit le nombre de salariés', () => {
 			const anEntreprisesList = [
@@ -41,7 +27,7 @@ describe('les tags', () => {
 
 			const tagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
 			const tags = within(tagsList).getAllByRole('listitem');
-			expect(tags[1]).toHaveTextContent('9 salariés');
+			expect(tags[0]).toHaveTextContent('9 salariés');
 		});
 
 		it('lorsque le nombre d‘employé min et max sont différents, voit le nombre de salariés', () => {
@@ -55,7 +41,7 @@ describe('les tags', () => {
 
 			const tagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
 			const tags = within(tagsList).getAllByRole('listitem');
-			expect(tags[1]).toHaveTextContent('2 à 9 salariés');
+			expect(tags[0]).toHaveTextContent('2 à 9 salariés');
 		});
 	});
 
@@ -64,7 +50,6 @@ describe('les tags', () => {
 			aRechercheEntrepriseAlternance({
 				candidaturePossible: true,
 				nombreSalariés: { max: 9, min: 0 },
-				ville: 'Paris',
 			}),
 		];
 
@@ -72,7 +57,7 @@ describe('les tags', () => {
 		
 		const tagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
 		const tags = within(tagsList).getAllByRole('listitem');
-		expect(tags[2]).toHaveTextContent('Candidature spontanée');
+		expect(tags[1]).toHaveTextContent('Candidature spontanée');
 	});
 
 	it('lorsque la candidature est impossible, je vois les tags pour contacter en direct l‘entreprise', async () => {
@@ -80,7 +65,6 @@ describe('les tags', () => {
 			aRechercheEntrepriseAlternance({
 				candidaturePossible: false,
 				nombreSalariés: { max: 9, min: 0 },
-				ville: 'Paris',
 			}),
 		];
 
@@ -88,8 +72,8 @@ describe('les tags', () => {
 
 		const tagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
 		const tags = within(tagsList).getAllByRole('listitem');
-		expect(tags[2]).toHaveTextContent('Rencontre au sein de l’entreprise');
-		expect(tags[3]).toHaveTextContent('Candidature sur le site de l’entreprise');
+		expect(tags[1]).toHaveTextContent('Rencontre au sein de l’entreprise');
+		expect(tags[2]).toHaveTextContent('Candidature sur le site de l’entreprise');
 	});
 
 	describe('lien de candidature vers une entreprise', () => {
