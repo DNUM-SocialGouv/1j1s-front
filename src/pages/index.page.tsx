@@ -1,6 +1,6 @@
-import classNames from 'classnames';
 import { GetStaticPropsResult } from 'next';
 import React from 'react';
+import BannieresCampagnes from 'src/client/components/features/BannieresCampagnes';
 
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -10,11 +10,12 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import analytics from '~/pages/index.analytics';
-import styles from '~/pages/index.module.scss';
 import { Actualite } from '~/server/actualites/domain/actualite';
 import { isFailure } from '~/server/errors/either';
 import { dependencies } from '~/server/start';
+
+import analytics from './index.analytics';
+import styles from './index.module.scss';
 
 
 interface CardContent {
@@ -37,15 +38,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 	const isStages3eEt2deVisible = process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE === '1';
 	const is1Jeune1PermisVisible = process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE === '1';
 
-	const isBanniereStagesSecondeVisible = process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE === '1';
-	const isBanniereStagesSecondePourCampagne2025 = process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE === '1';
-	const isBanniereStagesSecondePourCampagne2025Jeune = process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_JEUNE_FEATURE === '1';
-	const urlDepotOffreStagesSeconde = process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL ?? '';
-	const urlHomePageStageDeSeconde = process.env.NEXT_PUBLIC_STAGES_SECONDE_HOMEPAGE_URL ?? '';
-
 	const isOldEspaceJeuneActif = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
-
-	const isCampagneFeteDesMetiersVisible = process.env.NEXT_PUBLIC_FETE_DE_METIERS_CAMPAGNE === '1';
 
 	const actualitesCardListContent: CardContent[] = accueilProps.actualites.map((carte: Actualite): CardContent => {
 		return {
@@ -270,65 +263,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 						)}
 				</HeroWithIllustration>
 
-				{isCampagneFeteDesMetiersVisible && (
-					<HeroWithIllustration image="/images/fete-des-metiers-banniere.webp" className={classNames(styles.hero, styles.feteDesMetiers)}>
-						<h2>
-							<HeroPrimaryText className={styles.heroTitle}>
-								La Fête des Métiers et de l’Alternance vous donne les clés de l’avenir !
-							</HeroPrimaryText>
-						</h2>
-						<HeroSecondaryText>
-							Un salon incontournable pour découvrir des métiers, des formations et des opportunités concrètes !
-						</HeroSecondaryText>
-						<HeroSecondaryText>
-							Rendez-vous le 21 mai 2025 à Paris Montreuil Expo. Entrée libre.
-						</HeroSecondaryText>
-						<Link href="https://www.fetedelalternance.com/" appearance={'asSecondaryButton'} className={styles.heroButton}>
-							Informations sur la Fête des métiers 2025
-							<Link.Icon />
-						</Link>
-					</HeroWithIllustration>
-				)}
-
-				{isBanniereStagesSecondeVisible
-					&& (
-						<HeroWithIllustration image="/images/stages-seconde/banniere-stages-seconde.webp"
-																	 className={classNames(styles.hero, styles.stageSecondeBanner)}>
-							{isBanniereStagesSecondePourCampagne2025 ? (
-								<>
-									<h2>
-										<HeroPrimaryText className={styles.heroTitle}>
-										Un stage du 16 au 27 juin 2025
-										</HeroPrimaryText>
-									</h2>
-									<HeroSecondaryText>
-									pour permettre aux élèves de seconde générale et technologique de diversifier leur connaissance des
-									métiers.
-									</HeroSecondaryText>
-									<Link href={urlHomePageStageDeSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
-										Proposer un stage {isBanniereStagesSecondePourCampagne2025Jeune && ' ou candidater'}
-										<Link.Icon />
-									</Link>
-								</>
-							) : (
-								<>
-									<h2>
-										<HeroPrimaryText className={styles.heroTitle}>
-										Accueillez des élèves en stages de seconde générale et technologique.
-										</HeroPrimaryText>
-									</h2>
-									<HeroSecondaryText>
-									Inspirez, transmettez, faites découvrir vos métiers.
-									</HeroSecondaryText>
-									<Link href={urlDepotOffreStagesSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
-									Déposer votre offre de stage
-										<Link.Icon />
-									</Link>
-								</>
-							)}
-						</HeroWithIllustration>
-					)
-				}
+				<BannieresCampagnes />
 
 				{!isOldEspaceJeuneActif && actualitesCardListContent.length > 0
 					&& (
