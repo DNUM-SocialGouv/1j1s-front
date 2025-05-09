@@ -104,6 +104,13 @@ $color-text-on-primary-campagne-handicap: $color-secondary-campagne-handicap;
 $color-text-on-secondary-campagne-handicap: #FFFFFF;
 
 /* ***************
+ * Complementary colors - Campagne Fête des métiers
+ * ***************/
+$color-primary-campagne-fete-des-metiers: hsl(336, 74%, 55%);
+$color-text-on-primary-campagne-fete-des-metiers: black;
+$color-border-campagne-fete-des-metiers: hsl(336, 74%, 40%);
+
+/* ***************
  * Shadows
  * ***************/
 $box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);

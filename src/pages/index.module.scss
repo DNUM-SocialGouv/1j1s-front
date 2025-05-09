@@ -74,6 +74,14 @@ $color-background-world-skills: #2E1651;
       outline-color: utilities.$color-secondary-campagne-handicap;
     }
   }
+  &.feteDesMetiers {
+    background-color: utilities.$color-primary-campagne-fete-des-metiers;
+    color: utilities.$color-text-on-primary-campagne-fete-des-metiers;
+    & a {
+      border-color: utilities.$color-border-campagne-fete-des-metiers;
+      color: inherit;
+    }
+  }
 }
 
 .card {

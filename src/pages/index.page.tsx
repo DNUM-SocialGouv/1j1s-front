@@ -45,11 +45,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 
 	const isOldEspaceJeuneActif = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
 
-	const isBannerWorldSkillsVisible = process.env.NEXT_PUBLIC_WORLD_SKILLS_FEATURE === '1';
-
-	const isCampagneApprentissageVisible = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
-
-	const isCampagneHandicapVisible = process.env.NEXT_PUBLIC_CAMPAGNE_HANDICAP === '1';
+	const isCampagneFeteDesMetiersVisible = process.env.NEXT_PUBLIC_FETE_DE_METIERS_CAMPAGNE === '1';
 
 	const actualitesCardListContent: CardContent[] = accueilProps.actualites.map((carte: Actualite): CardContent => {
 		return {
@@ -274,6 +270,26 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 						)}
 				</HeroWithIllustration>
 
+				{isCampagneFeteDesMetiersVisible && (
+					<HeroWithIllustration image="/images/fete-des-metiers-banniere.webp" className={classNames(styles.hero, styles.feteDesMetiers)}>
+						<h2>
+							<HeroPrimaryText className={styles.heroTitle}>
+								La Fête des Métiers et de l’Alternance vous donne les clés de l’avenir !
+							</HeroPrimaryText>
+						</h2>
+						<HeroSecondaryText>
+							Un salon incontournable pour découvrir des métiers, des formations et des opportunités concrètes !
+						</HeroSecondaryText>
+						<HeroSecondaryText>
+							Rendez-vous le 21 mai 2025 à Paris Montreuil Expo. Entrée libre.
+						</HeroSecondaryText>
+						<Link href="https://www.fetedelalternance.com/" appearance={'asSecondaryButton'} className={styles.heroButton}>
+							Informations sur la Fête des métiers 2025
+							<Link.Icon />
+						</Link>
+					</HeroWithIllustration>
+				)}
+
 				{isBanniereStagesSecondeVisible
 					&& (
 						<HeroWithIllustration image="/images/stages-seconde/banniere-stages-seconde.webp"
@@ -313,60 +329,6 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 						</HeroWithIllustration>
 					)
 				}
-
-				{isBannerWorldSkillsVisible
-					&& (
-						<HeroWithIllustration image="/images/campagne-world-skills-2024.webp" className={classNames(styles.hero, styles.worldSkills)}>
-							<h2>
-								<HeroPrimaryText className={styles.heroTitle}>
-								WorldSkills Lyon 2024, la Compétition Mondiale des Métiers.
-								</HeroPrimaryText>
-							</h2>
-							<HeroSecondaryText>
-							1jeune1solution s’engage en faveur de la jeunesse, venez nous rencontrer du 10 au 15 septembre lors de la compétition WorldSkills Lyon 2024.
-							</HeroSecondaryText>
-							<Link href="https://worldskills2024.com" appearance={'asSecondaryButton'} className={styles.heroButton}>
-							Plus d’infos
-								<Link.Icon />
-							</Link>
-						</HeroWithIllustration>
-					)
-				}
-
-				{isCampagneApprentissageVisible
-					&& (
-						<HeroWithIllustration image="/images/campagne-apprentissage-banniere.webp" className={classNames(styles.hero, styles.apprentissage)}>
-							<h2>
-								<HeroPrimaryText className={styles.heroTitle}>
-									Contrat, éligibilité ? Avantages ?
-								</HeroPrimaryText>
-							</h2>
-							<HeroSecondaryText>
-								Retrouvez toutes les réponses à vos questions sur l’apprentissage dans notre FAQ.
-							</HeroSecondaryText>
-							<Link href="/faq/apprentissage-employeurs-apprentis" appearance={'asSecondaryButton'} className={styles.heroButton}>
-								Consultez notre FAQ
-								<Link.Icon />
-							</Link>
-						</HeroWithIllustration>
-					)
-				}
-
-				{isCampagneHandicapVisible && (
-					<HeroWithIllustration image="/images/campagne-handicap.png" className={classNames(styles.hero, styles.handicap)}>
-						<h2>
-							<HeroPrimaryText className={styles.heroTitle}>
-								Semaine européenne pour l’emploi des personnes handicapées
-							</HeroPrimaryText>
-						</h2>
-						<HeroSecondaryText>
-							Du 18 au 24 novembre, <b>1jeune1solution</b> se mobilise, et vous propose un article par jour pour sensibiliser au handicap et promouvoir l’inclusion professionnelle.						</HeroSecondaryText>
-						<Link href="/articles/semaine-emploi-handicap" appearance={'asSecondaryButton'} className={styles.heroButton}>
-							Lire l’article
-							<Link.Icon />
-						</Link>
-					</HeroWithIllustration>
-				)}
 
 				{!isOldEspaceJeuneActif && actualitesCardListContent.length > 0
 					&& (
