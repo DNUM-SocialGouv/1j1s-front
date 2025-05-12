@@ -20,7 +20,7 @@ export default function FeteDesMetiersBanner() {
 				Rendez-vous le 21 mai 2025 à Paris Montreuil Expo. Entrée libre.
 			</HeroSecondaryText>
 			<Link href="https://www.fetedelalternance.com/" appearance={'asSecondaryButton'} className={styles.cta}>
-				Informations sur la Fête des métiers 2025
+				Informations sur la Fête des Métiers 2025
 				<Link.Icon />
 			</Link>
 		</HeroWithIllustration>
