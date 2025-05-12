@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 
 export default function FeteDesMetiersBanner() {
 	return (
-		<HeroWithIllustration image="/images/fete-des-metiers-banniere.webp" className={classNames(styles.banner, styles.feteDesMetiers)}>
+		<HeroWithIllustration image="/images/campagne-fete-des-metiers.webp" className={classNames(styles.banner, styles.feteDesMetiers)}>
 			<h2>
 				<HeroPrimaryText>
 					La Fête des Métiers et de l’Alternance vous donne les clés de l’avenir !
