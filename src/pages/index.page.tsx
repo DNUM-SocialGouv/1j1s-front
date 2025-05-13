@@ -1,6 +1,6 @@
-import classNames from 'classnames';
 import { GetStaticPropsResult } from 'next';
 import React from 'react';
+import BannieresCampagnes from 'src/client/components/features/BannieresCampagnes';
 
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -10,11 +10,12 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import analytics from '~/pages/index.analytics';
-import styles from '~/pages/index.module.scss';
 import { Actualite } from '~/server/actualites/domain/actualite';
 import { isFailure } from '~/server/errors/either';
 import { dependencies } from '~/server/start';
+
+import analytics from './index.analytics';
+import styles from './index.module.scss';
 
 
 interface CardContent {
@@ -37,19 +38,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 	const isStages3eEt2deVisible = process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE === '1';
 	const is1Jeune1PermisVisible = process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE === '1';
 
-	const isBanniereStagesSecondeVisible = process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE === '1';
-	const isBanniereStagesSecondePourCampagne2025 = process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE === '1';
-	const isBanniereStagesSecondePourCampagne2025Jeune = process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_JEUNE_FEATURE === '1';
-	const urlDepotOffreStagesSeconde = process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL ?? '';
-	const urlHomePageStageDeSeconde = process.env.NEXT_PUBLIC_STAGES_SECONDE_HOMEPAGE_URL ?? '';
-
 	const isOldEspaceJeuneActif = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
-
-	const isBannerWorldSkillsVisible = process.env.NEXT_PUBLIC_WORLD_SKILLS_FEATURE === '1';
-
-	const isCampagneApprentissageVisible = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
-
-	const isCampagneHandicapVisible = process.env.NEXT_PUBLIC_CAMPAGNE_HANDICAP === '1';
 
 	const actualitesCardListContent: CardContent[] = accueilProps.actualites.map((carte: Actualite): CardContent => {
 		return {
@@ -274,99 +263,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 						)}
 				</HeroWithIllustration>
 
-				{isBanniereStagesSecondeVisible
-					&& (
-						<HeroWithIllustration image="/images/stages-seconde/banniere-stages-seconde.webp"
-																	 className={classNames(styles.hero, styles.stageSecondeBanner)}>
-							{isBanniereStagesSecondePourCampagne2025 ? (
-								<>
-									<h2>
-										<HeroPrimaryText className={styles.heroTitle}>
-										Un stage du 16 au 27 juin 2025
-										</HeroPrimaryText>
-									</h2>
-									<HeroSecondaryText>
-									pour permettre aux élèves de seconde générale et technologique de diversifier leur connaissance des
-									métiers.
-									</HeroSecondaryText>
-									<Link href={urlHomePageStageDeSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
-										Proposer un stage {isBanniereStagesSecondePourCampagne2025Jeune && ' ou candidater'}
-										<Link.Icon />
-									</Link>
-								</>
-							) : (
-								<>
-									<h2>
-										<HeroPrimaryText className={styles.heroTitle}>
-										Accueillez des élèves en stages de seconde générale et technologique.
-										</HeroPrimaryText>
-									</h2>
-									<HeroSecondaryText>
-									Inspirez, transmettez, faites découvrir vos métiers.
-									</HeroSecondaryText>
-									<Link href={urlDepotOffreStagesSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
-									Déposer votre offre de stage
-										<Link.Icon />
-									</Link>
-								</>
-							)}
-						</HeroWithIllustration>
-					)
-				}
-
-				{isBannerWorldSkillsVisible
-					&& (
-						<HeroWithIllustration image="/images/campagne-world-skills-2024.webp" className={classNames(styles.hero, styles.worldSkills)}>
-							<h2>
-								<HeroPrimaryText className={styles.heroTitle}>
-								WorldSkills Lyon 2024, la Compétition Mondiale des Métiers.
-								</HeroPrimaryText>
-							</h2>
-							<HeroSecondaryText>
-							1jeune1solution s’engage en faveur de la jeunesse, venez nous rencontrer du 10 au 15 septembre lors de la compétition WorldSkills Lyon 2024.
-							</HeroSecondaryText>
-							<Link href="https://worldskills2024.com" appearance={'asSecondaryButton'} className={styles.heroButton}>
-							Plus d’infos
-								<Link.Icon />
-							</Link>
-						</HeroWithIllustration>
-					)
-				}
-
-				{isCampagneApprentissageVisible
-					&& (
-						<HeroWithIllustration image="/images/campagne-apprentissage-banniere.webp" className={classNames(styles.hero, styles.apprentissage)}>
-							<h2>
-								<HeroPrimaryText className={styles.heroTitle}>
-									Contrat, éligibilité ? Avantages ?
-								</HeroPrimaryText>
-							</h2>
-							<HeroSecondaryText>
-								Retrouvez toutes les réponses à vos questions sur l’apprentissage dans notre FAQ.
-							</HeroSecondaryText>
-							<Link href="/faq/apprentissage-employeurs-apprentis" appearance={'asSecondaryButton'} className={styles.heroButton}>
-								Consultez notre FAQ
-								<Link.Icon />
-							</Link>
-						</HeroWithIllustration>
-					)
-				}
-
-				{isCampagneHandicapVisible && (
-					<HeroWithIllustration image="/images/campagne-handicap.png" className={classNames(styles.hero, styles.handicap)}>
-						<h2>
-							<HeroPrimaryText className={styles.heroTitle}>
-								Semaine européenne pour l’emploi des personnes handicapées
-							</HeroPrimaryText>
-						</h2>
-						<HeroSecondaryText>
-							Du 18 au 24 novembre, <b>1jeune1solution</b> se mobilise, et vous propose un article par jour pour sensibiliser au handicap et promouvoir l’inclusion professionnelle.						</HeroSecondaryText>
-						<Link href="/articles/semaine-emploi-handicap" appearance={'asSecondaryButton'} className={styles.heroButton}>
-							Lire l’article
-							<Link.Icon />
-						</Link>
-					</HeroWithIllustration>
-				)}
+				<BannieresCampagnes />
 
 				{!isOldEspaceJeuneActif && actualitesCardListContent.length > 0
 					&& (
