@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.360.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.359.2...v3.360.0) (2025-05-13)
+
+
+### Features
+
+* Ajoute la campagne fête des métiers ([#3586](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3586)) ([2b2d75f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2b2d75f05cb1a4fcac982d07c206594e8963dea3))
+
 ## [3.359.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.359.1...v3.359.2) (2025-04-25)
 
 
