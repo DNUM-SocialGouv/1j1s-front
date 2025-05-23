@@ -33,8 +33,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 	};
 }
 
-const SOURCE_ENTREPRISE_POSTUlER_IFRAME = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}postuler?caller=1jeune1solution&type=lba`;
-
 export default function AnnonceAlternanceEntreprisePage({ id }: ConsulterAlternanceEntreprisePageProps) {
 	useAnalytics(analytics);
 
@@ -45,7 +43,7 @@ export default function AnnonceAlternanceEntreprisePage({ id }: ConsulterAlterna
 				robots="noindex" />
 			<ConsulterOffreLayout>
 				<iframe
-					src={`${SOURCE_ENTREPRISE_POSTUlER_IFRAME}&itemId=${id}`}
+					src={`http://labonnealternance.apprentissage.beta.gouv.fr/emploi/recruteurs_lba/${id}/job`}
 					className={styles.iframe}
 					title="Formulaire de candidature spontanée en alternance" />
 			</ConsulterOffreLayout>

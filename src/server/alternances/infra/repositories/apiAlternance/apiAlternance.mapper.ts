@@ -25,8 +25,8 @@ function mapRecruiterResult(recruiter: AlternanceApiJobsResponse.Recruiter): Res
 	}
 	return {
 		adresse: recruiter.workplace.location.address,
-		candidaturePossible: true,
-		id: recruiter.identifier.id,
+		candidaturePossible: Boolean(recruiter.workplace.siret),
+		id: recruiter.workplace.siret ?? undefined,
 		nom: recruiter.workplace.name,
 		nombreSalariés: size,
 		secteurs: recruiter.workplace.domain.naf?.label ? [recruiter.workplace.domain.naf?.label] : [],
