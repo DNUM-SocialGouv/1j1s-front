@@ -1,21 +1,28 @@
 import React, { useState } from 'react';
 
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
-import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
-import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useSanitize from '~/client/hooks/useSanitize';
 import { DateService } from '~/client/services/date/date.service';
-import { Alternance, isFranceTravail, isMatcha } from '~/server/alternances/domain/alternance';
+import { Alternance } from '~/server/alternances/domain/alternance';
 import { AlternanceStatus } from '~/server/alternances/infra/status';
 
 import styles from './DetailAlternance.module.scss';
 
 function toISODate(date: Date) {
 	return date.toISOString().split('T')[0];
+}
+
+function LienPostuler({ annonce }: { annonce: Alternance }) {
+	if (annonce.status === AlternanceStatus.CANCELED)
+		return <div className={styles.offerFilled}>offre déjà pourvue</div>;
+	if (annonce.lienPostuler) {
+		return <Link appearance={'asPrimaryButton'} href={annonce.lienPostuler} className={styles.postuler}>Postuler<Link.Icon /></Link>;
+	}
+	return null;
 }
 
 export function DetailAlternance({ annonce }: { annonce: Alternance }) {
@@ -43,34 +50,13 @@ export function DetailAlternance({ annonce }: { annonce: Alternance }) {
 		return tags;
 	}
 
-	function StatusOffreMatcha() {
-		const isOfferCanceled = annonce.status === AlternanceStatus.CANCELED;
-		if (isOfferCanceled) {
-			return <div className={styles.offerFilled}>offre déjà pourvue</div>;
-		}
-		return annonce.id && (
-			<ButtonComponent
-				appearance={'primary'}
-				icon={<Icon name="arrow-right" />}
-				iconPosition="right"
-				className={styles.postuler}
-				label={'Postuler'}
-				onClick={() => toggleModal()} />
-		);
-	}
-
 	return (
 		<ConsulterOffreLayout>
 			<header className={styles.entete}>
 				<h1>{annonce.titre}</h1>
 				{annonce.entreprise.nom && <p className={styles.sousTitre}>{annonce.entreprise.nom}</p>}
 				<TagList aria-label="mots clés de l‘offre" className={styles.tags} list={getTags()} />
-				{isFranceTravail(annonce.source) && annonce.lienPostuler && (
-					<Link appearance={'asPrimaryButton'} href={annonce.lienPostuler} className={styles.postuler}>Postuler sur
-						France Travail<Link.Icon /></Link>
-				)}
-				{isMatcha(annonce.source) && <StatusOffreMatcha />
-				}
+				<LienPostuler annonce={annonce} />
 			</header>
 			<section>
 				<dl className={styles.contenu}>
