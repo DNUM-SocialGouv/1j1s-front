@@ -2,29 +2,29 @@ import { AlternanceStatus } from '~/server/alternances/infra/status';
 
 export namespace Alternance {
 	export interface Entreprise {
-		nom?: string
-		adresse?: string
-		téléphone?: string
+		nom?: string | null
+		adresse?: string | null
+		téléphone?: string | null
 	}
 }
 
 export interface Alternance {
-	durée?: string
+	durée?: string | null
 	id: string
 	titre: string
 	entreprise: Alternance.Entreprise
-	description?: string
-	descriptionEmployeur?: string
-	localisation?: string
-	niveauRequis?: string
-	natureDuContrat?: string
-	typeDeContrat?: string[]
-	compétences?: string[]
-	dateDébut?: Date
-	rythmeAlternance?: string
+	description?: string | null
+	descriptionEmployeur?: string | null
+	localisation?: string | null
+	niveauRequis?: string | null
+	natureDuContrat?: string | null
+	typeDeContrat?: string[] | null
+	compétences?: string[] | null
+	dateDébut?: Date | null
+	rythmeAlternance?: string | null
 	source: Alternance.Source
-	lienPostuler?: string
-	status?: AlternanceStatus
+	lienPostuler?: string | null
+	status?: AlternanceStatus | null
 }
 
 export type ResultatRechercheAlternance = {
@@ -37,12 +37,11 @@ export namespace ResultatRechercheAlternance {
 
 	export interface Entreprise {
 		adresse?: string
-		ville?: string
 		nom: string
 		secteurs?: Array<string>
 		id?: string
 		candidaturePossible: boolean
-		nombreSalariés?: NombreSalaries
+		nombreSalariés?: NombreSalaries | null
 	}
 
 	export interface NombreSalaries {

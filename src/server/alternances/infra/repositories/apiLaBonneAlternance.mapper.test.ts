@@ -90,7 +90,6 @@ describe('mapRechercheAlternance', () => {
 				nom: 'CLUB VET',
 				nombreSalariés: { max: 9, min: 0 },
 				secteurs: ['Autres intermédiaires du commerce en produits divers', 'Développement informatique'],
-				ville: 'Paris',
 			}],
 			offreList: [
 				{

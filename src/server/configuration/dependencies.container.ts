@@ -7,16 +7,10 @@ import {
 	AlternanceDependencies,
 	alternancesDependenciesContainer,
 } from '~/server/alternances/configuration/dependencies.container';
+import { getApiAlternanceConfig } from '~/server/alternances/infra/repositories/apiAlternance/apiAlternance.config';
 import {
-	getApiLaBonneAlternanceConfig,
-} from '~/server/alternances/configuration/la-bonne-alternance/laBonneAlternanceHttpClient.config';
-import {
-	ApiLaBonneAlternanceRepository,
-} from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
-import {
-	ApiLaBonneAlternanceErrorManagementServiceGet,
-	ApiLaBonneAlternanceErrorManagementServiceSearch,
-} from '~/server/alternances/infra/repositories/apiLaBonneAlternanceErrorManagement.service';
+	ApiAlternanceRepository,
+} from '~/server/alternances/infra/repositories/apiAlternance/apiAlternance.repository';
 import { MockAlternanceRepository } from '~/server/alternances/infra/repositories/mockAlternance.repository';
 import {
 	ArticleDependencies,
@@ -86,6 +80,9 @@ import {
 	ficheMetierDependenciesContainer,
 } from '~/server/fiche-metier/configuration/dependencies.container';
 import { StrapiFicheMetierRepository } from '~/server/fiche-metier/infra/strapiFicheMetier.repository';
+import {
+	getApiLaBonneAlternanceConfig,
+} from '~/server/formations/configuration/api-la-bonne-alternance/apiLaBonneAlternanceHttpClient.config';
 import {
 	getApiTrajectoiresProConfig,
 } from '~/server/formations/configuration/api-trajectoires-pro/apiTrajectoiresProHttpClient.config';
@@ -307,15 +304,14 @@ export function dependenciesContainer(): Dependencies {
 
 	const laBonneAlternanceClientService = new PublicHttpClientService(getApiLaBonneAlternanceConfig(serverConfigurationService));
 	const apiLaBonneAlternanceCaller = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_CALLER;
-	const apiLaBonneAlternanceAlternanceErrorManagementServiceSearch = new ApiLaBonneAlternanceErrorManagementServiceSearch(loggerService);
-	const apiLaBonneAlternanceAlternanceErrorManagementServiceGet = new ApiLaBonneAlternanceErrorManagementServiceGet(loggerService);
-	const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, apiLaBonneAlternanceAlternanceErrorManagementServiceSearch, apiLaBonneAlternanceAlternanceErrorManagementServiceGet);
 	const apiLaBonneAlternanceFormationRepository = new ApiLaBonneAlternanceFormationRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, defaultErrorManagementService);
 	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService, defaultErrorManagementService);
+	const apiAlternanceClient = new AuthenticatedHttpClientService(getApiAlternanceConfig(serverConfigurationService), loggerService);
+	const apiAlternanceRepository = new ApiAlternanceRepository(apiAlternanceClient, new DefaultErrorManagementService(loggerService));
 
 	const alternanceDependencies = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_IS_ALTERNANCE_MOCK_ACTIVE // todo devrait se baser sur si c'est environnement de test non ?
 	  ? alternancesDependenciesContainer(new MockAlternanceRepository())
-		: alternancesDependenciesContainer(apiLaBonneAlternanceRepository);
+		: alternancesDependenciesContainer(apiAlternanceRepository);
 
 	const trajectoiresProHttpClientService = new AuthenticatedHttpClientService(getApiTrajectoiresProConfig(serverConfigurationService), loggerService);
 	const geoHttpClientService = new CachedHttpClientService(getApiGeoGouvConfig(serverConfigurationService));
