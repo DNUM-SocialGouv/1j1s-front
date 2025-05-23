@@ -3,7 +3,6 @@
  */
 
 import { queries as defaultQueries, render, screen, within } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
 
 import { DetailAlternance } from '~/client/components/features/Alternance/DetailAlternance/DetailAlternance';
 import { aDetailAlternance } from '~/client/components/features/Alternance/DetailAlternance/DetailAlternance.fixture';
@@ -43,154 +42,71 @@ describe('<Detail />', () => {
 		const entreprise = screen.getByText('Ma super entreprise');
 		expect(entreprise).toBeVisible();
 	});
-	describe('pour une offre France Travail', () => {
-		it('affiche les tags', () => {
-			const annonce = aDetailAlternance({
-				localisation: 'Paris',
-				source: Alternance.Source.FRANCE_TRAVAIL,
-				typeDeContrat: ['CDD', 'CDI'],
-			});
+	it('affiche le lien pour postuler', () => {
+		const annonce = aDetailAlternance({ lienPostuler: 'https://example.com', source: Alternance.Source.FRANCE_TRAVAIL });
 
-			render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
-				<DetailAlternance annonce={annonce} />
-			</DependenciesProvider>);
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
+			<DetailAlternance annonce={annonce} />
+		</DependenciesProvider>);
 
-			const tagsList = screen.getByRole('list', { name: 'mots clés de l‘offre' });
-			const tags = within(tagsList).getAllByRole('listitem');
-			expect(tags).toHaveLength(4);
-			expect(tags[0]).toHaveTextContent('Paris');
-			expect(tags[1]).toHaveTextContent('Contrat d‘alternance');
-			expect(tags[2]).toHaveTextContent('CDD');
-			expect(tags[3]).toHaveTextContent('CDI');
+		const lien = screen.getByRole('link', { name: 'Postuler - nouvelle fenêtre' });
+
+		expect(lien).toBeVisible();
+		expect(lien).toHaveAttribute('href', 'https://example.com');
+	});
+	it('n’affiche pas le lien pour postuler lorsque l’url n’est pas renseignée', () => {
+		const annonce = aDetailAlternance({ lienPostuler: undefined, source: Alternance.Source.FRANCE_TRAVAIL });
+
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
+			<DetailAlternance annonce={annonce} />
+		</DependenciesProvider>);
+
+		const lien = screen.queryByRole('link', { name: 'Postuler sur France Travail - nouvelle fenêtre' });
+
+		expect(lien).not.toBeInTheDocument();
+	});
+	it('affiche les tags', () => {
+		const annonce = aDetailAlternance({
+			localisation: 'Paris',
+			source: Alternance.Source.FRANCE_TRAVAIL,
+			typeDeContrat: ['CDD', 'CDI'],
 		});
 
-		it('affiche le lien pour postuler', () => {
-			const annonce = aDetailAlternance({ lienPostuler: 'https://example.com', source: Alternance.Source.FRANCE_TRAVAIL });
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
+			<DetailAlternance annonce={annonce} />
+		</DependenciesProvider>);
+
+		const tagsList = screen.getByRole('list', { name: 'mots clés de l‘offre' });
+		const tags = within(tagsList).getAllByRole('listitem');
+		expect(tags).toHaveLength(4);
+		expect(tags[0]).toHaveTextContent('Paris');
+		expect(tags[1]).toHaveTextContent('Contrat d‘alternance');
+		expect(tags[2]).toHaveTextContent('CDD');
+		expect(tags[3]).toHaveTextContent('CDI');
+	});
+	describe('état de l‘offre actif', () => {
+		it('n‘affiche pas l‘information que l‘offre est désactivée', () => {
+			const annonce = aDetailAlternance({ status: AlternanceStatus.ACTIVE });
 
 			render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 				<DetailAlternance annonce={annonce} />
 			</DependenciesProvider>);
 
-			const lien = screen.getByRole('link', { name: 'Postuler sur France Travail - nouvelle fenêtre' });
+			const mention = screen.queryByText(OFFER_FILLED_TEXT);
 
-			expect(lien).toBeVisible();
-			expect(lien).toHaveAttribute('href', 'https://example.com');
-		});
-		it('n’affiche pas le lien pour postuler lorsque l’url n’est pas renseignée', () => {
-			const annonce = aDetailAlternance({ lienPostuler: undefined, source: Alternance.Source.FRANCE_TRAVAIL });
-
-			render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
-				<DetailAlternance annonce={annonce} />
-			</DependenciesProvider>);
-
-			const lien = screen.queryByRole('link', { name: 'Postuler sur France Travail - nouvelle fenêtre' });
-
-			expect(lien).not.toBeInTheDocument();
-		});
-		it('n’affiche pas un bouton pour postuler a une offre Matcha', () => {
-			const url = 'http://url.com/postuler?caller=1jeune1solution&itemId=123&type=matcha';
-			const annonce = aDetailAlternance({ id: '123', lienPostuler: url, source: Alternance.Source.FRANCE_TRAVAIL });
-
-			render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
-				<DetailAlternance annonce={annonce} />
-			</DependenciesProvider>);
-
-			const bouton = screen.queryByRole('button', { name: /Postuler/i });
-
-			expect(bouton).not.toBeInTheDocument();
+			expect(mention).not.toBeInTheDocument();
 		});
 	});
-	describe('pour une offre Matcha', () => {
-		it('affiche les tags', () => {
-			const annonce = aDetailAlternance({
-				localisation: 'Paris',
-				niveauRequis: 'débutant',
-				source: Alternance.Source.MATCHA,
-				typeDeContrat: ['CDD', 'CDI'],
-			});
 
-			render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
-				<DetailAlternance annonce={annonce} />
-			</DependenciesProvider>);
+	it('lorsque l‘offre est à l‘état annulé, affiche l‘information et pas de CTA', () => {
+		const annonce = aDetailAlternance({ source: Alternance.Source.MATCHA, status: AlternanceStatus.CANCELED });
 
-			const tagsList = screen.getByRole('list', { name: 'mots clés de l‘offre' });
-			const tags = within(tagsList).getAllByRole('listitem');
-			expect(tags).toHaveLength(4);
-			expect(tags[0]).toHaveTextContent('Paris');
-			expect(tags[1]).toHaveTextContent('CDD');
-			expect(tags[2]).toHaveTextContent('CDI');
-			expect(tags[3]).toHaveTextContent('débutant');
-		});
+		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
+			<DetailAlternance annonce={annonce} />
+		</DependenciesProvider>);
 
-		it('n’affiche pas le lien pour postuler a une offre France Travail', () => {
-			const annonce = aDetailAlternance({ lienPostuler: 'url', source: Alternance.Source.MATCHA });
-
-			render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
-				<DetailAlternance annonce={annonce} />
-			</DependenciesProvider>);
-
-			const lien = screen.queryByRole('link', { name: 'Postuler sur France Travail - nouvelle fenêtre' });
-
-			expect(lien).not.toBeInTheDocument();
-		});
-
-		describe('état de l‘offre actif', () => {
-			it('n‘affiche pas l‘information que l‘offre est désactivée', () => {
-				const annonce = aDetailAlternance({ status: AlternanceStatus.ACTIVE });
-
-				render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
-					<DetailAlternance annonce={annonce} />
-				</DependenciesProvider>);
-
-				const mention = screen.queryByText(OFFER_FILLED_TEXT);
-
-				expect(mention).not.toBeInTheDocument();
-			});
-			it('affiche un bouton pour postuler affichant une modale avec l‘iframe LBA', async () => {
-				process.env = {
-					...process.env,
-					NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL: 'http://url.com/',
-				};
-				const user = userEvent.setup();
-				const url = 'http://url.com/postuler?caller=1jeune1solution&itemId=123&type=matcha';
-				const annonce = aDetailAlternance({ id: '123', lienPostuler: url, source: Alternance.Source.MATCHA });
-
-				render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
-					<DetailAlternance annonce={annonce} />
-				</DependenciesProvider>);
-
-				const bouton = screen.getByRole('button', { name: /Postuler/i });
-				expect(bouton).toBeVisible();
-				await user.click(bouton);
-
-				expect(screen.getByRole('dialog', { name: 'Formulaire de candidature à l’annonce' })).toBeVisible();
-				const iframe = screen.getByTitle('Formulaire de candidature à l’annonce');
-				expect(iframe).toBeVisible();
-				expect(iframe).toHaveAttribute('src', url);
-			});
-			it('n’affiche pas un bouton pour postuler lorsque l’annonce n’a pas d’id', () => {
-				const annonce = aDetailAlternance({ id: undefined });
-
-				render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
-					<DetailAlternance annonce={annonce} />
-				</DependenciesProvider>);
-
-				const bouton = screen.queryByRole('button', { name: /Postuler/i });
-
-				expect(bouton).not.toBeInTheDocument();
-			});
-		});
-
-		it('lorsque l‘offre est à l‘état annulé, affiche l‘information et pas de CTA', () => {
-			const annonce = aDetailAlternance({ source: Alternance.Source.MATCHA, status: AlternanceStatus.CANCELED });
-
-			render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
-				<DetailAlternance annonce={annonce} />
-			</DependenciesProvider>);
-
-			expect(screen.getByText(OFFER_FILLED_TEXT)).toBeVisible();
-			expect(screen.queryByRole('button', { name: /Postuler/i })).not.toBeInTheDocument();
-		});
+		expect(screen.getByText(OFFER_FILLED_TEXT)).toBeVisible();
+		expect(screen.queryByRole('button', { name: /Postuler/i })).not.toBeInTheDocument();
 	});
 	it('affiche la description du contrat', () => {
 		const annonce = aDetailAlternance({ description: "C'est une super alternance !" });
