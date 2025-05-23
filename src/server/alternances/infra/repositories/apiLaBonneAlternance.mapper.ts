@@ -119,6 +119,8 @@ function mapRésultatRechercherAlternanceLbaEntreprise(entreprise: LbaCompanies)
 		adresse: entreprise.place?.fullAddress,
 		candidaturePossible: !!entreprise.contact?.email && !!entreprise.contact?.iv,
 		id: entreprise.company?.siret,
+		// FIXME (GAFI 23-05-2025):
+		lien: entreprise.contact?.email || '',
 		nom: entreprise.company.name,
 		nombreSalariés: entreprise.company?.size ? getNombreSalariés(entreprise.company.size) : undefined,
 		secteurs: entreprise.nafs?.map((naf) => naf.label),

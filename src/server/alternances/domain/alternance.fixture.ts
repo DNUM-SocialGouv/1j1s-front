@@ -38,6 +38,7 @@ export const aRechercheEntrepriseAlternance = (override?: Partial<ResultatRecher
 		adresse: 'une adresse',
 		candidaturePossible: true,
 		id: '0123456789',
+		lien: 'https://www.example.com/',
 		nom: 'un nom',
 		nombreSalariés: { max: 9, min: 0 },
 		secteurs: ['secteur 1', 'secteur 2'],

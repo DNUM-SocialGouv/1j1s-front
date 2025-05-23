@@ -27,6 +27,7 @@ function mapRecruiterResult(recruiter: AlternanceApiJobsResponse.Recruiter): Res
 		adresse: recruiter.workplace.location.address,
 		candidaturePossible: true,
 		id: recruiter.identifier.id,
+		lien: recruiter.apply.url,
 		nom: recruiter.workplace.name,
 		nombreSalariés: size,
 		secteurs: recruiter.workplace.domain.naf?.label ? [recruiter.workplace.domain.naf?.label] : [],
