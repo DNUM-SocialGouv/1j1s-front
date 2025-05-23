@@ -35,7 +35,7 @@ export function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
 				{entrepriseList.map((entreprise, index) => (
 					<li key={`${entreprise.id}-${index}`}>
 						<ResultatRechercherSolution
-							lienOffre={entreprise.candidaturePossible ? `/apprentissage/entreprise/${entreprise.id}` : undefined}
+							lienOffre={entreprise.candidaturePossible ? entreprise.lien : undefined}
 							intituléOffre={entreprise.nom}
 							intituléLienOffre={'Candidater'}
 							étiquetteOffreList={getTags(entreprise)}>

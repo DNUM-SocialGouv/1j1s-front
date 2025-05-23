@@ -42,6 +42,7 @@ export namespace ResultatRechercheAlternance {
 		id?: string
 		candidaturePossible: boolean
 		nombreSalariés?: NombreSalaries | null
+		lien: string
 	}
 
 	export interface NombreSalaries {
