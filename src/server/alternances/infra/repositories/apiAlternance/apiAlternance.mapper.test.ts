@@ -73,7 +73,7 @@ describe('mapRechercheAlternance', () => {
 			entrepriseList: [{
 				adresse: '18 RUE EMILE LANDRIN, 75020 Paris',
 				candidaturePossible: true,
-				id: 'id',
+				id: '52352551700026',
 				nom: 'CLUB VET',
 				nombreSalariés: { max: 9, min: 0 },
 				secteurs: ['Développement informatique'],
