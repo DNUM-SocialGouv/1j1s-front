@@ -19,6 +19,7 @@ jobs:
       - name: Configurer la CLI Scalingo
         uses: scalingo-community/setup-scalingo@v0.1.1
         with:
+          version: 1.34.0
           api_token: ${{ secrets.SCALINGO_API_TOKEN }}
           region: ${{ vars.SCALINGO_REGION }}
           app_name: ${{ secrets.TF_VAR_NOM_DE_L_APPLICATION }}
@@ -47,6 +48,7 @@ jobs:
       - name: Configurer la CLI Scalingo
         uses: scalingo-community/setup-scalingo@v0.1.1
         with:
+          version: 1.34.0
           api_token: ${{ secrets.SCALINGO_API_TOKEN }}
           region: ${{ vars.SCALINGO_REGION }}
           app_name: ${{ secrets.TF_VAR_NOM_DE_L_APPLICATION }}
