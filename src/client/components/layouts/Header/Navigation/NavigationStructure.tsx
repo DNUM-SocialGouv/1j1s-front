@@ -20,12 +20,12 @@ const offresNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Emplois', link: '/emplois' },
 		...(process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE === '1' && process.env.NEXT_PUBLIC_STAGES_SECONDE_URL ? [{
-			label: 'Stage de 2de GT',
+			label: 'Stages d’observation',
 			link: process.env.NEXT_PUBLIC_STAGES_SECONDE_URL,
 		}] : []),
 		{ label: 'Stages d’études', link: '/stages' },
 		...(process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE === '1' ? [{
-			label: 'Stages d’observation',
+			label: 'Stages de 3e et 2de',
 			link: '/stages-3e-et-2de',
 		}] : []),
 		{ label: 'Contrats d’alternance', link: '/apprentissage' },
