@@ -1,5 +1,20 @@
 # Changelog
 
+## [3.360.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.359.2...v3.360.0) (2025-07-07)
+
+
+### Features
+
+* Ajoute la campagne fête des métiers ([#3586](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3586)) ([2b2d75f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2b2d75f05cb1a4fcac982d07c206594e8963dea3))
+* Migre vers la nouvelle version de l'API Labonnealternance ([#3581](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3581)) ([e56ca9a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e56ca9a10dba6dad9c8e0fad305d6f53ad7551dd))
+* Renomme stages de 2nd et 3e en stages d'observation ([#3592](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3592)) ([b13703a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b13703af186e61086a9c7bf662c9e914afed977f))
+
+
+### Bug Fixes
+
+* Fix mauvais renommage lien stages de 2de GT ([#3593](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3593)) ([90f83dd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/90f83dd017f49d3f8d3df64cc47a7a8e3bcd1974))
+* Passe sur lien simple pour postuler à une alternance ([#3588](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3588)) ([e1a3a2d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e1a3a2dc8277d46f3229e28dc54a00ded7d397d3))
+
 ## [3.359.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.359.1...v3.359.2) (2025-04-25)
 
 
