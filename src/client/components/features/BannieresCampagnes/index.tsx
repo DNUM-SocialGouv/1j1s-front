@@ -1,7 +1,7 @@
+import ApprentissageBanner from './Apprentissage';
 import FeteDesMetiersBanner from './FeteDesMetiers';
 import StageDeSecondeBanner from './StageDeSeconde';
 import WorldSkillsBanner from './WorldSkills';
-import ApprentissageBanner from './Apprentissage';
 
 
 export default function Bannieres() {
