@@ -9,6 +9,7 @@ import { render, screen } from '@testing-library/react';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aMarketingService } from '~/client/services/marketing/marketing.service.fixture';
 
 import ApprentissageEntreprises from './index.page';
 
@@ -32,6 +33,7 @@ describe('<ApprentissageEntreprises />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
+				marketingService={aMarketingService()}
 				analyticsService={aManualAnalyticsService()}>
 				<ApprentissageEntreprises />
 			</DependenciesProvider>,
@@ -44,6 +46,7 @@ describe('<ApprentissageEntreprises />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
+				marketingService={aMarketingService()}
 				analyticsService={aManualAnalyticsService()}>
 				<ApprentissageEntreprises />
 			</DependenciesProvider>,
