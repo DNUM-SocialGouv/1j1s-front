@@ -6,7 +6,9 @@ import { MarketingService } from '../marketing.service';
 
 export default class AmnetMarketingService implements MarketingService {
 	static readonly SERVICE_NAME = 'amnet';
-	static readonly TAG_ID = '118693';
+	static readonly ZEMANTA_TAG_ID = '118693';
+	static readonly TTD_ADVERTISER_ID = 'qj8wadw';
+	static readonly TTD_TAG_ID = 'muuud1z';
 
 	constructor(private readonly cookiesService: CookiesService) {
     type ConfigObject = unknown;
@@ -18,26 +20,35 @@ export default class AmnetMarketingService implements MarketingService {
     	},
     	js: function () {
     		'use strict';
-    		// @ts-expect-error
-    		window.tarteaucitron.addScript('//js-tag.zemanta.com/zcpt.js');
-    		// @ts-expect-error
-    		window.zemApi = function(...args) {
+    		(function Zemanta() {
     			// @ts-expect-error
-    			window.zemApi.dispatch
+    			window.tarteaucitron.addScript('//js-tag.zemanta.com/zcpt.js');
     			// @ts-expect-error
-    			// eslint-disable-next-line prefer-spread
-    				? window.zemApi.dispatch.apply(window.zemApi, args)
+    			window.zemApi = function(...args) {
+    				// @ts-expect-error
+    				window.zemApi.dispatch
+    				// @ts-expect-error
+    				// eslint-disable-next-line prefer-spread
+    					? window.zemApi.dispatch.apply(window.zemApi, args)
+    				// @ts-expect-error
+    					: window.zemApi.queue.push(args);
+    			};
     			// @ts-expect-error
-    				: window.zemApi.queue.push(args);
-    		};
-    		// @ts-expect-error
-    		window.zemApi.version = '1.0';
-    		// @ts-expect-error
-    		window.zemApi.loaded = true;
-    		// @ts-expect-error
-    		window.zemApi.marketerId = AmnetMarketingService.TAG_ID;
-    		// @ts-expect-error
-    		window.zemApi.queue = [];
+    			window.zemApi.version = '1.0';
+    			// @ts-expect-error
+    			window.zemApi.loaded = true;
+    			// @ts-expect-error
+    			window.zemApi.marketerId = AmnetMarketingService.ZEMANTA_TAG_ID;
+    			// @ts-expect-error
+    			window.zemApi.queue = [];
+    		})();
+    		(function TTD() {
+    			// @ts-expect-error
+    			window.tarteaucitron.addScript('https://js.adsrvr.org/up_loader.1.1.0.js', '', () => {
+    				// @ts-expect-error
+    				window.tarteaucitron.sendEvent('amnet_ready');
+    			});
+    		})();
     	},
     	key: AmnetMarketingService.SERVICE_NAME,
     	name: 'Amnet',
@@ -50,7 +61,27 @@ export default class AmnetMarketingService implements MarketingService {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	trackPage(pagename: string): void {
+		function sendAnalytics() {
+			// @ts-expect-error
+			window.zemApi('track', 'PAGE_VIEW');
+			// @ts-expect-error
+			window.ttd_dom_ready(function() {
+				// @ts-expect-error
+				if (typeof window.TTDUniversalPixelApi === 'function') {
+					// @ts-expect-error
+					const universalPixelApi = new window.TTDUniversalPixelApi();
+					universalPixelApi.init(AmnetMarketingService.TTD_ADVERTISER_ID, [AmnetMarketingService.TTD_TAG_ID], 'https://insight.adsrvr.org/track/up');
+				}
+			});
+		}
 		// @ts-expect-error
-		window.zemApi('track', 'PAGE_VIEW');
+		if (window.zemApi && window.ttd_dom_ready) {
+			sendAnalytics();
+		} else {
+			document.addEventListener('amnet_ready', () => {
+				sendAnalytics();
+			}, { once: true });
+		}
+
 	}
 }
