@@ -22,7 +22,7 @@ export default class AmnetMarketingService implements MarketingService {
     		'use strict';
     		(function Zemanta() {
     			// @ts-expect-error
-    			window.tarteaucitron.addScript('//js-tag.zemanta.com/zcpt.js');
+    			window.tarteaucitron.addScript('https://js-tag.zemanta.com/zcpt.js');
     			// @ts-expect-error
     			window.zemApi = function(...args) {
     				// @ts-expect-error
