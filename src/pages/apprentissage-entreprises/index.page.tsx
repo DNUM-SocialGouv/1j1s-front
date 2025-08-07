@@ -30,7 +30,8 @@ export default function ApprentissageEntreprises () {
 
 	const seedtagService = useDependency<MarketingService>('seedtagService');
 	useEffect(() => {
-		seedtagService.trackPage(window.location.href);
+		// @ts-expect-error
+		seedtagService.trackPage(window.location.href, 'fr_di0+standard');
 		// eslint-disable-next-line
 	}, []);
 

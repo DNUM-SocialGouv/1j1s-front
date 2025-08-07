@@ -47,12 +47,12 @@ export default class SeedtagMarketingService implements MarketingService {
     this.cookiesService.addService(SeedtagMarketingService.SEEDTAG_SERVICE_NAME, config);
 	}
 
-	trackPage(pagename: string): void {
+	trackPage(pagename: string, to?: string): void {
 		function sendAnalytics() {
 			// @ts-expect-error
 			window.gtag('event', 'conversion', {
 				allow_custom_scripts: true,
-				send_to: 'DC-10089018/invmedia/fr_di0+standard',
+				send_to: `${SeedtagMarketingService.GOOGLE_ADS_ID}/invmedia/${to}`,
 				u2: pagename,
 			});
 		}
