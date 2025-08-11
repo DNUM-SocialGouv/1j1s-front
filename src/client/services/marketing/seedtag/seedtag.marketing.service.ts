@@ -19,24 +19,26 @@ export default class SeedtagMarketingService implements MarketingService {
     	],
     	fallback: function () {
     		// @ts-expect-error
-    		window.dataLayer = window.dataLayer || [];
-    		// @ts-expect-error
-    		function gtag(...args){ window.dataLayer.push(args); }
-    		// @ts-expect-error
-    		window.gtag = gtag;
+    		window.gtag = function () {};
     	},
     	js: function () {
     		'use strict';
     		// @ts-expect-error
-    		window.tarteaucitron.addScript(`https://www.googletagmanager.com/gtag/js?id=${SeedtagMarketingService.GOOGLE_ADS_ID}`);
-    		// @ts-expect-error
-    		window.dataLayer = window.dataLayer || [];
-    		// @ts-expect-error
-    		function gtag(...args){ window.dataLayer.push(args); }
-    		// @ts-expect-error
-    		window.gtag = gtag;
-    		gtag('js', new Date());
-    		gtag('config', SeedtagMarketingService.GOOGLE_ADS_ID);
+    		window.tarteaucitron.addScript(`https://www.googletagmanager.com/gtag/js?id=${SeedtagMarketingService.GOOGLE_ADS_ID}`, '', () => {
+    			// @ts-expect-error
+    			window.dataLayer = window.dataLayer || [];
+    			// @ts-expect-error
+    			// eslint-disable-next-line prefer-rest-params
+    			function gtag(){ window.dataLayer.push(arguments); }
+    			// @ts-expect-error
+    			window.gtag = gtag;
+    			// @ts-expect-error
+    			gtag('js', new Date());
+    			// @ts-expect-error
+    			gtag('config', SeedtagMarketingService.GOOGLE_ADS_ID);
+    			// @ts-expect-error
+    			window.tarteaucitron.sendEvent('seedtag_ready');
+    		});
     	},
     	key: SeedtagMarketingService.SEEDTAG_SERVICE_NAME,
     	name: 'Seedtag',
@@ -60,7 +62,7 @@ export default class SeedtagMarketingService implements MarketingService {
 		if (window.gtag) {
 			sendAnalytics();
 		} else {
-			document.addEventListener('seedtag_loaded', sendAnalytics, { once: true });
+			document.addEventListener('seedtag_ready', sendAnalytics, { once: true });
 		}
 	}
 }
