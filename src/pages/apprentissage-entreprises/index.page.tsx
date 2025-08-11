@@ -25,7 +25,15 @@ export default function ApprentissageEntreprises () {
 	useEffect(() => {
 		// @ts-expect-error
 		amnetService.trackPage();
-	});
+		// eslint-disable-next-line
+	}, []);
+
+	const seedtagService = useDependency<MarketingService>('seedtagService');
+	useEffect(() => {
+		// @ts-expect-error
+		seedtagService.trackPage(window.location.href, 'fr_di0+standard');
+		// eslint-disable-next-line
+	}, []);
 
 	return (
 		<>
