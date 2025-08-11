@@ -13,6 +13,14 @@ import analyticsPageConfig from '~/pages/apprentissage-entreprises/index.analyti
 export default function ApprentissageEntreprises () {
 	useAnalytics(analyticsPageConfig);
 
+	const adformService = useDependency<MarketingService>('marketingService');
+	adformService.trackPage('2024-09-1jeune1solution.gouv.fr-PageAccueil-PageAccueil');
+	useEffect(() => {
+		// @ts-expect-error
+		return () => adformService.trackPage(undefined);
+		// eslint-disable-next-line
+	}, []);
+
 	const amnetService = useDependency<MarketingService>('amnetService');
 	useEffect(() => {
 		// @ts-expect-error
