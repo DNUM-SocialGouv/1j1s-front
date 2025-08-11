@@ -5350,7 +5350,7 @@ tarteaucitron.services.adform = {
 			pm: tarteaucitron.user.adformpm,
 		};
 
-		tarteaucitron.addScript('https://track.adform.net/serving/scripts/trackpoint/async/');
+		tarteaucitron.addScript('https://s2.adform.net/banners/scripts/st/trackpoint-async.js');
 	},
 	key: 'adform',
 	name: 'Adform',
