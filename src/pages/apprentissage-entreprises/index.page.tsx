@@ -21,20 +21,6 @@ export default function ApprentissageEntreprises () {
 		// eslint-disable-next-line
 	}, []);
 
-	const amnetService = useDependency<MarketingService>('amnetService');
-	useEffect(() => {
-		// @ts-expect-error
-		amnetService.trackPage();
-		// eslint-disable-next-line
-	}, []);
-
-	const seedtagService = useDependency<MarketingService>('seedtagService');
-	useEffect(() => {
-		// @ts-expect-error
-		seedtagService.trackPage(window.location.href, 'fr_di0+standard');
-		// eslint-disable-next-line
-	}, []);
-
 	return (
 		<>
 			<Head title="Découvrir les avantages de l’apprentissage pour les entreprises | 1jeune1solution" robots="index,follow" />
