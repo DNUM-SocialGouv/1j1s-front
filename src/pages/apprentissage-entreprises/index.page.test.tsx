@@ -35,7 +35,6 @@ describe('<ApprentissageEntreprises />', () => {
 			<DependenciesProvider
 				marketingService={aMarketingService()}
 				analyticsService={aManualAnalyticsService()}
-				seedtagService={aMarketingService()}
 				amnetService={aMarketingService()}>
 				<ApprentissageEntreprises />
 			</DependenciesProvider>,
@@ -50,7 +49,6 @@ describe('<ApprentissageEntreprises />', () => {
 			<DependenciesProvider
 				marketingService={aMarketingService()}
 				amnetService={aMarketingService()}
-				seedtagService={aMarketingService()}
 				analyticsService={aManualAnalyticsService()}>
 				<ApprentissageEntreprises />
 			</DependenciesProvider>,

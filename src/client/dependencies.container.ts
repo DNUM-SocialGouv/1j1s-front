@@ -34,7 +34,6 @@ import { AdformMarketingService } from '~/client/services/marketing/adform/adfor
 import AmnetMarketingService from '~/client/services/marketing/amnet/amnet.marketing.service';
 import { MarketingService } from '~/client/services/marketing/marketing.service';
 import { NullMarketingService } from '~/client/services/marketing/null/null.marketing.service';
-import SeedtagMarketingService from '~/client/services/marketing/seedtag/seedtag.marketing.service';
 import { BffAlternanceMetierService } from '~/client/services/metiers/bff.alternance.metier.service';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { BffMissionEngagementService } from '~/client/services/missionEngagement/bff.missionEngagement.service';
@@ -84,7 +83,6 @@ export type Dependencies = {
 	youtubeService: VideoService
 	établissementAccompagnementService: EtablissementAccompagnementService
 	marketingService: MarketingService
-	seedtagService: MarketingService
 	amnetService: MarketingService
 	dateService: DateService
 	emploiEuropeService: EmploiEuropeService
@@ -123,9 +121,6 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 	const cookiesService = getCookieService();
 	const marketingService = process.env.NEXT_PUBLIC_CAMPAGNE_ADFORM_FEATURE === '1'
 		? new AdformMarketingService(cookiesService)
-		: new NullMarketingService();
-	const seedtagService = process.env.NEXT_PUBLIC_CAMPAGNE_ADFORM_FEATURE === '1'
-		? new SeedtagMarketingService(cookiesService)
 		: new NullMarketingService();
 	const amnetService = process.env.NEXT_PUBLIC_CAMPAGNE_ADFORM_FEATURE === '1'
 		? new AmnetMarketingService(cookiesService)
@@ -189,7 +184,6 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		metierStage3eEt2deService,
 		missionEngagementService,
 		rechercheClientService,
-		seedtagService,
 		sessionStorageService,
 		stage3eEt2deService,
 		stageDeposerOffreEtape1PersistenceService,
