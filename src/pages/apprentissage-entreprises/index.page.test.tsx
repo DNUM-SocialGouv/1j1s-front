@@ -34,8 +34,7 @@ describe('<ApprentissageEntreprises />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				marketingService={aMarketingService()}
-				analyticsService={aManualAnalyticsService()}
-				amnetService={aMarketingService()}>
+				analyticsService={aManualAnalyticsService()}>
 				<ApprentissageEntreprises />
 			</DependenciesProvider>,
 		);
@@ -48,7 +47,6 @@ describe('<ApprentissageEntreprises />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				marketingService={aMarketingService()}
-				amnetService={aMarketingService()}
 				analyticsService={aManualAnalyticsService()}>
 				<ApprentissageEntreprises />
 			</DependenciesProvider>,

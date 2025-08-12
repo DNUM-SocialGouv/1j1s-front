@@ -21,12 +21,6 @@ export default function ApprentissageEntreprises () {
 		// eslint-disable-next-line
 	}, []);
 
-	const amnetService = useDependency<MarketingService>('amnetService');
-	useEffect(() => {
-		// @ts-expect-error
-		amnetService.trackPage();
-	});
-
 	return (
 		<>
 			<Head title="Découvrir les avantages de l’apprentissage pour les entreprises | 1jeune1solution" robots="index,follow" />
