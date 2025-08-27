@@ -75,6 +75,7 @@ const accompagnementNav = (): NavigationItemWithChildren => ({
 			label: 'Découvrir les services jeunes liés à l’accompagnement',
 			link: '/services-jeunes?filtre=accompagnement',
 		}]: []),
+		...(process.env.NEXT_PUBLIC_MY_JOB_GLASSES_FEATURE === '1' ? [{ label: 'Échanger avec des professionnels', link: '/myjobglasses' }]: []),
 	],
 	label: 'Accompagnement',
 });
