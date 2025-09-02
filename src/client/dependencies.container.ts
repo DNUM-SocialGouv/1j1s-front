@@ -31,6 +31,7 @@ import { BffLocalisationService } from '~/client/services/localisation/bff.local
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { LoggerService } from '~/client/services/logger.service';
 import { AdformMarketingService } from '~/client/services/marketing/adform/adform.marketing.service';
+import { LinkedinMarketingService } from '~/client/services/marketing/linkedin/linkedin.marketing.service';
 import { MarketingService } from '~/client/services/marketing/marketing.service';
 import { NullMarketingService } from '~/client/services/marketing/null/null.marketing.service';
 import { BffAlternanceMetierService } from '~/client/services/metiers/bff.alternance.metier.service';
@@ -82,6 +83,7 @@ export type Dependencies = {
 	youtubeService: VideoService
 	établissementAccompagnementService: EtablissementAccompagnementService
 	marketingService: MarketingService
+	linkedinService: MarketingService
 	dateService: DateService
 	emploiEuropeService: EmploiEuropeService
 	stage3eEt2deService: Stage3eEt2deService
@@ -119,6 +121,9 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 	const cookiesService = getCookieService();
 	const marketingService = process.env.NEXT_PUBLIC_CAMPAGNE_ADFORM_FEATURE === '1'
 		? new AdformMarketingService(cookiesService)
+		: new NullMarketingService();
+	const linkedinService = process.env.NEXT_PUBLIC_CAMPAGNE_ADFORM_FEATURE === '1'
+		? new LinkedinMarketingService(cookiesService)
 		: new NullMarketingService();
 
 	if (process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_FEATURE === '1') {
@@ -171,6 +176,7 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		demandeDeContactService,
 		emploiEuropeService,
 		formationInitialeService,
+		linkedinService,
 		localStorageService,
 		localisationService,
 		marketingService,
