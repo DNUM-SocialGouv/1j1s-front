@@ -37,6 +37,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 	const isFormationsInitalesVisible = process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE === '1';
 	const isStages3eEt2deVisible = process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE === '1';
 	const is1Jeune1PermisVisible = process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE === '1';
+	const isMyJobGlassesVisible = process.env.NEXT_PUBLIC_MY_JOB_GLASSES_FEATURE === '1';
 
 	const isOldEspaceJeuneActif = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
 
@@ -178,6 +179,13 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 	];
 
 	const accompagnementCardListContent = [
+		isMyJobGlassesVisible ? {
+			children: <p>82 000 professionnels se rendent disponibles pour répondre à vos questions sur leur métier</p>,
+			imageUrl: '/images/myjobglasses.webp',
+			link: '/myjobglasses',
+			linkLabel: 'En savoir plus',
+			title: 'J’échange avec un professionnel',
+		} : undefined,
 		{
 			children: <p>Un parcours personnalisé pour vous aider à définir votre projet et trouver un emploi</p>,
 			imageUrl: '/images/cej.webp',
