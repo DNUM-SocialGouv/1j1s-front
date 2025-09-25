@@ -215,7 +215,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 			linkLabel: 'En savoir plus',
 			title: 'Entreprendre : financements, aides et accompagnement',
 		},
-	];
+	].filter<CardContent>((cardContent?: CardContent): cardContent is CardContent => cardContent !== undefined);
 
 	const aideEtOutilCardListContent = [
 		{

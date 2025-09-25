@@ -3,9 +3,9 @@ import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
-
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
-import styles from './index.module.scss'
+
+import styles from './index.module.scss';
 
 export default function MyJobGlassesPage() {
 	return (
