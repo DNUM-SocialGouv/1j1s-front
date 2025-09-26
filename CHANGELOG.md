@@ -1,5 +1,30 @@
 # Changelog
 
+## [3.360.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.359.2...v3.360.0) (2025-09-26)
+
+
+### Features
+
+* Ajoute la campagne fête des métiers ([#3586](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3586)) ([2b2d75f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2b2d75f05cb1a4fcac982d07c206594e8963dea3))
+* Ajoute le piggybacking pour le tracking de campagne ([#3600](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3600)) ([5586e83](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5586e83a521aa4b455e94665ebf6a7789ff61b98))
+* Ajoute le tracker Amnet ([#3598](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3598)) ([af098a8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/af098a8ddb03311652f6332478fd682280d587a4))
+* Ajoute le tracker LinkedIn ([#3604](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3604)) ([2bafe36](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2bafe3680844f82a907f8fc233bdf7f014e6f250))
+* Ajoute le tracking matomo sans cookies ([#3594](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3594)) ([9214eb1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9214eb1fe68833505a16cf13f61c5c7ea97b79a0))
+* Ajoute le tracking Seedtag ([#3597](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3597)) ([09879bd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/09879bd713d67b76abd979c3634c3588775c6f16))
+* Ajoute le widget MyJobGlasses ([#3602](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3602)) ([26e28fa](https://github.com/DNUM-SocialGouv/1j1s-front/commit/26e28fa0bff55bcdd4b8bc78187a39c99ba2b49f))
+* Migre vers la nouvelle version de l'API Labonnealternance ([#3581](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3581)) ([e56ca9a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e56ca9a10dba6dad9c8e0fad305d6f53ad7551dd))
+* Ré-active le tracker Adform ([#3596](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3596)) ([a778d23](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a778d23e1ccbce120c894c0d8019faabe24dac02))
+* Remet la bannière de campagne apprentissage ([#3595](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3595)) ([b0c1b36](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b0c1b36c33f517c3f3c654b076d678115a21581b))
+* Renomme stages de 2nd et 3e en stages d'observation ([#3592](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3592)) ([b13703a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b13703af186e61086a9c7bf662c9e914afed977f))
+
+
+### Bug Fixes
+
+* Ajoute Zemanta aux CSP ([#3603](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3603)) ([7d3758d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7d3758d7ce8d1797f6dabd41a1758df50c05cf50))
+* Fix les CSP pour le tracker LinkedIn ([#3605](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3605)) ([a2a818b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a2a818bef7d16587ede1452c686fad6ec1a0c361))
+* Fix mauvais renommage lien stages de 2de GT ([#3593](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3593)) ([90f83dd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/90f83dd017f49d3f8d3df64cc47a7a8e3bcd1974))
+* Passe sur lien simple pour postuler à une alternance ([#3588](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3588)) ([e1a3a2d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e1a3a2dc8277d46f3229e28dc54a00ded7d397d3))
+
 ## [3.359.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.359.1...v3.359.2) (2025-04-25)
 
 
