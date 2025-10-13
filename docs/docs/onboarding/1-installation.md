@@ -20,15 +20,16 @@ Se référer au package.json pour les versions utilisées
 ## Premier run
 
 1. Lancez la commande `nvm install` et la commande `nvm use` pour spécifier la version de node utilisée
-2. Installez les dépendances avec `npm ci`
-3. Copiez le `.env.test` vers `.env`
-4. Lancez le projet en mode développement avec `npm run dev`
-5. Ouvrez votre navigateur sur [http://localhost:3000](http://localhost:3000)
+2. Copiez le `.env.test` vers `.env`
+3. Lancez la commande `docker compose up -d`
+4. Installez les dépendances avec `npm i`
+5. Lancez le projet en mode développement avec `npm run dev`
+6. Ouvrez votre navigateur sur [http://localhost:3000](http://localhost:3000)
 
 À ce stade, on obtient une application partiellement fonctionnelle :
 * Assets : (Articles / Images)
   * ✅ Sont présents : Les assets statiques
-  * ❌ Ne sont pas présents : Les assets hébergées sur le CMS
+  * ❌ Ne sont pas présents : Les assets hébergés sur le CMS
 * Pages Formulaires :
   * ✅ S'affichent et proposent des résultats : Les API mockées avec des résultats en mémoire.
   * ❌ Ne s'affiche pas (404 ou 500) : Quand des résultats sont demandées au chargement de la page (API externe, CMS ou contenu indexé via Meilisearch)
@@ -49,5 +50,3 @@ Pour les besoins de développement du frontend, on pourra créer du contenu en r
 Les accès au CMS de recette sont sur le Keepass au cas où les développements nécessitent de manipuler les données.
 
 La configuration locale du CMS sera utilisée généralement pour les tâches sensibles concernant les données, ce que l'on retrouvera lors des développements sur le CMS ou sur l'ETL.
-
-
