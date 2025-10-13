@@ -5,7 +5,7 @@ Bienvenue sur le dépôt front d'1jeune1solution. Celui-ci regroupe l'ensemble d
     services destinés aux jeunes de 13 à 30 ans.
 
 
-## Liens utiles :
+## Liens utiles :
 
 * [Github](https://github.com/orgs/DNUM-SocialGouv/repositories)
 * [Admin scalingo](https://1j1s-cms.osc-fr1.scalingo.io/admin)
