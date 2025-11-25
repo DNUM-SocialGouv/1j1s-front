@@ -10,6 +10,7 @@ import {
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/emplois/deposer-offre/index.analytics';
 import styles from '~/pages/emplois/deposer-offre/index.module.scss';
+import {Link} from "~/client/components/ui/Link/Link";
 
 const POLITIQUE_DE_CONFIDENTIALITÉ_URL = 'https://immersion-facile-1.gitbook.io/mentions-legales/politique-de-confidentialite';
 const CONDITIONS_GÉNÉRALES_UTILISATION_URL = 'https://immersion-facile-1.gitbook.io/mentions-legales/conditions-generales-dutilisation';
@@ -33,7 +34,8 @@ export default function DéposerUneOffreDEmploi() {
 				</HeroSecondaryText>
 			</Hero>
 			<Container>
-				<p>THIS IS A TEST</p>
+				<p>Ceci est un test</p>
+				<Link href={'https://pro.francetravail.fr/depotoffrerecruteur/accueil'} target={'_blank'}>Ceci est un lien</Link>.
 				<p className={styles.rgpd}>
 					Vous êtes informé que vos données sont collectées et traitées par France Travail pour traiter votre demande de
 					dépôt d‘offre. Pour en savoir plus sur vos droits, consultez la <a href={POLITIQUE_DE_CONFIDENTIALITÉ_URL}>Politique

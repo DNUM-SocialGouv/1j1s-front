@@ -61,9 +61,10 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 			</DependenciesProvider>,
 		);
 
-		const placeholderText = screen.getByText('THIS IS A TEST');
+		const linkToFranceTravail = screen.getAllByRole('link')[0];
 
-		expect(placeholderText).toBeInTheDocument();
+		expect(linkToFranceTravail).toBeInTheDocument();
+		expect(linkToFranceTravail).toHaveAttribute('href', 'https://pro.francetravail.fr/depotoffrerecruteur/accueil');
 	});
 
 	it('propose des liens vers les conditions générales d‘utilisation et la politique de confidentialité', () => {
