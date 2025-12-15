@@ -34,8 +34,19 @@ export default function DéposerUneOffreDEmploi() {
 				</HeroSecondaryText>
 			</Hero>
 			<Container>
-				<p>Ceci est un test</p>
-				<Link href={'https://pro.francetravail.fr/depotoffrerecruteur/accueil'} target={'_blank'}>Ceci est un lien</Link>.
+				<p>Afin de renforcer la sécurisation de vos données et de faciliter le dépôt de vos offres d’emploi, rendez-vous
+					sur : <Link href={'https://pro.francetravail.fr/depotoffrerecruteur/accueil'} target={'_blank'}>francetravail.fr</Link>.<br /><br />
+
+					Votre numéro de SIRET vous sera demandé afin d’être identifié automatiquement par France Travail.
+					Les informations ne seront pas modifiables.
+					Si vous ne disposez pas de SIRET, contactez le 39 95 (Numéro gris ou banalisé : coût d&#39;un appel vers un
+					fixe et service gratuit, depuis un téléphone fixe ou mobile). Depuis l&#39;étranger (entreprises frontalières
+					par exemple), composez le +33 1 77 86 39 95.<br /><br />
+
+					Pour rappel, le numéro unique 3995 vous permet d’échanger avec un conseiller du lundi au samedi inclus, de
+					7h30 à 20h, avec un système de demande de rappel en cas d’indisponibilité.
+				</p>
+				<br />
 				<p className={styles.rgpd}>
 					Vous êtes informé que vos données sont collectées et traitées par France Travail pour traiter votre demande de
 					dépôt d‘offre. Pour en savoir plus sur vos droits, consultez la <a href={POLITIQUE_DE_CONFIDENTIALITÉ_URL}>Politique
