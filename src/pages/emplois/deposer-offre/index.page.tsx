@@ -7,10 +7,10 @@ import {
 	HeroPrimaryText,
 	HeroSecondaryText,
 } from '~/client/components/ui/Hero/Hero';
+import { Link } from '~/client/components/ui/Link/Link';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/emplois/deposer-offre/index.analytics';
 import styles from '~/pages/emplois/deposer-offre/index.module.scss';
-import {Link} from "~/client/components/ui/Link/Link";
 
 const POLITIQUE_DE_CONFIDENTIALITÉ_URL = 'https://immersion-facile-1.gitbook.io/mentions-legales/politique-de-confidentialite';
 const CONDITIONS_GÉNÉRALES_UTILISATION_URL = 'https://immersion-facile-1.gitbook.io/mentions-legales/conditions-generales-dutilisation';
