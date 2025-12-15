@@ -12,12 +12,14 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import DéposerUneOffreDEmploi from '~/pages/emplois/deposer-offre/index.page';
 
 describe('Je recrute / Déposer une offre d‘emploi', () => {
+	const analyticsService = aManualAnalyticsService();
+
 	beforeEach(() => {
 		mockSmallScreen();
 	});
 
 	it('doit rendre du HTML respectant la specification', () => {
-		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>
 			<DéposerUneOffreDEmploi />
 		</DependenciesProvider> );
 
@@ -27,7 +29,7 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}>
+				analyticsService={analyticsService}>
 				<DéposerUneOffreDEmploi />
 			</DependenciesProvider>,
 		);
@@ -36,8 +38,6 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {
-		const analyticsService = aManualAnalyticsService();
-
 		render(
 			<DependenciesProvider
 				analyticsService={analyticsService}>
@@ -53,9 +53,7 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 		});
 	});
 
-	it('affiche un formulaire de référencement des entreprises dans une iframe', () => {
-		const analyticsService = aManualAnalyticsService();
-
+	it("affiche un lien redirigeant vers France Travail pour ajouter une offre d'emploi", () => {
 		render(
 			<DependenciesProvider
 				analyticsService={analyticsService}>
@@ -63,14 +61,13 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 			</DependenciesProvider>,
 		);
 
-		const iframe = screen.getByTitle('Formulaire de dépôt d‘offre d‘emploi ou d‘alternance en partenariat avec France Travail');
+		const linkToFranceTravail = screen.getAllByRole('link')[0];
 
-		expect(iframe).toBeInTheDocument();
+		expect(linkToFranceTravail).toBeInTheDocument();
+		expect(linkToFranceTravail).toHaveAttribute('href', 'https://pro.francetravail.fr/depotoffrerecruteur/accueil');
 	});
 
 	it('propose des liens vers les conditions générales d‘utilisation et la politique de confidentialité', () => {
-		const analyticsService = aManualAnalyticsService();
-
 		render(
 			<DependenciesProvider
 				analyticsService={analyticsService}>
