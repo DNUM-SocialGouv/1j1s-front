@@ -17,7 +17,7 @@ export default function FeteDesMetiersBanner() {
 				Un salon incontournable pour découvrir des métiers, des formations et des opportunités concrètes !
 			</HeroSecondaryText>
 			<HeroSecondaryText>
-				Rendez-vous le 21 mai 2025 à Paris Montreuil Expo. Entrée libre.
+				Rendez-vous le 21 mai 2025 à Paris Montreuil Expo, entrée libre.
 			</HeroSecondaryText>
 			<Link href="https://www.fetedelalternance.com/" appearance={'asSecondaryButton'} className={styles.cta}>
 				Informations sur la Fête des Métiers 2025
