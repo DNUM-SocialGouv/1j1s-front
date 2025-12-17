@@ -12,7 +12,7 @@ export function Banniere() {
 			<div className={styles.banniereContent}>
 				<div className={styles.banniereTextContent}>
 					<h1 className={styles.titre}>Le Contrat d’Engagement Jeune, la solution pour vous&nbsp;!</h1>
-					<p className={styles.banniereAccroche}>Découvrez le CEJ, un parcours personnalisé pour vous aider à définir votre projet professionnel et trouver un emploi</p>
+					<p className={styles.banniereAccroche}>Découvrez le CEJ, un parcours personnalisé pour vous aider à définir votre projet professionnel et trouver un emploi.</p>
 					<Link
 						className={styles.cta}
 						href="#accompagnement"
