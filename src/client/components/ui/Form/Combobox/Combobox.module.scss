@@ -41,8 +41,8 @@
     @extend %disabled;
   }
 
-  & input[role="combobox"][data-touched="true"]:invalid,
-  & input[role="combobox"][data-touched="true"]:invalid ~ button {
+  & input[role="combobox"]:user-invalid,
+  & input[role="combobox"]:user-invalid ~ button {
     @extend %error;
   }
   & input[role="combobox"]:valid,
