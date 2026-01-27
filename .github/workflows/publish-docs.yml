@@ -22,6 +22,8 @@ jobs:
           node-version-file: '.nvmrc'
           cache: npm
 
+      - run: npm install -g npm@11
+
       - name: Installer les dépendances
         run: npm ci
         working-directory: docs
@@ -46,6 +48,8 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: npm
+
+      - run: npm install -g npm@11
 
       - name: Installer les dépendances
         run: npm ci
