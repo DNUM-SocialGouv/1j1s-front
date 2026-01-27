@@ -25,7 +25,7 @@ jobs:
       - run: npm install -g npm@11
 
       - name: Installer les dépendances
-        run: npm ci
+        run: npm ci --legacy-peer-deps
         working-directory: docs
 
       - name: Compiler la documentation
@@ -52,7 +52,7 @@ jobs:
       - run: npm install -g npm@11
 
       - name: Installer les dépendances
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Compiler le storybook
         run: |
