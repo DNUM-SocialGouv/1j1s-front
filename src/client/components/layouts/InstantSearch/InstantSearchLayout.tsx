@@ -75,6 +75,7 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 				future={{ preserveSharedStateOnUnmount: true }}>
 				<InstantSearchErrorBoundary>
 					<>
+						{/* @ts-expect-error -- le type de la prop hitsPerPage est manquant dans Configure */}
 						<Configure hitsPerPage={nombreDeResultatParPage} />
 						<section className="separator">
 							<Container>

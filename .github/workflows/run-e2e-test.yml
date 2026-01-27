@@ -29,7 +29,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: npm
       - run: npm install -g npm@11
-      - run: npm ci && cp .env.test .env
+      - run: npm ci --legacy-peer-deps && cp .env.test .env
       - name: Start redis
         run: |
           nohup docker-compose up </dev/null &>/dev/null &
