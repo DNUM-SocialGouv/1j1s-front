@@ -12,8 +12,8 @@ import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/emplois/deposer-offre/index.analytics';
 import styles from '~/pages/emplois/deposer-offre/index.module.scss';
 
-const POLITIQUE_DE_CONFIDENTIALITÉ_URL = 'https://immersion-facile-1.gitbook.io/mentions-legales/politique-de-confidentialite';
-const CONDITIONS_GÉNÉRALES_UTILISATION_URL = 'https://immersion-facile-1.gitbook.io/mentions-legales/conditions-generales-dutilisation';
+const POLITIQUE_DE_CONFIDENTIALITÉ_URL = 'https://urldefense.com/v3/__https:/immersion-facile-1.gitbook.io/mentions-legales/politique-de-confidentialite__;!!FiWPmuqhD5aF3oDTQnc!iyqpB-G35-BrqkJViRoO2702VTRuXwLqnyLallEQawiA6ZOpWOZVGffzeAty1JVAg0Xd80FiILE_IXJnt1sB9oIiZimxZ8LNd0uw6vjcAPSzA4r2pq_h$';
+const CONDITIONS_GÉNÉRALES_UTILISATION_URL = 'https://urldefense.com/v3/__https:/immersion-facile-1.gitbook.io/mentions-legales/conditions-generales-dutilisation__;!!FiWPmuqhD5aF3oDTQnc!iyqpB-G35-BrqkJViRoO2702VTRuXwLqnyLallEQawiA6ZOpWOZVGffzeAty1JVAg0Xd80FiILE_IXJnt1sB9oIiZimxZ8LNd0uw6vjcAPSzA1Bc6hKW$';
 
 export default function DéposerUneOffreDEmploi() {
 	useAnalytics(analytics);
@@ -34,25 +34,24 @@ export default function DéposerUneOffreDEmploi() {
 				</HeroSecondaryText>
 			</Hero>
 			<Container>
-				<p>Afin de renforcer la sécurisation de vos données et de faciliter le dépôt de vos offres d’emploi, rendez-vous
-					sur : <Link href={'https://pro.francetravail.fr/depotoffrerecruteur/accueil'} target={'_blank'}>francetravail.fr</Link>.<br /><br />
+				<p>
+					Afin de renforcer la sécurisation de vos données et faciliter le dépôt de vos offres d’emploi,
+					rendez-vous sur : <Link href={'https://pro.francetravail.fr/depotoffrerecruteur/accueil'} target={'_blank'}>francetravail.fr</Link>.<br /><br />
 
-					Votre numéro de SIRET vous sera demandé afin d’être identifié automatiquement par France Travail.
-					Les informations ne seront pas modifiables.
-					Si vous ne disposez pas de SIRET, contactez le 39 95 (Numéro gris ou banalisé : coût d&#39;un appel vers un
-					fixe et service gratuit, depuis un téléphone fixe ou mobile). Depuis l&#39;étranger (entreprises frontalières
-					par exemple), composez le +33 1 77 86 39 95.<br /><br />
+					Si vous avez besoin d’échanger avec un conseiller, contactez le 39 95 (service gratuit + le prix d’un appel local, du lundi au samedi inclus, de 7h30 à 20h).
+					Depuis l’étranger (entreprises frontalières par exemple), composez le +33 1 77 86 39 95.
+
+					Vous pouvez également programmer une demande de rappel par un conseiller sur : francetravail.fr
+					<Link href={'https://urldefense.com/v3/__https:/pro.francetravail.fr/accueil/demandederappel__;!!FiWPmuqhD5aF3oDTQnc!iyqpB-G35-BrqkJViRoO2702VTRuXwLqnyLallEQawiA6ZOpWOZVGffzeAty1JVAg0Xd80FiILE_IXJnt1sB9oIiZimxZ8LNd0uw6vjcAPSzA24d3k1P$'}>https://pro.francetravail.fr/accueil/demandederappel</Link>).
 
 					Pour rappel, le numéro unique 3995 vous permet d’échanger avec un conseiller du lundi au samedi inclus, de
 					7h30 à 20h, avec un système de demande de rappel en cas d’indisponibilité.
 				</p>
 				<br />
 				<p className={styles.rgpd}>
-					Vous êtes informé que vos données sont collectées et traitées par France Travail pour traiter votre demande de
-					dépôt d‘offre. Pour en savoir plus sur vos droits, consultez la <a href={POLITIQUE_DE_CONFIDENTIALITÉ_URL}>Politique
-					de Confidentialité</a> de France Travail. En cliquant sur «&nbsp;confirmer&nbsp;» vous reconnaissez avoir pris
-					connaissance
-					et accepter les <a href={CONDITIONS_GÉNÉRALES_UTILISATION_URL}>Conditions Générales d‘Utilisation</a> de France Travail.
+					Vous êtes informé que vos données sont collectées et traitées par France Travail pour traiter votre demande de dépôt d‘offre.
+					Pour en savoir plus sur vos droits, consultez la <Link href={POLITIQUE_DE_CONFIDENTIALITÉ_URL}>Politique de Confidentialité</Link> de France Travail.
+					En cliquant sur « confirmer » vous reconnaissez avoir pris connaissance et accepter les <Link href={CONDITIONS_GÉNÉRALES_UTILISATION_URL}>Conditions Générales d‘Utilisation</Link> de France Travail.
 				</p>
 			</Container>
 		</main>
