@@ -30,14 +30,16 @@ export default function Document() {
 				<meta name="msapplication-wide310x150logo" content="/favicons/mstile-310x150.png" />
 				<meta name="msapplication-square310x310logo" content="/favicons/mstile-310x310.png" />
 			</Head>
-			<body id={ID_TOP_ELEMENT}>
+			<body id={ID_TOP_ELEMENT} data-version={process.env.NEXT_PUBLIC_APPLICATION_VERSION} data-env={process.env.NODE_ENV}>
 				<Main />
 				<NextScript />
-				{ process.env.NODE_ENV === 'production' && (
-					// eslint-disable-next-line @next/next/no-sync-scripts
-					<script
-						src={`/scripts/tarteaucitron/tarteaucitron.js?v=${encodeURI(process.env.NEXT_PUBLIC_APPLICATION_VERSION)}`} />
-   			)}
+				{
+					process.env.NODE_ENV === 'production' && (
+						// eslint-disable-next-line @next/next/no-sync-scripts
+						<script
+							src={`/scripts/tarteaucitron/tarteaucitron.js?v=${encodeURI(process.env.NEXT_PUBLIC_APPLICATION_VERSION!)}`} />
+					)
+				}
 				{ process.env.NEXT_PUBLIC_ANALYTICS_EULERIAN_FEATURE === '1' && (
 					<Script
           	id="eulerianAnalytics"

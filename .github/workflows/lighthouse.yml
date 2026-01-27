@@ -11,6 +11,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: npm
+      - run: npm install -g npm@11
       - name: Install Lighthouse CI
         run: npm install -g @lhci/cli@0.12.x
       - name: Run Lighthouse CI

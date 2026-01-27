@@ -25,6 +25,7 @@ export function HeaderBody() {
 							src="/images/logos/république-française.svg"
 							alt="République Française, Liberté, Egalité, Fraternité"
 							width="88"
+							priority
 							height="80" />
 						<nav
 							role={'navigation'}
