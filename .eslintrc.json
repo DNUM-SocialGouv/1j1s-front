@@ -22,6 +22,7 @@
     "storybook-static/*"
   ],
   "rules": {
+    "no-irregular-whitespace": "off",
     "prettier/prettier": "off",
     "indent": ["error", "tab", { "SwitchCase": 1 }],
     "semi": "error",
