@@ -1,5 +1,5 @@
 import Script from 'next/script';
-import React from 'react';
+import { useState } from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -8,6 +8,8 @@ import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/clien
 import styles from './index.module.scss';
 
 export default function MyJobGlassesPage() {
+	const [rerender] = useState(() => Date.now());
+
 	return (
 		<>
 			<Head
@@ -36,7 +38,7 @@ export default function MyJobGlassesPage() {
 				<Script async
 					strategy="afterInteractive"
 					crossOrigin="anonymous"
-					src={`https://api.myjobglasses.com/widgets/professional_search/forms?widget_div_id=widget-my-job-glasses&widget_id=6877989596f4370015e24c85&rerender=${Date.now()}`} />
+					src={`https://api.myjobglasses.com/widgets/professional_search/forms?widget_div_id=widget-my-job-glasses&widget_id=6877989596f4370015e24c85&rerender=${rerender}`} />
 			</main>
 		</>
 	);
