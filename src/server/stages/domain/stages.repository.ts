@@ -1,6 +1,5 @@
 import { Either } from '~/server/errors/either';
-import { OffreDeStage, OffreStageDepot } from '~/server/stages/domain/stages';
-import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
+import { OffreDeStage, OffreDeStageDepot } from '~/server/stages/domain/stages';
 
 export interface StagesRepository {
 	getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStage>>

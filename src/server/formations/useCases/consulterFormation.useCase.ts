@@ -1,5 +1,5 @@
 import { Either, isFailure } from '~/server/errors/either';
-import { Formation, FormationFiltre } from '~/server/formations/domain/formation';
+import { Formation, FormationFiltreAvecCodeCertification } from '~/server/formations/domain/formation';
 import { FormationRepository } from '~/server/formations/domain/formation.repository';
 import { Statistique } from '~/server/formations/domain/statistique';
 import { StatistiqueRepository } from '~/server/formations/domain/statistique.repository';
@@ -7,7 +7,7 @@ import { StatistiqueRepository } from '~/server/formations/domain/statistique.re
 export class ConsulterFormationUseCase {
 	constructor(private formationRepository: FormationRepository, private statistiqueRepository: StatistiqueRepository) {}
 
-	async handle(id: string, filtre?: FormationFiltre.AvecCodeCertification): Promise<{ formation: Either<Formation>, statistiques?: Either<Statistique> }> {
+	async handle(id: string, filtre?: FormationFiltreAvecCodeCertification): Promise<{ formation: Either<Formation>, statistiques?: Either<Statistique> }> {
 		const formation = await this.formationRepository.get(id, filtre);
 
 		if (isFailure(formation)) return { formation };

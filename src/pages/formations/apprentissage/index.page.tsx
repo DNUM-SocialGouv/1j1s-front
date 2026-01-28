@@ -15,8 +15,8 @@ import { Erreur } from '~/server/errors/erreur.types';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { changeStatusCodeWhenErrorOcurred } from '~/server/errors/handleGetServerSidePropsError';
 import {
-	Formation,
 	FormationFiltre,
+	FORMATION_NIVEAU_INDIFFERENT,
 	NiveauRequisValeur,
 	RésultatRechercheFormation,
 } from '~/server/formations/domain/formation';
@@ -60,7 +60,7 @@ function filtreQuery(query: ParsedUrlQuery): FormationFiltre {
 		distanceCommune: query.distanceCommune ? String(query.distanceCommune) : '',
 		latitudeCommune: query.latitudeCommune ? String(query.latitudeCommune) : '',
 		longitudeCommune: query.longitudeCommune ? String(query.longitudeCommune) : '',
-		niveauEtudes: query.niveauEtudes && query.niveauEtudes !== Formation.NIVEAU_INDIFFERENT.valeur ? String(query.niveauEtudes) : '',
+		niveauEtudes: query.niveauEtudes && query.niveauEtudes !== FORMATION_NIVEAU_INDIFFERENT.valeur ? String(query.niveauEtudes) : '',
 	};
 }
 

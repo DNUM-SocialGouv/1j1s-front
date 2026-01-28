@@ -80,7 +80,7 @@ describe('apiAlternanceRepository', () => {
 			const searchResponse = anAlternanceApiRechercheResponse({
 				jobs: [
 					aJobResponse({
-						// @ts-expect-error
+						// @ts-expect-error TS2322
 						identifier: 'invalid',
 					}),
 				],
@@ -182,7 +182,7 @@ describe('apiAlternanceRepository', () => {
 			const httpClientService = anAuthenticatedHttpClientService();
 			const invalidResponse = aJobResponse({
 				offer: anOfferResponse({
-					// @ts-expect-error
+					// @ts-expect-error TS2322
 					title: 1,
 				}),
 			});

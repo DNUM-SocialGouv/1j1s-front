@@ -48,55 +48,50 @@ export interface FormationFiltre {
 	niveauEtudes?: string
 }
 
-export namespace FormationFiltre {
-	export interface AvecCodeCertification extends FormationFiltre {
-		codeCertification?: string
-	}
+export interface FormationFiltreAvecCodeCertification extends FormationFiltre {
+	codeCertification?: string
 }
 
-
-export namespace Formation {
-	export interface NiveauRequisFiltreRecherche {
-		libellé: string
-		valeur: NiveauRequisValeur
-	}
-
-	export const NIVEAU_3: NiveauRequisFiltreRecherche = {
-		libellé: NiveauRequisLibelle.NIVEAU_3,
-		valeur: NiveauRequisValeur.NIVEAU_3,
-	};
-
-	export const NIVEAU_4: NiveauRequisFiltreRecherche = {
-		libellé: NiveauRequisLibelle.NIVEAU_4,
-		valeur: NiveauRequisValeur.NIVEAU_4,
-	};
-
-	export const NIVEAU_5: NiveauRequisFiltreRecherche = {
-		libellé: NiveauRequisLibelle.NIVEAU_5,
-		valeur: NiveauRequisValeur.NIVEAU_5,
-	};
-
-	export const NIVEAU_6: NiveauRequisFiltreRecherche = {
-		libellé: NiveauRequisLibelle.NIVEAU_6,
-		valeur: NiveauRequisValeur.NIVEAU_6,
-	};
-
-	export const NIVEAU_7: NiveauRequisFiltreRecherche = {
-		libellé: NiveauRequisLibelle.NIVEAU_7_8,
-		valeur: NiveauRequisValeur.NIVEAU_7_8,
-	};
-
-	export const NIVEAU_INDIFFERENT: NiveauRequisFiltreRecherche = {
-		libellé: 'Indifférent',
-		valeur: NiveauRequisValeur.NIVEAU_INDIFFERENT,
-	};
-
-	export const NIVEAU_ETUDES: NiveauRequisFiltreRecherche[] = [
-		Formation.NIVEAU_3,
-		Formation.NIVEAU_4,
-		Formation.NIVEAU_5,
-		Formation.NIVEAU_6,
-		Formation.NIVEAU_7,
-		Formation.NIVEAU_INDIFFERENT,
-	];
+export interface FormationNiveauRequisFiltreRecherche {
+	libellé: string
+	valeur: NiveauRequisValeur
 }
+
+export const FORMATION_NIVEAU_3: FormationNiveauRequisFiltreRecherche = {
+	libellé: NiveauRequisLibelle.NIVEAU_3,
+	valeur: NiveauRequisValeur.NIVEAU_3,
+};
+
+export const FORMATION_NIVEAU_4: FormationNiveauRequisFiltreRecherche = {
+	libellé: NiveauRequisLibelle.NIVEAU_4,
+	valeur: NiveauRequisValeur.NIVEAU_4,
+};
+
+export const FORMATION_NIVEAU_5: FormationNiveauRequisFiltreRecherche = {
+	libellé: NiveauRequisLibelle.NIVEAU_5,
+	valeur: NiveauRequisValeur.NIVEAU_5,
+};
+
+export const FORMATION_NIVEAU_6: FormationNiveauRequisFiltreRecherche = {
+	libellé: NiveauRequisLibelle.NIVEAU_6,
+	valeur: NiveauRequisValeur.NIVEAU_6,
+};
+
+export const FORMATION_NIVEAU_7: FormationNiveauRequisFiltreRecherche = {
+	libellé: NiveauRequisLibelle.NIVEAU_7_8,
+	valeur: NiveauRequisValeur.NIVEAU_7_8,
+};
+
+export const FORMATION_NIVEAU_INDIFFERENT: FormationNiveauRequisFiltreRecherche = {
+	libellé: 'Indifférent',
+	valeur: NiveauRequisValeur.NIVEAU_INDIFFERENT,
+};
+
+export const FORMATION_NIVEAU_ETUDES: FormationNiveauRequisFiltreRecherche[] = [
+	FORMATION_NIVEAU_3,
+	FORMATION_NIVEAU_4,
+	FORMATION_NIVEAU_5,
+	FORMATION_NIVEAU_6,
+	FORMATION_NIVEAU_7,
+	FORMATION_NIVEAU_INDIFFERENT,
+];

@@ -34,7 +34,7 @@ import {
 	mapRéférentielDomaineToOffreCheckboxFiltre,
 	mapTypeDeContratToOffreEmploiCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
-import { Offre } from '~/server/offres/domain/offre';
+import { EXPÉRIENCE, TEMPS_DE_TRAVAIL_LIST, TYPE_DE_CONTRAT_LIST } from '~/server/offres/domain/offre';
 
 function updateFilterQuery(filterQuery: Array<string>, filterToToggle: string) {
 	const currentString = filterQuery.filter((element) => element);
@@ -162,7 +162,7 @@ export function FormulaireRechercheOffreEmploi() {
 								name={'typeDeContrats'}
 								onChange={(option) => onChangeMultipleSelect(option, setInputTypeDeContrat)}
 								value={inputTypeDeContrat}>
-								{mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST).map((option) =>
+								{mapTypeDeContratToOffreEmploiCheckboxFiltre(TYPE_DE_CONTRAT_LIST).map((option) =>
 									<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 								)}
 							</Champ.Input>
@@ -180,7 +180,7 @@ export function FormulaireRechercheOffreEmploi() {
 								name={'tempsDeTravail'}
 								onChange={(option) => setInputTempsDeTravail(getValueSelected(option))}
 								value={inputTempsDeTravail}>
-								{Offre.TEMPS_DE_TRAVAIL_LIST.map((option) =>
+								{TEMPS_DE_TRAVAIL_LIST.map((option) =>
 									<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 								)}
 							</Champ.Input>
@@ -198,7 +198,7 @@ export function FormulaireRechercheOffreEmploi() {
 								name={'experienceExigence'}
 								onChange={(option) => setInputExpérience(getValueSelected(option))}
 								value={inputExpérience}>
-								{Offre.EXPÉRIENCE.map((option) =>
+								{EXPÉRIENCE.map((option) =>
 									<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 								)}
 							</Champ.Input>
@@ -247,7 +247,7 @@ export function FormulaireRechercheOffreEmploi() {
 						<FilterAccordion.Title id="type-de-contrat-title">Type de contrat</FilterAccordion.Title>
 						<FilterAccordion.Content>
 							<fieldset aria-labelledby="type-de-contrat-title">
-								{Offre.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
+								{TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
 									<Checkbox
 										name="typeDeContrats"
 										key={`Type de contrat${index}`}
@@ -263,7 +263,7 @@ export function FormulaireRechercheOffreEmploi() {
 						<FilterAccordion.Title id="temps-de-travail-title">Temps de travail</FilterAccordion.Title>
 						<FilterAccordion.Content>
 							<fieldset aria-labelledby="temps-de-travail-title">
-								{Offre.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
+								{TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
 									<Radio
 										key={index}
 										label={tempsDeTravail.libellé}
@@ -279,7 +279,7 @@ export function FormulaireRechercheOffreEmploi() {
 						<FilterAccordion.Title id="niveau-demande-title">Niveau demandé</FilterAccordion.Title>
 						<FilterAccordion.Content>
 							<fieldset aria-labelledby="niveau-demande-title">
-								{Offre.EXPÉRIENCE.map((expérience) => (
+								{EXPÉRIENCE.map((expérience) => (
 									<Radio
 										key={expérience.libellé}
 										label={expérience.libellé}

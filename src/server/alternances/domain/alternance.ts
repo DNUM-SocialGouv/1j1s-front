@@ -1,18 +1,16 @@
 import { AlternanceStatus } from '~/server/alternances/infra/status';
 
-export namespace Alternance {
-	export interface Entreprise {
-		nom?: string | null
-		adresse?: string | null
-		téléphone?: string | null
-	}
+export interface AlternanceEntreprise {
+	nom?: string | null
+	adresse?: string | null
+	téléphone?: string | null
 }
 
 export interface Alternance {
 	durée?: string | null
 	id: string
 	titre: string
-	entreprise: Alternance.Entreprise
+	entreprise: AlternanceEntreprise
 	description?: string | null
 	descriptionEmployeur?: string | null
 	localisation?: string | null
@@ -22,43 +20,39 @@ export interface Alternance {
 	compétences?: string[] | null
 	dateDébut?: Date | null
 	rythmeAlternance?: string | null
-	source: Alternance.Source
+	source: AlternanceSource
 	lienPostuler?: string | null
 	status?: AlternanceStatus | null
 }
 
 export type ResultatRechercheAlternance = {
-	offreList: Array<ResultatRechercheAlternance.Offre>,
-	entrepriseList: Array<ResultatRechercheAlternance.Entreprise>
+	offreList: Array<ResultatRechercheAlternanceOffre>,
+	entrepriseList: Array<ResultatRechercheAlternanceEntreprise>
 }
 
-export namespace ResultatRechercheAlternance {
-	export type Offre = Pick<Alternance, 'id' | 'titre' | 'source' | 'entreprise' | 'localisation' | 'typeDeContrat' | 'niveauRequis'>
+export type ResultatRechercheAlternanceOffre = Pick<Alternance, 'id' | 'titre' | 'source' | 'entreprise' | 'localisation' | 'typeDeContrat' | 'niveauRequis'>
 
-	export interface Entreprise {
-		adresse?: string
-		nom: string
-		secteurs?: Array<string>
-		id?: string
-		candidaturePossible: boolean
-		nombreSalariés?: NombreSalaries | null
-	}
-
-	export interface NombreSalaries {
-		min: number
-		max: number
-	}
+export interface ResultatRechercheAlternanceEntreprise {
+	adresse?: string
+	nom: string
+	secteurs?: Array<string>
+	id?: string
+	candidaturePossible: boolean
+	nombreSalariés?: ResultatRechercheAlternanceNombreSalaries | null
 }
 
-export namespace Alternance {
-	export enum Source {
-		MATCHA,
-		FRANCE_TRAVAIL,
-	}
+export interface ResultatRechercheAlternanceNombreSalaries {
+	min: number
+	max: number
+}
 
-	export enum Contrat {
-		ALTERNANCE = 'Contrat d‘alternance',
-	}
+export enum AlternanceSource {
+	MATCHA,
+	FRANCE_TRAVAIL,
+}
+
+export enum AlternanceContrat {
+	ALTERNANCE = 'Contrat d‘alternance',
 }
 
 export interface AlternanceFiltre {
@@ -69,10 +63,10 @@ export interface AlternanceFiltre {
 	longitudeCommune: string
 }
 
-export function isMatcha(source: Alternance.Source): source is Alternance.Source.MATCHA {
-	return source === Alternance.Source.MATCHA;
+export function isMatcha(source: AlternanceSource): source is AlternanceSource.MATCHA {
+	return source === AlternanceSource.MATCHA;
 }
 
-export function isFranceTravail(source: Alternance.Source): source is Alternance.Source.FRANCE_TRAVAIL {
-	return source === Alternance.Source.FRANCE_TRAVAIL;
+export function isFranceTravail(source: AlternanceSource): source is AlternanceSource.FRANCE_TRAVAIL {
+	return source === AlternanceSource.FRANCE_TRAVAIL;
 }

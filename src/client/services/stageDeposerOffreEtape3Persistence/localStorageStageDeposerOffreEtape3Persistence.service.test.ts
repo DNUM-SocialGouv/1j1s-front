@@ -1,4 +1,4 @@
-import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
+import { OffreDeStageDeposeeLocalisation } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import {
 	LocalStorageStageDeposerOffreEtape3PersistenceService,
 } from '~/client/services/stageDeposerOffreEtape3Persistence/localStorageStageDeposerOffreEtape3Persistence.service';
@@ -10,7 +10,7 @@ describe('LocalStorageStageDeposerOffreEtape3PersistenceService', () => {
 			// Given
 			const storage = aStorageService();
 			const service = new LocalStorageStageDeposerOffreEtape3PersistenceService(storage);
-			const informations: OffreDeStageDeposee.Localisation = {
+			const informations: OffreDeStageDeposeeLocalisation = {
 				adresse: 'adresse',
 				codePostal: '75000',
 				departement: 'Paris',

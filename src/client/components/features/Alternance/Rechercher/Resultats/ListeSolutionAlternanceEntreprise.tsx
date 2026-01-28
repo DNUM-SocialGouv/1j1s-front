@@ -6,13 +6,12 @@ import {
 import {
 	ResultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
-import { ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
-import Entreprise = ResultatRechercheAlternance.Entreprise;
+import { ResultatRechercheAlternanceEntreprise } from '~/server/alternances/domain/alternance';
 
 export function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
-	entrepriseList: Array<ResultatRechercheAlternance.Entreprise>
+	entrepriseList: Array<ResultatRechercheAlternanceEntreprise>
 }): React.ReactElement {
-	const getTags = (entreprise: Entreprise) => {
+	const getTags = (entreprise: ResultatRechercheAlternanceEntreprise) => {
 		const tags: Array<string> = [];
 		if (entreprise.nombreSalariés) {
 			if (entreprise.nombreSalariés.min === entreprise.nombreSalariés.max && entreprise.nombreSalariés.max > 0) {

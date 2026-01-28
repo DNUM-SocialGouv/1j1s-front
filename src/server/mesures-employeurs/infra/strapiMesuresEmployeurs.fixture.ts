@@ -1,8 +1,11 @@
 import { aStrapiArticle } from '~/server/articles/infra/strapiArticle.fixture';
 import { aStrapiImage, aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
-import { StrapiMesuresEmployeurs } from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs';
+import {
+	StrapiMesureEmployeurDispositif,
+	StrapiMesuresEmployeurs,
+} from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs';
 
-export function aStrapiMesuresEmployeursList(overrides?: Partial<StrapiMesuresEmployeurs.MesuresEmployeurs>): StrapiMesuresEmployeurs.MesuresEmployeurs {
+export function aStrapiMesuresEmployeursList(overrides?: Partial<StrapiMesuresEmployeurs>): StrapiMesuresEmployeurs {
 	return {
 		dispositifs: [
 			aStrapiMesureEmployeur({
@@ -32,7 +35,7 @@ export function aStrapiMesuresEmployeursList(overrides?: Partial<StrapiMesuresEm
 }
 
 
-export function aStrapiMesureEmployeur(overrides?: Partial<StrapiMesuresEmployeurs.Dispositif>): StrapiMesuresEmployeurs.Dispositif {
+export function aStrapiMesureEmployeur(overrides?: Partial<StrapiMesureEmployeurDispositif>): StrapiMesureEmployeurDispositif {
 	return {
 		article: aStrapiSingleRelation(aStrapiArticle()),
 		banniere: aStrapiSingleRelation(aStrapiImage()),

@@ -6,7 +6,8 @@ import { withValidation } from '~/pages/api/middlewares/validation/validation.mi
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
 import {
-	MissionEngagement,
+	MissionEngagementBenevolatDomaine,
+	MissionEngagementRechercheBenevolat,
 	RésultatsRechercheMission,
 } from '~/server/engagement/domain/engagement';
 import { dependencies } from '~/server/start';
@@ -28,11 +29,11 @@ export async function rechercherMissionHandler(req: NextApiRequest, res: NextApi
 
 export default withMonitoring(withValidation({ query: missionBenevolatQuerySchema }, rechercherMissionHandler));
 
-function missionRequestMapper(request: NextApiRequest): MissionEngagement.Recherche.Benevolat {
+function missionRequestMapper(request: NextApiRequest): MissionEngagementRechercheBenevolat {
 	const { query } = request;
 
-	const missionEngagementFiltre: MissionEngagement.Recherche.Benevolat = {
-		domaine: query.domain ? query.domain as MissionEngagement.Recherche.Benevolat.Domain : undefined,
+	const missionEngagementFiltre: MissionEngagementRechercheBenevolat = {
+		domaine: query.domain ? query.domain as MissionEngagementBenevolatDomaine : undefined,
 		ouvertAuxMineurs: query.ouvertsAuxMineurs ? true : undefined,
 		page: Number(query.page),
 	};

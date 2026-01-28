@@ -1,4 +1,4 @@
-import { Alternance } from '~/server/alternances/domain/alternance';
+import { Alternance, AlternanceSource } from '~/server/alternances/domain/alternance';
 import {
 	aDetailMatchaAlternance,
 	aDetailPEJobAlternance,
@@ -17,7 +17,6 @@ import {
 	mapRechercheAlternanceListe,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
 import { AlternanceStatus } from '~/server/alternances/infra/status';
-import Source = Alternance.Source;
 
 describe('mapRechercheAlternance', () => {
 	process.env = {
@@ -99,7 +98,7 @@ describe('mapRechercheAlternance', () => {
 					id: 'id',
 					localisation: 'Paris',
 					niveauRequis: 'CAP, BEP',
-					source: Source.MATCHA,
+					source: AlternanceSource.MATCHA,
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
 					typeDeContrat: ['CDD', 'CDI'],
 				},
@@ -109,7 +108,7 @@ describe('mapRechercheAlternance', () => {
 					},
 					id: 'id',
 					localisation: 'PARIS 4',
-					source: Source.FRANCE_TRAVAIL,
+					source: AlternanceSource.FRANCE_TRAVAIL,
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
 					typeDeContrat: ['CDD'],
 				}],
@@ -262,7 +261,7 @@ describe('mapRechercheAlternance', () => {
 						id: 'id',
 						localisation: 'PARIS 4',
 						niveauRequis: undefined,
-						source: Source.FRANCE_TRAVAIL,
+						source: AlternanceSource.FRANCE_TRAVAIL,
 						titre: 'Monteur / Monteuse en chauffage (H/F)',
 						typeDeContrat: ['CDD'],
 					}),
@@ -323,7 +322,7 @@ describe('mapRechercheAlternance', () => {
 						id: 'id',
 						localisation: 'PARIS 4',
 						niveauRequis: 'CAP, BEP',
-						source: Source.MATCHA,
+						source: AlternanceSource.MATCHA,
 						titre: 'Monteur / Monteuse en chauffage (H/F)',
 						typeDeContrat: ['CDD'],
 					}),
@@ -408,7 +407,7 @@ describe('mapDetail', () => {
 				natureDuContrat: 'Contrat d‘alternance',
 				niveauRequis: undefined,
 				rythmeAlternance: '6 mois',
-				source: Source.FRANCE_TRAVAIL,
+				source: AlternanceSource.FRANCE_TRAVAIL,
 				titre: 'Monteur / Monteuse en chauffage (H/F)',
 				typeDeContrat: ['CDD'],
 			}));
@@ -500,7 +499,7 @@ describe('mapDetail', () => {
 					localisation: 'PARIS 4',
 					niveauRequis: 'CAP, BEP',
 					rythmeAlternance: 'alternance',
-					source: Source.MATCHA,
+					source: AlternanceSource.MATCHA,
 					status: AlternanceStatus.ACTIVE,
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
 					typeDeContrat: ['CDD'],
@@ -557,7 +556,7 @@ describe('mapDetail', () => {
 					localisation: 'PARIS 4',
 					niveauRequis: 'CAP, BEP',
 					rythmeAlternance: 'alternance',
-					source: Source.MATCHA,
+					source: AlternanceSource.MATCHA,
 					status: AlternanceStatus.ACTIVE,
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
 					typeDeContrat: ['CDD'],

@@ -4,7 +4,7 @@ import React, { FormEvent, useRef } from 'react';
 import {
 	StageDeposerOffreFormulaireLayout,
 } from '~/client/components/features/OffreDeStage/Déposer/FormulaireLayout/StageDeposerOffreFormulaireLayout';
-import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
+import { OffreDeStageDeposeeEntreprise } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
@@ -162,7 +162,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 	);
 };
 
-function parseDonnéesEntreprise(formData: FormData): OffreDeStageDeposee.Entreprise {
+function parseDonnéesEntreprise(formData: FormData): OffreDeStageDeposeeEntreprise {
 	return {
 		descriptionEmployeur: String(formData.get(InputName.DESCRIPTION)),
 		emailEmployeur: String(formData.get(InputName.EMAIL)),

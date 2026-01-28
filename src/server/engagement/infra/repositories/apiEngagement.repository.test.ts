@@ -1,4 +1,4 @@
-import { Mission, MissionEngagement, RésultatsRechercheMission } from '~/server/engagement/domain/engagement';
+import { Mission, MissionEngagementRechercheBenevolat, MissionEngagementRechercheServiceCivique, RésultatsRechercheMission } from '~/server/engagement/domain/engagement';
 import {
 	anAmbassadeurDuDonDeVêtementMission,
 	aRésultatRechercheMission,
@@ -37,7 +37,7 @@ describe('ApiEngagementRepository', () => {
 		describe('quand l’api engagement répond avec une 200', () => {
 			it('recherche les missions de service civique', async () => {
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aSearchMissionEngagementResponse()));
-				const rechercheServiceCivique: MissionEngagement.Recherche.ServiceCivique = {
+				const rechercheServiceCivique: MissionEngagementRechercheServiceCivique = {
 					domaine: 'sante',
 					localisation: {
 						distance: 10,
@@ -68,7 +68,7 @@ describe('ApiEngagementRepository', () => {
 				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
-				const rechercheServiceCivique: MissionEngagement.Recherche.ServiceCivique = {
+				const rechercheServiceCivique: MissionEngagementRechercheServiceCivique = {
 					domaine: 'sante',
 					localisation: {
 						distance: 10,
@@ -96,7 +96,7 @@ describe('ApiEngagementRepository', () => {
 		describe('quand l’api engagement répond avec une 200', () => {
 			it('recherche les missions', async () => {
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aSearchMissionEngagementResponse()));
-				const rechercheBénévolat: MissionEngagement.Recherche.Benevolat = {
+				const rechercheBénévolat: MissionEngagementRechercheBenevolat = {
 					domaine: 'sante',
 					localisation: {
 						distance: 10,
@@ -127,7 +127,7 @@ describe('ApiEngagementRepository', () => {
 				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
-				const rechercheBénévolat: MissionEngagement.Recherche.Benevolat = {
+				const rechercheBénévolat: MissionEngagementRechercheBenevolat = {
 					domaine: 'sante',
 					localisation: {
 						distance: 10,

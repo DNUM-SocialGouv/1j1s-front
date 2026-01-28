@@ -1,4 +1,4 @@
-import { Mail } from '~/server/mail/domain/mail';
+import { Mail, MailContact } from '~/server/mail/domain/mail';
 import { TipimailRequest } from '~/server/mail/infra/repositories/tipimail';
 
 export function mapTipimailRequest(mail: Mail, context: string[], redirectTo?: string): TipimailRequest {
@@ -8,7 +8,7 @@ export function mapTipimailRequest(mail: Mail, context: string[], redirectTo?: s
 			'X-TM-TAGS': context,
 		},
 		...mail,
-		to: mail.to.map((to: Mail.Contact) => ({
+		to: mail.to.map((to: MailContact) => ({
 			...to,
 			address: redirectTo || to.address,
 		})),

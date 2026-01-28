@@ -1,12 +1,16 @@
 import { anImage } from '~/server/cms/domain/image.fixture';
-import { mapCodeCategorieServiceJeuneToLibelle, ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
+import {
+	mapCodeCategorieServiceJeuneToLibelle,
+	ServiceJeune,
+	ServiceJeuneCodeCategorie,
+} from '~/server/services-jeunes/domain/servicesJeunes';
 
 export function aServiceJeune(override?: Partial<ServiceJeune>): ServiceJeune {
 	return {
 		banniere: anImage(),
 		categorie: {
-			code: ServiceJeune.CodeCategorie.ACCOMPAGNEMENT,
-			libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ACCOMPAGNEMENT),
+			code: ServiceJeuneCodeCategorie.ACCOMPAGNEMENT,
+			libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ACCOMPAGNEMENT),
 		},
 		concerne: 'pour les 12 à 18mois',
 		link: '/articles/aide-a-l-embauche-d-un-jeune-en-parcours-emploi-competences-pec-jeunes-dans-le-secteur-non-marchand',
@@ -19,23 +23,24 @@ export function aServiceJeuneList(): Array<ServiceJeune> {
 	return [
 		aServiceJeune({
 			categorie: {
-				code: ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE,
-				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE),
+				code: ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE),
 			},
 			titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
 		}),
 		aServiceJeune({
 			categorie: {
-				code: ServiceJeune.CodeCategorie.ORIENTATION_FORMATION,
-				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ORIENTATION_FORMATION),
+				code: ServiceJeuneCodeCategorie.ORIENTATION_FORMATION,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ORIENTATION_FORMATION),
 			},
 			titre: 'Les Junior Entreprises',
 		}),
 		aServiceJeune({
 			categorie: {
-				code: ServiceJeune.CodeCategorie.ACCOMPAGNEMENT,
-				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ACCOMPAGNEMENT),
-			},			titre: 'Une formation en centre EPIDE',
+				code: ServiceJeuneCodeCategorie.ACCOMPAGNEMENT,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ACCOMPAGNEMENT),
+			},
+			titre: 'Une formation en centre EPIDE',
 		}),
 	];
 }
@@ -44,43 +49,44 @@ export function anUnorderedAndNotFilterServiceJeuneList(): Array<ServiceJeune> {
 	return [
 		aServiceJeune({
 			categorie: {
-				code: ServiceJeune.CodeCategorie.ACCOMPAGNEMENT,
-				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ACCOMPAGNEMENT),
-			},			concerne: 'pour les 12 à 18mois',
+				code: ServiceJeuneCodeCategorie.ACCOMPAGNEMENT,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ACCOMPAGNEMENT),
+			},
+			concerne: 'pour les 12 à 18mois',
 			titre: 'Une formation en centre EPIDE',
 		}),
 		aServiceJeune({
 			categorie: {
-				code: ServiceJeune.CodeCategorie.AIDES_FINANCIERES,
-				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.AIDES_FINANCIERES),
+				code: ServiceJeuneCodeCategorie.AIDES_FINANCIERES,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.AIDES_FINANCIERES),
 			},
 			titre: 'Des aides pour financer son permis de conduire',
 		}),
 		aServiceJeune({
 			categorie: {
-				code: ServiceJeune.CodeCategorie.ENGAGEMENT,
-				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENGAGEMENT),
+				code: ServiceJeuneCodeCategorie.ENGAGEMENT,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ENGAGEMENT),
 			},
 			titre: 'Le Service Militaire Volontaire',
 		}),
 		aServiceJeune({
 			categorie: {
-				code: ServiceJeune.CodeCategorie.LOGEMENT,
-				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.LOGEMENT),
+				code: ServiceJeuneCodeCategorie.LOGEMENT,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.LOGEMENT),
 			},
 			titre: 'Un Logement',
 		}),
 		aServiceJeune({
 			categorie: {
-				code: ServiceJeune.CodeCategorie.ORIENTATION_FORMATION,
-				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ORIENTATION_FORMATION),
+				code: ServiceJeuneCodeCategorie.ORIENTATION_FORMATION,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ORIENTATION_FORMATION),
 			},
 			titre: 'Les Junior Entreprises',
 		}),
 		aServiceJeune({
 			categorie: {
-				code: ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE,
-				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE),
+				code: ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE),
 			},
 			titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
 		}),

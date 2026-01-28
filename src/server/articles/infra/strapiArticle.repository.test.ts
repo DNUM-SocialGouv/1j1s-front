@@ -94,7 +94,7 @@ describe('strapiArticles', () => {
 
 			it('lorsque le mapping est en échec, appelle le service de gestion d’erreur avec l’erreur et le contexte', async () => {
 				const strapiService = aStrapiService();
-				// @ts-expect-error
+				// @ts-expect-error TS2345
 				jest.spyOn(strapiService, 'getCollectionType').mockResolvedValue(createSuccess({}));
 
 				const errorManagementService = anErrorManagementService();

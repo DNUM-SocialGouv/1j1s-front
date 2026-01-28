@@ -1,32 +1,29 @@
 export interface EtablissementAccompagnement {
 	nom: string
-	adresse?: EtablissementAccompagnement.Adresse
+	adresse?: EtablissementAccompagnementAdresse
 	id: string
 	telephone?: string
 	email?: string
-	horaires?: Array<EtablissementAccompagnement.Horaire>
+	horaires?: Array<EtablissementAccompagnementHoraire>
 	type: TypeÉtablissement
 }
 
 export type ContactEtablissementAccompagnement = Required<Pick<EtablissementAccompagnement, 'nom' | 'email' | 'type'>>
 
-export namespace EtablissementAccompagnement {
-	export interface Adresse {
-		codePostal: string
-		numeroVoie: string
-		nomCommune: string
-	}
-	export interface Horaire {
-		jour: JourSemaine
-		heures: Array<Horaire.Heure>
-	}
+export interface EtablissementAccompagnementAdresse {
+    codePostal: string
+    numeroVoie: string
+    nomCommune: string
+}
 
-	export namespace Horaire {
-		export interface Heure {
-			début: string
-			fin: string
-		}
-	}
+export interface EtablissementAccompagnementHoraire {
+    jour: JourSemaine
+    heures: Array<EtablissementAccompagnementHoraireHeure>
+}
+
+export interface EtablissementAccompagnementHoraireHeure {
+    début: string
+    fin: string
 }
 
 export interface ParametresRechercheEtablissementAccompagnement {

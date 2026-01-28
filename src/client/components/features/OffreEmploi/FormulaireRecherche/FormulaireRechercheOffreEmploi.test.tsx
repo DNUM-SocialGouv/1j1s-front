@@ -17,7 +17,7 @@ import { référentielDomaineList } from '~/client/domain/référentielDomaineLi
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createSuccess } from '~/server/errors/either';
 import { aLocalisationListWithCommuneAndDépartement } from '~/server/localisations/domain/localisation.fixture';
-import { Offre } from '~/server/offres/domain/offre';
+import { CONTRAT_CDD, EXPÉRIENCE_DEBUTANT, TEMPS_PLEIN } from '~/server/offres/domain/offre';
 
 describe('FormulaireRechercheOffreEmploi', () => {
 	beforeEach(() => {
@@ -322,7 +322,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const selectTypeContrat = screen.getByRole('combobox', { name: 'Types de contrats Exemple : CDI, CDD…' });
 				await user.click(selectTypeContrat);
 
-				const inputTypeDeContrat = screen.getByRole('option', { name: Offre.CONTRAT_CDD.libelléCourt });
+				const inputTypeDeContrat = screen.getByRole('option', { name: CONTRAT_CDD.libelléCourt });
 				await user.click(inputTypeDeContrat);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
@@ -374,13 +374,13 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const button = screen.getByRole('combobox', { name: 'Niveau demandé Exemple : De 1 à 3 ans' });
 				await user.click(button);
 
-				const optionNiveauDemandé = screen.getByRole('option', { name: Offre.EXPÉRIENCE_DEBUTANT.libellé });
+				const optionNiveauDemandé = screen.getByRole('option', { name: EXPÉRIENCE_DEBUTANT.libellé });
 				await user.click(optionNiveauDemandé);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
 
-				expect(routerPush).toHaveBeenCalledWith({ query: `experienceExigence=${Offre.EXPÉRIENCE_DEBUTANT.valeur}&page=1` }, undefined, { scroll: false });
+				expect(routerPush).toHaveBeenCalledWith({ query: `experienceExigence=${EXPÉRIENCE_DEBUTANT.valeur}&page=1` }, undefined, { scroll: false });
 			});
 		});
 
@@ -400,13 +400,13 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const button = screen.getByRole('combobox', { name: 'Temps de travail Exemple : temps plein, temps partiel…' });
 				await user.click(button);
 
-				const optionTempsTravail = screen.getByRole('option', { name: Offre.TEMPS_PLEIN.libellé });
+				const optionTempsTravail = screen.getByRole('option', { name: TEMPS_PLEIN.libellé });
 				await user.click(optionTempsTravail);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
 
-				expect(routerPush).toHaveBeenCalledWith({ query: `tempsDeTravail=${Offre.TEMPS_PLEIN.valeur}&page=1` }, undefined, { scroll: false });
+				expect(routerPush).toHaveBeenCalledWith({ query: `tempsDeTravail=${TEMPS_PLEIN.valeur}&page=1` }, undefined, { scroll: false });
 			});
 		});
 	});
@@ -418,7 +418,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 					query: {
 						codeLocalisation: '75110',
 						codePostalLocalisation: '75010',
-						experienceExigence: Offre.EXPÉRIENCE_DEBUTANT.valeur,
+						experienceExigence: EXPÉRIENCE_DEBUTANT.valeur,
 						grandDomaine: référentielDomaineList[0].code,
 						motCle: 'Boulanger',
 						nomLocalisation: 'Paris',
@@ -439,9 +439,9 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const localisation = screen.getByRole('combobox', { name: /Localisation/i });
 				expect(localisation).toHaveValue('Paris (75010)');
 
-				expect(screen.getByRole('option', { hidden: true, name: Offre.CONTRAT_CDD.libelléCourt })).toHaveAttribute('aria-selected', 'true');
-				expect(screen.getByRole('option', { hidden: true, name: Offre.TEMPS_PLEIN.libellé })).toHaveAttribute('aria-selected', 'true');
-				expect(screen.getByRole('option', { hidden: true, name: Offre.EXPÉRIENCE_DEBUTANT.libellé })).toHaveAttribute('aria-selected', 'true');
+				expect(screen.getByRole('option', { hidden: true, name: CONTRAT_CDD.libelléCourt })).toHaveAttribute('aria-selected', 'true');
+				expect(screen.getByRole('option', { hidden: true, name: TEMPS_PLEIN.libellé })).toHaveAttribute('aria-selected', 'true');
+				expect(screen.getByRole('option', { hidden: true, name: EXPÉRIENCE_DEBUTANT.libellé })).toHaveAttribute('aria-selected', 'true');
 				expect(screen.getByRole('option', { hidden: true, name: référentielDomaineList[0].libelle })).toHaveAttribute('aria-selected', 'true');
 			});
 		});
@@ -450,11 +450,11 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				mockUseRouter({
 					query: {
 						codeLocalisation: '75',
-						experienceExigence: Offre.EXPÉRIENCE_DEBUTANT.valeur,
+						experienceExigence: EXPÉRIENCE_DEBUTANT.valeur,
 						grandDomaine: référentielDomaineList[0].code,
 						motCle: 'Boulanger',
 						nomLocalisation: 'Paris',
-						tempsDeTravail: Offre.TEMPS_PLEIN.valeur,
+						tempsDeTravail: TEMPS_PLEIN.valeur,
 						typeDeContrats: 'CDD',
 						typeLocalisation: 'DEPARTEMENT',
 					},
@@ -471,9 +471,9 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const localisation = screen.getByRole('combobox', { name: /Localisation/i });
 				expect(localisation).toHaveValue('Paris (75)');
 
-				expect(screen.getByRole('option', { hidden: true, name: Offre.CONTRAT_CDD.libelléCourt })).toHaveAttribute('aria-selected', 'true');
-				expect(screen.getByRole('option', { hidden: true, name: Offre.TEMPS_PLEIN.libellé })).toHaveAttribute('aria-selected', 'true');
-				expect(screen.getByRole('option', { hidden: true, name: Offre.EXPÉRIENCE_DEBUTANT.libellé })).toHaveAttribute('aria-selected', 'true');
+				expect(screen.getByRole('option', { hidden: true, name: CONTRAT_CDD.libelléCourt })).toHaveAttribute('aria-selected', 'true');
+				expect(screen.getByRole('option', { hidden: true, name: TEMPS_PLEIN.libellé })).toHaveAttribute('aria-selected', 'true');
+				expect(screen.getByRole('option', { hidden: true, name: EXPÉRIENCE_DEBUTANT.libellé })).toHaveAttribute('aria-selected', 'true');
 				expect(screen.getByRole('option', { hidden: true, name: référentielDomaineList[0].libelle })).toHaveAttribute('aria-selected', 'true');
 			});
 		});

@@ -1,7 +1,7 @@
-import { FAQ } from '~/server/faq/domain/FAQ';
-import { FAQResponseStrapi } from '~/server/faq/infra/strapiFAQ';
+import { FAQQuestion, FAQQuestionEtReponse } from '~/server/faq/domain/FAQ';
+import { FAQResponseStrapiQuestion, FAQResponseStrapiQuestionEtReponse } from '~/server/faq/infra/strapiFAQ';
 
-export const mapQuestionReponse = (faq: FAQResponseStrapi.QuestionEtReponse): FAQ.QuestionEtReponse => {
+export const mapQuestionReponse = (faq: FAQResponseStrapiQuestionEtReponse): FAQQuestionEtReponse => {
 	return {
 		contenu: faq.contenu,
 		problématique: faq.problematique,
@@ -9,7 +9,7 @@ export const mapQuestionReponse = (faq: FAQResponseStrapi.QuestionEtReponse): FA
 	};
 };
 
-export const mapQuestion = (faq: FAQResponseStrapi.Question): FAQ.Question => {
+export const mapQuestion = (faq: FAQResponseStrapiQuestion): FAQQuestion => {
 	return {
 		problématique: faq.problematique,
 		slug: faq.slug,

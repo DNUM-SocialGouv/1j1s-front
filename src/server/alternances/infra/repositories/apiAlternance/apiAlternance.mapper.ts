@@ -1,7 +1,16 @@
-import { Alternance, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
+import {
+	Alternance,
+	AlternanceSource,
+	ResultatRechercheAlternanceEntreprise,
+	ResultatRechercheAlternanceOffre,
+} from '~/server/alternances/domain/alternance';
 import { AlternanceStatus } from '~/server/alternances/infra/status';
 
-import { AlternanceApiJobsResponse } from './apiAlternance';
+import {
+	AlternanceApiJobsResponse,
+	AlternanceApiJobsResponseJob,
+	AlternanceApiJobsResponseRecruiter,
+} from './apiAlternance';
 
 function parseWorkplaceSize(size: string | null): {min: number, max: number} | null {
 	const [match, min, hasMax, max] = size?.match(/(\d+)\s*(-\s*(\d+))?/) ?? [];
@@ -18,7 +27,7 @@ function parseWorkplaceSize(size: string | null): {min: number, max: number} | n
 	return result;
 }
 
-function mapRecruiterResult(recruiter: AlternanceApiJobsResponse.Recruiter): ResultatRechercheAlternance.Entreprise | null {
+function mapRecruiterResult(recruiter: AlternanceApiJobsResponseRecruiter): ResultatRechercheAlternanceEntreprise | null {
 	const size = parseWorkplaceSize(recruiter.workplace.size);
 	if (!recruiter.workplace.name) {
 		return null;
@@ -33,13 +42,13 @@ function mapRecruiterResult(recruiter: AlternanceApiJobsResponse.Recruiter): Res
 	};
 }
 
-function mapSource(source: string): Alternance.Source {
+function mapSource(source: string): AlternanceSource {
 	return source === 'France Travail'
-		? Alternance.Source.FRANCE_TRAVAIL
-		: Alternance.Source.MATCHA;
+		? AlternanceSource.FRANCE_TRAVAIL
+		: AlternanceSource.MATCHA;
 }
 
-function mapJobResult(job: AlternanceApiJobsResponse.Job): ResultatRechercheAlternance.Offre | null {
+function mapJobResult(job: AlternanceApiJobsResponseJob): ResultatRechercheAlternanceOffre | null {
 	const source = mapSource(job.identifier.partner_label);
 	if (!job.identifier.id) { return null; }
 
@@ -65,7 +74,7 @@ export function mapRechercheAlternanceListe(response: AlternanceApiJobsResponse)
 	};
 };
 
-export function mapDetailAlternance(response: AlternanceApiJobsResponse.Job): Alternance {
+export function mapDetailAlternance(response: AlternanceApiJobsResponseJob): Alternance {
 	return {
 		compétences: response.offer.desired_skills,
 		dateDébut: response.contract.start ? new Date(response.contract.start) : null,
@@ -82,7 +91,7 @@ export function mapDetailAlternance(response: AlternanceApiJobsResponse.Job): Al
 		localisation: response.workplace.location.address,
 		niveauRequis: response.offer.target_diploma?.label,
 		rythmeAlternance: null,
-		source: Alternance.Source.MATCHA,
+		source: AlternanceSource.MATCHA,
 		status: response.offer.status === 'Active' ? AlternanceStatus.ACTIVE : AlternanceStatus.CANCELED,
 		titre: response.offer.title,
 		typeDeContrat: response.contract.type,

@@ -5,7 +5,7 @@ import React, {
 
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useFormationQuery } from '~/client/hooks/useFormationQuery';
-import { Formation } from '~/server/formations/domain/formation';
+import { FORMATION_NIVEAU_ETUDES } from '~/server/formations/domain/formation';
 
 export const EtiquettesFiltreFormationAlternance = () => {
 	const [filtres, setFiltres] = useState<string[]>([]);
@@ -17,7 +17,7 @@ export const EtiquettesFiltreFormationAlternance = () => {
 			filtreList.push(`${formationQuery.ville} (${formationQuery.codePostal})`);
 		}
 		if (formationQuery.niveauEtudes) {
-			const niveauEtudes = Formation.NIVEAU_ETUDES.find((niveau) => niveau.valeur !== 'indifférent' && niveau.valeur === formationQuery.niveauEtudes);
+			const niveauEtudes = FORMATION_NIVEAU_ETUDES.find((niveau) => niveau.valeur !== 'indifférent' && niveau.valeur === formationQuery.niveauEtudes);
 			if (niveauEtudes) filtreList.push(niveauEtudes.libellé);
 		}
 		setFiltres(filtreList);

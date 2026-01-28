@@ -6,7 +6,7 @@ import { RadioIsDatePrecise } from '~/client/components/features/OffreDeStage/D�
 import {
 	StageDeposerOffreFormulaireLayout,
 } from '~/client/components/features/OffreDeStage/Déposer/FormulaireLayout/StageDeposerOffreFormulaireLayout';
-import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
+import { OffreDeStageDeposeeStage } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { domaineStage } from '~/client/components/features/OffreDeStage/Déposer/StageDomaines';
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
@@ -67,7 +67,7 @@ const dureeStageList = [
 	{ libellé: '6 mois', valeur: (6 * DUREE_MOIS_EN_JOUR).toString() },
 ];
 
-function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stage | null }) {
+function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposeeStage | null }) {
 	const [displayDateDeDebutPrecise, setDisplayDateDeDebutPrecise] = useState<boolean>(props.informationsStage?.isDateDeDebutPrecise ? props.informationsStage.isDateDeDebutPrecise === IsDateDeDebutPrecise.OUI : true);
 
 	return (
@@ -145,7 +145,7 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 	);
 }
 
-function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposee.Stage | null }) {
+function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposeeStage | null }) {
 	return (
 		<>
 			<Champ>
@@ -251,7 +251,7 @@ function isDateDeDebutPrecise(formData: FormData): boolean {
 	return formData.get(StageEnum.IS_DATE_DE_DEBUT_PRECISE) === IsDateDeDebutPrecise.OUI;
 }
 
-function parseDonneesOffreDeStage(formData: FormData): OffreDeStageDeposee.Stage {
+function parseDonneesOffreDeStage(formData: FormData): OffreDeStageDeposeeStage {
 	return {
 		dateDeDebutMax: !isDateDeDebutPrecise(formData) ? String(formData.get(StageEnum.DATE_DE_DEBUT_MAX)) : String(formData.get(StageEnum.DATE_DE_DEBUT_MIN)),
 		dateDeDebutMin: String(formData.get(StageEnum.DATE_DE_DEBUT_MIN)),

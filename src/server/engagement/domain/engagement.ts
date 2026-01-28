@@ -1,35 +1,27 @@
 export type MissionId = string;
 
-export namespace MissionEngagement {
-	export namespace Recherche {
-		export interface ServiceCivique {
-			domaine?: ServiceCivique.Domain
-			ouvertAuxMineurs?: boolean
-			localisation?: Localisation
-			page: number
-		}
+export interface MissionEngagementRechercheServiceCivique {
+	domaine?: MissionEngagementServiceCiviqueDomaine
+	ouvertAuxMineurs?: boolean
+	localisation?: MissionEngagementRechercheLocalisation
+	page: number
+}
 
-		export namespace ServiceCivique {
-			export type Domain = 'culture-loisirs' | 'education' | 'environnement' | 'humanitaire' | 'sante' | 'solidarite-insertion' | 'sport' | 'vivre-ensemble' | 'autre'
-		}
+export type MissionEngagementServiceCiviqueDomaine = 'culture-loisirs' | 'education' | 'environnement' | 'humanitaire' | 'sante' | 'solidarite-insertion' | 'sport' | 'vivre-ensemble' | 'autre'
 
-		export interface Benevolat {
-			domaine?: Benevolat.Domain
-			ouvertAuxMineurs?: boolean
-			localisation?: Localisation
-			page: number
-		}
+export interface MissionEngagementRechercheBenevolat {
+	domaine?: MissionEngagementBenevolatDomaine
+	ouvertAuxMineurs?: boolean
+	localisation?: MissionEngagementRechercheLocalisation
+	page: number
+}
 
-		export namespace Benevolat {
-			export type Domain = 'culture-loisirs' | 'education' | 'environnement' | 'mémoire et citoyenneté' | 'prevention-protection' | 'sante' | 'solidarite-insertion' | 'sport' | 'vivre-ensemble' | 'autre'
-		}
+export type MissionEngagementBenevolatDomaine = 'culture-loisirs' | 'education' | 'environnement' | 'mémoire et citoyenneté' | 'prevention-protection' | 'sante' | 'solidarite-insertion' | 'sport' | 'vivre-ensemble' | 'autre'
 
-		export interface Localisation {
-			distance: number
-			latitude: number
-			longitude: number
-		}
-	}
+export interface MissionEngagementRechercheLocalisation {
+	distance: number
+	latitude: number
+	longitude: number
 }
 
 export interface Mission {
@@ -53,14 +45,12 @@ export interface RésultatsRechercheMission {
   résultats: Mission[]
 }
 
-export namespace MissionEngagement {
-  export interface Domaine {
-    libellé: string
-    valeur: string
-  }
+export interface MissionEngagementDomaine {
+	libellé: string
+	valeur: string
 }
 
-export const bénévolatDomaineList: MissionEngagement.Domaine[] = [
+export const bénévolatDomaineList: MissionEngagementDomaine[] = [
 	{
 		libellé: 'Culture et loisirs',
 		valeur: 'culture-loisirs',

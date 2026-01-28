@@ -1,22 +1,21 @@
 import { CookiesService } from '../cookies.service';
 import FailedToAllowServiceError from '../FailedToAllowService.error';
 
-export namespace TarteAuCitron {
-  export type ServiceConfig<T> = Record<string, T>;
-  export type InitConfig = Record<string, unknown>;
-  export type User = unknown;
-  export type ServiceName = string;
-}
+export type TarteAuCitronServiceConfig<T> = Record<string, T>;
+export type TarteAuCitronInitConfig = Record<string, unknown>;
+export type TarteAuCitronUser = unknown;
+export type TarteAuCitronServiceName = string;
+
 export type TarteAuCitron = {
-  user: Record<string, TarteAuCitron.User>,
-  services: Record<TarteAuCitron.ServiceName, TarteAuCitron.ServiceConfig<unknown>>,
-  init: (config: TarteAuCitron.InitConfig) => void,
-  job?: TarteAuCitron.ServiceName[],
+  user: Record<string, TarteAuCitronUser>,
+  services: Record<TarteAuCitronServiceName, TarteAuCitronServiceConfig<unknown>>,
+  init: (config: TarteAuCitronInitConfig) => void,
+  job?: TarteAuCitronServiceName[],
   userInterface: {
     respond: (bouton: HTMLButtonElement, value: boolean) => void,
     openPanel: () => void,
   }
-	state: Record<TarteAuCitron.ServiceName, boolean>,
+	state: Record<TarteAuCitronServiceName, boolean>,
 	triggerJobsAfterAjaxCall: () => void,
 }
 
@@ -57,22 +56,22 @@ export class TarteAuCitronCookiesService implements CookiesService {
 		this.tarteaucitron.job = this.tarteaucitron.job || [];
 	}
 
-	addService(nom: string, config?: TarteAuCitron.ServiceConfig<unknown>): void {
+	addService(nom: string, config?: TarteAuCitronServiceConfig<unknown>): void {
 		if (config != undefined) {
 			this.tarteaucitron.services[nom] = config;
 		}
 		this.tarteaucitron.job?.push(nom);
 	}
 
-	addUser(userName: string, value: TarteAuCitron.User): void {
+	addUser(userName: string, value: TarteAuCitronUser): void {
 		this.tarteaucitron.user[userName] = value;
 	}
 
-	isServiceAllowed(serviceName: TarteAuCitron.ServiceName): boolean {
+	isServiceAllowed(serviceName: TarteAuCitronServiceName): boolean {
 		return Boolean(this.tarteaucitron.state[serviceName]);
 	}
 
-	allowService(nom: TarteAuCitron.ServiceName): void {
+	allowService(nom: TarteAuCitronServiceName): void {
 		const allowButton = document.getElementById(`${nom}Allowed`);
 
 		if (!allowButton || !(allowButton instanceof HTMLButtonElement)) {

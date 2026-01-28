@@ -1,6 +1,10 @@
 import {
 	OffreResponse,
+	OffreResponseCompétence,
+	OffreResponseFormation,
+	OffreResponseQualitéeProfessionnelle,
 	RésultatsRechercheOffreResponse,
+	RésultatsRechercheOffreResponseFiltresPossibles,
 } from '~/server/offres/infra/repositories/france-travail/franceTravailOffre.response';
 
 export function aRésultatsRechercheOffreEmploiApiResponse() {
@@ -85,7 +89,7 @@ function aValetOffreEmploiResponse(): OffreResponse {
 	};
 }
 
-function aFiltresPossiblesResponse(): RésultatsRechercheOffreResponse.FiltresPossibles[] {
+function aFiltresPossiblesResponse(): RésultatsRechercheOffreResponseFiltresPossibles[] {
 	return [
 		{
 			agregation: [
@@ -124,28 +128,28 @@ function aFiltresPossiblesResponse(): RésultatsRechercheOffreResponse.FiltresPo
 	];
 }
 
-export function anOffreEmploiResponseCompétenceList(): OffreResponse.Compétence[] {
+export function anOffreEmploiResponseCompétenceList(): OffreResponseCompétence[] {
 	return [
 		anOffreEmploiResponseCompétence(),
 		anOffreEmploiResponseCompétence({ libelle: 'Déterminer les besoins thérapeutiques' }),
 	];
 }
 
-export function anOffreEmploiResponseCompétenceListAvecCompétenceNonDéfinie(): OffreResponse.Compétence[] {
+export function anOffreEmploiResponseCompétenceListAvecCompétenceNonDéfinie(): OffreResponseCompétence[] {
 	return [
 		anOffreEmploiResponseCompétence(),
 		anOffreEmploiResponseCompétence({ libelle: undefined }),
 	];
 }
 
-function anOffreEmploiResponseCompétence(override?: Partial<OffreResponse.Compétence>): OffreResponse.Compétence {
+function anOffreEmploiResponseCompétence(override?: Partial<OffreResponseCompétence>): OffreResponseCompétence {
 	return {
 		libelle: 'Réaliser la prescription médicale',
 		...override,
 	};
 }
 
-export function anOffreEmploiResponseFormationList(): OffreResponse.Formation[] {
+export function anOffreEmploiResponseFormationList(): OffreResponseFormation[] {
 	return [
 		anOffreEmploiResponseFormation(),
 		anOffreEmploiResponseFormation({
@@ -155,14 +159,14 @@ export function anOffreEmploiResponseFormationList(): OffreResponse.Formation[] 
 	];
 }
 
-export function anOffreEmploiResponseFormationListAvecFormationNonDéfinie(): OffreResponse.Formation[] {
+export function anOffreEmploiResponseFormationListAvecFormationNonDéfinie(): OffreResponseFormation[] {
 	return [
 		anOffreEmploiResponseFormation(),
 		anOffreEmploiResponseFormation({ commentaire: undefined, niveauLibelle: undefined }),
 	];
 }
 
-function anOffreEmploiResponseFormation(override?: Partial<OffreResponse.Formation>): OffreResponse.Formation {
+function anOffreEmploiResponseFormation(override?: Partial<OffreResponseFormation>): OffreResponseFormation {
 	return {
 		commentaire: 'DE docteur en médecine',
 		niveauLibelle: 'Bac+5 et plus ou équivalents',
@@ -170,21 +174,21 @@ function anOffreEmploiResponseFormation(override?: Partial<OffreResponse.Formati
 	};
 }
 
-export function anOffreEmploiResponseQualitéProfessionnelleList(): OffreResponse.QualitéeProfessionnelle[] {
+export function anOffreEmploiResponseQualitéProfessionnelleList(): OffreResponseQualitéeProfessionnelle[] {
 	return [
 		anOffreEmploiResponseQualitéProfessionnelle(),
 		anOffreEmploiResponseQualitéProfessionnelle({ libelle: 'Capacité de décision' }),
 	];
 }
 
-export function anOffreEmploiResponseQualitéProfessionnelleListAvecQualitéNonDéfinie(): OffreResponse.QualitéeProfessionnelle[] {
+export function anOffreEmploiResponseQualitéProfessionnelleListAvecQualitéNonDéfinie(): OffreResponseQualitéeProfessionnelle[] {
 	return [
 		anOffreEmploiResponseQualitéProfessionnelle(),
 		anOffreEmploiResponseQualitéProfessionnelle({ libelle: undefined }),
 	];
 }
 
-function anOffreEmploiResponseQualitéProfessionnelle(override?: Partial<OffreResponse.QualitéeProfessionnelle>): OffreResponse.QualitéeProfessionnelle {
+function anOffreEmploiResponseQualitéProfessionnelle(override?: Partial<OffreResponseQualitéeProfessionnelle>): OffreResponseQualitéeProfessionnelle {
 	return {
 		libelle: 'Capacité d‘adaptation',
 		...override,

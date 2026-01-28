@@ -8,14 +8,14 @@ import {
 	HorairesResultatRechercherAccompagnement,
 } from '~/client/components/features/Accompagnement/Rechercher/Résultat/Horaires/HorairesResultatRechercherAccompagnement';
 import {
-	EtablissementAccompagnement,
+	EtablissementAccompagnementHoraire,
 	JourSemaine,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 describe('HorairesResultatRechercherAccompagnement', () => {
 	describe('quand heures est undefined ou un tableau vide', () => {
 		it('affiche "Fermé"', () => {
-			const horaire: EtablissementAccompagnement.Horaire = {
+			const horaire: EtablissementAccompagnementHoraire = {
 				heures: [],
 				jour: JourSemaine.LUNDI,
 			};
@@ -34,7 +34,7 @@ describe('HorairesResultatRechercherAccompagnement', () => {
 
 	describe('quand heures contient qu‘une seule plage horaire', () => {
 		it('affiche la plage d‘ouverture', () => {
-			const horaire: EtablissementAccompagnement.Horaire = {
+			const horaire: EtablissementAccompagnementHoraire = {
 				heures: [
 					{
 						début: '14:00:00',
@@ -58,7 +58,7 @@ describe('HorairesResultatRechercherAccompagnement', () => {
 
 	describe('quand heures contient plusieurs plages horaires', () => {
 		it('affiche les différentes plages d‘ouverture', () => {
-			const horaire: EtablissementAccompagnement.Horaire = {
+			const horaire: EtablissementAccompagnementHoraire = {
 				heures: [
 					{
 						début: '10:30:00',

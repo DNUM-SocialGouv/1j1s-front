@@ -1,4 +1,4 @@
-import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
+import { OffreDeStageDeposeeStage } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { StorageService } from '~/client/services/storage/storage.service';
 
 import { StageDeposerOffreEtape2PersistenceService } from './stageDeposerOffreEtape2Persistence.service';
@@ -7,11 +7,11 @@ export class SessionStorageStageDeposerOffreEtape2PersistenceService implements 
 	private static STORAGE_KEY = 'formulaireEtape2';
 	constructor(private storage: StorageService) {}
 
-	getInformationsEtape2(): OffreDeStageDeposee.Stage | null {
+	getInformationsEtape2(): OffreDeStageDeposeeStage | null {
 		return this.storage.get(SessionStorageStageDeposerOffreEtape2PersistenceService.STORAGE_KEY);
 	}
 
-	setInformationsEtape2(informations: OffreDeStageDeposee.Stage): void {
+	setInformationsEtape2(informations: OffreDeStageDeposeeStage): void {
 		this.storage.set(SessionStorageStageDeposerOffreEtape2PersistenceService.STORAGE_KEY, informations);
 	}
 

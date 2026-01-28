@@ -122,7 +122,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				const searchResponse = aResultatRechercheEtablissementPublicListResponse({
-					// @ts-expect-error
+					// @ts-expect-error TS2322
 					id: 0,
 				});
 				const errorManagementServiceSearch = anErrorManagementService();

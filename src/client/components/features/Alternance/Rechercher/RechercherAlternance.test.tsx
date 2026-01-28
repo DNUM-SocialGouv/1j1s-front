@@ -13,7 +13,7 @@ import { LocalisationService } from '~/client/services/localisation/localisation
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { MetierService } from '~/client/services/metiers/metier.service';
-import { Alternance } from '~/server/alternances/domain/alternance';
+import { Alternance, AlternanceSource } from '~/server/alternances/domain/alternance';
 import {
 	aRechercheAlternance,
 	aRechercheEntrepriseAlternance,
@@ -99,13 +99,13 @@ describe('RechercherAlternance', () => {
 			aRechercheMatchaAlternance({
 				entreprise: { nom: 'MONSIEUR MICHEL' },
 				id: 'an-id-matchas',
-				source: Alternance.Source.MATCHA,
+				source: AlternanceSource.MATCHA,
 				titre: 'Ouvrier boulanger / Ouvrière boulangère',
 			}),
 			aRecherchePEJobAlternance({
 				entreprise: { nom: 'une entreprise' },
 				id: 'an-id-pe',
-				source: Alternance.Source.FRANCE_TRAVAIL,
+				source: AlternanceSource.FRANCE_TRAVAIL,
 				titre: 'un titre',
 			}),
 		];

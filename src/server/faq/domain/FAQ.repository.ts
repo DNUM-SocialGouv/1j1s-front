@@ -1,9 +1,9 @@
 import { Either } from '~/server/errors/either';
 
-import { FAQ } from './FAQ';
+import { FAQQuestion, FAQQuestionEtReponse, FAQSlug } from './FAQ';
 
 export interface FAQRepository {
-	getFAQBySlug(slug: FAQ.Slug): Promise<Either<FAQ.QuestionEtReponse>>
-	getAllFAQ(): Promise<Either<Array<FAQ.Question>>>
-	listAllFAQSlug(): Promise<Either<Array<FAQ.Slug>>>
+	getFAQBySlug(slug: FAQSlug): Promise<Either<FAQQuestionEtReponse>>
+	getAllFAQ(): Promise<Either<Array<FAQQuestion>>>
+	listAllFAQSlug(): Promise<Either<Array<FAQSlug>>>
 }

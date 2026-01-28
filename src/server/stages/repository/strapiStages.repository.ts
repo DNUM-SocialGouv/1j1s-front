@@ -1,11 +1,10 @@
 import { CmsService } from '~/server/cms/domain/cmsService';
 import { createSuccess, Either, isFailure } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
-import { OffreDeStage, OffreStageDepot } from '~/server/stages/domain/stages';
+import { OffreDeStage, OffreDeStageDepot } from '~/server/stages/domain/stages';
 import { StagesRepository } from '~/server/stages/domain/stages.repository';
 import { OffreStageDepotStrapi, OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
 import { mapOffreStage,mapToStrapiDepotOffreDeStage } from '~/server/stages/repository/strapiStages.mapper';
-import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
 
 export const RESOURCE_OFFRE_DE_STAGE = 'offres-de-stage';
 const API_SOURCE_OFFRE_STAGE = 'Strapi - offre de stage';
@@ -16,7 +15,7 @@ export class StrapiStagesRepository implements StagesRepository {
 
 	async getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStage>> {
 		const query = `filters[slug][$eq]=${slug}&populate=deep`;
-		const offreStageList = await this.strapiService.getFirstFromCollectionType<OffreStageResponseStrapi.OffreStage>(RESOURCE_OFFRE_DE_STAGE, query);
+		const offreStageList = await this.strapiService.getFirstFromCollectionType<OffreStageResponseStrapi>(RESOURCE_OFFRE_DE_STAGE, query);
 		if (isFailure(offreStageList)) {
 			return offreStageList;
 		}
@@ -35,7 +34,7 @@ export class StrapiStagesRepository implements StagesRepository {
 
 	async listAllOffreDeStageSlug(): Promise<Either<Array<string>>> {
 		const query = 'fields[0]=slug';
-		const strapiResponseOffreDeStages = await this.strapiService.getCollectionType<OffreStageResponseStrapi.OffreStage>(RESOURCE_OFFRE_DE_STAGE, query);
+		const strapiResponseOffreDeStages = await this.strapiService.getCollectionType<OffreStageResponseStrapi>(RESOURCE_OFFRE_DE_STAGE, query);
 		if (isFailure(strapiResponseOffreDeStages)) {
 			return strapiResponseOffreDeStages;
 		}

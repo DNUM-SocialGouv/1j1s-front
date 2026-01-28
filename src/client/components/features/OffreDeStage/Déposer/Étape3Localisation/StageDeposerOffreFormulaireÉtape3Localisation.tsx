@@ -5,7 +5,7 @@ import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import {
 	StageDeposerOffreFormulaireLayout,
 } from '~/client/components/features/OffreDeStage/Déposer/FormulaireLayout/StageDeposerOffreFormulaireLayout';
-import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
+import { OffreDeStageDeposeeLocalisation } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
@@ -213,7 +213,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 	);
 };
 
-function parseDonnéesLocalisation(formData: FormData): OffreDeStageDeposee.Localisation {
+function parseDonnéesLocalisation(formData: FormData): OffreDeStageDeposeeLocalisation {
 	return {
 		adresse: String(formData.get(LocalisationInputName.ADRESSE)),
 		codePostal: String(formData.get(LocalisationInputName.CODE_POSTAL)),

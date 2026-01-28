@@ -1,4 +1,4 @@
-import { FormationFiltre } from '~/server/formations/domain/formation';
+import { FormationFiltre, FormationFiltreAvecCodeCertification } from '~/server/formations/domain/formation';
 import {
 	ApiLaBonneAlternanceFormation,
 	ApiLaBonneAlternanceFormationRechercheResponse,
@@ -15,7 +15,7 @@ export function aFormationQuery(): FormationFiltre {
 	};
 }
 
-export const aFormationAvecCodeCertificationQuery = (override?: Partial<FormationFiltre.AvecCodeCertification>): FormationFiltre.AvecCodeCertification => {
+export const aFormationAvecCodeCertificationQuery = (override?: Partial<FormationFiltreAvecCodeCertification>): FormationFiltreAvecCodeCertification => {
 	return {
 		...aFormationQuery(),
 		codeCertification: '4567',

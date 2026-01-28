@@ -1,22 +1,25 @@
-import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
+import {
+	OffreDeStageDeposeeEntreprise,
+	OffreDeStageDeposeeLocalisation,
+	OffreDeStageDeposeeStage,
+} from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { HttpClientService } from '~/client/services/httpClient.service';
 import { StageService } from '~/client/services/stage/stage.service';
 import { removeNullOrEmptyValue } from '~/client/utils/removeNullOrEmptyValue.util';
 import { Either } from '~/server/errors/either';
-import { OffreStageDepot } from '~/server/stages/domain/stages';
+import { OffreDeStageDepot } from '~/server/stages/domain/stages';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
-import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
 
 export class BffStageService implements StageService {
 	constructor(private httpClientService: HttpClientService) {
 	}
 
-	async enregistrerOffreDeStage(informationsEntreprise: OffreDeStageDeposee.Entreprise, informationsStage: OffreDeStageDeposee.Stage, informationsLocalisation: OffreDeStageDeposee.Localisation): Promise<Either<void>> {
+	async enregistrerOffreDeStage(informationsEntreprise: OffreDeStageDeposeeEntreprise, informationsStage: OffreDeStageDeposeeStage, informationsLocalisation: OffreDeStageDeposeeLocalisation): Promise<Either<void>> {
 		const offreDeStage = this.préparerDonnéesOffreDeStage(informationsEntreprise, informationsStage, informationsLocalisation);
 		return this.httpClientService.post('stages', offreDeStage);
 	};
 
-	private préparerDonnéesOffreDeStage(informationsEntreprise: OffreDeStageDeposee.Entreprise, informationsStage: OffreDeStageDeposee.Stage, informationsLocalisation: OffreDeStageDeposee.Localisation): Partial<OffreDeStageDepot> {
+	private préparerDonnéesOffreDeStage(informationsEntreprise: OffreDeStageDeposeeEntreprise, informationsStage: OffreDeStageDeposeeStage, informationsLocalisation: OffreDeStageDeposeeLocalisation): Partial<OffreDeStageDepot> {
 		const urlDeCandidature = informationsStage.lienCandidature.startsWith('http')
 			? informationsStage.lienCandidature
 			: 'mailto:' + informationsStage.lienCandidature;

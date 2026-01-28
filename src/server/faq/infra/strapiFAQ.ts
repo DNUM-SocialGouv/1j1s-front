@@ -1,14 +1,12 @@
-export namespace FAQResponseStrapi {
-	export interface QuestionSlug {
-		slug: string
-	}
+export interface FAQResponseStrapiQuestionSlug {
+	slug: string
+}
 
-	export interface Question {
-		problematique: string
-		slug: string
-	}
+export interface FAQResponseStrapiQuestion {
+	problematique: string
+	slug: string
+}
 
-	export interface QuestionEtReponse extends Question {
-		contenu: string
-	}
+export interface FAQResponseStrapiQuestionEtReponse extends FAQResponseStrapiQuestion {
+	contenu: string
 }

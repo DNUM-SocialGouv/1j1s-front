@@ -22,7 +22,16 @@ import { useTouchedInput } from '~/client/hooks/useTouchedInput';
 import { ChangeEvent } from './ChangeEvent';
 import styles from './Combobox.module.scss';
 import { ComboboxProvider } from './ComboboxContext';
-import { ComboboxAction as Actions, ComboboxReducer } from './ComboboxReducer';
+import {
+	ComboboxActionCloseList,
+	ComboboxActionNextOption,
+	ComboboxActionOpenList,
+	ComboboxActionPreviousOption,
+	ComboboxActionSelectOption,
+	ComboboxActionSetValue,
+	ComboboxActionToggleList,
+	ComboboxReducer,
+} from './ComboboxReducer';
 import { filterValueOrLabelStartsWith } from './filterStrategies/filterValueOrLabelStartsWith';
 
 
@@ -121,7 +130,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	}, [inputRef, onChangeProps, onInputProps]);
 
 	const onOptionSelection = useCallback(function onOptionSelection(option: Element) {
-		dispatch(new Actions.SelectOption(option));
+		dispatch(new ComboboxActionSelectOption(option));
 		triggerChangeEvent(option.textContent ?? '');
 		inputRef.current?.focus();
 	}, [inputRef, triggerChangeEvent]);
@@ -130,26 +139,26 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		switch (event.key) {
 			case KeyBoard.ARROW_UP:
 			case KeyBoard.IE_ARROW_UP:
-				dispatch(new Actions.PreviousOption());
+				dispatch(new ComboboxActionPreviousOption());
 				event.preventDefault();
 				break;
 			case KeyBoard.ARROW_DOWN:
 			case KeyBoard.IE_ARROW_DOWN:
 				if (event.altKey) {
-					dispatch(new Actions.OpenList());
+					dispatch(new ComboboxActionOpenList());
 				} else {
-					dispatch(new Actions.NextOption());
+					dispatch(new ComboboxActionNextOption());
 				}
 				event.preventDefault();
 				break;
 			case KeyBoard.ESCAPE:
 			case KeyBoard.IE_ESCAPE:
-				dispatch(new Actions.CloseList());
+				dispatch(new ComboboxActionCloseList());
 				break;
 			case KeyBoard.ENTER: {
 				const selectedOptionID = event.currentTarget.getAttribute('aria-activedescendant');
 				if (selectedOptionID) {
-					dispatch(new Actions.SelectOption(selectedOptionID));
+					dispatch(new ComboboxActionSelectOption(selectedOptionID));
 					const selectedElement = document.getElementById(selectedOptionID);
 					triggerChangeEvent(selectedElement?.textContent ?? '');
 					event.preventDefault();
@@ -163,7 +172,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	}, [onKeyDownProps, triggerChangeEvent]);
 
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
-		dispatch(new Actions.SetValue(event.currentTarget.value));
+		dispatch(new ComboboxActionSetValue(event.currentTarget.value));
 		onChangeProps(event, event.currentTarget.value);
 	}, [onChangeProps]);
 
@@ -174,7 +183,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			return;
 		}
 
-		dispatch(new Actions.CloseList());
+		dispatch(new ComboboxActionCloseList());
 		const touched = setTouchedOnBlur(value);
 		if (touched) {
 			onTouchProps(touched);
@@ -214,7 +223,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					{...inputProps} />
 				<button
 					onClick={() => {
-						dispatch(new Actions.ToggleList());
+						dispatch(new ComboboxActionToggleList());
 						inputRef.current?.focus();
 					}}
 					type="button"

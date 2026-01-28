@@ -10,7 +10,7 @@ import { isFailure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { GetServerSidePropsResult } from '~/server/errors/getServerSidePropsResultWithError';
 import { handleGetServerSidePropsError } from '~/server/errors/handleGetServerSidePropsError';
-import { Formation, FormationFiltre } from '~/server/formations/domain/formation';
+import { Formation, FormationFiltre, FormationFiltreAvecCodeCertification } from '~/server/formations/domain/formation';
 import { Statistique } from '~/server/formations/domain/statistique';
 import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 import { dependencies } from '~/server/start';
@@ -58,7 +58,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 	}
 
 	const id = context.params?.id as string;
-	const filtre: FormationFiltre.AvecCodeCertification = {
+	const filtre: FormationFiltreAvecCodeCertification = {
 		codeCertification: context.query.codeCertification ? String(context.query.codeCertification) : '',
 		codeCommune: String(context.query.codeCommune),
 		codeRomes: context.query.codeRomes ? queryToArray(context.query.codeRomes) : [],

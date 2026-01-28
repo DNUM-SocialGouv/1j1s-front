@@ -15,7 +15,7 @@ import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetier, aMetierService } from '~/client/services/metiers/metier.fixture';
 import { createSuccess } from '~/server/errors/either';
-import { Formation } from '~/server/formations/domain/formation';
+import { FORMATION_NIVEAU_3 } from '~/server/formations/domain/formation';
 import { aCommune } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
 
 describe('FormulaireRechercherFormationAlternance', () => {
@@ -135,7 +135,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 			const user = userEvent.setup();
 			const selectNiveauEtudes = screen.getByRole('combobox', { name: 'Niveau d’études visé (facultatif) Exemples : CAP, Bac...' });
 			await user.click(selectNiveauEtudes);
-			await user.click(screen.getByRole('option', { name: Formation.NIVEAU_3.libellé }));
+			await user.click(screen.getByRole('option', { name: FORMATION_NIVEAU_3.libellé }));
 
 			await user.click(screen.getByRole('button', { name: 'Rechercher' }));
 

@@ -1,10 +1,19 @@
 import { StrapiArticle } from '~/server/articles/infra/strapiArticle';
-import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
+import { StrapiImage } from '~/server/cms/infra/repositories/strapi.response';
 import { flatMapSingleRelation } from '~/server/cms/infra/repositories/strapi.utils';
-import { mapCodeCategorieServiceJeuneToLibelle, ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
-import { StrapiMesuresJeunes } from '~/server/services-jeunes/infra/strapiMesuresJeunes';
+import {
+	mapCodeCategorieServiceJeuneToLibelle,
+	ServiceJeune,
+	ServiceJeuneCategorie,
+	ServiceJeuneCodeCategorie,
+} from '~/server/services-jeunes/domain/servicesJeunes';
+import {
+	StrapiMesuresJeunesCategorie,
+	StrapiMesuresJeunesMesureJeune,
+	StrapiMesuresJeunesMesuresJeunesParCategorie,
+} from '~/server/services-jeunes/infra/strapiMesuresJeunes';
 
-export function mapToServicesJeunes(strapiMesuresJeunes: StrapiMesuresJeunes.MesuresJeunesParCategorie): Array<ServiceJeune> {
+export function mapToServicesJeunes(strapiMesuresJeunes: StrapiMesuresJeunesMesuresJeunesParCategorie): Array<ServiceJeune> {
 	const mesuresJeunesParCategorie = {
 		accompagnement: strapiMesuresJeunes.accompagnement,
 		aidesFinancieres: strapiMesuresJeunes.aidesFinancieres,
@@ -14,14 +23,14 @@ export function mapToServicesJeunes(strapiMesuresJeunes: StrapiMesuresJeunes.Mes
 		vieProfessionnelle: strapiMesuresJeunes.vieProfessionnelle,
 	};
 	return Object.entries(mesuresJeunesParCategorie).flatMap(([categorie, mesuresJeunes]) => {
-		return mesuresJeunes.map((strapiMesureJeune: StrapiMesuresJeunes.MesureJeune) => {
-			return mapServiceJeune(strapiMesureJeune, categorie as StrapiMesuresJeunes.Categorie);
+		return mesuresJeunes.map((strapiMesureJeune: StrapiMesuresJeunesMesureJeune) => {
+			return mapServiceJeune(strapiMesureJeune, categorie as StrapiMesuresJeunesCategorie);
 		});
 	});
 }
 
-function mapServiceJeune(strapiMesureJeune: StrapiMesuresJeunes.MesureJeune, categorie: StrapiMesuresJeunes.Categorie): ServiceJeune {
-	const banniere = flatMapSingleRelation<Strapi.Image>(strapiMesureJeune.banniere);
+function mapServiceJeune(strapiMesureJeune: StrapiMesuresJeunesMesureJeune, categorie: StrapiMesuresJeunesCategorie): ServiceJeune {
+	const banniere = flatMapSingleRelation<StrapiImage>(strapiMesureJeune.banniere);
 
 	return {
 		banniere: banniere && {
@@ -35,42 +44,42 @@ function mapServiceJeune(strapiMesureJeune: StrapiMesuresJeunes.MesureJeune, cat
 	};
 }
 
-function mapServiceJeuneCategorie(mesureJeuneKey: keyof StrapiMesuresJeunes.MesuresJeunesParCategorie): ServiceJeune.Categorie {
+function mapServiceJeuneCategorie(mesureJeuneKey: keyof StrapiMesuresJeunesMesuresJeunesParCategorie): ServiceJeuneCategorie {
 	switch (mesureJeuneKey) {
 		case 'accompagnement':
 			return {
-				code: ServiceJeune.CodeCategorie.ACCOMPAGNEMENT,
-				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ACCOMPAGNEMENT),
+				code: ServiceJeuneCodeCategorie.ACCOMPAGNEMENT,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ACCOMPAGNEMENT),
 			};
 		case 'orienterFormer':
 			return {
-				code: ServiceJeune.CodeCategorie.ORIENTATION_FORMATION,
-				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ORIENTATION_FORMATION),
+				code: ServiceJeuneCodeCategorie.ORIENTATION_FORMATION,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ORIENTATION_FORMATION),
 			};
 		case 'vieProfessionnelle':
 			return {
-				code: ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE,
-				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE),
+				code: ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE),
 			};
 		case 'aidesFinancieres':
 			return {
-				code: ServiceJeune.CodeCategorie.AIDES_FINANCIERES,
-				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.AIDES_FINANCIERES),
+				code: ServiceJeuneCodeCategorie.AIDES_FINANCIERES,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.AIDES_FINANCIERES),
 			};
 		case 'engagement':
 			return {
-				code: ServiceJeune.CodeCategorie.ENGAGEMENT,
-				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENGAGEMENT),
+				code: ServiceJeuneCodeCategorie.ENGAGEMENT,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ENGAGEMENT),
 			};
 		case 'logement':
 			return {
-				code: ServiceJeune.CodeCategorie.LOGEMENT,
-				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.LOGEMENT),
+				code: ServiceJeuneCodeCategorie.LOGEMENT,
+				libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.LOGEMENT),
 			};
 	}
 }
 
-function mapServiceJeuneLink(mesure: StrapiMesuresJeunes.MesureJeune) {
+function mapServiceJeuneLink(mesure: StrapiMesuresJeunesMesureJeune) {
 	const article = mesure.article && flatMapSingleRelation<StrapiArticle>(mesure.article);
 	if(!article && !mesure.url) {
 		return undefined;

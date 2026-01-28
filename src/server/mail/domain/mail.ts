@@ -1,18 +1,16 @@
 export interface Mail {
-  to: Mail.Contact[];
-  msg: Mail.Message;
+  to: MailContact[];
+  msg: MailMessage;
 }
 
-export namespace Mail {
-  export interface Contact {
-    address: string;
-    personalName: string;
-  }
+export interface MailContact {
+  address: string;
+  personalName: string;
+}
 
-  export interface Message {
-    from: Contact;
-    replyTo?: Contact;
-    subject: string;
-    text: string;
-  }
+export interface MailMessage {
+  from: MailContact;
+  replyTo?: MailContact;
+  subject: string;
+  text: string;
 }

@@ -2,7 +2,7 @@ import { aStrapiService } from '~/server/cms/infra/repositories/strapi.service.f
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
-import { mapCodeCategorieServiceJeuneToLibelle, ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
+import { mapCodeCategorieServiceJeuneToLibelle, ServiceJeuneCodeCategorie } from '~/server/services-jeunes/domain/servicesJeunes';
 import { aServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes.fixture';
 import {
 	aStrapiMesuresJeunesParCategorie,
@@ -35,33 +35,33 @@ describe('strapiMesuresJeunesRepository', () => {
 
 				const orderedServicesJeunes = [
 					aServiceJeune({
-						categorie: { code: ServiceJeune.CodeCategorie.ACCOMPAGNEMENT, libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ACCOMPAGNEMENT) },
+						categorie: { code: ServiceJeuneCodeCategorie.ACCOMPAGNEMENT, libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ACCOMPAGNEMENT) },
 						titre: 'A une belle formation',
 					}),
 					aServiceJeune({
-						categorie: { code: ServiceJeune.CodeCategorie.AIDES_FINANCIERES, libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.AIDES_FINANCIERES) },
+						categorie: { code: ServiceJeuneCodeCategorie.AIDES_FINANCIERES, libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.AIDES_FINANCIERES) },
 						concerne: 'pour les 12 à 18mois',
 						link: 'Une belle url de carte',
 						titre: 'Des aides pour financer son permis de conduire',
 					}),
 					aServiceJeune({
-						categorie: { code: ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE, libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE) },
+						categorie: { code: ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE, libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE) },
 						titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
 					}),
 					aServiceJeune({
-						categorie: { code: ServiceJeune.CodeCategorie.ENGAGEMENT, libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENGAGEMENT) },
+						categorie: { code: ServiceJeuneCodeCategorie.ENGAGEMENT, libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ENGAGEMENT) },
 						titre: 'Le Service Militaire Volontaire',
 					}),
 					aServiceJeune({
-						categorie: { code: ServiceJeune.CodeCategorie.ORIENTATION_FORMATION, libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ORIENTATION_FORMATION) },
+						categorie: { code: ServiceJeuneCodeCategorie.ORIENTATION_FORMATION, libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ORIENTATION_FORMATION) },
 						titre: 'Les Junior Entreprises',
 					}),
 					aServiceJeune({
-						categorie: { code: ServiceJeune.CodeCategorie.LOGEMENT, libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.LOGEMENT) },
+						categorie: { code: ServiceJeuneCodeCategorie.LOGEMENT, libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.LOGEMENT) },
 						titre: 'Un logement',
 					}),
 					aServiceJeune({
-						categorie: { code: ServiceJeune.CodeCategorie.ACCOMPAGNEMENT, libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ACCOMPAGNEMENT) },
+						categorie: { code: ServiceJeuneCodeCategorie.ACCOMPAGNEMENT, libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ACCOMPAGNEMENT) },
 						titre: 'Une formation en centre EPIDE',
 					}),
 				];

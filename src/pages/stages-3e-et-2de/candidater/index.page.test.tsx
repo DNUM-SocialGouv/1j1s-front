@@ -96,7 +96,7 @@ describe('Page Candidater Stages 3e et 2de', () => {
 					};
 					const defaultStatusCode = 200;
 					const context = aGetServerSidePropsContext({
-						// @ts-expect-error
+						// @ts-expect-error TS2322
 						query: queryWithInvalidSiretType,
 						res: { statusCode: defaultStatusCode },
 					});

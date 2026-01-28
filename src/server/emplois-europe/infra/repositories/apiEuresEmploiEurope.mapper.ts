@@ -14,20 +14,22 @@ import {
 	niveauLangage,
 } from '~/server/emplois-europe/infra/langageEures';
 import {
-	ApiEuresEmploiEuropeDetailItem, ApiEuresEmploiEuropeDetailResponse, ApiEuresEmploiEuropeDetailXML,
+	ApiEuresEmploiEuropeDetailItem,
+	ApiEuresEmploiEuropeDetailResponse,
+	ApiEuresEmploiEuropeDetailXML,
+	ApiEuresEmploiEuropeDetailXMLCompetencyDimension as CompetencyDimension,
+	ApiEuresEmploiEuropeDetailXMLExperienceCategory as ExperienceCategory,
+	ApiEuresEmploiEuropeDetailXMLNiveauEtudeAPIEures as NiveauEtudeAPIEures,
+	ApiEuresEmploiEuropeDetailXMLPositionOrganization as PositionOrganization,
+	ApiEuresEmploiEuropeDetailXMLPositionProfile as PositionProfile,
+	ApiEuresEmploiEuropeDetailXMLPositionQualifications as PositionQualifications,
+	ApiEuresEmploiEuropeDetailXMLWorkingLanguageCode as WorkingLanguageCode,
 	ApiEuresEmploiEuropeRechercheResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 import { XmlService } from '~/server/services/xml/xml.service';
-import PositionOrganization = ApiEuresEmploiEuropeDetailXML.PositionOrganization;
-import PositionProfile = ApiEuresEmploiEuropeDetailXML.PositionProfile;
 import { EURES_CONTRACT_TYPE, typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
-import PositionQualifications = ApiEuresEmploiEuropeDetailXML.PositionQualifications;
-import NiveauEtudeAPIEures = ApiEuresEmploiEuropeDetailXML.NiveauEtudeAPIEures;
 import { NiveauDEtudesLibelle } from '~/server/emplois-europe/domain/niveauDEtudes';
-import WorkingLanguageCode = ApiEuresEmploiEuropeDetailXML.WorkingLanguageCode;
-import CompetencyDimension = ApiEuresEmploiEuropeDetailXML.CompetencyDimension;
-import ExperienceCategory = ApiEuresEmploiEuropeDetailXML.ExperienceCategory;
 
 
 export class ApiEuresEmploiEuropeMapper {

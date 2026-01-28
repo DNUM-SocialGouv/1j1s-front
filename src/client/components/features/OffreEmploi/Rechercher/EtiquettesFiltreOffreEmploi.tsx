@@ -8,7 +8,16 @@ import {
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/getCodeLibelleLocalisation';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
-import { Offre } from '~/server/offres/domain/offre';
+import {
+	CONTRAT_CDD,
+	CONTRAT_CDI,
+	CONTRAT_INTÉRIMAIRE,
+	CONTRAT_SAISONNIER,
+	EXPÉRIENCE_DEBUTANT,
+	EXPÉRIENCE_EXIGÉE,
+	EXPÉRIENCE_SOUHAITÉ,
+	TEMPS_DE_TRAVAIL_LIST,
+} from '~/server/offres/domain/offre';
 
 export function EtiquettesFiltreOffreEmploi() {
 	const [filtres, setFiltres] = useState<string[]>([]);
@@ -18,7 +27,7 @@ export function EtiquettesFiltreOffreEmploi() {
 		const filtreList: string[] = [];
 
 		if (offreEmploiQuery.tempsDeTravail) {
-			const tempsDeTravail = Offre.TEMPS_DE_TRAVAIL_LIST.find((temps) => temps.valeur !== 'indifférent' && temps.valeur === offreEmploiQuery.tempsDeTravail);
+			const tempsDeTravail = TEMPS_DE_TRAVAIL_LIST.find((temps) => temps.valeur !== 'indifférent' && temps.valeur === offreEmploiQuery.tempsDeTravail);
 			if (tempsDeTravail) {
 				filtreList.push(tempsDeTravail.libellé);
 			}
@@ -28,17 +37,17 @@ export function EtiquettesFiltreOffreEmploi() {
 			const typeDeContratList = offreEmploiQuery.typeDeContrats.split(',');
 			typeDeContratList.map((contrat: string) => {
 				switch (contrat) {
-					case (Offre.CONTRAT_INTÉRIMAIRE.valeur):
-						filtreList.push(Offre.CONTRAT_INTÉRIMAIRE.libelléCourt);
+					case (CONTRAT_INTÉRIMAIRE.valeur):
+						filtreList.push(CONTRAT_INTÉRIMAIRE.libelléCourt);
 						break;
-					case (Offre.CONTRAT_SAISONNIER.valeur):
-						filtreList.push(Offre.CONTRAT_SAISONNIER.libelléCourt);
+					case (CONTRAT_SAISONNIER.valeur):
+						filtreList.push(CONTRAT_SAISONNIER.libelléCourt);
 						break;
-					case (Offre.CONTRAT_CDI.valeur):
-						filtreList.push(Offre.CONTRAT_CDI.libelléCourt);
+					case (CONTRAT_CDI.valeur):
+						filtreList.push(CONTRAT_CDI.libelléCourt);
 						break;
-					case (Offre.CONTRAT_CDD.valeur):
-						filtreList.push(Offre.CONTRAT_CDD.libelléCourt);
+					case (CONTRAT_CDD.valeur):
+						filtreList.push(CONTRAT_CDD.libelléCourt);
 						break;
 					default:
 						filtreList.push(contrat);
@@ -50,14 +59,14 @@ export function EtiquettesFiltreOffreEmploi() {
 			const typeExpérienceList = offreEmploiQuery.experienceExigence.split(',');
 			typeExpérienceList.map((expérience: string) => {
 				switch (expérience) {
-					case (Offre.EXPÉRIENCE_DEBUTANT.valeur):
-						filtreList.push(Offre.EXPÉRIENCE_DEBUTANT.libellé);
+					case (EXPÉRIENCE_DEBUTANT.valeur):
+						filtreList.push(EXPÉRIENCE_DEBUTANT.libellé);
 						break;
-					case(Offre.EXPÉRIENCE_EXIGÉE.valeur):
-						filtreList.push(Offre.EXPÉRIENCE_EXIGÉE.libellé);
+					case(EXPÉRIENCE_EXIGÉE.valeur):
+						filtreList.push(EXPÉRIENCE_EXIGÉE.libellé);
 						break;
-					case(Offre.EXPÉRIENCE_SOUHAITÉ.valeur):
-						filtreList.push(Offre.EXPÉRIENCE_SOUHAITÉ.libellé);
+					case(EXPÉRIENCE_SOUHAITÉ.valeur):
+						filtreList.push(EXPÉRIENCE_SOUHAITÉ.libellé);
 						break;
 					default:
 						filtreList.push(expérience);

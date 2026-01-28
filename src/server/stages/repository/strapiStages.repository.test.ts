@@ -44,7 +44,7 @@ describe('strapiStagesRepository', () => {
 			const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 			jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(expectedFailure);
 			const slug = 'slug';
-			// @ts-expect-error
+			// @ts-expect-error TS2322
 			const offreDeStageAvecDonnéesErronées = aStrapiOffreDeStage({ domaines: 35 });
 			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(createSuccess(offreDeStageAvecDonnéesErronées));
 			const strapiStagesRepository = new StrapiStagesRepository(strapiService, errorManagementService);
@@ -137,7 +137,7 @@ describe('strapiStagesRepository', () => {
 
 			const resultSaveOffreEnErreur = await strapiStagesRepository.saveOffreDeStage({
 				...aStrapiOffreDeStage(),
-				// @ts-expect-error
+				// @ts-expect-error TS2322
 				employeur: null,
 			});
 

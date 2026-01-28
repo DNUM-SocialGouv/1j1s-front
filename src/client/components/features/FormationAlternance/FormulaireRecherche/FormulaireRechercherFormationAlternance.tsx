@@ -14,7 +14,7 @@ import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { useFormationQuery } from '~/client/hooks/useFormationQuery';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { getFormAsQuery } from '~/client/utils/form.util';
-import { Formation } from '~/server/formations/domain/formation';
+import { FORMATION_NIVEAU_ETUDES } from '~/server/formations/domain/formation';
 
 import styles
 	from './FormulaireRechercheFormationAlternance.module.scss';
@@ -85,7 +85,7 @@ export function FormulaireRechercherFormationAlternance() {
 							optionsAriaLabel={'Niveau d‘études'}
 							name="niveauEtudes"
 							defaultValue={niveauEtudes}>
-							{Formation.NIVEAU_ETUDES.map((option) =>
+							{FORMATION_NIVEAU_ETUDES.map((option) =>
 								<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
 							)}
 						</Champ.Input>

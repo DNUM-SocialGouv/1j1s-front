@@ -2,101 +2,97 @@ import Joi from 'joi';
 
 import { AlternanceStatus } from '~/server/alternances/infra/status';
 
-export namespace MetierLaBonneAlternanceApiResponse {
-	export interface LabelAndRomes {
-		label: string
-		romes: Array<string>
-	}
+export interface MetierLaBonneAlternanceApiResponseLabelAndRomes {
+	label: string
+	romes: Array<string>
 }
+
 
 export interface MetierLaBonneAlternanceApiResponse {
-	labelsAndRomes: Array<MetierLaBonneAlternanceApiResponse.LabelAndRomes>
+	labelsAndRomes: Array<MetierLaBonneAlternanceApiResponseLabelAndRomes>
 }
 
-export namespace AlternanceApiJobsResponse {
+export interface AlternanceApiJobsResponseJob {
+	id: string
+	romeDetails?: AlternanceApiJobsResponseRomeDetails
+	jobStartDate?: string
+	contractType?: string
+}
 
-	export interface Job {
-		id: string
-		romeDetails?: AlternanceApiJobsResponse.RomeDetails
-		jobStartDate?: string
-		contractType?: string
-	}
+export interface AlternanceApiJobsResponseJobMatcha extends AlternanceApiJobsResponseJob {
+	dureeContrat?: number
+	rythmeAlternance?: string
+	description?: string
+	employeurDescription?: string
+	status?: AlternanceStatus
+}
 
-	export interface JobMatcha extends Job {
-		dureeContrat?: number
-		rythmeAlternance?: string
-		description?: string
-		employeurDescription?: string
-		status?: AlternanceStatus
-	}
+export interface AlternanceApiJobsResponseJobPE extends AlternanceApiJobsResponseJob {
+	duration?: string
+	contractDescription?: string
+	description: string
+}
 
-	export interface JobPE extends Job {
-		duration?: string
-		contractDescription?: string
-		description: string
-	}
+export interface AlternanceApiJobsResponseRomeDetails {
+	definition?: string
+	competencesDeBase: Array<{ libelle: string }>
+}
 
-	export interface RomeDetails {
-		definition?: string
-		competencesDeBase: Array<{ libelle: string }>
-	}
+export interface AlternanceApiJobsResponsePlace {
+	city?: string
+	fullAddress?: string
+}
 
-	export interface Place {
+export interface AlternanceApiJobsResponseCompany {
+	name?: string
+	place?: {
 		city?: string
-		fullAddress?: string
 	}
+}
 
-	export interface Company {
-		name?: string
-		place?: {
-			city?: string
-		}
-	}
+export interface AlternanceApiJobsResponseCompanyLbaCompanies extends AlternanceApiJobsResponseCompany {
+	size?: string
+	siret?: string
+	name: string
+}
 
-	export interface CompanyLbaCompanies extends Company {
-		size?: string
-		siret?: string
-		name: string
-	}
+export interface AlternanceApiJobsResponseContact {
+	phone?: string
+}
 
-	export interface Contact {
-		phone?: string
-	}
+export interface AlternanceApiJobsResponseMatcha {
+	title: string
+	company?: AlternanceApiJobsResponseCompany
+	place?: AlternanceApiJobsResponsePlace
+	diplomaLevel?: string
+	job: AlternanceApiJobsResponseJobMatcha
+	contact?: AlternanceApiJobsResponseContact
+}
 
-	export interface Matcha {
-		title: string
-		company?: AlternanceApiJobsResponse.Company
-		place?: AlternanceApiJobsResponse.Place
-		diplomaLevel?: string
-		job: AlternanceApiJobsResponse.JobMatcha
-		contact?: AlternanceApiJobsResponse.Contact
-	}
+export interface AlternanceApiJobsResponsePEJobs {
+	title: string
+	company?: AlternanceApiJobsResponseCompany
+	place?: AlternanceApiJobsResponsePlace
+	job: AlternanceApiJobsResponseJobPE
+	url?: string
+}
 
-	export interface PEJobs {
-		title: string
-		company?: AlternanceApiJobsResponse.Company
-		place?: AlternanceApiJobsResponse.Place
-		job: AlternanceApiJobsResponse.JobPE
-		url?: string
-	}
-
-	export interface LbaCompanies {
-		company: AlternanceApiJobsResponse.CompanyLbaCompanies
-		nafs?: Array<{
-			label: string
-		}>
-		place?: AlternanceApiJobsResponse.Place
-		contact?: {
-			email?: string,
-			iv?: string
-		}
+export interface AlternanceApiJobsResponseLbaCompanies {
+	company: AlternanceApiJobsResponseCompanyLbaCompanies
+	nafs?: Array<{
+		label: string
+	}>
+	place?: AlternanceApiJobsResponsePlace
+	contact?: {
+		email?: string,
+		iv?: string
 	}
 }
 
 export interface AlternanceApiJobsResponse {
-	matchas?: { results?: Array<AlternanceApiJobsResponse.Matcha> }
-	peJobs?: { results?: Array<AlternanceApiJobsResponse.PEJobs> }
-	lbaCompanies: { results: Array<AlternanceApiJobsResponse.LbaCompanies> } | []
+	matchas?: { results?: Array<AlternanceApiJobsResponseMatcha> }
+	peJobs?: { results?: Array<AlternanceApiJobsResponsePEJobs> }
+	lbaCompanies: { results: Array<AlternanceApiJobsResponseLbaCompanies> } | []
 }
 
 export const apiLaBonneAlternanceSchemas = {

@@ -81,7 +81,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 								job: {
 									contractType: 'CDI',
 									dureeContrat: 3,
-									// @ts-expect-error
+									// @ts-expect-error TS2322
 									id: 1,
 								},
 							},

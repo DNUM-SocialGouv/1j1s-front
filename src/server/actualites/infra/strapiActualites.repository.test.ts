@@ -84,7 +84,7 @@ describe('strapiActualitesRepository', () => {
 			it('lorsque le mapping est en échec, appelle le service de gestion d’erreur avec l’erreur et le contexte', async () => {
 				const strapiService = aStrapiService();
 				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiListeActualites({
-					// @ts-expect-error
+					// @ts-expect-error TS2739
 					listeActualites: [{}],
 				})));
 
@@ -152,7 +152,7 @@ describe('strapiActualitesRepository', () => {
 				const strapiActualites = new StrapiActualitesRepository(strapiService, errorManagementService);
 
 				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiListeActualites({
-					// @ts-expect-error
+					// @ts-expect-error TS2739
 					listeActualites: [{}],
 				})));
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));

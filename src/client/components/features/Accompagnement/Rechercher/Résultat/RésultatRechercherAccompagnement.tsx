@@ -18,6 +18,7 @@ import { Card } from '~/client/components/ui/Card/Card';
 import { Link } from '~/client/components/ui/Link/Link';
 import {
 	EtablissementAccompagnement,
+	EtablissementAccompagnementAdresse,
 	TypeÉtablissement,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
@@ -85,7 +86,7 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 		);
 	}
 
-	const Address = ({ address, className }: { address: EtablissementAccompagnement.Adresse} & React.HTMLAttributes<HTMLSpanElement>) => {
+	const Address = ({ address, className }: { address: EtablissementAccompagnementAdresse } & React.HTMLAttributes<HTMLSpanElement>) => {
 		return <span className={className}>{`${address.numeroVoie}, ${address.codePostal} ${address.nomCommune}`}</span>;
 	};
 

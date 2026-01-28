@@ -4,9 +4,8 @@ import nock from 'nock';
 import { anEmployeurDepotStage, anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
 import depotOffreDeStageController from '~/pages/api/stages/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { OffreStageDepot } from '~/server/stages/domain/stages';
+import { OffreDeStageDepot } from '~/server/stages/domain/stages';
 import { aStrapiOffreDeStageDepot } from '~/server/stages/repository/strapiStages.fixture';
-import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
 
 
 jest.mock('crypto', () => ({ randomUUID: () => '123456789' }));

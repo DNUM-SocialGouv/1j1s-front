@@ -5,7 +5,11 @@ import { validateApiResponse } from '~/server/services/error/apiResponseValidato
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 
-import { AlternanceApiJobsResponse } from './apiAlternance';
+import {
+	AlternanceApiJobsResponse,
+	AlternanceApiJobsResponseJob,
+	alternanceApiJobsResponseValidationSchema,
+} from './apiAlternance';
 import { mapDetailAlternance, mapRechercheAlternanceListe } from './apiAlternance.mapper';
 
 export class ApiAlternanceRepository implements AlternanceRepository {
@@ -17,7 +21,7 @@ export class ApiAlternanceRepository implements AlternanceRepository {
 	async search(filtre: AlternanceFiltre): Promise<Either<ResultatRechercheAlternance>> {
 		try {
 			const response = await this.getAlternanceListe(filtre);
-			const apiValidationError = validateApiResponse<AlternanceApiJobsResponse>(response.data, AlternanceApiJobsResponse.validationSchema.search);
+			const apiValidationError = validateApiResponse<AlternanceApiJobsResponse>(response.data, alternanceApiJobsResponseValidationSchema.search);
 
 			if (apiValidationError) {
 				this.errorManagementServiceSearch.logValidationError(apiValidationError, {
@@ -44,8 +48,8 @@ export class ApiAlternanceRepository implements AlternanceRepository {
 
 	async get(id: string): Promise<Either<Alternance>> {
 		try {
-			const response = await this.httpClient.get<AlternanceApiJobsResponse.Job>(`/job/v1/offer/${id}`);
-			const apiValidationError = validateApiResponse<AlternanceApiJobsResponse.Job>(response.data, AlternanceApiJobsResponse.validationSchema.job);
+			const response = await this.httpClient.get<AlternanceApiJobsResponseJob>(`/job/v1/offer/${id}`);
+			const apiValidationError = validateApiResponse<AlternanceApiJobsResponseJob>(response.data, alternanceApiJobsResponseValidationSchema.job);
 
 			if (apiValidationError) {
 				this.errorManagementServiceSearch.logValidationError(apiValidationError, {

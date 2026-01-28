@@ -7,7 +7,7 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useSanitize from '~/client/hooks/useSanitize';
 import { DateService } from '~/client/services/date/date.service';
-import { Alternance } from '~/server/alternances/domain/alternance';
+import { Alternance, AlternanceContrat, AlternanceSource } from '~/server/alternances/domain/alternance';
 import { AlternanceStatus } from '~/server/alternances/infra/status';
 
 import styles from './DetailAlternance.module.scss';
@@ -39,8 +39,8 @@ export function DetailAlternance({ annonce }: { annonce: Alternance }) {
 		const tags = [];
 		if (annonce.localisation) tags.push(annonce.localisation);
 
-		if (annonce.source === Alternance.Source.FRANCE_TRAVAIL) {
-			tags.push(Alternance.Contrat.ALTERNANCE);
+		if (annonce.source === AlternanceSource.FRANCE_TRAVAIL) {
+			tags.push(AlternanceContrat.ALTERNANCE);
 			if (annonce.typeDeContrat && annonce.typeDeContrat.length > 0) tags.push(...annonce.typeDeContrat);
 			return tags;
 		}

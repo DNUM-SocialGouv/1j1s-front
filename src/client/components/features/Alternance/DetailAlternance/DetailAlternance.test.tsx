@@ -10,7 +10,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aDateService } from '~/client/services/date/date.service.fixture';
 import { aStorageService } from '~/client/services/storage/storage.service.fixture';
-import { Alternance } from '~/server/alternances/domain/alternance';
+import { Alternance, AlternanceSource } from '~/server/alternances/domain/alternance';
 import { AlternanceStatus } from '~/server/alternances/infra/status';
 import { queries } from '~/test-utils';
 
@@ -43,7 +43,7 @@ describe('<Detail />', () => {
 		expect(entreprise).toBeVisible();
 	});
 	it('affiche le lien pour postuler', () => {
-		const annonce = aDetailAlternance({ lienPostuler: 'https://example.com', source: Alternance.Source.FRANCE_TRAVAIL });
+		const annonce = aDetailAlternance({ lienPostuler: 'https://example.com', source: AlternanceSource.FRANCE_TRAVAIL });
 
 		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
@@ -55,7 +55,7 @@ describe('<Detail />', () => {
 		expect(lien).toHaveAttribute('href', 'https://example.com');
 	});
 	it('n’affiche pas le lien pour postuler lorsque l’url n’est pas renseignée', () => {
-		const annonce = aDetailAlternance({ lienPostuler: undefined, source: Alternance.Source.FRANCE_TRAVAIL });
+		const annonce = aDetailAlternance({ lienPostuler: undefined, source: AlternanceSource.FRANCE_TRAVAIL });
 
 		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />
@@ -68,7 +68,7 @@ describe('<Detail />', () => {
 	it('affiche les tags', () => {
 		const annonce = aDetailAlternance({
 			localisation: 'Paris',
-			source: Alternance.Source.FRANCE_TRAVAIL,
+			source: AlternanceSource.FRANCE_TRAVAIL,
 			typeDeContrat: ['CDD', 'CDI'],
 		});
 
@@ -99,7 +99,7 @@ describe('<Detail />', () => {
 	});
 
 	it('lorsque l‘offre est à l‘état annulé, affiche l‘information et pas de CTA', () => {
-		const annonce = aDetailAlternance({ source: Alternance.Source.MATCHA, status: AlternanceStatus.CANCELED });
+		const annonce = aDetailAlternance({ source: AlternanceSource.MATCHA, status: AlternanceStatus.CANCELED });
 
 		render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 			<DetailAlternance annonce={annonce} />

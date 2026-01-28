@@ -1,4 +1,4 @@
-import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
+import { AnnonceDeLogement, AnnonceDeLogementService } from '~/server/logements/domain/annonceDeLogement';
 import { anAnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement.fixture';
 import { aStrapiAnnonceDeLogement } from '~/server/logements/infra/strapiAnnonceDeLogement.fixture';
 import { mapAnnonceLogement } from '~/server/logements/infra/strapiAnnonceDeLogement.mapper';
@@ -23,12 +23,12 @@ describe('Strapi annonce de logement mapper', () => {
 			prix: 1000,
 			prixHT: 980,
 			servicesInclus: [
-				{ nom: AnnonceDeLogement.Service.INTERNET },
-				{ nom: AnnonceDeLogement.Service.ASPIRATEUR },
+				{ nom: AnnonceDeLogementService.INTERNET },
+				{ nom: AnnonceDeLogementService.ASPIRATEUR },
 			],
 			servicesOptionnels: [
-				{ nom: AnnonceDeLogement.Service.TV },
-				{ nom: AnnonceDeLogement.Service.LOCAL_A_VELO },
+				{ nom: AnnonceDeLogementService.TV },
+				{ nom: AnnonceDeLogementService.LOCAL_A_VELO },
 			],
 			slug: 'logement-slug',
 			source: 'immojeune',
@@ -64,12 +64,12 @@ describe('Strapi annonce de logement mapper', () => {
 			prix: 1000,
 			prixHT: 980,
 			servicesInclus: [
-				AnnonceDeLogement.Service.INTERNET,
-				AnnonceDeLogement.Service.ASPIRATEUR,
+				AnnonceDeLogementService.INTERNET,
+				AnnonceDeLogementService.ASPIRATEUR,
 			],
 			servicesOptionnels: [
-				AnnonceDeLogement.Service.TV,
-				AnnonceDeLogement.Service.LOCAL_A_VELO,
+				AnnonceDeLogementService.TV,
+				AnnonceDeLogementService.LOCAL_A_VELO,
 			],
 			source: 'immojeune',
 			surface: 10,

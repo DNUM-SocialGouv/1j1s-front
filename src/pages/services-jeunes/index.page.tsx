@@ -14,7 +14,11 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/espace-jeune/index.analytics';
 import { isFailure } from '~/server/errors/either';
-import { mapCodeCategorieServiceJeuneToLibelle, ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
+import {
+	mapCodeCategorieServiceJeuneToLibelle,
+	ServiceJeune,
+	ServiceJeuneCodeCategorie,
+} from '~/server/services-jeunes/domain/servicesJeunes';
 import { dependencies } from '~/server/start';
 
 import styles from './index.module.scss';
@@ -23,8 +27,8 @@ interface ServicesJeunePageProps {
 	serviceJeuneList: Array<ServiceJeune>
 }
 
-function isCategorieServiceJeune(filtre: string): filtre is ServiceJeune.CodeCategorie {
-	return Object.values(ServiceJeune.CodeCategorie).includes(filtre as ServiceJeune.CodeCategorie);
+function isCategorieServiceJeune(filtre: string): filtre is ServiceJeuneCodeCategorie {
+	return Object.values(ServiceJeuneCodeCategorie).includes(filtre as ServiceJeuneCodeCategorie);
 }
 
 export default function ServicesJeunesPage({ serviceJeuneList }: ServicesJeunePageProps) {
@@ -42,7 +46,7 @@ export default function ServicesJeunesPage({ serviceJeuneList }: ServicesJeunePa
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [setFiltreList, filtreListString]);
 
-	function updateQueryParams(filtreList: ServiceJeune.CodeCategorie[]) {
+	function updateQueryParams(filtreList: ServiceJeuneCodeCategorie[]) {
 		const params = new URLSearchParams();
 		filtreList.map((filtre) => {
 			params.append('filtre', filtre);
@@ -51,7 +55,7 @@ export default function ServicesJeunesPage({ serviceJeuneList }: ServicesJeunePa
 		router.push(pathAndQueryString, undefined, { shallow: true });
 	}
 
-	function toggleFiltreAndUpdateQueryParams(filtre: ServiceJeune.CodeCategorie) {
+	function toggleFiltreAndUpdateQueryParams(filtre: ServiceJeuneCodeCategorie) {
 		let newFiltreList = [];
 		if(filtreList.includes(filtre)) {
 			newFiltreList = filtreList.filter((element) => element !== filtre);
@@ -109,8 +113,8 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<ServicesJeu
 }
 
 interface SelectionTypeServiceProps {
-	filtreList: ServiceJeune.CodeCategorie[]
-	toggle: (filtre: ServiceJeune.CodeCategorie) => void
+	filtreList: ServiceJeuneCodeCategorie[]
+	toggle: (filtre: ServiceJeuneCodeCategorie) => void
 }
 
 function SelectionTypeService({ filtreList, toggle }: SelectionTypeServiceProps) {
@@ -127,10 +131,10 @@ function SelectionTypeService({ filtreList, toggle }: SelectionTypeServiceProps)
 					name={'typeService'}
 					onChange={(option) => {
 						const filtre = option.dataset.value;
-						toggle(filtre as ServiceJeune.CodeCategorie);
+						toggle(filtre as ServiceJeuneCodeCategorie);
 					}}
 					optionsAriaLabel={'Types de services'}>
-					{Object.values(ServiceJeune.CodeCategorie).map((codeCategorie: ServiceJeune.CodeCategorie, index) =>
+					{Object.values(ServiceJeuneCodeCategorie).map((codeCategorie: ServiceJeuneCodeCategorie, index) =>
 						<SelectMultiple.Option key={index} value={codeCategorie}>{mapCodeCategorieServiceJeuneToLibelle(codeCategorie)}</SelectMultiple.Option>,
 					)}
 				</Champ.Input>
@@ -142,14 +146,14 @@ function SelectionTypeService({ filtreList, toggle }: SelectionTypeServiceProps)
 }
 
 interface EtiquettesFiltresCliquablesProps {
-	filtreList: ServiceJeune.CodeCategorie[]
-	toggle: (filtre: ServiceJeune.CodeCategorie) => void
+	filtreList: ServiceJeuneCodeCategorie[]
+	toggle: (filtre: ServiceJeuneCodeCategorie) => void
 }
 
 function EtiquettesFiltresCliquables({ filtreList, toggle }: EtiquettesFiltresCliquablesProps) {
 	return (
 		<TagList className={styles.etiquettes}
-			list={filtreList.map((codeCategorie: ServiceJeune.CodeCategorie, index) => {
+			list={filtreList.map((codeCategorie: ServiceJeuneCodeCategorie, index) => {
 				const libelle = mapCodeCategorieServiceJeuneToLibelle(codeCategorie);
 				return (
 					<button key={index}

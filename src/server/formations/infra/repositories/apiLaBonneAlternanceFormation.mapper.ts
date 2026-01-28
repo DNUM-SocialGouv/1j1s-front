@@ -6,6 +6,7 @@ import {
 
 import {
 	ApiLaBonneAlternanceFormationRechercheResponse,
+	ApiLaBonneAlternanceFormationRechercheResponseFormation,
 	ApiLaBonneAlternanceFormationResponse,
 } from './apiLaBonneAlternanceFormation';
 
@@ -24,7 +25,7 @@ export const mapRésultatRechercheFormation = (response: ApiLaBonneAlternanceFor
 };
 
 function mapIdFormation(
-	response: ApiLaBonneAlternanceFormationRechercheResponse.Formation,
+	response: ApiLaBonneAlternanceFormationRechercheResponseFormation,
 ): RésultatRechercheFormation['id'] {
 	return `${response.idRco}${ID_FORMATION_SEPARATOR}${response.cleMinistereEducatif ? response.cleMinistereEducatif : ''}`;
 }

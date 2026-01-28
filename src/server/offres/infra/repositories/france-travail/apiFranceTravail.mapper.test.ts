@@ -1,4 +1,4 @@
-import { Offre } from '~/server/offres/domain/offre';
+import { Offre, OffreFormation } from '~/server/offres/domain/offre';
 import {
 	mapCodeInsee,
 	mapCompétenceList,
@@ -104,7 +104,7 @@ describe('mapper pour l’api France Travail', () => {
 					const formationResponse = undefined;
 					//when
 					const mappedOffreEmploiFormationList = mapFormationList(formationResponse);
-					const résultatAttendu: Offre.Formation[] = [];
+				const résultatAttendu: OffreFormation[] = [];
 					//then
 					expect(mappedOffreEmploiFormationList).toEqual(résultatAttendu);
 				});
@@ -117,7 +117,7 @@ describe('mapper pour l’api France Travail', () => {
 					//when
 					const mappedOffreEmploiFormationList = mapFormationList(formationResponse);
 
-					const résultatAttendu: Offre.Formation[] = [
+				const résultatAttendu: OffreFormation[] = [
 						{ commentaire: 'DE docteur en médecine', libellé: 'Bac+5 et plus ou équivalents' },
 						{ commentaire: 'Licence pro commerce', libellé: 'Bac+3 et plus ou équivalents' },
 					];
@@ -129,7 +129,7 @@ describe('mapper pour l’api France Travail', () => {
 					const formationResponse = anOffreEmploiResponseFormationListAvecFormationNonDéfinie();
 
 					const mappedOffreEmploiFormationList = mapFormationList(formationResponse);
-					const résultatAttendu: Offre.Formation[] = [
+				const résultatAttendu: OffreFormation[] = [
 						{ commentaire: 'DE docteur en médecine', libellé: 'Bac+5 et plus ou équivalents' },
 					];
 					expect(mappedOffreEmploiFormationList).toEqual(résultatAttendu);

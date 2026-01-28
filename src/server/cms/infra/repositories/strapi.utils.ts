@@ -1,7 +1,7 @@
 import { Image } from '~/server/cms/domain/image';
-import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
+import { StrapiImage, StrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.response';
 
-export function flatMapSingleRelation<ReturnType>(relation: Strapi.SingleRelation<ReturnType>): ReturnType | undefined {
+export function flatMapSingleRelation<ReturnType>(relation: StrapiSingleRelation<ReturnType>): ReturnType | undefined {
 	const data = relation.data?.attributes;
 	if (!data) {
 		return undefined;
@@ -21,7 +21,7 @@ export function getExtraitContenu(contenu: string, size = 120): string {
 	return `${brief} …`;
 }
 
-export function flatMapSingleImage(response: Strapi.SingleRelation<Strapi.Image> | undefined): Image | undefined {
+export function flatMapSingleImage(response: StrapiSingleRelation<StrapiImage> | undefined): Image | undefined {
 	if (!response?.data) {
 		return undefined;
 	}

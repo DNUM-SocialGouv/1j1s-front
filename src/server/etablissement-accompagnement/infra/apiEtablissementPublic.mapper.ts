@@ -1,19 +1,19 @@
 import {
 	EtablissementAccompagnement,
+	EtablissementAccompagnementAdresse as Adresse,
+	EtablissementAccompagnementHoraire as Horaire,
+	EtablissementAccompagnementHoraireHeure as Heure,
 	isTypeEtablissement,
 	JourSemaine,
 	TypeÉtablissement,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import {
-	ResultatRechercheEtablissementPublicResponse,
+	ResultatRechercheEtablissementPublicResponseAdresseParsed as AdresseParsed,
+	ResultatRechercheEtablissementPublicResponseEtablissementPublic as EtablissementPublic,
+	ResultatRechercheEtablissementPublicResponsePivotParsed as PivotLocal,
+	ResultatRechercheEtablissementPublicResponsePlageOuvertureParsed as PlageOuverture,
+	ResultatRechercheEtablissementPublicResponseTelephoneParsed as Telephone,
 } from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.response';
-import EtablissementPublic = ResultatRechercheEtablissementPublicResponse.EtablissementPublic;
-import Adresse = ResultatRechercheEtablissementPublicResponse.AdresseParsed;
-import PlageOuverture = ResultatRechercheEtablissementPublicResponse.PlageOuvertureParsed;
-import PivotLocal = ResultatRechercheEtablissementPublicResponse.PivotParsed;
-import Telephone = ResultatRechercheEtablissementPublicResponse.TelephoneParsed;
-import Horaire = EtablissementAccompagnement.Horaire;
-import Heure = EtablissementAccompagnement.Horaire.Heure;
 
 const JOURS_DE_LA_SEMAINE_NOM = [JourSemaine.LUNDI, JourSemaine.MARDI, JourSemaine.MERCREDI, JourSemaine.JEUDI, JourSemaine.VENDREDI, JourSemaine.SAMEDI, JourSemaine.DIMANCHE];
 
@@ -26,7 +26,7 @@ export function mapEtablissementPublicAccompagnement(resultatRechercheEtablissem
 		const typeEtablissement = mapTypeEtablissement(pivotParsed);
 		if (!typeEtablissement) return;
 
-		const adressesParsed: Array<Adresse> = JSON.parse(adresse);
+		const adressesParsed: Array<AdresseParsed> = JSON.parse(adresse);
 		const telephoneParsed: Array<Telephone> | undefined = telephone && JSON.parse(telephone);
 		const plageOuvertureParsed: Array<PlageOuverture> = plage_ouverture && JSON.parse(plage_ouverture);
 
@@ -48,7 +48,7 @@ function mapTypeEtablissement(pivotLocal: Array<PivotLocal>): TypeÉtablissement
 	return pivotLocalWithValidEtablissementType?.type_service_local as TypeÉtablissement;
 }
 
-function mapAdresse(adresseList: Array<Adresse>): EtablissementAccompagnement.Adresse | undefined {
+function mapAdresse(adresseList: Array<AdresseParsed>): Adresse | undefined {
 	const adresse = adresseList.find((adresse) => adresse.type_adresse === 'Adresse');
 	if (!adresse) {
 		return undefined;

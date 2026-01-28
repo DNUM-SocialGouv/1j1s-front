@@ -1,9 +1,11 @@
 import { AlternanceFiltre } from '~/server/alternances/domain/alternance';
-import { AlternanceApiJobsResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
+import {
+	AlternanceApiJobsResponse,
+	AlternanceApiJobsResponseLbaCompanies as LbaCompanies,
+	AlternanceApiJobsResponseMatcha as Matcha,
+	AlternanceApiJobsResponsePEJobs as PEJobs,
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 import { AlternanceStatus } from '~/server/alternances/infra/status';
-import Matcha = AlternanceApiJobsResponse.Matcha;
-import LbaCompanies = AlternanceApiJobsResponse.LbaCompanies;
-import PEJobs = AlternanceApiJobsResponse.PEJobs;
 
 export function anAlternanceFiltre(): AlternanceFiltre {
 	return {

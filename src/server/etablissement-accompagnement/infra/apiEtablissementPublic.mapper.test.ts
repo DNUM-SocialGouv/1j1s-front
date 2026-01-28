@@ -212,7 +212,7 @@ describe('mapÉtablissementAccompagnement', () => {
 		it('lorsque le jour de la plage horaire n‘est pas supporté, ne renvoie pas cet horaire', () => {
 			const anEtablissement = anEtablissementPublicResponse({
 				plage_ouverture: aPlageOuvertureEtablissementPublicResponse([{
-					// @ts-expect-error
+					// @ts-expect-error TS2322
 					nom_jour_debut: 'je suis un mauvais jour',
 					nom_jour_fin: JourSemaine.JEUDI,
 					valeur_heure_debut_1: '09:00:00',

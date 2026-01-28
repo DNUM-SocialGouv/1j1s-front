@@ -16,130 +16,128 @@ export interface ComboboxAction {
 	execute: (previousState: ComboboxState) => ComboboxState;
 }
 
-export namespace ComboboxAction {
-	export class OpenList implements ComboboxAction {
-		execute(previousState: ComboboxState): ComboboxState {
-			return {
-				...previousState,
-				open: true,
-			};
-		}
+export class ComboboxActionOpenList implements ComboboxAction {
+	execute(previousState: ComboboxState): ComboboxState {
+		return {
+			...previousState,
+			open: true,
+		};
+	}
+}
+
+export class ComboboxActionCloseList implements ComboboxAction {
+	execute(previousState: ComboboxState): ComboboxState {
+		return {
+			...previousState,
+			activeDescendant: undefined,
+			open: false,
+		};
+	}
+}
+
+export class ComboboxActionToggleList implements ComboboxAction {
+	execute(previousState: ComboboxState): ComboboxState {
+		const { open } = previousState;
+		return open
+			? new ComboboxActionCloseList().execute(previousState)
+			: new ComboboxActionOpenList().execute(previousState);
+	}
+}
+
+export class ComboboxActionNextOption implements ComboboxAction {
+	execute(previousState: ComboboxState): ComboboxState {
+		const { activeDescendant, suggestionList } = previousState;
+		const options = getVisibleOptions(suggestionList);
+		const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
+		const nextDescendant = options[currentActiveDescendantIndex + 1] ?? options[0];
+		return {
+			...previousState,
+			activeDescendant: nextDescendant?.id,
+			open: true,
+		};
+	}
+}
+
+export class ComboboxActionPreviousOption implements ComboboxAction {
+	execute(previousState: ComboboxState): ComboboxState {
+		const { activeDescendant, suggestionList } = previousState;
+		const options = getVisibleOptions(suggestionList);
+		const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
+		const previousDescendant = options[currentActiveDescendantIndex - 1] ?? options[options.length - 1];
+		return {
+			...previousState,
+			activeDescendant: previousDescendant?.id,
+			open: true,
+		};
+	}
+}
+
+export class ComboboxActionSetValue implements ComboboxAction {
+	private readonly newValue: string;
+
+	constructor(value: { toString: () => string }) {
+		this.newValue = value.toString();
 	}
 
-	export class CloseList implements ComboboxAction {
-		execute(previousState: ComboboxState): ComboboxState {
-			return {
-				...previousState,
-				activeDescendant: undefined,
-				open: false,
-			};
-		}
+	execute(previousState: ComboboxState): ComboboxState {
+		return {
+			...previousState,
+			open: true,
+			value: this.newValue,
+		};
+	}
+}
+
+export class ComboboxActionSelectOption implements ComboboxAction {
+	private readonly option: Element | null;
+
+	constructor(option: Element | string) {
+		this.option = option instanceof Element
+			? option
+			: document.getElementById(option);
 	}
 
-	export class ToggleList implements ComboboxAction {
-		execute(previousState: ComboboxState): ComboboxState {
-			const { open } = previousState;
-			return open
-				? new CloseList().execute(previousState)
-				: new OpenList().execute(previousState);
-		}
+	execute(previousState: ComboboxState): ComboboxState {
+		const closeListState = new ComboboxActionCloseList().execute(previousState);
+		return {
+			...closeListState,
+			value: this.option?.textContent ?? '',
+		};
+	}
+}
+
+export class ComboboxActionHideOption implements ComboboxAction {
+	private readonly option: Element;
+
+	constructor(option: Element) {
+		this.option = option;
 	}
 
-	export class NextOption implements ComboboxAction {
-		execute(previousState: ComboboxState): ComboboxState {
-			const { activeDescendant, suggestionList } = previousState;
-			const options = getVisibleOptions(suggestionList);
-			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
-			const nextDescendant = options[currentActiveDescendantIndex + 1] ?? options[0];
-			return {
-				...previousState,
-				activeDescendant: nextDescendant?.id,
-				open: true,
-			};
-		}
+	execute(previousState: ComboboxState): ComboboxState {
+		const previousVisibleOptions = previousState.visibleOptions;
+		return {
+			...previousState,
+			visibleOptions: previousVisibleOptions.filter((optionId) => optionId !== this.option.id),
+		};
+	}
+}
+
+export class ComboboxActionShowOption implements ComboboxAction {
+	private readonly option: Element;
+
+	constructor(option: Element) {
+		this.option = option;
 	}
 
-	export class PreviousOption implements ComboboxAction {
-		execute(previousState: ComboboxState): ComboboxState {
-			const { activeDescendant, suggestionList } = previousState;
-			const options = getVisibleOptions(suggestionList);
-			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
-			const previousDescendant = options[currentActiveDescendantIndex - 1] ?? options[options.length - 1];
-			return {
-				...previousState,
-				activeDescendant: previousDescendant?.id,
-				open: true,
-			};
-		}
-	}
-
-	export class SetValue implements ComboboxAction {
-		private readonly newValue: string;
-
-		constructor(value: { toString: () => string }) {
-			this.newValue = value.toString();
-		}
-
-		execute(previousState: ComboboxState): ComboboxState {
-			return {
-				...previousState,
-				open: true,
-				value: this.newValue,
-			};
-		}
-	}
-
-	export class SelectOption implements ComboboxAction {
-		private readonly option: Element | null;
-
-		constructor(option: Element | string) {
-			this.option = option instanceof Element
-				? option
-				: document.getElementById(option);
-		}
-
-		execute(previousState: ComboboxState): ComboboxState {
-			const closeListState = new CloseList().execute(previousState);
-			return {
-				...closeListState,
-				value: this.option?.textContent ?? '',
-			};
-		}
-	}
-
-	export class HideOption implements ComboboxAction {
-		private readonly option: Element;
-
-		constructor(option: Element) {
-			this.option = option;
-		}
-
-		execute(previousState: ComboboxState): ComboboxState {
-			const previousVisibleOptions = previousState.visibleOptions;
-			return {
-				...previousState,
-				visibleOptions: previousVisibleOptions.filter((optionId) => optionId !== this.option.id),
-			};
-		}
-	}
-
-	export class ShowOption implements ComboboxAction {
-		private readonly option: Element;
-
-		constructor(option: Element) {
-			this.option = option;
-		}
-
-		execute(previousState: ComboboxState): ComboboxState {
-			const optionId = this.option.id;
-			const previousVisibleOptions = previousState.visibleOptions;
-			const indexOfOptionVisible = previousVisibleOptions.indexOf(optionId);
-			if (indexOfOptionVisible > -1 ) return previousState;
-			return {
-				...previousState,
-				visibleOptions: previousVisibleOptions.concat(optionId),
-			};
-		}
+	execute(previousState: ComboboxState): ComboboxState {
+		const optionId = this.option.id;
+		const previousVisibleOptions = previousState.visibleOptions;
+		const indexOfOptionVisible = previousVisibleOptions.indexOf(optionId);
+		if (indexOfOptionVisible > -1 ) return previousState;
+		return {
+			...previousState,
+			visibleOptions: previousVisibleOptions.concat(optionId),
+		};
 	}
 }
 

@@ -3,7 +3,7 @@ import { createSuccess, Either, isFailure } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { ServicesJeunesRepository } from '~/server/services-jeunes/domain/servicesJeunes.repository';
-import { StrapiMesuresJeunes } from '~/server/services-jeunes/infra/strapiMesuresJeunes';
+import { StrapiMesuresJeunesMesuresJeunesParCategorie } from '~/server/services-jeunes/infra/strapiMesuresJeunes';
 import { mapToServicesJeunes } from '~/server/services-jeunes/infra/strapiServicesJeunes.mapper';
 
 const RESOURCE_MESURE_JEUNE = 'mesure-jeune';
@@ -14,7 +14,7 @@ export class StrapiServicesJeunesRepository implements ServicesJeunesRepository 
 
 	async getServicesJeunesList(): Promise<Either<Array<ServiceJeune>>> {
 		const query = 'populate=deep';
-		const strapiMesuresJeunes = await this.strapiService.getSingleType<StrapiMesuresJeunes.MesuresJeunesParCategorie>(RESOURCE_MESURE_JEUNE, query);
+		const strapiMesuresJeunes = await this.strapiService.getSingleType<StrapiMesuresJeunesMesuresJeunesParCategorie>(RESOURCE_MESURE_JEUNE, query);
 
 		if (isFailure(strapiMesuresJeunes))
 			return strapiMesuresJeunes;

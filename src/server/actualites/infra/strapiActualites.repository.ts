@@ -16,7 +16,7 @@ export class StrapiActualitesRepository implements ActualitesRepository {
 
 	async getActualitesList(): Promise<Either<Array<Actualite>>> {
 		const query = 'populate=deep';
-		const strapiActualitesList = await this.strapiService.getSingleType<StrapiListeActualites.ListeActualites>(RESOURCE_ACTUALITE, query);
+		const strapiActualitesList = await this.strapiService.getSingleType<StrapiListeActualites>(RESOURCE_ACTUALITE, query);
 
 		if (isFailure(strapiActualitesList))
 			return strapiActualitesList;

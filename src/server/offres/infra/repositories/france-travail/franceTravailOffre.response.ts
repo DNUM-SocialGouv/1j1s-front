@@ -2,70 +2,64 @@ export interface OffreResponse {
   id: string
   intitule: string
   description?: string
-  formations?: OffreResponse.Formation[]
-  competences?: OffreResponse.Compétence[]
-  qualitesProfessionnelles?: OffreResponse.QualitéeProfessionnelle[]
-  lieuTravail?: OffreResponse.LieuTravail
-  entreprise?: OffreResponse.Entreprise
-  salaire?: OffreResponse.Salaire
-  typeContrat: OffreResponse.TypeContrat
-  experienceExige?: OffreResponse.Expérience
-  dureeTravailLibelleConverti?: OffreResponse.DuréeTravail
-  origineOffre: OffreResponse.OrigineOffre
+  formations?: OffreResponseFormation[]
+  competences?: OffreResponseCompétence[]
+  qualitesProfessionnelles?: OffreResponseQualitéeProfessionnelle[]
+  lieuTravail?: OffreResponseLieuTravail
+  entreprise?: OffreResponseEntreprise
+  salaire?: OffreResponseSalaire
+  typeContrat: OffreResponseTypeContrat
+  experienceExige?: OffreResponseExpérience
+  dureeTravailLibelleConverti?: OffreResponseDuréeTravail
+  origineOffre: OffreResponseOrigineOffre
 }
 
-export namespace OffreResponse {
-  export type Expérience = 'D' | 'S' | 'E';
+export type OffreResponseExpérience = 'D' | 'S' | 'E';
 
-  export type DuréeTravail = 'Temps plein' | 'Temps partiel';
+export type OffreResponseDuréeTravail = 'Temps plein' | 'Temps partiel';
 
-  export type TypeContrat = 'CDI' | 'CDD' | 'MIS' | 'SAI'
+export type OffreResponseTypeContrat = 'CDI' | 'CDD' | 'MIS' | 'SAI'
 
-  export interface LieuTravail {
-    libelle: string
-  }
+export interface OffreResponseLieuTravail {
+  libelle: string
+}
 
-  export interface Entreprise {
-    nom?: string
-    logo?: string
-  }
+export interface OffreResponseEntreprise {
+  nom?: string
+  logo?: string
+}
 
-  export interface Salaire {
-    libelle?: string
-    commentaire?: string
-  }
+export interface OffreResponseSalaire {
+  libelle?: string
+  commentaire?: string
+}
 
-  export interface Formation {
-    niveauLibelle?: string
-    commentaire?: string
-  }
+export interface OffreResponseFormation {
+  niveauLibelle?: string
+  commentaire?: string
+}
 
-  export interface QualitéeProfessionnelle {
-    libelle?: string
-  }
+export interface OffreResponseQualitéeProfessionnelle {
+  libelle?: string
+}
 
-  export interface Compétence {
-    libelle?: string
-  }
+export interface OffreResponseCompétence {
+  libelle?: string
+}
 
-  export interface OrigineOffre {
-    urlOrigine: string
-  }
+export interface OffreResponseOrigineOffre {
+  urlOrigine: string
 }
 
 export interface RésultatsRechercheOffreResponse {
   resultats: OffreResponse[]
-  filtresPossibles?: RésultatsRechercheOffreResponse.FiltresPossibles[]
+  filtresPossibles?: RésultatsRechercheOffreResponseFiltresPossibles[]
 }
 
-export namespace RésultatsRechercheOffreResponse {
-  export interface FiltresPossibles {
-    agregation: FiltresPossiblesResponse.Agrégation[]
-  }
+export interface RésultatsRechercheOffreResponseFiltresPossibles {
+  agregation: RésultatsRechercheOffreResponseAgregation[]
+}
 
-  export namespace FiltresPossiblesResponse {
-    export interface Agrégation {
-      nbResultats: number
-    }
-  }
+export interface RésultatsRechercheOffreResponseAgregation {
+  nbResultats: number
 }

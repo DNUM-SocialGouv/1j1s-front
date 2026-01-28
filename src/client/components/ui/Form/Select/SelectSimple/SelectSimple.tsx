@@ -24,7 +24,21 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useTouchedInput } from '~/client/hooks/useTouchedInput';
 
 import styles from '../Select.module.scss';
-import { getOptionsElement, SelectSimpleAction, SelectSimpleReducer } from './SelectSimpleReducer';
+import {
+	getOptionsElement,
+	SelectSimpleActionClearUserInput,
+	SelectSimpleActionCloseList,
+	SelectSimpleActionFocusFirstOption,
+	SelectSimpleActionFocusLastOption,
+	SelectSimpleActionFocusOptionMatchingUserInput,
+	SelectSimpleActionNextOption,
+	SelectSimpleActionOpenList,
+	SelectSimpleActionPreviousOption,
+	SelectSimpleActionSelectOption,
+	SelectSimpleActionSetValueTypedByUser,
+	SelectSimpleActionToggleList,
+	SelectSimpleReducer,
+} from './SelectSimpleReducer';
 
 const DEFAULT_PLACEHOLDER = 'Sélectionnez votre choix';
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
@@ -87,7 +101,7 @@ export function SelectSimple({
 	}, [value, touched]);
 
 	const selectOption = useCallback(function selectOption(optionId: string) {
-		dispatch(new SelectSimpleAction.SelectOption(optionId));
+		dispatch(new SelectSimpleActionSelectOption(optionId));
 		const option = document.getElementById(optionId);
 		if (option) { onChangeProps(option); }
 	}, [onChangeProps]);
@@ -114,7 +128,7 @@ export function SelectSimple({
 		if (touched) {
 			onTouchProps(touched);
 		}
-		dispatch(new SelectSimpleAction.CloseList());
+		dispatch(new SelectSimpleActionCloseList());
 	}, [onTouchProps, setTouchedOnBlur, value]);
 
 	const isSelected = useCallback(function isSelected(optionValue?: string) {
@@ -122,7 +136,7 @@ export function SelectSimple({
 	}, [value]);
 
 	const clearUserInput = useMemo(() => {
-		return debounce(() => dispatch(new SelectSimpleAction.ClearUserInput()), DEFAULT_DEBOUNCE_TIMEOUT);
+		return debounce(() => dispatch(new SelectSimpleActionClearUserInput()), DEFAULT_DEBOUNCE_TIMEOUT);
 	}, []);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
@@ -131,7 +145,7 @@ export function SelectSimple({
 		const searchableCharacter = isSearchableCharacter(event.nativeEvent);
 		if (searchableCharacter) {
 			event.preventDefault();
-			dispatch(new SelectSimpleAction.FocusOptionMatchingUserInput(key));
+			dispatch(new SelectSimpleActionFocusOptionMatchingUserInput(key));
 			clearUserInput();
 		}
 
@@ -139,13 +153,13 @@ export function SelectSimple({
 			case KeyBoard.PAGE_UP:
 				if (open) {
 					event.preventDefault();
-					dispatch(new SelectSimpleAction.PreviousOption(10));
+					dispatch(new SelectSimpleActionPreviousOption(10));
 				}
 				break;
 			case KeyBoard.PAGE_DOWN:
 				if (open) {
 					event.preventDefault();
-					dispatch(new SelectSimpleAction.NextOption(10));
+					dispatch(new SelectSimpleActionNextOption(10));
 				}
 				break;
 			case KeyBoard.ARROW_UP:
@@ -154,19 +168,19 @@ export function SelectSimple({
 					if (altKey) {
 						if (activeDescendant) { selectOption(activeDescendant); }
 					} else {
-						dispatch(new SelectSimpleAction.PreviousOption());
+						dispatch(new SelectSimpleActionPreviousOption());
 					}
 				} else {
-					dispatch(new SelectSimpleAction.OpenList());
+					dispatch(new SelectSimpleActionOpenList());
 				}
 				event.preventDefault();
 				break;
 			case KeyBoard.ARROW_DOWN:
 			case KeyBoard.IE_ARROW_DOWN:
 				if (open) {
-					dispatch(new SelectSimpleAction.NextOption());
+					dispatch(new SelectSimpleActionNextOption());
 				} else {
-					dispatch(new SelectSimpleAction.OpenList());
+					dispatch(new SelectSimpleActionOpenList());
 				}
 				event.preventDefault();
 				break;
@@ -174,7 +188,7 @@ export function SelectSimple({
 			case KeyBoard.IE_ESCAPE:
 				if (open) {
 					event.preventDefault();
-					dispatch(new SelectSimpleAction.CloseList());
+					dispatch(new SelectSimpleActionCloseList());
 				}
 				break;
 			case KeyBoard.SPACE:
@@ -186,7 +200,7 @@ export function SelectSimple({
 					}
 				} else {
 					cancelEvent(event);
-					dispatch(new SelectSimpleAction.OpenList());
+					dispatch(new SelectSimpleActionOpenList());
 				}
 				break;
 			}
@@ -199,12 +213,12 @@ export function SelectSimple({
 				break;
 			}
 			case KeyBoard.HOME: {
-				dispatch(new SelectSimpleAction.FocusFirstOption());
+				dispatch(new SelectSimpleActionFocusFirstOption());
 				event.preventDefault();
 				break;
 			}
 			case KeyBoard.END: {
-				dispatch(new SelectSimpleAction.FocusLastOption());
+				dispatch(new SelectSimpleActionFocusLastOption());
 				event.preventDefault();
 				break;
 			}
@@ -237,7 +251,7 @@ export function SelectSimple({
 					aria-expanded={open}
 					data-touched={touched}
 					aria-required={required}
-					onClick={() => dispatch(new SelectSimpleAction.ToggleList())}
+					onClick={() => dispatch(new SelectSimpleActionToggleList())}
 					aria-activedescendant={activeDescendant}
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}

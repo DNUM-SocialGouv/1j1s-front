@@ -1,5 +1,8 @@
 import { CookiesService } from '~/client/services/cookies/cookies.service';
-import { TarteAuCitron } from '~/client/services/cookies/tarteaucitron/tarteAuCitron.cookies.service';
+import {
+	TarteAuCitron,
+	TarteAuCitronServiceConfig,
+} from '~/client/services/cookies/tarteaucitron/tarteAuCitron.cookies.service';
 
 import { PageTags, SITE_TAGS } from '../analytics';
 import { ManualAnalyticsService } from '../analytics.service';
@@ -40,7 +43,7 @@ export class EulerianAnalyticsService implements ManualAnalyticsService {
 			//	parce qu'on ne sait pas ce que ça fait
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			type ConfigObject = any;
-			const config: TarteAuCitron.ServiceConfig<ConfigObject> = {
+			const config: TarteAuCitronServiceConfig<ConfigObject> = {
 				cookies: ['etuix'],
 				fallback: function () {
 					this.js();
