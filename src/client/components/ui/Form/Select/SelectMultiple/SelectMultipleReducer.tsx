@@ -47,7 +47,6 @@ export class SelectMultipleActionToggleList implements SelectMultipleAction {
 			? new SelectMultipleActionCloseList().execute(previousState)
 			: new SelectMultipleActionOpenList().execute(previousState);
 	}
-	}
 }
 
 export class SelectMultipleActionSetValueTypedByUser implements SelectMultipleAction {

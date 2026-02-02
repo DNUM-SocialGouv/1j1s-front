@@ -61,10 +61,13 @@ export default function UnJeuneUnPermis() {
 		};
 	});
 
-	setInterval(() => {
-		// Polling pour déclencher l'envoi de la taille de l'iframe
-		iRef.current?.contentWindow?.postMessage('size-request', '*');
-	}, 100);
+	useEffect(() => {
+		const interval = setInterval(() => {
+			// Polling pour déclencher l'envoi de la taille de l'iframe
+			iRef.current?.contentWindow?.postMessage('size-request', '*');
+		}, 100);
+		return () => clearInterval(interval);
+	}, []);
 
 	return (
 		<main id="contenu">

@@ -47,7 +47,6 @@ export class SelectSimpleActionToggleList implements SelectSimpleAction {
 			? new SelectSimpleActionCloseList().execute(previousState)
 			: new SelectSimpleActionOpenList().execute(previousState);
 	}
-	}
 }
 
 export class SelectSimpleActionSetValueTypedByUser implements SelectSimpleAction {
@@ -181,5 +180,3 @@ export class SelectSimpleActionSelectOption implements SelectSimpleAction {
 export function SelectSimpleReducer(state: SelectSimpleState, action: SelectSimpleAction): SelectSimpleState {
 	return action.execute(state);
 }
-
-

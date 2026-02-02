@@ -43,7 +43,7 @@ describe('envoyer une demande de contact', () => {
 			const result = demandeContactAccompagnementBodySchema.validate(aDemandeDeContactAccompagnement({ établissement:{
 				email: 'email@example.com',
 				nom:'nom de l‘établissement',
-				// @ts-expect-error
+				// @ts-expect-error TS2322
 				type: 'mauvais nom',
 			} }));
 

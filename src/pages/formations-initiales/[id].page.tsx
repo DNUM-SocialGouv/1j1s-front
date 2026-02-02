@@ -60,11 +60,11 @@ export default function ConsulterFormationInitialePage({ formationInitialeDetail
 	const dateService = useDependency<DateService>('dateService');
 	useAnalytics(analytics);
 
-	if (isFormationWithComplementaryInformation(formationInitialeDetail)) {
-		formationInitialeDetail.dateDeMiseAJour = new Date(formationInitialeDetail.dateDeMiseAJour);
-	}
+	const dateDeMiseAJour = isFormationWithComplementaryInformation(formationInitialeDetail) 
+		? new Date(formationInitialeDetail.dateDeMiseAJour)
+		: dateService.today();
 
-	const dataUpdatedDate = isFormationWithComplementaryInformation(formationInitialeDetail) ? dateService.formatToHumanReadableDate(formationInitialeDetail.dateDeMiseAJour) : dateService.formatToHumanReadableDate(dateService.today());
+	const dataUpdatedDate = dateService.formatToHumanReadableDate(dateDeMiseAJour);
 
 	return (
 		<>

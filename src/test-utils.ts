@@ -4,12 +4,11 @@ import { buildQueries, getAllByRole, getNodeText } from '@testing-library/dom';
 import { act, within } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 
-declare global {
-	namespace jest {
-		interface Matchers<R> {
-			toBeAccessible(): Promise<R>
-		}
-	}
+// Si vous utilisiez import { expect } from '@jest/globals';
+declare module 'expect' {
+    interface Matchers<R> {
+        toBeAccessible(): Promise<R>
+    }
 }
 
 expect.extend(toHaveNoViolations);

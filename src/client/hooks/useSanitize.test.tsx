@@ -8,7 +8,7 @@ import useSanitize from '~/client/hooks/useSanitize';
 function setupUseSanitize(dirtyContent?: string): string {
 	let hookUnderTest = '';
 	function TestComponent() {
-		hookUnderTest = useSanitize(dirtyContent);
+		hookUnderTest = useSanitize(dirtyContent); // eslint-disable-line react-hooks/globals
 		return null;
 	}
 	render(<TestComponent />);
