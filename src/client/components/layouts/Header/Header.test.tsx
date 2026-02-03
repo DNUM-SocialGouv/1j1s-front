@@ -25,12 +25,16 @@ describe('Header', () => {
 			expect(header).toBeVisible();
 		});
 
-		it('affiche le logo de la République Française', () => {
+		it('affiche le logo du ministère', () => {
 			mockUseRouter({ pathname: '/' });
-			render(<Header />);
+			const { container } = render(<Header />);
 
-			const logo = screen.getByText(/Ministère/);
+			// eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+			const logo = container.getElementsByClassName('fr-logo')[0];
 			expect(logo).toBeVisible();
+			expect(logo.innerHTML).toContain('Ministère');
+			expect(logo.innerHTML).toContain('du Travail');
+			expect(logo.innerHTML).toContain('et des solidarités');
 		});
 
 		it('affiche un lien vers l’accueil', () => {

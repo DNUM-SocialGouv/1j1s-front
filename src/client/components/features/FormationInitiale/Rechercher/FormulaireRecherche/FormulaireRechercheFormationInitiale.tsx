@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent } from 'react';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
@@ -13,17 +13,12 @@ import styles from './FormulaireRechercheFormationInitiale.module.scss';
 export function FormulaireRechercheFormationInitiale() {
 	const queryParams = useFormationInitialeQuery();
 	const router = useRouter();
-	const [inputMotCle, setInputMotCle] = useState<string>('');
 
 	async function submitForm(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const query = getFormAsQuery(event.currentTarget, queryParams);
 		return router.push({ query }, undefined, { shallow: true });
 	}
-
-	useEffect(function initFormValues() {
-		setInputMotCle(queryParams.motCle || '');
-	}, [queryParams]);
 
 
 	return (
@@ -37,10 +32,10 @@ export function FormulaireRechercheFormationInitiale() {
 				</Champ.Label>
 				<Champ.Input
 					render={Input}
-					value={inputMotCle}
+					key={queryParams.motCle || ''}
+					defaultValue={queryParams.motCle || ''}
 					name="motCle"
-					autoFocus
-					onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)} />
+					autoFocus />
 				<Champ.Error />
 			</Champ>
 
@@ -54,4 +49,3 @@ export function FormulaireRechercheFormationInitiale() {
 		</form>
 	);
 }
-

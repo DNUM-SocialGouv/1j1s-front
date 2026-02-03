@@ -27,19 +27,19 @@ export function MeilisearchRange(props: UseRangeProps & MeilisearchRangeProps) {
   type EmptyInput = '';
   const [minValue, setMinValue] = useState<number | EmptyInput>('');
   const [maxValue, setMaxValue] = useState<number | EmptyInput>('');
+  const [previousStart, setPreviousStart] = useState(start);
+
+  if (start[0] !== previousStart[0] || start[1] !== previousStart[1]) {
+  	setPreviousStart(start);
+  	if (start[0] === -Infinity) setMinValue('');
+  	if (start[1] === Infinity) setMaxValue('');
+  }
+
   const rangeBoxRef = useRef<HTMLDivElement>(null);
   const buttonId = useId();
   const inputMinId = useId();
   const inputMaxId = useId();
   const BUTTON_LABEL = 'Appliquer';
-
-  useEffect(function updateMinValue() {
-  	if (start[0] === -Infinity) setMinValue('');
-  }, [start]);
-
-  useEffect(function updateMaxValue() {
-  	if (start[1] === Infinity) setMaxValue('');
-  }, [start]);
 
   const closeRangeBoxOnClickOutside = useCallback((event: MouseEvent) => {
   	if (!(rangeBoxRef.current)?.contains(event.target as Node)) {

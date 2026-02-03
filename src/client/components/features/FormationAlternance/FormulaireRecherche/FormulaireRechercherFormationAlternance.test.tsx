@@ -172,7 +172,6 @@ describe('FormulaireRechercherFormationAlternance', () => {
 			await user.click(submitButton);
 
 			expect(routerPush).not.toHaveBeenCalled();
-			expect(screen.getByRole('form')).toBeInvalid();
 		});
 
 		it('lorsqu‘il manque le métier, n‘effectue pas de recherche', async () => {

@@ -35,6 +35,26 @@ const MESSAGE_CHAMP_VIDE = 'Commencez à saisir au moins 3 caractères ou le cod
 const DEFAULT_RADIUS_VALUE = '10';
 const DEFAULT_DEBOUNCE_TIMEOUT = 200;
 
+function isUserInputValid(userInput: string) {
+	const regexSearchCharToIgnore = new RegExp(`[${SEARCH_CHARACTERS_TO_IGNORE}]`, 'g');
+	const userInputWithoutSearchCharToIgnore = userInput.replace(regexSearchCharToIgnore, '');
+	const userInputWithoutSearchCharToIgnoreTrimed = userInputWithoutSearchCharToIgnore.trim();
+
+	return userInputWithoutSearchCharToIgnoreTrimed.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH;
+}
+
+function formatLibelle(ville: string, codePostal: string) {
+	return `${ville} (${codePostal})`;
+}
+
+function findMatchingOptionFromUserInput(userInput: string, communeList: Array<Commune>) {
+	return communeList.find((commune) => userInput === `${commune.ville} (${commune.codePostal})`);
+}
+
+function doNothing() {
+	return;
+}
+
 export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProps>(function ComboboxCommune(props, ref) {
 	const {
 		label = 'Localisation',
@@ -47,24 +67,12 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 	} = props;
 	const localisationService = useDependency<LocalisationService>('localisationService');
 
-	function formatLibelle(ville: string, codePostal: string) {
-		return `${ville} (${codePostal})`;
-	}
-
 	const [communeOptions, setCommuneOptions] = useState<Array<Commune>>(defaultCommuneProps ? [defaultCommuneProps] : []);
 	const [userInput, setUserInput] = useState<string>(defaultCommuneProps ? formatLibelle(defaultCommuneProps.ville, defaultCommuneProps.codePostal) : '');
 
 	const [status, setStatus] = useState<FetchStatus>('init');
 
 	const matchingOption = findMatchingOptionFromUserInput(userInput, communeOptions);
-
-	function isUserInputValid(userInput: string) {
-		const regexSearchCharToIgnore = new RegExp(`[${SEARCH_CHARACTERS_TO_IGNORE}]`, 'g');
-		const userInputWithoutSearchCharToIgnore = userInput.replace(regexSearchCharToIgnore, '');
-		const userInputWithoutSearchCharToIgnoreTrimed = userInputWithoutSearchCharToIgnore.trim();
-
-		return userInputWithoutSearchCharToIgnoreTrimed.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH;
-	}
 
 	const rechercherCommunesWithUserInputValid = useCallback(async (userInputCommune: string) => {
 		const response = await localisationService.rechercherCommune(userInputCommune);
@@ -94,14 +102,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 		};
 	}, [handleRechercherWithDebounce]);
 
-	function isListeDeResultatEmpty() {
-		return communeOptions.length === 0;
-	}
-
-	function findMatchingOptionFromUserInput(userInput: string, communeList: Array<Commune>) {
-		return communeList.find((commune) => userInput === `${commune.ville} (${commune.codePostal})`);
-	}
-
+	const isListeDeResultatEmpty = communeOptions.length === 0;
 	const isCommuneValid = matchingOption?.code;
 	return (
 		<>
@@ -137,7 +138,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 								!isUserInputValid(userInput) && MESSAGE_CHAMP_VIDE
 								|| status === 'failure' && MESSAGE_ERREUR_FETCH
 								|| status === 'pending' && MESSAGE_CHARGEMENT
-								|| isListeDeResultatEmpty() && MESSAGE_PAS_DE_RESULTAT
+								|| isListeDeResultatEmpty && MESSAGE_PAS_DE_RESULTAT
 								|| ''
 							}
 						</Combobox.AsyncMessage>
@@ -170,9 +171,3 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 		</>
 	);
 });
-
-function doNothing() {
-	return;
-}
-
-

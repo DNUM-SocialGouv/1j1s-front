@@ -114,5 +114,9 @@
     "*.ts": "eslint --fix",
     "*.tsx": "eslint --fix",
     "*.js": "eslint --fix"
+  },
+  "volta": {
+    "node": "22.22.0",
+    "npm": "11.8.0"
   }
 }

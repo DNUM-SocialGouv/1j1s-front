@@ -1,4 +1,4 @@
-import { BrowserStorage,BrowserStorageService } from './browser.storage.service';
+import { BrowserStorage, BrowserStorageService, StorageUnavailableError } from './browser.storage.service';
 
 function aStorage(overrides?: Partial<BrowserStorage>): BrowserStorage {
 	return {
@@ -36,7 +36,7 @@ describe('browserStorageService', () => {
 		});
 		const service = new BrowserStorageService(() => storage);
 
-		expect(() => service.get('key')).toThrow(new BrowserStorageService.StorageUnavailableError('storage unavailable'));
+		expect(() => service.get('key')).toThrow(new StorageUnavailableError('storage unavailable'));
 	});
 	it('throw une erreur quand on set(), mais que le stockage n‘est pas disponible', () => {
 		const storage = aStorage({
@@ -44,7 +44,7 @@ describe('browserStorageService', () => {
 		});
 		const service = new BrowserStorageService(() => storage);
 
-		expect(() => service.set('key', 'value')).toThrow(new BrowserStorageService.StorageUnavailableError('storage unavailable'));
+		expect(() => service.set('key', 'value')).toThrow(new StorageUnavailableError('storage unavailable'));
 	});
 	it('throw une erreur quand on remove(), mais que le stockage n‘est pas disponible', () => {
 		const storage = aStorage({
@@ -52,7 +52,7 @@ describe('browserStorageService', () => {
 		});
 		const service = new BrowserStorageService(() => storage);
 
-		expect(() => service.remove('key')).toThrow(new BrowserStorageService.StorageUnavailableError('storage unavailable'));
+		expect(() => service.remove('key')).toThrow(new StorageUnavailableError('storage unavailable'));
 	});
 	it('check la validité du stockage uniquement à l’utilisation', () => {
 		let storage: BrowserStorage | null = null;

@@ -18,7 +18,6 @@ import { Card } from '~/client/components/ui/Card/Card';
 import { Link } from '~/client/components/ui/Link/Link';
 import {
 	EtablissementAccompagnement,
-	EtablissementAccompagnementAdresse,
 	TypeÉtablissement,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
@@ -26,6 +25,60 @@ import styles from './RésultatRechercherAccompagnement.module.scss';
 
 export interface RésultatRechercherAccompagnementProps {
 	etablissement: EtablissementAccompagnement
+}
+
+interface ContactButtonProps {
+	onClick: () => void
+}
+
+function ContactButton({ onClick }: ContactButtonProps) {
+	const label = 'Je souhaite être contacté(e)';
+	return (
+		<>
+			<ButtonComponent
+				className={classNames(styles.contactFormulaireÉtablissement, styles.contactFormulaireÉtablissementDesktopOnly)}
+				label={label}
+				appearance={'quaternary'}
+				onClick={onClick} />
+
+			<ButtonComponent
+				className={classNames(styles.contactFormulaireÉtablissement, styles.contactFormulaireÉtablissementMobileOnly)}
+				label={label}
+				appearance={'primary'}
+				onClick={onClick} />
+		</>
+	);
+}
+
+interface MailLinkProps {
+	email: string
+}
+
+function MailLink({ email }: MailLinkProps) {
+	const label = 'Contacter l‘agence';
+	const mailTo = `mailto:${email}`;
+	const title = `${label} - adresse mail`;
+
+	return (
+		<>
+			<Link
+				appearance={'asQuaternaryButton'}
+				href={mailTo}
+				className={classNames(styles.contactMailÉtablissement, styles.contactMailÉtablissementDesktop)}
+				title={title}>
+				{label}
+				<Link.Icon name="mail" />
+			</Link>
+			<Link
+				appearance={'asPrimaryButton'}
+				href={mailTo}
+				className={classNames(styles.contactMailÉtablissement, styles.contactMailÉtablissementMobile)}
+				title={title}>
+				{label}
+				<Link.Icon name="mail" />
+			</Link>
+		</>
+	);
 }
 
 export function RésultatRechercherAccompagnement({ etablissement }: RésultatRechercherAccompagnementProps) {
@@ -39,57 +92,6 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 		setIsPopInOpen(true);
 	}, []);
 
-
-	function ContactButton() {
-		const label = 'Je souhaite être contacté(e)';
-		return (
-			<>
-				<ButtonComponent
-					className={classNames(styles.contactFormulaireÉtablissement, styles.contactFormulaireÉtablissementDesktopOnly)}
-					label={label}
-					appearance={'quaternary'}
-					onClick={openContactÉtablissementModal} />
-
-				<ButtonComponent
-					className={classNames(styles.contactFormulaireÉtablissement, styles.contactFormulaireÉtablissementMobileOnly)}
-					label={label}
-					appearance={'primary'}
-					onClick={openContactÉtablissementModal} />
-			</>
-		);
-	}
-
-	function MailLink(props: { établissement: EtablissementAccompagnement }) {
-		const label = 'Contacter l‘agence';
-		const mailTo = `mailto:${props.établissement.email}`;
-		const title = `${label} - adresse mail`;
-
-		return (
-			<>
-				<Link
-					appearance={'asQuaternaryButton'}
-					href={mailTo}
-					className={classNames(styles.contactMailÉtablissement, styles.contactMailÉtablissementDesktop)}
-					title={title}>
-					{label}
-					<Link.Icon name="mail" />
-				</Link>
-				<Link
-					appearance={'asPrimaryButton'}
-					href={mailTo}
-					className={classNames(styles.contactMailÉtablissement, styles.contactMailÉtablissementMobile)}
-					title={title}>
-					{label}
-					<Link.Icon name="mail" />
-				</Link>
-			</>
-		);
-	}
-
-	const Address = ({ address, className }: { address: EtablissementAccompagnementAdresse } & React.HTMLAttributes<HTMLSpanElement>) => {
-		return <span className={className}>{`${address.numeroVoie}, ${address.codePostal} ${address.nomCommune}`}</span>;
-	};
-
 	return (
 		<>
 			<Card layout={'vertical'} className={styles.card}>
@@ -99,7 +101,7 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 						<Card.Title className={styles.title} titleAs={'h3'}>
 							{etablissement.nom}
 						</Card.Title>
-						{adresse && <Address className={styles.address} address={adresse} />}
+						{adresse && <span className={styles.address}>{`${adresse.numeroVoie}, ${adresse.codePostal} ${adresse.nomCommune}`}</span>}
 					</div>
 					<RésultatRechercherAccompagnementTagsList etablissement={etablissement} />
 
@@ -119,8 +121,8 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 					)}
 
 					{
-						etablissement.email && (isMissionLocale ? <ContactButton />
-							: <MailLink établissement={etablissement} />)
+						etablissement.email && (isMissionLocale ? <ContactButton onClick={openContactÉtablissementModal} />
+							: <MailLink email={etablissement.email} />)
 					}
 				</Card.Content>
 			</Card>

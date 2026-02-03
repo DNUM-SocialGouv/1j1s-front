@@ -66,6 +66,7 @@ export function FormulaireRechercheOffreEmploi() {
 
 	useEffect(function fermerFiltresAvancésSurÉcranLarge() {
 		if (!isSmallScreen) {
+			// eslint-disable-next-line react-hooks/set-state-in-effect
 			setIsFiltresAvancésMobileOpen(false);
 		}
 	}, [isSmallScreen]);

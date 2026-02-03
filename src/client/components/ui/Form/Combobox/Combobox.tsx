@@ -5,12 +5,11 @@ import React, {
 	KeyboardEvent,
 	SyntheticEvent,
 	useCallback,
-	useEffect,
 	useId,
 	useLayoutEffect,
+	useMemo,
 	useReducer,
 	useRef,
-	useState,
 } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
@@ -78,17 +77,24 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		ComboboxReducer, {
 			activeDescendant: undefined,
 			open: false,
-			suggestionList: listboxRef,
 			value: valueProps?.toString()
 				?? defaultValue?.toString()
 				?? '',
 			visibleOptions: [],
 		},
 	);
+
+	function getVisibleOptions() {
+		return Array.from(listboxRef.current?.querySelectorAll<Element>('[role="option"]:not([hidden])') ?? []);
+	}
 	const { open, activeDescendant, value: valueState } = state;
-	const [matchingOptionValue, setMatchingOptionValue] = useState<string>('');
 	const value = valueProps?.toString() ?? valueState;
 	const listboxId = useId();
+
+	const matchingOptionValue = useMemo(() => {
+		if (!value) return '';
+		return findOptionValueByLabel(children, value) ?? '';
+	}, [children, value]);
 
 	const findMatchingOption = useCallback(function findMatchingOption(inputValue: InputValue): HTMLElement | undefined | null {
 		const matchingOptionId = state.visibleOptions.find((optionId) => {
@@ -97,11 +103,6 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		});
 		return matchingOptionId ? document.getElementById(matchingOptionId) : undefined;
 	}, [state.visibleOptions]);
-
-	useEffect(function setValue() {
-		const matchingOption = findMatchingOption(value);
-		setMatchingOptionValue(matchingOption?.getAttribute('data-value') ?? matchingOption?.textContent ?? '');
-	}, [value, listboxRef, children, findMatchingOption]);
 
 	const validation = useCallback(function validation(newValue: InputValue) {
 		if (!requireValidOption) return '';
@@ -136,10 +137,11 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	}, [inputRef, triggerChangeEvent]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+		const options = getVisibleOptions();
 		switch (event.key) {
 			case KeyBoard.ARROW_UP:
 			case KeyBoard.IE_ARROW_UP:
-				dispatch(new ComboboxActionPreviousOption());
+				dispatch(new ComboboxActionPreviousOption(options));
 				event.preventDefault();
 				break;
 			case KeyBoard.ARROW_DOWN:
@@ -147,7 +149,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 				if (event.altKey) {
 					dispatch(new ComboboxActionOpenList());
 				} else {
-					dispatch(new ComboboxActionNextOption());
+					dispatch(new ComboboxActionNextOption(options));
 				}
 				event.preventDefault();
 				break;
@@ -260,4 +262,30 @@ function cancelEvent(event: SyntheticEvent) {
 
 function doNothing() {
 	return;
+}
+
+function extractTextContent(node: React.ReactNode): string {
+	if (typeof node === 'string') return node;
+	if (typeof node === 'number') return String(node);
+	if (Array.isArray(node)) return node.map(extractTextContent).join('');
+	if (React.isValidElement(node)) return extractTextContent(node.props.children);
+	return '';
+}
+
+function findOptionValueByLabel(node: React.ReactNode, label: string): string | undefined {
+	let result: string | undefined;
+	React.Children.forEach(node, (child) => {
+		if (result) return;
+		if (!React.isValidElement(child)) return;
+		const textContent = extractTextContent(child.props.children);
+		if (textContent === label && child.props.value !== undefined) {
+			result = child.props.value?.toString();
+		} else if (textContent === label && child.props.role !== 'status') {
+			result = textContent;
+		}
+		if (!result && child.props.children) {
+			result = findOptionValueByLabel(child.props.children, label);
+		}
+	});
+	return result;
 }

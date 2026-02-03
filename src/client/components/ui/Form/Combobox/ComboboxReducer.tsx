@@ -1,15 +1,8 @@
-import { RefObject  } from 'react';
-
 export type ComboboxState = {
 	open: boolean,
 	activeDescendant: string | undefined,
 	value: string,
-	suggestionList: RefObject<HTMLUListElement>
 	visibleOptions: Array<string>
-}
-
-function getVisibleOptions(suggestionList: RefObject<HTMLUListElement>) {
-	return Array.from(suggestionList.current?.querySelectorAll('[role="option"]:not([hidden])') ?? []);
 }
 
 export interface ComboboxAction {
@@ -45,11 +38,16 @@ export class ComboboxActionToggleList implements ComboboxAction {
 }
 
 export class ComboboxActionNextOption implements ComboboxAction {
+	private readonly options: Element[];
+
+	constructor(options: Element[]) {
+		this.options = options;
+	}
+
 	execute(previousState: ComboboxState): ComboboxState {
-		const { activeDescendant, suggestionList } = previousState;
-		const options = getVisibleOptions(suggestionList);
-		const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
-		const nextDescendant = options[currentActiveDescendantIndex + 1] ?? options[0];
+		const { activeDescendant } = previousState;
+		const currentActiveDescendantIndex = this.options.findIndex((node) => node.id === activeDescendant);
+		const nextDescendant = this.options[currentActiveDescendantIndex + 1] ?? this.options[0];
 		return {
 			...previousState,
 			activeDescendant: nextDescendant?.id,
@@ -59,11 +57,16 @@ export class ComboboxActionNextOption implements ComboboxAction {
 }
 
 export class ComboboxActionPreviousOption implements ComboboxAction {
+	private readonly options: Element[];
+
+	constructor(options: Element[]) {
+		this.options = options;
+	}
+
 	execute(previousState: ComboboxState): ComboboxState {
-		const { activeDescendant, suggestionList } = previousState;
-		const options = getVisibleOptions(suggestionList);
-		const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
-		const previousDescendant = options[currentActiveDescendantIndex - 1] ?? options[options.length - 1];
+		const { activeDescendant } = previousState;
+		const currentActiveDescendantIndex = this.options.findIndex((node) => node.id === activeDescendant);
+		const previousDescendant = this.options[currentActiveDescendantIndex - 1] ?? this.options[this.options.length - 1];
 		return {
 			...previousState,
 			activeDescendant: previousDescendant?.id,

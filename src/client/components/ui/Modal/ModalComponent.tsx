@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
@@ -38,7 +38,7 @@ export function ModalComponent(props: ModalPropsWithAccessibleDescription) {
 		...rest
 	} = props;
 	const modalRef = useRef<HTMLDialogElement>(null);
-	const [lastFocusBeforeOpen, setLastFocusBeforeOpen] = useState<HTMLElement | null>(null);
+	const lastFocusBeforeOpenRef = useRef<HTMLElement | null>(null);
 
 	function disableDocumentBodyScroll(isOpen: boolean) {
 		document.body.style.overflow = isOpen ? 'hidden' : 'visible';
@@ -104,16 +104,15 @@ export function ModalComponent(props: ModalPropsWithAccessibleDescription) {
 	}
 
 	useEffect(function HandleFocusBeforeOpen() {
-		if (isOpen && !lastFocusBeforeOpen) {
-			setLastFocusBeforeOpen(document.activeElement as HTMLElement);
+		if (isOpen) {
+			lastFocusBeforeOpenRef.current = document.activeElement as HTMLElement;
 		}
 
-		if(!isOpen) setLastFocusBeforeOpen(null);
-
 		return () => {
-			lastFocusBeforeOpen?.focus();
+			lastFocusBeforeOpenRef.current?.focus();
+			lastFocusBeforeOpenRef.current = null;
 		};
-	}, [isOpen, lastFocusBeforeOpen]);
+	}, [isOpen]);
 
 
 	useEffect(() => {

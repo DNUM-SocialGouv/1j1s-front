@@ -3,8 +3,6 @@ import React, {
 	createContext,
 	useCallback,
 	useContext,
-	useImperativeHandle,
-	useRef,
 	useState,
 } from 'react';
 
@@ -117,16 +115,13 @@ export const TabsLabel = React.forwardRef<HTMLDivElement, React.ComponentPropsWi
 		...rest
 	} = props;
 
-	const tabsLabelRef = useRef<HTMLDivElement>(null);
-	useImperativeHandle(outerRef, () => tabsLabelRef.current as HTMLDivElement);
-
 	const { indexTabActive, onTabChange } = useTabContext();
 
 	const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLButtonElement>) => {
 		const currentLabel = getHtmlElement(event.currentTarget);
 		const previousElement = getHtmlElement(currentLabel?.previousElementSibling);
 		const nextElement = getHtmlElement(currentLabel?.nextElementSibling);
-		const parentLabel = tabsLabelRef.current;
+		const parentLabel = currentLabel?.closest('[role="tablist"]');
 		if (!parentLabel) {
 			return;
 		}
@@ -158,7 +153,7 @@ export const TabsLabel = React.forwardRef<HTMLDivElement, React.ComponentPropsWi
 	}, []);
 
 	return (
-		<div className={styles.tabLabelContainer} role="tablist" ref={tabsLabelRef} {...rest}>
+		<div className={styles.tabLabelContainer} role="tablist" ref={outerRef} {...rest}>
 			{
 				React.Children.map(children, (child, indexTab) => {
 					if (React.isValidElement<TabProps>(child)) {

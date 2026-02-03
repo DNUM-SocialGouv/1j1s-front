@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useRange, UseRangeProps } from 'react-instantsearch';
 
 import { Champ } from '../../Form/Champ/Champ';
@@ -21,16 +21,15 @@ export function MeilisearchRangeForModal(props: UseRangeProps & MeilisearchRange
 	type EmptyInput = '';
 	const [minValue, setMinValue] = useState<number | EmptyInput>('');
 	const [maxValue, setMaxValue] = useState<number | EmptyInput>('');
+	const [previousStart, setPreviousStart] = useState(start);
+
+	if (start[0] !== previousStart[0] || start[1] !== previousStart[1]) {
+		setPreviousStart(start);
+		if (start[0] === -Infinity) setMinValue('');
+		if (start[1] === Infinity) setMaxValue('');
+	}
 
 	const ariaLabelledBy = props['aria-labelledby'];
-
-	useEffect(function updateMinValue() {
-  	if (start[0] === -Infinity) setMinValue('');
-	}, [start]);
-
-	useEffect(function updateMaxValue() {
-  	if (start[1] === Infinity) setMaxValue('');
-	}, [start]);
 
 	const onMaxInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value;

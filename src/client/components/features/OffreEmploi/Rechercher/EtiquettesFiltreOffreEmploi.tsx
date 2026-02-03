@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import {
 	formatLibelleLocalisation,
@@ -20,10 +20,9 @@ import {
 } from '~/server/offres/domain/offre';
 
 export function EtiquettesFiltreOffreEmploi() {
-	const [filtres, setFiltres] = useState<string[]>([]);
 	const offreEmploiQuery = useOffreQuery();
 
-	useEffect(() => {
+	const filtres = useMemo(() => {
 		const filtreList: string[] = [];
 
 		if (offreEmploiQuery.tempsDeTravail) {
@@ -35,7 +34,7 @@ export function EtiquettesFiltreOffreEmploi() {
 
 		if (offreEmploiQuery.typeDeContrats) {
 			const typeDeContratList = offreEmploiQuery.typeDeContrats.split(',');
-			typeDeContratList.map((contrat: string) => {
+			typeDeContratList.forEach((contrat: string) => {
 				switch (contrat) {
 					case (CONTRAT_INTÉRIMAIRE.valeur):
 						filtreList.push(CONTRAT_INTÉRIMAIRE.libelléCourt);
@@ -57,7 +56,7 @@ export function EtiquettesFiltreOffreEmploi() {
 
 		if (offreEmploiQuery.experienceExigence) {
 			const typeExpérienceList = offreEmploiQuery.experienceExigence.split(',');
-			typeExpérienceList.map((expérience: string) => {
+			typeExpérienceList.forEach((expérience: string) => {
 				switch (expérience) {
 					case (EXPÉRIENCE_DEBUTANT.valeur):
 						filtreList.push(EXPÉRIENCE_DEBUTANT.libellé);
@@ -81,7 +80,7 @@ export function EtiquettesFiltreOffreEmploi() {
 			));
 		}
 
-		setFiltres(filtreList);
+		return filtreList;
 	}, [offreEmploiQuery]);
 
 	if (!filtres.length) {

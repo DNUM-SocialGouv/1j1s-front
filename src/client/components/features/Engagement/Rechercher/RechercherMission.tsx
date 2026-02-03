@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { BanniereMission } from '~/client/components/features/Engagement/Rechercher/BanniereMission';
 import {
@@ -58,27 +58,30 @@ export function RechercherMission(props: RechercherMissionProps) {
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 	const [title, setTitle] = useState<string>(`Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'} | 1jeune1solution'`);
 
+	const rechercherMission = useCallback(async () => {
+		setIsLoading(true);
+		setErreurRecherche(undefined);
+		try {
+			const response = await missionEngagementService.rechercherMission(missionEngagementQuery, category);
+			if (isSuccess(response)) {
+				setTitle(formatRechercherSolutionDocumentTitle(`Rechercher une mission de  ${isServiceCivique ? 'service civique' : 'bénévolat'} ${response.result.résultats.length === 0 ? ' - Aucun résultat' : ''}`));
+				setMissionList(response.result.résultats);
+				setNombreResultats(response.result.nombreRésultats);
+			} else {
+				setTitle(formatRechercherSolutionDocumentTitle(`Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'}`, response.errorType));
+				setErreurRecherche(response.errorType);
+			}
+		} finally {
+			setIsLoading(false);
+		}
+	}, [category, isServiceCivique, missionEngagementQuery, missionEngagementService]);
+
 	useEffect(() => {
 		if (empty(missionEngagementQuery)) {
 			return;
 		}
-
-		setIsLoading(true);
-		setErreurRecherche(undefined);
-		missionEngagementService
-			.rechercherMission(missionEngagementQuery, category)
-			.then((response) => {
-				if (isSuccess(response)) {
-					setTitle(formatRechercherSolutionDocumentTitle(`Rechercher une mission de  ${isServiceCivique ? 'service civique' : 'bénévolat'} ${response.result.résultats.length === 0 ? ' - Aucun résultat' : ''}`));
-					setMissionList(response.result.résultats);
-					setNombreResultats(response.result.nombreRésultats);
-				} else {
-					setTitle(formatRechercherSolutionDocumentTitle(`Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'}`, response.errorType));
-					setErreurRecherche(response.errorType);
-				}
-				setIsLoading(false);
-			});
-	}, [missionEngagementQuery, missionEngagementService, category, isServiceCivique]);
+		rechercherMission();
+	}, [missionEngagementQuery, rechercherMission]);
 
 	const domainQuery = missionEngagementQuery?.domain;
 	const domaine = domainQuery && recupererLibelleDepuisValeur(isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList, domainQuery);
@@ -168,5 +171,4 @@ export function messageNombreResultats({ nombreResultats, isServiceCivique, doma
 	].filter(Boolean)
 		.join(' ');
 }
-
 

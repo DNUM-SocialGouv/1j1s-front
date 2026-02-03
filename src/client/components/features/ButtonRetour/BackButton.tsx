@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import {
@@ -19,11 +19,7 @@ type BackButtonProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonComponen
 export function BackButton({ className, label= 'Retour', ...rest }: BackButtonProps) {
 	const router = useRouter();
 	const isPreviousPageLocal = useSessionStorage<boolean>(IS_PREVIOUS_PAGE_LOCAL);
-
-	const [displayBackButton, setDisplayBackButton] = useState(false);
-	useEffect(() => {
-		setDisplayBackButton(!!isPreviousPageLocal.get());
-	}, [isPreviousPageLocal]);
+	const displayBackButton = useMemo(() => !!isPreviousPageLocal.get(), [isPreviousPageLocal]);
 
 	return (
 		displayBackButton && (

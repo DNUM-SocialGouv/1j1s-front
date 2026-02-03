@@ -80,11 +80,14 @@ export function SelectMultiple({
 			activeDescendant: undefined,
 			isListOptionsOpen: false,
 			optionsSelectedValues: defaultValue ? defaultValue : [],
-			refListOption: listboxRef,
 			valueTypedByUser: '',
 			visibleOptions: [],
 		},
 	);
+
+	function getOptions() {
+		return Array.from(listboxRef.current?.querySelectorAll<Element>('[role="option"]') ?? []);
+	}
 	const value = valueProps ?? optionsSelectedValues;
 
 	const selectOption = useCallback((optionId: string) => {
@@ -138,10 +141,11 @@ export function SelectMultiple({
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
 		const { key, altKey } = event;
+		const options = getOptions();
 
 		if (isSearchableCharacter(event.nativeEvent)) {
 			event.preventDefault();
-			dispatch(new SelectMultipleActionFocusOptionMatchingUserInput(key));
+			dispatch(new SelectMultipleActionFocusOptionMatchingUserInput(key, options));
 			handleFocusOnTypeLetterDebounce();
 		}
 
@@ -153,32 +157,32 @@ export function SelectMultiple({
 						if (activeDescendant) { selectOption(activeDescendant); }
 						dispatch(new SelectMultipleActionCloseList());
 					} else {
-						dispatch(new SelectMultipleActionPreviousOption());
+						dispatch(new SelectMultipleActionPreviousOption(options));
 					}
 				} else {
-					dispatch(new SelectMultipleActionOpenList());
+					dispatch(new SelectMultipleActionOpenList(options));
 				}
 				event.preventDefault();
 				break;
 			case KeyBoard.ARROW_DOWN:
 			case KeyBoard.IE_ARROW_DOWN:
 				if (isListOptionsOpen) {
-					dispatch(new SelectMultipleActionNextOption());
+					dispatch(new SelectMultipleActionNextOption(options));
 				} else {
-					dispatch(new SelectMultipleActionOpenList());
+					dispatch(new SelectMultipleActionOpenList(options));
 				}
 				event.preventDefault();
 				break;
 			case KeyBoard.PAGE_UP:
 				if (isListOptionsOpen) {
 					event.preventDefault();
-					dispatch(new SelectMultipleActionPreviousOption(10));
+					dispatch(new SelectMultipleActionPreviousOption(options, 10));
 				}
 				break;
 			case KeyBoard.PAGE_DOWN:
 				if (isListOptionsOpen) {
 					event.preventDefault();
-					dispatch(new SelectMultipleActionNextOption(10));
+					dispatch(new SelectMultipleActionNextOption(options, 10));
 				}
 				break;
 			case KeyBoard.ESCAPE:
@@ -196,17 +200,17 @@ export function SelectMultiple({
 					}
 				} else {
 					cancelEvent(event);
-					dispatch(new SelectMultipleActionOpenList());
+					dispatch(new SelectMultipleActionOpenList(options));
 				}
 				break;
 			}
 			case KeyBoard.HOME: {
-				dispatch(new SelectMultipleActionFocusFirstOption());
+				dispatch(new SelectMultipleActionFocusFirstOption(options));
 				event.preventDefault();
 				break;
 			}
 			case KeyBoard.END: {
-				dispatch(new SelectMultipleActionFocusLastOption());
+				dispatch(new SelectMultipleActionFocusLastOption(options));
 				event.preventDefault();
 				break;
 			}
@@ -215,13 +219,13 @@ export function SelectMultiple({
 		}
 	}, [activeDescendant, handleFocusOnTypeLetterDebounce, isListOptionsOpen, selectOption]);
 
-	function PlaceholderSelectedOptions() {
+	const placeholderSelectedOptions = useMemo(function placeholderSelectedOptions() {
 		const optionsSelectedValueLength = value.length;
 		if (optionsSelectedValueLength > 1) { return `${optionsSelectedValueLength} choix sélectionnés`; }
 		if (optionsSelectedValueLength === 1) { return '1 choix sélectionné'; }
 		if (placeholder) { return placeholder; }
 		return SELECT_PLACEHOLDER_MULTIPLE;
-	}
+	}, [value.length, placeholder]);
 
 	return (
 		<SelectContext.Provider value={{
@@ -252,14 +256,14 @@ export function SelectMultiple({
 					aria-haspopup="listbox"
 					aria-expanded={isListOptionsOpen}
 					data-touched={touched}
-					onClick={() => dispatch(new SelectMultipleActionToggleList())}
+					onClick={() => dispatch(new SelectMultipleActionToggleList(getOptions()))}
 					onFocus={onFocus}
 					aria-activedescendant={activeDescendant}
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}
 					aria-required={required}
 					{...rest}>
-					<PlaceholderSelectedOptions />
+					{placeholderSelectedOptions}
 					<Icon name={'angle-down'} />
 				</button>
 				<ul

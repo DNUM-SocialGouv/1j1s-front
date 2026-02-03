@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
@@ -43,15 +43,13 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 	const router = useRouter();
 	const hasRouterQuery = Object.keys(router.query).length > 0;
 
-	const getCurrentTabFromQuery = useCallback(() => {
-		return Number(getSingleQueryParam(router.query.tab) ?? '0');
-	}, [router.query.tab]);
-
-	const [currentTab, setCurrentTab] = useState<number>(getCurrentTabFromQuery());
-
-	useEffect(() => {
-		setCurrentTab(getCurrentTabFromQuery());
-	}, [getCurrentTabFromQuery, router.query]);
+	const tabFromQuery = Number(getSingleQueryParam(router.query.tab) ?? '0');
+	const [currentTab, setCurrentTab] = useState(tabFromQuery);
+	const [previousTabFromQuery, setPreviousTabFromQuery] = useState(tabFromQuery);
+	if (tabFromQuery !== previousTabFromQuery) {
+		setPreviousTabFromQuery(tabFromQuery);
+		setCurrentTab(tabFromQuery);
+	}
 
 	function onTabChange(index: number) {
 		setCurrentTab(index);

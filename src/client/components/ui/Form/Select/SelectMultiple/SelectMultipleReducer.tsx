@@ -1,14 +1,7 @@
-import { RefObject } from 'react';
-
-export function getOptionsElement(refListOption: RefObject<HTMLUListElement>) {
-	return Array.from(refListOption.current?.querySelectorAll('[role="option"]') ?? []);
-}
-
 export type SelectMultipleState = {
 	isListOptionsOpen: boolean,
 	activeDescendant: string | undefined,
 	optionsSelectedValues: Array<string>,
-	refListOption: RefObject<HTMLUListElement>
 	visibleOptions: Array<string>
 	valueTypedByUser: string
 }
@@ -18,10 +11,16 @@ export interface SelectMultipleAction {
 }
 
 export class SelectMultipleActionOpenList implements SelectMultipleAction {
+	private readonly options: Element[];
+
+	constructor(options: Element[]) {
+		this.options = options;
+	}
+
 	execute(previousState: SelectMultipleState): SelectMultipleState {
 		let activeDescendant = previousState.activeDescendant;
 		if (!previousState.activeDescendant) {
-			activeDescendant = getOptionsElement(previousState.refListOption)[0]?.id;
+			activeDescendant = this.options[0]?.id;
 		}
 		return {
 			...previousState,
@@ -41,11 +40,17 @@ export class SelectMultipleActionCloseList implements SelectMultipleAction {
 }
 
 export class SelectMultipleActionToggleList implements SelectMultipleAction {
+	private readonly options: Element[];
+
+	constructor(options: Element[]) {
+		this.options = options;
+	}
+
 	execute(previousState: SelectMultipleState): SelectMultipleState {
 		const { isListOptionsOpen } = previousState;
 		return isListOptionsOpen
 			? new SelectMultipleActionCloseList().execute(previousState)
-			: new SelectMultipleActionOpenList().execute(previousState);
+			: new SelectMultipleActionOpenList(this.options).execute(previousState);
 	}
 }
 
@@ -66,9 +71,11 @@ export class SelectMultipleActionSetValueTypedByUser implements SelectMultipleAc
 
 export class SelectMultipleActionFocusOptionMatchingUserInput implements SelectMultipleAction {
 	private readonly userInputKey: string;
+	private readonly options: Element[];
 
-	constructor(userInputKey: string) {
+	constructor(userInputKey: string, options: Element[]) {
 		this.userInputKey = userInputKey;
+		this.options = options;
 	}
 
 	execute(previousState: SelectMultipleState): SelectMultipleState {
@@ -77,8 +84,7 @@ export class SelectMultipleActionFocusOptionMatchingUserInput implements SelectM
 		}
 
 		const allUserInput = previousState.valueTypedByUser.concat(this.userInputKey);
-		const optionsElement = getOptionsElement(previousState.refListOption);
-		const firstOptionMatchingUserInput = optionsElement.find(optionMatchUserInput);
+		const firstOptionMatchingUserInput = this.options.find(optionMatchUserInput);
 
 		return {
 			...previousState,
@@ -90,18 +96,30 @@ export class SelectMultipleActionFocusOptionMatchingUserInput implements SelectM
 }
 
 export class SelectMultipleActionFocusFirstOption implements SelectMultipleAction {
+	private readonly options: Element[];
+
+	constructor(options: Element[]) {
+		this.options = options;
+	}
+
 	execute(previousState: SelectMultipleState): SelectMultipleState {
 		return {
 			...previousState,
-			activeDescendant: getOptionsElement(previousState.refListOption)[0]?.id,
+			activeDescendant: this.options[0]?.id,
 			isListOptionsOpen: true,
 		};
 	}
 }
 
 export class SelectMultipleActionFocusLastOption implements SelectMultipleAction {
+	private readonly options: Element[];
+
+	constructor(options: Element[]) {
+		this.options = options;
+	}
+
 	execute(previousState: SelectMultipleState): SelectMultipleState {
-		const lastOption = getOptionsElement(previousState.refListOption).at(-1);
+		const lastOption = this.options.at(-1);
 		return {
 			...previousState,
 			activeDescendant: lastOption?.id,
@@ -111,17 +129,18 @@ export class SelectMultipleActionFocusLastOption implements SelectMultipleAction
 }
 
 export class SelectMultipleActionNextOption implements SelectMultipleAction {
+	private readonly options: Element[];
 	private readonly numberOfOptionAfter: number;
 
-	constructor(relativeNumberOfOptionAfter?: number) {
+	constructor(options: Element[], relativeNumberOfOptionAfter?: number) {
+		this.options = options;
 		this.numberOfOptionAfter = relativeNumberOfOptionAfter ?? 1;
 	}
 
 	execute(previousState: SelectMultipleState): SelectMultipleState {
-		const { activeDescendant, refListOption } = previousState;
-		const options = getOptionsElement(refListOption);
-		const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
-		const nextDescendant = options[currentActiveDescendantIndex + this.numberOfOptionAfter] ?? options.at(-1);
+		const { activeDescendant } = previousState;
+		const currentActiveDescendantIndex = this.options.findIndex((node) => node.id === activeDescendant);
+		const nextDescendant = this.options[currentActiveDescendantIndex + this.numberOfOptionAfter] ?? this.options.at(-1);
 		return {
 			...previousState,
 			activeDescendant: nextDescendant?.id,
@@ -131,17 +150,18 @@ export class SelectMultipleActionNextOption implements SelectMultipleAction {
 }
 
 export class SelectMultipleActionPreviousOption implements SelectMultipleAction {
+	private readonly options: Element[];
 	private readonly numberOfOptionBefore: number;
 
-	constructor(relativeNumberOfOptionBefore?: number) {
+	constructor(options: Element[], relativeNumberOfOptionBefore?: number) {
+		this.options = options;
 		this.numberOfOptionBefore = relativeNumberOfOptionBefore ?? 1;
 	}
 
 	execute(previousState: SelectMultipleState): SelectMultipleState {
-		const { activeDescendant, refListOption } = previousState;
-		const options = getOptionsElement(refListOption);
-		const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
-		const previousDescendant = options[currentActiveDescendantIndex - this.numberOfOptionBefore] ?? options[0];
+		const { activeDescendant } = previousState;
+		const currentActiveDescendantIndex = this.options.findIndex((node) => node.id === activeDescendant);
+		const previousDescendant = this.options[currentActiveDescendantIndex - this.numberOfOptionBefore] ?? this.options[0];
 		return {
 			...previousState,
 			activeDescendant: previousDescendant?.id,

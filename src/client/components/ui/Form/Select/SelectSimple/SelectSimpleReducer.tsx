@@ -1,16 +1,9 @@
-import { RefObject } from 'react';
-
 export type SelectSimpleState = {
 	open: boolean,
 	activeDescendant: string | undefined,
 	selectedValue: string | undefined,
-	refListOption: RefObject<HTMLUListElement>
 	visibleOptions: Array<string>
 	userInput: string
-}
-
-export function getOptionsElement(refListOption: RefObject<HTMLElement>) {
-	return Array.from(refListOption.current?.querySelectorAll('[role="option"]') ?? []);
 }
 
 export interface SelectSimpleAction {
@@ -18,10 +11,16 @@ export interface SelectSimpleAction {
 }
 
 export class SelectSimpleActionOpenList implements SelectSimpleAction {
+	private readonly options: Element[];
+
+	constructor(options: Element[]) {
+		this.options = options;
+	}
+
 	execute(previousState: SelectSimpleState): SelectSimpleState {
 		let activeDescendant = previousState.activeDescendant;
 		if (!previousState.activeDescendant) {
-			activeDescendant = getOptionsElement(previousState.refListOption)[0]?.id;
+			activeDescendant = this.options[0]?.id;
 		}
 		return {
 			...previousState,
@@ -41,11 +40,17 @@ export class SelectSimpleActionCloseList implements SelectSimpleAction {
 }
 
 export class SelectSimpleActionToggleList implements SelectSimpleAction {
+	private readonly options: Element[];
+
+	constructor(options: Element[]) {
+		this.options = options;
+	}
+
 	execute(previousState: SelectSimpleState): SelectSimpleState {
 		const { open } = previousState;
 		return open
 			? new SelectSimpleActionCloseList().execute(previousState)
-			: new SelectSimpleActionOpenList().execute(previousState);
+			: new SelectSimpleActionOpenList(this.options).execute(previousState);
 	}
 }
 
@@ -75,9 +80,11 @@ export class SelectSimpleActionClearUserInput implements SelectSimpleAction {
 
 export class SelectSimpleActionFocusOptionMatchingUserInput implements SelectSimpleAction {
 	private readonly userInputKey: string;
+	private readonly options: Element[];
 
-	constructor(userInputKey: string) {
+	constructor(userInputKey: string, options: Element[]) {
 		this.userInputKey = userInputKey;
+		this.options = options;
 	}
 
 	execute(previousState: SelectSimpleState): SelectSimpleState {
@@ -86,8 +93,7 @@ export class SelectSimpleActionFocusOptionMatchingUserInput implements SelectSim
 		}
 
 		const allUserInput = previousState.userInput.concat(this.userInputKey);
-		const optionsElement = getOptionsElement(previousState.refListOption);
-		const firstOptionMatchingUserInput = optionsElement.find(optionMatchUserInput);
+		const firstOptionMatchingUserInput = this.options.find(optionMatchUserInput);
 
 		return {
 			...previousState,
@@ -99,18 +105,30 @@ export class SelectSimpleActionFocusOptionMatchingUserInput implements SelectSim
 }
 
 export class SelectSimpleActionFocusFirstOption implements SelectSimpleAction {
+	private readonly options: Element[];
+
+	constructor(options: Element[]) {
+		this.options = options;
+	}
+
 	execute(previousState: SelectSimpleState): SelectSimpleState {
 		return {
 			...previousState,
-			activeDescendant: getOptionsElement(previousState.refListOption)[0]?.id,
+			activeDescendant: this.options[0]?.id,
 			open: true,
 		};
 	}
 }
 
 export class SelectSimpleActionFocusLastOption implements SelectSimpleAction {
+	private readonly options: Element[];
+
+	constructor(options: Element[]) {
+		this.options = options;
+	}
+
 	execute(previousState: SelectSimpleState): SelectSimpleState {
-		const lastOption = getOptionsElement(previousState.refListOption).at(-1);
+		const lastOption = this.options.at(-1);
 		return {
 			...previousState,
 			activeDescendant: lastOption?.id,
@@ -120,17 +138,18 @@ export class SelectSimpleActionFocusLastOption implements SelectSimpleAction {
 }
 
 export class SelectSimpleActionNextOption implements SelectSimpleAction {
+	private readonly options: Element[];
 	private readonly numberOfOptionAfter: number;
 
-	constructor(relativeNumberOfOptionAfter?: number) {
+	constructor(options: Element[], relativeNumberOfOptionAfter?: number) {
+		this.options = options;
 		this.numberOfOptionAfter = relativeNumberOfOptionAfter ?? 1;
 	}
 
 	execute(previousState: SelectSimpleState): SelectSimpleState {
-		const { activeDescendant, refListOption } = previousState;
-		const options = getOptionsElement(refListOption);
-		const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
-		const nextDescendant = options[currentActiveDescendantIndex + this.numberOfOptionAfter] ?? options.at(-1);
+		const { activeDescendant } = previousState;
+		const currentActiveDescendantIndex = this.options.findIndex((node) => node.id === activeDescendant);
+		const nextDescendant = this.options[currentActiveDescendantIndex + this.numberOfOptionAfter] ?? this.options.at(-1);
 		return {
 			...previousState,
 			activeDescendant: nextDescendant?.id,
@@ -140,17 +159,18 @@ export class SelectSimpleActionNextOption implements SelectSimpleAction {
 }
 
 export class SelectSimpleActionPreviousOption implements SelectSimpleAction {
+	private readonly options: Element[];
 	private readonly numberOfOptionBefore: number;
 
-	constructor(relativeNumberOfOptionBefore?: number) {
+	constructor(options: Element[], relativeNumberOfOptionBefore?: number) {
+		this.options = options;
 		this.numberOfOptionBefore = relativeNumberOfOptionBefore ?? 1;
 	}
 
 	execute(previousState: SelectSimpleState): SelectSimpleState {
-		const { activeDescendant, refListOption } = previousState;
-		const options = getOptionsElement(refListOption);
-		const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
-		const previousDescendant = options[currentActiveDescendantIndex - this.numberOfOptionBefore] ?? options[0];
+		const { activeDescendant } = previousState;
+		const currentActiveDescendantIndex = this.options.findIndex((node) => node.id === activeDescendant);
+		const previousDescendant = this.options[currentActiveDescendantIndex - this.numberOfOptionBefore] ?? this.options[0];
 		return {
 			...previousState,
 			activeDescendant: previousDescendant?.id,

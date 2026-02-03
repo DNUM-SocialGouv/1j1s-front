@@ -314,7 +314,7 @@ describe('<ConsulterAnnonce />', () => {
 
 		describe('quand la source est inconnu', () => {
 			it('retourne rien', () => {
-				// @ts-expect-error
+				// @ts-expect-error TS(2322)
 				const annonceDeLogement = anAnnonceDeLogement({ source: 'seloger' });
 				render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />
