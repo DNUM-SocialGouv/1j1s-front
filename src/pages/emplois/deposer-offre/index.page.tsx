@@ -41,8 +41,8 @@ export default function DéposerUneOffreDEmploi() {
 					Si vous avez besoin d’échanger avec un conseiller, contactez le 39 95 (service gratuit + le prix d’un appel local, du lundi au samedi inclus, de 7h30 à 20h).
 					Depuis l’étranger (entreprises frontalières par exemple), composez le +33 1 77 86 39 95.
 
-					Vous pouvez également programmer une demande de rappel par un conseiller sur : francetravail.fr
-					<Link href={'https://urldefense.com/v3/__https:/pro.francetravail.fr/accueil/demandederappel__;!!FiWPmuqhD5aF3oDTQnc!iyqpB-G35-BrqkJViRoO2702VTRuXwLqnyLallEQawiA6ZOpWOZVGffzeAty1JVAg0Xd80FiILE_IXJnt1sB9oIiZimxZ8LNd0uw6vjcAPSzA24d3k1P$'}>https://pro.francetravail.fr/accueil/demandederappel</Link>).
+					Vous pouvez également programmer une demande de rappel par un conseiller sur : <Link href={'https://urldefense.com/v3/__https:/pro.francetravail.fr/accueil/demandederappel__;!!FiWPmuqhD5aF3oDTQnc!iyqpB-G35-BrqkJViRoO2702VTRuXwLqnyLallEQawiA6ZOpWOZVGffzeAty1JVAg0Xd80FiILE_IXJnt1sB9oIiZimxZ8LNd0uw6vjcAPSzA24d3k1P$'}>francetravail.fr</Link>
+					.
 
 					Pour rappel, le numéro unique 3995 vous permet d’échanger avec un conseiller du lundi au samedi inclus, de
 					7h30 à 20h, avec un système de demande de rappel en cas d’indisponibilité.
