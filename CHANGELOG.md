@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.361.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.360.0...v3.361.0) (2026-02-03)
+
+
+### Features
+
+* added link to job offer ([a951c76](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a951c76c03193b81cfbdb56fb7fa755068ea1c63))
+
+
+### Bug Fixes
+
+* ✏️ corrige texte offre emploi ([3d13b32](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3d13b327aa748f7e16b0b82e1e3527b9e6f3f0d7))
+* fixed image ratio ([#3614](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3614)) ([88335fa](https://github.com/DNUM-SocialGouv/1j1s-front/commit/88335fafafc12cba0cec7e5cd73420ecda21f08c))
+
 ## [3.360.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.359.2...v3.360.0) (2025-09-26)
 
 
