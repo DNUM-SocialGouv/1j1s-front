@@ -103,7 +103,8 @@
     },
     "@types/jest-axe": {
       "axe-core": "4.10.2"
-    }
+    },
+    "webpack": "5.101.2"
   },
   "lint-staged": {
     "*.ts": "eslint --fix",
