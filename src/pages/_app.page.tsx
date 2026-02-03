@@ -13,6 +13,8 @@ import dependenciesContainer from '~/client/dependencies.container';
 import usePageHistory from '~/client/hooks/usePageHistory';
 import useSessionId from '~/client/hooks/useSessionId';
 import { CookiesService } from '~/client/services/cookies/cookies.service';
+import '../client/dsfr/styles.css'
+
 
 export type NextPageWithLayout<P = object> = NextPage<P, P> & {
 	getLayout?: (page: ReactElement) => ReactNode;
