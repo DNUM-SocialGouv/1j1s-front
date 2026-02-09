@@ -22,10 +22,9 @@ export function HeaderBody() {
 					<div className="fr-header__logo">
 						<p
 							className="fr-logo"
-							style={{ minWidth: '180px' }}
-						>
-							Ministère<br/>
-							du Travail<br/>
+							style={{ minWidth: '180px' }}>
+							Ministère<br />
+							du Travail<br />
 							et des solidarités
 						</p>
 						<nav

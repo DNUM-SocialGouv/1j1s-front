@@ -1,4 +1,5 @@
 import '~/styles/main.scss';
+import '../client/dsfr/styles.css';
 
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
@@ -13,7 +14,6 @@ import dependenciesContainer from '~/client/dependencies.container';
 import usePageHistory from '~/client/hooks/usePageHistory';
 import useSessionId from '~/client/hooks/useSessionId';
 import { CookiesService } from '~/client/services/cookies/cookies.service';
-import '../client/dsfr/styles.css'
 
 
 export type NextPageWithLayout<P = object> = NextPage<P, P> & {
