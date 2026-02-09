@@ -29,7 +29,7 @@ describe('Header', () => {
 			mockUseRouter({ pathname: '/' });
 			render(<Header />);
 
-			const logo = screen.getByAltText('République Française, Liberté, Egalité, Fraternité');
+			const logo = screen.getByText(/Ministère/);
 			expect(logo).toBeVisible();
 		});
 
