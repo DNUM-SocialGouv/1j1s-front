@@ -24,10 +24,10 @@
     "react-dom": "18.3.1"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.7.0",
-    "@docusaurus/types": "3.7.0",
+    "@docusaurus/module-type-aliases": "3.9.2",
+    "@docusaurus/types": "3.9.2",
     "@tsconfig/docusaurus": "2.0.3",
-    "typescript": "5.7.3"
+    "typescript": "5.9.3"
   },
   "browserslist": {
     "production": [
