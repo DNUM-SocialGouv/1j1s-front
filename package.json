@@ -36,7 +36,7 @@
     "ioredis": "5.4.2",
     "joi": "17.13.3",
     "lodash.debounce": "4.0.8",
-    "markdown-it": "14.1.0",
+    "markdown-it": "14.1.1",
     "markdown-it-anchor": "9.2.0",
     "next": "14.2.23",
     "next-joi": "2.2.1",
