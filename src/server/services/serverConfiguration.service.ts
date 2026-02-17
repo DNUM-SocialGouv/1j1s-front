@@ -24,9 +24,10 @@ export default class ServerConfigurationService implements ConfigurationService 
 			API_ONISEP_ACCOUNT_PASSWORD: ServerConfigurationService.getOrThrowError('API_ONISEP_ACCOUNT_PASSWORD'),
 			API_ONISEP_APPLICATION_ID: ServerConfigurationService.getOrThrowError('API_ONISEP_APPLICATION_ID'),
 			API_ONISEP_BASE_URL: ServerConfigurationService.getOrThrowError('API_ONISEP_BASE_URL'),
-			API_TRAJECTOIRES_PRO_PASSWORD: ServerConfigurationService.getOrThrowError('API_TRAJECTOIRES_PRO_PASSWORD'),
+			API_TRAJECTOIRES_PRO_API_KEY: ServerConfigurationService.getOrThrowError('API_TRAJECTOIRES_PRO_API_KEY'),
+			API_TRAJECTOIRES_PRO_CLIENT_ID: ServerConfigurationService.getOrThrowError('API_TRAJECTOIRES_PRO_CLIENT_ID'),
+			API_TRAJECTOIRES_PRO_CLIENT_SECRET: ServerConfigurationService.getOrThrowError('API_TRAJECTOIRES_PRO_CLIENT_SECRET'),
 			API_TRAJECTOIRES_PRO_URL: ServerConfigurationService.getOrThrowError('API_TRAJECTOIRES_PRO_URL'),
-			API_TRAJECTOIRES_PRO_USERNAME: ServerConfigurationService.getOrThrowError('API_TRAJECTOIRES_PRO_USERNAME'),
 			DUREE_VALIDITE_CACHE_CMS_EN_SECONDES: Number(ServerConfigurationService.getOrThrowError('DUREE_VALIDITE_CACHE_CMS_EN_SECONDES')),
 			ENVIRONMENT: ServerConfigurationService.getOrDefault('ENVIRONMENT', 'local'),
 			FRANCE_TRAVAIL_CONNECT_CLIENT_ID: ServerConfigurationService.getOrThrowError('FRANCE_TRAVAIL_CONNECT_CLIENT_ID'),
@@ -117,8 +118,9 @@ export interface EnvironmentVariables {
 	readonly API_FRANCE_TRAVAIL_OFFRES_URL: string
 	readonly API_FRANCE_TRAVAIL_REFERENTIEL_URL: string
 	readonly API_TRAJECTOIRES_PRO_URL: string
-	readonly API_TRAJECTOIRES_PRO_USERNAME: string
-	readonly API_TRAJECTOIRES_PRO_PASSWORD: string
+	readonly API_TRAJECTOIRES_PRO_CLIENT_ID: string
+	readonly API_TRAJECTOIRES_PRO_CLIENT_SECRET: string
+	readonly API_TRAJECTOIRES_PRO_API_KEY: string
 	readonly ENVIRONMENT: string
 	readonly DUREE_VALIDITE_CACHE_CMS_EN_SECONDES: number
 	readonly MAILER_SERVICE_ACTIVE: string
