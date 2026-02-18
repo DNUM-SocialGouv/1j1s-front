@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/nextjs';
+import { Meta, StoryObj } from '@storybook/react';
 
 import { Combobox } from '~/client/components/ui/Form/Combobox';
 

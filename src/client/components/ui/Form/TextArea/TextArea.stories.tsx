@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/react';
 import { ComponentPropsWithoutRef } from 'react';
 
 import { Champ } from '../Champ/Champ';

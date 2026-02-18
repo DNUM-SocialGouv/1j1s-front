@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {

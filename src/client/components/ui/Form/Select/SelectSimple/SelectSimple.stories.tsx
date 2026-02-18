@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/nextjs';
+import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
 import { ButtonComponent as Button } from '~/client/components/ui/Button/ButtonComponent';
