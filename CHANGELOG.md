@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.362.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.361.0...v3.362.0) (2026-02-18)
+
+
+### Features
+
+* ✨ met à jour le logo et utilise les styles DSFR ([02f3d32](https://github.com/DNUM-SocialGouv/1j1s-front/commit/02f3d328fd55fe61b423f3bcf3cb080fee528c90))
+
+
+### Bug Fixes
+
+* 🛠️ Fix failing tests ([1001618](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1001618b94488d8ed2d1e240a6b675755da4a0a4))
+* Fix linter ([c0a4f48](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c0a4f48745207ed539c30c8bb41f3da6a8e022a1))
+
 ## [3.361.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.360.0...v3.361.0) (2026-02-03)
 
 
