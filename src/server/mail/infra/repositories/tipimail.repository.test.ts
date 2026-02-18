@@ -22,7 +22,7 @@ describe('TipimailRepository', () => {
 				it('envoie le mail', async () => {
 					// given
 					const httpClient = aPublicHttpClientService();
-					jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(undefined));
+					vi.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(undefined));
 					const errorManagementService = anErrorManagementService();
 					const repository = new TipimailRepository(httpClient, errorManagementService, true);
 					const expected = createSuccess(undefined);
@@ -44,13 +44,13 @@ describe('TipimailRepository', () => {
 					// given
 					const errorHttp = anHttpError(400);
 					const httpClient = aPublicHttpClientService({
-						post: jest.fn(async () => {
+						post: vi.fn(async () => {
 							throw errorHttp;
 						}),
 					});
 					const expectedFailure = ErreurMetier.DEMANDE_INCORRECTE;
 					const errorManagementService = anErrorManagementService({
-						handleFailureError: jest.fn(() => createFailure(expectedFailure)),
+						handleFailureError: vi.fn(() => createFailure(expectedFailure)),
 					});
 					const repository = new TipimailRepository(httpClient, errorManagementService, true);
 					const tipimailRequest = aTipimailRequest();
@@ -73,8 +73,8 @@ describe('TipimailRepository', () => {
 			it('n‘envoie pas le mail', async () => {
 				// given
 				const httpClient = aPublicHttpClientService();
-				jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(aTipimailRequest()));
-				const debug = jest.spyOn(console, 'log').mockImplementation(() => undefined);
+				vi.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(aTipimailRequest()));
+				const debug = vi.spyOn(console, 'log').mockImplementation(() => undefined);
 				const repository = new TipimailRepository(httpClient, anErrorManagementService(), false);
 				const expected = createSuccess(undefined);
 				const tipimailRequest = aTipimailRequest();
@@ -95,7 +95,7 @@ describe('TipimailRepository', () => {
 			it('change le destinataire avec cette adresse', async () => {
 				const httpClient = aPublicHttpClientService();
 				const redirectTo = 'redirect@email.com';
-				jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(undefined));
+				vi.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(undefined));
 				const errorManagementService = anErrorManagementService();
 				const repository = new TipimailRepository(httpClient, errorManagementService, true, redirectTo);
 				const expected = createSuccess(undefined);

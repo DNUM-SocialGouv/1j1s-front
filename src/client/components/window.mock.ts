@@ -3,15 +3,15 @@ import { aTarteAuCitron } from '~/client/services/cookies/tarteaucitron/tarteAuC
 
 export function mockSmallScreen() {
 	Object.defineProperty(window, 'matchMedia', {
-		value: jest.fn().mockImplementation((query) => ({
-			addEventListener: jest.fn(),
-			addListener: jest.fn(),
-			dispatchEvent: jest.fn(),
+		value: vi.fn().mockImplementation((query) => ({
+			addEventListener: vi.fn(),
+			addListener: vi.fn(),
+			dispatchEvent: vi.fn(),
 			matches: false, //TODO mettre à jour pour moins dépendre de l'implémentation de getScreenSize
 			media: query,
 			onchange: null,
-			removeEventListener: jest.fn(),
-			removeListener: jest.fn(),
+			removeEventListener: vi.fn(),
+			removeListener: vi.fn(),
 		})),
 		writable: true,
 	});
@@ -19,15 +19,15 @@ export function mockSmallScreen() {
 
 export function mockLargeScreen() {
 	Object.defineProperty(window, 'matchMedia', {
-		value: jest.fn().mockImplementation((query) => ({
-			addEventListener: jest.fn(),
-			addListener: jest.fn(),
-			dispatchEvent: jest.fn(),
+		value: vi.fn().mockImplementation((query) => ({
+			addEventListener: vi.fn(),
+			addListener: vi.fn(),
+			dispatchEvent: vi.fn(),
 			matches: true, //TODO mettre à jour pour moins dépendre de l'implémentation de getScreenSize
 			media: query,
 			onchange: null,
-			removeEventListener: jest.fn(),
-			removeListener: jest.fn(),
+			removeEventListener: vi.fn(),
+			removeListener: vi.fn(),
 		})),
 		writable: true,
 	});
@@ -35,19 +35,19 @@ export function mockLargeScreen() {
 
 export function mockScrollBy() {
 	Object.defineProperty(window, 'scrollBy', {
-		value: jest.fn(),
+		value: vi.fn(),
 	});
 }
 
 export function mockScrollIntoView() {
-	window.HTMLElement.prototype.scrollIntoView = jest.fn();
+	window.HTMLElement.prototype.scrollIntoView = vi.fn();
 }
 
 export function mockLocalStorage({
-																	 getItem = jest.fn(),
-																	 setItem = jest.fn(),
-																	 clear = jest.fn(),
-																	 removeItem = jest.fn(),
+																	 getItem = vi.fn(),
+																	 setItem = vi.fn(),
+																	 clear = vi.fn(),
+																	 removeItem = vi.fn(),
 																 }) {
 	Object.defineProperty(window, 'localStorage', {
 		value: {
@@ -60,10 +60,10 @@ export function mockLocalStorage({
 }
 
 export function mockSessionStorage({
-																		 getItem = jest.fn(),
-																		 removeItem = jest.fn(),
-																		 clear = jest.fn(),
-																		 setItem = jest.fn(),
+																		 getItem = vi.fn(),
+																		 removeItem = vi.fn(),
+																		 clear = vi.fn(),
+																		 setItem = vi.fn(),
 																	 }) {
 	Object.defineProperty(window, 'sessionStorage', {
 		value: {

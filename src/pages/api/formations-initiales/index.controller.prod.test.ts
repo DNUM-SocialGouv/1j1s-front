@@ -1,3 +1,4 @@
+// @vitest-environment node
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
@@ -13,52 +14,50 @@ import {
 } from '~/server/formations-initiales/infra/onisepFormationInitiale.fixture';
 
 
-jest.mock('~/server/services/serverConfiguration.service', () => {
-	return jest.fn().mockImplementation(() => {
-		return {
-			getConfiguration: jest.fn(
-				() => ({
-					API_ADRESSE_BASE_URL: 'https://api-adresse.data.gouv.fr/',
-					API_ENGAGEMENT_API_KEY_TOKEN: 'API_ENGAGEMENT_API_KEY_TOKEN',
-					API_ENGAGEMENT_BASE_URL: 'https://api.api-engagement.beta.gouv.fr/v0/',
-					API_ETABLISSEMENTS_PUBLICS: 'https://etablissements-publics.api.gouv.fr/v3/',
-					API_FRANCE_TRAVAIL_OFFRES_URL: 'https://api.francetravail.io/partenaire/offresdemploi/v2/offres',
-					API_FRANCE_TRAVAIL_REFERENTIEL_URL: 'https://api.francetravail.io/partenaire/offresdemploi/v2/referentiel',
-					API_GEO_BASE_URL: 'https://geo.api.gouv.fr/',
-					API_LA_BONNE_ALTERNANCE_CALLER: '1jeune1solution',
-					API_LA_BONNE_ALTERNANCE_URL: 'https://labonnealternance-recette.apprentissage.beta.gouv.fr/api/',
-					API_ONISEP_ACCOUNT_EMAIL: 'fake@example.com',
-					API_ONISEP_ACCOUNT_PASSWORD: 'password-bidon',
-					API_ONISEP_APPLICATION_ID: '123456789',
-					API_ONISEP_BASE_URL: 'https://api.opendata.onisep.fr/api/1.0',
-					API_TRAJECTOIRES_PRO_URL: 'https://trajectoires-pro-recette.apprentissage.beta.gouv.fr/api/',
-					DUREE_VALIDITE_CACHE_CMS_EN_SECONDES: 20,
-					ENVIRONMENT: 'production',
-					FRANCE_TRAVAIL_CONNECT_CLIENT_ID: 'FRANCE_TRAVAIL_CONNECT_CLIENT_ID',
-					FRANCE_TRAVAIL_CONNECT_CLIENT_SECRET: 'FRANCE_TRAVAIL_CONNECT_CLIENT_SECRET',
-					FRANCE_TRAVAIL_CONNECT_SCOPE: 'FRANCE_TRAVAIL_CONNECT_SCOPE',
-					FRANCE_TRAVAIL_CONNECT_URL: 'https://entreprise.francetravail.fr',
-					MAILER_SERVICE_ACTIVE: '1',
-					MAILER_SERVICE_REDIRECT_TO: '',
-					NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: true,
-					NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: 3,
-					NEXT_PUBLIC_SENTRY_DSN: 'https://123456789@sentry.fr/72',
-					NEXT_PUBLIC_SENTRY_ENVIRONMENT: 'local',
-					NEXT_PUBLIC_SENTRY_LOG_LEVEL: 'info',
-					NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE: 1,
-					NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST: '"APIs-Google,AdsBot-Google-Mobile,Googlebot,bingbot,Yandex"',
-					NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: 'notTheMasterKey',
-					NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: 'http://localhost:7700',
-					REDIS_URL: '',
-					STRAPI_AUTH: '1j1s@gouv.fr:monmotdepassesécurisé',
-					STRAPI_URL_API: 'http://localhost:1337/api',
-					TIPIMAIL_API_BASE_URL: 'https://api.tipimail.com/v1/',
-					TIPIMAIL_API_KEY: 'TIPIMAIL_API_KEY',
-					TIPIMAIL_API_USER: 'TIPIMAIL_API_USER',
-				}),
-			),
-		};
-	});
+vi.mock('~/server/services/serverConfiguration.service', () => {
+	return { default: class {
+		getConfiguration() {
+			return {
+				API_ADRESSE_BASE_URL: 'https://api-adresse.data.gouv.fr/',
+				API_ENGAGEMENT_API_KEY_TOKEN: 'API_ENGAGEMENT_API_KEY_TOKEN',
+				API_ENGAGEMENT_BASE_URL: 'https://api.api-engagement.beta.gouv.fr/v0/',
+				API_ETABLISSEMENTS_PUBLICS: 'https://etablissements-publics.api.gouv.fr/v3/',
+				API_FRANCE_TRAVAIL_OFFRES_URL: 'https://api.francetravail.io/partenaire/offresdemploi/v2/offres',
+				API_FRANCE_TRAVAIL_REFERENTIEL_URL: 'https://api.francetravail.io/partenaire/offresdemploi/v2/referentiel',
+				API_GEO_BASE_URL: 'https://geo.api.gouv.fr/',
+				API_LA_BONNE_ALTERNANCE_CALLER: '1jeune1solution',
+				API_LA_BONNE_ALTERNANCE_URL: 'https://labonnealternance-recette.apprentissage.beta.gouv.fr/api/',
+				API_ONISEP_ACCOUNT_EMAIL: 'fake@example.com',
+				API_ONISEP_ACCOUNT_PASSWORD: 'password-bidon',
+				API_ONISEP_APPLICATION_ID: '123456789',
+				API_ONISEP_BASE_URL: 'https://api.opendata.onisep.fr/api/1.0',
+				API_TRAJECTOIRES_PRO_URL: 'https://trajectoires-pro-recette.apprentissage.beta.gouv.fr/api/',
+				DUREE_VALIDITE_CACHE_CMS_EN_SECONDES: 20,
+				ENVIRONMENT: 'production',
+				FRANCE_TRAVAIL_CONNECT_CLIENT_ID: 'FRANCE_TRAVAIL_CONNECT_CLIENT_ID',
+				FRANCE_TRAVAIL_CONNECT_CLIENT_SECRET: 'FRANCE_TRAVAIL_CONNECT_CLIENT_SECRET',
+				FRANCE_TRAVAIL_CONNECT_SCOPE: 'FRANCE_TRAVAIL_CONNECT_SCOPE',
+				FRANCE_TRAVAIL_CONNECT_URL: 'https://entreprise.francetravail.fr',
+				MAILER_SERVICE_ACTIVE: '1',
+				MAILER_SERVICE_REDIRECT_TO: '',
+				NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: true,
+				NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: 3,
+				NEXT_PUBLIC_SENTRY_DSN: 'https://123456789@sentry.fr/72',
+				NEXT_PUBLIC_SENTRY_ENVIRONMENT: 'local',
+				NEXT_PUBLIC_SENTRY_LOG_LEVEL: 'info',
+				NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE: 1,
+				NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST: '"APIs-Google,AdsBot-Google-Mobile,Googlebot,bingbot,Yandex"',
+				NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: 'notTheMasterKey',
+				NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: 'http://localhost:7700',
+				REDIS_URL: '',
+				STRAPI_AUTH: '1j1s@gouv.fr:monmotdepassesécurisé',
+				STRAPI_URL_API: 'http://localhost:1337/api',
+				TIPIMAIL_API_BASE_URL: 'https://api.tipimail.com/v1/',
+				TIPIMAIL_API_KEY: 'TIPIMAIL_API_KEY',
+				TIPIMAIL_API_USER: 'TIPIMAIL_API_USER',
+			};
+		}
+	} };
 });
 
 describe('lorsque je veux faire une recherche de formations initiales', () => {

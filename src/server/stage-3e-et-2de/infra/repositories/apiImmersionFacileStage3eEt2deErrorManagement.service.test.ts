@@ -42,7 +42,7 @@ describe('apiImmersionFacileStage3eEt2deErrorManagement.service', () => {
 				};
 				const loggerService = aLoggerService();
 				const errorManagementService = new ApiImmersionFacileStage3eEt2deErrorManagementService(loggerService);
-				const handleFailureErrorSpy = jest.spyOn(DefaultErrorManagementService.prototype, 'handleFailureError');
+				const handleFailureErrorSpy = vi.spyOn(DefaultErrorManagementService.prototype, 'handleFailureError');
 
 				// When
 				const result = errorManagementService.handleFailureError(error, logInformation);

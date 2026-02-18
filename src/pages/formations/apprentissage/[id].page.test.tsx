@@ -1,6 +1,5 @@
-/**
- * @jest-environment jsdom
- */
+import { type Mock } from "vitest";
+
 
 import '~/test-utils';
 
@@ -18,11 +17,11 @@ import { aFormation } from '~/server/formations/domain/formation.fixture';
 import { Statistique } from '~/server/formations/domain/statistique';
 import { dependencies } from '~/server/start';
 
-jest.mock('~/server/start', () => ({
+vi.mock('~/server/start', () => ({
 	dependencies: {
 		formationDependencies: {
 			consulterFormation: {
-				handle: jest.fn(),
+				handle: vi.fn(),
 			},
 		},
 	},
@@ -78,7 +77,7 @@ describe('getServerSideProps', () => {
 					latitudeCommune: '48.2',
 					longitudeCommune: '29.10',
 				};
-				(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createSuccess(aFormation()) });
+				(dependencies.formationDependencies.consulterFormation.handle as Mock).mockReturnValue({ formation: createSuccess(aFormation()) });
 				const context = aGetServerSidePropsContext<{ id: string }>({
 					params: { id: '1' },
 					query: queryParam,
@@ -110,7 +109,7 @@ describe('getServerSideProps', () => {
 						longitudeCommune: '29.10',
 						niveauEtudes: '6',
 					};
-					(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createFailure(ErreurMetier.SERVICE_INDISPONIBLE) });
+					(dependencies.formationDependencies.consulterFormation.handle as Mock).mockReturnValue({ formation: createFailure(ErreurMetier.SERVICE_INDISPONIBLE) });
 
 					const defaultStatusCode = 200;
 					const context = aGetServerSidePropsContext<{ id: string }>({
@@ -138,7 +137,7 @@ describe('getServerSideProps', () => {
 							longitudeCommune: '29.10',
 							niveauEtudes: '6',
 						};
-						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({
+						(dependencies.formationDependencies.consulterFormation.handle as Mock).mockReturnValue({
 							formation: createSuccess(formation),
 							statistiques: createFailure(ErreurMetier.SERVICE_INDISPONIBLE),
 						});
@@ -171,7 +170,7 @@ describe('getServerSideProps', () => {
 							longitudeCommune: '29.10',
 							niveauEtudes: '6',
 						};
-						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({
+						(dependencies.formationDependencies.consulterFormation.handle as Mock).mockReturnValue({
 							formation: createSuccess(formation),
 							statistiques: createSuccess(statistiques),
 						});
@@ -206,7 +205,7 @@ describe('getServerSideProps', () => {
 							niveauEtudes: '6',
 							parametreSupplementaire: 'foobarbaz',
 						};
-						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({
+						(dependencies.formationDependencies.consulterFormation.handle as Mock).mockReturnValue({
 							formation: createSuccess(formation),
 							statistiques: createSuccess(statistiques),
 						});

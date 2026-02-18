@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom';
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
@@ -20,12 +15,12 @@ import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 
 describe('ComboboxLocalisation', () => {
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	it('vérifie la validité de l’input utilisateur', async () => {
 		const user = userEvent.setup();
-		const localisationServiceMock = aLocalisationService({ isInvalidLocalisationQuery: jest.fn() });
+		const localisationServiceMock = aLocalisationService({ isInvalidLocalisationQuery: vi.fn() });
 
 		render(
 			<DependenciesProvider localisationService={localisationServiceMock}>
@@ -91,7 +86,7 @@ describe('ComboboxLocalisation', () => {
 	it('affiche un message indiquant une erreur quand l’appel au service est en échec', async () => {
 		const user = userEvent.setup();
 		const localisationServiceMock = aLocalisationService();
-		jest.spyOn(localisationServiceMock, 'rechercherLocalisation').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+		vi.spyOn(localisationServiceMock, 'rechercherLocalisation').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 		render(
 			<DependenciesProvider localisationService={localisationServiceMock}>
@@ -109,7 +104,7 @@ describe('ComboboxLocalisation', () => {
 	it('affiche un message invitant à la saisie quand l’input utilisateur est vide', async () => {
 		const user = userEvent.setup();
 		const localisationServiceMock = aLocalisationService();
-		jest.spyOn(localisationServiceMock, 'isInvalidLocalisationQuery').mockReturnValue(true);
+		vi.spyOn(localisationServiceMock, 'isInvalidLocalisationQuery').mockReturnValue(true);
 		render(
 			<DependenciesProvider localisationService={localisationServiceMock}>
 				<ComboboxLocalisation debounceTimeout={0} />
@@ -127,7 +122,7 @@ describe('ComboboxLocalisation', () => {
 	it('affiche un message invitant à la saisie quand l’input utilisateur est invalide', async () => {
 		const user = userEvent.setup();
 		const localisationServiceMock = aLocalisationService();
-		jest.spyOn(localisationServiceMock, 'isInvalidLocalisationQuery').mockReturnValue(true);
+		vi.spyOn(localisationServiceMock, 'isInvalidLocalisationQuery').mockReturnValue(true);
 
 		render(
 			<DependenciesProvider localisationService={localisationServiceMock}>
@@ -145,7 +140,7 @@ describe('ComboboxLocalisation', () => {
 	it('affiche un message de chargement quand la liste de suggestions est en train de charger des résultats', async () => {
 		const user = userEvent.setup();
 		const localisationServiceMock = aLocalisationService();
-		jest.spyOn(localisationServiceMock, 'rechercherLocalisation').mockReturnValue(new Promise(() => {}));
+		vi.spyOn(localisationServiceMock, 'rechercherLocalisation').mockReturnValue(new Promise(() => {}));
 		render(
 			<DependenciesProvider localisationService={localisationServiceMock}>
 				<ComboboxLocalisation debounceTimeout={0} />
@@ -162,7 +157,7 @@ describe('ComboboxLocalisation', () => {
 	it('affiche un message d’erreur quand le champ est en erreur', async () => {
 		const user = userEvent.setup();
 		const localisationServiceMock = aLocalisationService();
-		jest.spyOn(localisationServiceMock, 'rechercherLocalisation').mockResolvedValue(createSuccess({
+		vi.spyOn(localisationServiceMock, 'rechercherLocalisation').mockResolvedValue(createSuccess({
 			communeList: [],
 			departementList: [],
 			regionList: [],

@@ -6,13 +6,13 @@ import {
 
 export function aLocalisationRepository(): LocalisationRepository {
 	return {
-		getCodeRegionByLongitudeLatitude: jest.fn(),
-		getCommuneListByCodePostal: jest.fn(),
-		getCommuneListByNom: jest.fn(),
-		getCommuneListByNuméroDépartement: jest.fn(),
-		getDépartementListByNom: jest.fn(),
-		getDépartementListByNuméroDépartement: jest.fn(),
-		getRégionListByNom: jest.fn(),
+		getCodeRegionByLongitudeLatitude: vi.fn(),
+		getCommuneListByCodePostal: vi.fn(),
+		getCommuneListByNom: vi.fn(),
+		getCommuneListByNuméroDépartement: vi.fn(),
+		getDépartementListByNom: vi.fn(),
+		getDépartementListByNuméroDépartement: vi.fn(),
+		getRégionListByNom: vi.fn(),
 	};
 }
 

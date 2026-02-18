@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom';
-
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
@@ -33,7 +28,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 			it('ajoute le mot clé recherché aux query params', async () => {
 				// GIVEN
 				const localisationServiceMock = aLocalisationService();
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -59,10 +54,10 @@ describe('FormulaireRechercheOffreEmploi', () => {
 			it('ajoute la localisation aux query params', async () => {
 				// GIVEN
 				const localisationServiceMock = aLocalisationService();
-				jest.spyOn(localisationServiceMock, 'rechercherLocalisation').mockResolvedValue(createSuccess(aLocalisationListWithCommuneAndDépartement()));
+				vi.spyOn(localisationServiceMock, 'rechercherLocalisation').mockResolvedValue(createSuccess(aLocalisationListWithCommuneAndDépartement()));
 
 				const user = userEvent.setup();
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				mockUseRouter({ push: routerPush });
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
@@ -96,7 +91,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 			it('ajoute les types de contrat aux query params', async () => {
 				// GIVEN
 				const localisationServiceMock = aLocalisationService();
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -147,7 +142,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 			it('ajoute les temps de travail aux query params', async () => {
 				// GIVEN
 				const localisationServiceMock = aLocalisationService();
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -199,7 +194,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 			it('ajoute le niveau demandé aux query params', async () => {
 				// GIVEN
 				const localisationServiceMock = aLocalisationService();
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -251,7 +246,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 			it('ajoute les domaines aux query params', async () => {
 				// GIVEN
 				const localisationServiceMock = aLocalisationService();
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -309,7 +304,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 		describe('quand on filtre par type de contrat', () => {
 			it('ajoute les types de contrat aux query params', async () => {
 				const localisationServiceMock = aLocalisationService();
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -335,7 +330,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 		describe('quand on filtre par domaine', () => {
 			it('ajoute le domaine sélectionné aux query params', async () => {
 				const localisationServiceMock = aLocalisationService();
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -361,7 +356,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 		describe('quand on filtre par niveau demandé', () => {
 			it('ajoute le niveau demandé sélectionné aux query params', async () => {
 				const localisationServiceMock = aLocalisationService();
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -387,7 +382,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 		describe('quand on filtre par temps de travail', () => {
 			it('ajoute les temps de travail aux query params', async () => {
 				const localisationServiceMock = aLocalisationService();
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 

@@ -1,3 +1,4 @@
+import { type Mock } from "vitest";
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aFormation } from '~/server/formations/domain/formation.fixture';
@@ -15,7 +16,7 @@ describe('ConsulterFormationUseCase', () => {
 			it('retourne une erreur', async () => {
 				// Given
 				const formationRepository = aFormationRepository();
-				(formationRepository.get as jest.Mock).mockResolvedValueOnce(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+				(formationRepository.get as Mock).mockResolvedValueOnce(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 				const statistiqueRepository = aStatistiqueRepository();
 
@@ -35,7 +36,7 @@ describe('ConsulterFormationUseCase', () => {
 				it('retourne la formation sans statistiques', async () => {
 					// Given
 					const formationRepository = aFormationRepository();
-					(formationRepository.get as jest.Mock).mockResolvedValueOnce(createSuccess(aFormation()));
+					(formationRepository.get as Mock).mockResolvedValueOnce(createSuccess(aFormation()));
 
 					const statistiqueRepository = aStatistiqueRepository();
 
@@ -61,7 +62,7 @@ describe('ConsulterFormationUseCase', () => {
 						},
 					};
 					const formationRepository = aFormationRepository();
-					(formationRepository.get as jest.Mock).mockResolvedValueOnce(createSuccess(formation));
+					(formationRepository.get as Mock).mockResolvedValueOnce(createSuccess(formation));
 
 					const statistiqueRepository = aStatistiqueRepository();
 
@@ -81,10 +82,10 @@ describe('ConsulterFormationUseCase', () => {
 					it('retourne la formation sans statistiques', async () => {
 						// Given
 						const formationRepository = aFormationRepository();
-						(formationRepository.get as jest.Mock).mockResolvedValueOnce(createSuccess(aFormation()));
+						(formationRepository.get as Mock).mockResolvedValueOnce(createSuccess(aFormation()));
 
 						const statistiqueRepository = aStatistiqueRepository();
-						(statistiqueRepository.get as jest.Mock).mockResolvedValueOnce(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+						(statistiqueRepository.get as Mock).mockResolvedValueOnce(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 						const filtres = aFormationAvecCodeCertificationQuery();
 
@@ -101,7 +102,7 @@ describe('ConsulterFormationUseCase', () => {
 					it('retourne la formation avec les statistiques', async () => {
 						// Given
 						const formationRepository = aFormationRepository();
-						(formationRepository.get as jest.Mock).mockResolvedValueOnce(createSuccess(aFormation()));
+						(formationRepository.get as Mock).mockResolvedValueOnce(createSuccess(aFormation()));
 
 						const statistique = {
 							millesime: '2020-2021',
@@ -111,7 +112,7 @@ describe('ConsulterFormationUseCase', () => {
 							tauxEnFormation: '0',
 						};
 						const statistiqueRepository = aStatistiqueRepository();
-						(statistiqueRepository.get as jest.Mock).mockResolvedValueOnce(createSuccess(statistique));
+						(statistiqueRepository.get as Mock).mockResolvedValueOnce(createSuccess(statistique));
 
 						const filtres = aFormationAvecCodeCertificationQuery();
 

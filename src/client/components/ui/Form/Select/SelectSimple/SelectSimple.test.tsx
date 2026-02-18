@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom';
-
 import { act, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
@@ -46,7 +41,7 @@ describe('<SelectSimpleSimple/>', () => {
 		});
 
 		it('lorsque le select est requis mais pas touché, n‘appelle pas onInvalid', () => {
-			const onInvalid = jest.fn();
+			const onInvalid = vi.fn();
 			render(<SelectSimple optionsAriaLabel={'options'} required onInvalid={onInvalid}>
 				<SelectSimple.Option value="1">options 1</SelectSimple.Option>
 				<SelectSimple.Option value="2">options 2</SelectSimple.Option>
@@ -57,7 +52,7 @@ describe('<SelectSimpleSimple/>', () => {
 		});
 
 		it('lorsque le select est requis et que l‘utilisateur n‘a pas sélectionné d‘option, il ne peux pas soumettre le formulaire', async () => {
-			const onSubmit = jest.fn();
+			const onSubmit = vi.fn();
 			const user = userEvent.setup();
 			render(<form onSubmit={onSubmit} aria-label={'form'}>
 				<SelectSimple optionsAriaLabel={'options'} required>
@@ -74,7 +69,7 @@ describe('<SelectSimpleSimple/>', () => {
 
 		it('lorsque le select est requis et que l‘utilisateur sélectionne une valeur vide et quitte le champ, appelle onInvalid', async () => {
 			const user = userEvent.setup();
-			const onInvalid = jest.fn();
+			const onInvalid = vi.fn();
 			render(<SelectSimple optionsAriaLabel={'options'} required defaultValue='1' onInvalid={onInvalid}>
 				<SelectSimple.Option value="">aucune option</SelectSimple.Option>
 				<SelectSimple.Option value="1">options 1</SelectSimple.Option>
@@ -89,7 +84,7 @@ describe('<SelectSimpleSimple/>', () => {
 		});
 
 		it('lorsque le select est requis et en erreur, lorsque l‘utilisateur sélectionne une option le select n‘est plus en erreur', async () => {
-			const onInvalid = jest.fn();
+			const onInvalid = vi.fn();
 			const user = userEvent.setup();
 			render(<>
 				<SelectSimple
@@ -701,7 +696,7 @@ describe('<SelectSimpleSimple/>', () => {
 				</SelectSimple>);
 
 				const option = screen.getByRole('option', { hidden: true, name: 'options 2' });
-				option.scrollIntoView = jest.fn();
+				option.scrollIntoView = vi.fn();
 
 				const input = screen.getByRole('combobox');
 				await user.click(input);
@@ -766,7 +761,7 @@ describe('<SelectSimpleSimple/>', () => {
 	describe('props', () => {
 		it('appelle onChange quand une valeur est selectionné', async () => {
 			const user = userEvent.setup();
-			const onChange = jest.fn();
+			const onChange = vi.fn();
 			render(<SelectSimple optionsAriaLabel={'options'} onChange={onChange}>
 				<SelectSimple.Option value="1">options 1</SelectSimple.Option>
 				<SelectSimple.Option value="2">options 2</SelectSimple.Option>
@@ -845,7 +840,7 @@ describe('<SelectSimpleSimple/>', () => {
 
 	describe('touched', () => {
 		it('lorsque l‘utilisateur n‘a pas interagit avec le champ, le select n‘est pas touched', () => {
-			const onTouch = jest.fn();
+			const onTouch = vi.fn();
 
 			render(<SelectSimple optionsAriaLabel={'options'} onTouch={onTouch}>
 				<SelectSimple.Option value="1">options 1</SelectSimple.Option>
@@ -859,7 +854,7 @@ describe('<SelectSimpleSimple/>', () => {
 
 		it('lorsque l‘utilisateur ouvre puis ferme le select et quitte le champ, le select n’est pas touched', async () => {
 			const user = userEvent.setup();
-			const onTouch = jest.fn();
+			const onTouch = vi.fn();
 
 			render(<SelectSimple optionsAriaLabel={'options'} onTouch={onTouch}>
 				<SelectSimple.Option value="1">options 1</SelectSimple.Option>
@@ -877,7 +872,7 @@ describe('<SelectSimpleSimple/>', () => {
 
 		it('lorsque l‘utilisateur ouvre puis sélectionne une option et quitte le champ, le select est touched', async () => {
 			const user = userEvent.setup();
-			const onTouch = jest.fn();
+			const onTouch = vi.fn();
 
 			render(<SelectSimple optionsAriaLabel={'options'} onTouch={onTouch}>
 				<SelectSimple.Option value="1">options 1</SelectSimple.Option>

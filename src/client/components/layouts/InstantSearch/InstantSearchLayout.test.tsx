@@ -1,10 +1,9 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
+
+import { InstantSearch, useInstantSearch, usePagination, useStats } from 'react-instantsearch';
+vi.mock('react-instantsearch');
 
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { aRechercheClientService } from '~/client/components/layouts/InstantSearch/InstantSearchLayout.fixture';
@@ -16,15 +15,10 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const instantsearch = require('react-instantsearch');
-
-const spyOnUseStats = jest.spyOn(instantsearch, 'useStats');
-const spyOnInstantSearch = jest.spyOn<{
-	InstantSearch: (params: { children: React.ReactNode }) => React.ReactNode
-		}, 'InstantSearch'>(instantsearch, 'InstantSearch');
-const spyOnUseInstantSearch = jest.spyOn(instantsearch, 'useInstantSearch');
-const spyedPagination = jest.spyOn(instantsearch, 'usePagination');
+const spyOnUseStats = vi.mocked(useStats);
+const spyOnInstantSearch = vi.mocked(InstantSearch);
+const spyOnUseInstantSearch = vi.mocked(useInstantSearch);
+const spyedPagination = vi.mocked(usePagination);
 
 describe('<InstantSearchLayout />', () => {
 	beforeEach(() => {
@@ -68,7 +62,7 @@ describe('<InstantSearchLayout />', () => {
 		);
 		await screen.findByRole('heading', { name: /2 résultats trouvés/ });
 		const résultats = screen.getByRole('region', { name: /Résultats de la recherche/i });
-		résultats.scrollIntoView = jest.fn();
+		résultats.scrollIntoView = vi.fn();
 
 		const pageSuivant = screen.getByRole('link', { name: /Page suivante/i });
 		await user.click(pageSuivant);

@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -22,7 +18,7 @@ describe('<Input/>', () => {
 	});
 
 	it('accepte une ref', () => {
-		const ref = jest.fn();
+		const ref = vi.fn();
 		render(<Input ref={ref} />);
 
 		expect(ref).toHaveBeenCalledTimes(1);
@@ -37,7 +33,7 @@ describe('<Input/>', () => {
 	});
 
 	it('accepte un onChange', async () => {
-		const onChange = jest.fn();
+		const onChange = vi.fn();
 		const user = userEvent.setup();
 		render(<Input onChange={onChange} />);
 
@@ -48,7 +44,7 @@ describe('<Input/>', () => {
 	});
 
 	it('accepte un onFocus', async () => {
-		const onFocus = jest.fn();
+		const onFocus = vi.fn();
 		const user = userEvent.setup();
 		render(<Input onFocus={onFocus} />);
 
@@ -59,7 +55,7 @@ describe('<Input/>', () => {
 	});
 
 	it('accepte un onBlur', async () => {
-		const onBlur = jest.fn();
+		const onBlur = vi.fn();
 		const user = userEvent.setup();
 		render(<Input onBlur={onBlur} />);
 
@@ -72,7 +68,7 @@ describe('<Input/>', () => {
 
 	describe('validation', () => {
 		it('lorsque la valeur initiale de l‘input est valide, l‘input est valide', async () => {
-			const validation = jest.fn().mockReturnValue('');
+			const validation = vi.fn().mockReturnValue('');
 			render(<Input validation={validation} />);
 
 			const input = screen.getByRole('textbox');
@@ -80,7 +76,7 @@ describe('<Input/>', () => {
 		});
 
 		it('lorsque la valeur initiale de l‘input n‘est pas valide, l‘input est invalide', async () => {
-			const validation = jest.fn().mockReturnValue('error message');
+			const validation = vi.fn().mockReturnValue('error message');
 			render(<Input validation={validation} />);
 
 			const input = screen.getByRole('textbox');
@@ -88,7 +84,7 @@ describe('<Input/>', () => {
 		});
 
 		it('lorsque je tape une valeur valide, l‘input est valide', async () => {
-			const validation = jest.fn().mockReturnValue('');
+			const validation = vi.fn().mockReturnValue('');
 			const user = userEvent.setup();
 			render(<Input validation={validation} />);
 
@@ -99,7 +95,7 @@ describe('<Input/>', () => {
 		});
 
 		it('lorsque je tape une valeur invalide, l‘input est en erreur', async () => {
-			const validation = jest.fn().mockReturnValue('error');
+			const validation = vi.fn().mockReturnValue('error');
 			const user = userEvent.setup();
 			render(<Input validation={validation} />);
 
@@ -112,8 +108,8 @@ describe('<Input/>', () => {
 
 		it('appelle le onChange des props après s’être mis à jour', async () => {
 			let validationMessage: string = '';
-			const validation = jest.fn().mockReturnValue('error');
-			const onChange = jest.fn((event) => { validationMessage = event.target.validationMessage; });
+			const validation = vi.fn().mockReturnValue('error');
+			const onChange = vi.fn((event) => { validationMessage = event.target.validationMessage; });
 			const user = userEvent.setup();
 			render(<Input validation={validation} onChange={onChange} />);
 
@@ -171,7 +167,7 @@ describe('<Input/>', () => {
 
 		it('appelle onTouch quand le champ est touché', async () => {
 			const user = userEvent.setup();
-			const onTouch = jest.fn();
+			const onTouch = vi.fn();
 			render(<Input onTouch={onTouch} />);
 
 			const input = screen.getByRole('textbox');
@@ -183,7 +179,7 @@ describe('<Input/>', () => {
 	});
 
 	it('lorsque l‘input est en erreur et que l‘input est touched, onInvalid est appelé', async () => {
-		const onInvalid = jest.fn();
+		const onInvalid = vi.fn();
 		const user = userEvent.setup();
 		render(<Input onInvalid={onInvalid} required />);
 
@@ -196,7 +192,7 @@ describe('<Input/>', () => {
 	});
 
 	it('lorsque l‘input n‘est pas en erreur, onInvalid n‘est pas appelé', async () => {
-		const onInvalid = jest.fn();
+		const onInvalid = vi.fn();
 		const user = userEvent.setup();
 		render(<Input onInvalid={onInvalid} required />);
 
@@ -207,7 +203,7 @@ describe('<Input/>', () => {
 	});
 
 	it('lorsque l‘input est déjà en erreur et que l‘input est touched, onInvalid est appelé', async () => {
-		const onInvalid = jest.fn();
+		const onInvalid = vi.fn();
 		const user = userEvent.setup();
 		render(<Input onInvalid={onInvalid} required defaultValue={'toto'} />);
 
@@ -219,7 +215,7 @@ describe('<Input/>', () => {
 	});
 
 	it('lorsque l‘input est en erreur et que l‘input n‘est pas touched, onInvalid n‘est pas appelé', async () => {
-		const onInvalid = jest.fn();
+		const onInvalid = vi.fn();
 		const user = userEvent.setup();
 		render(<Input onInvalid={onInvalid} required />);
 

@@ -16,7 +16,7 @@ describe('StrapiMesuresEmployeursRepository', () => {
 			const resource = 'les-mesures-employeurs';
 
 			const strapiService = aStrapiService();
-			jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresEmployeursList()));
+			vi.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresEmployeursList()));
 			const strapiMesuresEmployeurs = new StrapiMesuresEmployeursRepository(strapiService, anErrorManagementService());
 			const query = 'populate=deep';
 
@@ -28,7 +28,7 @@ describe('StrapiMesuresEmployeursRepository', () => {
 		describe('quand la récupération est en succès', () => {
 			it('quand map vers les mesures employeurs est en succès, renvoie la liste des mesures employeurs', async () => {
 				const strapiService = aStrapiService();
-				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresEmployeursList()));
+				vi.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresEmployeursList()));
 				const strapiMesuresEmployeurs = new StrapiMesuresEmployeursRepository(strapiService, anErrorManagementService());
 
 				const result = await strapiMesuresEmployeurs.getMesuresEmployeurs();
@@ -39,11 +39,11 @@ describe('StrapiMesuresEmployeursRepository', () => {
 
 			it('quand map vers les mesures employeurs est échec, appelle le service de management d‘erreur avec l‘erreur et le contexte', async () => {
 				const strapiService = aStrapiService();
-				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess({ someNonExistentField: '' }));
+				vi.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess({ someNonExistentField: '' }));
 
 				const errorManagementService = anErrorManagementService();
 				const failureFromErrorManagement = createFailure(ErreurMetier.DEMANDE_INCORRECTE);
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(failureFromErrorManagement);
+				vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(failureFromErrorManagement);
 
 				const strapiMesuresEmployeurs = new StrapiMesuresEmployeursRepository(strapiService, errorManagementService);
 				const result = await strapiMesuresEmployeurs.getMesuresEmployeurs();
@@ -61,7 +61,7 @@ describe('StrapiMesuresEmployeursRepository', () => {
 		it('quand la récupération est en échec, relais l‘échec du strapi service', async () => {
 			const strapiService = aStrapiService();
 			const failureFromStrapi = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
-			jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(failureFromStrapi);
+			vi.spyOn(strapiService, 'getSingleType').mockResolvedValue(failureFromStrapi);
 			const strapiMesuresEmployeurs = new StrapiMesuresEmployeursRepository(strapiService, anErrorManagementService());
 
 			const result = await strapiMesuresEmployeurs.getMesuresEmployeurs();

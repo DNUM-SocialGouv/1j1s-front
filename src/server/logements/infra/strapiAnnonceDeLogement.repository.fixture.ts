@@ -2,7 +2,7 @@ import { AnnonceDeLogementRepository } from '../domain/annonceDeLogement.reposit
 
 export function anAnnonceDeLogementRepository(): AnnonceDeLogementRepository {
 	return {
-		getAnnonceDeLogementBySlug: jest.fn(),
-		listAllAnnonceDeLogementSlug: jest.fn(),
+		getAnnonceDeLogementBySlug: vi.fn(),
+		listAllAnnonceDeLogementSlug: vi.fn(),
 	};
 }

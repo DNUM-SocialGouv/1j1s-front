@@ -18,7 +18,7 @@ describe('StrapiVideoCampagneApprentissageRepository', () => {
 			const strapiService = aStrapiService();
 			const strapiVideoCampagneApprentissageRepository = new StrapiVideoCampagneApprentissageRepository(strapiService, anErrorManagementService());
 			const strapiVideoResourceName = 'videos-campagne-apprentissages';
-			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiVideoCampagneApprentissage()]));
+			vi.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiVideoCampagneApprentissage()]));
 
 			// WHEN
 			await strapiVideoCampagneApprentissageRepository.getAllVideosCampagneApprentissage();
@@ -31,7 +31,7 @@ describe('StrapiVideoCampagneApprentissageRepository', () => {
 			// GIVEN
 			const strapiService = aStrapiService();
 			const strapiVideoCampagneApprentissageRepository = new StrapiVideoCampagneApprentissageRepository(strapiService, anErrorManagementService());
-			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiVideoCampagneApprentissage({
+			vi.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiVideoCampagneApprentissage({
 				Titre: "Contrat d'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…",
 				Transcription: '[transcription]',
 				Url: 'https://www.youtube.com/watch?v=V3cxW3ZRV-I&additionnalParams=true',
@@ -56,7 +56,7 @@ describe('StrapiVideoCampagneApprentissageRepository', () => {
 			const strapiService = aStrapiService();
 			const strapiVideoCampagneApprentissageRepository = new StrapiVideoCampagneApprentissageRepository(strapiService, anErrorManagementService());
 			const strapiServiceError = ErreurMetier.SERVICE_INDISPONIBLE;
-			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createFailure(strapiServiceError));
+			vi.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createFailure(strapiServiceError));
 
 			// WHEN
 			const result = await strapiVideoCampagneApprentissageRepository.getAllVideosCampagneApprentissage();
@@ -72,7 +72,7 @@ describe('StrapiVideoCampagneApprentissageRepository', () => {
 				const strapiService = aStrapiService();
 				const errorManagementService = anErrorManagementService();
 				const strapiVideoCampagneApprentissageRepository = new StrapiVideoCampagneApprentissageRepository(strapiService, errorManagementService);
-				jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiVideoCampagneApprentissage({
+				vi.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiVideoCampagneApprentissage({
 					Url: undefined,
 				})]));
 
@@ -92,11 +92,11 @@ describe('StrapiVideoCampagneApprentissageRepository', () => {
 				const strapiService = aStrapiService();
 				const errorManagementService = anErrorManagementService();
 				const strapiVideoCampagneApprentissageRepository = new StrapiVideoCampagneApprentissageRepository(strapiService, errorManagementService);
-				jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiVideoCampagneApprentissage({
+				vi.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiVideoCampagneApprentissage({
 					Url: undefined,
 				})]));
 				const failureFromErrorManagement = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(failureFromErrorManagement);
+				vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(failureFromErrorManagement);
 
 				// WHEN
 				const result = await strapiVideoCampagneApprentissageRepository.getAllVideosCampagneApprentissage();

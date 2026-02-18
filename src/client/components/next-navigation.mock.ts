@@ -1,9 +1,9 @@
 import { ReadonlyURLSearchParams } from 'next/navigation';
 
-const mockedUsePathname = jest.fn();
-const mockedUseSearchParams = jest.fn();
+const mockedUsePathname = vi.fn();
+const mockedUseSearchParams = vi.fn();
 
-jest.mock('next/navigation', () => ({
+vi.mock('next/navigation', () => ({
 	usePathname: mockedUsePathname,
 	useSearchParams: mockedUseSearchParams,
 }));
@@ -16,9 +16,9 @@ export function mockUseSearchParams(overrides: Partial<ReadonlyURLSearchParams>)
 
 	mockedUseSearchParams.mockImplementation(() => {
 		return {
-			get: jest.fn(),
-			getAll: jest.fn(),
-			has: jest.fn(),
+			get: vi.fn(),
+			getAll: vi.fn(),
+			has: vi.fn(),
 			size: 0,
 			...overrides,
 		};

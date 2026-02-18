@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 
 import { ConsulterOffreEmploi } from '~/client/components/features/OffreEmploi/Consulter/ConsulterOffreEmploi';
@@ -10,9 +6,11 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import { aMaçonOffre, anOffreEmploi, aValetOffre } from '~/server/offres/domain/offre.fixture';
 
-jest.mock('dompurify', () => {
+vi.mock('dompurify', () => {
 	return {
-		sanitize: jest.fn().mockImplementation(() => 'sanitized'),
+		default: {
+			sanitize: vi.fn().mockImplementation(() => 'sanitized'),
+		},
 	};
 });
 

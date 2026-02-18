@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -15,7 +11,7 @@ function TestComponent() {
 describe('usePageHistory', () => {
 	beforeEach(() => {
 		sessionStorage.clear();
-		jest.resetAllMocks();
+		vi.resetAllMocks();
 	});
 	describe('quand on quitte la page', () => {
 		it('stocke le pathname de la page dans sessionStorage', () => {
@@ -23,7 +19,7 @@ describe('usePageHistory', () => {
 			mockUseRouter({
 				pathname: '/other-page',
 			});
-			const setItem = jest.spyOn(Object.getPrototypeOf(sessionStorage), 'setItem');
+			const setItem = vi.spyOn(Object.getPrototypeOf(sessionStorage), 'setItem');
 			const { unmount } = render(<TestComponent />);
 
 			// When
@@ -37,7 +33,7 @@ describe('usePageHistory', () => {
 			mockUseRouter({
 				pathname: '/other-page',
 			});
-			const setItem = jest.spyOn(Object.getPrototypeOf(sessionStorage), 'setItem');
+			const setItem = vi.spyOn(Object.getPrototypeOf(sessionStorage), 'setItem');
 			const { rerender } = render(<TestComponent />);
 
 			// When

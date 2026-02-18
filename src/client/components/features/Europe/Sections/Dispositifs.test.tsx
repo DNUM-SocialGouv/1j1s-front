@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { queries as defaultQueries, render, screen, within as defaultWithin } from '@testing-library/react';
 
 import { queries } from '~/test-utils';

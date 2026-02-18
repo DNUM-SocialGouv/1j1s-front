@@ -15,7 +15,7 @@ describe('strapiService', () => {
 	describe('getSingleType', () => {
 		it('appelle strapi avec les bons parametres', async () => {
 			const httpClientService = aPublicHttpClientService();
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiSingleType({})));
+			vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiSingleType({})));
 			const strapiService = new StrapiService(httpClientService, anAuthenticatedHttpClientService(), anErrorManagementService());
 
 			await strapiService.getSingleType('ressource', 'query');
@@ -30,7 +30,7 @@ describe('strapiService', () => {
 				test1: 'test1',
 				test2: 'test2',
 			};
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiSingleType(data)));
+			vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiSingleType(data)));
 			const strapiService = new StrapiService(httpClientService, anAuthenticatedHttpClientService(), anErrorManagementService());
 
 			const result = await strapiService.getSingleType('ressource', 'query');
@@ -44,8 +44,8 @@ describe('strapiService', () => {
 			const ressource = 'ressource';
 			const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
 			const errorManagementService = anErrorManagementService();
-			jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
-			jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
+			vi.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
+			vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 			const strapiService = new StrapiService(httpClientService, anAuthenticatedHttpClientService(), errorManagementService);
 
 			const result = await strapiService.getSingleType(ressource, 'query');
@@ -65,7 +65,7 @@ describe('strapiService', () => {
 			it('fait un premier appel à strapi pour récupérer les informations de pagination et la première page', async () => {
 				const MAX_PAGINATION_SIZE = '100';
 				const httpClientService = aPublicHttpClientService();
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiCollectionType([])));
+				vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiCollectionType([])));
 				const strapiService = new StrapiService(httpClientService, anAuthenticatedHttpClientService(), anErrorManagementService());
 
 				await strapiService.getCollectionType('ressource', 'query');
@@ -83,7 +83,7 @@ describe('strapiService', () => {
 					page: 1,
 					pageCount: 1,
 				}));
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(responseStrapi);
+				vi.spyOn(httpClientService, 'get').mockResolvedValue(responseStrapi);
 
 				const strapiService = new StrapiService(httpClientService, anAuthenticatedHttpClientService(), anErrorManagementService());
 
@@ -105,7 +105,7 @@ describe('strapiService', () => {
 				const responseStrapiTroisiemePage = aStrapiCollectionType(dataTroisiemePage, { page: 3, pageCount: 4 });
 				const responseStrapiQuatriemePage = aStrapiCollectionType(dataQuatriemePage, { page: 4, pageCount: 4 });
 
-				jest.spyOn(httpClientService, 'get')
+				vi.spyOn(httpClientService, 'get')
 					.mockResolvedValueOnce(anAxiosResponse(responseStrapiPremierePage))
 					.mockResolvedValueOnce(anAxiosResponse(responseStrapiDeuxiemePage))
 					.mockResolvedValueOnce(anAxiosResponse(responseStrapiTroisiemePage))
@@ -130,8 +130,8 @@ describe('strapiService', () => {
 			const ressource = 'ressource';
 			const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
 			const errorManagementService = anErrorManagementService();
-			jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
-			jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
+			vi.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
+			vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 			const strapiService = new StrapiService(httpClientService, anAuthenticatedHttpClientService(), errorManagementService);
 
 			const result = await strapiService.getCollectionType(ressource, 'query');
@@ -150,7 +150,7 @@ describe('strapiService', () => {
 		it('appelle une fois strapi et avec les bons paramètres', async () => {
 			const MAX_PAGINATION_SIZE = '100';
 			const httpClientService = aPublicHttpClientService();
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiCollectionType([])));
+			vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiCollectionType([])));
 			const strapiService = new StrapiService(httpClientService, anAuthenticatedHttpClientService(), anErrorManagementService());
 
 			await strapiService.getFirstFromCollectionType('ressource', 'query');
@@ -165,8 +165,8 @@ describe('strapiService', () => {
 				const expectedFailureFromErrorManagementService = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 				const httpClientService = aPublicHttpClientService();
 				const errorManagementService = anErrorManagementService();
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiCollectionType([])));
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(expectedFailureFromErrorManagementService);
+				vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiCollectionType([])));
+				vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(expectedFailureFromErrorManagementService);
 				const strapiService = new StrapiService(httpClientService, anAuthenticatedHttpClientService(), errorManagementService);
 
 				const result = await strapiService.getFirstFromCollectionType(ressource, 'query');
@@ -183,7 +183,7 @@ describe('strapiService', () => {
 			it('lorsqu‘il y a plusieurs résultats, renvoie un succès avec le premier résultat de la liste', async () => {
 				const httpClientService = aPublicHttpClientService();
 				const data = [{ test: 'test1' }, { test: 'test2' }, { test: 'test3' }];
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiCollectionType(data)));
+				vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiCollectionType(data)));
 				const strapiService = new StrapiService(httpClientService, anAuthenticatedHttpClientService(), anErrorManagementService());
 
 				const result = await strapiService.getFirstFromCollectionType('ressource', 'query');
@@ -198,8 +198,8 @@ describe('strapiService', () => {
 			const ressource = 'ressource';
 			const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
 			const errorManagementService = anErrorManagementService();
-			jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
-			jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
+			vi.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
+			vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 			const strapiService = new StrapiService(httpClientService, anAuthenticatedHttpClientService(), errorManagementService);
 
 			const result = await strapiService.getFirstFromCollectionType(ressource, 'query');
@@ -218,7 +218,7 @@ describe('strapiService', () => {
 		it('appelle Strapi avec les bons paramètres', async () => {
 			const authenticatedHttpClientService = anAuthenticatedHttpClientService();
 			const bodyASauvegarder = { test: 'test' };
-			jest.spyOn(authenticatedHttpClientService, 'post').mockResolvedValue(anAxiosResponse({}));
+			vi.spyOn(authenticatedHttpClientService, 'post').mockResolvedValue(anAxiosResponse({}));
 			const strapiService = new StrapiService(aPublicHttpClientService(), authenticatedHttpClientService, anErrorManagementService());
 
 			await strapiService.save('ressource', bodyASauvegarder);
@@ -231,7 +231,7 @@ describe('strapiService', () => {
 			const authenticatedHttpClientService = anAuthenticatedHttpClientService();
 			const bodyASauvegarder = { test: 'test' };
 			const retourDuPostStrapi = 'la requête est un succès';
-			jest.spyOn(authenticatedHttpClientService, 'post').mockResolvedValue(anAxiosResponse(retourDuPostStrapi));
+			vi.spyOn(authenticatedHttpClientService, 'post').mockResolvedValue(anAxiosResponse(retourDuPostStrapi));
 			const strapiService = new StrapiService(aPublicHttpClientService(), authenticatedHttpClientService, anErrorManagementService());
 
 			const result = await strapiService.save('ressource', bodyASauvegarder);
@@ -245,8 +245,8 @@ describe('strapiService', () => {
 			const ressource = 'ressource';
 			const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
 			const errorManagementService = anErrorManagementService();
-			jest.spyOn(authenticatedHttpClientService, 'post').mockRejectedValue(httpError);
-			jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
+			vi.spyOn(authenticatedHttpClientService, 'post').mockRejectedValue(httpError);
+			vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 			const strapiService = new StrapiService(aPublicHttpClientService(), authenticatedHttpClientService, errorManagementService);
 
 			const result = await strapiService.save('ressource', { test: 'test' });

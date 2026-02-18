@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -53,17 +49,17 @@ describe('FormulaireRechercherFormationAlternance', () => {
 
 	describe('recherche correcte', () => {
 		it('lorsqu‘on recherche par localisation et par métier, les informations sont poussées dans l’url', async () => {
-			const routerPush = jest.fn();
+			const routerPush = vi.fn();
 			mockUseRouter({ push: routerPush });
 
 			const localisationService = aLocalisationService();
 			const metierService = aMetierService();
-			jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess([aMetier({
+			vi.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess([aMetier({
 				code: 'F1201,F1202,I1101',
 				label: 'Conduite de travaux, direction de chantier',
 			})]));
 
-			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
+			vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 				résultats: [aCommune({
 					code: '75056',
 					codePostal: '75006',
@@ -106,7 +102,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 		});
 
 		it('lorsqu‘on recherche avec un niveau d’études, le niveau d‘étude est ajouté à l‘url', async () => {
-			const routerPush = jest.fn();
+			const routerPush = vi.fn();
 
 			mockUseRouter({
 				push: routerPush,
@@ -146,10 +142,10 @@ describe('FormulaireRechercherFormationAlternance', () => {
 	describe('recherche incorrecte', () => {
 		it('lorsqu‘il manque la commune, n‘effectue pas de recherche', async () => {
 			// Given
-			const routerPush = jest.fn();
+			const routerPush = vi.fn();
 			mockUseRouter({ push: routerPush });
 			const metierService = aMetierService();
-			jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess([aMetier({
+			vi.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess([aMetier({
 				code: 'F1201,F1202,I1101',
 				label: 'Conduite de travaux, direction de chantier',
 			})]));
@@ -176,11 +172,11 @@ describe('FormulaireRechercherFormationAlternance', () => {
 
 		it('lorsqu‘il manque le métier, n‘effectue pas de recherche', async () => {
 			const user = userEvent.setup();
-			const routerPush = jest.fn();
+			const routerPush = vi.fn();
 			mockUseRouter({ push: routerPush });
 
 			const localisationService = aLocalisationService();
-			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
+			vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 				résultats: [aCommune({
 					code: '75056',
 					codePostal: '75006',

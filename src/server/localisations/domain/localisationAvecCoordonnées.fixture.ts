@@ -6,7 +6,7 @@ import { LocalisationAvecCoordonnéesRepository } from './localisationAvecCoordo
 
 export function aLocalisationAvecCoordonnéesRepository() : LocalisationAvecCoordonnéesRepository {
 	return {
-		getCommuneList: jest.fn(),
+		getCommuneList: vi.fn(),
 	};
 }
 

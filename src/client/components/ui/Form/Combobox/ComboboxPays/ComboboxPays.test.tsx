@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
@@ -34,7 +30,7 @@ describe('<ComboboxPays />', () => {
 			expect(screen.getByRole('combobox', { name: /Rechercher un pays/i })).toBeVisible();
 		});
 		it('accepte une ref', () => {
-			const ref = jest.fn();
+			const ref = vi.fn();
 
 			render(
 				<ComboboxPays paysList={[]} name={'pays'} label={'Rechercher un pays'} ref={ref} />,
@@ -54,7 +50,7 @@ describe('<ComboboxPays />', () => {
 		});
 		it('accepte un onInvalid', async () => {
 			const user = userEvent.setup();
-			const onInvalid = jest.fn();
+			const onInvalid = vi.fn();
 			render(
 				<ComboboxPays paysList={[]} name='pays' label='Rechercher un pays' onInvalid={onInvalid} />,
 			);

@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import { render, screen, within } from '@testing-library/react';
 import React from 'react';
 
@@ -28,7 +25,7 @@ describe('RechercherAccompagnement', () => {
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	describe('quand aucune recherche n‘est lancée', () => {
@@ -68,7 +65,7 @@ describe('RechercherAccompagnement', () => {
 		describe('quand aucun résultat ne correspond à la recherche', () => {
 			it('affiche un message aucun résultat', async () => {
 				const établissementAccompagnementService = anEtablissementAccompagnementService();
-				établissementAccompagnementService.rechercher = jest.fn().mockResolvedValue(createSuccess([]));
+				établissementAccompagnementService.rechercher = vi.fn().mockResolvedValue(createSuccess([]));
 				const localisationServiceMock = aLocalisationService();
 
 				mockUseRouter({
@@ -95,7 +92,7 @@ describe('RechercherAccompagnement', () => {
 		describe('quand le service nous retourne une erreur', () => {
 			it('affiche un message d‘erreur', async () => {
 				const établissementAccompagnementService = anEtablissementAccompagnementService();
-				établissementAccompagnementService.rechercher = jest.fn().mockResolvedValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
+				établissementAccompagnementService.rechercher = vi.fn().mockResolvedValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				const localisationServiceMock = aLocalisationService();
 
 				mockUseRouter({
@@ -123,7 +120,7 @@ describe('RechercherAccompagnement', () => {
 		describe('quand on filtre par localisation et type d‘accompagnement', () => {
 			it('retourne des établissements liés à la localisation et type d‘accompagnement', async () => {
 				const etablissementAccompagnementService = anEtablissementAccompagnementService();
-				jest.spyOn(etablissementAccompagnementService, 'rechercher').mockResolvedValue(createSuccess([
+				vi.spyOn(etablissementAccompagnementService, 'rechercher').mockResolvedValue(createSuccess([
 					anEtablissementAccompagnement({ id: '1', nom: 'Point information jeunesse - Saint-Céré' }),
 					anEtablissementAccompagnement({ id: '2', nom: 'Point information jeunesse - Figeac' }),
 					anEtablissementAccompagnement({ id: '3', nom: 'Point information jeunesse - Saint-Céré' }),
@@ -215,7 +212,7 @@ describe('RechercherAccompagnement', () => {
 		it('affiche le bouton "Je souhaite être rappelé"', async () => {
 			const établissementAccompagnementService = anEtablissementAccompagnementService();
 			const anEtablissementMissionLocalList = anEtablissementAccompagnementList({ type: TypeÉtablissement.MISSION_LOCALE });
-			jest.spyOn(établissementAccompagnementService, 'rechercher').mockResolvedValue(createSuccess(anEtablissementMissionLocalList));
+			vi.spyOn(établissementAccompagnementService, 'rechercher').mockResolvedValue(createSuccess(anEtablissementMissionLocalList));
 			const localisationServiceMock = aLocalisationService();
 
 			mockUseRouter({

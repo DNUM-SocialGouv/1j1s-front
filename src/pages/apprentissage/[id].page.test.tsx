@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import '~/test-utils';
 
 import { render, screen } from '@testing-library/react';
@@ -34,7 +31,7 @@ const alternanceSerialized: AlternanceSerialized = {
 	typeDeContrat: ['Apprentissage'],
 };
 
-jest.mock('next/head', () => HeadMock);
+vi.mock('next/head', () => ({ default: HeadMock }));
 
 describe('<AnnonceAlternancePage />', () => {
 	beforeEach(() => {

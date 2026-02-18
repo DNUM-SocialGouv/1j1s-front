@@ -30,7 +30,7 @@ describe('RechercherLocalisationUseCase', () => {
 		describe('Lorsque la récupération de la liste de départements fonctionne', () => {
 			it('renvoie une liste avec le département correspondant à la recherche', async () => {
 				const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
-				jest.spyOn(localisationRepository, 'getDépartementListByNuméroDépartement').mockResolvedValue(createSuccess(aDépartementList()));
+				vi.spyOn(localisationRepository, 'getDépartementListByNuméroDépartement').mockResolvedValue(createSuccess(aDépartementList()));
 
 				const expected: RechercheLocalisation = {
 					communeList: [],
@@ -47,7 +47,7 @@ describe('RechercherLocalisationUseCase', () => {
 		describe('Lorsque la récupération de la liste des communes fonctionne', () => {
 			it('renvoie la liste de communes correspondant à la recherche', async () => {
 				const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
-				jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createSuccess(aRésultatsRechercheCommune()));
+				vi.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createSuccess(aRésultatsRechercheCommune()));
 				const expected: RechercheLocalisation = {
 					communeList: aCommuneList(),
 					departementList: [],
@@ -61,7 +61,7 @@ describe('RechercherLocalisationUseCase', () => {
 		describe('Lorsque la récupération de la liste des communes échoue', () => {
 			it('renvoie une erreur', async () => {
 				const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
-				jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
+				vi.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 
 				const result = await listeLocalisationUseCase.handle('95100') as Failure;
 
@@ -74,9 +74,9 @@ describe('RechercherLocalisationUseCase', () => {
 		describe('lorsque la recherche contient moins de 3 lettres', () => {
 			it('renvoie une erreur', async () => {
 				const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
-				jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList');
-				jest.spyOn(localisationRepository, 'getDépartementListByNom');
-				jest.spyOn(localisationRepository, 'getRégionListByNom');
+				vi.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList');
+				vi.spyOn(localisationRepository, 'getDépartementListByNom');
+				vi.spyOn(localisationRepository, 'getRégionListByNom');
 
 				const result = await listeLocalisationUseCase.handle('Pa') as Failure;
 
@@ -90,9 +90,9 @@ describe('RechercherLocalisationUseCase', () => {
 		});
 		it('renvoie la liste des communes, départements et régions correspondants à la recherche', async () => {
 			const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
-			jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createSuccess(aRésultatsRechercheCommune()));
-			jest.spyOn(localisationRepository, 'getDépartementListByNom').mockResolvedValue(createSuccess(aDépartementList()));
-			jest.spyOn(localisationRepository, 'getRégionListByNom').mockResolvedValue(createSuccess(aRégionList()));
+			vi.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createSuccess(aRésultatsRechercheCommune()));
+			vi.spyOn(localisationRepository, 'getDépartementListByNom').mockResolvedValue(createSuccess(aDépartementList()));
+			vi.spyOn(localisationRepository, 'getRégionListByNom').mockResolvedValue(createSuccess(aRégionList()));
 
 			const expected: RechercheLocalisation = {
 				communeList: aCommuneList(),
@@ -107,7 +107,7 @@ describe('RechercherLocalisationUseCase', () => {
 	describe('Lorsque la récupération de la liste des communes échoue', () => {
 		it('renvoie une erreur', async () => {
 			const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
-			jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+			vi.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 			const result = await listeLocalisationUseCase.handle('Haut') as Failure;
 

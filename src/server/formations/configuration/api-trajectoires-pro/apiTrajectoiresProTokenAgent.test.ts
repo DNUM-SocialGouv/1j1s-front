@@ -1,3 +1,4 @@
+// @vitest-environment node
 import nock from 'nock';
 
 import {
@@ -56,7 +57,7 @@ describe('ApiTrajectoiresPro token agent', () => {
 
 	it('doit planifier le renouvellement du token avant expiration', async () => {
 		// GIVEN
-		const setTimeoutSpy = jest.spyOn(global, 'setTimeout');
+		const setTimeoutSpy = vi.spyOn(global, 'setTimeout');
 		const tokenResponse = { access_token: 'some-token', expires_in: 600 };
 		nock(apiAuthenticationUrl)
 			.post('', requestBody)

@@ -1,6 +1,7 @@
 import {
 	Alternance,
 	AlternanceSource,
+	ResultatRechercheAlternance,
 	ResultatRechercheAlternanceEntreprise,
 	ResultatRechercheAlternanceOffre,
 } from '~/server/alternances/domain/alternance';

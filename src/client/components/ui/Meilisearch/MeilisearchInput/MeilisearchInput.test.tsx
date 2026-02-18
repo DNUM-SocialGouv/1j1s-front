@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import {
 	render,
 	screen,
@@ -10,8 +6,10 @@ import { userEvent } from '@testing-library/user-event';
 
 import { MeilisearchInput } from '~/client/components/ui/Meilisearch/MeilisearchInput/MeilisearchInput';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-jest.spyOn(require('react-instantsearch'), 'useSearchBox');
+import { useSearchBox } from 'react-instantsearch';
+vi.mock('react-instantsearch');
+
+vi.mocked(useSearchBox);
 
 describe('<MeilisearchInput/>', () => {
 	it('ne retourne pas de form', () => {

@@ -12,9 +12,9 @@ import {
 	anAxiosResponse,
 } from '~/server/services/http/publicHttpClient.service.fixture';
 
-jest.mock('axios', () => {
+vi.mock('axios', () => {
 	return {
-		isAxiosError: jest.fn().mockReturnValue(true),
+		isAxiosError: vi.fn().mockReturnValue(true),
 	};
 });
 
@@ -32,7 +32,7 @@ describe('ApiFranceTravailRéférentielRepository', () => {
 	describe('findCodeInseeInRéférentielCommune', () => {
 		describe('quand le code insee est trouvé', () => {
 			it('retourne le code insee', async () => {
-				jest
+				vi
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse(aRésultatsRéférentielCommunesResponseList()));
 				const expected = '55000';
@@ -45,7 +45,7 @@ describe('ApiFranceTravailRéférentielRepository', () => {
 
 		describe('quand le code insee n‘est trouvé', () => {
 			it('retourne le code passé en paramètre', async () => {
-				jest
+				vi
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse(aRésultatsRéférentielCommunesResponseList()));
 				const expected = '75999';
@@ -57,7 +57,7 @@ describe('ApiFranceTravailRéférentielRepository', () => {
 		});
 		describe('quand le code insee est celui de Paris', () => {
 			it('retourne le code insee de paris 01', async () => {
-				jest
+				vi
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse(aRésultatsRéférentielCommunesResponseList()));
 				const expected = '75101';
@@ -70,7 +70,7 @@ describe('ApiFranceTravailRéférentielRepository', () => {
 
 		describe('quand le code insee est celui de Marseille', () => {
 			it('retourne le code insee de marseille 01', async () => {
-				jest
+				vi
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse(aRésultatsRéférentielCommunesResponseList()));
 				const expected = '13201';
@@ -83,7 +83,7 @@ describe('ApiFranceTravailRéférentielRepository', () => {
 
 		describe('quand le code insee est celui de Lyon', () => {
 			it('retourne le code insee de Lyon 01', async () => {
-				jest
+				vi
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse(aRésultatsRéférentielCommunesResponseList()));
 				const expected = '69381';

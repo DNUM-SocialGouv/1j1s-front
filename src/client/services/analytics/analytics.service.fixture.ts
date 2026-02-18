@@ -4,8 +4,8 @@ import { ManualAnalyticsService } from './analytics.service';
 
 export function aManualAnalyticsService(overrides?: Partial<ManualAnalyticsService>): ManualAnalyticsService {
 	return {
-		envoyerAnalyticsPageVue: jest.fn(),
-		isAllowed: jest.fn(() => true),
+		envoyerAnalyticsPageVue: vi.fn(),
+		isAllowed: vi.fn(() => true),
 		...overrides,
 	};
 }

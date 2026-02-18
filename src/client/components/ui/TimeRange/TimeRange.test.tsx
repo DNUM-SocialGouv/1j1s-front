@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import { render, screen } from '@testing-library/react';
 
 import { TimeRange } from '~/client/components/ui/TimeRange/TimeRange';

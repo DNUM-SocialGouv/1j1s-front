@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -13,8 +10,10 @@ import {
 } from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const spyed = jest.spyOn(require('react-instantsearch'), 'useRefinementList');
+import { useRefinementList } from 'react-instantsearch';
+vi.mock('react-instantsearch');
+
+const spyed = vi.mocked(useRefinementList);
 
 describe('FormulaireRechercheAnnonceLogement', () => {
 	it('affiche un formulaire', () => {
@@ -28,7 +27,7 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 		mockLargeScreen();
 		spyed.mockImplementation(() => mockUseRefinementList({
 			items: [generateRefinementListItem({ label: 'exemple', value: 'exemple' })],
-			refine: jest.fn(),
+			refine: vi.fn(),
 		}));
 	});
 

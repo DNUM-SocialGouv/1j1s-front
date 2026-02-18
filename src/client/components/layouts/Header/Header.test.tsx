@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -15,7 +11,7 @@ describe('Header', () => {
 			mockLargeScreen();
 		});
 		afterEach(() => {
-			jest.clearAllMocks();
+			vi.clearAllMocks();
 		});
 		it('affiche le composant Header', async () => {
 			mockUseRouter({ pathname: '/' });
@@ -278,7 +274,7 @@ describe('Header', () => {
 			mockSmallScreen();
 		});
 		afterEach(() => {
-			jest.clearAllMocks();
+			vi.clearAllMocks();
 		});
 		describe('Par défaut', () => {
 			it('n‘affiche pas la navigation mobile', () => {

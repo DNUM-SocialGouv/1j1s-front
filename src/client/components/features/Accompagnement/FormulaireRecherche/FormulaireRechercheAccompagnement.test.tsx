@@ -1,6 +1,5 @@
-/**
- * @jest-environment jsdom
- */
+import { type Mock } from "vitest";
+
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
@@ -23,7 +22,7 @@ describe('FormulaireRechercheAccompagnement', () => {
 	describe('lorsqu‘on recherche par commune', () => {
 		it('les informations de la commune sont ajoutées à l’url',  async() => {
 			// GIVEN
-			const routerPush = jest.fn();
+			const routerPush = vi.fn();
 
 			mockUseRouter({ push: routerPush, query: {
 				typeAccompagnement: 'mission_locale',
@@ -56,10 +55,10 @@ describe('FormulaireRechercheAccompagnement', () => {
 	});
 	describe('lorsqu‘on recherche par type d‘accompagnement', () => {
 		let localisationServiceMock: LocalisationService;
-		let routerPush: jest.Mock;
+		let routerPush: Mock;
 
 		beforeEach(() => {
-			routerPush = jest.fn();
+			routerPush = vi.fn();
 			mockUseRouter({ push: routerPush });
 			localisationServiceMock = aLocalisationService();
 		});

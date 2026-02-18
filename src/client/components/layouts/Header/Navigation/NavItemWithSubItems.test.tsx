@@ -1,9 +1,3 @@
-/**
- @jest-environment jsdom
- */
-
-import '@testing-library/jest-dom';
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
@@ -96,7 +90,6 @@ describe('NavItemWithSubItems', () => {
 
 	describe('lorsque la page actuelle appartient au sous-menu', () => {
 		// FIXME (GAFI 09-09-2024): le aria-current est actuellement sur le span
-		// eslint-disable-next-line jest/no-disabled-tests
 		it.skip('marque le bouton comme section actuelle', async () => {
 			mockUseRouter({ pathname: '/current-page' });
 			const nav = aNavigationItem({
@@ -133,7 +126,6 @@ describe('NavItemWithSubItems', () => {
 	});
 	describe('lorsque la page actuelle n’appartient pas au sous-menu', () => {
 		// FIXME (GAFI 09-09-2024): le aria-current est actuellement sur le span
-		// eslint-disable-next-line jest/no-disabled-tests
 		it.skip('marque le bouton comme section pas actuelle', async () => {
 			mockUseRouter({ pathname: '/current-page' });
 			const nav = aNavigationItem({
@@ -243,7 +235,7 @@ describe('NavItemWithSubItems', () => {
 	it('lorsque l‘utilisateur clique sur un lien, appelle la props onClick une fois', async () => {
 		// FIXME (GAFI 09-09-2024): Idéalement, on voudrait passer l'event au handler pour pouvoir faire un preventDefault
 		//	et même passer en composition pour ne pas avoir à le gérer à la main
-		const onClick = jest.fn();
+		const onClick = vi.fn();
 		const user = userEvent.setup();
 		render(
 			<NavItemWithSubItems

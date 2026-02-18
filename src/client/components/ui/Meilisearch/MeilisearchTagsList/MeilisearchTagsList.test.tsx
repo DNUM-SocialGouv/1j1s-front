@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import {
 	render,
 	screen,
@@ -16,10 +12,12 @@ import {
 	mockUseCurrentRefinements,
 } from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const spyOnUseCurrentRefinements = jest.spyOn(require('react-instantsearch'), 'useCurrentRefinements');
+import { useCurrentRefinements } from 'react-instantsearch';
+vi.mock('react-instantsearch');
 
-let refineMock: jest.Mock<string>;
+const spyOnUseCurrentRefinements = vi.mocked(useCurrentRefinements);
+
+let refineMock: Mock<string>;
 
 describe('MeilisearchTagsList', () => {
 	describe('quand il n‘y a pas d‘étiquettes à afficher', () => {
@@ -67,7 +65,7 @@ describe('MeilisearchTagsList', () => {
 	  });
 
 	  it('supprime l‘étiquette au clic sur le bouton', async () => {
-	    refineMock = jest.fn();
+	    refineMock = vi.fn();
 			spyOnUseCurrentRefinements.mockImplementation(() => mockUseCurrentRefinements({
 		  items: [aTypeBienItem()],
 		  refine: refineMock,

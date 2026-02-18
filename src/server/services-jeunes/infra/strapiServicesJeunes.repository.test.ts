@@ -16,7 +16,7 @@ describe('strapiMesuresJeunesRepository', () => {
 	describe('getMesuresJeunesList', () => {
 		it('appelle le service strapi avec les bons paramètres', async () => {
 			const strapiService = aStrapiService();
-			jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresJeunesParCategorie()));
+			vi.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresJeunesParCategorie()));
 			const strapiMesuresJeunes = new StrapiServicesJeunesRepository(strapiService, anErrorManagementService());
 			const query = 'populate=deep';
 
@@ -28,7 +28,7 @@ describe('strapiMesuresJeunesRepository', () => {
 		describe('quand les mesures jeunes sont trouvées', () => {
 			it('retourne la liste des services jeunes triée alphabétiquement par titre', async () => {
 				const strapiService = aStrapiService();
-				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiUnorderedMesuresJeunesParCategorie()));
+				vi.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiUnorderedMesuresJeunesParCategorie()));
 				const strapiMesuresJeunes = new StrapiServicesJeunesRepository(strapiService, anErrorManagementService());
 
 				const result = await strapiMesuresJeunes.getServicesJeunesList();
@@ -73,7 +73,7 @@ describe('strapiMesuresJeunesRepository', () => {
 		describe('si map vers les services jeunes est en erreur', () => {
 			it('appelle le service de gestion d’erreur avec l’erreur et le contexte', async () => {
 				const strapiService = aStrapiService();
-				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess({
+				vi.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess({
 					accompagnement: [],
 				}));
 				const errorManagementService = anErrorManagementService();
@@ -97,7 +97,7 @@ describe('strapiMesuresJeunesRepository', () => {
 			const strapiService = aStrapiService();
 			const strapiServicesJeunesRepository = new StrapiServicesJeunesRepository(strapiService, anErrorManagementService());
 			const expectedStrapiFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
-			jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(expectedStrapiFailure);
+			vi.spyOn(strapiService, 'getSingleType').mockResolvedValue(expectedStrapiFailure);
 
 			const result = await strapiServicesJeunesRepository.getServicesJeunesList();
 

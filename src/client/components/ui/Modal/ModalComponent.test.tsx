@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { BaseSyntheticEvent, useState } from 'react';
@@ -60,7 +56,7 @@ describe('ModalComponent', () => {
 
 	it('ferme la modale quand on appuie sur Échap', async () => {
 		const user = userEvent.setup();
-		const onClose = jest.fn();
+		const onClose = vi.fn();
 		render(
 			<ModalComponent aria-label="label" isOpen={true} close={onClose}>
 				<ModalComponent.Title>Ceci est le titre de la modale</ModalComponent.Title>
@@ -74,7 +70,7 @@ describe('ModalComponent', () => {
 	});
 	it('ne ferme pas la modale quand on appuie sur Échap, mais que le default est prevented', async () => {
 		const user = userEvent.setup();
-		const onClose = jest.fn();
+		const onClose = vi.fn();
 		const onKeyDown = (event: BaseSyntheticEvent) => {
 			event.preventDefault();
 		};

@@ -1,6 +1,5 @@
-/**
- * @jest-environment jsdom
- */
+import { type Mock } from "vitest";
+
 
 import '~/test-utils';
 
@@ -26,22 +25,22 @@ import {
 import DeposerOffreStageEtape3Page from '~/pages/stages/deposer-offre/localisation/index.page';
 
 describe('<DeposerOffreStageEtape3Page />', () => {
-	let getSessionItem: jest.Mock;
-	let removeSessionItem: jest.Mock;
+	let getSessionItem: Mock;
+	let removeSessionItem: Mock;
 
 	beforeEach(() => {
-		removeSessionItem = jest.fn();
-		getSessionItem = jest.fn().mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
+		removeSessionItem = vi.fn();
+		getSessionItem = vi.fn().mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
 		mockSessionStorage({ getItem: getSessionItem, removeItem: removeSessionItem });
 		mockUseRouter({});
 	});
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const stageDeposerOffreEtape1PersistenceService = aStageDeposerOffreEtape1PersistenceService({
-			getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+			getInformationsEtape1: vi.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
 		});
 		const stageDeposerOffreEtape2PersistenceService = aStageDeposerOffreEtape2PersistenceService({
-			getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+			getInformationsEtape2: vi.fn().mockReturnValue(aFormulaireEtapeStage()),
 		});
 		const stageDeposerOffreEtape3PersistenceService = aStageDeposerOffreEtape3PersistenceService();
 		const { container } = render(
@@ -58,10 +57,10 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const stageDeposerOffreEtape1PersistenceService = aStageDeposerOffreEtape1PersistenceService({
-			getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+			getInformationsEtape1: vi.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
 		});
 		const stageDeposerOffreEtape2PersistenceService = aStageDeposerOffreEtape2PersistenceService({
-			getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+			getInformationsEtape2: vi.fn().mockReturnValue(aFormulaireEtapeStage()),
 		});
 		const stageDeposerOffreEtape3PersistenceService = aStageDeposerOffreEtape3PersistenceService();
 		const { container } = render(

@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -14,9 +10,9 @@ describe('ConsulterOffreLayout', () => {
 	describe('quand l’utilisateur clique sur le bouton retour', () => {
 		describe('et qu’il vient de la page de recherche d’emploi sans paramètre', () => {
 			it('doit retourner sur la page emploi sans paramètres', async () => {
-				const routerBack = jest.fn();
+				const routerBack = vi.fn();
 				const user = userEvent.setup();
-				jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('emplois');
+				vi.spyOn(Storage.prototype, 'getItem').mockReturnValue('emplois');
 				mockUseRouter({
 					back: routerBack,
 					query: {
@@ -24,7 +20,7 @@ describe('ConsulterOffreLayout', () => {
 						params: '',
 					},
 				});
-				render(<DependenciesProvider sessionStorageService={aStorageService({ get: jest.fn().mockReturnValue(true) })}><ConsulterOffreLayout><></>
+				render(<DependenciesProvider sessionStorageService={aStorageService({ get: vi.fn().mockReturnValue(true) })}><ConsulterOffreLayout><></>
 				</ConsulterOffreLayout></DependenciesProvider>);
 
 				await user.click(screen.getByRole('link', { name: 'Retour vers la page précédente' }));
@@ -35,10 +31,10 @@ describe('ConsulterOffreLayout', () => {
 
 		describe('et qu’il vient de la page de recherche d’emploi avec des paramètres', () => {
 			it('doit retourner sur la page emploi avec des paramètres', async () => {
-				const routerBack = jest.fn();
+				const routerBack = vi.fn();
 				const user = userEvent.setup();
 
-				jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('emplois');
+				vi.spyOn(Storage.prototype, 'getItem').mockReturnValue('emplois');
 				mockUseRouter({
 					back: routerBack,
 					query: {
@@ -46,7 +42,7 @@ describe('ConsulterOffreLayout', () => {
 						params: 'typeDeContrats=CDD&tempsDeTravail=tempsPlein&experienceExigence=D&page=1',
 					},
 				});
-				render(<DependenciesProvider sessionStorageService={aStorageService({ get: jest.fn().mockReturnValue(true) })}><ConsulterOffreLayout><></>
+				render(<DependenciesProvider sessionStorageService={aStorageService({ get: vi.fn().mockReturnValue(true) })}><ConsulterOffreLayout><></>
 				</ConsulterOffreLayout></DependenciesProvider>);
 
 				await user.click(screen.getByRole('link', { name: 'Retour vers la page précédente' }));
@@ -57,8 +53,8 @@ describe('ConsulterOffreLayout', () => {
 
 		describe('quand il n’y a pas d’url de retour', () => {
 			it('n’affiche pas le bouton de retour', () => {
-				const routerBack = jest.fn();
-				jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(null);
+				const routerBack = vi.fn();
+				vi.spyOn(Storage.prototype, 'getItem').mockReturnValue(null);
 				mockUseRouter({
 					back: routerBack,
 					query: {},

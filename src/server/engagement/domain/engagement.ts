@@ -93,7 +93,7 @@ export const bénévolatDomaineList: MissionEngagementDomaine[] = [
 	},
 ];
 
-export const serviceCiviqueDomaineList: MissionEngagement.Domaine[]  = [
+export const serviceCiviqueDomaineList: MissionEngagementDomaine[]  = [
 	{
 		libellé: 'Culture et Loisirs',
 		valeur: 'culture-loisirs',

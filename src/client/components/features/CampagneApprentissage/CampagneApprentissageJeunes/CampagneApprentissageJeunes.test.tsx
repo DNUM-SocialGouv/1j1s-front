@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -21,7 +17,7 @@ describe('CampagneApprentissageJeunes', () => {
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	it('affiche le titre de la page', () => {
@@ -353,7 +349,7 @@ describe('CampagneApprentissageJeunes', () => {
 			it('je ne peux pas lire la vidéo', () => {
 				// GIVEN
 				const premiereVideoCampagne = aVideoCampagneApprentissagesList[0];
-				const videoService = aVideoService({ isAllowed: jest.fn(() => false) });
+				const videoService = aVideoService({ isAllowed: vi.fn(() => false) });
 
 				// WHEN
 				render(
@@ -369,7 +365,7 @@ describe('CampagneApprentissageJeunes', () => {
 
 			it('je vois un message m’indiquant que je dois accepter les cookies pour lire la vidéo', () => {
 				// GIVEN
-				const videoService = aVideoService({ isAllowed: jest.fn(() => false) });
+				const videoService = aVideoService({ isAllowed: vi.fn(() => false) });
 
 				// WHEN
 				render(
@@ -385,7 +381,7 @@ describe('CampagneApprentissageJeunes', () => {
 
 			it('je vois un bouton me permettant d’accepter les cookies quand le bouton des cookies existe', async () => {
 				// GIVEN
-				const videoService = aVideoService({ isAllowed: jest.fn(() => false) });
+				const videoService = aVideoService({ isAllowed: vi.fn(() => false) });
 				render(
 					<DependenciesProvider youtubeService={videoService}>
 						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList} />

@@ -16,7 +16,7 @@ const PRIX_MAXIMUM_PAR_DEFAUT = PRIX_MAXIMUM;
 const SURFACE_MINIMUM_PAR_DEFAUT = SURFACE_MINIMUM;
 const SURFACE_MAXIMUM_PAR_DEFAUT = SURFACE_MAXIMUM;
 
-const refineMock = jest.fn();
+const refineMock = vi.fn();
 
 describe('transformerMeilisearchLogementsItems', () => {
 	describe('quand les items sont de types disjunctives', () => {

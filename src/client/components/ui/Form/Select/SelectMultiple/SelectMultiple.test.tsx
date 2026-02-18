@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom';
-
 import { act, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React, { FormEvent } from 'react';
@@ -45,7 +40,7 @@ describe('<SelectMultiple/>', () => {
 			expect(screen.getByRole('combobox')).toBeRequired();
 		});
 		it('lorsque le select est requis mais pas touché, n‘appelle pas onInvalid', () => {
-			const onInvalid = jest.fn();
+			const onInvalid = vi.fn();
 			render(<SelectMultiple optionsAriaLabel={'options'} required onInvalid={onInvalid}>
 				<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 				<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
@@ -56,7 +51,7 @@ describe('<SelectMultiple/>', () => {
 		});
 
 		it('lorsque le select est requis et que l‘utilisateur n‘a pas sélectionné d‘option, il ne peux pas soumettre le formulaire', async () => {
-			const onSubmit = jest.fn();
+			const onSubmit = vi.fn();
 			const user = userEvent.setup();
 
 			render(<form onSubmit={onSubmit} aria-label={'form'}>
@@ -73,7 +68,7 @@ describe('<SelectMultiple/>', () => {
 
 		it('lorsque le select est requis et que l‘utilisateur désélectionne toutes les options, appelle onInvalid', async () => {
 			const user = userEvent.setup();
-			const onInvalid = jest.fn();
+			const onInvalid = vi.fn();
 			render(<SelectMultiple optionsAriaLabel={'options'} defaultValue={['1']} required onInvalid={onInvalid}>
 				<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 				<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
@@ -90,7 +85,7 @@ describe('<SelectMultiple/>', () => {
 		});
 
 		it('lorsque le select est requis et en erreur, lorsque l‘utilisateur sélectionne une option le select n‘est plus en erreur', async () => {
-			const onInvalid = jest.fn();
+			const onInvalid = vi.fn();
 			const user = userEvent.setup();
 			render(<>
 				<SelectMultiple
@@ -397,7 +392,7 @@ describe('<SelectMultiple/>', () => {
 
 		it('l‘utilisateur sélectionne une option avec la souris, l‘option prend l‘attribut aria-selected et la liste d‘option ne se ferme pas', async () => {
 			const user = userEvent.setup();
-			const onChange = jest.fn();
+			const onChange = vi.fn();
 
 			render(<form aria-label="form">
 				<SelectMultiple optionsAriaLabel={'options label'} onChange={onChange} name={'name'}>
@@ -783,7 +778,7 @@ describe('<SelectMultiple/>', () => {
 				</SelectMultiple>);
 
 				const option = screen.getByRole('option', { hidden: true, name: 'options 2' });
-				option.scrollIntoView = jest.fn();
+				option.scrollIntoView = vi.fn();
 
 				const input = screen.getByRole('combobox');
 				await user.click(input);
@@ -853,7 +848,7 @@ describe('<SelectMultiple/>', () => {
 	describe('props', () => {
 		it('appelle onChange quand une option est sélectionnée', async () => {
 			const user = userEvent.setup();
-			const onChange = jest.fn();
+			const onChange = vi.fn();
 			render(<SelectMultiple optionsAriaLabel={'options'} onChange={onChange}>
 				<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
 				<SelectMultiple.Option value="2">options 2</SelectMultiple.Option>
@@ -936,7 +931,7 @@ describe('<SelectMultiple/>', () => {
 
 	describe('touched', () => {
 		it('lorsque l‘utilisateur n‘a pas interagit avec le champ, le select n‘est pas touched', () => {
-			const onTouch = jest.fn();
+			const onTouch = vi.fn();
 
 			render(<SelectMultiple optionsAriaLabel={'options'} onTouch={onTouch}>
 				<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
@@ -950,7 +945,7 @@ describe('<SelectMultiple/>', () => {
 
 		it('lorsque l‘utilisateur ouvre puis ferme le select et quitte le champ, le select n’est pas touched', async () => {
 			const user = userEvent.setup();
-			const onTouch = jest.fn();
+			const onTouch = vi.fn();
 
 			render(<SelectMultiple optionsAriaLabel={'options'} onTouch={onTouch}>
 				<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>
@@ -968,7 +963,7 @@ describe('<SelectMultiple/>', () => {
 
 		it('lorsque l‘utilisateur ouvre puis sélectionne une option et quitte le champ, le select est touched', async () => {
 			const user = userEvent.setup();
-			const onTouch = jest.fn();
+			const onTouch = vi.fn();
 
 			render(<SelectMultiple optionsAriaLabel={'options'} onTouch={onTouch}>
 				<SelectMultiple.Option value="1">options 1</SelectMultiple.Option>

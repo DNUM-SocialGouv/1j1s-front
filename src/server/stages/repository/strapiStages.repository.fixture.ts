@@ -4,9 +4,9 @@ import { StagesRepository } from '~/server/stages/domain/stages.repository';
 
 export function aStagesRepository(override?: Partial<StagesRepository>): StagesRepository{
 	return {
-		getOffreDeStageBySlug: jest.fn().mockResolvedValue(createSuccess(aListNomMetier())),
-		listAllOffreDeStageSlug: jest.fn().mockResolvedValue(createSuccess(aFicheMetier())),
-		saveOffreDeStage: jest.fn().mockResolvedValue(createSuccess(undefined)),
+		getOffreDeStageBySlug: vi.fn().mockResolvedValue(createSuccess(aListNomMetier())),
+		listAllOffreDeStageSlug: vi.fn().mockResolvedValue(createSuccess(aFicheMetier())),
+		saveOffreDeStage: vi.fn().mockResolvedValue(createSuccess(undefined)),
 		...override,
 	};
 }

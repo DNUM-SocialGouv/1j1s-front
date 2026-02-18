@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 
 import { SquareMeter } from '~/client/components/ui/SquareMeter/SquareMeter';

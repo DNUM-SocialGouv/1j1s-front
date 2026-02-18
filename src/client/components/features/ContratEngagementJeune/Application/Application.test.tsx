@@ -1,9 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
-import '@testing-library/jest-dom';
-
 import { render, screen } from '@testing-library/react';
 
 import Application from '~/client/components/features/ContratEngagementJeune/Application/Application';

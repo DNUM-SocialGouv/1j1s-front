@@ -10,8 +10,8 @@ import {
 
 export function anErrorManagementService(override?: Partial<ErrorManagementService>): ErrorManagementService {
 	return {
-		handleFailureError: jest.fn(() => createFailure(ErreurMetier.DEMANDE_INCORRECTE)),
-		logValidationError: jest.fn(),
+		handleFailureError: vi.fn(() => createFailure(ErreurMetier.DEMANDE_INCORRECTE)),
+		logValidationError: vi.fn(),
 		...override,
 	};
 }
@@ -27,9 +27,9 @@ export function aLogInformation(override?: Partial<LogInformation>): LogInformat
 
 export function anErrorManagementWithErrorCheckingService(override?: Partial<ErrorManagementWithErrorCheckingService>): ErrorManagementWithErrorCheckingService {
 	return {
-		handleFailureError: jest.fn(() => createFailure(ErreurMetier.DEMANDE_INCORRECTE)),
-		isError: jest.fn(() => false),
-		logValidationError: jest.fn(),
+		handleFailureError: vi.fn(() => createFailure(ErreurMetier.DEMANDE_INCORRECTE)),
+		isError: vi.fn(() => false),
+		logValidationError: vi.fn(),
 		...override,
 	};
 }

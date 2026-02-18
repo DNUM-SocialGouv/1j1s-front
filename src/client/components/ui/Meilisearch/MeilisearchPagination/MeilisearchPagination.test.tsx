@@ -1,7 +1,4 @@
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom';
+import { type Mock } from 'vitest';
 
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
@@ -11,20 +8,22 @@ import { MeiliSearchPagination } from '~/client/components/ui/Meilisearch/Meilis
 import { mockUsePagination } from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 import { mockLargeScreen } from '~/client/components/window.mock';
 
+import { usePagination } from 'react-instantsearch';
+vi.mock('react-instantsearch');
+
 declare type CreateURL<TValue> = (value: TValue) => string;
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const spyed = jest.spyOn(require('react-instantsearch'), 'usePagination');
+const spyed = vi.mocked(usePagination);
 
 let createUrlMock: CreateURL<number>;
-let refineMock:  jest.Mock<number>;
+let refineMock:  Mock<number>;
 
 const REVENIR_A_LA_PREMIERE_PAGE = 'Revenir à la première page';
 const REVENIR_A_LA_PAGE_PRECEDENTE = 'Revenir à la page précédente';
 const ALLER_A_LA_PAGE_SUIVANTE = 'Aller à la page suivante';
 const ALLER_A_LA_DERNIERE_PAGE = 'Aller à la dernière page';
 
-const mockFunctionScrollToTopOfListeDesResultats = jest.fn();
+const mockFunctionScrollToTopOfListeDesResultats = vi.fn();
 
 describe('<MeilisearchPagination/>', () => {
 	beforeEach(() => {
@@ -32,7 +31,7 @@ describe('<MeilisearchPagination/>', () => {
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	describe('sur grand écran', () => {
@@ -148,8 +147,8 @@ describe('<MeilisearchPagination/>', () => {
 		describe('quand nous avons 4 pages de 15 éléments et que nous sommes au troisième élément', () => {
 			beforeEach(() => {
 				// GIVEN
-				createUrlMock = jest.fn().mockImplementation((page) => `#?page=${page}`);
-				refineMock = jest.fn();
+				createUrlMock = vi.fn().mockImplementation((page) => `#?page=${page}`);
+				refineMock = vi.fn();
 				spyed.mockImplementation(() => mockUsePagination(
 					{
 						createURL: createUrlMock,
@@ -299,8 +298,8 @@ describe('<MeilisearchPagination/>', () => {
 		describe('quand nous avons 1 seule page', () => {
 			beforeEach(() => {
 				// GIVEN
-				createUrlMock = jest.fn().mockImplementation((page) => `#?page=${page}`);
-				refineMock = jest.fn();
+				createUrlMock = vi.fn().mockImplementation((page) => `#?page=${page}`);
+				refineMock = vi.fn();
 				spyed.mockImplementation(() => mockUsePagination(
 					{
 						createURL: createUrlMock,
@@ -327,8 +326,8 @@ describe('<MeilisearchPagination/>', () => {
 		describe('quand nous avons 0 élément', () => {
 			beforeEach(() => {
 				// GIVEN
-				createUrlMock = jest.fn().mockImplementation((page) => `#?page=${page}`);
-				refineMock = jest.fn();
+				createUrlMock = vi.fn().mockImplementation((page) => `#?page=${page}`);
+				refineMock = vi.fn();
 				spyed.mockImplementation(() => mockUsePagination(
 					{
 						createURL: createUrlMock,

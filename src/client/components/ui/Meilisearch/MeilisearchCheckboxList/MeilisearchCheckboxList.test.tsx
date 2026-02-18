@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import {
 	render,
 	screen,
@@ -14,15 +11,17 @@ import {
 	mockUseRefinementList,
 } from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const spyed = jest.spyOn(require('react-instantsearch'), 'useRefinementList');
+import { useRefinementList } from 'react-instantsearch';
+vi.mock('react-instantsearch');
 
-let refineMock: jest.Mock<string>;
+const spyed = vi.mocked(useRefinementList);
+
+let refineMock: Mock<string>;
 
 describe('<MeilisearchCheckboxList/>', () => {
 	beforeEach(() => {
 		// GIVEN
-		refineMock = jest.fn();
+		refineMock = vi.fn();
 		spyed.mockImplementation(() => mockUseRefinementList({
 	  items: [
 				generateRefinementListItem({ label: 'studio', value: 'studio' }),
@@ -66,7 +65,7 @@ describe('<MeilisearchCheckboxList/>', () => {
 
 	describe('lorsque la liste des suggestions est vide', () => {
 		beforeEach(() => {
-			refineMock = jest.fn();
+			refineMock = vi.fn();
 			spyed
 				.mockImplementation(() => mockUseRefinementList({
 					items: [],

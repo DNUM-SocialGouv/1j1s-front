@@ -1,3 +1,4 @@
+// @vitest-environment node
 import nock from 'nock';
 
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
@@ -19,7 +20,7 @@ describe('AuthenticatedHttpClientService', () => {
 						.reply(200, body);
 
 					const tokenAgentStub = {
-						getToken: jest.fn(),
+						getToken: vi.fn(),
 					};
 
 					const client = new AuthenticatedHttpClientService({
@@ -47,7 +48,7 @@ describe('AuthenticatedHttpClientService', () => {
 						.reply(501);
 
 					const tokenAgentStub = {
-						getToken: jest.fn(),
+						getToken: vi.fn(),
 					};
 
 					const client = new AuthenticatedHttpClientService({
@@ -88,7 +89,7 @@ describe('AuthenticatedHttpClientService', () => {
 							.reply(200, body);
 
 						const tokenAgentStub = {
-							getToken: jest.fn().mockResolvedValueOnce(expiredToken).mockResolvedValueOnce(newToken),
+							getToken: vi.fn().mockResolvedValueOnce(expiredToken).mockResolvedValueOnce(newToken),
 						};
 
 						const client = new AuthenticatedHttpClientService({
@@ -118,7 +119,7 @@ describe('AuthenticatedHttpClientService', () => {
 							.reply(403);
 
 						const tokenAgentStub = {
-							getToken: jest.fn().mockRejectedValue(error),
+							getToken: vi.fn().mockRejectedValue(error),
 						};
 
 						const client = new AuthenticatedHttpClientService({
@@ -156,7 +157,7 @@ describe('AuthenticatedHttpClientService', () => {
 					.reply(200, body);
 
 				const tokenAgentStub = {
-					getToken: jest.fn().mockResolvedValueOnce(newActiveToken),
+					getToken: vi.fn().mockResolvedValueOnce(newActiveToken),
 				};
 
 				const client = new AuthenticatedHttpClientService({
@@ -191,7 +192,7 @@ describe('AuthenticatedHttpClientService', () => {
 						.reply(200, body);
 
 					const tokenAgentStub = {
-						getToken: jest.fn(),
+						getToken: vi.fn(),
 					};
 
 					const client = new AuthenticatedHttpClientService({
@@ -219,7 +220,7 @@ describe('AuthenticatedHttpClientService', () => {
 						.reply(501);
 
 					const tokenAgentStub = {
-						getToken: jest.fn(),
+						getToken: vi.fn(),
 					};
 
 					const client = new AuthenticatedHttpClientService({
@@ -260,7 +261,7 @@ describe('AuthenticatedHttpClientService', () => {
 							.reply(200, body);
 
 						const tokenAgentStub = {
-							getToken: jest.fn().mockResolvedValueOnce(expiredToken).mockResolvedValueOnce(newToken),
+							getToken: vi.fn().mockResolvedValueOnce(expiredToken).mockResolvedValueOnce(newToken),
 						};
 
 						const client = new AuthenticatedHttpClientService({
@@ -290,7 +291,7 @@ describe('AuthenticatedHttpClientService', () => {
 							.reply(403);
 
 						const tokenAgentStub = {
-							getToken: jest.fn().mockRejectedValue(error),
+							getToken: vi.fn().mockRejectedValue(error),
 						};
 
 						const client = new AuthenticatedHttpClientService({
@@ -328,7 +329,7 @@ describe('AuthenticatedHttpClientService', () => {
 					.reply(200, body);
 
 				const tokenAgentStub = {
-					getToken: jest.fn().mockResolvedValueOnce(newActiveToken),
+					getToken: vi.fn().mockResolvedValueOnce(newActiveToken),
 				};
 
 				const client = new AuthenticatedHttpClientService({

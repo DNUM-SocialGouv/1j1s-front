@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import '~/test-utils';
 
 import { render, screen } from '@testing-library/react';
@@ -19,12 +16,12 @@ import { createFailure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { dependencies } from '~/server/start';
 
-jest.mock('next/head', () => HeadMock);
-jest.mock('~/server/start', () => ({
+vi.mock('next/head', () => ({ default: HeadMock }));
+vi.mock('~/server/start', () => ({
 	dependencies: {
 		emploiEuropeDependencies: {
 			consulterEmploiEuropeUseCase: {
-				handle: jest.fn(),
+				handle: vi.fn(),
 			},
 		},
 	},
@@ -51,7 +48,7 @@ describe('<ConsulterEmploiEurope />', () => {
 
 	describe('lorsque la recherche est en erreur', () => {
 		it('retourne en props une erreur en fonction de la réponse du serveur', async () => {
-			jest.spyOn(dependencies.emploiEuropeDependencies.consulterEmploiEuropeUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+			vi.spyOn(dependencies.emploiEuropeDependencies.consulterEmploiEuropeUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 			const defaultStatusCode = 200;
 			const context = aGetServerSidePropsContext<{ id: string }>({

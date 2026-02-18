@@ -13,7 +13,7 @@ describe('strapiFicheMetierRepository', () => {
 
 		it('appelle le service strapi avec les bons paramètres', async () => {
 			const strapiService = aStrapiService();
-			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiFicheMetier()));
+			vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiFicheMetier()));
 			const strapiFicheMetierRepository = new StrapiFicheMetierRepository(strapiService);
 			const resourceFicheMetierStrapi = 'fiche-metiers';
 
@@ -27,7 +27,7 @@ describe('strapiFicheMetierRepository', () => {
 		describe('si une fiche métier est trouvée', () => {
 			it('récupère la fiche métier selon le nom', async () => {
 				const strapiService = aStrapiService();
-				jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(createSuccess(aStrapiFicheMetier()));
+				vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(createSuccess(aStrapiFicheMetier()));
 				const strapiFicheMetierRepository = new StrapiFicheMetierRepository(strapiService);
 
 				const result = await strapiFicheMetierRepository.getFicheMetierByNom(nomMetier) as Success<FicheMétier>;
@@ -40,7 +40,7 @@ describe('strapiFicheMetierRepository', () => {
 			it('relais l’échec du service strapi', async () => {
 				const strapiService = aStrapiService();
 				const strapiFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
-				jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(strapiFailure);
+				vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(strapiFailure);
 				const strapiFicheMetierRepository = new StrapiFicheMetierRepository(strapiService);
 
 				const result = await strapiFicheMetierRepository.getFicheMetierByNom(nomMetier) as Success<FicheMétier>;
@@ -54,7 +54,7 @@ describe('strapiFicheMetierRepository', () => {
 		it('appelle le service Strapi avec les bons paramètres', async () => {
 			const strapiService = aStrapiService();
 			const strapiFichesMetiers = [aStrapiFicheMetier()];
-			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess(strapiFichesMetiers));
+			vi.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess(strapiFichesMetiers));
 			const strapiFicheMetierRepository = new StrapiFicheMetierRepository(strapiService);
 			const resourceFicheMetierStrapi = 'fiche-metiers';
 
@@ -72,7 +72,7 @@ describe('strapiFicheMetierRepository', () => {
 				];
 				const expectedListeDeNoms = ['Boulanger', 'Fleuriste'];
 				const strapiService = aStrapiService();
-				jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess(strapiFichesMetiers));
+				vi.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess(strapiFichesMetiers));
 				const strapiFicheMetierRepository = new StrapiFicheMetierRepository(strapiService);
 
 				const { result } = await strapiFicheMetierRepository.getAllNomsMetiers() as Success<Array<string>>;
@@ -85,7 +85,7 @@ describe('strapiFicheMetierRepository', () => {
 			it('relais l’erreur', async () => {
 				const strapiFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 				const strapiService = aStrapiService();
-				jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(strapiFailure);
+				vi.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(strapiFailure);
 				const strapiFicheMetierRepository = new StrapiFicheMetierRepository(strapiService);
 
 				const result = await strapiFicheMetierRepository.getAllNomsMetiers();

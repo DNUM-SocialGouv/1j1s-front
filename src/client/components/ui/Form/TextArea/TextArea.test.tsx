@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -22,7 +17,7 @@ describe('<TextArea/>', () => {
 	});
 
 	it('accepte une ref', () => {
-		const ref = jest.fn();
+		const ref = vi.fn();
 		render(<TextArea ref={ref} />);
 		expect(ref).toHaveBeenCalledTimes(1);
 		expect(ref).toHaveBeenCalledWith(expect.any(HTMLTextAreaElement));
@@ -36,7 +31,7 @@ describe('<TextArea/>', () => {
 	});
 
 	it('accepte un onChange', async () => {
-		const onChange = jest.fn();
+		const onChange = vi.fn();
 		const user = userEvent.setup();
 		render(<TextArea onChange={onChange} />);
 
@@ -48,7 +43,7 @@ describe('<TextArea/>', () => {
 	});
 
 	it('accepte un onFocus', async () => {
-		const onFocus = jest.fn();
+		const onFocus = vi.fn();
 		const user = userEvent.setup();
 		render(<TextArea onFocus={onFocus} />);
 
@@ -59,7 +54,7 @@ describe('<TextArea/>', () => {
 	});
 
 	it('accepte un onBlur', async () => {
-		const onBlur = jest.fn();
+		const onBlur = vi.fn();
 		const user = userEvent.setup();
 		render(<TextArea onBlur={onBlur} />);
 
@@ -73,7 +68,7 @@ describe('<TextArea/>', () => {
 
 	describe('validation', () => {
 		it('lorsque la valeur initiale du textarea est valide, le textarea est valide', async () => {
-			const validation = jest.fn().mockReturnValue('');
+			const validation = vi.fn().mockReturnValue('');
 			render(<TextArea validation={validation} />);
 
 			const textarea = screen.getByRole('textbox');
@@ -81,7 +76,7 @@ describe('<TextArea/>', () => {
 		});
 
 		it('lorsque la valeur initiale du textarea n‘est pas valide, le textarea est invalide', async () => {
-			const validation = jest.fn().mockReturnValue('error message');
+			const validation = vi.fn().mockReturnValue('error message');
 			render(<TextArea validation={validation} />);
 
 			const textarea = screen.getByRole('textbox');
@@ -89,7 +84,7 @@ describe('<TextArea/>', () => {
 		});
 
 		it('lorsque je tape une valeur valide, le textarea est valide', async () => {
-			const validation = jest.fn().mockReturnValue('');
+			const validation = vi.fn().mockReturnValue('');
 			const user = userEvent.setup();
 			render(<TextArea validation={validation} />);
 
@@ -100,7 +95,7 @@ describe('<TextArea/>', () => {
 		});
 
 		it('lorsque je tape une valeur invalide, le textarea est en erreur', async () => {
-			const validation = jest.fn().mockReturnValue('error');
+			const validation = vi.fn().mockReturnValue('error');
 			const user = userEvent.setup();
 			render(<TextArea validation={validation} />);
 
@@ -113,8 +108,8 @@ describe('<TextArea/>', () => {
 
 		it('appelle le onChange des props après s’être mis à jour', async () => {
 			let validationMessage: string = '';
-			const validation = jest.fn().mockReturnValue('error');
-			const onChange = jest.fn((event) => { validationMessage = event.target.validationMessage; });
+			const validation = vi.fn().mockReturnValue('error');
+			const onChange = vi.fn((event) => { validationMessage = event.target.validationMessage; });
 			const user = userEvent.setup();
 			render(<TextArea validation={validation} onChange={onChange} />);
 
@@ -132,7 +127,7 @@ describe('<TextArea/>', () => {
 
 	describe('onInvalid', () => {
 		it('lorsque le textarea est en erreur et que le textarea est touched, onInvalid est appelé', async () => {
-			const onInvalid = jest.fn();
+			const onInvalid = vi.fn();
 			const user = userEvent.setup();
 			render(<TextArea onInvalid={onInvalid} required />);
 
@@ -145,7 +140,7 @@ describe('<TextArea/>', () => {
 		});
 
 		it('lorsque le textarea n‘est pas en erreur, onInvalid n‘est pas appelé', async () => {
-			const onInvalid = jest.fn();
+			const onInvalid = vi.fn();
 			const user = userEvent.setup();
 			render(<TextArea onInvalid={onInvalid} required />);
 
@@ -156,7 +151,7 @@ describe('<TextArea/>', () => {
 		});
 
 		it('lorsque le textarea est déjà en erreur et qu‘il est touched, onInvalid est appelé', async () => {
-			const onInvalid = jest.fn();
+			const onInvalid = vi.fn();
 			const user = userEvent.setup();
 			render(<TextArea onInvalid={onInvalid} required defaultValue={'toto'} />);
 
@@ -168,7 +163,7 @@ describe('<TextArea/>', () => {
 		});
 
 		it('lorsque le textarea est en erreur et qu‘il n‘est pas touched, onInvalid n‘est pas appelé', async () => {
-			const onInvalid = jest.fn();
+			const onInvalid = vi.fn();
 			const user = userEvent.setup();
 			render(<TextArea onInvalid={onInvalid} required />);
 
@@ -222,7 +217,7 @@ describe('<TextArea/>', () => {
 
 		it('appelle onTouch quand le textarea est touché', async () => {
 			const user = userEvent.setup();
-			const onTouch = jest.fn();
+			const onTouch = vi.fn();
 			render(<TextArea onTouch={onTouch} />);
 
 			const textarea = screen.getByRole('textbox');

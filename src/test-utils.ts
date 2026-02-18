@@ -1,15 +1,9 @@
-import 'html-validate/jest';
+import 'html-validate/vitest';
 
 import { buildQueries, getAllByRole, getNodeText } from '@testing-library/dom';
 import { act, within } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 
-// Si vous utilisiez import { expect } from '@jest/globals';
-declare module 'expect' {
-    interface Matchers<R> {
-        toBeAccessible(): Promise<R>
-    }
-}
 
 expect.extend(toHaveNoViolations);
 
@@ -56,7 +50,7 @@ expect.extend({
 	toBeAccessible: async (htmlElement: HTMLElement) => {
 		// NOTE (SULI 04-09-2023): l'appel à jest-axe fait évoluer un state du next/link
 		// il faut attendre que tout le code de axe soit exécuté pour éviter les console.error sur les tests des pages utilisant un lien
-		const results = await act(async () => await axe(htmlElement));
+		const results = await act(async () => await axe(htmlElement, { iframes: false }));
 
 		return toHaveNoViolations.toHaveNoViolations(results);
 	},

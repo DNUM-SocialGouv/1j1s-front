@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import '~/test-utils';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
@@ -14,7 +10,7 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 
 import UnJeuneUnPermis, { getStaticProps } from './index.page';
 
-jest.mock('next/head', () => HeadMock);
+vi.mock('next/head', () => ({ default: HeadMock }));
 
 describe('1jeune1permis', () => {
 	const DOMAINE_1JEUNE_1PERMIS = 'https://mes-aides.francetravail.fr';

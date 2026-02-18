@@ -1,6 +1,6 @@
-import { AlternanceApiJobsResponse } from './apiAlternance';
+import { AlternanceApiJobsResponse, AlternanceApiJobsResponseLocation, AlternanceApiJobsResponseDomain, AlternanceApiJobsResponseWorkplace, AlternanceApiJobsResponseJobContract, AlternanceApiJobsResponseJobOffer, AlternanceApiJobsResponseJobIdentifier, AlternanceApiJobsResponseJob, AlternanceApiJobsResponseRecruiter } from './apiAlternance';
 
-export const aLocationResponse = makeFixture<AlternanceApiJobsResponse.Location>({
+export const aLocationResponse = makeFixture<AlternanceApiJobsResponseLocation>({
 	address: '20 AVENUE DE SEGUR 75007 PARIS',
 	geopoint: {
 		coordinates: [
@@ -11,7 +11,7 @@ export const aLocationResponse = makeFixture<AlternanceApiJobsResponse.Location>
 	},
 });
 
-export const aDomainResponse = makeFixture<AlternanceApiJobsResponse.Domain>({
+export const aDomainResponse = makeFixture<AlternanceApiJobsResponseDomain>({
 	idcc: 1979,
 	naf: {
 		code: '8411Z',
@@ -20,7 +20,7 @@ export const aDomainResponse = makeFixture<AlternanceApiJobsResponse.Domain>({
 	opco: 'OPCO 2i',
 });
 
-export const aWorkplaceResponse = makeFixture<AlternanceApiJobsResponse.Workplace>({
+export const aWorkplaceResponse = makeFixture<AlternanceApiJobsResponseWorkplace>({
 	brand: 'Enseigne (todo)',
 	description: 'Service du Premier ministre, placé sous l’autorité du ministre de la Transformation et de la Fonction publiques, la direction interministérielle du numérique (DINUM) a pour mission d’élaborer la stratégie numérique de l’État et de piloter sa mise en œuvre. Notre objectif : un État plus efficace, plus simple et plus souverain grâce au numérique.',
 	domain: aDomainResponse(),
@@ -32,7 +32,7 @@ export const aWorkplaceResponse = makeFixture<AlternanceApiJobsResponse.Workplac
 	website: 'https://beta.gouv.fr/startups/',
 });
 
-export const aContractResponse = makeFixture<AlternanceApiJobsResponse.Job.Contract>({
+export const aContractResponse = makeFixture<AlternanceApiJobsResponseJobContract>({
 	duration: 12,
 	remote: 'onsite',
 	start: '2024-09-23T10:00:00.000Z',
@@ -41,7 +41,7 @@ export const aContractResponse = makeFixture<AlternanceApiJobsResponse.Job.Contr
 	],
 });
 
-export const anOfferResponse = makeFixture<AlternanceApiJobsResponse.Job.Offer>({
+export const anOfferResponse = makeFixture<AlternanceApiJobsResponseJobOffer>({
 	access_conditions: [
 		"Ce métier est accessible avec un diplôme de niveau Bac+2 (BTS, DUT) à Master (MIAGE, diplôme d'ingénieur, Master professionnel, ...) en informatique.",
 	],
@@ -68,13 +68,13 @@ export const anOfferResponse = makeFixture<AlternanceApiJobsResponse.Job.Offer>(
 	],
 });
 
-export const aJobIdentifierResponse = makeFixture<AlternanceApiJobsResponse.Job.Identifier>({
+export const aJobIdentifierResponse = makeFixture<AlternanceApiJobsResponseJobIdentifier>({
 	id: '6687165396d52b5e01b409545',
 	partner_job_id: 'b16a546a-e61f-4028-b5a3-1a7bbfaa4e3d',
 	partner_label: 'France Travail',
 });
 
-export const aJobResponse = makeFixture<AlternanceApiJobsResponse.Job>({
+export const aJobResponse = makeFixture<AlternanceApiJobsResponseJob>({
 	apply: {
 		phone: '+33 1 99 00 00 00',
 		url: 'https://labonnealternance.apprentissage.beta.gouv.fr/recherche-apprentissage?display=list&page=fiche&type=matcha&itemId=664752a2ebe24062b758c641',
@@ -85,7 +85,7 @@ export const aJobResponse = makeFixture<AlternanceApiJobsResponse.Job>({
 	workplace: aWorkplaceResponse(),
 });
 
-export const aRecruiterResponse = makeFixture<AlternanceApiJobsResponse.Recruiter>({
+export const aRecruiterResponse = makeFixture<AlternanceApiJobsResponseRecruiter>({
 	apply: {
 		phone: '+33 1 99 00 00 00',
 		url: 'https://labonnealternance.apprentissage.beta.gouv.fr/recherche-apprentissage?display=list&page=fiche&type=matcha&itemId=664752a2ebe24062b758c641',

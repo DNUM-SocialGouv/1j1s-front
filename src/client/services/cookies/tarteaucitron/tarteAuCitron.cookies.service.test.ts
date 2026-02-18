@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import FailedToAllowServiceError from '../FailedToAllowService.error';
 import { TarteAuCitronCookiesService } from './tarteAuCitron.cookies.service';
 import { aTarteAuCitron } from './tarteAuCitron.fixture';
@@ -151,7 +147,7 @@ describe('TarteAuCitronCookiesService', () => {
 
 	describe('openPanel', () => {
 		it('ouvre le panel', () => {
-			const tarteaucitron = aTarteAuCitron({ userInterface: { openPanel: jest.fn(), respond: jest.fn() } });
+			const tarteaucitron = aTarteAuCitron({ userInterface: { openPanel: vi.fn(), respond: vi.fn() } });
 			const service = new TarteAuCitronCookiesService(tarteaucitron);
 
 			service.openPanel();
@@ -162,7 +158,7 @@ describe('TarteAuCitronCookiesService', () => {
 
 	describe('triggerServices', () => {
 		it('appelle triggerJobsAfterAjaxCall', () => {
-			const tarteaucitron = aTarteAuCitron({ triggerJobsAfterAjaxCall: jest.fn() });
+			const tarteaucitron = aTarteAuCitron({ triggerJobsAfterAjaxCall: vi.fn() });
 			const cookiesService = new TarteAuCitronCookiesService(tarteaucitron);
 
 			cookiesService.triggerServices();

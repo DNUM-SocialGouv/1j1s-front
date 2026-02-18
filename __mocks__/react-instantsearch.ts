@@ -8,7 +8,7 @@ import { SearchBoxRenderState } from 'instantsearch.js/es/connectors/search-box/
 /*
 * UsePagination associé à un getter sur la librairie.
 * Ce getter est défini en readonly (non-configurable)
-* Les éléments comme `jest.spyOn(require('react-instantsearch'), 'usePagination', 'get);`
+* Les éléments comme `vi.spyOn(require('react-instantsearch'), 'usePagination', 'get);`
 * ou
 * Object.defineProperty(require('react-instantsearch'), 'usePagination', {
   get: () => usePagination,
@@ -20,14 +20,14 @@ import { SearchBoxRenderState } from 'instantsearch.js/es/connectors/search-box/
 function realMockUsePagination(): PaginationRenderState {
 	return {
 		canRefine: true,
-		createURL: jest.fn(),
+		createURL: vi.fn(),
 		currentRefinement: 1,
 		isFirstPage: false,
 		isLastPage: false,
 		nbHits: 12,
 		nbPages: 1,
 		pages: [0, 1, 2, 3],
-		refine: jest.fn(),
+		refine: vi.fn(),
 	};
 }
 
@@ -35,33 +35,33 @@ function realMockUseRefinementList(): RefinementListRenderState {
 	return {
 		canRefine: true,
 		canToggleShowMore: true,
-		createURL: jest.fn(),
+		createURL: vi.fn(),
 		hasExhaustiveItems: true,
 		isFromSearch: true,
 		isShowingMore: true,
 		items: [],
-		refine: jest.fn(),
-		searchForItems: jest.fn(),
-		sendEvent: jest.fn(),
-		toggleShowMore: jest.fn(),
+		refine: vi.fn(),
+		searchForItems: vi.fn(),
+		sendEvent: vi.fn(),
+		toggleShowMore: vi.fn(),
 	};
 }
 
 function realMockUseSearchBox(): SearchBoxRenderState {
 	return {
-		clear: jest.fn(),
+		clear: vi.fn(),
 		isSearchStalled: false,
 		query: '',
-		refine: jest.fn(),
+		refine: vi.fn(),
 	};
 }
 
 function realMockUseInstantSearch(): unknown {
 	return {
-		error: jest.fn(),
-		refresh: jest.fn(),
-		status: jest.fn(),
-		use: jest.fn(),
+		error: vi.fn(),
+		refresh: vi.fn(),
+		status: vi.fn(),
+		use: vi.fn(),
 	};
 }
 
@@ -69,15 +69,15 @@ function realMockUseRange(): RangeRenderState {
 	return {
 		canRefine: true,
 		format: {
-			from: jest.fn(),
-			to: jest.fn(),
+			from: vi.fn(),
+			to: vi.fn(),
 		},
 		range: {
 			max: 0,
 			min: 0,
 		},
-		refine: jest.fn(),
-		sendEvent: jest.fn(),
+		refine: vi.fn(),
+		sendEvent: vi.fn(),
 		start: [0, 1],
 	};
 }
@@ -85,23 +85,21 @@ function realMockUseRange(): RangeRenderState {
 function realMockUseCurrentRefinements(): CurrentRefinementsRenderState {
 	return {
 		canRefine: true,
-		createURL: jest.fn(),
+		createURL: vi.fn(),
 		items: [],
-		refine: jest.fn(),
+		refine: vi.fn(),
 	};
 }
 
 
 
-module.exports = {
-	Configure: jest.fn(),
-	Hits: jest.fn(),
-	InstantSearch: jest.fn(),
-	useCurrentRefinements: realMockUseCurrentRefinements,
-	useInstantSearch: realMockUseInstantSearch,
-	usePagination: realMockUsePagination,
-	useRange: realMockUseRange,
-	useRefinementList: realMockUseRefinementList,
-	useSearchBox: realMockUseSearchBox,
-	useStats: jest.fn(),
-};
+export const Configure = vi.fn();
+export const Hits = vi.fn();
+export const InstantSearch = vi.fn();
+export const useCurrentRefinements = vi.fn(realMockUseCurrentRefinements);
+export const useInstantSearch = vi.fn(realMockUseInstantSearch);
+export const usePagination = vi.fn(realMockUsePagination);
+export const useRange = vi.fn(realMockUseRange);
+export const useRefinementList = vi.fn(realMockUseRefinementList);
+export const useSearchBox = vi.fn(realMockUseSearchBox);
+export const useStats = vi.fn();

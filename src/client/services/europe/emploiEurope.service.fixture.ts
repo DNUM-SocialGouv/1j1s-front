@@ -4,7 +4,7 @@ import { createSuccess } from '~/server/errors/either';
 
 export function anEmploiEuropeService(override?: Partial<EmploiEuropeService>): EmploiEuropeService {
 	return {
-		rechercherEmploiEurope: jest.fn().mockResolvedValue(createSuccess(aResultatRechercheEmploiEuropeList())),
+		rechercherEmploiEurope: vi.fn().mockResolvedValue(createSuccess(aResultatRechercheEmploiEuropeList())),
 		...override,
 	};
 }

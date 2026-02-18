@@ -3,7 +3,7 @@ import { FormationRepository } from '~/server/formations/domain/formation.reposi
 
 export function aFormationRepository(): FormationRepository {
 	return {
-		get: jest.fn().mockResolvedValue(createSuccess(undefined)),
-		search: jest.fn().mockResolvedValue(createSuccess(undefined)),
+		get: vi.fn().mockResolvedValue(createSuccess(undefined)),
+		search: vi.fn().mockResolvedValue(createSuccess(undefined)),
 	};
 }

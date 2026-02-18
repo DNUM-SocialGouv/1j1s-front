@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 
 import { OffreDeStage } from '~/client/components/features/OffreDeStage/OffreDeStage';
@@ -114,7 +110,7 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 				const datePrecise = '2024-09-01';
 				const offreStage = anOffreDeStageIndexee({ dateDeDebutMax: datePrecise, dateDeDebutMin: datePrecise });
 				const dateService = aDateService();
-				jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 septembre 2024');
+				vi.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 septembre 2024');
 
 				render(<DependenciesProvider dateService={dateService}>
 					<OffreDeStage hit={offreStage} sendEvent={someDummy} />
@@ -137,7 +133,7 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 				});
 
 				const dateService = aDateService();
-				jest.spyOn(dateService, 'formatToHumanReadableDate')
+				vi.spyOn(dateService, 'formatToHumanReadableDate')
 					.mockReturnValueOnce('1 septembre 2024')
 					.mockReturnValueOnce('30 septembre 2024');
 
@@ -180,7 +176,7 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 				}),
 			});
 			const dateService = aDateService();
-			jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 septembre 2024');
+			vi.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 septembre 2024');
 
 			render(<DependenciesProvider dateService={dateService}>
 				<OffreDeStage hit={offreStage} sendEvent={someDummy} />

@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 
 import {
@@ -52,7 +48,7 @@ describe('RechercherFormationInitiale', () => {
 				formationsInitiales: formationsInitiales,
 			});
 			const resultatFormationInitiale = createSuccess(resultatFormationInitiales);
-			jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultatFormationInitiale);
+			vi.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultatFormationInitiale);
 
 			render(<DependenciesProvider formationInitialeService={aFormationService}>
 				<RechercherFormationInitiale />
@@ -72,7 +68,7 @@ describe('RechercherFormationInitiale', () => {
 					formationsInitiales: formationsInitiales,
 				});
 				const resultRechercheFormation = createSuccess(resultatFormationInitiale);
-				jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultRechercheFormation);
+				vi.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultRechercheFormation);
 
 				render(<DependenciesProvider formationInitialeService={aFormationService}>
 					<RechercherFormationInitiale />
@@ -93,7 +89,7 @@ describe('RechercherFormationInitiale', () => {
 						nombreDeResultat: 1,
 					});
 					const resultatFormationInitiale = createSuccess(resultFormationInitiale);
-					jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultatFormationInitiale);
+					vi.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultatFormationInitiale);
 
 					render(<DependenciesProvider formationInitialeService={aFormationService}>
 						<RechercherFormationInitiale />
@@ -112,7 +108,7 @@ describe('RechercherFormationInitiale', () => {
 						formationsInitiales: formationsInitiales,
 						nombreDeResultat: 2,
 					}));
-					jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultRechercheFormation);
+					vi.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultRechercheFormation);
 
 					render(<DependenciesProvider formationInitialeService={aFormationService}>
 						<RechercherFormationInitiale />
@@ -130,7 +126,7 @@ describe('RechercherFormationInitiale', () => {
 					const resultatFormationInitiale = createSuccess(aResultatFormationInitiale({
 						formationsInitiales: formationsInitiales,
 					}));
-					jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValueOnce(resultatFormationInitiale);
+					vi.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValueOnce(resultatFormationInitiale);
 					render(<DependenciesProvider formationInitialeService={aFormationService}> <RechercherFormationInitiale />
 					</DependenciesProvider>);
 					const listeCards = await screen.findByRole('list', { name: 'Formations Initiales' });
@@ -151,7 +147,7 @@ describe('RechercherFormationInitiale', () => {
 							niveauDeSortie: 'Bac + 2',
 						})];
 						const resultatFormationInitiale = createSuccess(aResultatFormationInitiale({ formationsInitiales: formationsInitiales }));
-						jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValueOnce(resultatFormationInitiale);
+						vi.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValueOnce(resultatFormationInitiale);
 						render(<DependenciesProvider formationInitialeService={aFormationService}>
 							<RechercherFormationInitiale />
 						</DependenciesProvider>);
@@ -172,7 +168,7 @@ describe('RechercherFormationInitiale', () => {
 								niveauDeSortie: 'Bac + 2',
 							})],
 						}));
-						jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValueOnce(resultatFormationInitiale);
+						vi.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValueOnce(resultatFormationInitiale);
 						
 						render(<DependenciesProvider formationInitialeService={aFormationService}>
 							<RechercherFormationInitiale />
@@ -202,7 +198,7 @@ describe('RechercherFormationInitiale', () => {
 			const aFormationService = aFormationInitialeService();
 			const formationsInitiales = [aFormationInitiale({ libelle: 'boulanger' }), aFormationInitiale({ libelle: 'patissier' })];
 			const resultatRechercheFormation = createSuccess(aResultatFormationInitiale({ formationsInitiales: formationsInitiales }));
-			jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultatRechercheFormation);
+			vi.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultatRechercheFormation);
 
 			render(<DependenciesProvider formationInitialeService={aFormationService}>
 				<RechercherFormationInitiale />
@@ -221,7 +217,7 @@ describe('RechercherFormationInitiale', () => {
 				nombreDeResultat: 2,
 			});
 			const resultatFormationInitiale = createSuccess(resultatFormationsInitiales);
-			jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultatFormationInitiale);
+			vi.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultatFormationInitiale);
 			render(<DependenciesProvider formationInitialeService={aFormationService}>
 				<RechercherFormationInitiale />
 			</DependenciesProvider>);

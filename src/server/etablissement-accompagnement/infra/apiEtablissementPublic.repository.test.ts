@@ -74,7 +74,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 			it('retourne la liste des établissements d‘accompagnement', async () => {
 				// given
 				const httpClient = aPublicHttpClientService();
-				jest
+				vi
 					.spyOn(httpClient, 'get')
 					.mockResolvedValue(anAxiosResponse(aResultatRechercheEtablissementPublicListResponse()));
 				const repository = new ApiEtablissementPublicRepository(httpClient, anErrorManagementService());
@@ -98,10 +98,10 @@ describe('ApiÉtablissementPublicRepository', () => {
 				// given
 				const httpError = anHttpError(404, '', anAxiosResponse({}, 404));
 				const httpClient = aPublicHttpClientService();
-				jest.spyOn(httpClient, 'get').mockRejectedValue(httpError);
+				vi.spyOn(httpClient, 'get').mockRejectedValue(httpError);
 				const expectedError = ErreurMetier.DEMANDE_INCORRECTE;
 				const errorManagementService = anErrorManagementService({
-					handleFailureError: jest.fn(() => createFailure(expectedError)),
+					handleFailureError: vi.fn(() => createFailure(expectedError)),
 				});
 				const codeCommune = '46000';
 				const typeAccompagnement = 'cij';
@@ -126,7 +126,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 					id: 0,
 				});
 				const errorManagementServiceSearch = anErrorManagementService();
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
+				vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
 				const repository = new ApiEtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
 
 				// When
@@ -165,7 +165,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				const searchResponse = aResultatRechercheEtablissementPublicListResponse();
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
+				vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
 				const errorManagementServiceSearch = anErrorManagementService();
 				const repository = new ApiEtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
 

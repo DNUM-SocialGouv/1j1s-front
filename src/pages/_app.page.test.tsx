@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, waitFor } from '@testing-library/react';
 import { Router } from 'next/router';
 import React from 'react';
@@ -17,7 +13,7 @@ import App from './_app.page';
 const mockDependencies: Partial<Dependencies> = {
 	cookiesService: aCookiesService(),
 };
-jest.mock('~/client/dependencies.container', () => (() => mockDependencies));
+vi.mock('~/client/dependencies.container', () => ({ default: () => mockDependencies }));
 
 describe('<App />', () => {
 	beforeAll(() => {
@@ -44,7 +40,7 @@ describe('<App />', () => {
 			// NOTE (GAFI 26-11-2024): Les services sont automatiquement triggered au chargement de tarteaucitron
 			const router = createMockRouter() as Router;
 			mockUseRouter({});
-			mockDependencies.cookiesService = aCookiesService({ triggerServices: jest.fn() });
+			mockDependencies.cookiesService = aCookiesService({ triggerServices: vi.fn() });
 			const Component = Object.assign(
 				function Component() {
 					return null;
@@ -57,7 +53,7 @@ describe('<App />', () => {
 			expect(mockDependencies.cookiesService.triggerServices).not.toHaveBeenCalled();
 		});
 		it('trigger les cookies au changement de page', () => {
-			mockDependencies.cookiesService = aCookiesService({ triggerServices: jest.fn() });
+			mockDependencies.cookiesService = aCookiesService({ triggerServices: vi.fn() });
 			const router = createMockRouter() as Router;
 			mockUseRouter({ asPath: '/page-1' });
 			const Component = Object.assign(

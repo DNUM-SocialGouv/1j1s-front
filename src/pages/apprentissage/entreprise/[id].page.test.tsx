@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import '~/test-utils';
 
 import { render, screen } from '@testing-library/react';
@@ -19,7 +16,7 @@ const siret = '123';
 function HeadMock({ children }: { children: React.ReactNode }) {
 	return <>{ReactDOM.createPortal(children, document.head)}</>;
 }
-jest.mock('next/head', () => HeadMock);
+vi.mock('next/head', () => ({ default: HeadMock }));
 
 describe('<AnnonceAlternanceEntreprisePage />', () => {
 	beforeEach(() => {

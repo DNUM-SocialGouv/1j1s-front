@@ -20,13 +20,13 @@ const gen = idMaker();
 
 export function mockUsePagination(override: Partial<PaginationRenderState>) {
 	const result = {
-		createURL: jest.fn().mockReturnValue('#'),
+		createURL: vi.fn().mockReturnValue('#'),
 		currentRefinement: 1,
 		isFirstPage: false,
 		isLastPage: false,
 		nbHits: 100,
 		pages: [0, 1, 2],
-		refine: jest.fn(),
+		refine: vi.fn(),
 		...override,
 	};
 	return result;
@@ -36,15 +36,15 @@ export function mockUseRefinementList(override: Partial<RefinementListRenderStat
 	const result = {
 		canRefine: true,
 		canToggleShowMore: true,
-		createURL: jest.fn().mockReturnValue('#'),
+		createURL: vi.fn().mockReturnValue('#'),
 		hasExhaustiveItems: true,
 		isFromSearch: true,
 		isShowingMore: true,
 		items: [],
-		refine: jest.fn(),
-		searchForItems: jest.fn(),
-		sendEvent: jest.fn(),
-		toggleShowMore: jest.fn(),
+		refine: vi.fn(),
+		searchForItems: vi.fn(),
+		sendEvent: vi.fn(),
+		toggleShowMore: vi.fn(),
 		...override,
 	};
 	return result;
@@ -62,10 +62,10 @@ export function generateRefinementListItem(override: Partial<RefinementListItem>
 
 export function mockUseInstantSearch(override: Partial<unknown>) {
 	return {
-		error: jest.fn(),
-		refresh: jest.fn(),
-		status: jest.fn(),
-		use: jest.fn(),
+		error: vi.fn(),
+		refresh: vi.fn(),
+		status: vi.fn(),
+		use: vi.fn(),
 		...override,
 	};
 }
@@ -77,8 +77,8 @@ export function mockUseRangeInput(override: Partial<RangeRenderState>) {
 			max: 200,
 			min: 0,
 		},
-		refine: jest.fn(),
-		sendEvent: jest.fn(),
+		refine: vi.fn(),
+		sendEvent: vi.fn(),
 		start: [0, 2000],
 		...override,
 	};
@@ -108,7 +108,7 @@ export const aTypeBienItem = (override?: Partial<CurrentRefinementsConnectorPara
 		indexId: 'id-index',
 		indexName: 'nom-index',
 		label: 'typeBien',
-		refine: jest.fn(),
+		refine: vi.fn(),
 		refinements: [
 		  aDisjunctiveImmeubleItemRefinement(),
 		  aDisjunctiveAppartementItemRefinement(),
@@ -120,9 +120,9 @@ export const aTypeBienItem = (override?: Partial<CurrentRefinementsConnectorPara
 export function mockUseCurrentRefinements(override: Partial<CurrentRefinementsRenderState>) {
 	return {
 		canRefine: true,
-		createURL: jest.fn(),
+		createURL: vi.fn(),
 		items: [aTypeBienItem()],
-		refine: jest.fn,
+		refine: vi.fn,
 		...override,
 	};
 }

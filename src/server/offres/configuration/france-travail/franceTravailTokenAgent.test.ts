@@ -1,3 +1,4 @@
+// @vitest-environment node
 import nock from 'nock';
 
 import { FranceTravailTokenAgent } from '~/server/offres/configuration/france-travail/franceTravailTokenAgent';

@@ -20,7 +20,7 @@ describe('MissionEngagementService', () => {
 					...aCommuneQuery({}),
 				};
 
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
+				vi.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
 
 				const result = await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 
@@ -42,7 +42,7 @@ describe('MissionEngagementService', () => {
 					...aCommuneQuery(),
 				};
 
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
+				vi.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
 
 				const result = await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 

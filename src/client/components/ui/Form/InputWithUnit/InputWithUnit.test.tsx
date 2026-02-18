@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
-
 import { render, screen } from '@testing-library/react';
 
 import { InputWithUnit } from '~/client/components/ui/Form/InputWithUnit/InputWithUnit';
@@ -25,7 +20,7 @@ describe('<InputWithUnit', () => {
 	});
 
 	it('accepte une ref', () => {
-		const ref = jest.fn();
+		const ref = vi.fn();
 		render(<InputWithUnit unite={'€'} nomDeLUnite={'Euro'} ref={ref} />);
 
 		expect(ref).toHaveBeenCalledWith(expect.any(HTMLInputElement));

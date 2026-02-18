@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 
 import { Banniere } from '~/client/components/features/ContratEngagementJeune/Banniere/Banniere';

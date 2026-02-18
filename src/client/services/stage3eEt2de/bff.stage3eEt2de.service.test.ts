@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { BffStage3eEt2deService } from '~/client/services/stage3eEt2de/bff.stage3eEt2de.service';

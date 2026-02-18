@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
-
 import '~/test-utils';
 
 import { render, screen, within } from '@testing-library/react';
@@ -109,7 +104,7 @@ describe('Page d’accueil', () => {
 				it('appelle le serveur pour récupérer les 3 dernières actualités', async () => {
 					// Given
 					process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
-					jest.spyOn(dependencies.actualitesDependencies.consulterActualitesEchantillonUseCase, 'handle').mockResolvedValue(createSuccess(anActualiteList()));
+					vi.spyOn(dependencies.actualitesDependencies.consulterActualitesEchantillonUseCase, 'handle').mockResolvedValue(createSuccess(anActualiteList()));
 
 					// When
 					await getStaticProps();
@@ -176,7 +171,7 @@ describe('Page d’accueil', () => {
 				describe('lorsque la récupération des actualités est un échec', () => {
 					it('redirige vers la page 404', async () => {
 						// Given
-						jest.spyOn(dependencies.actualitesDependencies.consulterActualitesEchantillonUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+						vi.spyOn(dependencies.actualitesDependencies.consulterActualitesEchantillonUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 						// When
 						const result = await getStaticProps();

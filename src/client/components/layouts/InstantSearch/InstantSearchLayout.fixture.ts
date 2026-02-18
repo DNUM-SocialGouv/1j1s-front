@@ -2,7 +2,7 @@ import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 export function aRechercheClientService(): SearchClient {
 	return {
-		search: jest.fn().mockResolvedValue({
+		search: vi.fn().mockResolvedValue({
 			results: [{
 				exhaustiveFacetsCount: true,
 				exhaustiveNbHits: true,

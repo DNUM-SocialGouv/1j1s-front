@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { queries as defaultQueries, render, screen, within } from '@testing-library/react';
 
 import { DetailAlternance } from '~/client/components/features/Alternance/DetailAlternance/DetailAlternance';
@@ -238,7 +234,7 @@ describe('<Detail />', () => {
 	it('affiche la date de début de contrat', () => {
 		const annonce = aDetailAlternance({ dateDébut: new Date('2022-01-01') });
 		const dateService = aDateService();
-		jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 janvier 2022');
+		vi.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 janvier 2022');
 
 		const { getByDescriptionTerm } = render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={dateService}>
 			<DetailAlternance annonce={annonce} />

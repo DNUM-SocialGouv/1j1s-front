@@ -122,7 +122,7 @@ describe('ApiImmersionFacileStage3eEt2deRepository', () => {
 			it('retourne les données de l’api Immersion Facile', async () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse([anApiImmersionFacileStage3eEt2de(
+				vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse([anApiImmersionFacileStage3eEt2de(
 					{
 						address: {
 							city: 'Paris',
@@ -164,10 +164,10 @@ describe('ApiImmersionFacileStage3eEt2deRepository', () => {
 				const httpError = anHttpError(500);
 				const httpClientService = aPublicHttpClientService();
 				const errorManagementService = anErrorManagementService();
-				jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
+				vi.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
 				const repository = new ApiImmersionFacileStage3eEt2deRepository(httpClientService, errorManagementService);
 				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
+				vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 
 				// WHEN
 				const result = await repository.search(aStage3eEt2deFiltre());
@@ -218,10 +218,10 @@ describe('ApiImmersionFacileStage3eEt2deRepository', () => {
 				const httpError = anHttpError(500);
 				const httpClientService = aPublicHttpClientService();
 				const errorManagementService = anErrorManagementService();
-				jest.spyOn(httpClientService, 'post').mockRejectedValue(httpError);
+				vi.spyOn(httpClientService, 'post').mockRejectedValue(httpError);
 				const repository = new ApiImmersionFacileStage3eEt2deRepository(httpClientService, errorManagementService);
 				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
+				vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 				const candidature = aCandidatureTelephoneStage3eEt2de();
 
 				// WHEN

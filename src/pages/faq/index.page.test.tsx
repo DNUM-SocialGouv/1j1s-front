@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import '~/test-utils';
 
 import {
@@ -35,7 +32,7 @@ describe('Page FAQ', () => {
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(

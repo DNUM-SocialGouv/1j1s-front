@@ -1,3 +1,4 @@
+// @vitest-environment node
 import nock from 'nock';
 
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';

@@ -2,9 +2,9 @@ import { BrowserStorage, BrowserStorageService, StorageUnavailableError } from '
 
 function aStorage(overrides?: Partial<BrowserStorage>): BrowserStorage {
 	return {
-		getItem: jest.fn(),
-		removeItem: jest.fn(),
-		setItem: jest.fn(),
+		getItem: vi.fn(),
+		removeItem: vi.fn(),
+		setItem: vi.fn(),
 		...overrides,
 	};
 }
@@ -13,7 +13,7 @@ describe('browserStorageService', () => {
 	it('parse la donnée renvoyée quand on get()', () => {
 		const expectedData = { test: 'value' };
 		const storage = aStorage({
-			getItem: jest.fn().mockReturnValue(JSON.stringify(expectedData)),
+			getItem: vi.fn().mockReturnValue(JSON.stringify(expectedData)),
 		});
 		const service = new BrowserStorageService(() => storage);
 
@@ -32,7 +32,7 @@ describe('browserStorageService', () => {
 	});
 	it('throw une erreur quand on get(), mais que le stockage n‘est pas disponible', () => {
 		const storage = aStorage({
-			getItem: jest.fn().mockImplementation(() => { throw new TypeError('getItem is not a function');}),
+			getItem: vi.fn().mockImplementation(() => { throw new TypeError('getItem is not a function');}),
 		});
 		const service = new BrowserStorageService(() => storage);
 
@@ -40,7 +40,7 @@ describe('browserStorageService', () => {
 	});
 	it('throw une erreur quand on set(), mais que le stockage n‘est pas disponible', () => {
 		const storage = aStorage({
-			setItem: jest.fn().mockImplementation(() => { throw new TypeError('setItem is not a function');}),
+			setItem: vi.fn().mockImplementation(() => { throw new TypeError('setItem is not a function');}),
 		});
 		const service = new BrowserStorageService(() => storage);
 
@@ -48,7 +48,7 @@ describe('browserStorageService', () => {
 	});
 	it('throw une erreur quand on remove(), mais que le stockage n‘est pas disponible', () => {
 		const storage = aStorage({
-			removeItem: jest.fn().mockImplementation(() => { throw new TypeError('removeItem is not a function');}),
+			removeItem: vi.fn().mockImplementation(() => { throw new TypeError('removeItem is not a function');}),
 		});
 		const service = new BrowserStorageService(() => storage);
 

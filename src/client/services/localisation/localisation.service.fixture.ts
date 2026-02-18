@@ -9,8 +9,8 @@ import { LocalisationService } from './localisation.service';
 
 export function aLocalisationServiceWithEmptyResultat(): LocalisationService {
 	return aLocalisationService({
-		rechercherCommune: jest.fn().mockResolvedValue(createSuccess({ résultats: [] })),
-		rechercherLocalisation: jest.fn().mockResolvedValue(createSuccess(aLocalisationListWithEmptyValue())),
+		rechercherCommune: vi.fn().mockResolvedValue(createSuccess({ résultats: [] })),
+		rechercherLocalisation: vi.fn().mockResolvedValue(createSuccess(aLocalisationListWithEmptyValue())),
 	});
 }
 

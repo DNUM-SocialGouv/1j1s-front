@@ -74,7 +74,7 @@ describe('onisep formation initiale repository', () => {
 			const formationsInitiales = [aFormationInitiale()];
 			const expectedFormationsInitiales = createSuccess(aResultatFormationInitiale({ formationsInitiales: formationsInitiales }));
 			const filtre = aFormationInitialeFiltre();
-			jest.spyOn(httpClient, 'get').mockResolvedValueOnce(responseFromApi);
+			vi.spyOn(httpClient, 'get').mockResolvedValueOnce(responseFromApi);
 
 			// WHEN
 			const resultRecherche = await formationInitialeRepository.search(filtre);
@@ -91,7 +91,7 @@ describe('onisep formation initiale repository', () => {
 				const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, errorManagementService, aStrapiService());
 				const httpError = anHttpError(500);
 				const filtre = aFormationInitialeFiltre();
-				jest.spyOn(httpClient, 'get').mockRejectedValueOnce(httpError);
+				vi.spyOn(httpClient, 'get').mockRejectedValueOnce(httpError);
 
 				// WHEN
 				await formationInitialeRepository.search(filtre);
@@ -112,8 +112,8 @@ describe('onisep formation initiale repository', () => {
 				const httpError = anHttpError(500);
 				const expectedErrorFromErromManagement = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 				const filtre = aFormationInitialeFiltre();
-				jest.spyOn(httpClient, 'get').mockRejectedValueOnce(httpError);
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(expectedErrorFromErromManagement);
+				vi.spyOn(httpClient, 'get').mockRejectedValueOnce(httpError);
+				vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(expectedErrorFromErromManagement);
 
 				// WHEN
 				const businessError = await formationInitialeRepository.search(filtre);
@@ -142,9 +142,9 @@ describe('onisep formation initiale repository', () => {
 			it('appelle Strapi pour récupérer les informations supplémentaires sur la formation initiale', async () => {
 				const httpClient = anAuthenticatedHttpClientService();
 				const resultFormationInitiale = aResultatRechercheFormationInitialeApiResponse();
-				jest.spyOn(httpClient, 'get').mockResolvedValueOnce(anAxiosResponse(resultFormationInitiale));
+				vi.spyOn(httpClient, 'get').mockResolvedValueOnce(anAxiosResponse(resultFormationInitiale));
 				const strapiService = aStrapiService();
-				jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiFormationInitialeDetail()));
+				vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiFormationInitialeDetail()));
 				const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, anErrorManagementService(), strapiService);
 
 				const identifiant = 'FOR.1234';
@@ -170,7 +170,7 @@ describe('onisep formation initiale repository', () => {
 						url_et_id_onisep: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.1234',
 					})],
 				});
-				jest.spyOn(httpClient, 'get').mockResolvedValueOnce(anAxiosResponse(resultFormationInitiale));
+				vi.spyOn(httpClient, 'get').mockResolvedValueOnce(anAxiosResponse(resultFormationInitiale));
 				const strapiService = aStrapiService();
 				const resultFromStrapi = aStrapiFormationInitialeDetail({
 					attendusParcoursup: 'L‘option managament d‘unité de production culinaire vise à maîtriser des techniques culinaires propres aux différents types de restauration',
@@ -179,7 +179,7 @@ describe('onisep formation initiale repository', () => {
 					poursuiteEtudes: 'Le BTS est un diplôme conçu pour une insertion professionnelle',
 					updatedAt: '2023-05-15T09:37:44.283Z',
 				});
-				jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(resultFromStrapi));
+				vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(resultFromStrapi));
 				const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, anErrorManagementService(), strapiService);
 
 				const identifiant = 'FOR.1234';
@@ -215,9 +215,9 @@ describe('onisep formation initiale repository', () => {
 						url_et_id_onisep: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.1234',
 					})],
 				});
-				jest.spyOn(httpClient, 'get').mockResolvedValueOnce(anAxiosResponse(resultFormationInitiale));
+				vi.spyOn(httpClient, 'get').mockResolvedValueOnce(anAxiosResponse(resultFormationInitiale));
 				const strapiService = aStrapiService();
-				jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+				vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 				const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, anErrorManagementService(), strapiService);
 
 				const identifiant = 'FOR.1234';
@@ -247,7 +247,7 @@ describe('onisep formation initiale repository', () => {
 				const errorManagementService = anErrorManagementService();
 				const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, errorManagementService, aStrapiService());
 				const httpError = anHttpError(500);
-				jest.spyOn(httpClient, 'get').mockRejectedValueOnce(httpError);
+				vi.spyOn(httpClient, 'get').mockRejectedValueOnce(httpError);
 				const identifiant = 'FOR.1234';
 
 				// WHEN
@@ -268,8 +268,8 @@ describe('onisep formation initiale repository', () => {
 				const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, errorManagementService, aStrapiService());
 				const httpError = anHttpError(500);
 				const expectedErrorFromErromManagement = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
-				jest.spyOn(httpClient, 'get').mockRejectedValueOnce(httpError);
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(expectedErrorFromErromManagement);
+				vi.spyOn(httpClient, 'get').mockRejectedValueOnce(httpError);
+				vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(expectedErrorFromErromManagement);
 				const identifiant = 'FOR.1234';
 
 				// WHEN

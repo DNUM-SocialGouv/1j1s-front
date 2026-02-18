@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import { render, screen } from '@testing-library/react';
 
 import { InstantSearchErrorBoundary } from '~/client/components/layouts/InstantSearch/InstantSearchErrorBoundary';
@@ -9,8 +6,11 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aStorageService } from '~/client/services/storage/storage.service.fixture';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const spyOnInstantSearch = jest.spyOn(require('react-instantsearch'), 'useInstantSearch');
+
+import { useInstantSearch } from 'react-instantsearch';
+vi.mock('react-instantsearch');
+
+const spyOnInstantSearch = vi.mocked(useInstantSearch);
 
 
 const ChildrenComponent = () => {

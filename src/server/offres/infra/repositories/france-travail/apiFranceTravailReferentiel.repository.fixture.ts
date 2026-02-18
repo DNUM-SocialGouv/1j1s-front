@@ -4,7 +4,7 @@ import {
 
 export function aApiFranceTravailReferentielRepository(): ApiFranceTravailReferentielRepository {
 	return {
-		findCodeInseeInRéférentielCommune: jest.fn(),
+		findCodeInseeInRéférentielCommune: vi.fn(),
 	} as unknown as ApiFranceTravailReferentielRepository;
 }
 export function aRésultatsRéférentielCommunesResponseList() {

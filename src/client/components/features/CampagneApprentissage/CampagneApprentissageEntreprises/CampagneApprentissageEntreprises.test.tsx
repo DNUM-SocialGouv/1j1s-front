@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 
 import {
@@ -15,7 +11,7 @@ describe('CampagneApprentissageEntreprises', () => {
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	describe('Encart de présentation de l’apprentissage pour les employeurs', () => {

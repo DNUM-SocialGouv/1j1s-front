@@ -11,7 +11,7 @@ describe('Strapi FAQ Repository', () => {
 	describe('getAllFAQ', () => {
 		it('appelle le service strapi avec les bons paramètres', async () => {
 			const strapiService = aStrapiService();
-			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValue(createSuccess([aStrapiQuestion()]));
+			vi.spyOn(strapiService, 'getCollectionType').mockResolvedValue(createSuccess([aStrapiQuestion()]));
 			const strapiFAQRepository = new StrapiFAQRepository(strapiService);
 			const query= 'fields[0]=problematique&fields[1]=slug';
 
@@ -28,7 +28,7 @@ describe('Strapi FAQ Repository', () => {
 					aStrapiQuestion(),
 					aStrapiQuestion({ problematique: 'Que faire dans la vie ?', slug: 'que-faire-dans-la-vie' }),
 				];
-				jest.spyOn(strapiService, 'getCollectionType').mockResolvedValue(createSuccess(strapiQuestions));
+				vi.spyOn(strapiService, 'getCollectionType').mockResolvedValue(createSuccess(strapiQuestions));
 				const expectedQuestions = createSuccess([
 					aQuestion(),
 					aQuestion({
@@ -47,7 +47,7 @@ describe('Strapi FAQ Repository', () => {
 				const strapiService = aStrapiService();
 				const strapiFAQRepository = new StrapiFAQRepository(strapiService);
 				const expectedStrapiFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
-				jest.spyOn(strapiService, 'getCollectionType').mockResolvedValue(expectedStrapiFailure);
+				vi.spyOn(strapiService, 'getCollectionType').mockResolvedValue(expectedStrapiFailure);
 
 				const result = await strapiFAQRepository.getAllFAQ();
 
@@ -59,7 +59,7 @@ describe('Strapi FAQ Repository', () => {
 	describe('getFAQBySlug', () => {
 		it('appelle le service strapi avec les bons paramètres', async () => {
 			const strapiService = aStrapiService();
-			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiQuestionEtReponse()));
+			vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiQuestionEtReponse()));
 			const strapiFAQRepository = new StrapiFAQRepository(strapiService);
 			const slug = 'slugName';
 			const query= 'filters[slug][$eq]=slugName';
@@ -72,7 +72,7 @@ describe('Strapi FAQ Repository', () => {
 		describe('quand la question est trouvée', () => {
 			it('renvoie la question', async () => {
 				const strapiService = aStrapiService();
-				jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiQuestionEtReponse()));
+				vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiQuestionEtReponse()));
 				const strapiFAQRepository = new StrapiFAQRepository(strapiService);
 				const expectedQuestionEtReponse = aQuestionEtReponse();
 
@@ -86,7 +86,7 @@ describe('Strapi FAQ Repository', () => {
 			it('relais l’échec du strapi service', async () => {
 				const strapiService = aStrapiService();
 				const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
-				jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(expectedFailure);
+				vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(expectedFailure);
 				const strapiFAQRepository = new StrapiFAQRepository(strapiService);
 
 				const result = await strapiFAQRepository.getFAQBySlug('slugName');
@@ -99,7 +99,7 @@ describe('Strapi FAQ Repository', () => {
 	describe('listAllFAQSlug', () => {
 		it('appelle le service strapi avec les bons paramètres', async () => {
 			const strapiService = aStrapiService();
-			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiQuestionSlug()]));
+			vi.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiQuestionSlug()]));
 			const strapiFAQRepository = new StrapiFAQRepository(strapiService);
 			const query = 'fields[0]=slug';
 
@@ -112,7 +112,7 @@ describe('Strapi FAQ Repository', () => {
 			it('renvoie les slugs', async () => {
 				const strapicmsService = aStrapiService();
 				const strapiFAQRepository = new StrapiFAQRepository(strapicmsService);
-				jest.spyOn(strapicmsService, 'getCollectionType').mockResolvedValue(createSuccess([
+				vi.spyOn(strapicmsService, 'getCollectionType').mockResolvedValue(createSuccess([
 					aStrapiQuestionSlug(),
 					aStrapiQuestionSlug({ slug: 'comment-constituer-un-dossier-locatif-jeune' }),
 				]));
@@ -129,7 +129,7 @@ describe('Strapi FAQ Repository', () => {
 				const strapiService = aStrapiService();
 				const strapiFAQRepository = new StrapiFAQRepository(strapiService);
 				const expectFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
-				jest.spyOn(strapiService, 'getCollectionType').mockResolvedValue( expectFailure);
+				vi.spyOn(strapiService, 'getCollectionType').mockResolvedValue( expectFailure);
 
 				const result = await strapiFAQRepository.listAllFAQSlug();
 

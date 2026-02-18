@@ -284,8 +284,8 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				const errorManagementService = anErrorManagementService();
 				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, errorManagementService, apiEuresEmploiEuropeMapper);
 				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
-				jest.spyOn(httpClientService, 'post').mockRejectedValue(httpError);
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
+				vi.spyOn(httpClientService, 'post').mockRejectedValue(httpError);
+				vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 
 				// WHEN
 				const { errorType } = await repository.search({
@@ -329,7 +329,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				},
 			};
 
-			jest.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse(apiEuresEmploiEuropeDetailResponse));
+			vi.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse(apiEuresEmploiEuropeDetailResponse));
 			const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
 
 			// When
@@ -353,7 +353,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 					}),
 				})]);
 
-			jest.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse(apiEuresEmploiEuropeDetailResponse));
+			vi.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse(apiEuresEmploiEuropeDetailResponse));
 			const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
 
 			// When
@@ -374,8 +374,8 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				const errorManagementService = anErrorManagementService();
 				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, errorManagementService, apiEuresEmploiEuropeMapper);
 				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
-				jest.spyOn(httpClientService, 'post').mockRejectedValue(httpError);
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
+				vi.spyOn(httpClientService, 'post').mockRejectedValue(httpError);
+				vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 
 				// WHEN
 				const { errorType } = await repository.get('1') as Failure;

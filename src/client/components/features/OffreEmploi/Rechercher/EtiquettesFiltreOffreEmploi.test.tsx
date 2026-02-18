@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 import React from 'react';
 
@@ -18,7 +14,7 @@ describe('Etiquettes filtre emploi', () => {
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	describe('quand une recherche est lancée', () => {

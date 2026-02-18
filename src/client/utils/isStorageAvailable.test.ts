@@ -1,14 +1,11 @@
-/**
- * @jest-environment jsdom
- */
 import { mockLocalStorage } from '~/client/components/window.mock';
 import { isStorageAvailable } from '~/client/utils/isStorageAvailable';
 
 describe('isStorageAvailabe', () => {
- 	const clear = jest.fn();
- 	const getItem = jest.fn();
- 	const removeItem = jest.fn();
- 	const setItem = jest.fn();
+ 	const clear = vi.fn();
+ 	const getItem = vi.fn();
+ 	const removeItem = vi.fn();
+ 	const setItem = vi.fn();
 	beforeEach(() => {
 		mockLocalStorage({
 			clear,
@@ -18,7 +15,7 @@ describe('isStorageAvailabe', () => {
 		});
 	});
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 	it('retourne true quand le storage est disponible', () => {
 		// Given

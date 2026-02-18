@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 
 import { ConsulterFormationAlternance } from '~/client/components/features/FormationAlternance/Consulter/ConsulterFormationAlternance';

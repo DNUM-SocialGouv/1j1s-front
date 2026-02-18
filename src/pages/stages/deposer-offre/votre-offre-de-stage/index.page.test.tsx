@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import '~/test-utils';
 
 import { render } from '@testing-library/react';
@@ -27,7 +23,7 @@ describe('<DeposerOffreStageEtape2Page />', () => {
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const stageDeposerOffreEtape1PersistenceService = aStageDeposerOffreEtape1PersistenceService({
-			getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+			getInformationsEtape1: vi.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
 		});
 		const stageDeposerOffreEtape2PersistenceService = aStageDeposerOffreEtape2PersistenceService();
 		const { container } = render(

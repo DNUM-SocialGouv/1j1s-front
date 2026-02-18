@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
@@ -12,7 +8,7 @@ import { aStorageService } from '~/client/services/storage/storage.service.fixtu
 
 describe('BackButton', () => {
 	beforeEach(() => {
-		jest.resetAllMocks();
+		vi.resetAllMocks();
 	});
 
 	describe('Lorsque la variable IS_PREVIOUS_PAGE_LOCAL est définie dans le sessionStorage', () => {
@@ -20,11 +16,11 @@ describe('BackButton', () => {
 			// Given
 			mockUseRouter({});
 			mockSessionStorage({
-				getItem: jest.fn().mockReturnValue('/page-1'),
+				getItem: vi.fn().mockReturnValue('/page-1'),
 			});
 
 			// When
-			render(<DependenciesProvider sessionStorageService={aStorageService({ get: jest.fn().mockReturnValue(true) })}><BackButton /></DependenciesProvider>);
+			render(<DependenciesProvider sessionStorageService={aStorageService({ get: vi.fn().mockReturnValue(true) })}><BackButton /></DependenciesProvider>);
 
 			// Then
 			expect(screen.getByRole('link', { name: 'Retour vers la page précédente' })).toBeInTheDocument();
@@ -35,7 +31,7 @@ describe('BackButton', () => {
 			// Given
 			mockUseRouter({});
 			mockSessionStorage({
-				getItem: jest.fn().mockReturnValue(null),
+				getItem: vi.fn().mockReturnValue(null),
 			});
 
 			// When

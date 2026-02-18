@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { aResultatFormationInitiale } from '~/client/services/formationInitiale/formationInitiale.service.fixture';
 import { FormationInitialeDetailCMS } from '~/server/formations-initiales/domain/formationInitiale';
 import {

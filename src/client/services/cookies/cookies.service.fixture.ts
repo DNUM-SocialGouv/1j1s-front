@@ -2,12 +2,12 @@ import { CookiesService } from './cookies.service';
 
 export function aCookiesService(override?: Partial<CookiesService>): CookiesService {
 	return {
-		addService: jest.fn(),
-		addUser: jest.fn(),
-		allowService: jest.fn(),
-		isServiceAllowed: jest.fn(() => true),
-		openPanel: jest.fn(),
-		triggerServices: jest.fn(),
+		addService: vi.fn(),
+		addUser: vi.fn(),
+		allowService: vi.fn(),
+		isServiceAllowed: vi.fn(() => true),
+		openPanel: vi.fn(),
+		triggerServices: vi.fn(),
 		...override,
 	};
 }

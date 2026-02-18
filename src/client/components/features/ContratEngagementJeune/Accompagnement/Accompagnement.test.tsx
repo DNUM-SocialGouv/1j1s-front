@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
-
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -32,7 +27,7 @@ describe('<Accompagnement />', () => {
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	function renderComponent() {
@@ -83,9 +78,9 @@ describe('<Accompagnement />', () => {
 			it('lorsque l‘envoi du formulaire est en succes, affiche la modale de succès', async () => {
 				const user = userEvent.setup();
 				const demandeDeContactService = aDemandeDeContactService();
-				jest.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createSuccess(undefined));
+				vi.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createSuccess(undefined));
 				const localisationService = aLocalisationService();
-				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
+				vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 					résultats: [aCommune({
 						codePostal: '75006',
 						ville: 'Paris',
@@ -123,10 +118,10 @@ describe('<Accompagnement />', () => {
 					const user = userEvent.setup();
 
 					const demandeDeContactService = aDemandeDeContactService();
-					jest.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+					vi.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 					const localisationService = aLocalisationService();
-					jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
+					vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 						résultats: [aCommune({
 							codePostal: '75006',
 							ville: 'Paris',
@@ -155,10 +150,10 @@ describe('<Accompagnement />', () => {
 					const user = userEvent.setup();
 
 					const demandeDeContactService = aDemandeDeContactService();
-					jest.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+					vi.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 					const localisationService = aLocalisationService();
-					jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
+					vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 						résultats: [aCommune({
 							codePostal: '75006',
 							ville: 'Paris',
@@ -191,10 +186,10 @@ describe('<Accompagnement />', () => {
 					const user = userEvent.setup();
 
 					const demandeDeContactService = aDemandeDeContactService();
-					jest.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+					vi.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 					const localisationService = aLocalisationService();
-					jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
+					vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 						résultats: [aCommune({
 							codePostal: '75006',
 							ville: 'Paris',

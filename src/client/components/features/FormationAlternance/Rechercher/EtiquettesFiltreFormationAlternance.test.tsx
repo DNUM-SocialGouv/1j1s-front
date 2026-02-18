@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 import React from 'react';
 
@@ -10,7 +6,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 
 describe('EtiquettesFiltreFormation', () => {
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	describe('quand une recherche est lancée avec les inputs obligatoires', () => {

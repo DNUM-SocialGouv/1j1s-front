@@ -2,8 +2,8 @@ import { StageDeposerOffreEtape1PersistenceService } from './stageDeposerOffreEt
 
 export function aStageDeposerOffreEtape1PersistenceService(override?: Partial<StageDeposerOffreEtape1PersistenceService>): StageDeposerOffreEtape1PersistenceService {
 	return {
-		getInformationsEtape1: jest.fn(),
-		setInformationsEtape1: jest.fn(),
+		getInformationsEtape1: vi.fn(),
+		setInformationsEtape1: vi.fn(),
 		...override,
 	};
 }

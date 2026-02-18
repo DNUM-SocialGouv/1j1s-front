@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
-
 import { render, screen } from '@testing-library/react';
 
 import { NavItem } from '~/client/components/layouts/Header/Navigation/NavItem/NavItem';

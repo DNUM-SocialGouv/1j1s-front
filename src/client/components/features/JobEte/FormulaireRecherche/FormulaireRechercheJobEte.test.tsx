@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom';
-
 import { fireEvent, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
@@ -31,7 +26,7 @@ describe('FormulaireRechercheJobEte', () => {
 			it('ajoute le mot clé recherché aux query params', async () => {
 				// GIVEN
 				const localisationServiceMock = aLocalisationService();
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				mockUseRouter({ push: routerPush });
 
 				render(
@@ -56,9 +51,9 @@ describe('FormulaireRechercheJobEte', () => {
 			it('ajoute la localisation aux query params', async () => {
 				// GIVEN
 				const localisationServiceMock = aLocalisationService();
-				jest.spyOn(localisationServiceMock, 'rechercherLocalisation').mockResolvedValue(createSuccess(aLocalisationListWithCommuneAndDépartement()));
+				vi.spyOn(localisationServiceMock, 'rechercherLocalisation').mockResolvedValue(createSuccess(aLocalisationListWithCommuneAndDépartement()));
 				const user = userEvent.setup();
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				mockUseRouter({ push: routerPush });
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
@@ -93,7 +88,7 @@ describe('FormulaireRechercheJobEte', () => {
 		it('affiche les filtres avancés sans modale', async () => {
 			// GIVEN
 			const localisationServiceMock = aLocalisationService();
-			mockUseRouter({ push: jest.fn() });
+			mockUseRouter({ push: vi.fn() });
 			render(
 				<DependenciesProvider localisationService={localisationServiceMock}>
 					<FormulaireRechercheJobEte />
@@ -109,7 +104,7 @@ describe('FormulaireRechercheJobEte', () => {
 			it('ajoute le domaine sélectionné aux query params', async () => {
 				const user = userEvent.setup();
 				const localisationServiceMock = aLocalisationService();
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				mockUseRouter({ push: routerPush });
 
 				render(

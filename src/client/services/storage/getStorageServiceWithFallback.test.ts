@@ -9,9 +9,9 @@ describe('getStorageServiceWithFallback()', () => {
 			set() { throw new Error(); },
 		};
 		const fallbackService: StorageService = {
-			get: jest.fn().mockReturnValue('value'),
-			remove: jest.fn(),
-			set: jest.fn(),
+			get: vi.fn().mockReturnValue('value'),
+			remove: vi.fn(),
+			set: vi.fn(),
 		};
 		const mergedService = getStorageServiceWithFallback(defaultService, fallbackService);
 
@@ -26,14 +26,14 @@ describe('getStorageServiceWithFallback()', () => {
 	});
 	it('appelle le service par défaut quand il est disponible', () => {
 		const defaultService: StorageService = {
-			get: jest.fn().mockReturnValue('value'),
-			remove: jest.fn(),
-			set: jest.fn(),
+			get: vi.fn().mockReturnValue('value'),
+			remove: vi.fn(),
+			set: vi.fn(),
 		};
 		const fallbackService: StorageService = {
-			get: jest.fn().mockReturnValue('fallback value'),
-			remove: jest.fn(),
-			set: jest.fn(),
+			get: vi.fn().mockReturnValue('fallback value'),
+			remove: vi.fn(),
+			set: vi.fn(),
 		};
 		const mergedService = getStorageServiceWithFallback(defaultService, fallbackService);
 
@@ -48,14 +48,14 @@ describe('getStorageServiceWithFallback()', () => {
 	});
 	it('n’appelle pas le fallback quand le service par défaut est disponible', () => {
 		const defaultService: StorageService = {
-			get: jest.fn().mockReturnValue('value'),
-			remove: jest.fn(),
-			set: jest.fn(),
+			get: vi.fn().mockReturnValue('value'),
+			remove: vi.fn(),
+			set: vi.fn(),
 		};
 		const fallbackService: StorageService = {
-			get: jest.fn().mockReturnValue('fallback value'),
-			remove: jest.fn(),
-			set: jest.fn(),
+			get: vi.fn().mockReturnValue('fallback value'),
+			remove: vi.fn(),
+			set: vi.fn(),
 		};
 		const mergedService = getStorageServiceWithFallback(defaultService, fallbackService);
 

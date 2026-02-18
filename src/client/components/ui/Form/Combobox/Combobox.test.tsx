@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
@@ -32,7 +28,7 @@ describe('<Combobox />', () => {
 
 	describe('default props', () => {
 		it('accepte un ref', () => {
-			const ref = jest.fn();
+			const ref = vi.fn();
 
 			render(
 				<Combobox optionsAriaLabel="Pays" ref={ref}>
@@ -237,7 +233,7 @@ describe('<Combobox />', () => {
 
 		describe('Events', () => {
 			it('appelle onKeyDown quand une touche est pressée', async () => {
-				const onKeyDown = jest.fn();
+				const onKeyDown = vi.fn();
 				const user = userEvent.setup();
 				render(
 					<Combobox optionsAriaLabel="Pays" onKeyDown={onKeyDown}>
@@ -255,8 +251,8 @@ describe('<Combobox />', () => {
 			});
 			it('appelle onChange et onInput quand on tape dans le champ', async () => {
 				const user = userEvent.setup();
-				const onChange = jest.fn();
-				const onInput = jest.fn();
+				const onChange = vi.fn();
+				const onInput = vi.fn();
 				render(
 					<Combobox optionsAriaLabel="Pays" onChange={onChange} onInput={onInput}>
 						<Combobox.Option>Option 1</Combobox.Option>
@@ -275,8 +271,8 @@ describe('<Combobox />', () => {
 			});
 			it('appelle onChange et onInput quand on sélectionne une valeur au clavier', async () => {
 				const user = userEvent.setup();
-				const onChange = jest.fn();
-				const onInput = jest.fn();
+				const onChange = vi.fn();
+				const onInput = vi.fn();
 				render(
 					<Combobox optionsAriaLabel="Pays" value="Option" onChange={onChange} onInput={onInput}>
 						<Combobox.Option>Option 1</Combobox.Option>
@@ -295,8 +291,8 @@ describe('<Combobox />', () => {
 			});
 			it('appelle onChange et onInput quand on sélectionne une valeur à la souris', async () => {
 				const user = userEvent.setup();
-				const onChange = jest.fn();
-				const onInput = jest.fn();
+				const onChange = vi.fn();
+				const onInput = vi.fn();
 				render(
 					<Combobox optionsAriaLabel="Pays" value="Option" onChange={onChange} onInput={onInput}>
 						<Combobox.Option>Option 1</Combobox.Option>
@@ -314,7 +310,7 @@ describe('<Combobox />', () => {
 			});
 			it('stop l’event de blur si nouveau focus toujours dans le combobox', async () => {
 				const user = userEvent.setup();
-				const onBlur = jest.fn();
+				const onBlur = vi.fn();
 				render(
 					<>
 						<Combobox optionsAriaLabel="Pays" onBlur={onBlur}>
@@ -379,7 +375,7 @@ describe('<Combobox />', () => {
 			});
 			it('appelle onClick quand on clique sur une option', async () => {
 				const user = userEvent.setup();
-				const onClick = jest.fn();
+				const onClick = vi.fn();
 				render(
 					<Combobox optionsAriaLabel="Pays">
 						<Combobox.Option id="test" onClick={onClick}>Option 1</Combobox.Option>
@@ -480,7 +476,7 @@ describe('<Combobox />', () => {
 				// NOTE (GAFI 13-06-2023): Impossible de reproduire le problème avec testing-library,
 				//	Pour éviter de laisser du code non testé, test sur le détail d'implémentation
 				const user = userEvent.setup();
-				const onKeyDown = jest.fn();
+				const onKeyDown = vi.fn();
 				render(
 					<Combobox optionsAriaLabel="Pays" onKeyDown={onKeyDown}>
 						<Combobox.Option>Option 1</Combobox.Option>
@@ -577,7 +573,7 @@ describe('<Combobox />', () => {
 				// NOTE (GAFI 13-06-2023): Impossible de reproduire le problème avec testing-library,
 				//	Pour éviter de laisser du code non testé, test sur le détail d'implémentation
 				const user = userEvent.setup();
-				const onKeyDown = jest.fn();
+				const onKeyDown = vi.fn();
 				render(
 					<Combobox optionsAriaLabel="Pays" onKeyDown={onKeyDown}>
 						<Combobox.Option>Option 1</Combobox.Option>
@@ -695,7 +691,7 @@ describe('<Combobox />', () => {
 			});
 			it('submit le formulaire quand la liste est fermée', async () => {
 				const user = userEvent.setup();
-				const onSubmit = jest.fn((event) => event.preventDefault());
+				const onSubmit = vi.fn((event) => event.preventDefault());
 				render(
 					<form onSubmit={onSubmit}>
 						<Combobox optionsAriaLabel="Pays">
@@ -715,7 +711,7 @@ describe('<Combobox />', () => {
 			});
 			it('ne submit pas le formulaire quand on sélectionne un option', async () => {
 				const user = userEvent.setup();
-				const onSubmit = jest.fn();
+				const onSubmit = vi.fn();
 				render(
 					<form onSubmit={onSubmit}>
 						<Combobox optionsAriaLabel="Pays">
@@ -745,7 +741,7 @@ describe('<Combobox />', () => {
 			);
 			const option = screen.getByRole('option', { hidden: true, name: /Option 3/i });
 			// NOTE (GAFI 26-06-2023): viewport pas implémenté dans RTL, test sur le détail d'implémentation :(
-			option.scrollIntoView = jest.fn();
+			option.scrollIntoView = vi.fn();
 
 			const input = screen.getByRole('combobox');
 			await user.click(input);
@@ -1373,7 +1369,7 @@ describe('<Combobox />', () => {
 			});
 			it('rapporte la validité du champ quand on marque le champ comme touché', async () => {
 				const user = userEvent.setup();
-				const onInvalid = jest.fn();
+				const onInvalid = vi.fn();
 				render(
 					<Combobox optionsAriaLabel="Pays" required defaultValue="Option 1" onInvalid={onInvalid}>
 						<Combobox.Option>Option 1</Combobox.Option>
@@ -1390,7 +1386,7 @@ describe('<Combobox />', () => {
 			});
 			it('rapporte la validité du champ quand on change la valeur après l’avoir touché', async () => {
 				const user = userEvent.setup();
-				const onInvalid = jest.fn();
+				const onInvalid = vi.fn();
 				render(
 					<Combobox optionsAriaLabel="Pays" required onInvalid={onInvalid}>
 						<Combobox.Option>Option 1</Combobox.Option>
@@ -1407,7 +1403,7 @@ describe('<Combobox />', () => {
 				expect(onInvalid).toHaveBeenCalled();
 			});
 			it('ne rapporte pas la validité du champ tant que le champ n’est pas touché', () => {
-				const onInvalid = jest.fn();
+				const onInvalid = vi.fn();
 				render(
 					<Combobox optionsAriaLabel="Pays" required value="" onInvalid={onInvalid}>
 						<Combobox.Option>Option 1</Combobox.Option>
@@ -1420,7 +1416,7 @@ describe('<Combobox />', () => {
 			});
 			it('appelle le callback onTouch quand le champ devient touched', async () => {
 				const user = userEvent.setup();
-				const onTouch = jest.fn();
+				const onTouch = vi.fn();
 				render(
 					<Combobox optionsAriaLabel="Pays" required onTouch={onTouch}>
 						<Combobox.Option>Option 1</Combobox.Option>

@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import '~/test-utils';
 
 import { render, screen } from '@testing-library/react';
@@ -23,11 +20,11 @@ import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { dependencies } from '~/server/start';
 
-jest.mock('~/server/start', () => ({
+vi.mock('~/server/start', () => ({
 	dependencies: {
 		alternanceDependencies: {
 			rechercherAlternance: {
-				handle: jest.fn(),
+				handle: vi.fn(),
 			},
 		},
 	},
@@ -127,7 +124,7 @@ describe('Page rechercher une alternance', () => {
 
 	describe('getServerSideProps', () => {
 		beforeEach(() => {
-			jest.resetAllMocks();
+			vi.resetAllMocks();
 		});
 
 		describe('lorsque le feature flipping est désactivé', () => {
@@ -180,7 +177,7 @@ describe('Page rechercher une alternance', () => {
 					describe('lorsque la recherche retourne une erreur', () => {
 						it('retourne l’erreur reçue et change le status de la page', async () => {
 							// GIVEN
-							jest.spyOn(dependencies.alternanceDependencies.rechercherAlternance, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+							vi.spyOn(dependencies.alternanceDependencies.rechercherAlternance, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 							const defaultStatusCode = 200;
 							const context = aGetServerSidePropsContext({
@@ -206,7 +203,7 @@ describe('Page rechercher une alternance', () => {
 					describe('lorsque la recherche retourne un résultat', () => {
 						it('retourne le résultat', async () => {
 							// GIVEN
-							jest.spyOn(dependencies.alternanceDependencies.rechercherAlternance, 'handle').mockResolvedValue(createSuccess(aRechercheAlternance()));
+							vi.spyOn(dependencies.alternanceDependencies.rechercherAlternance, 'handle').mockResolvedValue(createSuccess(aRechercheAlternance()));
 
 							const context = aGetServerSidePropsContext({
 								query: {

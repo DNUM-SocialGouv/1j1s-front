@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
@@ -320,7 +316,7 @@ describe('ConsulterOffreDeStage', () => {
 				it('affiche la date de début précise quand il y a une date précise', () => {
 					const offreDeStage = anOffreDeStage({ dateDeDebutMax: '2024-09-01', dateDeDebutMin: '2024-09-01' });
 					const dateService = aDateService();
-					jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 septembre 2024');
+					vi.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 septembre 2024');
 
 					render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={dateService}>
 						<ConsulterOffreDeStage offreDeStage={offreDeStage} />
@@ -335,7 +331,7 @@ describe('ConsulterOffreDeStage', () => {
 				it('affiche la période de date de début quand la date de début est une période de date', () => {
 					const offreDeStage = anOffreDeStage({ dateDeDebutMax: '2024-09-30', dateDeDebutMin: '2024-09-01' });
 					const dateService = aDateService();
-					jest.spyOn(dateService, 'formatToHumanReadableDate')
+					vi.spyOn(dateService, 'formatToHumanReadableDate')
 						.mockReturnValueOnce('1 septembre 2024')
 						.mockReturnValueOnce('30 septembre 2024');
 

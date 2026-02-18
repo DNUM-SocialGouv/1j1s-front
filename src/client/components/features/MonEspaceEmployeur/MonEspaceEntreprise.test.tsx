@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 
 import { MonEspaceEntreprise } from '~/client/components/features/MonEspaceEmployeur/MonEspaceEntreprise';

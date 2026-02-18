@@ -1,6 +1,5 @@
-/**
- * @jest-environment jsdom
- */
+import { type Mock } from "vitest";
+
 
 import '~/test-utils';
 
@@ -18,11 +17,11 @@ import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
 import { dependencies } from '~/server/start';
 
-jest.mock('~/server/start', () => ({
+vi.mock('~/server/start', () => ({
 	dependencies: {
 		offreJobÉtudiantDependencies: {
 			rechercherOffreJobÉtudiant: {
-				handle: jest.fn(),
+				handle: vi.fn(),
 			},
 		},
 	},
@@ -46,7 +45,7 @@ describe('<RechercherJobEtudiantPage />', () => {
 
 	describe('getServerSideProps', () => {
 		beforeEach(() => {
-			jest.resetAllMocks();
+			vi.resetAllMocks();
 		});
 
 		describe('lorsque la recherche est lancée sans query params', () => {
@@ -63,7 +62,7 @@ describe('<RechercherJobEtudiantPage />', () => {
 		describe('lorsque la recherche est lancée avec des query params', () => {
 			it('filtre les offres et retourne le résultat', async () => {
 				// GIVEN
-				(dependencies.offreJobÉtudiantDependencies.rechercherOffreJobÉtudiant.handle as jest.Mock).mockReturnValue(createSuccess(aRésultatsRechercheOffre()));
+				(dependencies.offreJobÉtudiantDependencies.rechercherOffreJobÉtudiant.handle as Mock).mockReturnValue(createSuccess(aRésultatsRechercheOffre()));
 
 				const context = aGetServerSidePropsContext({ query: { page: '1' } });
 
@@ -84,7 +83,7 @@ describe('<RechercherJobEtudiantPage />', () => {
 			describe('lorsque la recherche retourne une erreur', () => {
 				it('relai l‘erreur associée', async () => {
 					// GIVEN
-					jest.spyOn(dependencies.offreJobÉtudiantDependencies.rechercherOffreJobÉtudiant, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+					vi.spyOn(dependencies.offreJobÉtudiantDependencies.rechercherOffreJobÉtudiant, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 					const defaultStatusCode = 200;
 					const context = aGetServerSidePropsContext({
 						query: {

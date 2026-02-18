@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import '~/test-utils';
 
 import { render, screen, within } from '@testing-library/react';
@@ -16,15 +13,15 @@ import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { dependencies } from '~/server/start';
 
 
-jest.mock('~/server/start', () => ({
+vi.mock('~/server/start', () => ({
 	dependencies: {
 		actualitesDependencies: {
 			consulterActualitesUseCase: {
-				handle: jest.fn(),
+				handle: vi.fn(),
 			},
 		},
 		cmsDependencies: {
-			duréeDeValiditéEnSecondes: jest.fn(),
+			duréeDeValiditéEnSecondes: vi.fn(),
 		},
 	},
 }));
@@ -50,7 +47,7 @@ describe('Page Actualités', () => {
 		});
 
 		it('appelle le serveur pour récupérer les actualités', async () => {
-			jest.spyOn(dependencies.actualitesDependencies.consulterActualitesUseCase, 'handle').mockResolvedValue(createSuccess(anActualiteList()));
+			vi.spyOn(dependencies.actualitesDependencies.consulterActualitesUseCase, 'handle').mockResolvedValue(createSuccess(anActualiteList()));
 
 			await getStaticProps();
 
@@ -58,7 +55,7 @@ describe('Page Actualités', () => {
 		});
 
 		it('lorsque la récupération est en échec, redirige vers la page 404', async () => {
-			jest.spyOn(dependencies.actualitesDependencies.consulterActualitesUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+			vi.spyOn(dependencies.actualitesDependencies.consulterActualitesUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 			const result = await getStaticProps();
 
@@ -67,7 +64,7 @@ describe('Page Actualités', () => {
 
 		describe('lorsque la récupération des actualités est en succès', () => {
 			it('transmet les props', async () => {
-				jest.spyOn(dependencies.actualitesDependencies.consulterActualitesUseCase, 'handle').mockResolvedValue(createSuccess([anActualite()]));
+				vi.spyOn(dependencies.actualitesDependencies.consulterActualitesUseCase, 'handle').mockResolvedValue(createSuccess([anActualite()]));
 
 				const result = await getStaticProps();
 

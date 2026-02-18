@@ -5,7 +5,7 @@ import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 export function aStageService(override?: Partial<StageService>): StageService {
 	return {
-		enregistrerOffreDeStage: jest.fn().mockResolvedValue(createSuccess(undefined)),
+		enregistrerOffreDeStage: vi.fn().mockResolvedValue(createSuccess(undefined)),
 		...override,
 	};
 }

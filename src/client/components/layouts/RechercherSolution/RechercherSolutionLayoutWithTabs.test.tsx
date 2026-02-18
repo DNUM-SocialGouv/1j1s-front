@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -148,7 +144,7 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 			});
 			
 			it('change les query params pour faire correspondre l‘onglet cliqué en conservant les autres query params', async () => {
-				const push = jest.fn();
+				const push = vi.fn();
 				mockUseRouter({ push, query: { autreQuery: '1', tab: '0' } });
 				const listSolutionElementTab = [{
 					label: 'tab1',

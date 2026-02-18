@@ -31,7 +31,7 @@ describe('ApiAdresseRepository', () => {
 	describe('getCommuneList', () => {
 		describe('quand la liste de communes est trouvée',() => {
 			it('retourne la liste des communes', async () => {
-				jest
+				vi
 					.spyOn(httpClientService, 'get')
 					.mockResolvedValue(aCacheAxiosResponse({
 						attribution: 'BAN',
@@ -130,10 +130,10 @@ describe('ApiAdresseRepository', () => {
 			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
 				const recherche = 'jou';
 				const errorHttp = anHttpError(400, 'q must contain at least 3 chars and start with a number or a letter');
-				jest
+				vi
 					.spyOn(httpClientService, 'get')
 					.mockRejectedValue(errorHttp);
-				jest
+				vi
 					.spyOn(errorManagementService, 'handleFailureError')
 					.mockReturnValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 

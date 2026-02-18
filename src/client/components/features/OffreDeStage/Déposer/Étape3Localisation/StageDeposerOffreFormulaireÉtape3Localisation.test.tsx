@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom';
-
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -29,18 +24,18 @@ import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 describe('<Localisation />', () => {
 	beforeEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 		mockUseRouter({});
 	});
 
 
 	describe('quand l’étape 1 n’est pas remplie', () => {
 		it('redirige vers l’étape 1 du formulaire', async () => {
-			const routerPush = jest.fn();
+			const routerPush = vi.fn();
 			mockUseRouter({ push: routerPush });
 			const stageService = aStageService();
 			const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
-				getInformationsEtape1: jest.fn().mockReturnValue(null),
+				getInformationsEtape1: vi.fn().mockReturnValue(null),
 			});
 
 			render(
@@ -59,14 +54,14 @@ describe('<Localisation />', () => {
 
 	describe('quand l’étape 2 n’est pas remplie', () => {
 		it('redirige vers l’étape 1 du formulaire', async () => {
-			const routerPush = jest.fn();
+			const routerPush = vi.fn();
 			mockUseRouter({ push: routerPush });
 			const stageService = aStageService();
 			const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
-				getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+				getInformationsEtape1: vi.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
 			});
 			const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
-				getInformationsEtape2: jest.fn().mockReturnValue(null),
+				getInformationsEtape2: vi.fn().mockReturnValue(null),
 			});
 
 			render(
@@ -90,10 +85,10 @@ describe('<Localisation />', () => {
 		it('il peut cliquer sur le bouton Retour pour retourner vers l’étape 2', async () => {
 			const stageService = aStageService();
 			const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
-				getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+				getInformationsEtape1: vi.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
 			});
 			const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
-				getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+				getInformationsEtape2: vi.fn().mockReturnValue(aFormulaireEtapeStage()),
 			});
 
 			render(
@@ -114,10 +109,10 @@ describe('<Localisation />', () => {
 		it('affiche la troisième étape de formulaire', () => {
 			const stageService = aStageService();
 			const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
-				getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+				getInformationsEtape1: vi.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
 			});
 			const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
-				getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+				getInformationsEtape2: vi.fn().mockReturnValue(aFormulaireEtapeStage()),
 			});
 
 			render(
@@ -145,10 +140,10 @@ describe('<Localisation />', () => {
 			const labelDepartement = 'Département Exemple : Yvelines';
 			const stageService = aStageService();
 			const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
-				getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+				getInformationsEtape1: vi.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
 			});
 			const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
-				getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+				getInformationsEtape2: vi.fn().mockReturnValue(aFormulaireEtapeStage()),
 			});
 
 			render(
@@ -171,15 +166,15 @@ describe('<Localisation />', () => {
 		it('le bouton de soumission est désactivé et affiche "Envoi en cours" pendant la soumission du formulaire', async () => {
 			// GIVEN
 			const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
-				getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+				getInformationsEtape1: vi.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
 			});
 			const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
-				getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+				getInformationsEtape2: vi.fn().mockReturnValue(aFormulaireEtapeStage()),
 			});
 
 			const user = userEvent.setup();
 			const stageService = aStageService();
-			jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(new Promise(() => {}));
+			vi.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(new Promise(() => {}));
 
 			render(
 				<DependenciesProvider
@@ -206,13 +201,13 @@ describe('<Localisation />', () => {
 			it('pré-remplit les champs avec les données déjà saisies', () => {
 				// GIVEN
 				const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
-					getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+					getInformationsEtape1: vi.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
 				});
 				const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
-					getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+					getInformationsEtape2: vi.fn().mockReturnValue(aFormulaireEtapeStage()),
 				});
 				const persistenceLocalisation = aStageDeposerOffreEtape3PersistenceService({
-					getInformationsEtape3: jest.fn().mockReturnValue(aFormulaireEtapeLocalisation()),
+					getInformationsEtape3: vi.fn().mockReturnValue(aFormulaireEtapeLocalisation()),
 				});
 
 				// WHEN
@@ -239,15 +234,15 @@ describe('<Localisation />', () => {
 		describe('modale d‘erreur', () => {
 			it('lorsque la soumission est en erreur, ouvre la modale d‘erreur', async () => {
 				const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
-					getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+					getInformationsEtape1: vi.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
 				});
 				const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
-					getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+					getInformationsEtape2: vi.fn().mockReturnValue(aFormulaireEtapeStage()),
 				});
 
 				const user = userEvent.setup();
-				const stageService = aStageService({ enregistrerOffreDeStage: jest.fn() });
-				jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
+				const stageService = aStageService({ enregistrerOffreDeStage: vi.fn() });
+				vi.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 
 				render(
 					<DependenciesProvider
@@ -268,15 +263,15 @@ describe('<Localisation />', () => {
 
 			it('lorsque je ferme la modale d‘erreur avec le bouton Fermer', async () => {
 				const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
-					getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+					getInformationsEtape1: vi.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
 				});
 				const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
-					getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+					getInformationsEtape2: vi.fn().mockReturnValue(aFormulaireEtapeStage()),
 				});
 
 				const user = userEvent.setup();
-				const stageService = aStageService({ enregistrerOffreDeStage: jest.fn() });
-				jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
+				const stageService = aStageService({ enregistrerOffreDeStage: vi.fn() });
+				vi.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 
 				render(
 					<DependenciesProvider
@@ -301,15 +296,15 @@ describe('<Localisation />', () => {
 
 			it('lorsque je ferme la modale d‘erreur avec le bouton Retour au formulaire', async () => {
 				const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
-					getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+					getInformationsEtape1: vi.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
 				});
 				const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
-					getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+					getInformationsEtape2: vi.fn().mockReturnValue(aFormulaireEtapeStage()),
 				});
 
 				const user = userEvent.setup();
-				const stageService = aStageService({ enregistrerOffreDeStage: jest.fn() });
-				jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
+				const stageService = aStageService({ enregistrerOffreDeStage: vi.fn() });
+				vi.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 
 				render(
 					<DependenciesProvider

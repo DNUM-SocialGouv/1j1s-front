@@ -1,3 +1,4 @@
+// @vitest-environment node
 
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';

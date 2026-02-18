@@ -1,6 +1,5 @@
-/**
- * @jest-environment jsdom
- */
+import { type Mock } from "vitest";
+
 
 import '~/test-utils';
 
@@ -18,11 +17,11 @@ import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anOffreEmploi, aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
 import { dependencies } from '~/server/start';
 
-jest.mock('~/server/start', () => ({
+vi.mock('~/server/start', () => ({
 	dependencies: {
 		offreJobEteDependencies: {
 			rechercherOffreJobEte: {
-				handle: jest.fn(),
+				handle: vi.fn(),
 			},
 		},
 	},
@@ -114,7 +113,7 @@ describe('Page rechercher un job d‘été', () => {
 
 		describe('getServerSideProps', () => {
 			beforeEach(() => {
-				jest.resetAllMocks();
+				vi.resetAllMocks();
 			});
 
 			describe('lorsque la recherche est lancée sans query params', () => {
@@ -129,7 +128,7 @@ describe('Page rechercher un job d‘été', () => {
 			describe('lorsque la recherche est lancée avec des query params', () => {
 				it('filtre les offres et retourne le résultat', async () => {
 					// GIVEN
-					(dependencies.offreJobEteDependencies.rechercherOffreJobEte.handle as jest.Mock).mockReturnValue(createSuccess(aRésultatsRechercheOffre()));
+					(dependencies.offreJobEteDependencies.rechercherOffreJobEte.handle as Mock).mockReturnValue(createSuccess(aRésultatsRechercheOffre()));
 
 					// WHEN
 					const result = await getServerSideProps(aGetServerSidePropsContext({ query: { page: '1' } }));
@@ -149,7 +148,7 @@ describe('Page rechercher un job d‘été', () => {
 					it('retourne une erreur de service indisponible et change le status de la page', async () => {
 						// GIVEN
 						const defaultStatusCode = 200;
-						jest.spyOn(dependencies.offreJobEteDependencies.rechercherOffreJobEte, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+						vi.spyOn(dependencies.offreJobEteDependencies.rechercherOffreJobEte, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 						const context = aGetServerSidePropsContext({
 							query: { page: '1' },

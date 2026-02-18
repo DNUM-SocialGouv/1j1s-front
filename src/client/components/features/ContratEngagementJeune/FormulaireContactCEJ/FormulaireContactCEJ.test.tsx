@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom';
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -19,8 +14,8 @@ describe('<FormulaireDeContactCEJ />', () => {
 	});
 	
 	function renderComponent() {
-		const onSuccess = jest.fn();
-		const onFailure = jest.fn();
+		const onSuccess = vi.fn();
+		const onFailure = vi.fn();
 		const demandeDeContactServiceMock = aDemandeDeContactService();
 		const localisationService = aLocalisationService();
 
@@ -80,7 +75,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 			it('le bouton de soumission est désactivé et affiche "Envoi en cours" pendant la soumission du formulaire', async () => {
 				// Given
 				const { demandeDeContactServiceMock } = renderComponent();
-				jest.spyOn(demandeDeContactServiceMock, 'envoyerPourLeCEJ').mockResolvedValueOnce(new Promise(() => {
+				vi.spyOn(demandeDeContactServiceMock, 'envoyerPourLeCEJ').mockResolvedValueOnce(new Promise(() => {
 				}));
 
 				// When

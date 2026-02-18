@@ -50,7 +50,7 @@ describe('YoutubeVideoService', () => {
 			expect(cookiesService.openPanel).toHaveBeenCalledTimes(1);
 		});
 		it('n’ouvre pas le panel quand possible d’accepter le cookie', () => {
-			const cookiesService = aCookiesService({ allowService: jest.fn() });
+			const cookiesService = aCookiesService({ allowService: vi.fn() });
 			const youtubeService = new YoutubeVideoService(cookiesService);
 
 			youtubeService.allow();

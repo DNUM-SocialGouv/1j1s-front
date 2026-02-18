@@ -14,6 +14,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "types": ["vitest/globals", "@testing-library/jest-dom/vitest"],
     "incremental": true,
     "baseUrl": "./",
     "paths": {
@@ -25,7 +26,8 @@
     "next-env.d.ts",
     "**/*.test.ts",
     "**/*.test.tsx",
-    "types.d.ts"
+    "types.d.ts",
+    "vitest-matchers.d.ts"
   ],
   "exclude": [
     "node_modules",

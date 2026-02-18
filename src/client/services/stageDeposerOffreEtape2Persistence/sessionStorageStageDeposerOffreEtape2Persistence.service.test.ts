@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { OffreDeStageDeposeeStage } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';

@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom';
-
 import {
 	render,
 	screen,
@@ -16,10 +11,12 @@ import {
 	mockUseRangeInput,
 } from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const spyOnUseRange = jest.spyOn(require('react-instantsearch'), 'useRange');
+import { useRange } from 'react-instantsearch';
+vi.mock('react-instantsearch');
 
-let refineMock: jest.Mock<string>;
+const spyOnUseRange = vi.mocked(useRange);
+
+let refineMock: Mock<string>;
 
 const renderMeilisearchCustomRangeInputComponent = () => {
 	render(
@@ -35,7 +32,7 @@ const renderMeilisearchCustomRangeInputComponent = () => {
 
 describe('<MeilisearchRange/>', ()=> {
 	beforeEach(() => {
-		refineMock = jest.fn();
+		refineMock = vi.fn();
 		spyOnUseRange.mockImplementation(() => mockUseRangeInput({
 			refine: refineMock,
 		}));

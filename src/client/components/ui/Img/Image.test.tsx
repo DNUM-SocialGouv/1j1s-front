@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { Image } from '~/client/components/ui/Img/Image';
@@ -16,7 +12,7 @@ describe('<Image />', () => {
 		expect(image).toHaveAttribute('src', expect.stringContaining('placeholder.webp'));
 	});
 	it('appelle onError quand une erreur survient', () => {
-		const onError = jest.fn();
+		const onError = vi.fn();
 		render(<Image src="/invalid" alt="" width={320} height={320} onError={onError} />);
 
 		const image = screen.getByRole('presentation');
