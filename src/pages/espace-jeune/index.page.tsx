@@ -75,14 +75,26 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 export async function getStaticProps(): Promise<GetStaticPropsResult<EspaceJeunePageProps>> {
 	const isEspaceJeuneVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
 	if (!isEspaceJeuneVisible) {
-		return { notFound: true };
+		return {
+			redirect: {
+				destination: '/services-jeunes',
+				permanent: false,
+			},
+			revalidate: 1,
+		};
 	}
 	
 	const serviceJeuneList = await dependencies.servicesJeunesDependencies.consulterLesServicesJeunesUseCase.handle();
 	const cartesActualitesResponse = await dependencies.actualitesDependencies.consulterActualitesUseCase.handle();
 
 	if (isFailure(serviceJeuneList) || isFailure(cartesActualitesResponse)) {
-		return { notFound: true, revalidate: 1 };
+		return {
+			props: {
+				cartesActualites: [],
+				serviceJeuneList: [],
+			},
+			revalidate: 1,
+		};
 	}
 
 	return {
@@ -93,4 +105,3 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<EspaceJeune
 		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
 	};
 }
-

@@ -40,7 +40,7 @@ describe('Page Services Jeunes', () => {
 		vi.clearAllMocks();
 	});
 
-	it('lorsque le feature flip old espace jeune est actif, redirige vers la page 404', async () => {
+	it('lorsque le feature flip old espace jeune est actif, redirige vers espace jeune', async () => {
 		// Given
 		process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '1';
 
@@ -48,7 +48,12 @@ describe('Page Services Jeunes', () => {
 		const result = await getStaticProps();
 
 		// Then
-		expect(result).toEqual({ notFound: true });
+		expect(result).toEqual({
+			redirect: {
+				destination: '/espace-jeune',
+				permanent: false,
+			},
+		});
 	});
 	describe('lorsque le feature flip old espace jeune est désactivé', () => {
 		beforeEach(() => {
@@ -119,7 +124,7 @@ describe('Page Services Jeunes', () => {
 			expect(dependencies.servicesJeunesDependencies.consulterLesServicesJeunesUseCase.handle).toHaveBeenCalledTimes(1);
 		});
 
-		it('quand le service est indisponible, retourne une 404', async () => {
+		it('quand le service est indisponible, retourne une page avec une liste vide', async () => {
 			// Given
 			vi.spyOn(dependencies.servicesJeunesDependencies.consulterLesServicesJeunesUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
@@ -127,7 +132,12 @@ describe('Page Services Jeunes', () => {
 			const result = await getStaticProps();
 
 			// Then
-			expect(result).toEqual({ notFound: true, revalidate: 1 });
+			expect(result).toEqual({
+				props: {
+					serviceJeuneList: [],
+				},
+				revalidate: 1,
+			});
 		});
 
 		describe('Si des services jeunes sont récupérés', () => {

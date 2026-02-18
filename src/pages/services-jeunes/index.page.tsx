@@ -96,12 +96,22 @@ export default function ServicesJeunesPage({ serviceJeuneList }: ServicesJeunePa
 export async function getStaticProps(): Promise<GetStaticPropsResult<ServicesJeunePageProps>> {
 	const isServicesJeunesVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0';
 	if (!isServicesJeunesVisible) {
-		return { notFound: true };
+		return {
+			redirect: {
+				destination: '/espace-jeune',
+				permanent: false,
+			},
+		};
 	}
 	
 	const serviceJeuneList = await dependencies.servicesJeunesDependencies.consulterLesServicesJeunesUseCase.handle();
 	if (isFailure(serviceJeuneList)) {
-		return { notFound: true, revalidate: 1 };
+		return {
+			props: {
+				serviceJeuneList: [],
+			},
+			revalidate: 1,
+		};
 	}
 
 	return {
@@ -172,4 +182,3 @@ function EtiquettesFiltresCliquables({ filtreList, toggle }: EtiquettesFiltresCl
 			)} />
 	);
 }
-

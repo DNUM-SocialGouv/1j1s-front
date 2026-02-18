@@ -21,12 +21,18 @@ describe('Page Espace Jeune', () => {
 		vi.clearAllMocks();
 	});
 
-	it('lorsque le feature flip ne permet pas l‘accès à la page, redirige vers la page 404', async () => {
+	it('lorsque le feature flip ne permet pas l‘accès à la page, redirige vers services jeunes', async () => {
 		process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
 
 		const result = await getStaticProps();
 
-		expect(result).toEqual({ notFound: true });
+		expect(result).toEqual({
+			redirect: {
+				destination: '/services-jeunes',
+				permanent: false,
+			},
+			revalidate: 1,
+		});
 	});
 
 	describe('lorsque le feature flip rend visible la page', () => {
