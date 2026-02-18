@@ -7,7 +7,6 @@ import { NiveauDEtudesLibelle } from '~/server/emplois-europe/domain/niveauDEtud
 import { LEVEL_CODE, LEVEL_NAME } from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailResponse,
-	ApiEuresEmploiEuropeDetailXML,
 	ApiEuresEmploiEuropeDetailXMLNiveauEtudeAPIEures as NiveauEtudeAPIEures,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import {

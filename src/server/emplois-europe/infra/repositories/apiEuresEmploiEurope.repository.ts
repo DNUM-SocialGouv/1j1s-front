@@ -8,7 +8,6 @@ import { NiveauDEtudeValue } from '~/server/emplois-europe/domain/niveauDEtudes'
 import {
 	ApiEuresEmploiEuropeDetailItem,
 	ApiEuresEmploiEuropeDetailResponse,
-	ApiEuresEmploiEuropeDetailXML,
 	ApiEuresEmploiEuropeDetailXMLNiveauEtudeAPIEures as NiveauEtudeAPIEures,
 	ApiEuresEmploiEuropeRechercheRequestBody,
 	ApiEuresEmploiEuropeRechercheResponse,

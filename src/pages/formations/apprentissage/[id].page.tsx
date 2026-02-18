@@ -10,7 +10,7 @@ import { isFailure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { GetServerSidePropsResult } from '~/server/errors/getServerSidePropsResultWithError';
 import { handleGetServerSidePropsError } from '~/server/errors/handleGetServerSidePropsError';
-import { Formation, FormationFiltre, FormationFiltreAvecCodeCertification } from '~/server/formations/domain/formation';
+import { Formation, FormationFiltreAvecCodeCertification } from '~/server/formations/domain/formation';
 import { Statistique } from '~/server/formations/domain/statistique';
 import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 import { dependencies } from '~/server/start';

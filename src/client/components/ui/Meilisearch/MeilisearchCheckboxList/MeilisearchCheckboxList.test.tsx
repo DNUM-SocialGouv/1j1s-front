@@ -16,12 +16,12 @@ vi.mock('react-instantsearch');
 
 const spyed = vi.mocked(useRefinementList);
 
-let refineMock: Mock<string>;
+let refineMock: ReturnType<typeof vi.fn<(value: string) => void>>;
 
 describe('<MeilisearchCheckboxList/>', () => {
 	beforeEach(() => {
 		// GIVEN
-		refineMock = vi.fn();
+		refineMock = vi.fn<(value: string) => void>();
 		spyed.mockImplementation(() => mockUseRefinementList({
 	  items: [
 				generateRefinementListItem({ label: 'studio', value: 'studio' }),
@@ -65,7 +65,7 @@ describe('<MeilisearchCheckboxList/>', () => {
 
 	describe('lorsque la liste des suggestions est vide', () => {
 		beforeEach(() => {
-			refineMock = vi.fn();
+			refineMock = vi.fn<(value: string) => void>();
 			spyed
 				.mockImplementation(() => mockUseRefinementList({
 					items: [],

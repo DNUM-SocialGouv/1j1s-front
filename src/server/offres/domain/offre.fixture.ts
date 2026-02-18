@@ -2,7 +2,6 @@ import { EmploiFiltre } from '~/server/emplois/domain/emploi';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import {
 	CONTRAT_CDD,
-	CONTRAT_CDI,
 	CONTRAT_INTÉRIMAIRE,
 	CONTRAT_SAISONNIER,
 	Offre,

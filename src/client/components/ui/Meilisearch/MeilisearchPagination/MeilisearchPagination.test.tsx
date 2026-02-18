@@ -1,5 +1,3 @@
-import { type Mock } from 'vitest';
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
@@ -16,7 +14,7 @@ declare type CreateURL<TValue> = (value: TValue) => string;
 const spyed = vi.mocked(usePagination);
 
 let createUrlMock: CreateURL<number>;
-let refineMock:  Mock<number>;
+let refineMock: ReturnType<typeof vi.fn<(page: number) => void>>;
 
 const REVENIR_A_LA_PREMIERE_PAGE = 'Revenir à la première page';
 const REVENIR_A_LA_PAGE_PRECEDENTE = 'Revenir à la page précédente';
@@ -148,7 +146,7 @@ describe('<MeilisearchPagination/>', () => {
 			beforeEach(() => {
 				// GIVEN
 				createUrlMock = vi.fn().mockImplementation((page) => `#?page=${page}`);
-				refineMock = vi.fn();
+				refineMock = vi.fn<(page: number) => void>();
 				spyed.mockImplementation(() => mockUsePagination(
 					{
 						createURL: createUrlMock,
@@ -299,7 +297,7 @@ describe('<MeilisearchPagination/>', () => {
 			beforeEach(() => {
 				// GIVEN
 				createUrlMock = vi.fn().mockImplementation((page) => `#?page=${page}`);
-				refineMock = vi.fn();
+				refineMock = vi.fn<(page: number) => void>();
 				spyed.mockImplementation(() => mockUsePagination(
 					{
 						createURL: createUrlMock,
@@ -327,7 +325,7 @@ describe('<MeilisearchPagination/>', () => {
 			beforeEach(() => {
 				// GIVEN
 				createUrlMock = vi.fn().mockImplementation((page) => `#?page=${page}`);
-				refineMock = vi.fn();
+				refineMock = vi.fn<(page: number) => void>();
 				spyed.mockImplementation(() => mockUsePagination(
 					{
 						createURL: createUrlMock,

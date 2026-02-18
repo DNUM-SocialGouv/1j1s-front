@@ -22,7 +22,11 @@ export default function AutresBesoins26ans(
 		const form = event.currentTarget;
 		const formData = new FormData(form);
 		const isMoreThanOneCheckboxSelected = formData.getAll(NAME_CHECKBOX).length > 0;
-		isMoreThanOneCheckboxSelected ? setIsMissionLocaleModalOpen(true) : setIsInscriptionFranceTravailModalOpen(true);
+		if (isMoreThanOneCheckboxSelected) {
+			setIsMissionLocaleModalOpen(true);
+		} else {
+			setIsInscriptionFranceTravailModalOpen(true);
+		}
 	}
 
 	return (

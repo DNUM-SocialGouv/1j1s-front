@@ -7,7 +7,8 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useSanitize from '~/client/hooks/useSanitize';
 import { DateService } from '~/client/services/date/date.service';
-import { Alternance, AlternanceContrat, AlternanceSource } from '~/server/alternances/domain/alternance';
+import type { Alternance } from '~/server/alternances/domain/alternance';
+import { AlternanceContrat, AlternanceSource } from '~/server/alternances/domain/alternance';
 import { AlternanceStatus } from '~/server/alternances/infra/status';
 
 import styles from './DetailAlternance.module.scss';

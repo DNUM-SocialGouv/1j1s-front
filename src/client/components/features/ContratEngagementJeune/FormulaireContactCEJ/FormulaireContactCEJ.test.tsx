@@ -75,7 +75,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 			it('le bouton de soumission est désactivé et affiche "Envoi en cours" pendant la soumission du formulaire', async () => {
 				// Given
 				const { demandeDeContactServiceMock } = renderComponent();
-				vi.spyOn(demandeDeContactServiceMock, 'envoyerPourLeCEJ').mockResolvedValueOnce(new Promise(() => {
+				vi.spyOn(demandeDeContactServiceMock, 'envoyerPourLeCEJ').mockImplementationOnce(() => new Promise(() => {
 				}));
 
 				// When
@@ -183,5 +183,4 @@ async function remplirFormulaireDeContactEtEnvoyer(data: ContactInputs) {
 
 	await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
 }
-
 

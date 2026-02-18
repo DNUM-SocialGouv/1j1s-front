@@ -174,7 +174,7 @@ describe('<Localisation />', () => {
 
 			const user = userEvent.setup();
 			const stageService = aStageService();
-			vi.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(new Promise(() => {}));
+			vi.spyOn(stageService, 'enregistrerOffreDeStage').mockImplementation(() => new Promise(() => {}));
 
 			render(
 				<DependenciesProvider

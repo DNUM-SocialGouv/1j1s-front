@@ -6,7 +6,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aDateService } from '~/client/services/date/date.service.fixture';
 import { aStorageService } from '~/client/services/storage/storage.service.fixture';
-import { Alternance, AlternanceSource } from '~/server/alternances/domain/alternance';
+import { AlternanceSource } from '~/server/alternances/domain/alternance';
 import { AlternanceStatus } from '~/server/alternances/infra/status';
 import { queries } from '~/test-utils';
 

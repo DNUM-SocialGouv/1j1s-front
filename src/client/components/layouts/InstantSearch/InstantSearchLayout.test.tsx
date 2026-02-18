@@ -25,13 +25,20 @@ describe('<InstantSearchLayout />', () => {
 		mockLargeScreen();
 		mockUseRouter({});
 
-		spyOnUseStats.mockImplementation(() => ({ nbHits: 2 }));
+		spyOnUseStats.mockImplementation(() => ({
+			areHitsSorted: false,
+			nbHits: 2,
+			nbPages: 1,
+			page: 0,
+			processingTimeMS: 0,
+			query: '',
+		}));
 		spyOnUseInstantSearch.mockImplementation(() => mockUseInstantSearch({
 			error: undefined,
-			results: { __isArtificial: false },
+			results: { __isArtificial: false } as never,
 		}));
-		spyOnInstantSearch.mockImplementation(({ children }: { children: React.ReactNode }) => {
-			return <>{children}</>;
+		spyOnInstantSearch.mockImplementation((props) => {
+			return <>{props.children}</>;
 		});
 		spyedPagination.mockImplementation(() => mockUsePagination({
 			currentRefinement: 2,

@@ -32,7 +32,6 @@ import {
 	SelectSimpleActionOpenList,
 	SelectSimpleActionPreviousOption,
 	SelectSimpleActionSelectOption,
-	SelectSimpleActionSetValueTypedByUser,
 	SelectSimpleActionToggleList,
 	SelectSimpleReducer,
 } from './SelectSimpleReducer';

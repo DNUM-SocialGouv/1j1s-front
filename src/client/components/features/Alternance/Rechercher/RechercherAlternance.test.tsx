@@ -9,7 +9,7 @@ import { LocalisationService } from '~/client/services/localisation/localisation
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { MetierService } from '~/client/services/metiers/metier.service';
-import { Alternance, AlternanceSource } from '~/server/alternances/domain/alternance';
+import { AlternanceSource } from '~/server/alternances/domain/alternance';
 import {
 	aRechercheAlternance,
 	aRechercheEntrepriseAlternance,

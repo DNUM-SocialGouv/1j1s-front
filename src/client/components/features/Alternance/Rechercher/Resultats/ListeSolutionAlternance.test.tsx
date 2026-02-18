@@ -4,7 +4,7 @@ import {
 	ListeSolutionAlternance,
 } from '~/client/components/features/Alternance/Rechercher/Resultats/ListeSolutionAlternance';
 import { mockSmallScreen } from '~/client/components/window.mock';
-import { Alternance, AlternanceSource } from '~/server/alternances/domain/alternance';
+import { AlternanceSource } from '~/server/alternances/domain/alternance';
 import { aRechercheMatchaAlternance, aRecherchePEJobAlternance } from '~/server/alternances/domain/alternance.fixture';
 
 describe('les tags', () => {

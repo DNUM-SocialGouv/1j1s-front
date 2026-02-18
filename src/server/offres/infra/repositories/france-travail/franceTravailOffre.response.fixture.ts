@@ -3,7 +3,6 @@ import {
 	OffreResponseCompétence,
 	OffreResponseFormation,
 	OffreResponseQualitéeProfessionnelle,
-	RésultatsRechercheOffreResponse,
 	RésultatsRechercheOffreResponseFiltresPossibles,
 } from '~/server/offres/infra/repositories/france-travail/franceTravailOffre.response';
 

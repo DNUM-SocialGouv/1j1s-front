@@ -203,7 +203,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				type: TypeÉtablissement.MISSION_LOCALE,
 			});
 			const établissementAccompagnementService = anEtablissementAccompagnementService();
-			vi.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(new Promise(() => {
+			vi.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockImplementation(() => new Promise(() => {
 			}));
 			render(
 				<DependenciesProvider

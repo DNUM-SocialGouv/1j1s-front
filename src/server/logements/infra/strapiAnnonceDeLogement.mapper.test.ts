@@ -1,4 +1,4 @@
-import { AnnonceDeLogement, AnnonceDeLogementService } from '~/server/logements/domain/annonceDeLogement';
+import { AnnonceDeLogementService } from '~/server/logements/domain/annonceDeLogement';
 import { anAnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement.fixture';
 import { aStrapiAnnonceDeLogement } from '~/server/logements/infra/strapiAnnonceDeLogement.fixture';
 import { mapAnnonceLogement } from '~/server/logements/infra/strapiAnnonceDeLogement.mapper';

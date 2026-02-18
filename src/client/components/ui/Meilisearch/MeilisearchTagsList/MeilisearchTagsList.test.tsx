@@ -13,11 +13,12 @@ import {
 } from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 
 import { useCurrentRefinements } from 'react-instantsearch';
+import { CurrentRefinementsConnectorParamsRefinement } from 'instantsearch.js/es/connectors/current-refinements/connectCurrentRefinements';
 vi.mock('react-instantsearch');
 
 const spyOnUseCurrentRefinements = vi.mocked(useCurrentRefinements);
 
-let refineMock: Mock<string>;
+let refineMock: ReturnType<typeof vi.fn<(refinement: CurrentRefinementsConnectorParamsRefinement) => void>>;
 
 describe('MeilisearchTagsList', () => {
 	describe('quand il n‘y a pas d‘étiquettes à afficher', () => {
@@ -65,7 +66,7 @@ describe('MeilisearchTagsList', () => {
 	  });
 
 	  it('supprime l‘étiquette au clic sur le bouton', async () => {
-	    refineMock = vi.fn();
+			refineMock = vi.fn<(refinement: CurrentRefinementsConnectorParamsRefinement) => void>();
 			spyOnUseCurrentRefinements.mockImplementation(() => mockUseCurrentRefinements({
 		  items: [aTypeBienItem()],
 		  refine: refineMock,

@@ -1171,7 +1171,7 @@ En vous remerciant,
 				// GIVEN
 				const user = userEvent.setup();
 				const stage3eEt2deService = aStage3eEt2deService();
-				vi.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(new Promise(() => {
+				vi.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockImplementation(() => new Promise(() => {
 				}));
 				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de({
 					appellations: [

@@ -3,7 +3,7 @@ import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEur
 import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailItem,
-	ApiEuresEmploiEuropeDetailResponse, ApiEuresEmploiEuropeDetailXML,
+	ApiEuresEmploiEuropeDetailResponse,
 	ApiEuresEmploiEuropeDetailXMLNiveauEtudeAPIEures as NiveauEtudeAPIEures,
 	ApiEuresEmploiEuropeRechercheResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';

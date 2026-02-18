@@ -2,7 +2,6 @@ import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixt
 import { NiveauDEtudeValue } from '~/server/emplois-europe/domain/niveauDEtudes';
 import {
 	ApiEuresEmploiEuropeDetailResponse,
-	ApiEuresEmploiEuropeDetailXML,
 	ApiEuresEmploiEuropeDetailXMLNiveauEtudeAPIEures as NiveauEtudeAPIEures,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import {

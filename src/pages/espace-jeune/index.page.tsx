@@ -75,13 +75,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 export async function getStaticProps(): Promise<GetStaticPropsResult<EspaceJeunePageProps>> {
 	const isEspaceJeuneVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '1';
 	if (!isEspaceJeuneVisible) {
-		return {
-			redirect: {
-				destination: '/services-jeunes',
-				permanent: false,
-			},
-			revalidate: 1,
-		};
+		return { notFound: true, revalidate: 1 };
 	}
 	
 	const serviceJeuneList = await dependencies.servicesJeunesDependencies.consulterLesServicesJeunesUseCase.handle();

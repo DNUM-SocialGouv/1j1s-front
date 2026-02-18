@@ -1,7 +1,6 @@
 import {
 	Mission,
 	MissionEngagementDomaine,
-	MissionEngagementRechercheBenevolat,
 	MissionEngagementRechercheServiceCivique,
 	RésultatsRechercheMission,
 } from './engagement';

@@ -40,7 +40,7 @@ describe('Page Services Jeunes', () => {
 		vi.clearAllMocks();
 	});
 
-	it('lorsque le feature flip old espace jeune est actif, redirige vers espace jeune', async () => {
+	it('lorsque le feature flip old espace jeune est actif, redirige vers la page 404', async () => {
 		// Given
 		process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '1';
 
@@ -48,12 +48,7 @@ describe('Page Services Jeunes', () => {
 		const result = await getStaticProps();
 
 		// Then
-		expect(result).toEqual({
-			redirect: {
-				destination: '/espace-jeune',
-				permanent: false,
-			},
-		});
+		expect(result).toEqual({ notFound: true });
 	});
 	describe('lorsque le feature flip old espace jeune est désactivé', () => {
 		beforeEach(() => {

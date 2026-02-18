@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import React from 'react';
 
 import { Services } from '~/client/components/features/Logement/Consulter/Services';
-import { AnnonceDeLogement, AnnonceDeLogementService as Service } from '~/server/logements/domain/annonceDeLogement';
+import { AnnonceDeLogementService as Service } from '~/server/logements/domain/annonceDeLogement';
 
 describe('<Services />', () => {
 	it('affiche une section', async () => {

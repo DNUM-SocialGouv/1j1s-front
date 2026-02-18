@@ -1,4 +1,4 @@
-import { Offre, OffreFormation } from '~/server/offres/domain/offre';
+import { OffreFormation } from '~/server/offres/domain/offre';
 import {
 	mapCodeInsee,
 	mapCompétenceList,

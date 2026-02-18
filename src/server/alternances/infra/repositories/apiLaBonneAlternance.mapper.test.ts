@@ -1,4 +1,4 @@
-import { Alternance, AlternanceSource } from '~/server/alternances/domain/alternance';
+import { AlternanceSource } from '~/server/alternances/domain/alternance';
 import {
 	aDetailMatchaAlternance,
 	aDetailPEJobAlternance,

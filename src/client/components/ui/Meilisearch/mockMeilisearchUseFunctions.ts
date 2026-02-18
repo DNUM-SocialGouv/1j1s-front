@@ -4,11 +4,12 @@ import {
 	CurrentRefinementsRenderState,
 } from 'instantsearch.js/es/connectors/current-refinements/connectCurrentRefinements';
 import type { PaginationRenderState } from 'instantsearch.js/es/connectors/pagination/connectPagination';
-import { RangeRenderState } from 'instantsearch.js/es/connectors/range/connectRange';
+import { RangeBoundaries, RangeRenderState } from 'instantsearch.js/es/connectors/range/connectRange';
 import {
 	RefinementListItem,
 	RefinementListRenderState,
 } from 'instantsearch.js/es/connectors/refinement-list/connectRefinementList';
+import { useInstantSearch } from 'react-instantsearch';
 
 function* idMaker() {
 	let index = 0;
@@ -19,14 +20,16 @@ function* idMaker() {
 const gen = idMaker();
 
 export function mockUsePagination(override: Partial<PaginationRenderState>) {
-	const result = {
+	const result: PaginationRenderState = {
 		createURL: vi.fn().mockReturnValue('#'),
+		canRefine: true,
 		currentRefinement: 1,
 		isFirstPage: false,
 		isLastPage: false,
 		nbHits: 100,
+		nbPages: 3,
 		pages: [0, 1, 2],
-		refine: vi.fn(),
+		refine: vi.fn<(page: number) => void>(),
 		...override,
 	};
 	return result;
@@ -60,28 +63,40 @@ export function generateRefinementListItem(override: Partial<RefinementListItem>
 	};
 }
 
-export function mockUseInstantSearch(override: Partial<unknown>) {
+export function mockUseInstantSearch(override: Partial<ReturnType<typeof useInstantSearch>>) {
 	return {
-		error: vi.fn(),
+		addMiddlewares: vi.fn().mockReturnValue(() => undefined),
+		error: undefined,
+		indexRenderState: {},
+		indexUiState: {},
 		refresh: vi.fn(),
-		status: vi.fn(),
-		use: vi.fn(),
+		renderState: {},
+		results: { __isArtificial: false },
+		scopedResults: [],
+		setIndexUiState: vi.fn(),
+		setUiState: vi.fn(),
+		status: 'idle',
+		uiState: {},
 		...override,
-	};
+	} as unknown as ReturnType<typeof useInstantSearch>;
 }
 
 export function mockUseRangeInput(override: Partial<RangeRenderState>) {
-	return {
-		canRefine: true,
-		range: {
+	const result: RangeRenderState = {
+		canRefine: override.canRefine ?? true,
+		format: override.format ?? {
+			from: (fromValue: number) => `${fromValue}`,
+			to: (toValue: number) => `${toValue}`,
+		},
+		range: override.range ?? {
 			max: 200,
 			min: 0,
 		},
-		refine: vi.fn(),
-		sendEvent: vi.fn(),
-		start: [0, 2000],
-		...override,
+		refine: override.refine ?? vi.fn<(rangeValue: RangeBoundaries) => void>(),
+		sendEvent: override.sendEvent ?? vi.fn(),
+		start: override.start ?? ([0, 2000] as RangeBoundaries),
 	};
+	return result;
 }
 
 export const aDisjunctiveImmeubleItemRefinement = (): CurrentRefinementsConnectorParamsRefinement => {
@@ -122,7 +137,7 @@ export function mockUseCurrentRefinements(override: Partial<CurrentRefinementsRe
 		canRefine: true,
 		createURL: vi.fn(),
 		items: [aTypeBienItem()],
-		refine: vi.fn,
+		refine: vi.fn(),
 		...override,
 	};
 }

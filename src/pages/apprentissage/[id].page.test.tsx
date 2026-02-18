@@ -10,7 +10,7 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import { aDateService } from '~/client/services/date/date.service.fixture';
 import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import AnnonceAlternancePage, { AlternanceSerialized } from '~/pages/apprentissage/[id].page';
-import { Alternance, AlternanceSource } from '~/server/alternances/domain/alternance';
+import { AlternanceSource } from '~/server/alternances/domain/alternance';
 
 const alternanceSerialized: AlternanceSerialized = {
 	compétences: ['savoir faire'],

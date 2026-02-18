@@ -6,15 +6,16 @@ import { MeilisearchRangeForModal } from '~/client/components/ui/Meilisearch/Mei
 import { mockUseRangeInput } from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 
 import { useRange } from 'react-instantsearch';
+import { RangeBoundaries } from 'instantsearch.js/es/connectors/range/connectRange';
 vi.mock('react-instantsearch');
 
 const spyOnUseRange = vi.mocked(useRange);
 
-let refineMock: Mock<string>;
+let refineMock: ReturnType<typeof vi.fn<(rangeValue: RangeBoundaries) => void>>;
 
 describe('MeilisearchCustomRangeForModalInput', () => {
 	beforeEach(() => {
-		refineMock = vi.fn();
+		refineMock = vi.fn<(rangeValue: RangeBoundaries) => void>();
 		spyOnUseRange.mockImplementation(() => mockUseRangeInput({
 			refine: refineMock,
 		}));

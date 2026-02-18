@@ -2,7 +2,6 @@ import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailItem,
 	ApiEuresEmploiEuropeDetailResponse,
-	ApiEuresEmploiEuropeDetailXML,
 	ApiEuresEmploiEuropeDetailXMLNiveauEtudeAPIEures as NiveauEtudeAPIEures,
 	ApiEuresEmploiEuropeRechercheRequestBody,
 	ApiEuresEmploiEuropeResponseJobVacancy,

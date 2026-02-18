@@ -96,12 +96,7 @@ export default function ServicesJeunesPage({ serviceJeuneList }: ServicesJeunePa
 export async function getStaticProps(): Promise<GetStaticPropsResult<ServicesJeunePageProps>> {
 	const isServicesJeunesVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0';
 	if (!isServicesJeunesVisible) {
-		return {
-			redirect: {
-				destination: '/espace-jeune',
-				permanent: false,
-			},
-		};
+		return { notFound: true };
 	}
 	
 	const serviceJeuneList = await dependencies.servicesJeunesDependencies.consulterLesServicesJeunesUseCase.handle();

@@ -14,7 +14,7 @@ export default function Bouée({ surface }: { surface: RefObject<HTMLElement> })
 		function onScroll() {
 			if (surface.current) {
 				const { y } = surface.current.getBoundingClientRect();
-				y < 0 ? setIsDown(true) : setIsDown(false);
+				setIsDown(y < 0);
 			}
 		}
 
