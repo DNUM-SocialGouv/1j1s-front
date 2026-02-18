@@ -7,11 +7,11 @@ import { Link } from '~/client/components/ui/Link/Link';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/faq/index.analytics';
 import styles from '~/pages/faq/index.module.scss';
-import { FAQ } from '~/server/faq/domain/FAQ';
+import { FAQQuestion } from '~/server/faq/domain/FAQ';
 import { dependencies } from '~/server/start';
 
 type FaqPageProps = {
-	listeDeQuestionRéponse: Array<FAQ.Question>
+	listeDeQuestionRéponse: Array<FAQQuestion>
 } 
 
 const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';

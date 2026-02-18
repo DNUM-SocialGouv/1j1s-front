@@ -4,9 +4,9 @@ import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
 
 export function aFAQRepository(override?:Partial<FAQRepository>): FAQRepository {
 	return {
-		getAllFAQ: jest.fn().mockResolvedValue(createSuccess(aListeDeQuestion())),
-		getFAQBySlug: jest.fn().mockResolvedValue(createSuccess(aQuestionEtReponse())),
-		listAllFAQSlug: jest.fn().mockResolvedValue(createSuccess(aListeFAQSlug())),
+		getAllFAQ: vi.fn().mockResolvedValue(createSuccess(aListeDeQuestion())),
+		getFAQBySlug: vi.fn().mockResolvedValue(createSuccess(aQuestionEtReponse())),
+		listAllFAQSlug: vi.fn().mockResolvedValue(createSuccess(aListeFAQSlug())),
 		...override,
 	};
 }

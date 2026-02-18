@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { BffEmploiEuropeService } from '~/client/services/europe/bff.emploiEurope.service';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 

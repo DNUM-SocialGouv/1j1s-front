@@ -4,9 +4,9 @@ import {
 	aStrapiSingleRelation,
 } from '~/server/cms/infra/repositories/strapi.fixture';
 
-import { StrapiListeActualites } from './strapiActualites';
+import { StrapiActualite, StrapiListeActualites } from './strapiActualites';
 
-export function aStrapiListeActualites(override?: Partial<StrapiListeActualites.ListeActualites>): StrapiListeActualites.ListeActualites {
+export function aStrapiListeActualites(override?: Partial<StrapiListeActualites>): StrapiListeActualites {
 	return {
 		listeActualites: [
 			aStrapiActualite(),
@@ -21,7 +21,7 @@ export function aStrapiListeActualites(override?: Partial<StrapiListeActualites.
 	};
 }
 
-export function aStrapiLongueListeActualites(override?: Partial<StrapiListeActualites.ListeActualites>): StrapiListeActualites.ListeActualites {
+export function aStrapiLongueListeActualites(override?: Partial<StrapiListeActualites>): StrapiListeActualites {
 	return {
 		listeActualites: [
 			aStrapiActualite({
@@ -63,7 +63,7 @@ export function aStrapiLongueListeActualites(override?: Partial<StrapiListeActua
 	};
 }
 
-export function aStrapiActualite(override?: Partial<StrapiListeActualites.Actualite>): StrapiListeActualites.Actualite {
+export function aStrapiActualite(override?: Partial<StrapiActualite>): StrapiActualite {
 	return {
 		article: aStrapiSingleRelation(aStrapiArticle()),
 		banniere: aStrapiSingleRelation(aStrapiImage()),

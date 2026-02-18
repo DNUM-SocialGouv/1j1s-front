@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import '~/test-utils';
 
 import { render, screen } from '@testing-library/react';
@@ -14,7 +11,7 @@ import { aStorageService } from '~/client/services/storage/storage.service.fixtu
 import ConsulterJobEtePage from '~/pages/jobs-ete/[id].page';
 import { anOffreEmploi } from '~/server/offres/domain/offre.fixture';
 
-jest.mock('next/head', () => HeadMock);
+vi.mock('next/head', () => ({ default: HeadMock }));
 
 describe('<ConsulterJobEtePage />', () => {
 	beforeEach(() => {

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent } from 'react';
 
 import styles
 	from '~/client/components/features/Engagement/Rechercher/FormulaireRecherche/FormulaireRechercheMissionEngagement.module.scss';
@@ -12,10 +12,10 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
-import { MissionEngagement } from '~/server/engagement/domain/engagement';
+import { MissionEngagementDomaine } from '~/server/engagement/domain/engagement';
 
 interface FormulaireRechercheMissionEngagementProps {
-	domainList: MissionEngagement.Domaine[]
+	domainList: MissionEngagementDomaine[]
 }
 
 export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireRechercheMissionEngagementProps) {
@@ -39,13 +39,6 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 		longitudeCommune,
 		ville,
 	});
-
-	const [ouvertAuxMineurs, setOuvertAuxMineurs] = useState<boolean>(false);
-
-
-	useEffect(function initFormValues() {
-		setOuvertAuxMineurs(queryParams.ouvertsAuxMineurs || false);
-	}, [queryParams]);
 
 	async function rechercherMission(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -84,8 +77,8 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 				<Checkbox
 					label="Dès 16 ans"
 					id="ouvertAuxMineurs"
-					checked={ouvertAuxMineurs}
-					onChange={() => setOuvertAuxMineurs(!ouvertAuxMineurs)}
+					key={queryParams.ouvertsAuxMineurs ? 'true' : 'false'}
+					defaultChecked={queryParams.ouvertsAuxMineurs || false}
 					name="ouvertsAuxMineurs"
 					value="true" />
 			</div>

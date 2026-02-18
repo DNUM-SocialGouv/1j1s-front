@@ -3,6 +3,6 @@ import { StatistiqueRepository } from '~/server/formations/domain/statistique.re
 
 export function aStatistiqueRepository(): StatistiqueRepository {
 	return {
-		get: jest.fn().mockResolvedValue(createSuccess(undefined)),
+		get: vi.fn().mockResolvedValue(createSuccess(undefined)),
 	};
 }

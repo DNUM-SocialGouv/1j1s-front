@@ -3,7 +3,7 @@ import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3
 export interface Stage3eEt2de {
 	accessiblePersonnesEnSituationDeHandicap: boolean,
 	nomEntreprise: string
-	adresse: Stage3eEt2de.Adresse
+	adresse: Stage3eEt2deAdresse
 	domaine: string
 	nombreDeSalaries?: string
 	modeDeContact?: ModeDeContact
@@ -12,13 +12,11 @@ export interface Stage3eEt2de {
 	appellationLibelle: string[]
 }
 
-export namespace Stage3eEt2de {
-	export interface Adresse {
-		codeDepartement: string
-		codePostal: string
-		rueEtNumero: string
-		ville: string
-	}
+export interface Stage3eEt2deAdresse {
+	codeDepartement: string
+	codePostal: string
+	rueEtNumero: string
+	ville: string
 }
 
 export interface ResultatRechercheStage3eEt2de {

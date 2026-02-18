@@ -1,12 +1,11 @@
 import {
-	ResultatRechercheEtablissementPublicResponse,
+	ResultatRechercheEtablissementPublicResponseAdresseParsed as Adresse,
+	ResultatRechercheEtablissementPublicResponseEtablissementPublic as EtablissementPublic,
+	ResultatRechercheEtablissementPublicResponseEtablissementsPublicList as EtablissementsPublicList,
+	ResultatRechercheEtablissementPublicResponsePivotParsed as Pivot,
+	ResultatRechercheEtablissementPublicResponsePlageOuvertureParsed as PlageOuverture,
+	ResultatRechercheEtablissementPublicResponseTelephoneParsed as Telephone,
 } from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.response';
-import EtablissementPublic = ResultatRechercheEtablissementPublicResponse.EtablissementPublic;
-import Pivot = ResultatRechercheEtablissementPublicResponse.PivotParsed;
-import Adresse = ResultatRechercheEtablissementPublicResponse.AdresseParsed;
-import Telephone = ResultatRechercheEtablissementPublicResponse.TelephoneParsed;
-import PlageOuverture = ResultatRechercheEtablissementPublicResponse.PlageOuvertureParsed;
-import EtablissementsPublicList = ResultatRechercheEtablissementPublicResponse.EtablissementsPublicList;
 
 
 export function aResultatRechercheEtablissementPublicListResponse(overrides?: Partial<EtablissementPublic>): EtablissementsPublicList {

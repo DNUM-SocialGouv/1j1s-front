@@ -1,15 +1,12 @@
-export namespace FAQ {
+export type FAQSlug = string
 
-	export type Slug = string
+export interface FAQQuestion {
+    problématique: string
+    slug: FAQSlug
+}
 
-	export interface Question {
-		problématique: string
-		slug: FAQ.Slug
-	}
-
-	export interface QuestionEtReponse extends Question {
-		contenu: string
-	}
+export interface FAQQuestionEtReponse extends FAQQuestion {
+    contenu: string
 }
 
 

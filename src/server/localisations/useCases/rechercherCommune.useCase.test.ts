@@ -22,7 +22,7 @@ describe('RechercherCommuneUseCase', () => {
 		it('renvoie la liste des communes en fonction de la recherche', async () => {
 			const rechercherCommuneUseCase = new RechercherCommuneUseCase(localisationAvecCoordonnéesRepository, configurationService);
       type ExpectedType = Awaited<ReturnType<typeof rechercherCommuneUseCase.handle>>
-      jest.spyOn(localisationAvecCoordonnéesRepository, 'getCommuneList').mockResolvedValue(createSuccess(aRésultatsRechercheCommune()));
+      vi.spyOn(localisationAvecCoordonnéesRepository, 'getCommuneList').mockResolvedValue(createSuccess(aRésultatsRechercheCommune()));
 
       const expected: ExpectedType = { instance: 'success', result: {
       	résultats: [{
@@ -54,7 +54,7 @@ describe('RechercherCommuneUseCase', () => {
 			configurationService = new ConfigurationServiceFixture({ NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: 3 });
 			const rechercherCommuneUseCase = new RechercherCommuneUseCase(localisationAvecCoordonnéesRepository, configurationService);
 			type ExpectedType = Awaited<ReturnType<typeof rechercherCommuneUseCase.handle>>
-			jest.spyOn(localisationAvecCoordonnéesRepository, 'getCommuneList');
+			vi.spyOn(localisationAvecCoordonnéesRepository, 'getCommuneList');
 
 			const expected: ExpectedType = { errorType: ErreurMetier.DEMANDE_INCORRECTE, instance: 'failure' };
 

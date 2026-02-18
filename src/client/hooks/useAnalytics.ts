@@ -26,7 +26,9 @@ function useAnalytics(pageTags: PageTags): ManualAnalyticsService {
 		};
 	}, [sendAnalytics]);
 
-	sendAnalytics();
+	useEffect(() => {
+		sendAnalytics();
+	}, [sendAnalytics]);
 
 	return analyticsService;
 }

@@ -1,7 +1,10 @@
-import { Alternance, AlternanceFiltre, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
+import type { Alternance} from '~/server/alternances/domain/alternance';
+import { AlternanceFiltre, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
 import {
 	AlternanceApiJobsResponse,
+	AlternanceApiJobsResponseMatcha,
+	AlternanceApiJobsResponsePEJobs,
 	apiLaBonneAlternanceSchemas,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 import {
@@ -59,7 +62,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 		try {
 			if (ApiLaBonneAlternanceRepository.isFranceTravailId(id)) {
 				const apiResponse = await this.httpClientService.get<{
-					peJobs: AlternanceApiJobsResponse.PEJobs[]
+					peJobs: AlternanceApiJobsResponsePEJobs[]
 				}>(`/v1/jobs/job/${id}`);
 				const apiValidationError = validateApiResponse(apiResponse.data, apiLaBonneAlternanceSchemas.getFranceTravail);
 				if (apiValidationError) {
@@ -74,7 +77,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 			}
 
 			const apiResponse = await this.httpClientService.get<{
-				matchas: AlternanceApiJobsResponse.Matcha[]
+				matchas: AlternanceApiJobsResponseMatcha[]
 			}>(`/v1/jobs/matcha/${id}`);
 			const validateSchemasResponse = validateApiResponse(apiResponse.data, apiLaBonneAlternanceSchemas.getMatcha);
 			if (validateSchemasResponse) {

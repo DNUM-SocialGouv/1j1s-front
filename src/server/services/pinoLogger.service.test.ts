@@ -3,21 +3,20 @@ import pino from 'pino';
 import { SentryException } from '~/server/exceptions/sentryException';
 import { PinoLoggerService } from '~/server/services/pinoLogger.service';
 
-jest.mock('pino');
+vi.mock('pino');
 
-const pinoMock = jest.mocked(pino);
+const pinoMock = vi.mocked(pino);
 const mockedLogger = {
-	debug: jest.fn(),
-	error: jest.fn(),
-	fatal: jest.fn(),
-	info: jest.fn(),
-	trace: jest.fn(),
-	warn: jest.fn(),
+	debug: vi.fn(),
+	error: vi.fn(),
+	fatal: vi.fn(),
+	info: vi.fn(),
+	trace: vi.fn(),
+	warn: vi.fn(),
 };
 pinoMock.mockImplementation(() => mockedLogger as unknown as pino.Logger<string>);
 
 // FIXME (GAFI 07-07-2025): Leak réseau, pino-sentry n'est pas mock-é
-// eslint-disable-next-line jest/no-disabled-tests
 describe.skip('PinoLoggerService', () => {
 	describe('error', () => {
 		it('appelle le logger error avec le message passé en paramètre', () => {

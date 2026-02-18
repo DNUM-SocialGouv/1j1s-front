@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import {
 	FormulaireRechercheAccompagnement,
@@ -41,23 +41,29 @@ export function RechercherAccompagnement() {
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 	const [title, setTitle] = useState<string | undefined>();
 
-	useEffect(function rechercherÉtablissementAccompagnement() {
-		if (!empty(accompagnementQuery)) {
-			setIsLoading(true);
-			setErreurRecherche(undefined);
-			établissementAccompagnementService.rechercher(accompagnementQuery)
-				.then((response) => {
-					if (isSuccess(response)) {
-						setTitle(formatRechercherSolutionDocumentTitle(`Rechercher un établissement d‘accompagnement ${response.result.length === 0 ? ' - Aucun résultat' : ''}`));
-						setÉtablissementAccompagnementList(response.result);
-					} else {
-						setTitle(formatRechercherSolutionDocumentTitle('Rechercher un établissement d‘accompagnement', response.errorType));
-						setErreurRecherche(response.errorType);
-					}
-					setIsLoading(false);
-				});
+	const rechercherÉtablissementAccompagnement = useCallback(async () => {
+		setIsLoading(true);
+		setErreurRecherche(undefined);
+		try {
+			const response = await établissementAccompagnementService.rechercher(accompagnementQuery);
+			if (isSuccess(response)) {
+				setTitle(formatRechercherSolutionDocumentTitle(`Rechercher un établissement d‘accompagnement ${response.result.length === 0 ? ' - Aucun résultat' : ''}`));
+				setÉtablissementAccompagnementList(response.result);
+			} else {
+				setTitle(formatRechercherSolutionDocumentTitle('Rechercher un établissement d‘accompagnement', response.errorType));
+				setErreurRecherche(response.errorType);
+			}
+		} finally {
+			setIsLoading(false);
 		}
 	}, [accompagnementQuery, établissementAccompagnementService]);
+
+	useEffect(function rechercherÉtablissementAccompagnementEffect() {
+		if (empty(accompagnementQuery)) {
+			return;
+		}
+		rechercherÉtablissementAccompagnement();
+	}, [accompagnementQuery, rechercherÉtablissementAccompagnement]);
 
 	const messageRésultatRecherche: string = useMemo(() => {
 		const messageRésultatRechercheSplit: string[] = [`${établissementAccompagnementList.length}`];
@@ -150,5 +156,4 @@ function ListeÉtablissementAccompagnement({ résultatList }: ListeRésultatProp
 		</ListeRésultatsRechercherSolution>
 	);
 }
-
 

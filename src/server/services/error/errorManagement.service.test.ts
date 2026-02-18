@@ -225,7 +225,7 @@ describe('DefaultErrorManagementService', () => {
 				const expectedLogDetails = new SentryException(
 					`[${logInformation.apiSource}] ${logInformation.message} (erreur interne)`,
 					{ context: logInformation.contexte, source: logInformation.apiSource },
-					{ error: internalError },
+					{ error: JSON.stringify(internalError) },
 				);
 
 				// WHEN
@@ -350,11 +350,13 @@ describe('DefaultErrorManagementService', () => {
 					},
 				],
 				{});
-			// NOTE DORO 2023-10-17: Jest ne permet pas de verifier le contenu d'un objet qui extend Error, on ne peut donc pas tester errorDetail
 			const expectedLogDetails = new SentryException(
 				`[${logInformation.apiSource}] ${logInformation.message} (erreur de validation)`,
 				{ context: logInformation.contexte, source: logInformation.apiSource },
-				{ errorDetail: validationError },
+				{ error: JSON.stringify({
+					detailsOfValidationError: validationError.detailsOfValidationError,
+					originalResponse: validationError.originalResponse,
+				}) },
 			);
 
 			// WHEN

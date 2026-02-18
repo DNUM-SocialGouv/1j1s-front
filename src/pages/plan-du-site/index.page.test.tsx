@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';

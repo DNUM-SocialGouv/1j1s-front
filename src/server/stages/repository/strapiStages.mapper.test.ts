@@ -6,10 +6,18 @@ import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesS
 import { aStrapiOffreDeStage, aStrapiOffreDeStageDepot } from '~/server/stages/repository/strapiStages.fixture';
 import { mapOffreStage, mapToStrapiDepotOffreDeStage } from '~/server/stages/repository/strapiStages.mapper';
 
-const uuidMocked = '123456789';
-jest.mock('crypto', () => {
-	return ({ randomUUID: () => uuidMocked });
+const { mockRandomUUID } = vi.hoisted(() => ({
+	mockRandomUUID: vi.fn(() => '123456789'),
+}));
+vi.mock('crypto', async (importOriginal) => {
+	const actual = await importOriginal<typeof import('crypto')>();
+	return ({ ...actual, default: { ...actual, randomUUID: mockRandomUUID }, randomUUID: mockRandomUUID });
 });
+vi.mock('node:crypto', async (importOriginal) => {
+	const actual = await importOriginal<typeof import('crypto')>();
+	return ({ ...actual, default: { ...actual, randomUUID: mockRandomUUID }, randomUUID: mockRandomUUID });
+});
+const uuidMocked = '123456789';
 
 describe('strapiStage mapper', () => {
 	describe('mapOffreDeStage', () => {

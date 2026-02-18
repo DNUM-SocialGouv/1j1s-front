@@ -1,17 +1,16 @@
 import { StageService } from '~/client/services/stage/stage.service';
 import { createSuccess } from '~/server/errors/either';
-import { OffreStageDepot } from '~/server/stages/domain/stages';
+import { OffreDeStageDepot, OffreStageDepotEmployeur } from '~/server/stages/domain/stages';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
-import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
 
 export function aStageService(override?: Partial<StageService>): StageService {
 	return {
-		enregistrerOffreDeStage: jest.fn().mockResolvedValue(createSuccess(undefined)),
+		enregistrerOffreDeStage: vi.fn().mockResolvedValue(createSuccess(undefined)),
 		...override,
 	};
 }
 
-export function anEmployeurDepotStage(overrides?: Partial<OffreStageDepot.EmployeurDepotStage>): OffreStageDepot.EmployeurDepotStage {
+export function anEmployeurDepotStage(overrides?: Partial<OffreStageDepotEmployeur>): OffreStageDepotEmployeur {
 	return {
 		description: 'description entreprise',
 		email: 'example@example.com',

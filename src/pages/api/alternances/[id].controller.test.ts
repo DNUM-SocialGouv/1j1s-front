@@ -1,3 +1,4 @@
+// @vitest-environment node
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
@@ -11,7 +12,7 @@ import getAlternanceHandler from './[id].controller';
 
 describe('rechercher alternance', () => {
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 	it('retourne une alternance', async () => {
 		mockGetCurrentScope({});
@@ -32,7 +33,7 @@ describe('rechercher alternance', () => {
 		});
 	});
 	it('report du monitoring', async () => {
-		const mockSetTag = jest.fn();
+		const mockSetTag = vi.fn();
 		mockGetCurrentScope({ setTag: mockSetTag });
 
 		const alternanceId = '63c53c3566193e05691e9ce1';

@@ -3,7 +3,6 @@ import React, {
 	FocusEvent,
 	FormEventHandler,
 	KeyboardEvent,
-	RefObject,
 	SyntheticEvent,
 	useCallback,
 	useEffect,
@@ -12,7 +11,6 @@ import React, {
 	useMemo,
 	useReducer,
 	useRef,
-	useState,
 } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
@@ -24,7 +22,19 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useTouchedInput } from '~/client/hooks/useTouchedInput';
 
 import styles from '../Select.module.scss';
-import { getOptionsElement, SelectSimpleAction, SelectSimpleReducer } from './SelectSimpleReducer';
+import {
+	SelectSimpleActionClearUserInput,
+	SelectSimpleActionCloseList,
+	SelectSimpleActionFocusFirstOption,
+	SelectSimpleActionFocusLastOption,
+	SelectSimpleActionFocusOptionMatchingUserInput,
+	SelectSimpleActionNextOption,
+	SelectSimpleActionOpenList,
+	SelectSimpleActionPreviousOption,
+	SelectSimpleActionSelectOption,
+	SelectSimpleActionToggleList,
+	SelectSimpleReducer,
+} from './SelectSimpleReducer';
 
 const DEFAULT_PLACEHOLDER = 'Sélectionnez votre choix';
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
@@ -70,15 +80,18 @@ export function SelectSimple({
 		SelectSimpleReducer, {
 			activeDescendant: undefined,
 			open: false,
-			refListOption: listboxRef,
 			selectedValue: defaultValue ?? '',
 			userInput: '',
 			visibleOptions: [],
 		},
 	);
 
+	function getOptions() {
+		return Array.from(listboxRef.current?.querySelectorAll<Element>('[role="option"]') ?? []);
+	}
+
 	const value = valueProps ?? valueState;
-	const placeholder = useDisplayName(value, listboxRef, placeholderProps);
+	const placeholder = useDisplayName(value, children, placeholderProps);
 
 	useEffect(function checkValidityOnChange() {
 		if (touched) {
@@ -87,7 +100,7 @@ export function SelectSimple({
 	}, [value, touched]);
 
 	const selectOption = useCallback(function selectOption(optionId: string) {
-		dispatch(new SelectSimpleAction.SelectOption(optionId));
+		dispatch(new SelectSimpleActionSelectOption(optionId));
 		const option = document.getElementById(optionId);
 		if (option) { onChangeProps(option); }
 	}, [onChangeProps]);
@@ -114,7 +127,7 @@ export function SelectSimple({
 		if (touched) {
 			onTouchProps(touched);
 		}
-		dispatch(new SelectSimpleAction.CloseList());
+		dispatch(new SelectSimpleActionCloseList());
 	}, [onTouchProps, setTouchedOnBlur, value]);
 
 	const isSelected = useCallback(function isSelected(optionValue?: string) {
@@ -122,16 +135,17 @@ export function SelectSimple({
 	}, [value]);
 
 	const clearUserInput = useMemo(() => {
-		return debounce(() => dispatch(new SelectSimpleAction.ClearUserInput()), DEFAULT_DEBOUNCE_TIMEOUT);
+		return debounce(() => dispatch(new SelectSimpleActionClearUserInput()), DEFAULT_DEBOUNCE_TIMEOUT);
 	}, []);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
 		const { key, altKey } = event;
+		const options = getOptions();
 
 		const searchableCharacter = isSearchableCharacter(event.nativeEvent);
 		if (searchableCharacter) {
 			event.preventDefault();
-			dispatch(new SelectSimpleAction.FocusOptionMatchingUserInput(key));
+			dispatch(new SelectSimpleActionFocusOptionMatchingUserInput(key, options));
 			clearUserInput();
 		}
 
@@ -139,13 +153,13 @@ export function SelectSimple({
 			case KeyBoard.PAGE_UP:
 				if (open) {
 					event.preventDefault();
-					dispatch(new SelectSimpleAction.PreviousOption(10));
+					dispatch(new SelectSimpleActionPreviousOption(options, 10));
 				}
 				break;
 			case KeyBoard.PAGE_DOWN:
 				if (open) {
 					event.preventDefault();
-					dispatch(new SelectSimpleAction.NextOption(10));
+					dispatch(new SelectSimpleActionNextOption(options, 10));
 				}
 				break;
 			case KeyBoard.ARROW_UP:
@@ -154,19 +168,19 @@ export function SelectSimple({
 					if (altKey) {
 						if (activeDescendant) { selectOption(activeDescendant); }
 					} else {
-						dispatch(new SelectSimpleAction.PreviousOption());
+						dispatch(new SelectSimpleActionPreviousOption(options));
 					}
 				} else {
-					dispatch(new SelectSimpleAction.OpenList());
+					dispatch(new SelectSimpleActionOpenList(options));
 				}
 				event.preventDefault();
 				break;
 			case KeyBoard.ARROW_DOWN:
 			case KeyBoard.IE_ARROW_DOWN:
 				if (open) {
-					dispatch(new SelectSimpleAction.NextOption());
+					dispatch(new SelectSimpleActionNextOption(options));
 				} else {
-					dispatch(new SelectSimpleAction.OpenList());
+					dispatch(new SelectSimpleActionOpenList(options));
 				}
 				event.preventDefault();
 				break;
@@ -174,7 +188,7 @@ export function SelectSimple({
 			case KeyBoard.IE_ESCAPE:
 				if (open) {
 					event.preventDefault();
-					dispatch(new SelectSimpleAction.CloseList());
+					dispatch(new SelectSimpleActionCloseList());
 				}
 				break;
 			case KeyBoard.SPACE:
@@ -186,7 +200,7 @@ export function SelectSimple({
 					}
 				} else {
 					cancelEvent(event);
-					dispatch(new SelectSimpleAction.OpenList());
+					dispatch(new SelectSimpleActionOpenList(options));
 				}
 				break;
 			}
@@ -199,12 +213,12 @@ export function SelectSimple({
 				break;
 			}
 			case KeyBoard.HOME: {
-				dispatch(new SelectSimpleAction.FocusFirstOption());
+				dispatch(new SelectSimpleActionFocusFirstOption(options));
 				event.preventDefault();
 				break;
 			}
 			case KeyBoard.END: {
-				dispatch(new SelectSimpleAction.FocusLastOption());
+				dispatch(new SelectSimpleActionFocusLastOption(options));
 				event.preventDefault();
 				break;
 			}
@@ -237,7 +251,7 @@ export function SelectSimple({
 					aria-expanded={open}
 					data-touched={touched}
 					aria-required={required}
-					onClick={() => dispatch(new SelectSimpleAction.ToggleList())}
+					onClick={() => dispatch(new SelectSimpleActionToggleList(getOptions()))}
 					aria-activedescendant={activeDescendant}
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}
@@ -270,22 +284,27 @@ function doNothing() {
 	return;
 }
 
-function useDisplayName(value: Value | undefined, listRef: RefObject<HTMLElement>, placeholder?: string): string {
-	const [displayName, setDisplayName] = useState<string>('');
+function extractTextContent(node: React.ReactNode): string {
+	if (typeof node === 'string') return node;
+	if (typeof node === 'number') return String(node);
+	if (Array.isArray(node)) return node.map(extractTextContent).join('');
+	if (React.isValidElement(node)) return extractTextContent(node.props.children);
+	return '';
+}
 
-	const getDisplayName = useCallback((value: Value | undefined) => {
-		if (!value) { return undefined; }
+function useDisplayName(value: Value | undefined, children: React.ReactNode, placeholder?: string): string {
+	return useMemo(() => {
+		if (!value) return placeholder ?? DEFAULT_PLACEHOLDER;
 
-		const options = getOptionsElement(listRef);
-		const optionSelected = options.find((option) => option.getAttribute('data-value') === value);
-		return optionSelected?.textContent;
-	}, [listRef]);
+		let displayName: string | undefined;
+		React.Children.forEach(children, (child) => {
+			if (React.isValidElement(child) && child.props.value?.toString() === value) {
+				displayName = extractTextContent(child.props.children);
+			}
+		});
 
-	useEffect(() => {
-		setDisplayName(getDisplayName(value) ?? placeholder ?? DEFAULT_PLACEHOLDER);
-	}, [value, placeholder, getDisplayName]);
-
-	return displayName;
+		return displayName ?? placeholder ?? DEFAULT_PLACEHOLDER;
+	}, [value, children, placeholder]);
 }
 
 SelectSimple.Option = SelectOption;

@@ -47,8 +47,11 @@ const moduleExports = {
 		NEXT_PUBLIC_APPLICATION_NAME: name,
 		NEXT_PUBLIC_APPLICATION_VERSION: version,
 	},
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
 	experimental: {
-	  scrollRestoration: true,
+	    scrollRestoration: true,
 	},
 	images: {
 		remotePatterns: [

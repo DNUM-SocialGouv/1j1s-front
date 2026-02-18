@@ -13,7 +13,7 @@ describe('établissementAccompagnementService', () => {
 	describe('rechercher', () => {
 		it('retourne la liste des établissement d‘accompagnement', async () => {
 			const httpClient = anHttpClientService();
-			jest.spyOn(httpClient, 'get').mockResolvedValue(createSuccess(anEtablissementAccompagnementList()));
+			vi.spyOn(httpClient, 'get').mockResolvedValue(createSuccess(anEtablissementAccompagnementList()));
 			const établissementAccompagnementService = new BffEtablissementAccompagnementService(httpClient);
 			const accompagnementQueryParams = {
 				typeAccompagnement: 'cij',
@@ -38,7 +38,7 @@ describe('établissementAccompagnementService', () => {
 	describe('envoyerDemandeContact', () => {
 		it('envoie la demande de contact', async () => {
 			const httpClient = anHttpClientService();
-			jest.spyOn(httpClient, 'post').mockResolvedValue(createSuccess(undefined));
+			vi.spyOn(httpClient, 'post').mockResolvedValue(createSuccess(undefined));
 			const établissementAccompagnementService = new BffEtablissementAccompagnementService(httpClient);
 			const demandeDeContact = aDemandeDeContactAccompagnement();
 

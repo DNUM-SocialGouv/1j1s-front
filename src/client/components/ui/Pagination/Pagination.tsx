@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 
 // NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
@@ -12,18 +12,22 @@ interface PaginationProps {
 	maxPage?: number
 }
 
+function getPageFromQuery(page: string | string[] | undefined): number {
+	if (page && typeof page === 'string' && !isNaN(+page)) {
+		return Number(page) - 1;
+	}
+	return 0;
+}
+
 export function Pagination({ numberOfResult, numberOfResultPerPage, maxPage }: PaginationProps) {
 	const { query, push } = useRouter();
-	const [currentPage, setCurrentPage] = useState(0);
-
-	useEffect(function setCurrentPageFromQueryUrl() {
-		const { page } = query;
-		if (page && typeof page === 'string' && !isNaN(+page)) {
-			setCurrentPage(Number(page) - 1);
-		} else {
-			setCurrentPage(0);
-		}
-	}, [setCurrentPage, query]);
+	const pageFromQuery = getPageFromQuery(query.page);
+	const [currentPage, setCurrentPage] = useState(pageFromQuery);
+	const [previousPageFromQuery, setPreviousPageFromQuery] = useState(pageFromQuery);
+	if (pageFromQuery !== previousPageFromQuery) {
+		setPreviousPageFromQuery(pageFromQuery);
+		setCurrentPage(pageFromQuery);
+	}
 
 	async function setCurrentPageAndQueryUrl(page: number) {
 		setCurrentPage(page);

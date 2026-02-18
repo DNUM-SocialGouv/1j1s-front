@@ -20,7 +20,6 @@ export class TipimailRepository implements MailRepository {
 			if (this.mailerServiceActive) {
 				await this.httpClient.post('messages/send', tipimailRequest);
 			} else {
-				// eslint-disable-next-line no-console
 				console.log('Mailer désactivé, email non envoyé', JSON.stringify(tipimailRequest));
 			}
 			return createSuccess(undefined);

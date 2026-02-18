@@ -1,3 +1,4 @@
+import { type Mock } from "vitest";
 import { Alternance } from '~/server/alternances/domain/alternance';
 import { anAlternanceFiltre } from '~/server/alternances/domain/alternance.fixture';
 import { aMatchaResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
@@ -57,11 +58,11 @@ describe('apiAlternanceRepository', () => {
 		it('retourne une erreur quand il y a une erreur', async () => {
 			const httpError = anHttpError(500);
 			const httpClientService = anAuthenticatedHttpClientService({
-				get: jest.fn(async () => {
+				get: vi.fn(async () => {
 					throw httpError;
 				}),
 			});
-			const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
+			const errorManagementService = anErrorManagementService({ handleFailureError: vi.fn(() => createFailure(expectedFailure)) });
 			const repository = new ApiAlternanceRepository(httpClientService, errorManagementService);
 			const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
 
@@ -80,12 +81,12 @@ describe('apiAlternanceRepository', () => {
 			const searchResponse = anAlternanceApiRechercheResponse({
 				jobs: [
 					aJobResponse({
-						// @ts-expect-error
+						// @ts-expect-error TS2322
 						identifier: 'invalid',
 					}),
 				],
 			});
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
+			vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
 			const errorManagementService = anErrorManagementService();
 			const repository = new ApiAlternanceRepository(httpClientService, errorManagementService);
 
@@ -123,7 +124,7 @@ describe('apiAlternanceRepository', () => {
 		it('n’appelle pas le management d’erreur de validation du schéma de l’api quand il n’y a pas d’erreur de validation et continue l’exécution', async () => {
 			const httpClientService = anAuthenticatedHttpClientService();
 			const searchResponse = anAlternanceApiRechercheResponse();
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
+			vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
 			const errorManagementService = anErrorManagementService();
 			const repository = new ApiAlternanceRepository(httpClientService, errorManagementService);
 
@@ -140,7 +141,7 @@ describe('apiAlternanceRepository', () => {
 		it('retourne l’alternance renvoyée par l’API', async () => {
 			// Given
 			const httpClientService = anAuthenticatedHttpClientService();
-			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aJobResponse({
+			(httpClientService.get as Mock).mockResolvedValue(anAxiosResponse(aJobResponse({
 				identifier: aJobIdentifierResponse({
 					id: 'abc',
 				}),
@@ -157,14 +158,14 @@ describe('apiAlternanceRepository', () => {
 			// Given
 			const httpError = anHttpError(500);
 			const httpClientService = anAuthenticatedHttpClientService({
-				get: jest.fn(async () => {
+				get: vi.fn(async () => {
 					throw httpError;
 				}),
 			});
 			const expectedFailure = ErreurMetier.DEMANDE_INCORRECTE;
-			const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
+			const errorManagementService = anErrorManagementService({ handleFailureError: vi.fn(() => createFailure(expectedFailure)) });
 			const repository = new ApiAlternanceRepository(httpClientService, errorManagementService);
-			(httpClientService.get as jest.Mock).mockRejectedValue(anHttpError(500));
+			(httpClientService.get as Mock).mockRejectedValue(anHttpError(500));
 
 			// When
 			const result = await repository.get('abc');
@@ -182,11 +183,11 @@ describe('apiAlternanceRepository', () => {
 			const httpClientService = anAuthenticatedHttpClientService();
 			const invalidResponse = aJobResponse({
 				offer: anOfferResponse({
-					// @ts-expect-error
+					// @ts-expect-error TS2322
 					title: 1,
 				}),
 			});
-			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(invalidResponse));
+			(httpClientService.get as Mock).mockResolvedValue(anAxiosResponse(invalidResponse));
 			const errorManagementService = anErrorManagementService();
 			const repository = new ApiAlternanceRepository(httpClientService, errorManagementService);
 
@@ -227,7 +228,7 @@ describe('apiAlternanceRepository', () => {
 		it('appelle l’api laBonneAlternance avec l’endpoint /job/v1/offer', async () => {
 			// Given
 			const httpClientService = anAuthenticatedHttpClientService();
-			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
+			(httpClientService.get as Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
 			const repository = new ApiAlternanceRepository(httpClientService, anErrorManagementService());
 
 			// When

@@ -3,7 +3,7 @@ import { DomainesStage } from '~/server/stages/repository/domainesStage';
 import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 import { OffreStageDepotStrapi, OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
 
-export function aStrapiOffreDeStage(override?: Partial<OffreStageResponseStrapi.OffreStage>): OffreStageResponseStrapi.OffreStage {
+export function aStrapiOffreDeStage(override?: Partial<OffreStageResponseStrapi>): OffreStageResponseStrapi {
 	return {
 		createdAt: '2023-01-06T07:49:10.773Z',
 		dateDeDebutMax: '2024-09-01',

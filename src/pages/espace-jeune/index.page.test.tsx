@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import '~/test-utils';
 
 import { render, screen, within } from '@testing-library/react';
@@ -21,7 +18,7 @@ describe('Page Espace Jeune', () => {
 		mockScrollIntoView();
 	});
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	it('lorsque le feature flip ne permet pas l‘accès à la page, redirige vers la page 404', async () => {
@@ -29,7 +26,7 @@ describe('Page Espace Jeune', () => {
 
 		const result = await getStaticProps();
 
-		expect(result).toEqual({ notFound: true });
+		expect(result).toEqual({ notFound: true, revalidate: 1 });
 	});
 
 	describe('lorsque le feature flip rend visible la page', () => {

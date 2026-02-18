@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useId, useMemo } from 'react';
 
-import { ComboboxAction as Actions } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
+import { ComboboxActionHideOption, ComboboxActionShowOption } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 import { useCombobox } from './ComboboxContext';
@@ -33,8 +33,8 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 		const option = ref.current;
 		if (option) {
 			const shouldBeVisible = filter(option, inputValue);
-			if (!shouldBeVisible) dispatch(new Actions.HideOption(option));
-			if (shouldBeVisible) dispatch(new Actions.ShowOption(option));
+			if (!shouldBeVisible) dispatch(new ComboboxActionHideOption(option));
+			if (shouldBeVisible) dispatch(new ComboboxActionShowOption(option));
 		}
 	}, [dispatch, filter, inputValue, ref]);
 

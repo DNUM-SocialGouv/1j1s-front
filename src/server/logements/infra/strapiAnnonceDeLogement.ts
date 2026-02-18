@@ -1,4 +1,9 @@
-import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
+import {
+	AnnonceDeLogementBilanEnergetique,
+	AnnonceDeLogementLocalisation,
+	AnnonceDeLogementService,
+	AnnonceDeLogementSource,
+} from '~/server/logements/domain/annonceDeLogement';
 
 export interface StrapiAnnonceDeLogement {
 	titre: string
@@ -20,10 +25,10 @@ export interface StrapiAnnonceDeLogement {
 	sourceCreatedAt: Date
 	devise: string
 	description: string
-	localisation: AnnonceDeLogement.Localisation
-	bilanEnergetique: AnnonceDeLogement.BilanEnergetique
+	localisation: AnnonceDeLogementLocalisation
+	bilanEnergetique: AnnonceDeLogementBilanEnergetique
 	imagesUrl?: Array<{ value: string }>
-	source: AnnonceDeLogement.Source
-	servicesInclus: Array<{ nom: AnnonceDeLogement.Service }>
-	servicesOptionnels: Array<{ nom: AnnonceDeLogement.Service }>
+	source: AnnonceDeLogementSource
+	servicesInclus: Array<{ nom: AnnonceDeLogementService }>
+	servicesOptionnels: Array<{ nom: AnnonceDeLogementService }>
 }

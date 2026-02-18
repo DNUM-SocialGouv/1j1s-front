@@ -1,11 +1,11 @@
 import { randomUUID } from 'crypto';
 
 import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode';
-import { OffreDeStage, OffreStageDepot } from '~/server/stages/domain/stages';
+import { OffreDeStage, OffreDeStageDepot } from '~/server/stages/domain/stages';
 import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 import { OffreStageDepotStrapi, OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
 
-export function mapOffreStage(response: OffreStageResponseStrapi.OffreStage): OffreDeStage {
+export function mapOffreStage(response: OffreStageResponseStrapi): OffreDeStage {
 	return {
 		dateDeDebutMax: response.dateDeDebutMax,
 		dateDeDebutMin: response.dateDeDebutMin,
@@ -38,7 +38,7 @@ export function mapOffreStage(response: OffreStageResponseStrapi.OffreStage): Of
 	};
 }
 
-export function mapToStrapiDepotOffreDeStage(body: OffreStageDepot.OffreDeStageDepot): OffreStageDepotStrapi {
+export function mapToStrapiDepotOffreDeStage(body: OffreDeStageDepot): OffreStageDepotStrapi {
 	const valeurPublishedAtPourAjouterOffreEnDraftStrapi = null;
 	return {
 		dateDeDebutMax: body.dateDeDebutMax,

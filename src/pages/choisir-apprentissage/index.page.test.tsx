@@ -1,6 +1,5 @@
-/**
- * @jest-environment jsdom
- */
+import { type Mock } from "vitest";
+
 
 import '~/test-utils';
 
@@ -20,13 +19,13 @@ import { dependencies } from '~/server/start';
 
 import ApprentissageJeunes, { getServerSideProps } from './index.page';
 
-jest.mock('next/head', () => HeadMock);
+vi.mock('next/head', () => ({ default: HeadMock }));
 
-jest.mock('~/server/start', () => ({
+vi.mock('~/server/start', () => ({
 	dependencies: {
 		campagneApprentissageDependencies: {
 			recupererVideosCampagneApprentissageUseCase: {
-				handle: jest.fn(),
+				handle: vi.fn(),
 			},
 		},
 	},
@@ -41,13 +40,13 @@ describe('Page Apprentissage Jeunes', () => {
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	describe('getServerSideProps', () => {
 		describe('quand les vidéos ne sont pas récupérées', () => {
 			it('renvoie une liste vide pour les vidéos', async () => {
-				(dependencies.campagneApprentissageDependencies.recupererVideosCampagneApprentissageUseCase.handle as jest.Mock).mockReturnValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+				(dependencies.campagneApprentissageDependencies.recupererVideosCampagneApprentissageUseCase.handle as Mock).mockReturnValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 				const result = await getServerSideProps();
 
@@ -67,7 +66,7 @@ describe('Page Apprentissage Jeunes', () => {
 						videoId: '7zD4PCOiUvw',
 					}),
 				];
-				(dependencies.campagneApprentissageDependencies.recupererVideosCampagneApprentissageUseCase.handle as jest.Mock).mockReturnValue(createSuccess(videos));
+				(dependencies.campagneApprentissageDependencies.recupererVideosCampagneApprentissageUseCase.handle as Mock).mockReturnValue(createSuccess(videos));
 
 				const result = await getServerSideProps();
 

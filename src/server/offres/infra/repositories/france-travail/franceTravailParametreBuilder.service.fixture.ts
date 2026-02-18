@@ -4,6 +4,6 @@ import {
 
 export function aFranceTravailParametreBuilderService(): FranceTravailParametreBuilderService {
 	return {
-		buildCommonParamètresRecherche: jest.fn,
+		buildCommonParamètresRecherche: vi.fn,
 	} as unknown as FranceTravailParametreBuilderService;
 }

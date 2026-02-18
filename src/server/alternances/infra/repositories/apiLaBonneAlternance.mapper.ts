@@ -1,11 +1,17 @@
 import {
 	Alternance,
+	AlternanceContrat,
+	AlternanceSource,
 	ResultatRechercheAlternance,
+	ResultatRechercheAlternanceEntreprise,
+	ResultatRechercheAlternanceOffre,
 } from '~/server/alternances/domain/alternance';
-import { AlternanceApiJobsResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
-import Matcha = AlternanceApiJobsResponse.Matcha;
-import PEJobs = AlternanceApiJobsResponse.PEJobs;
-import LbaCompanies = AlternanceApiJobsResponse.LbaCompanies;
+import {
+	AlternanceApiJobsResponse,
+	AlternanceApiJobsResponseLbaCompanies as LbaCompanies,
+	AlternanceApiJobsResponseMatcha as Matcha,
+	AlternanceApiJobsResponsePEJobs as PEJobs,
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 
 function sanitizeEscapeSequences(texte?: string) {
 	if (!texte) return texte;
@@ -41,7 +47,7 @@ function mapCommonMatchaFields(alternance: Matcha): Alternance {
 		localisation: alternance.place?.city,
 		niveauRequis: alternance.diplomaLevel,
 		rythmeAlternance: alternance.job.rythmeAlternance,
-		source: Alternance.Source.MATCHA,
+		source: AlternanceSource.MATCHA,
 		status: alternance.job.status,
 		titre: alternance.title,
 		typeDeContrat: parseContractTypeMatcha(alternance),
@@ -76,29 +82,29 @@ export function mapDetailPEJob(alternance: PEJobs): Alternance {
 		id: alternance.job.id,
 		lienPostuler: alternance.url,
 		localisation: alternance.place?.city,
-		natureDuContrat: Alternance.Contrat.ALTERNANCE,
+		natureDuContrat: AlternanceContrat.ALTERNANCE,
 		niveauRequis: undefined,
 		rythmeAlternance: alternance.job.duration,
-		source: Alternance.Source.FRANCE_TRAVAIL,
+		source: AlternanceSource.FRANCE_TRAVAIL,
 		titre: alternance.title,
 		typeDeContrat: alternance.job.contractType ? [alternance.job.contractType] : [],
 	};
 }
 
-function mapRésultatRechercherAlternancePEJob(alternance: PEJobs): ResultatRechercheAlternance.Offre {
+function mapRésultatRechercherAlternancePEJob(alternance: PEJobs): ResultatRechercheAlternanceOffre {
 	return {
 		entreprise: {
 			nom: alternance.company?.name,
 		},
 		id: alternance.job.id,
 		localisation: alternance.place?.city,
-		source: Alternance.Source.FRANCE_TRAVAIL,
+		source: AlternanceSource.FRANCE_TRAVAIL,
 		titre: alternance.title,
 		typeDeContrat: alternance.job.contractType ? [alternance.job.contractType] : [],
 	};
 }
 
-function mapRésultatRechercherAlternanceLbaEntreprise(entreprise: LbaCompanies): ResultatRechercheAlternance.Entreprise {
+function mapRésultatRechercherAlternanceLbaEntreprise(entreprise: LbaCompanies): ResultatRechercheAlternanceEntreprise {
 	const getNombreSalariés = (tailleEntreprise: string) => {
 		if (tailleEntreprise === '0-0') {
 			return { max: 9, min: 0 };
@@ -125,7 +131,7 @@ function mapRésultatRechercherAlternanceLbaEntreprise(entreprise: LbaCompanies)
 	};
 }
 
-function mapRésultatRechercherAlternanceMatcha(alternance: Matcha): ResultatRechercheAlternance.Offre {
+function mapRésultatRechercherAlternanceMatcha(alternance: Matcha): ResultatRechercheAlternanceOffre {
 	return {
 		entreprise: {
 			nom: alternance.company?.name,
@@ -133,7 +139,7 @@ function mapRésultatRechercherAlternanceMatcha(alternance: Matcha): ResultatRec
 		id: alternance.job.id,
 		localisation: alternance.place?.city,
 		niveauRequis: alternance.diplomaLevel,
-		source: Alternance.Source.MATCHA,
+		source: AlternanceSource.MATCHA,
 		titre: alternance.title,
 		typeDeContrat: parseContractTypeMatcha(alternance),
 	};

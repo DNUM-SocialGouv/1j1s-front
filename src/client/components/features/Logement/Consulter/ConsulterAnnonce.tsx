@@ -11,7 +11,7 @@ import { Image as ImageProps } from '~/client/components/props';
 import { Carousel } from '~/client/components/ui/Carousel/Carousel';
 import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
-import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
+import { AnnonceDeLogement, AnnonceDeLogementSource } from '~/server/logements/domain/annonceDeLogement';
 
 import styles from './ConsulterAnnonce.module.scss';
 import { DateMiseÀJour } from './DateMiseÀJour';
@@ -94,7 +94,7 @@ const AnnonceCarousel = ({ imageUrlList }: { imageUrlList: Array<ImageProps> | [
 };
 
 type AnnonceSourceProps = {
-	source: AnnonceDeLogement.Source
+	source: AnnonceDeLogementSource
 	className?: string
 }
 
@@ -120,7 +120,7 @@ function AnnonceSource({ source, className, ...rest }: AnnonceSourceProps) {
 	}
 }
 
-type CandidaterDesktopProps = { source: AnnonceDeLogement.Source, urlDeCandidature: string }
+type CandidaterDesktopProps = { source: AnnonceDeLogementSource, urlDeCandidature: string }
 function CandidaterDesktop({ source, urlDeCandidature, ...rest }: CandidaterDesktopProps) {
 	return (
 		<div className={classNames(styles.cardCandidater)} {...rest}>

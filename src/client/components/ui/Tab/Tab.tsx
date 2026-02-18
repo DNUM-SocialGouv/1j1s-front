@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import React, {
 	createContext,
+	useCallback,
 	useContext,
 	useState,
 } from 'react';
 
 import styles from '~/client/components/ui/Tab/Tab.module.scss';
-import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 import { KeyBoard } from '../../keyboard/keyboard.enum';
 
@@ -114,14 +114,14 @@ export const TabsLabel = React.forwardRef<HTMLDivElement, React.ComponentPropsWi
 		children,
 		...rest
 	} = props;
-	const tabsLabelRef = useSynchronizedRef(outerRef);
+
 	const { indexTabActive, onTabChange } = useTabContext();
 
-	function handleKeyDown(event: React.KeyboardEvent<HTMLButtonElement>) {
+	const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLButtonElement>) => {
 		const currentLabel = getHtmlElement(event.currentTarget);
 		const previousElement = getHtmlElement(currentLabel?.previousElementSibling);
 		const nextElement = getHtmlElement(currentLabel?.nextElementSibling);
-		const parentLabel = tabsLabelRef.current;
+		const parentLabel = currentLabel?.closest('[role="tablist"]');
 		if (!parentLabel) {
 			return;
 		}
@@ -150,10 +150,10 @@ export const TabsLabel = React.forwardRef<HTMLDivElement, React.ComponentPropsWi
 				getHtmlElement(allTabsLabel[allTabsLabel.length - 1])?.focus();
 				break;
 		}
-	}
+	}, []);
 
 	return (
-		<div className={styles.tabLabelContainer} role="tablist" ref={tabsLabelRef} {...rest}>
+		<div className={styles.tabLabelContainer} role="tablist" ref={outerRef} {...rest}>
 			{
 				React.Children.map(children, (child, indexTab) => {
 					if (React.isValidElement<TabProps>(child)) {

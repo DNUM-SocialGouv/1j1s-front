@@ -31,6 +31,6 @@ export function aFormationInitialeService(
 	resultatRechercherFormationsInitiales = aResultatFormationInitiale(),
 ): FormationInitialeInterface {
 	return {
-		rechercherFormationInitiale: jest.fn().mockResolvedValue(createSuccess(resultatRechercherFormationsInitiales)),
+		rechercherFormationInitiale: vi.fn().mockResolvedValue(createSuccess(resultatRechercherFormationsInitiales)),
 	};
 }

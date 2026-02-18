@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { BffLocalisationService } from '~/client/services/localisation/bff.localisation.service';
 import { createSuccess } from '~/server/errors/either';
@@ -171,7 +168,7 @@ describe('BffLocalisationService', () => {
 				],
 			};
 
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatsRechercheCommune()));
+			vi.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatsRechercheCommune()));
 
 			const result = await bffLocalisationService.rechercherCommune(query);
 

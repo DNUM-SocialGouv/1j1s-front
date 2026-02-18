@@ -1,10 +1,11 @@
 import {
 	Mission,
-	MissionEngagement,
+	MissionEngagementDomaine,
+	MissionEngagementRechercheServiceCivique,
 	RésultatsRechercheMission,
 } from './engagement';
 
-export function aRechercheServiceCivique(override?: Partial<MissionEngagement.Recherche.ServiceCivique>): MissionEngagement.Recherche.ServiceCivique {
+export function aRechercheServiceCivique(override?: Partial<MissionEngagementRechercheServiceCivique>): MissionEngagementRechercheServiceCivique {
 	return {
 		domaine: 'sante',
 		localisation: {
@@ -18,7 +19,7 @@ export function aRechercheServiceCivique(override?: Partial<MissionEngagement.Re
 	};
 }
 
-export function aMissionEngagementDomainList(): MissionEngagement.Domaine[] {
+export function aMissionEngagementDomainList(): MissionEngagementDomaine[] {
 	return [
 		{
 			libellé: 'Culture et loisirs',

@@ -1,3 +1,4 @@
+// @vitest-environment node
 import nock from 'nock';
 
 import { StrapiTokenAgent } from '~/server/cms/configuration/strapi/strapiTokenAgent';

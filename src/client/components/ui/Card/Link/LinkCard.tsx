@@ -14,12 +14,7 @@ interface LinkCardProps extends Pick<React.HTMLAttributes<unknown>, 'className'>
   titleAs?: HtmlHeadingTag
 }
 
-export function LinkCard({ children, className, imageUrl, link, linkLabel, title, titleAs }: React.PropsWithChildren<LinkCardProps>)  {
-
-	function LinkCardTitle({ children, ...props }: { titleAs?: HtmlHeadingTag } & React.HTMLAttributes<HTMLHeadingElement>) {
-		return React.createElement(titleAs || 'h3', { ...props }, children);
-	}
-
+export function LinkCard({ children, className, imageUrl, link, linkLabel, title, titleAs = 'h3' }: React.PropsWithChildren<LinkCardProps>)  {
 	const idIntitule = useId();
 	const idLien = useId();
 
@@ -31,7 +26,7 @@ export function LinkCard({ children, className, imageUrl, link, linkLabel, title
 
 			<div className={styles.cardContent}>
 				<div className={styles.cardContentHeader}>
-					<LinkCardTitle id={idIntitule} className={styles.cardTitle}>{title}</LinkCardTitle>
+					{React.createElement(titleAs, { id: idIntitule, className: styles.cardTitle }, title)}
 					<span className={styles.cardAction}>
 						<Link aria-labelledby={`${idIntitule} ${idLien}`}
 							href={link}

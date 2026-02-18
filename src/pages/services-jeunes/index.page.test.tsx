@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import '~/test-utils';
 
 import { render, screen, within } from '@testing-library/react';
@@ -14,19 +11,19 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import ServicesJeunePage, { getStaticProps } from '~/pages/services-jeunes/index.page';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import { mapCodeCategorieServiceJeuneToLibelle, ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
+import { mapCodeCategorieServiceJeuneToLibelle, ServiceJeuneCodeCategorie } from '~/server/services-jeunes/domain/servicesJeunes';
 import { aServiceJeune, aServiceJeuneList } from '~/server/services-jeunes/domain/servicesJeunes.fixture';
 import { dependencies } from '~/server/start';
 
 
-jest.mock('~/server/start', () => ({
+vi.mock('~/server/start', () => ({
 	dependencies: {
 		cmsDependencies: {
-			duréeDeValiditéEnSecondes: jest.fn(),
+			duréeDeValiditéEnSecondes: vi.fn(),
 		},
 		servicesJeunesDependencies: {
 			consulterLesServicesJeunesUseCase: {
-				handle: jest.fn(),
+				handle: vi.fn(),
 			},
 		},
 	},
@@ -36,11 +33,11 @@ describe('Page Services Jeunes', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 		mockUseRouter({});
-		mockUseSearchParams({ getAll: jest.fn().mockReturnValue([]) });
+		mockUseSearchParams({ getAll: vi.fn().mockReturnValue([]) });
 		mockScrollIntoView();
 	});
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	it('lorsque le feature flip old espace jeune est actif, redirige vers la page 404', async () => {
@@ -113,7 +110,7 @@ describe('Page Services Jeunes', () => {
 
 		it('appelle le serveur pour récupérer les actualités', async () => {
 			// Given
-			jest.spyOn(dependencies.servicesJeunesDependencies.consulterLesServicesJeunesUseCase, 'handle').mockResolvedValue(createSuccess(aServiceJeuneList()));
+			vi.spyOn(dependencies.servicesJeunesDependencies.consulterLesServicesJeunesUseCase, 'handle').mockResolvedValue(createSuccess(aServiceJeuneList()));
 
 			// When
 			await getStaticProps();
@@ -122,15 +119,20 @@ describe('Page Services Jeunes', () => {
 			expect(dependencies.servicesJeunesDependencies.consulterLesServicesJeunesUseCase.handle).toHaveBeenCalledTimes(1);
 		});
 
-		it('quand le service est indisponible, retourne une 404', async () => {
+		it('quand le service est indisponible, retourne une page avec une liste vide', async () => {
 			// Given
-			jest.spyOn(dependencies.servicesJeunesDependencies.consulterLesServicesJeunesUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+			vi.spyOn(dependencies.servicesJeunesDependencies.consulterLesServicesJeunesUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 			// When
 			const result = await getStaticProps();
 
 			// Then
-			expect(result).toEqual({ notFound: true, revalidate: 1 });
+			expect(result).toEqual({
+				props: {
+					serviceJeuneList: [],
+				},
+				revalidate: 1,
+			});
 		});
 
 		describe('Si des services jeunes sont récupérés', () => {
@@ -141,38 +143,38 @@ describe('Page Services Jeunes', () => {
 						const serviceJeuneList = [
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ACCOMPAGNEMENT,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ACCOMPAGNEMENT),
+									code: ServiceJeuneCodeCategorie.ACCOMPAGNEMENT,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ACCOMPAGNEMENT),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.AIDES_FINANCIERES,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.AIDES_FINANCIERES),
+									code: ServiceJeuneCodeCategorie.AIDES_FINANCIERES,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.AIDES_FINANCIERES),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ENGAGEMENT,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENGAGEMENT),
+									code: ServiceJeuneCodeCategorie.ENGAGEMENT,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ENGAGEMENT),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE),
+									code: ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.LOGEMENT,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.LOGEMENT),
+									code: ServiceJeuneCodeCategorie.LOGEMENT,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.LOGEMENT),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ORIENTATION_FORMATION,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ORIENTATION_FORMATION),
+									code: ServiceJeuneCodeCategorie.ORIENTATION_FORMATION,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ORIENTATION_FORMATION),
 								},
 							}),
 						];
@@ -193,47 +195,47 @@ describe('Page Services Jeunes', () => {
 				describe('au moins un filtre est renseigné', () => {
 					it('n’utilise pas des filtres qui ne correspondent à aucune catégorie', () => {
 						// Given
-						mockUseRouter({ push: jest.fn() });
-						mockUseSearchParams({ getAll: jest.fn().mockReturnValue([
+						mockUseRouter({ push: vi.fn() });
+						mockUseSearchParams({ getAll: vi.fn().mockReturnValue([
 							'un-mauvais-filtre',
-							ServiceJeune.CodeCategorie.LOGEMENT,
+							ServiceJeuneCodeCategorie.LOGEMENT,
 						]) });
 
 						const serviceJeuneList = [
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ACCOMPAGNEMENT,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ACCOMPAGNEMENT),
+									code: ServiceJeuneCodeCategorie.ACCOMPAGNEMENT,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ACCOMPAGNEMENT),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.AIDES_FINANCIERES,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.AIDES_FINANCIERES),
+									code: ServiceJeuneCodeCategorie.AIDES_FINANCIERES,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.AIDES_FINANCIERES),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ENGAGEMENT,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENGAGEMENT),
+									code: ServiceJeuneCodeCategorie.ENGAGEMENT,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ENGAGEMENT),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE),
+									code: ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.LOGEMENT,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.LOGEMENT),
+									code: ServiceJeuneCodeCategorie.LOGEMENT,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.LOGEMENT),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ORIENTATION_FORMATION,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ORIENTATION_FORMATION),
+									code: ServiceJeuneCodeCategorie.ORIENTATION_FORMATION,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ORIENTATION_FORMATION),
 								},
 							}),
 						];
@@ -252,48 +254,48 @@ describe('Page Services Jeunes', () => {
 					});
 					it('affiche la liste des filtres dans des étiquettes', () => {
 						// Given
-						mockUseRouter({ push: jest.fn() });
-						mockUseSearchParams({ getAll: jest.fn().mockReturnValue([
-							ServiceJeune.CodeCategorie.ACCOMPAGNEMENT,
-							ServiceJeune.CodeCategorie.LOGEMENT,
-							ServiceJeune.CodeCategorie.ENGAGEMENT,
+						mockUseRouter({ push: vi.fn() });
+						mockUseSearchParams({ getAll: vi.fn().mockReturnValue([
+							ServiceJeuneCodeCategorie.ACCOMPAGNEMENT,
+							ServiceJeuneCodeCategorie.LOGEMENT,
+							ServiceJeuneCodeCategorie.ENGAGEMENT,
 						]) });
 
 						const serviceJeuneList = [
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ACCOMPAGNEMENT,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ACCOMPAGNEMENT),
+									code: ServiceJeuneCodeCategorie.ACCOMPAGNEMENT,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ACCOMPAGNEMENT),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.AIDES_FINANCIERES,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.AIDES_FINANCIERES),
+									code: ServiceJeuneCodeCategorie.AIDES_FINANCIERES,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.AIDES_FINANCIERES),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ENGAGEMENT,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENGAGEMENT),
+									code: ServiceJeuneCodeCategorie.ENGAGEMENT,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ENGAGEMENT),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE),
+									code: ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.LOGEMENT,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.LOGEMENT),
+									code: ServiceJeuneCodeCategorie.LOGEMENT,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.LOGEMENT),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ORIENTATION_FORMATION,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ORIENTATION_FORMATION),
+									code: ServiceJeuneCodeCategorie.ORIENTATION_FORMATION,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ORIENTATION_FORMATION),
 								},
 							}),
 						];
@@ -312,12 +314,12 @@ describe('Page Services Jeunes', () => {
 					});
 					it('supprime le filtre au clic sur son étiquette', async () => {
 						// Given
-						const routerPush = jest.fn();
+						const routerPush = vi.fn();
 						mockUseRouter({ push: routerPush });
-						mockUseSearchParams({ getAll: jest.fn().mockReturnValue([
-							ServiceJeune.CodeCategorie.ACCOMPAGNEMENT,
-							ServiceJeune.CodeCategorie.LOGEMENT,
-							ServiceJeune.CodeCategorie.ENGAGEMENT,
+						mockUseSearchParams({ getAll: vi.fn().mockReturnValue([
+							ServiceJeuneCodeCategorie.ACCOMPAGNEMENT,
+							ServiceJeuneCodeCategorie.LOGEMENT,
+							ServiceJeuneCodeCategorie.ENGAGEMENT,
 						]) });
 						mockUsePathname('/services-jeunes');
 						const user = userEvent.setup();
@@ -325,14 +327,14 @@ describe('Page Services Jeunes', () => {
 						const serviceJeuneList = [
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ACCOMPAGNEMENT,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ACCOMPAGNEMENT),
+									code: ServiceJeuneCodeCategorie.ACCOMPAGNEMENT,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ACCOMPAGNEMENT),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.AIDES_FINANCIERES,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.AIDES_FINANCIERES),
+									code: ServiceJeuneCodeCategorie.AIDES_FINANCIERES,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.AIDES_FINANCIERES),
 								},
 							}),
 						];
@@ -357,43 +359,43 @@ describe('Page Services Jeunes', () => {
 						expect(routerPush).toHaveBeenCalledWith(expect.stringContaining('filtre=engagement'), undefined, expect.anything());
 					});
 					it('affiche les services des catégories filtrées', () => {
-						mockUseSearchParams({ getAll: jest.fn().mockReturnValue([ServiceJeune.CodeCategorie.ACCOMPAGNEMENT]) });
+						mockUseSearchParams({ getAll: vi.fn().mockReturnValue([ServiceJeuneCodeCategorie.ACCOMPAGNEMENT]) });
 
 						const serviceJeuneList = [
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ACCOMPAGNEMENT,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ACCOMPAGNEMENT),
+									code: ServiceJeuneCodeCategorie.ACCOMPAGNEMENT,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ACCOMPAGNEMENT),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.AIDES_FINANCIERES,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.AIDES_FINANCIERES),
+									code: ServiceJeuneCodeCategorie.AIDES_FINANCIERES,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.AIDES_FINANCIERES),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ENGAGEMENT,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENGAGEMENT),
+									code: ServiceJeuneCodeCategorie.ENGAGEMENT,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ENGAGEMENT),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE),
+									code: ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.LOGEMENT,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.LOGEMENT),
+									code: ServiceJeuneCodeCategorie.LOGEMENT,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.LOGEMENT),
 								},
 							}),
 							aServiceJeune({
 								categorie: {
-									code: ServiceJeune.CodeCategorie.ORIENTATION_FORMATION,
-									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.ORIENTATION_FORMATION),
+									code: ServiceJeuneCodeCategorie.ORIENTATION_FORMATION,
+									libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.ORIENTATION_FORMATION),
 								},
 							}),
 						];
@@ -415,12 +417,12 @@ describe('Page Services Jeunes', () => {
 			describe('Liste de résultats', () => {
 				it('affiche un message d’erreur quand aucun service n’est disponible', () => {
 					// Given
-					mockUseSearchParams({ getAll: jest.fn().mockReturnValue([ServiceJeune.CodeCategorie.ACCOMPAGNEMENT]) });
+					mockUseSearchParams({ getAll: vi.fn().mockReturnValue([ServiceJeuneCodeCategorie.ACCOMPAGNEMENT]) });
 					const serviceJeuneList = [
 						aServiceJeune({
 							categorie: {
-								code: ServiceJeune.CodeCategorie.AIDES_FINANCIERES,
-								libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeune.CodeCategorie.AIDES_FINANCIERES),
+								code: ServiceJeuneCodeCategorie.AIDES_FINANCIERES,
+								libelle: mapCodeCategorieServiceJeuneToLibelle(ServiceJeuneCodeCategorie.AIDES_FINANCIERES),
 							},
 						}),
 					];

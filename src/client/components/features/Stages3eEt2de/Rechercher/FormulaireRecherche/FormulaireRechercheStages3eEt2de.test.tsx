@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -27,7 +23,7 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 	});
 
 	it('quand la query comporte la localisation, ajoute la valeur correspondante dans l‘input', () => {
-		const routerPush = jest.fn();
+		const routerPush = vi.fn();
 
 		mockUseRouter({
 			push: routerPush, query: {
@@ -61,7 +57,7 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 
 	it('quand on recherche par métier, ajoute le métier recherché aux query params', async () => {
 		// GIVEN
-		const routerPush = jest.fn();
+		const routerPush = vi.fn();
 		const user = userEvent.setup();
 
 		mockUseRouter({
@@ -77,7 +73,7 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 			},
 		});
 		const metierService = aMetierService();
-		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess([
+		vi.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess([
 			{ code: 'codeMetier', label: 'boulanger' },
 		]));
 		const localisationService = aLocalisationService();
@@ -107,7 +103,7 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 	});
 
 	it('quand on recherche par localisation, ajoute la localisation aux query params', async () => {
-		const routerPush = jest.fn();
+		const routerPush = vi.fn();
 		const user = userEvent.setup();
 		mockUseRouter({ push: routerPush });
 
@@ -117,7 +113,7 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 			ville: 'Paris',
 		});
 
-		jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(aRésultatsRechercheCommune([commune])));
+		vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(aRésultatsRechercheCommune([commune])));
 		render(
 			<DependenciesProvider
 				stage3eEt2deService={aStage3eEt2deService()}

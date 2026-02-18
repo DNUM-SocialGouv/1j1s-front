@@ -1,3 +1,4 @@
+import { type Mock } from "vitest";
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import {
 	BffStage3eEt2deMetierService,
@@ -12,7 +13,7 @@ describe('BffStage3eEt2deMetierService', () => {
 			const metierService = new BffStage3eEt2deMetierService(httpClientService);
 			const metierQuery = 'boulang';
 
-			(httpClientService.get as jest.Mock).mockResolvedValue(createSuccess(aListeDeMetierStage3eEt2de()));
+			(httpClientService.get as Mock).mockResolvedValue(createSuccess(aListeDeMetierStage3eEt2de()));
 			const result = await metierService.rechercherMetier(metierQuery);
 
 			expect(result).toEqual(createSuccess(aListeDeMetierStage3eEt2de()));

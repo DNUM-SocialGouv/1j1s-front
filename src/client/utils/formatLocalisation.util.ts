@@ -1,15 +1,15 @@
-import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
+import { AnnonceDeLogementLocalisation } from '~/server/logements/domain/annonceDeLogement';
 
-function doitSuffixerAdresse(localisation: AnnonceDeLogement.Localisation) {
+function doitSuffixerAdresse(localisation: AnnonceDeLogementLocalisation) {
 	return localisation.ville != null
 		&& localisation.adresse != null;
 }
 
-function doitWrapperCodePostal(localisation: AnnonceDeLogement.Localisation) {
+function doitWrapperCodePostal(localisation: AnnonceDeLogementLocalisation) {
 	return localisation.codePostal != null && (localisation.ville != null || localisation.adresse != null);
 }
 
-export default function formatLocalisation(localisation: AnnonceDeLogement.Localisation) {
+export default function formatLocalisation(localisation: AnnonceDeLogementLocalisation) {
 	const ville = localisation.ville ?? '';
 	let adresse = localisation.adresse ?? '';
 	let codePostal = localisation.codePostal ?? '';

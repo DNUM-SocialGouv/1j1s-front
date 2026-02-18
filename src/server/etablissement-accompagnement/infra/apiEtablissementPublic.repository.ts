@@ -3,7 +3,8 @@ import {
 	mapEtablissementPublicAccompagnement,
 } from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.mapper';
 import {
-	apiEtablissementPublicSearchSchemas, ResultatRechercheEtablissementPublicResponse,
+	apiEtablissementPublicSearchSchemas,
+	ResultatRechercheEtablissementPublicResponseEtablissementsPublicList,
 } from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.response';
 import { validateApiResponse } from '~/server/services/error/apiResponseValidator';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
@@ -35,7 +36,7 @@ export class ApiEtablissementPublicRepository implements EtablissementAccompagne
 			const queryLocalisation = this.getQueryLocalisation(codeCommune);
 			const queryTypeEtablissement = `pivot%20LIKE%20%22${typeAccompagnement}%22`;
 
-			const { data } = await this.httpClient.get<ResultatRechercheEtablissementPublicResponse.EtablissementsPublicList>(`catalog/datasets/api-lannuaire-administration/records?where=${queryLocalisation}and%20${queryTypeEtablissement}&${limit}&${select}`);
+			const { data } = await this.httpClient.get<ResultatRechercheEtablissementPublicResponseEtablissementsPublicList>(`catalog/datasets/api-lannuaire-administration/records?where=${queryLocalisation}and%20${queryTypeEtablissement}&${limit}&${select}`);
 			const errorApiSchemaValidation = validateApiResponse(data.results, apiEtablissementPublicSearchSchemas);
 
 			if (errorApiSchemaValidation) {

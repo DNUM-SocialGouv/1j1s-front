@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
@@ -21,7 +18,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 	describe('quand on recherche par domaine', () => {
 		it('ajoute les domaines aux query params', async () => {
 			// GIVEN
-			const routerPush = jest.fn();
+			const routerPush = vi.fn();
 			mockUseRouter({ push: routerPush });
 			const domainList = aMissionEngagementDomainList();
 			const localisationServiceMock = aLocalisationService();
@@ -53,7 +50,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 	describe('quand on filtre avec ouverts aux mineurs', () => {
 		it('ajoute le filtre aux query params', async () => {
 			// GIVEN
-			const routerPush = jest.fn();
+			const routerPush = vi.fn();
 			mockUseRouter({ push: routerPush });
 			const domainList = aMissionEngagementDomainList();
 			const localisationServiceMock = aLocalisationService();
@@ -83,7 +80,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 	describe('quand on recherche par localisation', () => {
 		it('ajoute les données d’une commune aux query params', async () => {
 			// GIVEN
-			const routerPush = jest.fn();
+			const routerPush = vi.fn();
 			mockUseRouter({ push: routerPush });
 			const localisationServiceMock = aLocalisationService();
 
@@ -115,7 +112,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 		describe('le rayon', () => {
 			it('de 10km par défaut est ajouté aux query params', async () => {
 				// GIVEN
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				mockUseRouter({ push: routerPush });
 				const domainList = aMissionEngagementDomainList();
 				const localisationServiceMock = aLocalisationService();
@@ -144,7 +141,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 			});
 			it('sélectionné par l‘utilisateur est ajouté aux query params', async () => {
 				// GIVEN
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				mockUseRouter({ push: routerPush });
 				const domainList = aMissionEngagementDomainList();
 				const localisationServiceMock = aLocalisationService();

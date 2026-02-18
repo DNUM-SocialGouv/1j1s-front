@@ -12,23 +12,23 @@ export class LinkedinMarketingService implements MarketingService {
 			cookies: [],
 			js: function () {
 				'use strict';
-				// @ts-expect-error
+				// @ts-expect-error TS2339
 				window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-				// @ts-expect-error
+				// @ts-expect-error TS2339
 				window._linkedin_data_partner_ids.push(LinkedinMarketingService.PARTNER_ID);
 				(function (l) {
 					if (!l) {
-						// @ts-expect-error
+						// @ts-expect-error TS2339
 						window.lintrk = function (a, b) {
-							// @ts-expect-error
+							// @ts-expect-error TS2339
 							window.lintrk.q.push([a, b]);
 						};
-						// @ts-expect-error
+						// @ts-expect-error TS2339
 						window.lintrk.q = [];
 					}
-					// @ts-expect-error
+					// @ts-expect-error TS2339
 					window.tarteaucitron.addScript('https://snap.licdn.com/li.lms-analytics/insight.min.js');
-					// @ts-expect-error
+					// @ts-expect-error TS2339
 				})(window.lintrk);
 			},
 			key: 'linkedin-custom',

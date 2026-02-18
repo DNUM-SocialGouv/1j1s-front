@@ -1,21 +1,19 @@
 import React, {
-	useEffect,
-	useState,
+	useMemo,
 } from 'react';
 
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 
 export function EtiquettesFiltreMission() {
-	const [filtreList, setFiltreList] = useState<string[]>([]);
 	const missionEngagementQuery = useMissionEngagementQuery();
 
-	useEffect(() => {
+	const filtreList = useMemo(() => {
 		const filtres = [];
 		if (missionEngagementQuery.ouvertsAuxMineurs) filtres.push('Dès 16 ans');
 		if (missionEngagementQuery.ville && missionEngagementQuery.codePostal) filtres.push(`${missionEngagementQuery.ville} (${missionEngagementQuery.codePostal})`);
-		setFiltreList(filtres);
-	}, [missionEngagementQuery]);
+		return filtres;
+	}, [missionEngagementQuery.codePostal, missionEngagementQuery.ouvertsAuxMineurs, missionEngagementQuery.ville]);
 
 	if (!filtreList.length) {
 		return null;

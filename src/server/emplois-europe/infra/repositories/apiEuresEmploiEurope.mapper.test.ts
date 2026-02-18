@@ -7,7 +7,7 @@ import { NiveauDEtudesLibelle } from '~/server/emplois-europe/domain/niveauDEtud
 import { LEVEL_CODE, LEVEL_NAME } from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailResponse,
-	ApiEuresEmploiEuropeDetailXML,
+	ApiEuresEmploiEuropeDetailXMLNiveauEtudeAPIEures as NiveauEtudeAPIEures,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import {
 	anApiEuresEmploiEuropeDetailItem,
@@ -20,7 +20,6 @@ import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/reposi
 import { EURES_CONTRACT_TYPE } from '~/server/emplois-europe/infra/typesContratEures';
 import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 import { FastXmlParserService } from '~/server/services/xml/fastXmlParser.service';
-import NiveauEtudeAPIEures = ApiEuresEmploiEuropeDetailXML.NiveauEtudeAPIEures;
 
 describe('apiEuresEmploiEuropeMapper', () => {
 	describe('mapRechercheEmploiEurope', () => {
@@ -574,7 +573,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					const handle = 'eures-offer-id';
 					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(
 						{
-							// @ts-expect-error
+							// @ts-expect-error TS2322
 							educationLevelCode: educationLevelCode,
 						});
 					const aDetailItemWithContractTypeApprenticeship = anApiEuresEmploiEuropeDetailItem(
@@ -1065,7 +1064,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 									hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
 										experiencesNecessaires: [{
 											duree: 4,
-											// @ts-expect-error
+											// @ts-expect-error TS2322
 											unite: 'hour',
 										}, {
 											duree: 2,

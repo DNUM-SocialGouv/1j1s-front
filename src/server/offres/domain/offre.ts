@@ -6,141 +6,139 @@ export interface Offre {
 	id: OffreId
 	intitulé: string
 	description?: string
-	formationList: Offre.Formation[]
+	formationList: OffreFormation[]
 	compétenceList: string[]
 	qualitéeProfessionnelleList: string[]
 	lieuTravail?: string
 	salaire?: string
-	entreprise: Offre.Entreprise
-	typeContrat?: Offre.TypeDeContrat
-	expérience?: Offre.Expérience
-	duréeTravail?: Offre.DuréeTravail
+	entreprise: OffreEntreprise
+	typeContrat?: OffreTypeDeContrat
+	expérience?: OffreExpérience
+	duréeTravail?: OffreDuréeTravail
 	urlOffreOrigine: string
 	étiquetteList: string[]
 }
 
-export namespace Offre {
-	export enum Expérience {
-		DEBUTANT_ACCEPTE = 'Débutant accepté',
-		EXPERIENCE_SOUHAITEE = 'Expérience souhaitée',
-		EXPERIENCE_EXIGEE = 'Expérience exigée',
-	}
+export enum OffreExpérience {
+	DEBUTANT_ACCEPTE = 'Débutant accepté',
+	EXPERIENCE_SOUHAITEE = 'Expérience souhaitée',
+	EXPERIENCE_EXIGEE = 'Expérience exigée',
+}
 
-	export enum DuréeTravail {
-		TEMPS_PLEIN = 'Temps plein',
-		TEMPS_PARTIEL = 'Temps partiel',
-	}
+export enum OffreDuréeTravail {
+	TEMPS_PLEIN = 'Temps plein',
+	TEMPS_PARTIEL = 'Temps partiel',
+}
 
-	export interface Entreprise {
-		nom?: string
-		logo?: string
-	}
+export interface OffreEntreprise {
+	nom?: string
+	logo?: string
+}
 
-	export interface Formation {
-		libellé?: string
-		commentaire?: string
-	}
+export interface OffreFormation {
+	libellé?: string
+	commentaire?: string
+}
 
-	type Contrat = 'CDD' | 'CDI' | 'SAI' | 'MIS'
+type Contrat = 'CDD' | 'CDI' | 'SAI' | 'MIS'
 
-	export interface TypeDeContrat {
-		libelléCourt: string
-		libelléLong: string
-		valeur: Contrat
-	}
+export interface OffreTypeDeContrat {
+	libelléCourt: string
+	libelléLong: string
+	valeur: Contrat
+}
 
-	export const CONTRAT_CDD: TypeDeContrat = {
-		libelléCourt: 'CDD',
-		libelléLong: 'Contrat à durée déterminé',
-		valeur: 'CDD',
+export const CONTRAT_CDD: OffreTypeDeContrat = {
+	libelléCourt: 'CDD',
+	libelléLong: 'Contrat à durée déterminé',
+	valeur: 'CDD',
+};
+
+export const CONTRAT_CDI: OffreTypeDeContrat = {
+	libelléCourt: 'CDI',
+	libelléLong: 'Contrat à durée indéterminé',
+	valeur: 'CDI',
+};
+
+export const CONTRAT_INTÉRIMAIRE: OffreTypeDeContrat = {
+	libelléCourt: 'Intérim',
+	libelléLong: 'Mission intérimaire',
+	valeur: 'MIS',
+};
+
+export const CONTRAT_SAISONNIER: OffreTypeDeContrat = {
+	libelléCourt: 'Saisonnier',
+	libelléLong: 'Contrat travail saisonnier',
+	valeur: 'SAI',
+};
+
+export const TYPE_DE_CONTRAT_LIST: OffreTypeDeContrat[] = [
+	CONTRAT_CDD,
+	CONTRAT_CDI,
+	CONTRAT_INTÉRIMAIRE,
+	CONTRAT_SAISONNIER,
+];
+
+
+type Temps = 'tempsPlein' | 'tempsPartiel' | 'indifférent'
+
+export interface OffreTempsDeTravail {
+	libellé: string
+	valeur: Temps
+}
+
+export const TEMPS_PLEIN: OffreTempsDeTravail = {
+	libellé: 'Temps plein',
+	valeur: 'tempsPlein',
+};
+
+export const TEMPS_PARTIEL: OffreTempsDeTravail = {
+	libellé: 'Temps partiel',
+	valeur: 'tempsPartiel',
+};
+
+export const TEMPS_INDIFFERENT: OffreTempsDeTravail = {
+	libellé: 'Indifférent',
+	valeur: 'indifférent',
+};
+
+export const TEMPS_DE_TRAVAIL_LIST: OffreTempsDeTravail[] = [
+	TEMPS_PLEIN,
+	TEMPS_PARTIEL,
+	TEMPS_INDIFFERENT,
+];
+
+type expérience = 'D' | 'S' | 'E'
+
+export interface OffreExpérienceAttendu {
+	libellé: string
+	valeur: expérience
+}
+
+export const EXPÉRIENCE_DEBUTANT: OffreExpérienceAttendu = {
+	libellé: 'Moins de 1 an',
+	valeur: 'D',
+};
+
+export const EXPÉRIENCE_EXIGÉE: OffreExpérienceAttendu = {
+	libellé: 'Plus de 3 ans',
+	valeur: 'E',
+};
+
+export const EXPÉRIENCE_SOUHAITÉ: OffreExpérienceAttendu = {
+	libellé: 'De 1 à 3 ans',
+	valeur: 'S',
 	};
 
-	export const CONTRAT_CDI: TypeDeContrat = {
-		libelléCourt: 'CDI',
-		libelléLong: 'Contrat à durée indéterminé',
-		valeur: 'CDI',
-	};
+export const EXPÉRIENCE: OffreExpérienceAttendu[] = [
+	EXPÉRIENCE_DEBUTANT,
+	EXPÉRIENCE_SOUHAITÉ,
+	EXPÉRIENCE_EXIGÉE,
+];
 
-	export const CONTRAT_INTÉRIMAIRE: TypeDeContrat = {
-		libelléCourt: 'Intérim',
-		libelléLong: 'Mission intérimaire',
-		valeur: 'MIS',
-	};
-
-	export const CONTRAT_SAISONNIER: TypeDeContrat = {
-		libelléCourt: 'Saisonnier',
-		libelléLong: 'Contrat travail saisonnier',
-		valeur: 'SAI',
-	};
-
-	export const TYPE_DE_CONTRAT_LIST: TypeDeContrat[] = [
-		Offre.CONTRAT_CDD,
-		Offre.CONTRAT_CDI,
-		Offre.CONTRAT_INTÉRIMAIRE,
-		Offre.CONTRAT_SAISONNIER,
-	];
-
-
-	type Temps = 'tempsPlein' | 'tempsPartiel' | 'indifférent'
-
-	export interface TempsDeTravail {
-		libellé: string
-		valeur: Temps
-	}
-
-	export const TEMPS_PLEIN: TempsDeTravail = {
-		libellé: 'Temps plein',
-		valeur: 'tempsPlein',
-	};
-
-	export const TEMPS_PARTIEL: TempsDeTravail = {
-		libellé: 'Temps partiel',
-		valeur: 'tempsPartiel',
-	};
-
-	export const TEMPS_INDIFFERENT: TempsDeTravail = {
-		libellé: 'Indifférent',
-		valeur: 'indifférent',
-	};
-
-	export const TEMPS_DE_TRAVAIL_LIST: TempsDeTravail[] = [
-		Offre.TEMPS_PLEIN,
-		Offre.TEMPS_PARTIEL,
-		Offre.TEMPS_INDIFFERENT,
-	];
-
-	type expérience = 'D' | 'S' | 'E'
-
-	export interface ExpérienceAttendu {
-		libellé: string
-		valeur: expérience
-	}
-
-	export const EXPÉRIENCE_DEBUTANT: ExpérienceAttendu = {
-		libellé: 'Moins de 1 an',
-		valeur: 'D',
-	};
-
-	export const EXPÉRIENCE_EXIGÉE: ExpérienceAttendu = {
-		libellé: 'Plus de 3 ans',
-		valeur: 'E',
-	};
-
-	export const EXPÉRIENCE_SOUHAITÉ: ExpérienceAttendu = {
-		libellé: 'De 1 à 3 ans',
-		valeur: 'S',
-	};
-
-	export const EXPÉRIENCE: ExpérienceAttendu[] = [
-		Offre.EXPÉRIENCE_DEBUTANT,
-		Offre.EXPÉRIENCE_SOUHAITÉ,
-		Offre.EXPÉRIENCE_EXIGÉE,
-	];
-
-	export interface CheckboxFiltre {
-		libellé: string
-		valeur: string
-	}
+export interface OffreCheckboxFiltre {
+	libellé: string
+	valeur: string
 }
 
 export interface RésultatsRechercheOffre {

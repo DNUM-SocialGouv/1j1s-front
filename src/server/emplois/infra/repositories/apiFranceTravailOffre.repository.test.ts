@@ -56,7 +56,7 @@ describe('ApiFranceTravailOffreRepository', () => {
 	describe('getOffreEmploi', () => {
 		describe('quand l’offre d’emploi est trouvé', () => {
 			it('récupère l’offre d’emploi selon l’id', async () => {
-				jest
+				vi
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse(aBarmanOffreEmploiApiResponse()));
 				const expected = anOffreEmploi();
@@ -74,10 +74,10 @@ describe('ApiFranceTravailOffreRepository', () => {
 			it('retourne une erreur', async () => {
 				const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
 				const httpError = anAxiosResponse(anHttpError(404));
-				jest
+				vi
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockRejectedValue(httpError);
-				jest.spyOn(apiFranceTravailErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
+				vi.spyOn(apiFranceTravailErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
 
 				const result = await apiFranceTravailOffreRepository.get(anOffreEmploi().id);
 
@@ -93,9 +93,9 @@ describe('ApiFranceTravailOffreRepository', () => {
 			it('retourne une erreur', async () => {
 				const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
 				const apiResponse = anAxiosResponse(aBarmanOffreEmploiApiResponse(), 204);
-				jest.spyOn(httpClientServiceWithAuthentification, 'get').mockResolvedValue(apiResponse);
-				jest.spyOn(apiFranceTravailErrorManagementGet, 'isError').mockReturnValue(true);
-				jest.spyOn(apiFranceTravailErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
+				vi.spyOn(httpClientServiceWithAuthentification, 'get').mockResolvedValue(apiResponse);
+				vi.spyOn(apiFranceTravailErrorManagementGet, 'isError').mockReturnValue(true);
+				vi.spyOn(apiFranceTravailErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
 
 				const result = await apiFranceTravailOffreRepository.get(anOffreEmploi().id);
 
@@ -113,16 +113,16 @@ describe('ApiFranceTravailOffreRepository', () => {
 		describe('quand la recherche est lancée automatiquement pour les offres d‘emplois', () => {
 			describe('quand les informations ne sont pas encore mis en cache', () => {
 				it('fait l‘appel à l‘api et set les informations dans le cache', async () => {
-					jest
+					vi
 						.spyOn(httpClientServiceWithAuthentification, 'get')
 						.mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploiApiResponse()));
 
-					jest
+					vi
 						.spyOn(franceTravailParametreBuilderService, 'buildCommonParamètresRecherche')
 						.mockResolvedValue('range=0-14');
 
-					jest.spyOn(cacheService, 'get').mockResolvedValue(null);
-					jest.spyOn(cacheService, 'set');
+					vi.spyOn(cacheService, 'get').mockResolvedValue(null);
+					vi.spyOn(cacheService, 'set');
 
 					const offreFiltre = anOffreÉchantillonFiltre();
 
@@ -138,16 +138,16 @@ describe('ApiFranceTravailOffreRepository', () => {
 					expect(cacheService.set).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI_KEY', aRésultatsRechercheOffreEmploiApiResponse(), 24);
 				});
 				it('ne set pas les informations dans le cache si une erreur se produit', async () => {
-					jest
+					vi
 						.spyOn(httpClientServiceWithAuthentification, 'get')
 						.mockResolvedValue(anAxiosResponse('payload invalide'));
 
-					jest
+					vi
 						.spyOn(franceTravailParametreBuilderService, 'buildCommonParamètresRecherche')
 						.mockResolvedValue('range=0-14');
 
-					jest.spyOn(cacheService, 'get').mockResolvedValue(null);
-					jest.spyOn(cacheService, 'set');
+					vi.spyOn(cacheService, 'get').mockResolvedValue(null);
+					vi.spyOn(cacheService, 'set');
 
 					const offreFiltre = anOffreÉchantillonFiltre();
 
@@ -159,8 +159,8 @@ describe('ApiFranceTravailOffreRepository', () => {
 
 			describe('quand les informations sont déjà en cache', () => {
 				it('ne fait pas l‘appel à l‘api et get les informations du cache', async () => {
-					jest.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiApiResponse());
-					jest.spyOn(cacheService, 'set');
+					vi.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiApiResponse());
+					vi.spyOn(cacheService, 'set');
 
 					const offreFiltre = anOffreÉchantillonFiltre();
 
@@ -179,12 +179,12 @@ describe('ApiFranceTravailOffreRepository', () => {
 
 		describe('quand la recherche est lancée par l‘utilisateur', () => {
 			it('ne get pas les informations du cache et fait appel à l‘api avec les filtres', async () => {
-				jest
+				vi
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploiApiResponse()));
 
-				jest.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiApiResponse());
-				jest.spyOn(cacheService, 'set');
+				vi.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiApiResponse());
+				vi.spyOn(cacheService, 'set');
 
 				const offreFiltre = anOffreEmploiFiltre();
 
@@ -201,10 +201,10 @@ describe('ApiFranceTravailOffreRepository', () => {
 
 		describe('quand nombre de résultat est présent dans la réponse', () => {
 			it('recherche les offres d’emploi de France Travail', async () => {
-				jest
+				vi
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploiApiResponse()));
-				jest
+				vi
 					.spyOn(franceTravailParametreBuilderService, 'buildCommonParamètresRecherche')
 					.mockResolvedValue('region=34&motsCles=boulanger&range=0-14');
 				const offreEmploiFiltre = anOffreEmploiFiltre();
@@ -220,7 +220,7 @@ describe('ApiFranceTravailOffreRepository', () => {
 
 		describe('quand l’api renvoie une 204', () => {
 			it('retourne un success avec une liste vide', async () => {
-				jest
+				vi
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse({}, 204));
 
@@ -234,10 +234,10 @@ describe('ApiFranceTravailOffreRepository', () => {
 			it('retourne une erreur', async () => {
 				const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
 				const httpError = anAxiosResponse(anHttpError(404));
-				jest
+				vi
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockRejectedValue(httpError);
-				jest.spyOn(apiFranceTravailErrorManagementSearch, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
+				vi.spyOn(apiFranceTravailErrorManagementSearch, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
 
 				const result = await apiFranceTravailOffreRepository.search(anOffreÉchantillonAvecLocalisationEtMotCléFiltre());
 
@@ -254,9 +254,9 @@ describe('ApiFranceTravailOffreRepository', () => {
 			it('retourne une erreur', async () => {
 				const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
 				const httpError = anAxiosResponse(anHttpError(404));
-				jest.spyOn(apiFranceTravailErrorManagementSearch, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
-				jest.spyOn(cacheService, 'get').mockResolvedValue(null);
-				jest
+				vi.spyOn(apiFranceTravailErrorManagementSearch, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
+				vi.spyOn(cacheService, 'get').mockResolvedValue(null);
+				vi
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockRejectedValue(httpError);
 

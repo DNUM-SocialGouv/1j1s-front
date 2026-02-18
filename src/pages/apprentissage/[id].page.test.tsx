@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import '~/test-utils';
 
 import { render, screen } from '@testing-library/react';
@@ -13,7 +10,7 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import { aDateService } from '~/client/services/date/date.service.fixture';
 import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import AnnonceAlternancePage, { AlternanceSerialized } from '~/pages/apprentissage/[id].page';
-import { Alternance } from '~/server/alternances/domain/alternance';
+import { AlternanceSource } from '~/server/alternances/domain/alternance';
 
 const alternanceSerialized: AlternanceSerialized = {
 	compétences: ['savoir faire'],
@@ -29,12 +26,12 @@ const alternanceSerialized: AlternanceSerialized = {
 	localisation: 'paris',
 	natureDuContrat: 'CDI',
 	niveauRequis: 'débutant',
-	source: Alternance.Source.FRANCE_TRAVAIL,
+	source: AlternanceSource.FRANCE_TRAVAIL,
 	titre: 'Ma super alternance',
 	typeDeContrat: ['Apprentissage'],
 };
 
-jest.mock('next/head', () => HeadMock);
+vi.mock('next/head', () => ({ default: HeadMock }));
 
 describe('<AnnonceAlternancePage />', () => {
 	beforeEach(() => {

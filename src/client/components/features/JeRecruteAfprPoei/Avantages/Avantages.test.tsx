@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 
 import Avantages from '~/client/components/features/JeRecruteAfprPoei/Avantages/Avantages';

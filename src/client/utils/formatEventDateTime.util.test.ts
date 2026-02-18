@@ -18,7 +18,7 @@ describe('formatEventDateTime', () => {
 	};
 
 	afterEach(() => {
-		jest.restoreAllMocks();
+		vi.restoreAllMocks();
 	});
 
 	describe('quand la date de début et de fin sont identiques', () => {

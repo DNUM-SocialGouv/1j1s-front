@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { BanniereEmploisEurope } from '~/client/components/features/EmploisEurope/BanniereEmploisEurope';
 import {
@@ -39,23 +39,29 @@ export default function RechercherEmploisEurope() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 
-	useEffect(() => {
-		if (!empty(emploiEuropeQuery)) {
-			setIsLoading(true);
-			setErreurRecherche(undefined);
+	const rechercherEmploiEurope = useCallback(async () => {
+		setIsLoading(true);
+		setErreurRecherche(undefined);
+		try {
 			// TODO (BRUJ 24/07/2024): Devrait être en SSR
-			emploiEuropeService.rechercherEmploiEurope(emploiEuropeQuery)
-				.then((response) => {
-					if (isSuccess(response)) {
-						setEmploiEuropeList(response.result.offreList);
-						setNombreResultats(response.result.nombreResultats);
-					} else {
-						setErreurRecherche(response.errorType);
-					}
-					setIsLoading(false);
-				});
+			const response = await emploiEuropeService.rechercherEmploiEurope(emploiEuropeQuery);
+			if (isSuccess(response)) {
+				setEmploiEuropeList(response.result.offreList);
+				setNombreResultats(response.result.nombreResultats);
+			} else {
+				setErreurRecherche(response.errorType);
+			}
+		} finally {
+			setIsLoading(false);
 		}
 	}, [emploiEuropeQuery, emploiEuropeService]);
+
+	useEffect(() => {
+		if (empty(emploiEuropeQuery)) {
+			return;
+		}
+		rechercherEmploiEurope();
+	}, [emploiEuropeQuery, rechercherEmploiEurope]);
 
 	const messageResultatRecherche: string = useMemo(() => {
 		const nombreResultatsFormaté = formatNumberWithSpace(nombreResultats);

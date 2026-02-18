@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 
 import { ConsulterArticle } from '~/client/components/features/Article/ConsulterArticle';
@@ -41,7 +37,7 @@ describe('ConsulterArticle', () => {
 		const dateMiseAJourHumanReadable = '26 janvier 2023';
 
 		const dateService = aDateService();
-		jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue(dateMiseAJourHumanReadable);
+		vi.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue(dateMiseAJourHumanReadable);
 
 		// When
 		render(

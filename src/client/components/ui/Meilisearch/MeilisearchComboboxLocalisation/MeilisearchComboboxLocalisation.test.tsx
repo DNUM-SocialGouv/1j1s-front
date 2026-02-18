@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -13,8 +9,10 @@ import {
 } from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 import { mockScrollIntoView } from '~/client/components/window.mock';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const spyed = jest.spyOn(require('react-instantsearch'), 'useRefinementList');
+import { useRefinementList } from 'react-instantsearch';
+vi.mock('react-instantsearch');
+
+const spyed = vi.mocked(useRefinementList);
 
 describe('MeilisearchComboboxLocalisation', () => {
 	it('l‘utilisateur peut intéragir avec le combobox et voir les options', async () => {
@@ -24,7 +22,7 @@ describe('MeilisearchComboboxLocalisation', () => {
 				generateRefinementListItem({ value: 'Marseille' }),
 				generateRefinementListItem({ value: 'PACA' }),
 				generateRefinementListItem({ value: 'Le Vésinet' })],
-			refine: jest.fn(),
+			refine: vi.fn(),
 		}));
 		const user = userEvent.setup();
 
@@ -64,7 +62,7 @@ describe('MeilisearchComboboxLocalisation', () => {
 				generateRefinementListItem({ value: 'abcdefhklmnopqrst' }),
 				generateRefinementListItem({ value: 'abcdefhklmnopqrstu' }),
 			],
-			refine: jest.fn(),
+			refine: vi.fn(),
 		}));
 		const user = userEvent.setup();
 
@@ -80,7 +78,7 @@ describe('MeilisearchComboboxLocalisation', () => {
 		const MESSAGE_PAS_DE_RESULTAT = 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un lieu. Exemple : Paris, Marseille …';
 		spyed.mockImplementation(() => mockUseRefinementList({
 			items: [],
-			refine: jest.fn(),
+			refine: vi.fn(),
 		}));
 		const user = userEvent.setup();
 
@@ -94,7 +92,7 @@ describe('MeilisearchComboboxLocalisation', () => {
 	});
 
 	it('quand l‘utilisateur séléctionne une option au click, le champ de saisie se vide et la méthode refine est appelé', async () => {
-		const refine = jest.fn();
+		const refine = vi.fn();
 		spyed.mockImplementation(() => mockUseRefinementList({
 			items: [
 				generateRefinementListItem({ value: 'Paris' }),
@@ -120,7 +118,7 @@ describe('MeilisearchComboboxLocalisation', () => {
 	it('quand l‘utilisateur séléctionne une option au clavier, le champ de saisie se vide et la méthode refine est appelé', async () => {
 		mockScrollIntoView();
 
-		const refine = jest.fn();
+		const refine = vi.fn();
 		spyed.mockImplementation(() => mockUseRefinementList({
 			items: [
 				generateRefinementListItem({ value: 'Paris' }),
@@ -146,7 +144,7 @@ describe('MeilisearchComboboxLocalisation', () => {
 	it('quand l‘utilisateur tappe une option valide au clavier et fait entrer, le champ de saisie se vide et la méthode refine est appelé', async () => {
 		mockScrollIntoView();
 
-		const refine = jest.fn();
+		const refine = vi.fn();
 		spyed.mockImplementation(() => mockUseRefinementList({
 			items: [
 				generateRefinementListItem({ value: 'Paris' }),
@@ -169,7 +167,7 @@ describe('MeilisearchComboboxLocalisation', () => {
 	});
 
 	it('quand l‘utilisateur tappe l‘option en entier, l‘option n‘est pas séléctionné', async () => {
-		const refine = jest.fn();
+		const refine = vi.fn();
 		spyed.mockImplementation(() => mockUseRefinementList({
 			items: [
 				generateRefinementListItem({ value: 'Paris' }),

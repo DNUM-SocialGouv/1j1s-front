@@ -11,10 +11,10 @@ interface FakeRésultat {
 describe('handleResponse', () => {
 	it('retourne une 200 quand la réponse est success', () => {
 		const res = {
-			json: jest.fn(),
-			status: jest.fn(),
+			json: vi.fn(),
+			status: vi.fn(),
 		} as unknown as NextApiResponse;
-		jest.spyOn(res, 'status').mockReturnValue(res);
+		vi.spyOn(res, 'status').mockReturnValue(res);
 
 		handleResponse<FakeRésultat>(createSuccess({ data: 'ok' }), res);
 
@@ -23,10 +23,10 @@ describe('handleResponse', () => {
 
 	it('retourne une 503 quand l erreur est SERVICE_INDISPONIBLE', () => {
 		const res = {
-			json: jest.fn(),
-			status: jest.fn(),
+			json: vi.fn(),
+			status: vi.fn(),
 		} as unknown as NextApiResponse;
-		jest.spyOn(res, 'status').mockReturnValue(res);
+		vi.spyOn(res, 'status').mockReturnValue(res);
 
 		handleResponse<FakeRésultat>(createFailure(ErreurMetier.SERVICE_INDISPONIBLE), res);
 
@@ -35,10 +35,10 @@ describe('handleResponse', () => {
 
 	it('retourne une 400 quand l erreur est DEMANDE_INCORRECTE', () => {
 		const res = {
-			json: jest.fn(),
-			status: jest.fn(),
+			json: vi.fn(),
+			status: vi.fn(),
 		} as unknown as NextApiResponse;
-		jest.spyOn(res, 'status').mockReturnValue(res);
+		vi.spyOn(res, 'status').mockReturnValue(res);
 
 		handleResponse<FakeRésultat>(createFailure(ErreurMetier.DEMANDE_INCORRECTE), res);
 
@@ -47,10 +47,10 @@ describe('handleResponse', () => {
 
 	it('retourne une 404 quand l erreur est CONTENU_INDISPONIBLE', () => {
 		const res = {
-			json: jest.fn(),
-			status: jest.fn(),
+			json: vi.fn(),
+			status: vi.fn(),
 		} as unknown as NextApiResponse;
-		jest.spyOn(res, 'status').mockReturnValue(res);
+		vi.spyOn(res, 'status').mockReturnValue(res);
 
 		handleResponse<FakeRésultat>(createFailure(ErreurMetier.CONTENU_INDISPONIBLE), res);
 
@@ -59,10 +59,10 @@ describe('handleResponse', () => {
 
 	it('retourne une 409 quand l erreur est CONFLIT_D_IDENTIFIANT', () => {
 		const res = {
-			json: jest.fn(),
-			status: jest.fn(),
+			json: vi.fn(),
+			status: vi.fn(),
 		} as unknown as NextApiResponse;
-		jest.spyOn(res, 'status').mockReturnValue(res);
+		vi.spyOn(res, 'status').mockReturnValue(res);
 
 		handleResponse(createFailure(ErreurMetier.CONFLIT_D_IDENTIFIANT), res);
 
@@ -71,10 +71,10 @@ describe('handleResponse', () => {
 
 	it('retourne une 500 quand l erreur est inconnue', () => {
 		const res = {
-			json: jest.fn(),
-			status: jest.fn(),
+			json: vi.fn(),
+			status: vi.fn(),
 		} as unknown as NextApiResponse;
-		jest.spyOn(res, 'status').mockReturnValue(res);
+		vi.spyOn(res, 'status').mockReturnValue(res);
 
 		handleResponse(createFailure('erreur inconnue' as ErreurMetier), res);
 

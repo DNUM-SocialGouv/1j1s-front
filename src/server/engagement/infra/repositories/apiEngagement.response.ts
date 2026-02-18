@@ -37,22 +37,18 @@ export interface RésultatsMissionEngagementResponse {
   data: ConsulterMissionEngagementResponse
 }
 
-export namespace ApiEngagement {
-  export type RechercherMission = RechercherMission.SansLocalisation | RechercherMission.AvecLocalisation;
+export type ApiEngagementRechercherMission = ApiEngagementRechercherMissionSansLocalisation | ApiEngagementRechercherMissionAvecLocalisation;
 
-  export namespace RechercherMission {
-    export interface SansLocalisation {
-      domain?: string
-      from: number
-      publisher: string
-      size: number
-      openToMinors?: 'yes' | 'no'
-    }
+export interface ApiEngagementRechercherMissionSansLocalisation {
+	domain?: string
+	from: number
+	publisher: string
+	size: number
+	openToMinors?: 'yes' | 'no'
+}
 
-    export type AvecLocalisation = SansLocalisation & {
-      distance: string
-      lat: number
-      lon: number
-    }
-  }
+export type ApiEngagementRechercherMissionAvecLocalisation = ApiEngagementRechercherMissionSansLocalisation & {
+	distance: string
+	lat: number
+	lon: number
 }

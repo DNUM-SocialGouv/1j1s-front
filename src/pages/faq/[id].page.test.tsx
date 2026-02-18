@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import '~/test-utils';
 
 import { render } from '@testing-library/react';
@@ -11,7 +7,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aDateService } from '~/client/services/date/date.service.fixture';
 import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import ConsulterArticlePage from '~/pages/faq/[id].page';
-import { FAQ } from '~/server/faq/domain/FAQ';
+import { FAQQuestionEtReponse } from '~/server/faq/domain/FAQ';
 import { aQuestionEtReponse } from '~/server/faq/domain/FAQ.fixture';
 
 describe('<ConsulterArticlePage />', () => {
@@ -20,7 +16,7 @@ describe('<ConsulterArticlePage />', () => {
 		mockUseRouter({});
 	});
 	it('doit rendre du HTML respectant la specification', () => {
-		const faqRéponse: FAQ.QuestionEtReponse = aQuestionEtReponse({
+		const faqRéponse: FAQQuestionEtReponse = aQuestionEtReponse({
 			contenu: 'Contenu de la réponse',
 			problématique: 'Problématique de la question',
 			slug: 'slug-de-la-question',
@@ -37,7 +33,7 @@ describe('<ConsulterArticlePage />', () => {
 		expect(container.outerHTML).toHTMLValidate();
 	});
 	it('n‘a pas de défaut d‘accessibilité', async () => {
-		const faqRéponse: FAQ.QuestionEtReponse = aQuestionEtReponse({
+		const faqRéponse: FAQQuestionEtReponse = aQuestionEtReponse({
 			contenu: 'Contenu de la réponse',
 			problématique: 'Problématique de la question',
 			slug: 'slug-de-la-question',

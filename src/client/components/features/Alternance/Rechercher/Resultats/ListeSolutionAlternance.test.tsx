@@ -1,14 +1,10 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 
 import {
 	ListeSolutionAlternance,
 } from '~/client/components/features/Alternance/Rechercher/Resultats/ListeSolutionAlternance';
 import { mockSmallScreen } from '~/client/components/window.mock';
-import { Alternance } from '~/server/alternances/domain/alternance';
+import { AlternanceSource } from '~/server/alternances/domain/alternance';
 import { aRechercheMatchaAlternance, aRecherchePEJobAlternance } from '~/server/alternances/domain/alternance.fixture';
 
 describe('les tags', () => {
@@ -21,7 +17,7 @@ describe('les tags', () => {
 			aRechercheMatchaAlternance({
 				localisation: 'Paris',
 				niveauRequis: 'débutant',
-				source: Alternance.Source.MATCHA,
+				source: AlternanceSource.MATCHA,
 				typeDeContrat: ['Apprentissage', 'CDI'],
 			}),
 		];
@@ -41,7 +37,7 @@ describe('les tags', () => {
 		const alternancesList = [
 			aRecherchePEJobAlternance({
 				localisation: 'PARIS 4',
-				source: Alternance.Source.FRANCE_TRAVAIL,
+				source: AlternanceSource.FRANCE_TRAVAIL,
 				typeDeContrat: ['CDD'],
 			}),
 		];

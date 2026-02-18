@@ -1,6 +1,7 @@
 import {
 	ContactEtablissementAccompagnement,
 	EtablissementAccompagnement,
+	EtablissementAccompagnementAdresse,
 	JourSemaine,
 	TypeÉtablissement,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
@@ -11,7 +12,7 @@ export function anEtablissementAccompagnementList(overrides?: Partial<Etablissem
 	];
 }
 
-export function anEtablissementAccompagnementAdresse(overrides?: Partial<EtablissementAccompagnement.Adresse>): EtablissementAccompagnement.Adresse {
+export function anEtablissementAccompagnementAdresse(overrides?: Partial<EtablissementAccompagnementAdresse>): EtablissementAccompagnementAdresse {
 	return {
 		codePostal: '75011',
 		nomCommune: 'Paris',

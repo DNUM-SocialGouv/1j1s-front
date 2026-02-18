@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 
 import { TimeRange } from '~/client/components/ui/TimeRange/TimeRange';
-import { EtablissementAccompagnement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
+import { EtablissementAccompagnementHoraire } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 import styles from './HorairesRésultatRechercherAccompagnement.module.scss';
 
 interface HorairesResultatRechercherAccompagnementProps {
-  horaire: EtablissementAccompagnement.Horaire
+  horaire: EtablissementAccompagnementHoraire
 }
 
 export function HorairesResultatRechercherAccompagnement(props: HorairesResultatRechercherAccompagnementProps) {

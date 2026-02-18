@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -64,7 +60,7 @@ describe('La recherche des stages de 3e et 2de', () => {
 					}),
 				],
 			});
-			jest.spyOn(stage3eEt2deServiceMock, 'rechercherStage3eEt2de').mockResolvedValue(createSuccess(resultatRecherche));
+			vi.spyOn(stage3eEt2deServiceMock, 'rechercherStage3eEt2de').mockResolvedValue(createSuccess(resultatRecherche));
 
 			// WHEN
 			render(<DependenciesProvider stage3eEt2deService={stage3eEt2deServiceMock}
@@ -118,7 +114,7 @@ describe('La recherche des stages de 3e et 2de', () => {
 					}),
 				],
 			});
-			jest.spyOn(stage3eEt2deServiceMock, 'rechercherStage3eEt2de').mockResolvedValue(createSuccess(resultatRecherche));
+			vi.spyOn(stage3eEt2deServiceMock, 'rechercherStage3eEt2de').mockResolvedValue(createSuccess(resultatRecherche));
 
 			// WHEN
 			render(<DependenciesProvider stage3eEt2deService={stage3eEt2deServiceMock}
@@ -167,7 +163,7 @@ describe('La recherche des stages de 3e et 2de', () => {
 					],
 				});
 
-				jest.spyOn(stage3eEt2deServiceMock, 'rechercherStage3eEt2de').mockResolvedValue(createSuccess(resultatRecherche));
+				vi.spyOn(stage3eEt2deServiceMock, 'rechercherStage3eEt2de').mockResolvedValue(createSuccess(resultatRecherche));
 
 				// WHEN
 				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deServiceMock}

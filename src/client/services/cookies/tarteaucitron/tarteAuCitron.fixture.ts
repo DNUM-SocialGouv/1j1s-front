@@ -2,15 +2,15 @@ import { TarteAuCitron } from './tarteAuCitron.cookies.service';
 
 export function aTarteAuCitron(override?: Partial<TarteAuCitron>): TarteAuCitron {
 	return {
-		init: jest.fn(),
+		init: vi.fn(),
 		job: undefined,
 		services: {},
 		state: {},
-		triggerJobsAfterAjaxCall: jest.fn(),
+		triggerJobsAfterAjaxCall: vi.fn(),
 		user: {},
 		userInterface: {
-			openPanel: jest.fn(),
-			respond: jest.fn(),
+			openPanel: vi.fn(),
+			respond: vi.fn(),
 		},
 		...override,
 	};

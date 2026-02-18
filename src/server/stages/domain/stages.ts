@@ -21,7 +21,7 @@ export interface OffreDeStage {
 	domaines: Array<DomainesStage>
 	dureeEnJour?: number
 	dureeEnJourMax?: number
-	localisation?: OffreDeStage.Localisation
+	localisation?: OffreDeStageLocalisation
 	employeur?: EmployeurStageCMS
 	remunerationMin?: number
 	remunerationMax?: number
@@ -30,46 +30,41 @@ export interface OffreDeStage {
 	teletravailPossible?: boolean
 }
 
-export namespace OffreDeStage {
-	export interface Localisation {
-		ville?: string
-		departement?: string
-		codePostal?: string
-		region?: string
-		pays?: string
-	}
+export interface OffreDeStageLocalisation {
+	ville?: string
+	departement?: string
+	codePostal?: string
+	region?: string
+	pays?: string
 }
 
+export interface OffreStageDepotLocalisation {
+	adresse: string
+	ville: string
+	departement: string | null
+	codePostal: string
+	region: string | null
+	pays: string
+}
 
-export namespace OffreStageDepot {
-	interface Localisation {
-		adresse: string
-		ville: string
-		departement: string | null
-		codePostal: string
-		region: string | null
-		pays: string
-	}
+export interface OffreStageDepotEmployeur {
+	nom: string
+	description: string
+	logoUrl: string | null
+	siteUrl: string | null
+	email: string
+}
 
-	export interface EmployeurDepotStage {
-		nom: string
-		description: string
-		logoUrl: string | null
-		siteUrl: string | null
-		email: string
-	}
-
-	export interface OffreDeStageDepot {
-		dateDeDebutMin: string
-		dateDeDebutMax: string
-		description: string
-		domaine: DomainesStage
-		duree: string
-		employeur: EmployeurDepotStage
-		localisation: Localisation
-		remuneration: number
-		teletravailPossible: boolean | null
-		titre: string
-		urlDeCandidature: string
-	}
+export interface OffreDeStageDepot {
+	dateDeDebutMin: string
+	dateDeDebutMax: string
+	description: string
+	domaine: DomainesStage
+	duree: string
+	employeur: OffreStageDepotEmployeur
+	localisation: OffreStageDepotLocalisation
+	remuneration: number
+	teletravailPossible: boolean | null
+	titre: string
+	urlDeCandidature: string
 }

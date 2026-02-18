@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -150,10 +146,10 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		describe('lorsque que le mode de contact est par téléphone ou en personne', () => {
 			it('affiche un bouton de retour à la recherche', async () => {
 				// GIVEN
-				const routerBack = jest.fn();
+				const routerBack = vi.fn();
 				mockUseRouter({ back: routerBack });
 				mockSessionStorage({
-					getItem: jest.fn().mockReturnValue('/page-1'),
+					getItem: vi.fn().mockReturnValue('/page-1'),
 				});
 				const user = userEvent.setup();
 				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
@@ -171,7 +167,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider sessionStorageService={aStorageService({ get: jest.fn().mockReturnValue(true) })} stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider sessionStorageService={aStorageService({ get: vi.fn().mockReturnValue(true) })} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>,
@@ -279,10 +275,10 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		describe('lorsque que le mode de contact est par mail', () => {
 			it('affiche un bouton de retour à la recherche', async () => {
 				// GIVEN
-				const routerBack = jest.fn();
+				const routerBack = vi.fn();
 				mockUseRouter({ back: routerBack });
 				mockSessionStorage({
-					getItem: jest.fn().mockReturnValue('/page-1'),
+					getItem: vi.fn().mockReturnValue('/page-1'),
 				});
 				const user = userEvent.setup();
 				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
@@ -292,7 +288,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider sessionStorageService={aStorageService({ get: jest.fn().mockReturnValue(true) })} stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider sessionStorageService={aStorageService({ get: vi.fn().mockReturnValue(true) })} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise} />
 					</DependenciesProvider>,
@@ -728,7 +724,7 @@ En vous remerciant,
 					);
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
-					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
+					vi.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 					render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise} />
@@ -780,7 +776,7 @@ En vous remerciant,
 					);
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
-					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
+					vi.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 					render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise} />
@@ -835,7 +831,7 @@ En vous remerciant,
 					});
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
-					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
+					vi.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 
 					// WHEN
 					render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
@@ -882,7 +878,7 @@ En vous remerciant,
 					});
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
-					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
+					vi.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 
 					// WHEN
 					render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
@@ -926,7 +922,7 @@ En vous remerciant,
 				});
 				const user = userEvent.setup();
 				const stage3eEt2deService = aStage3eEt2deService();
-				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
+				vi.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 
 				// WHEN
 				render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
@@ -966,17 +962,17 @@ En vous remerciant,
 						nomEntreprise: 'Carrefour',
 						siret: '12345678912345',
 					});
-				const routerBack = jest.fn();
+				const routerBack = vi.fn();
 				mockUseRouter({ back: routerBack });
 				mockSessionStorage({
-					getItem: jest.fn().mockReturnValue('/page-1'),
+					getItem: vi.fn().mockReturnValue('/page-1'),
 				});
 				const user = userEvent.setup();
 				const stage3eEt2deService = aStage3eEt2deService();
-				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
+				vi.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 
 				// WHEN
-				render(<DependenciesProvider sessionStorageService={aStorageService({ get: jest.fn().mockReturnValue(true) })} stage3eEt2deService={stage3eEt2deService}>
+				render(<DependenciesProvider sessionStorageService={aStorageService({ get: vi.fn().mockReturnValue(true) })} stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise} />
 				</DependenciesProvider>);
@@ -1016,7 +1012,7 @@ En vous remerciant,
 					);
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
-					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.CONFLIT_D_IDENTIFIANT));
+					vi.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.CONFLIT_D_IDENTIFIANT));
 
 					// WHEN
 					render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
@@ -1057,7 +1053,7 @@ En vous remerciant,
 					);
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
-					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+					vi.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 					// WHEN
 					render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
@@ -1097,7 +1093,7 @@ En vous remerciant,
 				);
 				const user = userEvent.setup();
 				const stage3eEt2deService = aStage3eEt2deService();
-				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+				vi.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 				// WHEN
 				render(<DependenciesProvider sessionStorageService={aStorageService()} stage3eEt2deService={stage3eEt2deService}>
@@ -1129,14 +1125,14 @@ En vous remerciant,
 
 			it('affiche un bouton de retour à la recherche', async () => {
 				// GIVEN
-				const routerBack = jest.fn();
+				const routerBack = vi.fn();
 				mockUseRouter({ back: routerBack });
 				mockSessionStorage({
-					getItem: jest.fn().mockReturnValue('/page-1'),
+					getItem: vi.fn().mockReturnValue('/page-1'),
 				});
 				const user = userEvent.setup();
 				const stage3eEt2deService = aStage3eEt2deService();
-				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+				vi.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de({
 					appellations: [
 						{
@@ -1150,7 +1146,7 @@ En vous remerciant,
 				});
 
 				// WHEN
-				render(<DependenciesProvider sessionStorageService={aStorageService({ get: jest.fn().mockReturnValue(true) })} stage3eEt2deService={stage3eEt2deService}>
+				render(<DependenciesProvider sessionStorageService={aStorageService({ get: vi.fn().mockReturnValue(true) })} stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise} />
 				</DependenciesProvider>);
@@ -1175,7 +1171,7 @@ En vous remerciant,
 				// GIVEN
 				const user = userEvent.setup();
 				const stage3eEt2deService = aStage3eEt2deService();
-				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(new Promise(() => {
+				vi.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockImplementation(() => new Promise(() => {
 				}));
 				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de({
 					appellations: [

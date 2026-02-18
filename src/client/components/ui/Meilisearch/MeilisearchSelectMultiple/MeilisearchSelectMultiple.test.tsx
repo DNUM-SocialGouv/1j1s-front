@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom';
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
@@ -16,8 +11,10 @@ import {
 } from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 import { mockScrollIntoView } from '~/client/components/window.mock';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const spyed = jest.spyOn(require('react-instantsearch'), 'useRefinementList');
+import { useRefinementList } from 'react-instantsearch';
+vi.mock('react-instantsearch');
+
+const spyed = vi.mocked(useRefinementList);
 
 describe('MeilisearchSelectMultiple', () => {
 	beforeEach(() => {
@@ -38,7 +35,7 @@ describe('MeilisearchSelectMultiple', () => {
 				generateRefinementListItem({ label: 'audit', value: 'auditeur' }),
 				generateRefinementListItem({ label: 'dev', value: 'developpeur' }),
 			],
-			refine: jest.fn(),
+			refine: vi.fn(),
 		}));
 
 		render(<MeilisearchSelectMultiple attribute="test" label="test" />);
@@ -51,7 +48,7 @@ describe('MeilisearchSelectMultiple', () => {
 
 	it('lorsque l‘utilisateur selectionne une option, refine est appelé avec l‘option selectionnée', async () => {
 		const user = userEvent.setup();
-		const refine = jest.fn();
+		const refine = vi.fn();
 		spyed.mockImplementation(() => mockUseRefinementList({
 			items: [
 				generateRefinementListItem({ label: 'audit', value: 'auditeur' }),
@@ -70,7 +67,7 @@ describe('MeilisearchSelectMultiple', () => {
 	});
 
 	it('lorsque l‘utilisateur a séléctionné une option, l‘option est séléctionnée', () => {
-		const refine = jest.fn();
+		const refine = vi.fn();
 		spyed.mockImplementation(() => mockUseRefinementList({
 			items: [
 				generateRefinementListItem({ isRefined: true, label: 'audit', value: 'auditeur' }),

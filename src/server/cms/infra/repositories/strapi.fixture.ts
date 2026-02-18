@@ -1,6 +1,13 @@
-import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
+import {
+	StrapiCollectionRelation,
+	StrapiCollectionType,
+	StrapiImage,
+	StrapiPagination,
+	StrapiSingleRelation,
+	StrapiSingleType,
+} from '~/server/cms/infra/repositories/strapi.response';
 
-export function aStrapiSingleRelation<T>(data: T): { [Key in keyof Strapi.SingleRelation<T>]: NonNullable<Strapi.SingleRelation<T>[Key]> } {
+export function aStrapiSingleRelation<T>(data: T): { [Key in keyof StrapiSingleRelation<T>]: NonNullable<StrapiSingleRelation<T>[Key]> } {
 	return {
 		data: {
 			attributes: data,
@@ -9,7 +16,7 @@ export function aStrapiSingleRelation<T>(data: T): { [Key in keyof Strapi.Single
 	};
 }
 
-export function aStrapiCollectionRelation<T>(data: T[]): Strapi.CollectionRelation<T> {
+export function aStrapiCollectionRelation<T>(data: T[]): StrapiCollectionRelation<T> {
 	return {
 		data: data.map((attribute: T, index: number) => ({
 			attributes: attribute,
@@ -18,7 +25,7 @@ export function aStrapiCollectionRelation<T>(data: T[]): Strapi.CollectionRelati
 	};
 }
 
-export function aStrapiSingleType<T>(data: T): Strapi.SingleType<T> {
+export function aStrapiSingleType<T>(data: T): StrapiSingleType<T> {
 	return {
 		...aStrapiSingleRelation<T>(data),
 		meta: {
@@ -32,7 +39,7 @@ export function aStrapiSingleType<T>(data: T): Strapi.SingleType<T> {
 	};
 }
 
-export function aStrapiCollectionType<T>(data: T[], pagination?: Partial<Strapi.Pagination>): Strapi.CollectionType<T> {
+export function aStrapiCollectionType<T>(data: T[], pagination?: Partial<StrapiPagination>): StrapiCollectionType<T> {
 	return {
 		...aStrapiCollectionRelation(data),
 		meta: {
@@ -47,7 +54,7 @@ export function aStrapiCollectionType<T>(data: T[], pagination?: Partial<Strapi.
 	};
 }
 
-export function aStrapiImage(override?: Partial<Strapi.Image>): Strapi.Image {
+export function aStrapiImage(override?: Partial<StrapiImage>): StrapiImage {
 	return {
 		alternativeText: 'text',
 		caption: 'string',

@@ -6,7 +6,7 @@ export function aMetierService(
 	rechercherMetierValue = aMetiersList(),
 ): MetierService {
 	return {
-		rechercherMetier: jest.fn().mockResolvedValue(createSuccess(rechercherMetierValue)),
+		rechercherMetier: vi.fn().mockResolvedValue(createSuccess(rechercherMetierValue)),
 	};
 }
 

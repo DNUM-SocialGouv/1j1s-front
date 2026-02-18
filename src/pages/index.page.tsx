@@ -378,10 +378,11 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 };
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<AccueilPageProps>> {
-	const isEspaceJeuneVisible = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0';
-	if (!isEspaceJeuneVisible) {
+	const doitAfficherActualitesSurAccueil = process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0';
+	if (!doitAfficherActualitesSurAccueil) {
 		return {
 			props: { actualites: [] },
+			revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
 		};
 	}
 

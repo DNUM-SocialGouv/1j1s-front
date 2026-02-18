@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -29,7 +25,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 		mockSmallScreen();
 	});
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	describe('champ email', () => {
@@ -39,8 +35,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 				établissementAccompagnementService={anEtablissementAccompagnementService()}>
 				<FormulaireDemandeDeContactAccompagnement
 					contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
-					onSuccess={jest.fn()}
-					onFailure={jest.fn()} />
+					onSuccess={vi.fn()}
+					onFailure={vi.fn()} />
 			</DependenciesProvider>,
 			);
 			const inputEmail = screen.getByRole('textbox', { name: 'Adresse e-mail (facultatif) Exemple : jean.dupont@gmail.com' });
@@ -58,8 +54,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 					établissementAccompagnementService={anEtablissementAccompagnementService()}>
 					<FormulaireDemandeDeContactAccompagnement
 						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
-						onSuccess={jest.fn()}
-						onFailure={jest.fn()} />
+						onSuccess={vi.fn()}
+						onFailure={vi.fn()} />
 				</DependenciesProvider>,
 			);
 
@@ -80,8 +76,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 				établissementAccompagnementService={anEtablissementAccompagnementService()}>
 				<FormulaireDemandeDeContactAccompagnement
 					contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
-					onSuccess={jest.fn()}
-					onFailure={jest.fn()} />
+					onSuccess={vi.fn()}
+					onFailure={vi.fn()} />
 			</DependenciesProvider>,
 		);
 
@@ -100,8 +96,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 				établissementAccompagnementService={anEtablissementAccompagnementService()}>
 				<FormulaireDemandeDeContactAccompagnement
 					contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
-					onSuccess={jest.fn()}
-					onFailure={jest.fn()} />
+					onSuccess={vi.fn()}
+					onFailure={vi.fn()} />
 			</DependenciesProvider>,
 		);
 
@@ -113,7 +109,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 		it('envoie une demande de contact', async () => {
 			const user = userEvent.setup();
 			const localisationService = aLocalisationService({
-				rechercherCommune: jest.fn().mockResolvedValue(createSuccess({
+				rechercherCommune: vi.fn().mockResolvedValue(createSuccess({
 					résultats: [aCommune({
 						codePostal: '75006',
 						ville: 'Paris',
@@ -121,7 +117,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 				})),
 			});
 			const établissementAccompagnementService = anEtablissementAccompagnementService();
-			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact');
+			vi.spyOn(établissementAccompagnementService, 'envoyerDemandeContact');
 
 			render(
 				<DependenciesProvider
@@ -129,8 +125,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 					établissementAccompagnementService={établissementAccompagnementService}>
 					<FormulaireDemandeDeContactAccompagnement
 						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
-						onSuccess={jest.fn()}
-						onFailure={jest.fn()} />
+						onSuccess={vi.fn()}
+						onFailure={vi.fn()} />
 				</DependenciesProvider>,
 			);
 
@@ -165,7 +161,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 		});
 
 		it('lorsque l‘envoie est un success appelle onSuccess', async () => {
-			const onSuccess = jest.fn();
+			const onSuccess = vi.fn();
 			const user = userEvent.setup();
 			render(
 				<DependenciesProvider
@@ -174,7 +170,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 					<FormulaireDemandeDeContactAccompagnement
 						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 						onSuccess={onSuccess}
-						onFailure={jest.fn()} />
+						onFailure={vi.fn()} />
 				</DependenciesProvider>,
 			);
 
@@ -197,7 +193,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 
 		it('lorsque l‘envoie est en erreur appelle onFailure', async () => {
 			const user = userEvent.setup();
-			const onFailure = jest.fn();
+			const onFailure = vi.fn();
 			const établissementAccompagnementService = anEtablissementAccompagnementService();
 			render(
 				<DependenciesProvider
@@ -205,11 +201,11 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 					établissementAccompagnementService={établissementAccompagnementService}>
 					<FormulaireDemandeDeContactAccompagnement
 						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
-						onSuccess={jest.fn()}
+						onSuccess={vi.fn()}
 						onFailure={onFailure} />
 				</DependenciesProvider>,
 			);
-			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+			vi.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 			await user.type(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }), 'Doe');
 			await user.type(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' }), 'John');

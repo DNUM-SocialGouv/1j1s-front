@@ -21,7 +21,7 @@ describe('DemandeDeContactCEJRepository', () => {
 		it('envoie la demande au CMS', async () => {
 			// Given
 			const cmsService = aStrapiService();
-			jest.spyOn(cmsService, 'save').mockResolvedValueOnce(createSuccess(undefined));
+			vi.spyOn(cmsService, 'save').mockResolvedValueOnce(createSuccess(undefined));
 			const repository = new DemandeDeContactCEJRepository(cmsService);
 			const expectedBody = {
 				age: 18,
@@ -44,7 +44,7 @@ describe('DemandeDeContactCEJRepository', () => {
 				// Given
 				const cmsService = aStrapiService();
 				const repository = new DemandeDeContactCEJRepository(cmsService);
-				jest.spyOn(cmsService, 'save').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+				vi.spyOn(cmsService, 'save').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 				// When
 				const result = await repository.envoyer(demandeDeContactCEJ);
 				// Then

@@ -16,18 +16,15 @@ export function Accordion(props: React.PropsWithChildren<AccordionProps>) {
 		className,
 		open,
 		summary,
-		summaryAs,
+		summaryAs: SummaryHeading,
 		...rest
 	} = props;
 
-	const Summary = React.useCallback(({ ...rest }) => {
-		const content = React.createElement(summaryAs || React.Fragment, {}, summary);
-		return React.createElement('summary', { ...rest }, content);
-	}, [summary, summaryAs]);
-
 	return (
 		<details className={classNames(styles.details, className)} open={open ?? false} { ...rest}>
-			<Summary className={styles.summary} />
+			<summary className={styles.summary}>
+				{SummaryHeading ? <SummaryHeading>{summary}</SummaryHeading> : summary}
+			</summary>
 			{children}
 		</details>
 	);

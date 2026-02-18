@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import {
 	render,
 	screen,
@@ -40,11 +36,11 @@ describe('Annonce Component', () => {
 				<DependenciesProvider dateService={aDateService()}>
 					<AnnonceDeLogement
 						hit={anAnnonceDeLogement({ imagesUrl: [] })}
-						sendEvent={jest.fn()} />
+						sendEvent={vi.fn()} />
 				</DependenciesProvider>,
 			);
 			const image: HTMLImageElement = screen.getByRole('presentation');
-			expect(image.src).toContain('%2Fimages%2Fimage-par-defaut-carte.webp'); // %2F => /
+			expect(image.src).toContain('images/image-par-defaut-carte.webp');
 		});
 	});
 
@@ -54,7 +50,7 @@ describe('Annonce Component', () => {
 				<DependenciesProvider dateService={aDateService()}>
 					<AnnonceDeLogement
 						hit={anAnnonceDeLogement({ imagesUrl: ['/image-0.jpg'] })}
-						sendEvent={jest.fn()} />
+						sendEvent={vi.fn()} />
 				</DependenciesProvider>,
 			);
 			const image: HTMLImageElement = screen.getByRole('presentation');
@@ -68,7 +64,7 @@ describe('Annonce Component', () => {
 				<DependenciesProvider dateService={aDateService()}>
 					<AnnonceDeLogement
 						hit={anAnnonceDeLogement()}
-						sendEvent={jest.fn()} />
+						sendEvent={vi.fn()} />
 				</DependenciesProvider>,
 			);
 			const listDesSlides = screen.getByText((content, element) => element?.getAttribute('aria-live') === 'polite');
@@ -84,7 +80,7 @@ describe('Annonce Component', () => {
 					<DependenciesProvider dateService={aDateService()}>
 						<AnnonceDeLogement
 							hit={anAnnonceDeLogement({ type: 'habitation intergénérationnelle' })}
-							sendEvent={jest.fn()} />
+							sendEvent={vi.fn()} />
 					</DependenciesProvider>,
 				);
 				const type = screen.getByText(/intergénérationnel/i);
@@ -98,7 +94,7 @@ describe('Annonce Component', () => {
 					<DependenciesProvider dateService={aDateService()}>
 						<AnnonceDeLogement
 							hit={anAnnonceDeLogement()}
-							sendEvent={jest.fn()} />
+							sendEvent={vi.fn()} />
 					</DependenciesProvider>,
 				);
 				const appartement = 'appartement';
@@ -113,13 +109,13 @@ describe('Annonce Component', () => {
 		const annoncesLogement = anAnnonceDeLogement({
 			dateDeMiseAJour: '12/4/2022',
 		});
-		jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('12 avril 2022');
+		vi.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('12 avril 2022');
 
 		render(
 			<DependenciesProvider dateService={dateService}>
 				<AnnonceDeLogement
 					hit={annoncesLogement}
-					sendEvent={jest.fn()} />
+					sendEvent={vi.fn()} />
 			</DependenciesProvider>,
 		);
 		const dateDePublication = 'postée le 12 avril 2022';
@@ -132,7 +128,7 @@ describe('Annonce Component', () => {
 			<DependenciesProvider dateService={aDateService()}>
 				<AnnonceDeLogement
 					hit={anAnnonceDeLogement()}
-					sendEvent={jest.fn()} />
+					sendEvent={vi.fn()} />
 			</DependenciesProvider>,
 		);
 		const titre = screen.getByRole('heading', { level: 3 });
@@ -144,7 +140,7 @@ describe('Annonce Component', () => {
 			<DependenciesProvider dateService={aDateService()}>
 				<AnnonceDeLogement
 					hit={anAnnonceDeLogement()}
-					sendEvent={jest.fn()} />
+					sendEvent={vi.fn()} />
 			</DependenciesProvider>,
 		);
 		const intervalleSurface = 'de 70 à 71m2';
@@ -161,7 +157,7 @@ describe('Annonce Component', () => {
 			<DependenciesProvider dateService={aDateService()}>
 				<AnnonceDeLogement
 					hit={anAnnonceDeLogement()}
-					sendEvent={jest.fn()} />
+					sendEvent={vi.fn()} />
 			</DependenciesProvider>,
 		);
 		const ville = 'Paris';
@@ -176,7 +172,7 @@ describe('Annonce Component', () => {
 			<DependenciesProvider dateService={aDateService()}>
 				<AnnonceDeLogement
 					hit={anAnnonceDeLogement()}
-					sendEvent={jest.fn()} />
+					sendEvent={vi.fn()} />
 			</DependenciesProvider>,
 		);
 		const url = screen.getByRole('link');

@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import {
 	render,
 	screen,
@@ -14,8 +10,10 @@ import { MeiliSearchPagination } from '~/client/components/ui/Meilisearch/Meilis
 import { mockUsePagination } from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 import { mockLargeScreen } from '~/client/components/window.mock';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const spyedPagination = jest.spyOn(require('react-instantsearch'), 'usePagination');
+import { usePagination } from 'react-instantsearch';
+vi.mock('react-instantsearch');
+
+const spyedPagination = vi.mocked(usePagination);
 
 const TestComponent = () => {
 	return (

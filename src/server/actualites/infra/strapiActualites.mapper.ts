@@ -7,7 +7,7 @@ import {
 	getExtraitContenu,
 } from '~/server/cms/infra/repositories/strapi.utils';
 
-export function mapStrapiListeActualites(strapiListeActualités: StrapiListeActualites.ListeActualites): Array<Actualite> {
+export function mapStrapiListeActualites(strapiListeActualités: StrapiListeActualites): Array<Actualite> {
 	return strapiListeActualités.listeActualites.map((strapiActualité) => {
 		const article = strapiActualité.article && flatMapSingleRelation(strapiActualité.article);
 		return {

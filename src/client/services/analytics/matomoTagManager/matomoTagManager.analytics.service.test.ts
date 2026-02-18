@@ -15,9 +15,9 @@ describe('MatomoTagManagerAnalyticsService', () => {
 
 	it('recupère l‘autorisation de l‘utilisateur', () => {
 		const cookiesService = aCookiesService({
-			isServiceAllowed: jest.fn(),
+			isServiceAllowed: vi.fn(),
 		});
-		jest.spyOn(cookiesService, 'isServiceAllowed').mockReturnValue(true);
+		vi.spyOn(cookiesService, 'isServiceAllowed').mockReturnValue(true);
 		const matomoTmService = new MatomoTagManagerAnalyticsService(cookiesService);
 
 		const isAllowed = matomoTmService.isAllowed();

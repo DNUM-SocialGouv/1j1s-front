@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import '~/test-utils';
 
 import { render, screen } from '@testing-library/react';
@@ -17,7 +13,7 @@ describe('MentoratPage', () => {
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	it('doit rendre du HTML respectant la specification', () => {

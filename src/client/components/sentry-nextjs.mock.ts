@@ -1,10 +1,12 @@
+import { type Mock } from 'vitest';
+
 import * as Sentry from '@sentry/nextjs';
 
-const mockedCaptureMessage = jest.fn();
-const mockedGetCurrentScope = jest.fn();
+const mockedCaptureMessage = vi.fn();
+const mockedGetCurrentScope = vi.fn();
 
-jest.mock('@sentry/nextjs', () => {
-	const sentry = jest.requireActual('@sentry/nextjs');
+vi.mock('@sentry/nextjs', () => {
+	const sentry = vi.importActual('@sentry/nextjs');
 	return ({
 		...sentry,
 		captureMessage: mockedCaptureMessage,
@@ -12,14 +14,14 @@ jest.mock('@sentry/nextjs', () => {
 	});
 });
 
-export function mockCaptureMessage(mockFunction: jest.Mock) {
+export function mockCaptureMessage(mockFunction: Mock) {
 	mockedCaptureMessage.mockImplementation(mockFunction);
 }
 
 export function mockGetCurrentScope(overrides: Partial<Sentry.Scope>) {
 	mockedGetCurrentScope.mockImplementation(() => {
 		return {
-			setTag: jest.fn(),
+			setTag: vi.fn(),
 			...overrides,
 		};
 	});

@@ -9,13 +9,23 @@ import { StrapiStagesRepository } from '~/server/stages/repository/strapiStages.
 
 
 const RESOURCE_OFFRE_DE_STAGE = 'offres-de-stage';
-jest.mock('crypto', () => ({ randomUUID: () => '123456789' }));
+const { mockRandomUUID } = vi.hoisted(() => ({
+	mockRandomUUID: vi.fn(() => '123456789'),
+}));
+vi.mock('crypto', async (importOriginal) => {
+	const actual = await importOriginal<typeof import('crypto')>();
+	return ({ ...actual, default: { ...actual, randomUUID: mockRandomUUID }, randomUUID: mockRandomUUID });
+});
+vi.mock('node:crypto', async (importOriginal) => {
+	const actual = await importOriginal<typeof import('crypto')>();
+	return ({ ...actual, default: { ...actual, randomUUID: mockRandomUUID }, randomUUID: mockRandomUUID });
+});
 
 describe('strapiStagesRepository', () => {
 	describe('getOffreDeStageBySlug', () => {
 		it('appelle le strapi service avec les bons paramètres', async () => {
 			const strapiService = aStrapiService();
-			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiOffreDeStage()));
+			vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiOffreDeStage()));
 			const slug = 'slug';
 			const query = `filters[slug][$eq]=${slug}&populate=deep`;
 
@@ -29,7 +39,7 @@ describe('strapiStagesRepository', () => {
 		it('lorsque la requête est en succès, renvoie un success de l‘offre de stage mappé', async () => {
 			const strapiService = aStrapiService();
 
-			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiOffreDeStage()));
+			vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiOffreDeStage()));
 			const slug = 'slug';
 
 			const strapiStagesRepository = new StrapiStagesRepository(strapiService, anErrorManagementService());
@@ -42,11 +52,11 @@ describe('strapiStagesRepository', () => {
 			const strapiService = aStrapiService();
 			const errorManagementService = anErrorManagementService();
 			const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
-			jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(expectedFailure);
+			vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(expectedFailure);
 			const slug = 'slug';
-			// @ts-expect-error
+			// @ts-expect-error TS2322
 			const offreDeStageAvecDonnéesErronées = aStrapiOffreDeStage({ domaines: 35 });
-			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(createSuccess(offreDeStageAvecDonnéesErronées));
+			vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(createSuccess(offreDeStageAvecDonnéesErronées));
 			const strapiStagesRepository = new StrapiStagesRepository(strapiService, errorManagementService);
 
 			const stage = await strapiStagesRepository.getOffreDeStageBySlug(slug);
@@ -63,7 +73,7 @@ describe('strapiStagesRepository', () => {
 			const slug = 'slug';
 			const strapiService = aStrapiService();
 			const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
-			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(expectedFailure);
+			vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(expectedFailure);
 
 			const strapiStagesRepository = new StrapiStagesRepository(strapiService, anErrorManagementService());
 			const stage = await strapiStagesRepository.getOffreDeStageBySlug(slug);
@@ -75,7 +85,7 @@ describe('strapiStagesRepository', () => {
 	describe('listAllOffreDeStageSlug', () => {
 		it('appelle le strapi service avec les bons paramètres et renvoie un success de l‘offre de stage mappé', async () => {
 			const strapiService = aStrapiService();
-			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiOffreDeStage({ slug: 'slug 1' }), aStrapiOffreDeStage({ slug: 'slug 2' })]));
+			vi.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiOffreDeStage({ slug: 'slug 1' }), aStrapiOffreDeStage({ slug: 'slug 2' })]));
 			const query = 'fields[0]=slug';
 
 			const strapiStagesRepository = new StrapiStagesRepository(strapiService, anErrorManagementService());
@@ -87,7 +97,7 @@ describe('strapiStagesRepository', () => {
 
 		it('lorsque la requête est en succès, renvoie un success avec la liste des slugs', async () => {
 			const strapiService = aStrapiService();
-			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiOffreDeStage({ slug: 'slug 1' }), aStrapiOffreDeStage({ slug: 'slug 2' })]));
+			vi.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiOffreDeStage({ slug: 'slug 1' }), aStrapiOffreDeStage({ slug: 'slug 2' })]));
 
 			const strapiStagesRepository = new StrapiStagesRepository(strapiService, anErrorManagementService());
 			const listSlugs = await strapiStagesRepository.listAllOffreDeStageSlug();
@@ -98,7 +108,7 @@ describe('strapiStagesRepository', () => {
 		it('lorsque la requête est en échec, renvoie cet échec', async () => {
 			const strapiService = aStrapiService();
 			const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
-			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(expectedFailure);
+			vi.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(expectedFailure);
 
 			const strapiStagesRepository = new StrapiStagesRepository(strapiService, anErrorManagementService());
 			const stage = await strapiStagesRepository.listAllOffreDeStageSlug();
@@ -112,7 +122,7 @@ describe('strapiStagesRepository', () => {
 			// Given
 			const strapiService = aStrapiService();
 			const offreSauvegarde = aStrapiOffreDeStageDepot();
-			jest.spyOn(strapiService, 'save').mockResolvedValueOnce(createSuccess(offreSauvegarde));
+			vi.spyOn(strapiService, 'save').mockResolvedValueOnce(createSuccess(offreSauvegarde));
 
 			const offreDeStageDepot = anOffreDeStageDepot();
 
@@ -130,14 +140,14 @@ describe('strapiStagesRepository', () => {
 			const strapiService = aStrapiService();
 			const errorManagementService = anErrorManagementService();
 			const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
-			jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(expectedFailure);
+			vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(expectedFailure);
 			const offreSauvegarde = aStrapiOffreDeStageDepot();
-			jest.spyOn(strapiService, 'save').mockResolvedValueOnce(createSuccess(offreSauvegarde));
+			vi.spyOn(strapiService, 'save').mockResolvedValueOnce(createSuccess(offreSauvegarde));
 			const strapiStagesRepository = new StrapiStagesRepository(strapiService, errorManagementService);
 
 			const resultSaveOffreEnErreur = await strapiStagesRepository.saveOffreDeStage({
 				...aStrapiOffreDeStage(),
-				// @ts-expect-error
+				// @ts-expect-error TS2322
 				employeur: null,
 			});
 

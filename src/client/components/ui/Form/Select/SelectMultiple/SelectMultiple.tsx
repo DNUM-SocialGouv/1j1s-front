@@ -17,7 +17,16 @@ import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
 import { isSearchableCharacter } from '~/client/components/ui/Form/Select/Select.utils';
 import {
-	SelectMultipleAction,
+	SelectMultipleActionCloseList,
+	SelectMultipleActionFocusFirstOption,
+	SelectMultipleActionFocusLastOption,
+	SelectMultipleActionFocusOptionMatchingUserInput,
+	SelectMultipleActionNextOption,
+	SelectMultipleActionOpenList,
+	SelectMultipleActionPreviousOption,
+	SelectMultipleActionSelectOption,
+	SelectMultipleActionSetValueTypedByUser,
+	SelectMultipleActionToggleList,
 	SelectMultipleReducer,
 } from '~/client/components/ui/Form/Select/SelectMultiple/SelectMultipleReducer';
 import { SelectOption } from '~/client/components/ui/Form/Select/SelectOption/SelectOption';
@@ -71,17 +80,20 @@ export function SelectMultiple({
 			activeDescendant: undefined,
 			isListOptionsOpen: false,
 			optionsSelectedValues: defaultValue ? defaultValue : [],
-			refListOption: listboxRef,
 			valueTypedByUser: '',
 			visibleOptions: [],
 		},
 	);
+
+	function getOptions() {
+		return Array.from(listboxRef.current?.querySelectorAll<Element>('[role="option"]') ?? []);
+	}
 	const value = valueProps ?? optionsSelectedValues;
 
 	const selectOption = useCallback((optionId: string) => {
 		firstInputHiddenRef.current?.setCustomValidity('');
 
-		dispatch(new SelectMultipleAction.SelectOption(optionId));
+		dispatch(new SelectMultipleActionSelectOption(optionId));
 		const option = document.getElementById(optionId);
 		if (option) { onChangeProps(option); }
 	}, [onChangeProps]);
@@ -108,7 +120,7 @@ export function SelectMultiple({
 		if (touched) {
 			onTouchProps(touched);
 		}
-		dispatch(new SelectMultipleAction.CloseList());
+		dispatch(new SelectMultipleActionCloseList());
 	}, [onTouchProps, setTouchedOnBlur, value]);
 	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLButtonElement>) {
 		saveValueOnFocus(value);
@@ -120,7 +132,7 @@ export function SelectMultiple({
 	}, [value]);
 
 	const resetValueTypedByUser = useCallback(() => {
-		dispatch(new SelectMultipleAction.SetValueTypedByUser(''));
+		dispatch(new SelectMultipleActionSetValueTypedByUser(''));
 	}, []);
 
 	const handleFocusOnTypeLetterDebounce = useMemo(() => {
@@ -129,10 +141,11 @@ export function SelectMultiple({
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
 		const { key, altKey } = event;
+		const options = getOptions();
 
 		if (isSearchableCharacter(event.nativeEvent)) {
 			event.preventDefault();
-			dispatch(new SelectMultipleAction.FocusOptionMatchingUserInput(key));
+			dispatch(new SelectMultipleActionFocusOptionMatchingUserInput(key, options));
 			handleFocusOnTypeLetterDebounce();
 		}
 
@@ -142,40 +155,40 @@ export function SelectMultiple({
 				if (isListOptionsOpen) {
 					if (altKey) {
 						if (activeDescendant) { selectOption(activeDescendant); }
-						dispatch(new SelectMultipleAction.CloseList());
+						dispatch(new SelectMultipleActionCloseList());
 					} else {
-						dispatch(new SelectMultipleAction.PreviousOption());
+						dispatch(new SelectMultipleActionPreviousOption(options));
 					}
 				} else {
-					dispatch(new SelectMultipleAction.OpenList());
+					dispatch(new SelectMultipleActionOpenList(options));
 				}
 				event.preventDefault();
 				break;
 			case KeyBoard.ARROW_DOWN:
 			case KeyBoard.IE_ARROW_DOWN:
 				if (isListOptionsOpen) {
-					dispatch(new SelectMultipleAction.NextOption());
+					dispatch(new SelectMultipleActionNextOption(options));
 				} else {
-					dispatch(new SelectMultipleAction.OpenList());
+					dispatch(new SelectMultipleActionOpenList(options));
 				}
 				event.preventDefault();
 				break;
 			case KeyBoard.PAGE_UP:
 				if (isListOptionsOpen) {
 					event.preventDefault();
-					dispatch(new SelectMultipleAction.PreviousOption(10));
+					dispatch(new SelectMultipleActionPreviousOption(options, 10));
 				}
 				break;
 			case KeyBoard.PAGE_DOWN:
 				if (isListOptionsOpen) {
 					event.preventDefault();
-					dispatch(new SelectMultipleAction.NextOption(10));
+					dispatch(new SelectMultipleActionNextOption(options, 10));
 				}
 				break;
 			case KeyBoard.ESCAPE:
 			case KeyBoard.IE_ESCAPE:
 				if (isListOptionsOpen) { event.preventDefault(); }
-				dispatch(new SelectMultipleAction.CloseList());
+				dispatch(new SelectMultipleActionCloseList());
 				break;
 			case KeyBoard.SPACE:
 			case KeyBoard.ENTER: {
@@ -187,17 +200,17 @@ export function SelectMultiple({
 					}
 				} else {
 					cancelEvent(event);
-					dispatch(new SelectMultipleAction.OpenList());
+					dispatch(new SelectMultipleActionOpenList(options));
 				}
 				break;
 			}
 			case KeyBoard.HOME: {
-				dispatch(new SelectMultipleAction.FocusFirstOption());
+				dispatch(new SelectMultipleActionFocusFirstOption(options));
 				event.preventDefault();
 				break;
 			}
 			case KeyBoard.END: {
-				dispatch(new SelectMultipleAction.FocusLastOption());
+				dispatch(new SelectMultipleActionFocusLastOption(options));
 				event.preventDefault();
 				break;
 			}
@@ -206,13 +219,13 @@ export function SelectMultiple({
 		}
 	}, [activeDescendant, handleFocusOnTypeLetterDebounce, isListOptionsOpen, selectOption]);
 
-	function PlaceholderSelectedOptions() {
+	const placeholderSelectedOptions = useMemo(function placeholderSelectedOptions() {
 		const optionsSelectedValueLength = value.length;
 		if (optionsSelectedValueLength > 1) { return `${optionsSelectedValueLength} choix sélectionnés`; }
 		if (optionsSelectedValueLength === 1) { return '1 choix sélectionné'; }
 		if (placeholder) { return placeholder; }
 		return SELECT_PLACEHOLDER_MULTIPLE;
-	}
+	}, [value.length, placeholder]);
 
 	return (
 		<SelectContext.Provider value={{
@@ -243,14 +256,14 @@ export function SelectMultiple({
 					aria-haspopup="listbox"
 					aria-expanded={isListOptionsOpen}
 					data-touched={touched}
-					onClick={() => dispatch(new SelectMultipleAction.ToggleList())}
+					onClick={() => dispatch(new SelectMultipleActionToggleList(getOptions()))}
 					onFocus={onFocus}
 					aria-activedescendant={activeDescendant}
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}
 					aria-required={required}
 					{...rest}>
-					<PlaceholderSelectedOptions />
+					{placeholderSelectedOptions}
 					<Icon name={'angle-down'} />
 				</button>
 				<ul

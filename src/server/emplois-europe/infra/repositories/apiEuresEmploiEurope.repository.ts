@@ -8,7 +8,7 @@ import { NiveauDEtudeValue } from '~/server/emplois-europe/domain/niveauDEtudes'
 import {
 	ApiEuresEmploiEuropeDetailItem,
 	ApiEuresEmploiEuropeDetailResponse,
-	ApiEuresEmploiEuropeDetailXML,
+	ApiEuresEmploiEuropeDetailXMLNiveauEtudeAPIEures as NiveauEtudeAPIEures,
 	ApiEuresEmploiEuropeRechercheRequestBody,
 	ApiEuresEmploiEuropeRechercheResponse,
 	EMPLOIS_EUROPE_ITEMS_PER_PAGE,
@@ -18,7 +18,6 @@ import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import NiveauEtudeAPIEures = ApiEuresEmploiEuropeDetailXML.NiveauEtudeAPIEures;
 
 export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 	constructor(

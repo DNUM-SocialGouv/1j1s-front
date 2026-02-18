@@ -4,8 +4,8 @@ import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.
 
 export function aFicheMetierRepository(override?:Partial<FicheMetierRepository>): FicheMetierRepository {
 	return {
-		getAllNomsMetiers: jest.fn().mockResolvedValue(createSuccess(aListNomMetier())),
-		getFicheMetierByNom: jest.fn().mockResolvedValue(createSuccess(aFicheMetier())),
+		getAllNomsMetiers: vi.fn().mockResolvedValue(createSuccess(aListNomMetier())),
+		getFicheMetierByNom: vi.fn().mockResolvedValue(createSuccess(aFicheMetier())),
 		...override,
 	};
 }

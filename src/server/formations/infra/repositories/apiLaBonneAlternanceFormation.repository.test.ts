@@ -81,8 +81,8 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 				const errorManagementService = anErrorManagementService();
 				const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, caller, errorManagementService);
 				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
-				jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
+				vi.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
+				vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 
 				// WHEN
 				const { errorType } = await repository.search(aFormationQuery()) as Failure;
@@ -104,7 +104,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 			const id = 'formation-id-rco__cle-ministere-educatif#01';
 			const httpClientService = aPublicHttpClientService();
 			const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
-			jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+			vi.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
 
 			// When
 			repository.get(id);
@@ -120,8 +120,8 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 					it('l’appel se fait avec les bons arguments', async () => {
 						// Given
 						const httpClientService = aPublicHttpClientService();
-						jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(anApiLaBonneAlternanceFormationResponse()));
-						jest.spyOn(httpClientService, 'post').mockResolvedValueOnce(anAxiosResponse({ form_url: 'url Demande de Rendez vous' }));
+						vi.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(anApiLaBonneAlternanceFormationResponse()));
+						vi.spyOn(httpClientService, 'post').mockResolvedValueOnce(anAxiosResponse({ form_url: 'url Demande de Rendez vous' }));
 						const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
 						const id = '123__cleMinistereEducatif-123456';
 
@@ -139,8 +139,8 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 					it('si l’appel se passe bien, retourne la formation avec le lien de demande de rendez vous', async () => {
 						// Given
 						const httpClientService = aPublicHttpClientService();
-						jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(anApiLaBonneAlternanceFormationResponse()));
-						jest.spyOn(httpClientService, 'post').mockResolvedValueOnce(anAxiosResponse({ form_url: 'url Demande de Rendez vous' }));
+						vi.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(anApiLaBonneAlternanceFormationResponse()));
+						vi.spyOn(httpClientService, 'post').mockResolvedValueOnce(anAxiosResponse({ form_url: 'url Demande de Rendez vous' }));
 						const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
 
 						// When
@@ -158,11 +158,11 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 							// Given
 							const httpClientService = aPublicHttpClientService();
 							const errorManagementService = anErrorManagementService();
-							jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(
+							vi.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(
 								anApiLaBonneAlternanceFormationResponse(),
 							));
 							const errorCreationRdv = anHttpError(500);
-							jest.spyOn(httpClientService, 'post').mockRejectedValueOnce(errorCreationRdv);
+							vi.spyOn(httpClientService, 'post').mockRejectedValueOnce(errorCreationRdv);
 							const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', errorManagementService);
 
 							// When
@@ -180,11 +180,11 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 							// Given
 							const httpClientService = aPublicHttpClientService();
 							const errorManagementService = anErrorManagementService();
-							jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(
+							vi.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(
 								anApiLaBonneAlternanceFormationResponse(),
 							));
 							const errorCreationRdv = anHttpError(500);
-							jest.spyOn(httpClientService, 'post').mockRejectedValueOnce(errorCreationRdv);
+							vi.spyOn(httpClientService, 'post').mockRejectedValueOnce(errorCreationRdv);
 							const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', errorManagementService);
 
 							// When
@@ -202,7 +202,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 				it('retourne la formation renvoyée par l’API sans lien de demande de rendez vous', async () => {
 					// Given
 					const httpClientService = aPublicHttpClientService();
-					jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(anApiLaBonneAlternanceFormationResponse()));
+					vi.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(anApiLaBonneAlternanceFormationResponse()));
 					const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
 
 					// When
@@ -220,7 +220,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 					// Given
 					const httpClientService = aPublicHttpClientService();
 					const errorManagementService = anErrorManagementService();
-					jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(anApiLaBonneAlternanceFormationResponse([])));
+					vi.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(anApiLaBonneAlternanceFormationResponse([])));
 
 					const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', errorManagementService);
 
@@ -237,8 +237,8 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 				it('avec les bons arguments', async () => {
 					// Given
 					const httpClientService = aPublicHttpClientService();
-					jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
-					jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
+					vi.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+					vi.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
 
 					const formationId = '456';
 
@@ -261,8 +261,8 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 						describe('si la cleMinistereEducatif n’est pas trouvée', () => {
 							it('ne récupère pas le lien de demande de rendez vous', async () => {
 								const httpClientService = aPublicHttpClientService();
-								jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
-								jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
+								vi.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+								vi.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
 								const formationId = '456';
 
 								const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
@@ -289,9 +289,9 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 									titre: formationReturnedBySearch.titre,
 								};
 								const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
-								jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
-								jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(anApiLaBonneAlternanceFormationResponse()));
-								jest.spyOn(repository, 'search').mockResolvedValueOnce(createSuccess([formationReturnedBySearch]));
+								vi.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+								vi.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(anApiLaBonneAlternanceFormationResponse()));
+								vi.spyOn(repository, 'search').mockResolvedValueOnce(createSuccess([formationReturnedBySearch]));
 
 								// When
 								const result = await repository.get(idFormationWithoutCleMinistereEducatif, aFormationQuery());
@@ -304,9 +304,9 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 							describe('appelle l’api LaBonneAlternance pour créer un lien de demande de rendez-vous', () => {
 								it('appelle l‘api avec les bons arguments', async () => {
 									const httpClientService = aPublicHttpClientService();
-									jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
-									jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
-									jest.spyOn(httpClientService, 'post').mockResolvedValueOnce(anAxiosResponse({ form_url: 'url Demande de Rendez vous' }));
+									vi.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+									vi.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
+									vi.spyOn(httpClientService, 'post').mockResolvedValueOnce(anAxiosResponse({ form_url: 'url Demande de Rendez vous' }));
 
 									const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
 									const cleMinistereEducatif = 'cleMinistereEducatif-123456';
@@ -327,9 +327,9 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 								});
 								it('quand l‘appel se passe bien, retourne la formation avec le lien de demande de rendez vous', async () => {
 									const httpClientService = aPublicHttpClientService();
-									jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
-									jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
-									jest.spyOn(httpClientService, 'post').mockResolvedValueOnce(anAxiosResponse({ form_url: 'url Demande de Rendez vous' }));
+									vi.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+									vi.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
+									vi.spyOn(httpClientService, 'post').mockResolvedValueOnce(anAxiosResponse({ form_url: 'url Demande de Rendez vous' }));
 
 									const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
 									const id = '123__cleMinistereEducatif-123456';
@@ -355,10 +355,10 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 										// Given
 										const httpClientService = aPublicHttpClientService();
 										const errorManagementService = anErrorManagementService();
-										jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
-										jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
+										vi.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+										vi.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
 										const errorCreationRdv = anHttpError(500);
-										jest.spyOn(httpClientService, 'post').mockRejectedValueOnce(errorCreationRdv);
+										vi.spyOn(httpClientService, 'post').mockRejectedValueOnce(errorCreationRdv);
 
 										const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', errorManagementService);
 										const id = '123__cleMinistereEducatif-123456';
@@ -377,8 +377,8 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 										// Given
 										const httpClientService = aPublicHttpClientService();
 										const errorManagementService = anErrorManagementService();
-										jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
-										jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
+										vi.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+										vi.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
 										const expectedFormation: Formation = {
 											adresse: {
 												adresseComplete: '1 rue de la République',
@@ -392,7 +392,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 										};
 										const errorCreationRdv = anHttpError(500);
 
-										jest.spyOn(httpClientService, 'post').mockRejectedValueOnce(errorCreationRdv);
+										vi.spyOn(httpClientService, 'post').mockRejectedValueOnce(errorCreationRdv);
 										const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', errorManagementService);
 
 										const id = '123__cleMinistereEducatif-123456';
@@ -412,10 +412,10 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 							// Given
 							const httpClientService = aPublicHttpClientService();
 							const errorManagementService = anErrorManagementService();
-							jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
-							jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
+							vi.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+							vi.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
 							const demandeIncorrecte = ErreurMetier.DEMANDE_INCORRECTE;
-							jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(createFailure(demandeIncorrecte));
+							vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(createFailure(demandeIncorrecte));
 
 							const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', errorManagementService);
 
@@ -441,9 +441,9 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 						const httpError = anHttpError(500);
 						const errorReturnedBySearch = ErreurMetier.SERVICE_INDISPONIBLE;
 
-						jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
-						jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(httpError);
-						jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(createFailure(errorReturnedBySearch));
+						vi.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+						vi.spyOn(httpClientService, 'get').mockRejectedValueOnce(httpError);
+						vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(createFailure(errorReturnedBySearch));
 
 						const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', errorManagementService);
 
@@ -458,8 +458,8 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 		});
 
 		describe('quand il y a une erreur', () => {
-			describe('car LaBonneAlternance n’a pas réussi à récupérer le détail d’une formation de leur côté', () => {
-
+			describe(`car LaBonneAlternance n'a pas réussi à récupérer le détail d'une formation de leur côté`, () => {
+				it.todo(`gère l'erreur de LaBonneAlternance`);
 			});
 			describe('pour tout autre raison', () => {
 				it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
@@ -471,8 +471,8 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 					const errorManagementService = anErrorManagementService();
 					const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, caller, errorManagementService);
 					const errorReturnedByErrorManagementService = ErreurMetier.DEMANDE_INCORRECTE;
-					jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
-					jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
+					vi.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
+					vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 
 					// WHEN
 					const { errorType } = await repository.get(id) as Failure;

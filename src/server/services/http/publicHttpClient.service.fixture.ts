@@ -12,20 +12,20 @@ function anAxiosInstance(): AxiosInstance {
 				common: {},
 			},
 		},
-		delete: jest.fn(),
-		get: jest.fn(),
+		delete: vi.fn(),
+		get: vi.fn(),
 		interceptors: {
 			request: {
-				eject: jest.fn(),
-				use: jest.fn(),
+				eject: vi.fn(),
+				use: vi.fn(),
 			},
 			response: {
-				eject: jest.fn(),
-				use: jest.fn(),
+				eject: vi.fn(),
+				use: vi.fn(),
 			},
 		},
-		post: jest.fn(),
-		put: jest.fn(),
+		post: vi.fn(),
+		put: vi.fn(),
 	} as unknown as AxiosInstance;
 }
 
@@ -76,9 +76,9 @@ export function anAxiosError(override?: Partial<AxiosError>): AxiosError {
 export function aPublicHttpClientService(override?: Partial<PublicHttpClientService> ): PublicHttpClientService {
 	return {
 		client: anAxiosInstance(),
-		get: jest.fn(),
-		post: jest.fn(),
-		setAuthorizationHeader: jest.fn(),
+		get: vi.fn(),
+		post: vi.fn(),
+		setAuthorizationHeader: vi.fn(),
 		...override,
 	} as unknown as PublicHttpClientService;
 }
@@ -86,9 +86,9 @@ export function aPublicHttpClientService(override?: Partial<PublicHttpClientServ
 export function aCachedHttpClientService(override? : Partial<CachedHttpClientService>): CachedHttpClientService {
 	return {
 		client: anAxiosInstance(),
-		get: jest.fn(),
-		post: jest.fn(),
-		setAuthorizationHeader: jest.fn(),
+		get: vi.fn(),
+		post: vi.fn(),
+		setAuthorizationHeader: vi.fn(),
 		...override,
 	} as unknown as CachedHttpClientService;
 }
@@ -96,10 +96,10 @@ export function aCachedHttpClientService(override? : Partial<CachedHttpClientSer
 export function anAuthenticatedHttpClientService(override?: Partial<AuthenticatedHttpClientService>): AuthenticatedHttpClientService {
 	return {
 		client: anAxiosInstance(),
-		get: jest.fn(),
-		post: jest.fn(),
-		refreshToken: jest.fn(),
-		setAuthorizationHeader: jest.fn(),
+		get: vi.fn(),
+		post: vi.fn(),
+		refreshToken: vi.fn(),
+		setAuthorizationHeader: vi.fn(),
 		...override,
 	} as unknown as AuthenticatedHttpClientService;
 }

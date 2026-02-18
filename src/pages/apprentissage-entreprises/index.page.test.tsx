@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import '~/test-utils';
 
 import { render, screen } from '@testing-library/react';
@@ -13,11 +9,11 @@ import { aMarketingService } from '~/client/services/marketing/marketing.service
 
 import ApprentissageEntreprises from './index.page';
 
-jest.mock('~/server/start', () => ({
+vi.mock('~/server/start', () => ({
 	dependencies: {
 		campagneApprentissageDependencies: {
 			recupererVideosCampagneApprentissageUseCase: {
-				handle: jest.fn(),
+				handle: vi.fn(),
 			},
 		},
 	},
@@ -25,7 +21,7 @@ jest.mock('~/server/start', () => ({
 
 describe('<ApprentissageEntreprises />', () => {
 	beforeEach(() => {
-	  jest.clearAllMocks();
+	  vi.clearAllMocks();
 	});
 
 	it('doit rendre du HTML respectant la specification', () => {

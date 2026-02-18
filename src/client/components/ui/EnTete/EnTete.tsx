@@ -10,14 +10,10 @@ interface EnTeteProps extends React.ComponentPropsWithoutRef<'div'>{
 	description?: string
 }
 
-export function EnTete({ className, heading, headingLevel, description, ...rest }: EnTeteProps) {
-
-	function Heading({ children, className }: { headingLevel?: HtmlHeadingTag } & React.HTMLAttributes<HTMLTitleElement>) {
-		return React.createElement(headingLevel || 'h2', { className: className }, children);
-	}
+export function EnTete({ className, heading, headingLevel = 'h2', description, ...rest }: EnTeteProps) {
 	return (
 		<div className={classNames(styles.entête, className)} {...rest}>
-			<Heading className={styles.entête__Title}>{heading}</Heading>
+			{React.createElement(headingLevel, { className: styles.entête__Title }, heading)}
 			{description && <p className={styles.entête__Description}>{description}</p>}
 		</div>
 	);

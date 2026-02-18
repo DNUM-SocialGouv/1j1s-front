@@ -20,7 +20,7 @@ describe('EnvoyerDemandeDeContact pour le CEJ', () => {
 		};
 
 		const demandeDeContactRepository = {
-			envoyer: jest.fn().mockResolvedValue(createSuccess(undefined)),
+			envoyer: vi.fn().mockResolvedValue(createSuccess(undefined)),
 		} as unknown as DemandeDeContactRepository;
 
 		describe('quand la command ne contient aucun champ', () => {

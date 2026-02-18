@@ -14,7 +14,7 @@ describe('Strapi annonces de logements', () => {
 			// GIVEN
 			const strapiService = aStrapiService();
 			const strapiAnnonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(strapiService, anErrorManagementService());
-			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiAnnonceDeLogement()));
+			vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiAnnonceDeLogement()));
 			const slug = aStrapiAnnonceDeLogement().slug;
 			const logementCollectionName = 'annonces-de-logement';
 
@@ -29,7 +29,7 @@ describe('Strapi annonces de logements', () => {
 			it('récupère l‘annonce de logement selon le slug', async () => {
 				// GIVEN
 				const strapiService = aStrapiService();
-				jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiAnnonceDeLogement()));
+				vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiAnnonceDeLogement()));
 				const strapiAnnonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(strapiService, anErrorManagementService());
 				const slug = aStrapiAnnonceDeLogement().slug;
 
@@ -46,8 +46,8 @@ describe('Strapi annonces de logements', () => {
 					// GIVEN
 					const strapiService = aStrapiService();
 					const errorManagementService = anErrorManagementService();
-					// @ts-expect-error
-					jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiAnnonceDeLogement({ servicesInclus: 'n’est pas un array' })));
+					// @ts-expect-error TS2322
+					vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiAnnonceDeLogement({ servicesInclus: 'n’est pas un array' })));
 					const strapiAnnonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(strapiService, errorManagementService);
 					const slug = aStrapiAnnonceDeLogement().slug;
 
@@ -64,9 +64,9 @@ describe('Strapi annonces de logements', () => {
 					const strapiService = aStrapiService();
 					const errorManagementService = anErrorManagementService();
 					const errorReturnedByService = ErreurMetier.CONTENU_INDISPONIBLE;
-					// @ts-expect-error
-					jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiAnnonceDeLogement({ servicesInclus: 'n’est pas un array' })));
-					jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(createFailure(errorReturnedByService));
+					// @ts-expect-error TS2322
+					vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiAnnonceDeLogement({ servicesInclus: 'n’est pas un array' })));
+					vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(createFailure(errorReturnedByService));
 					const strapiAnnonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(strapiService, errorManagementService);
 					const slug = aStrapiAnnonceDeLogement().slug;
 
@@ -84,7 +84,7 @@ describe('Strapi annonces de logements', () => {
 			it('relais l’échec du service strapi', async () => {
 				const strapiService = aStrapiService();
 				const strapiFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
-				jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(strapiFailure);
+				vi.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(strapiFailure);
 				const strapiAnnonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(strapiService, anErrorManagementService());
 				const slug = aStrapiAnnonceDeLogement().slug;
 
@@ -100,7 +100,7 @@ describe('Strapi annonces de logements', () => {
 			// GIVEN
 			const strapiService = aStrapiService();
 			const strapiAnnonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(strapiService, anErrorManagementService());
-			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([]));
+			vi.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([]));
 			const logementCollectionName = 'annonces-de-logement';
 
 			// WHEN
@@ -118,7 +118,7 @@ describe('Strapi annonces de logements', () => {
 					aStrapiAnnonceDeLogement({ slug: 'slug-logement-1' }),
 					aStrapiAnnonceDeLogement({ slug: 'slug-logement-2' }),
 				];
-				jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess(strapiAnnoncesDeLogements));
+				vi.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess(strapiAnnoncesDeLogements));
 				const strapiAnnonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(strapiService, anErrorManagementService());
 
 				// WHEN
@@ -134,7 +134,7 @@ describe('Strapi annonces de logements', () => {
 			it('relais l’échec du service strapi', async () => {
 				const strapiService = aStrapiService();
 				const strapiFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
-				jest.spyOn(strapiService, 'getCollectionType').mockResolvedValue(strapiFailure);
+				vi.spyOn(strapiService, 'getCollectionType').mockResolvedValue(strapiFailure);
 				const strapiAnnonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(strapiService, anErrorManagementService());
 
 				const result = await strapiAnnonceDeLogementRepository.listAllAnnonceDeLogementSlug();

@@ -22,7 +22,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: npm
-      - run: npm install -g npm@11
+      - run: npm install -g npm@11.8.0
       - run: npm ci --legacy-peer-deps
       - run: npm run lint
       - run: npm run check-types

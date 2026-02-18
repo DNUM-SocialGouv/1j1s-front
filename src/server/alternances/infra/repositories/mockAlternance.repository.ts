@@ -1,4 +1,5 @@
-import { Alternance, AlternanceFiltre, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
+import type { Alternance } from '~/server/alternances/domain/alternance';
+import { AlternanceFiltre, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { aDetailMatchaAlternance, aRechercheAlternance } from '~/server/alternances/domain/alternance.fixture';
 import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
 import { createFailure, createSuccess, Either, Success } from '~/server/errors/either';

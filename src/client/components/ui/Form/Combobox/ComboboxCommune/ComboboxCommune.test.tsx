@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -38,7 +33,7 @@ describe('<ComboboxCommune/>', () => {
 		it('accepte un onChange', async () => {
 			const user = userEvent.setup();
 			const localisationService = aLocalisationService();
-			const onChange = jest.fn();
+			const onChange = vi.fn();
 
 			render(<DependenciesProvider localisationService={localisationService}>
 				<ComboboxCommune label={'comboboxLabel'} onChange={onChange} />
@@ -74,7 +69,7 @@ describe('<ComboboxCommune/>', () => {
 
 			it('ajoute le libelle dans les options pour rendre l‘input valide', () => {
 				const localisationService = aLocalisationService({
-					rechercherCommune: jest.fn(),
+					rechercherCommune: vi.fn(),
 				});
 
 				const commune = aCommune({
@@ -87,7 +82,7 @@ describe('<ComboboxCommune/>', () => {
 					ville: 'Paris 15e Arrondissement',
 				});
 				const communeList = aRésultatsRechercheCommune([commune]);
-				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+				vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 
 				render(<DependenciesProvider localisationService={localisationService}>
 					<ComboboxCommune defaultCommune={commune} />
@@ -125,7 +120,7 @@ describe('<ComboboxCommune/>', () => {
 
 		it('accepte une ref', () => {
 			const localisationService = aLocalisationService();
-			const ref = jest.fn();
+			const ref = vi.fn();
 
 			render(<DependenciesProvider localisationService={localisationService}>
 				<ComboboxCommune ref={ref} />
@@ -138,7 +133,7 @@ describe('<ComboboxCommune/>', () => {
 
 		it('accepte les propriétés du combobox', async () => {
 			const localisationService = aLocalisationService();
-			const onFocus = jest.fn();
+			const onFocus = vi.fn();
 			render(<DependenciesProvider localisationService={localisationService}>
 				<ComboboxCommune onFocus={onFocus} />
 			</DependenciesProvider>);
@@ -152,7 +147,7 @@ describe('<ComboboxCommune/>', () => {
 	it('lorsque je tape un caractère, la valeur de l‘input est mise à jour', async () => {
 		const user = userEvent.setup();
 		const localisationService = aLocalisationService({
-			rechercherCommune: jest.fn(),
+			rechercherCommune: vi.fn(),
 		});
 
 		render(<DependenciesProvider localisationService={localisationService}>
@@ -169,7 +164,7 @@ describe('<ComboboxCommune/>', () => {
 		// GIVEN
 		const user = userEvent.setup();
 		const localisationService = aLocalisationService();
-		jest.spyOn(localisationService, 'rechercherCommune');
+		vi.spyOn(localisationService, 'rechercherCommune');
 
 		render(<DependenciesProvider localisationService={localisationService}>
 			<ComboboxCommune label={'commune'} />
@@ -188,7 +183,7 @@ describe('<ComboboxCommune/>', () => {
 	it('n‘appelle pas le service lorsque l‘utilisateur tape moins de 3 caractères', async () => {
 		const user = userEvent.setup();
 		const localisationService = aLocalisationService({
-			rechercherCommune: jest.fn(),
+			rechercherCommune: vi.fn(),
 		});
 
 		render(<DependenciesProvider localisationService={localisationService}>
@@ -205,7 +200,7 @@ describe('<ComboboxCommune/>', () => {
 	it('n‘appelle pas le service lorsque l‘utilisateur tape moins de 3 caractères, ne prend pas en compte les espaces', async () => {
 		const user = userEvent.setup();
 		const localisationService = aLocalisationService({
-			rechercherCommune: jest.fn(),
+			rechercherCommune: vi.fn(),
 		});
 
 		render(<DependenciesProvider localisationService={localisationService}>
@@ -223,7 +218,7 @@ describe('<ComboboxCommune/>', () => {
 	('n‘appelle pas le service lorsque l‘utilisateur tape moins de 3 caractères dont un des caractères créé une erreur', async (caractereAIgnorer) => {
 		const user = userEvent.setup();
 		const localisationService = aLocalisationService({
-			rechercherCommune: jest.fn(),
+			rechercherCommune: vi.fn(),
 		});
 
 		render(<DependenciesProvider localisationService={localisationService}>
@@ -239,7 +234,7 @@ describe('<ComboboxCommune/>', () => {
 
 	it('n‘affiche pas l‘input de sélection du rayon par défaut', () => {
 		const localisationService = aLocalisationService({
-			rechercherCommune: jest.fn(),
+			rechercherCommune: vi.fn(),
 		});
 		render(<DependenciesProvider localisationService={localisationService}>
 			<ComboboxCommune label={'comboboxLabel'} />
@@ -253,7 +248,7 @@ describe('<ComboboxCommune/>', () => {
 		it('appelle le service lorsque l‘utilisateur tape 3 caractères', async () => {
 			const user = userEvent.setup();
 			const localisationService = aLocalisationService({
-				rechercherCommune: jest.fn().mockResolvedValue(createSuccess({ résultats: aCommuneList() })),
+				rechercherCommune: vi.fn().mockResolvedValue(createSuccess({ résultats: aCommuneList() })),
 			});
 
 			render(<DependenciesProvider localisationService={localisationService}>
@@ -275,9 +270,9 @@ describe('<ComboboxCommune/>', () => {
 				aCommune({ code: '83000', codePostal: '83000', ville: 'Toulon' }),
 			]);
 			const localisationService = aLocalisationService({
-				rechercherCommune: jest.fn(),
+				rechercherCommune: vi.fn(),
 			});
-			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+			vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 			render(<DependenciesProvider localisationService={localisationService}>
 				<ComboboxCommune label={'comboboxLabel'} />
 			</DependenciesProvider>);
@@ -299,9 +294,9 @@ describe('<ComboboxCommune/>', () => {
 					aCommune({ code: '91000', codePostal: '75001', ville: 'Paris' }),
 				]);
 				const localisationService = aLocalisationService({
-					rechercherCommune: jest.fn(),
+					rechercherCommune: vi.fn(),
 				});
-				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+				vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 				render(<DependenciesProvider localisationService={localisationService}>
 					<ComboboxCommune label={'comboboxLabel'} />
 				</DependenciesProvider>);
@@ -321,9 +316,9 @@ describe('<ComboboxCommune/>', () => {
 					aCommune({ code: '91000', codePostal: '75001', ville: 'Paris' }),
 				]);
 				const localisationService = aLocalisationService({
-					rechercherCommune: jest.fn(),
+					rechercherCommune: vi.fn(),
 				});
-				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+				vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 				render(<DependenciesProvider localisationService={localisationService}>
 					<ComboboxCommune label={'comboboxLabel'} />
 				</DependenciesProvider>);
@@ -342,9 +337,9 @@ describe('<ComboboxCommune/>', () => {
 					aCommune({ codePostal: '75001', coordonnées: { latitude: 1.23, longitude: 4.56 }, ville: 'Paris' }),
 				]);
 				const localisationService = aLocalisationService({
-					rechercherCommune: jest.fn(),
+					rechercherCommune: vi.fn(),
 				});
-				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+				vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 				render(<DependenciesProvider localisationService={localisationService}>
 					<ComboboxCommune label={'comboboxLabel'} />
 				</DependenciesProvider>);
@@ -363,9 +358,9 @@ describe('<ComboboxCommune/>', () => {
 					aCommune({ codePostal: '75001', coordonnées: { latitude: 1.23, longitude: 4.56 }, ville: 'Paris' }),
 				]);
 				const localisationService = aLocalisationService({
-					rechercherCommune: jest.fn(),
+					rechercherCommune: vi.fn(),
 				});
-				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+				vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 				render(<DependenciesProvider localisationService={localisationService}>
 					<ComboboxCommune label={'comboboxLabel'} />
 				</DependenciesProvider>);
@@ -384,7 +379,7 @@ describe('<ComboboxCommune/>', () => {
 					aCommune({ codePostal: '75019', ville: 'Paris' }),
 				]);
 				const localisationService = aLocalisationService();
-				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+				vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 				render(<DependenciesProvider localisationService={localisationService}>
 					<ComboboxCommune label={'comboboxLabel'} />
 				</DependenciesProvider>);
@@ -403,7 +398,7 @@ describe('<ComboboxCommune/>', () => {
 					aCommune({ codePostal: '75006', ville: 'Paris' }),
 				]);
 				const localisationService = aLocalisationService();
-				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+				vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 				render(<DependenciesProvider localisationService={localisationService}>
 					<ComboboxCommune label={'comboboxLabel'} />
 				</DependenciesProvider>);
@@ -423,9 +418,9 @@ describe('<ComboboxCommune/>', () => {
 						aCommune({ codePostal: '75001', coordonnées: { latitude: 1.23, longitude: 4.56 }, ville: 'Paris' }),
 					]);
 					const localisationService = aLocalisationService({
-						rechercherCommune: jest.fn(),
+						rechercherCommune: vi.fn(),
 					});
-					jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+					vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 					render(<DependenciesProvider localisationService={localisationService}>
 						<ComboboxCommune label={'comboboxLabel'} showRadiusInput />
 					</DependenciesProvider>);
@@ -445,9 +440,9 @@ describe('<ComboboxCommune/>', () => {
 						aCommune({ codePostal: '75001', coordonnées: { latitude: 1.23, longitude: 4.56 }, ville: 'Paris' }),
 					]);
 					const localisationService = aLocalisationService({
-						rechercherCommune: jest.fn(),
+						rechercherCommune: vi.fn(),
 					});
-					jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+					vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 					render(<DependenciesProvider localisationService={localisationService}>
 						<ComboboxCommune label={'comboboxLabel'} showRadiusInput />
 					</DependenciesProvider>);
@@ -470,9 +465,9 @@ describe('<ComboboxCommune/>', () => {
 					aCommune({ codePostal: '75006', coordonnées: { latitude: 1.23, longitude: 4.56 }, ville: 'Paris' }),
 				]);
 				const localisationService = aLocalisationService({
-					rechercherCommune: jest.fn(),
+					rechercherCommune: vi.fn(),
 				});
-				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+				vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 				render(<DependenciesProvider localisationService={localisationService}>
 					<ComboboxCommune required />
 				</DependenciesProvider>);
@@ -493,9 +488,9 @@ describe('<ComboboxCommune/>', () => {
 					aCommune({ codePostal: '75001', coordonnées: { latitude: 1.23, longitude: 4.56 }, ville: 'Paris' }),
 				]);
 				const localisationService = aLocalisationService({
-					rechercherCommune: jest.fn(),
+					rechercherCommune: vi.fn(),
 				});
-				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+				vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 				render(<DependenciesProvider localisationService={localisationService}>
 					<ComboboxCommune />
 				</DependenciesProvider>);
@@ -533,9 +528,9 @@ describe('<ComboboxCommune/>', () => {
 			const user = userEvent.setup();
 			const communeList = aRésultatsRechercheCommune();
 			const localisationService = aLocalisationService({
-				rechercherCommune: jest.fn(),
+				rechercherCommune: vi.fn(),
 			});
-			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+			vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 
 
 			render(<DependenciesProvider localisationService={localisationService}>
@@ -551,9 +546,9 @@ describe('<ComboboxCommune/>', () => {
 		it('affiche le message de chargement quand les résultats sont en train de charger', async () => {
 			const user = userEvent.setup();
 			const localisationService = aLocalisationService({
-				rechercherCommune: jest.fn(),
+				rechercherCommune: vi.fn(),
 			});
-			jest.spyOn(localisationService, 'rechercherCommune').mockReturnValue(new Promise(() => {
+			vi.spyOn(localisationService, 'rechercherCommune').mockReturnValue(new Promise(() => {
 			}));
 
 
@@ -570,9 +565,9 @@ describe('<ComboboxCommune/>', () => {
 		it('affiche le message d‘erreur quand la recherche a échouée', async () => {
 			const user = userEvent.setup();
 			const localisationService = aLocalisationService({
-				rechercherCommune: jest.fn(),
+				rechercherCommune: vi.fn(),
 			});
-			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
+			vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 
 
 			render(<DependenciesProvider localisationService={localisationService}>
@@ -589,9 +584,9 @@ describe('<ComboboxCommune/>', () => {
 			const user = userEvent.setup();
 			const communeList = aRésultatsRechercheCommune([]);
 			const localisationService = aLocalisationService({
-				rechercherCommune: jest.fn(),
+				rechercherCommune: vi.fn(),
 			});
-			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+			vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 
 
 			render(<DependenciesProvider localisationService={localisationService}>
@@ -608,9 +603,9 @@ describe('<ComboboxCommune/>', () => {
 			const user = userEvent.setup();
 			const communeList = aRésultatsRechercheCommune();
 			const localisationService = aLocalisationService({
-				rechercherCommune: jest.fn(),
+				rechercherCommune: vi.fn(),
 			});
-			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+			vi.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 
 
 			render(<DependenciesProvider localisationService={localisationService}>

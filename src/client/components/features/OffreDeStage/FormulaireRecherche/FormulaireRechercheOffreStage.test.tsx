@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import type { SearchResults } from 'algoliasearch-helper';
 
 import {

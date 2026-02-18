@@ -1,4 +1,4 @@
-import { Alternance } from '~/server/alternances/domain/alternance';
+import { AlternanceSource } from '~/server/alternances/domain/alternance';
 import {
 	aRechercheAlternance,
 } from '~/server/alternances/domain/alternance.fixture';
@@ -14,7 +14,6 @@ import {
 	aWorkplaceResponse,
 } from './apiAlternance.fixture';
 import { mapDetailAlternance, mapRechercheAlternanceListe } from './apiAlternance.mapper';
-import Source = Alternance.Source;
 
 describe('mapRechercheAlternance', () => {
 	it('converti une response en liste d’alternance et d‘entreprises', () => {
@@ -88,7 +87,7 @@ describe('mapRechercheAlternance', () => {
 					id: 'id',
 					localisation: 'Paris',
 					niveauRequis: 'CAP, BEP',
-					source: Source.FRANCE_TRAVAIL,
+					source: AlternanceSource.FRANCE_TRAVAIL,
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
 					typeDeContrat: ['CDD', 'CDI'],
 				},

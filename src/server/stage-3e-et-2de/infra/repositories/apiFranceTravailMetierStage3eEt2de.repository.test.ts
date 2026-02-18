@@ -22,7 +22,7 @@ describe('ApiFranceTravailMetierStage3eEt2deRepository', () => {
 			it('utilise le cache pour récupérer les appellations métiers', async () => {
 				// Given
 				const cacheService = aCacheService();
-				jest.spyOn(cacheService, 'get').mockResolvedValueOnce([
+				vi.spyOn(cacheService, 'get').mockResolvedValueOnce([
 					anApiFranceTravailMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
 					anApiFranceTravailMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
 				]);
@@ -43,9 +43,9 @@ describe('ApiFranceTravailMetierStage3eEt2deRepository', () => {
 			it('appelle l’api France Travail avec les bon paramètres', async () => {
 				// Given
 				const cacheService = aCacheService();
-				jest.spyOn(cacheService, 'get').mockResolvedValue(null);
+				vi.spyOn(cacheService, 'get').mockResolvedValue(null);
 				const httpClientService = anAuthenticatedHttpClientService();
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse([]));
+				vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse([]));
 
 				const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
 
@@ -59,10 +59,10 @@ describe('ApiFranceTravailMetierStage3eEt2deRepository', () => {
 			it('sauvegarde le résultat de l’appel en cache pour 24 heures', async () => {
 				// Given
 				const cacheService = aCacheService();
-				jest.spyOn(cacheService, 'get').mockResolvedValue(null);
+				vi.spyOn(cacheService, 'get').mockResolvedValue(null);
 				const httpClientService = anAuthenticatedHttpClientService();
 				const apiResponse = [anApiFranceTravailMetierStage3eEt2de()];
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
+				vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
 
 				const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
 
@@ -77,7 +77,7 @@ describe('ApiFranceTravailMetierStage3eEt2deRepository', () => {
 		it('retourne la liste des appellations métier filtrée par mot clé recherché', async () => {
 			// Given
 			const httpClientService = anAuthenticatedHttpClientService();
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse([
+			vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse([
 				anApiFranceTravailMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
 				anApiFranceTravailMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
 				anApiFranceTravailMetierStage3eEt2de({ code: '17564', libelle: 'Apprenti boulanger' }),
@@ -107,7 +107,7 @@ describe('ApiFranceTravailMetierStage3eEt2deRepository', () => {
 				// Given
 				const httpError = anHttpError(500);
 				const httpClientService = anAuthenticatedHttpClientService();
-				jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(httpError);
+				vi.spyOn(httpClientService, 'get').mockRejectedValueOnce(httpError);
 				const errorManagementService = anErrorManagementService();
 				const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, aCacheService(), errorManagementService);
 
@@ -130,7 +130,7 @@ describe('ApiFranceTravailMetierStage3eEt2deRepository', () => {
 			it('utilise le cache pour récupérer les appellations métiers', async () => {
 				// Given
 				const cacheService = aCacheService();
-				jest.spyOn(cacheService, 'get').mockResolvedValueOnce([
+				vi.spyOn(cacheService, 'get').mockResolvedValueOnce([
 					anApiFranceTravailMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
 					anApiFranceTravailMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
 					anApiFranceTravailMetierStage3eEt2de({ code: '11565', libelle: 'Styliste' }),
@@ -152,9 +152,9 @@ describe('ApiFranceTravailMetierStage3eEt2deRepository', () => {
 			it('appelle l’api France Travail avec les bon paramètres', async () => {
 				// Given
 				const cacheService = aCacheService();
-				jest.spyOn(cacheService, 'get').mockResolvedValue(null);
+				vi.spyOn(cacheService, 'get').mockResolvedValue(null);
 				const httpClientService = anAuthenticatedHttpClientService();
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse([]));
+				vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse([]));
 
 				const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
 
@@ -168,10 +168,10 @@ describe('ApiFranceTravailMetierStage3eEt2deRepository', () => {
 			it('sauvegarde le résultat de l’appel en cache pour 24 heures', async () => {
 				// Given
 				const cacheService = aCacheService();
-				jest.spyOn(cacheService, 'get').mockResolvedValue(null);
+				vi.spyOn(cacheService, 'get').mockResolvedValue(null);
 				const httpClientService = anAuthenticatedHttpClientService();
 				const apiResponse = [anApiFranceTravailMetierStage3eEt2de()];
-				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
+				vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
 
 				const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
 
@@ -191,7 +191,7 @@ describe('ApiFranceTravailMetierStage3eEt2deRepository', () => {
 				anApiFranceTravailMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
 				anApiFranceTravailMetierStage3eEt2de({ code: '11565', libelle: 'Styliste' }),
 			];
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
+			vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
 			const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, new NullCacheService(), anErrorManagementService());
 
 			// When
@@ -221,7 +221,7 @@ describe('ApiFranceTravailMetierStage3eEt2deRepository', () => {
 				anApiFranceTravailMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
 				anApiFranceTravailMetierStage3eEt2de({ code: '11565', libelle: 'Styliste' }),
 			];
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
+			vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
 			const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, new NullCacheService(), anErrorManagementService());
 
 			// When
@@ -242,7 +242,7 @@ describe('ApiFranceTravailMetierStage3eEt2deRepository', () => {
 				anApiFranceTravailMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
 				anApiFranceTravailMetierStage3eEt2de({ code: '11565', libelle: 'Styliste' }),
 			];
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
+			vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
 			const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, new NullCacheService(), anErrorManagementService());
 
 			// When
@@ -265,7 +265,7 @@ describe('ApiFranceTravailMetierStage3eEt2deRepository', () => {
 				// Given
 				const httpError = anHttpError(500);
 				const httpClientService = anAuthenticatedHttpClientService();
-				jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(httpError);
+				vi.spyOn(httpClientService, 'get').mockRejectedValueOnce(httpError);
 				const errorManagementService = anErrorManagementService();
 				const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, aCacheService(), errorManagementService);
 

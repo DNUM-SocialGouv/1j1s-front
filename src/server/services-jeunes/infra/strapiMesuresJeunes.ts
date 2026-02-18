@@ -1,24 +1,22 @@
 import { StrapiArticle } from '~/server/articles/infra/strapiArticle';
-import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
+import { StrapiImage, StrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.response';
 
 
-export namespace StrapiMesuresJeunes {
-	export interface MesuresJeunesParCategorie {
-		vieProfessionnelle: Array<StrapiMesuresJeunes.MesureJeune>
-		orienterFormer: Array<StrapiMesuresJeunes.MesureJeune>
-		accompagnement: Array<StrapiMesuresJeunes.MesureJeune>
-		aidesFinancieres: Array<StrapiMesuresJeunes.MesureJeune>
-		logement: Array<StrapiMesuresJeunes.MesureJeune>
-		engagement: Array<StrapiMesuresJeunes.MesureJeune>
-	}
-	export interface MesureJeune {
-		titre: string
-		contenu: string
-		url: string
-		banniere: Strapi.SingleRelation<Strapi.Image>
-		article: Strapi.SingleRelation<StrapiArticle>
-		pourQui: string
-	}
-
-	export type Categorie = 'accompagnement' | 'orienterFormer' | 'vieProfessionnelle' | 'aidesFinancieres' | 'logement' | 'engagement'
+export interface StrapiMesuresJeunesMesuresJeunesParCategorie {
+	vieProfessionnelle: Array<StrapiMesuresJeunesMesureJeune>
+	orienterFormer: Array<StrapiMesuresJeunesMesureJeune>
+	accompagnement: Array<StrapiMesuresJeunesMesureJeune>
+	aidesFinancieres: Array<StrapiMesuresJeunesMesureJeune>
+	logement: Array<StrapiMesuresJeunesMesureJeune>
+	engagement: Array<StrapiMesuresJeunesMesureJeune>
 }
+export interface StrapiMesuresJeunesMesureJeune {
+	titre: string
+	contenu: string
+	url: string
+	banniere: StrapiSingleRelation<StrapiImage>
+	article: StrapiSingleRelation<StrapiArticle>
+	pourQui: string
+}
+
+export type StrapiMesuresJeunesCategorie = 'accompagnement' | 'orienterFormer' | 'vieProfessionnelle' | 'aidesFinancieres' | 'logement' | 'engagement'

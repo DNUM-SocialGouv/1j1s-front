@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 
 import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulter/ConsulterAnnonce';
@@ -14,9 +10,9 @@ import { anAnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement
 
 describe('<ConsulterAnnonce />', () => {
 	beforeEach(() => {
-		jest.resetAllMocks();
+		vi.resetAllMocks();
 		mockSmallScreen();
-		const routerReload = jest.fn();
+		const routerReload = vi.fn();
 		mockUseRouter({ reload: routerReload });
 	});
 
@@ -25,7 +21,7 @@ describe('<ConsulterAnnonce />', () => {
 			titre: 'Super T3 dans le centre de Paris',
 		});
 		const sessionStorageService = aStorageService({
-			get: jest.fn().mockReturnValue(true),
+			get: vi.fn().mockReturnValue(true),
 		});
 
 		render(
@@ -314,7 +310,7 @@ describe('<ConsulterAnnonce />', () => {
 
 		describe('quand la source est inconnu', () => {
 			it('retourne rien', () => {
-				// @ts-expect-error
+				// @ts-expect-error TS(2322)
 				const annonceDeLogement = anAnnonceDeLogement({ source: 'seloger' });
 				render(<DependenciesProvider sessionStorageService={aStorageService()} dateService={aDateService()}>
 					<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />

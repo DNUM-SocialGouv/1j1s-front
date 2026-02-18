@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 
 import { Checkbox } from './Checkbox';
@@ -40,7 +36,7 @@ describe('<Checkbox />', () => {
 	});
 
 	it('accepte une ref', () => {
-		const ref = jest.fn();
+		const ref = vi.fn();
 
 		render(<Checkbox label={'Ma checkbox'} ref={ref} />);
 

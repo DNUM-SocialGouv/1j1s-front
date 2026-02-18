@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -64,7 +60,7 @@ describe('FormulaireRechercheAlternance', () => {
 	describe('lorsqu‘on recherche par localisation et par métier', () => {
 		it('les informations de la localisation et du métier sont ajoutées à l’url', async () => {
 			// Given
-			const routerPush = jest.fn();
+			const routerPush = vi.fn();
 			mockUseRouter({ push: routerPush });
 			const aMetierList: Array<Metier> = [aMetier({
 				code: 'F1201,F1202,I1101',
@@ -73,7 +69,7 @@ describe('FormulaireRechercheAlternance', () => {
 
 			const localisationService = aLocalisationService();
 			const metierService = aMetierService();
-			jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetierList));
+			vi.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetierList));
 			// When
 			render(
 				<DependenciesProvider
@@ -113,7 +109,7 @@ describe('FormulaireRechercheAlternance', () => {
 	describe('lorsqu‘on recherche par métier mais pas par commune', () => {
 		it('n‘effectue pas de recherche', async () => {
 			// Given
-			const routerPush = jest.fn();
+			const routerPush = vi.fn();
 			mockUseRouter({ push: routerPush });
 			const aMetierList: Array<Metier> = [aMetier({
 				code: 'F1201,F1202,I1101',
@@ -122,7 +118,7 @@ describe('FormulaireRechercheAlternance', () => {
 
 			const localisationService = aLocalisationService();
 			const metierService = aMetierService();
-			jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetierList));
+			vi.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetierList));
 			// When
 			render(
 				<DependenciesProvider
@@ -149,7 +145,7 @@ describe('FormulaireRechercheAlternance', () => {
 	describe('lorsqu‘on recherche par commune mais pas par métier', () => {
 		it('n‘effectue pas de recherche', async () => {
 			// Given
-			const routerPush = jest.fn();
+			const routerPush = vi.fn();
 			mockUseRouter({ push: routerPush });
 			const aMetierList: Array<Metier> = [aMetier({
 				code: 'F1201,F1202,I1101',
@@ -158,7 +154,7 @@ describe('FormulaireRechercheAlternance', () => {
 
 			const localisationService = aLocalisationService();
 			const metierService = aMetierService();
-			jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetierList));
+			vi.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetierList));
 			// When
 			render(
 				<DependenciesProvider
@@ -263,7 +259,7 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const localisationService = aLocalisationService();
 			mockUseRouter({});
-			const onSubmit = jest.fn();
+			const onSubmit = vi.fn();
 
 			// When
 			render(

@@ -3,14 +3,14 @@ import { LoggerService } from '~/client/services/logger.service';
 
 describe('LoggerService', () => {
 	const sessionId = 'ma-session-id';
-	const captureMessage = jest.fn();
+	const captureMessage = vi.fn();
 
 	beforeEach(() => {
 		mockCaptureMessage(captureMessage);
 	  mockGetCurrentScope({});
 	});
 	afterEach(() => {
-	  jest.clearAllMocks();
+	  vi.clearAllMocks();
 	});
 	describe('error', () => {
 		it('appelle le logger error avec les bons paramètres', () => {
@@ -45,7 +45,7 @@ describe('LoggerService', () => {
 	describe('setTransactionId', () => {
 
 		it('appelle setTag avec le transactionId', () => {
-			const mockSetTag = jest.fn();
+			const mockSetTag = vi.fn();
 			mockGetCurrentScope({ setTag: mockSetTag });
 			
 			const transactionId = 'ma-transaction-id';

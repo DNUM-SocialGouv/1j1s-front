@@ -9,13 +9,13 @@ import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 import MarkdownToHtml from '~/client/components/ui/MarkdownToHtml/MarkdownToHtml';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
-import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
+import { ServiceJeuneCategorie, ServiceJeuneCodeCategorie } from '~/server/services-jeunes/domain/servicesJeunes';
 
 interface FlippingCardProps {
 	imageUrl?: string
 	link?: string
 	title: string
-	category?: ServiceJeune.Categorie
+	category?: ServiceJeuneCategorie
 	titleAs?: HtmlHeadingTag
 	flippingCardContent: string
 	className?: string
@@ -32,17 +32,17 @@ export function FlippingCard(props: FlippingCardProps) {
 
 	const categoryClass = useMemo(() => {
 		switch (category?.code) {
-			case ServiceJeune.CodeCategorie.ACCOMPAGNEMENT:
+			case ServiceJeuneCodeCategorie.ACCOMPAGNEMENT:
 				return styles.categoryAccompagnement;
-			case ServiceJeune.CodeCategorie.ORIENTATION_FORMATION:
+			case ServiceJeuneCodeCategorie.ORIENTATION_FORMATION:
 				return styles.categoryOrienterFormer;
-			case ServiceJeune.CodeCategorie.ENTREE_VIE_PROFESSIONELLE:
+			case ServiceJeuneCodeCategorie.ENTREE_VIE_PROFESSIONELLE:
 				return styles.categoryVieProfessionnelle;
-			case ServiceJeune.CodeCategorie.AIDES_FINANCIERES:
+			case ServiceJeuneCodeCategorie.AIDES_FINANCIERES:
 				return styles.categoryAidesFinancieres;
-			case ServiceJeune.CodeCategorie.ENGAGEMENT:
+			case ServiceJeuneCodeCategorie.ENGAGEMENT:
 				return styles.categoryEngagement;
-			case ServiceJeune.CodeCategorie.LOGEMENT:
+			case ServiceJeuneCodeCategorie.LOGEMENT:
 				return styles.categoryLogement;
 		}
 	}, [category]);

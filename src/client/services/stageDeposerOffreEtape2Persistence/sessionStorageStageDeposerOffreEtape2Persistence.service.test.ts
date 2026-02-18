@@ -1,8 +1,4 @@
-/**
- * @jest-environment jsdom
- */
-
-import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
+import { OffreDeStageDeposeeStage } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
@@ -14,7 +10,7 @@ describe('SessionStorageStageDeposerOffreEtape2PersistenceService', () => {
 			// Given
 			const storage = aStorageService();
 			const service = new SessionStorageStageDeposerOffreEtape2PersistenceService(storage);
-			const informations: OffreDeStageDeposee.Stage = {
+			const informations: OffreDeStageDeposeeStage = {
 				dateDeDebutMax: '2022-01-01',
 				dateDeDebutMin: '2022-01-01',
 				descriptionOffre: 'description',

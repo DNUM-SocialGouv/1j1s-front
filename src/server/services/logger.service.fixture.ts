@@ -2,12 +2,12 @@ import { LoggerService } from './logger.service';
 
 export function aLoggerService(): LoggerService {
 	return {
-		error: jest.fn(),
-		errorWithExtra: jest.fn(),
-		fatalWithExtra: jest.fn(),
-		info: jest.fn(),
-		warn: jest.fn(),
-		warnWithExtra: jest.fn(),
+		error: vi.fn(),
+		errorWithExtra: vi.fn(),
+		fatalWithExtra: vi.fn(),
+		info: vi.fn(),
+		warn: vi.fn(),
+		warnWithExtra: vi.fn(),
 	};
 }
 

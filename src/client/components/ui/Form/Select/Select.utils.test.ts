@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { isSearchableCharacter } from '~/client/components/ui/Form/Select/Select.utils';
 
 describe('isSearchableCharacter', () => {

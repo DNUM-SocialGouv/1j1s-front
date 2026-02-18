@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 
 import { ErrorLayout } from '~/client/components/layouts/Error/ErrorLayout';
@@ -15,12 +11,12 @@ describe('ErrorLayout', () => {
 		mockSmallScreen();
 		mockUseRouter({});
 		mockSessionStorage({
-			getItem: jest.fn().mockReturnValue('/'),
+			getItem: vi.fn().mockReturnValue('/'),
 		});
 	});
 	it('affiche le bouton de retour à la page précédente', () => {
 		render(
-			<DependenciesProvider sessionStorageService={aStorageService({ get: jest.fn().mockReturnValue(true) })}>
+			<DependenciesProvider sessionStorageService={aStorageService({ get: vi.fn().mockReturnValue(true) })}>
 				<ErrorLayout><p>children</p></ErrorLayout>
 			</DependenciesProvider>,
 		);

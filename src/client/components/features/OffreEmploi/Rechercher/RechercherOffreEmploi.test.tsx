@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom';
-
 import { render, screen, within } from '@testing-library/react';
 import React from 'react';
 
@@ -19,7 +14,7 @@ describe('RechercherOffreEmploi', () => {
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	// NOTE (DORO 13/02/2024): Ce describe intervient entre le chargement de la page sans query params page=1 et la redirection vers la page avec query params page=1

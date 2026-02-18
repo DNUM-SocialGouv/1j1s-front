@@ -1,12 +1,10 @@
-export namespace CookiesService {
-	export type ServiceConfig = Record<string, unknown>;
-	export type User = unknown;
-}
+export type CookiesServiceConfig = Record<string, unknown>;
+export type CookiesServiceUser = unknown;
 
 export interface CookiesService {
-  addService(nom: string, config?: CookiesService.ServiceConfig): void;
+  addService(nom: string, config?: CookiesServiceConfig): void;
 
-  addUser(nom: string, value: CookiesService.User): void;
+  addUser(nom: string, value: CookiesServiceUser): void;
 
   isServiceAllowed(nom: string): boolean;
 

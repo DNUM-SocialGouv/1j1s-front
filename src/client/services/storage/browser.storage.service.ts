@@ -14,7 +14,7 @@ export class BrowserStorageService implements StorageService {
 		try {
 			value = this.getStorage().getItem(key);
 		} catch {
-			throw new BrowserStorageService.StorageUnavailableError('storage unavailable');
+			throw new StorageUnavailableError('storage unavailable');
 		}
 		if (value == null) { return null; }
 		return JSON.parse(value);
@@ -25,7 +25,7 @@ export class BrowserStorageService implements StorageService {
 		try {
 			this.getStorage().setItem(key, serializedData);
 		} catch {
-			throw new BrowserStorageService.StorageUnavailableError('storage unavailable');
+			throw new StorageUnavailableError('storage unavailable');
 		}
 	}
 
@@ -33,11 +33,9 @@ export class BrowserStorageService implements StorageService {
 		try {
 			this.getStorage().removeItem(key);
 		} catch {
-			throw new BrowserStorageService.StorageUnavailableError('storage unavailable');
+			throw new StorageUnavailableError('storage unavailable');
 		}
 	}
 }
 
-export namespace BrowserStorageService {
-	export class StorageUnavailableError extends Error {}
-}
+export class StorageUnavailableError extends Error {}

@@ -2,7 +2,7 @@ import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixt
 import { NiveauDEtudeValue } from '~/server/emplois-europe/domain/niveauDEtudes';
 import {
 	ApiEuresEmploiEuropeDetailResponse,
-	ApiEuresEmploiEuropeDetailXML,
+	ApiEuresEmploiEuropeDetailXMLNiveauEtudeAPIEures as NiveauEtudeAPIEures,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import {
 	anApiEuresEmploiEuropeDetailItem,
@@ -20,7 +20,6 @@ import { anErrorManagementService } from '~/server/services/error/errorManagemen
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 import { FastXmlParserService } from '~/server/services/xml/fastXmlParser.service';
-import NiveauEtudeAPIEures = ApiEuresEmploiEuropeDetailXML.NiveauEtudeAPIEures;
 
 let apiEuresEmploiEuropeMapper: ApiEuresEmploiEuropeMapper;
 describe('ApiEuresEmploiEuropeRepository', () => {
@@ -284,8 +283,8 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				const errorManagementService = anErrorManagementService();
 				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, errorManagementService, apiEuresEmploiEuropeMapper);
 				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
-				jest.spyOn(httpClientService, 'post').mockRejectedValue(httpError);
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
+				vi.spyOn(httpClientService, 'post').mockRejectedValue(httpError);
+				vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 
 				// WHEN
 				const { errorType } = await repository.search({
@@ -329,7 +328,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				},
 			};
 
-			jest.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse(apiEuresEmploiEuropeDetailResponse));
+			vi.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse(apiEuresEmploiEuropeDetailResponse));
 			const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
 
 			// When
@@ -353,7 +352,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 					}),
 				})]);
 
-			jest.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse(apiEuresEmploiEuropeDetailResponse));
+			vi.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse(apiEuresEmploiEuropeDetailResponse));
 			const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
 
 			// When
@@ -374,8 +373,8 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				const errorManagementService = anErrorManagementService();
 				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, errorManagementService, apiEuresEmploiEuropeMapper);
 				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
-				jest.spyOn(httpClientService, 'post').mockRejectedValue(httpError);
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
+				vi.spyOn(httpClientService, 'post').mockRejectedValue(httpError);
+				vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 
 				// WHEN
 				const { errorType } = await repository.get('1') as Failure;

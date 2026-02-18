@@ -54,3 +54,5 @@ yarn-error.log*
 
 # env
 .env.local
+CLAUDE.md
+AGENTS.md

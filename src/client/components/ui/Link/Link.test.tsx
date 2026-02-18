@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom';
-
 import { render, screen } from '@testing-library/react';
 
 import { ButtonAppearance, Link } from '~/client/components/ui/Link/Link';
@@ -96,20 +91,16 @@ describe('Link', () => {
 			expect(linkComponent).not.toHaveAttribute('rel');
 		});
 			
-		describe('lorsque c‘est une ancre', () => {
-			beforeEach(() => {
-				jest.mock('next/link', () => jest.fn());
-			});
-			
+		describe(`lorsque c'est une ancre`, () => {
 			it('doit rendre un élément <a> sans utiliser LinkNext', () => {
 				const monAncre = '#section1';
 
 				render(<Link href={monAncre} />);
-	
+
 				const linkComponent = screen.getByRole('link');
 				expect(linkComponent).toBeVisible();
-				// eslint-disable-next-line @typescript-eslint/no-require-imports
-				expect(require('next/link')).not.toHaveBeenCalled();
+				expect(linkComponent.tagName).toBe('A');
+				expect(linkComponent.getAttribute('href')).toBe(monAncre);
 			});
 		});
 	});

@@ -1,32 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import { useCombobox } from '~/client/components/ui/Form/Combobox/ComboboxContext';
-import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 type CategoryProps = React.ComponentPropsWithoutRef<'ul'> & {
 	name: string,
 };
+
+function extractTextContent(node: React.ReactNode): string {
+	if (typeof node === 'string') return node;
+	if (typeof node === 'number') return String(node);
+	if (Array.isArray(node)) return node.map(extractTextContent).join('');
+	if (React.isValidElement(node)) return extractTextContent(node.props.children);
+	return '';
+}
+
+function createElementProxy(child: React.ReactElement): Element {
+	return {
+		textContent: extractTextContent(child.props.children),
+		getAttribute: (attr: string) => attr === 'data-value' ? (child.props.value?.toString() ?? null) : null,
+	} as unknown as Element;
+}
 
 export const Category = React.forwardRef<HTMLUListElement, CategoryProps>(function Category({
 	children,
 	name,
 	...ulProps
 }, outerRef) {
-	const ref = useSynchronizedRef(outerRef);
-	const [hidden, setHidden] = useState(false);
 	const { state: { value }, filter } = useCombobox();
 
-	useEffect(function checkIfHidden() {
-		const options = Array.from(ref.current?.querySelectorAll('[role="option"]') ?? []);
-		const hasDisplayedOption = options.some((option) => filter(option, value));
-		setHidden(!hasDisplayedOption);
-	}, [ref, children, value, filter]);
-
+	const hidden = useMemo(() => {
+		let hasMatchingOption = false;
+		React.Children.forEach(children, (child) => {
+			if (!hasMatchingOption && React.isValidElement(child)) {
+				if (filter(createElementProxy(child), value)) {
+					hasMatchingOption = true;
+				}
+			}
+		});
+		return !hasMatchingOption;
+	}, [children, value, filter]);
 
 	return (
 		<li role="none" hidden={hidden}>
 			{name}
-			<ul role="group" aria-label={name} {...ulProps} ref={ref}>
+			<ul role="group" aria-label={name} {...ulProps} ref={outerRef}>
 				{children}
 			</ul>
 		</li>

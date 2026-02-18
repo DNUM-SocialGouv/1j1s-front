@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import {
 	FormulaireRechercheFormationInitiale,
@@ -43,27 +43,32 @@ export function RechercherFormationInitiale() {
 
 	const formationInitialeQuery = useFormationInitialeQuery();
 
+	const rechercherFormationInitiale = useCallback(async () => {
+		setIsLoading(true);
+		setErreurRecherche(undefined);
+
+		try {
+			const response = await formationInitialeService.rechercherFormationInitiale(formationInitialeQuery);
+			if (isSuccess(response)) {
+				setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.nombreDeResultat === 0 ? ' - Aucun résultat' : ''}`));
+				const formationInitiales = response.result.formationsInitiales;
+				setResultatList(formationInitiales);
+				setNombreDeResultat(response.result.nombreDeResultat);
+			} else {
+				setTitle(formatRechercherSolutionDocumentTitle(PREFIX_TITRE_PAGE, response.errorType));
+				setErreurRecherche(response.errorType);
+			}
+		} finally {
+			setIsLoading(false);
+		}
+	}, [formationInitialeQuery, formationInitialeService]);
+
 	useEffect(() => {
 		if (empty(formationInitialeQuery)) {
 			return;
 		}
-		setIsLoading(true);
-		setErreurRecherche(undefined);
-
-		formationInitialeService.rechercherFormationInitiale(formationInitialeQuery)
-			.then((response) => {
-				if (isSuccess(response)) {
-					setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.nombreDeResultat === 0 ? ' - Aucun résultat' : ''}`));
-					const formationInitiales = response.result.formationsInitiales;
-					setResultatList(formationInitiales);
-					setNombreDeResultat(response.result.nombreDeResultat);
-				} else {
-					setTitle(formatRechercherSolutionDocumentTitle(PREFIX_TITRE_PAGE, response.errorType));
-					setErreurRecherche(response.errorType);
-				}
-				setIsLoading(false);
-			});
-	}, [formationInitialeService, formationInitialeQuery]);
+		rechercherFormationInitiale();
+	}, [formationInitialeQuery, rechercherFormationInitiale]);
 
 	function getMessageResultatTrouve() {
 		const formationName = router.query.motCle === undefined ? '' : `pour ${router.query.motCle}`;
@@ -143,4 +148,3 @@ function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 		</ListeRésultatsRechercherSolution>
 	);
 }
-

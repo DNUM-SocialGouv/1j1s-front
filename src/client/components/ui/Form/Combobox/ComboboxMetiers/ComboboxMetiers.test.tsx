@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { act, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
@@ -25,7 +21,7 @@ describe('<ComboboxMetiers />', () => {
 
 	describe('props', () => {
 		it('accepte une ref', () => {
-			const ref = jest.fn();
+			const ref = vi.fn();
 
 			render(
 				<MetierDependenciesProvider metierService={aMetierService()}>
@@ -297,7 +293,7 @@ describe('<ComboboxMetiers />', () => {
 	it('affiche un message quand l’appel au service est en échec', async () => {
 		const user = userEvent.setup();
 		const metierService: MetierService = aMetierService();
-		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
+		vi.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 
 		render(
 			<MetierDependenciesProvider metierService={metierService}>
@@ -317,7 +313,7 @@ describe('<ComboboxMetiers />', () => {
 	it('affiche un message quand la liste de suggestions est en train de charger des résultats', async () => {
 		const user = userEvent.setup();
 		const metierServiceMock: MetierService = {
-			rechercherMetier: jest.fn(() => new Promise<Either<Metier[]>>(() => {})),
+			rechercherMetier: vi.fn(() => new Promise<Either<Metier[]>>(() => {})),
 		};
 		render(
 			<MetierDependenciesProvider metierService={metierServiceMock}>

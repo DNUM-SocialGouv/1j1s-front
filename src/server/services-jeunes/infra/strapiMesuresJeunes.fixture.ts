@@ -1,9 +1,12 @@
 import { aStrapiArticle } from '~/server/articles/infra/strapiArticle.fixture';
 import { aStrapiImage, aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
 
-import { StrapiMesuresJeunes } from './strapiMesuresJeunes';
+import {
+	StrapiMesuresJeunesMesureJeune,
+	StrapiMesuresJeunesMesuresJeunesParCategorie,
+} from './strapiMesuresJeunes';
 
-export function aStrapiMesuresJeunesParCategorie(overrides?: Partial<StrapiMesuresJeunes.MesuresJeunesParCategorie>): StrapiMesuresJeunes.MesuresJeunesParCategorie {
+export function aStrapiMesuresJeunesParCategorie(overrides?: Partial<StrapiMesuresJeunesMesuresJeunesParCategorie>): StrapiMesuresJeunesMesuresJeunesParCategorie {
 	return {
 		accompagnement: [aStrapiMesureJeune({
 			titre: 'Une formation en centre EPIDE',
@@ -34,7 +37,7 @@ export function aStrapiMesuresJeunesParCategorie(overrides?: Partial<StrapiMesur
 	};
 }
 
-export function aStrapiMesuresJeunesParCategorieSansResultat(overrides?: Partial<StrapiMesuresJeunes.MesuresJeunesParCategorie>): StrapiMesuresJeunes.MesuresJeunesParCategorie {
+export function aStrapiMesuresJeunesParCategorieSansResultat(overrides?: Partial<StrapiMesuresJeunesMesuresJeunesParCategorie>): StrapiMesuresJeunesMesuresJeunesParCategorie {
 	return {
 		accompagnement: [],
 		aidesFinancieres: [],
@@ -46,7 +49,7 @@ export function aStrapiMesuresJeunesParCategorieSansResultat(overrides?: Partial
 	};
 }
 
-export function aStrapiUnorderedMesuresJeunesParCategorie(): StrapiMesuresJeunes.MesuresJeunesParCategorie {
+export function aStrapiUnorderedMesuresJeunesParCategorie(): StrapiMesuresJeunesMesuresJeunesParCategorie {
 	return {
 		accompagnement: [aStrapiMesureJeune({
 			titre: 'Une formation en centre EPIDE',
@@ -73,7 +76,7 @@ export function aStrapiUnorderedMesuresJeunesParCategorie(): StrapiMesuresJeunes
 	};
 }
 
-export function aStrapiMesureJeune(override?: Partial<StrapiMesuresJeunes.MesureJeune>): StrapiMesuresJeunes.MesureJeune {
+export function aStrapiMesureJeune(override?: Partial<StrapiMesuresJeunesMesureJeune>): StrapiMesuresJeunesMesureJeune {
 	return {
 		article: aStrapiSingleRelation(aStrapiArticle()),
 		banniere: aStrapiSingleRelation(aStrapiImage()),

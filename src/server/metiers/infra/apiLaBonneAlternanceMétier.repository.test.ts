@@ -1,3 +1,4 @@
+import { type Mock } from "vitest";
 import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { MetierAlternance } from '~/server/metiers/domain/metierAlternance';
@@ -13,7 +14,7 @@ describe('ApiLaBonneAlternanceMétierRepository', () => {
 		describe('Quand l‘api renvoie un résultat', () => {
 			it('retourne un tableau de métier', async () => {
 				const httpClientService = aPublicHttpClientService();
-				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aMetierLaBonneAlternanceApiResponse()));
+				(httpClientService.get as Mock).mockResolvedValue(anAxiosResponse(aMetierLaBonneAlternanceApiResponse()));
 				const expected = aListeDeMetierLaBonneAlternance();
 
 				const repository = new ApiLaBonneAlternanceMétierRepository(httpClientService, anErrorManagementService());
@@ -30,12 +31,12 @@ describe('ApiLaBonneAlternanceMétierRepository', () => {
 			it("retourne une instance d'erreur", async () => {
 				const httpError = anHttpError(429);
 				const httpClientService = aPublicHttpClientService({
-					get: jest.fn(async () => {
+					get: vi.fn(async () => {
 						throw httpError;
 					}),
 				});
 				const expectedFailure = ErreurMetier.DEMANDE_INCORRECTE;
-				const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
+				const errorManagementService = anErrorManagementService({ handleFailureError: vi.fn(() => createFailure(expectedFailure)) });
 				const repository = new ApiLaBonneAlternanceMétierRepository(httpClientService, errorManagementService);
 
 				const response = await repository.getMetierList('tran');

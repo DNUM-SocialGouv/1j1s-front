@@ -1,7 +1,6 @@
 import { Either } from '~/server/errors/either';
-import { OffreStageDepot } from '~/server/stages/domain/stages';
+import { OffreDeStageDepot } from '~/server/stages/domain/stages';
 import { StagesRepository } from '~/server/stages/domain/stages.repository';
-import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
 
 export class EnregistrerOffreDeStageUseCase {
 	constructor(private stagesRepository: StagesRepository) {}

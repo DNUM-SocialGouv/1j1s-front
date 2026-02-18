@@ -1,8 +1,11 @@
 import { flatMapSingleImage, flatMapSingleRelation } from '~/server/cms/infra/repositories/strapi.utils';
 import { MesureEmployeur } from '~/server/mesures-employeurs/domain/mesureEmployeur';
-import { StrapiMesuresEmployeurs } from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs';
+import {
+	StrapiMesureEmployeurDispositif,
+	StrapiMesuresEmployeurs,
+} from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs';
 
-export function mapMesuresEmployeurs(strapiLesMesuresEmployeurs: StrapiMesuresEmployeurs.MesuresEmployeurs): Array<MesureEmployeur> {
+export function mapMesuresEmployeurs(strapiLesMesuresEmployeurs: StrapiMesuresEmployeurs): Array<MesureEmployeur> {
 	return strapiLesMesuresEmployeurs.dispositifs.map((strapiLesMesuresEmployeursDispositif) => {
 		return {
 			banniere: flatMapSingleImage(strapiLesMesuresEmployeursDispositif.banniere),
@@ -13,7 +16,7 @@ export function mapMesuresEmployeurs(strapiLesMesuresEmployeurs: StrapiMesuresEm
 	});
 }
 
-function mapMesureEmployeurLink(dispositif: StrapiMesuresEmployeurs.Dispositif): string | undefined {
+function mapMesureEmployeurLink(dispositif: StrapiMesureEmployeurDispositif): string | undefined {
 	const article = dispositif.article && flatMapSingleRelation(dispositif.article);
 	if(!article && !dispositif.url) {
 		return undefined;

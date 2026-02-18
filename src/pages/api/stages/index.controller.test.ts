@@ -1,15 +1,25 @@
+// @vitest-environment node
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
 import { anEmployeurDepotStage, anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
 import depotOffreDeStageController from '~/pages/api/stages/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { OffreStageDepot } from '~/server/stages/domain/stages';
+import { OffreDeStageDepot } from '~/server/stages/domain/stages';
 import { aStrapiOffreDeStageDepot } from '~/server/stages/repository/strapiStages.fixture';
-import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
 
 
-jest.mock('crypto', () => ({ randomUUID: () => '123456789' }));
+const { mockRandomUUID } = vi.hoisted(() => ({
+	mockRandomUUID: vi.fn(() => '123456789'),
+}));
+vi.mock('crypto', async (importOriginal) => {
+	const actual = await importOriginal<typeof import('crypto')>();
+	return ({ ...actual, default: { ...actual, randomUUID: mockRandomUUID }, randomUUID: mockRandomUUID });
+});
+vi.mock('node:crypto', async (importOriginal) => {
+	const actual = await importOriginal<typeof import('crypto')>();
+	return ({ ...actual, default: { ...actual, randomUUID: mockRandomUUID }, randomUUID: mockRandomUUID });
+});
 
 describe('enregistrer une offre de stage', () => {
 	const jwt = '3456789098765RFVBGFDRTYHJNfKJHGV';

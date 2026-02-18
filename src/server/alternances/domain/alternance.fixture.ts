@@ -1,6 +1,13 @@
 import { AlternanceStatus } from '~/server/alternances/infra/status';
 
-import { Alternance, AlternanceFiltre, ResultatRechercheAlternance } from './alternance';
+import {
+	Alternance,
+	AlternanceFiltre,
+	AlternanceSource,
+	ResultatRechercheAlternance,
+	ResultatRechercheAlternanceEntreprise,
+	ResultatRechercheAlternanceOffre,
+} from './alternance';
 
 export const aRechercheAlternance = (override?: Partial<ResultatRechercheAlternance>): ResultatRechercheAlternance => {
 	return {
@@ -33,7 +40,7 @@ export const aRechercheAlternance = (override?: Partial<ResultatRechercheAlterna
 	};
 };
 
-export const aRechercheEntrepriseAlternance = (override?: Partial<ResultatRechercheAlternance.Entreprise>): ResultatRechercheAlternance.Entreprise => {
+export const aRechercheEntrepriseAlternance = (override?: Partial<ResultatRechercheAlternanceEntreprise>): ResultatRechercheAlternanceEntreprise => {
 	return {
 		adresse: 'une adresse',
 		candidaturePossible: true,
@@ -45,7 +52,7 @@ export const aRechercheEntrepriseAlternance = (override?: Partial<ResultatRecher
 	};
 };
 
-export const aRechercheMatchaAlternance = (override?: Partial<ResultatRechercheAlternance.Offre>): ResultatRechercheAlternance.Offre => {
+export const aRechercheMatchaAlternance = (override?: Partial<ResultatRechercheAlternanceOffre>): ResultatRechercheAlternanceOffre => {
 	return {
 		entreprise: {
 			nom: 'une entreprise',
@@ -53,14 +60,14 @@ export const aRechercheMatchaAlternance = (override?: Partial<ResultatRechercheA
 		id: 'id',
 		localisation: 'Paris',
 		niveauRequis: 'débutant',
-		source: Alternance.Source.MATCHA,
+		source: AlternanceSource.MATCHA,
 		titre: 'un titre',
 		typeDeContrat: ['Apprentissage', 'CDI'],
 		...override,
 	};
 };
 
-export const aRecherchePEJobAlternance = (override?: Partial<ResultatRechercheAlternance.Offre>): ResultatRechercheAlternance.Offre => {
+export const aRecherchePEJobAlternance = (override?: Partial<ResultatRechercheAlternanceOffre>): ResultatRechercheAlternanceOffre => {
 	return {
 		entreprise: {
 			nom: 'ECOLE DE TRAVAIL ORT',
@@ -68,7 +75,7 @@ export const aRecherchePEJobAlternance = (override?: Partial<ResultatRechercheAl
 		id: 'id 2',
 		localisation: 'PARIS 4',
 		niveauRequis: undefined,
-		source: Alternance.Source.FRANCE_TRAVAIL,
+		source: AlternanceSource.FRANCE_TRAVAIL,
 		titre: 'Monteur / Monteuse en chauffage (H/F)',
 		typeDeContrat: ['CDD'],
 		...override,
@@ -88,7 +95,7 @@ export function aDetailMatchaAlternance(override?: Partial<Alternance>): Alterna
 		lienPostuler: `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}postuler?caller=1jeune1solution&itemId=id&type=matcha`,
 		localisation: 'paris',
 		niveauRequis: 'débutant',
-		source: Alternance.Source.MATCHA,
+		source: AlternanceSource.MATCHA,
 		status: AlternanceStatus.ACTIVE,
 		titre: 'un titre',
 		typeDeContrat: ['Apprentissage', 'CDI'],
@@ -111,7 +118,7 @@ export function aDetailPEJobAlternance(override?: Partial<Alternance>): Alternan
 		natureDuContrat: 'Contrat d‘alternance',
 		niveauRequis: undefined,
 		rythmeAlternance: '6 mois',
-		source: Alternance.Source.FRANCE_TRAVAIL,
+		source: AlternanceSource.FRANCE_TRAVAIL,
 		titre: 'Monteur / Monteuse en chauffage (H/F)',
 		typeDeContrat: ['CDD'],
 		...override,

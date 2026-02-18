@@ -13,7 +13,7 @@ export class StrapiMesuresEmployeursRepository implements MesuresEmployeursRepos
 	async getMesuresEmployeurs(): Promise<Either<Array<MesureEmployeur>>> {
 		const query = 'populate=deep';
 		try {
-			const strapiMesuresEmployeurs = await this.strapiService.getSingleType<StrapiMesuresEmployeurs.MesuresEmployeurs>(RESOURCE_MESURES_EMPLOYEURS, query);
+			const strapiMesuresEmployeurs = await this.strapiService.getSingleType<StrapiMesuresEmployeurs>(RESOURCE_MESURES_EMPLOYEURS, query);
 			if(isFailure(strapiMesuresEmployeurs)) return strapiMesuresEmployeurs;
 
 			const mesuresEmployeurs = mapMesuresEmployeurs(strapiMesuresEmployeurs.result);

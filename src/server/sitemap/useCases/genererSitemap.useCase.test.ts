@@ -35,11 +35,11 @@ describe('GenererSitemapUseCase', () => {
 		annonceDeLogementRepository = anAnnonceDeLogementRepository();
 		stagesRepository = aStagesRepository();
 
-		jest.spyOn(articlesRepository, 'listAllArticleSlug').mockResolvedValue(createSuccess(anArticlePathList()));
-		jest.spyOn(ficheMetierRepository, 'getAllNomsMetiers').mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
-		jest.spyOn(faqRepository, 'listAllFAQSlug').mockResolvedValue(createSuccess(aListeFAQSlug()));
-		jest.spyOn(stagesRepository, 'listAllOffreDeStageSlug').mockResolvedValue(createSuccess(anOffreDeStageSlugsList()));
-		jest.spyOn(annonceDeLogementRepository, 'listAllAnnonceDeLogementSlug').mockResolvedValue(createSuccess(anAnnonceDeLogementSlugList()));
+		vi.spyOn(articlesRepository, 'listAllArticleSlug').mockResolvedValue(createSuccess(anArticlePathList()));
+		vi.spyOn(ficheMetierRepository, 'getAllNomsMetiers').mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
+		vi.spyOn(faqRepository, 'listAllFAQSlug').mockResolvedValue(createSuccess(aListeFAQSlug()));
+		vi.spyOn(stagesRepository, 'listAllOffreDeStageSlug').mockResolvedValue(createSuccess(anOffreDeStageSlugsList()));
+		vi.spyOn(annonceDeLogementRepository, 'listAllAnnonceDeLogementSlug').mockResolvedValue(createSuccess(anAnnonceDeLogementSlugList()));
 	});
 	describe('feature flip Formation en apprentissage', () => {
 		describe('quand la feature Formation en apprentissage n‘est pas activée', () => {
@@ -149,7 +149,7 @@ describe('GenererSitemapUseCase', () => {
 	it('santize les URI', async () => {
 		const baseUrl = 'http://localhost:3000';
 		ficheMetierRepository = aFicheMetierRepository({
-			getAllNomsMetiers: jest.fn().mockResolvedValue(createSuccess(['Dev web'])),
+			getAllNomsMetiers: vi.fn().mockResolvedValue(createSuccess(['Dev web'])),
 		});
 		const générerSitemapUseCase = new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, navigationItemList(), baseUrl);
 
@@ -160,7 +160,7 @@ describe('GenererSitemapUseCase', () => {
 	it('encode les URI', async () => {
 		const baseUrl = 'http://localhost:3000';
 		ficheMetierRepository = aFicheMetierRepository({
-			getAllNomsMetiers: jest.fn().mockResolvedValue(createSuccess(['Dev web "accessibilite<>&\'"'])),
+			getAllNomsMetiers: vi.fn().mockResolvedValue(createSuccess(['Dev web "accessibilite<>&\'"'])),
 		});
 		const générerSitemapUseCase = new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, navigationItemList(), baseUrl);
 

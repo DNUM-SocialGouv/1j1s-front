@@ -1,6 +1,5 @@
-import Localisation = OffreDeStage.Localisation;
 import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode';
-import { OffreDeStage } from '~/server/stages/domain/stages';
+import { OffreDeStage, OffreDeStageLocalisation } from '~/server/stages/domain/stages';
 import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 
 export function anOffreDeStage(overrides?: Partial<OffreDeStage>): OffreDeStage {
@@ -37,7 +36,7 @@ export function anOffreDeStage(overrides?: Partial<OffreDeStage>): OffreDeStage 
 	};
 }
 
-export function anOffreDeStageLocalisation(override?: Partial<Localisation>): Localisation {
+export function anOffreDeStageLocalisation(override?: Partial<OffreDeStageLocalisation>): OffreDeStageLocalisation {
 	return {
 		codePostal: undefined,
 		departement: undefined,

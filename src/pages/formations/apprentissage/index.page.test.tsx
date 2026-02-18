@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import '~/test-utils';
 
 import { render } from '@testing-library/react';
@@ -20,11 +16,11 @@ import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aRésultatRechercheFormationList } from '~/server/formations/domain/formation.fixture';
 import { dependencies } from '~/server/start';
 
-jest.mock('~/server/start', () => ({
+vi.mock('~/server/start', () => ({
 	dependencies: {
 		formationDependencies: {
 			rechercherFormation: {
-				handle: jest.fn(),
+				handle: vi.fn(),
 			},
 		},
 	},
@@ -138,7 +134,7 @@ describe('Page Formations en Apprentissage', () => {
 
 			describe('et qu‘ils sont valides', () => {
 				it('fait une recherche avec les query params', async () => {
-					jest.spyOn(dependencies.formationDependencies.rechercherFormation, 'handle').mockResolvedValue(createSuccess(aRésultatRechercheFormationList()));
+					vi.spyOn(dependencies.formationDependencies.rechercherFormation, 'handle').mockResolvedValue(createSuccess(aRésultatRechercheFormationList()));
 
 					const context = aGetServerSidePropsContext({
 						query: {
@@ -166,7 +162,7 @@ describe('Page Formations en Apprentissage', () => {
 				});
 
 				it('lorsque la recherche est en erreur, retourne l‘erreur et change le status de la page', async () => {
-					jest.spyOn(dependencies.formationDependencies.rechercherFormation, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+					vi.spyOn(dependencies.formationDependencies.rechercherFormation, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 					const defaultStatusCode = 200;
 
 					const context = aGetServerSidePropsContext({
@@ -181,7 +177,7 @@ describe('Page Formations en Apprentissage', () => {
 				});
 
 				it('lorsque la recherche retourne un résultat, renvoie les formations en apprentissage', async () => {
-					jest.spyOn(dependencies.formationDependencies.rechercherFormation, 'handle').mockResolvedValue(createSuccess(aRésultatRechercheFormationList()));
+					vi.spyOn(dependencies.formationDependencies.rechercherFormation, 'handle').mockResolvedValue(createSuccess(aRésultatRechercheFormationList()));
 					const context = aGetServerSidePropsContext({
 						query: rechercheFormationAlternanceQuery(),
 					});

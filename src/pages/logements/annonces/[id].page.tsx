@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import React from 'react';
+import { useMemo } from 'react';
 
 import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulter/ConsulterAnnonce';
 import { Head } from '~/client/components/head/Head';
@@ -18,17 +18,20 @@ export default function ConsulterAnnonceLogementPage({ annonceDeLogement, isFeat
 	useAnalytics(analytics);
 	usePopstate();
 
-	if (!isFeatureActive) return <ErrorUnavailableService />;
+	const annonce = useMemo(() => ({
+    ...annonceDeLogement,
+    dateDeMiseAJour: new Date(annonceDeLogement.dateDeMiseAJour),
+    dateDeDisponibilité: new Date(annonceDeLogement.dateDeDisponibilité)
+  }), [annonceDeLogement]);
 
-	annonceDeLogement.dateDeMiseAJour = new Date(annonceDeLogement.dateDeMiseAJour);
-	annonceDeLogement.dateDeDisponibilité = new Date(annonceDeLogement.dateDeDisponibilité);
+	if (!isFeatureActive) return <ErrorUnavailableService />;
 
 	return (
 		<>
 			<Head
-				title={`${annonceDeLogement.titre} | 1jeune1solution`}
+				title={`${annonce.titre} | 1jeune1solution`}
 				robots="noindex" />
-			<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />
+			<ConsulterAnnonce annonceDeLogement={annonce} />
 		</>
 	);
 }

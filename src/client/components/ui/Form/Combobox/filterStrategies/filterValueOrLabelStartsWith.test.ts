@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { filterValueOrLabelStartsWith } from './filterValueOrLabelStartsWith';
 
 describe('filterValueOrLabelStartsWith()', () => {

@@ -75,8 +75,20 @@ export default function RechercherAlternance(props: RechercherAlternanceProps) {
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
-		setIsLoading(false);
-	}, [router]);
+		if (!router.events) {
+			return;
+		}
+
+		const handleRouteChangeEnd = () => setIsLoading(false);
+
+		router.events.on('routeChangeComplete', handleRouteChangeEnd);
+		router.events.on('routeChangeError', handleRouteChangeEnd);
+
+		return () => {
+			router.events.off('routeChangeComplete', handleRouteChangeEnd);
+			router.events.off('routeChangeError', handleRouteChangeEnd);
+		};
+	}, [router.events]);
 
 	function onSubmit() {
 		setIsLoading(true);
@@ -137,5 +149,3 @@ export default function RechercherAlternance(props: RechercherAlternanceProps) {
 		</>
 	);
 }
-
-

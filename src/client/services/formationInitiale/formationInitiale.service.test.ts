@@ -9,7 +9,7 @@ describe('rechercher une formation initiale', () => {
 		const httpClient = anHttpClientService();
 		const formationInitialeService = new FormationInitialeService(httpClient);
 		const formationsInitialesSuccessResponse = createSuccess([aResultatFormationInitiale()]);
-		jest.spyOn(httpClient, 'get').mockResolvedValueOnce(formationsInitialesSuccessResponse);
+		vi.spyOn(httpClient, 'get').mockResolvedValueOnce(formationsInitialesSuccessResponse);
 
 		// WHEN
 		const resultatFormationInitiale = await formationInitialeService.rechercherFormationInitiale({ motCle: 'informatique' });
@@ -23,7 +23,7 @@ describe('rechercher une formation initiale', () => {
 		const httpClient = anHttpClientService();
 		const formationInitialeService = new FormationInitialeService(httpClient);
 		const formationsInitialesSuccessResponse = createSuccess([aResultatFormationInitiale()]);
-		jest.spyOn(httpClient, 'get').mockResolvedValueOnce(formationsInitialesSuccessResponse);
+		vi.spyOn(httpClient, 'get').mockResolvedValueOnce(formationsInitialesSuccessResponse);
 
 		// WHEN
 		const resultatFormationInitiale = await formationInitialeService.rechercherFormationInitiale({ motCle: undefined });

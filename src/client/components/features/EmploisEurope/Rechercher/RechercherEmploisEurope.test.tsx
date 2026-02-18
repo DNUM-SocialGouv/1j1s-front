@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -66,7 +62,7 @@ describe('RechercherEmploisEurope', () => {
 							}),
 						],
 					});
-				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+				vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 				mockSmallScreen();
 				mockUseRouter({
@@ -119,7 +115,7 @@ describe('RechercherEmploisEurope', () => {
 							}),
 						],
 					});
-					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+					vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 					mockSmallScreen();
 
@@ -165,7 +161,7 @@ describe('RechercherEmploisEurope', () => {
 							}),
 						],
 					});
-					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+					vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 					mockSmallScreen();
 
@@ -211,7 +207,7 @@ describe('RechercherEmploisEurope', () => {
 							}),
 						],
 					});
-					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+					vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 					mockSmallScreen();
 
@@ -260,7 +256,7 @@ describe('RechercherEmploisEurope', () => {
 							}),
 						],
 					});
-					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+					vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 					mockSmallScreen();
 
@@ -311,7 +307,7 @@ describe('RechercherEmploisEurope', () => {
 							}),
 						],
 					});
-					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+					vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 					mockSmallScreen();
 					mockUseRouter({
@@ -353,7 +349,7 @@ describe('RechercherEmploisEurope', () => {
 							}),
 						],
 					});
-					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+					vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 					mockSmallScreen();
 					mockUseRouter({
@@ -401,7 +397,7 @@ describe('RechercherEmploisEurope', () => {
 						}),
 					],
 				});
-				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+				vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 				mockSmallScreen();
 				mockUseRouter({
@@ -453,7 +449,7 @@ describe('RechercherEmploisEurope', () => {
 						}),
 					],
 				});
-				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+				vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 				mockSmallScreen();
 				mockUseRouter({
@@ -479,7 +475,7 @@ describe('RechercherEmploisEurope', () => {
 		it('permet d’accéder uniquement au nombre page défini par l’api eures', async () => {
 			// GIVEN
 			const maxPage = Math.floor(10_000 / 15);
-			const routerPush = jest.fn();
+			const routerPush = vi.fn();
 			const emploiEuropeServiceMock = anEmploiEuropeService();
 			const resultatsService = aResultatRechercheEmploiEuropeList(
 				{
@@ -488,7 +484,7 @@ describe('RechercherEmploisEurope', () => {
 						anEmploiEurope(),
 					],
 				});
-			jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+			vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 			mockSmallScreen();
 			mockUseRouter({
 				push: routerPush,
@@ -535,7 +531,7 @@ describe('RechercherEmploisEurope', () => {
 					}),
 				],
 			});
-			jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+			vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 			const query: EmploiEuropeQueryParams = {
 				codePays: 'ES',
@@ -590,7 +586,7 @@ describe('RechercherEmploisEurope', () => {
 					}),
 				],
 			});
-			jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+			vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 			mockSmallScreen();
 			mockUseRouter({
@@ -628,7 +624,7 @@ describe('RechercherEmploisEurope', () => {
 						}),
 					],
 				});
-				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+				vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 				mockSmallScreen();
 				mockUseRouter({
@@ -665,7 +661,7 @@ describe('RechercherEmploisEurope', () => {
 							}),
 						],
 					});
-					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+					vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 					mockSmallScreen();
 					mockUseRouter({
@@ -702,7 +698,7 @@ describe('RechercherEmploisEurope', () => {
 							}),
 						],
 					});
-					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+					vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 					mockSmallScreen();
 					mockUseRouter({
@@ -741,7 +737,7 @@ describe('RechercherEmploisEurope', () => {
 						}),
 					],
 				});
-				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+				vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 				mockSmallScreen();
 				mockUseRouter({
@@ -780,7 +776,7 @@ describe('RechercherEmploisEurope', () => {
 						}),
 					],
 				});
-				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+				vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 				mockSmallScreen();
 				mockUseRouter({
@@ -812,7 +808,7 @@ describe('RechercherEmploisEurope', () => {
 					nombreResultats: 1,
 					offreList: [anEmploiEurope({ tempsDeTravail: 'Temps partiel' })],
 				});
-				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+				vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 				mockSmallScreen();
 				mockUseRouter({
@@ -843,7 +839,7 @@ describe('RechercherEmploisEurope', () => {
 					nombreResultats: 1,
 					offreList: [anEmploiEurope({ niveauEtudes: NiveauDEtudesLibelle.SUPERIEUR_COURT })],
 				});
-				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+				vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 				mockSmallScreen();
 				mockUseRouter({
@@ -874,7 +870,7 @@ describe('RechercherEmploisEurope', () => {
 					nombreResultats: 1,
 					offreList: [anEmploiEurope({ niveauEtudes: NiveauDEtudesLibelle.NON_SPECIFIE })],
 				});
-				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+				vi.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 				mockSmallScreen();
 				mockUseRouter({

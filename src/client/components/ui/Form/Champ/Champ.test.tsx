@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
-
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -107,7 +102,7 @@ describe('<Champ/>', () => {
 		});
 
 		it('accepte une ref', () => {
-			const ref = jest.fn();
+			const ref = vi.fn();
 			render(
 				<Champ>
 					<Champ.Input render={Input} ref={ref} />
@@ -119,7 +114,7 @@ describe('<Champ/>', () => {
 		});
 
 		it('accepte un onChange', async () => {
-			const onChange = jest.fn();
+			const onChange = vi.fn();
 			render(
 				<Champ>
 					<Champ.Input render={Input} onChange={onChange} />
@@ -135,7 +130,7 @@ describe('<Champ/>', () => {
 		});
 
 		it('accepte un onInvalid et l‘appelle quand l‘input est invalid', async () => {
-			const onInvalid = jest.fn();
+			const onInvalid = vi.fn();
 			render(
 				<Champ>
 					<Champ.Input render={Input} onInvalid={onInvalid} required />
@@ -192,7 +187,7 @@ describe('<Champ/>', () => {
 		});
 
 		it('accepte un onTouch', async () => {
-			const onTouch = jest.fn();
+			const onTouch = vi.fn();
 			render(
 				<Champ>
 					<Champ.Input render={Input} onTouch={onTouch} />

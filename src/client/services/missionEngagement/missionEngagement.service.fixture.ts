@@ -7,13 +7,13 @@ import { createSuccess } from '~/server/errors/either';
 
 export function aMissionEngagementService(): MissionEngagementService {
 	return {
-		rechercherMission: jest.fn().mockResolvedValue(createSuccess(aRésultatRechercheMission())),
+		rechercherMission: vi.fn().mockResolvedValue(createSuccess(aRésultatRechercheMission())),
 	};
 }
 
 export function aSingleResultMissionEngagementService(): MissionEngagementService {
 	return {
-		rechercherMission: jest.fn().mockResolvedValue(createSuccess({
+		rechercherMission: vi.fn().mockResolvedValue(createSuccess({
 			nombreRésultats: 1,
 			résultats: [anAmbassadeurDuDonDeVêtementMission()],
 		})),

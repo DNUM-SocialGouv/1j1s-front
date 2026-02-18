@@ -8,7 +8,7 @@ describe('DemandeDeContactService', () => {
 		it('appelle l‘API avec les paramètres du formulaire de contact et retourne un success', async () => {
 			// Given
 			const httpClientService = anHttpClientService();
-			jest.spyOn(httpClientService,'post').mockResolvedValue(createSuccess(undefined));
+			vi.spyOn(httpClientService,'post').mockResolvedValue(createSuccess(undefined));
 			const demandeContactService = new BffDemandeDeContactService(httpClientService);
 			const body = {
 				age: 18,
@@ -31,7 +31,7 @@ describe('DemandeDeContactService', () => {
 		it('appelle API avec les paramètres du formulaire de contact et retourne une Failure', async () => {
 			// Given
 			const httpClientService = anHttpClientService();
-			jest.spyOn(httpClientService,'post').mockResolvedValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
+			vi.spyOn(httpClientService,'post').mockResolvedValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 			const demandeContactService = new BffDemandeDeContactService(httpClientService);
 			const body = {
 				age: 18,

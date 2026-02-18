@@ -1,6 +1,5 @@
-/**
- * @jest-environment jsdom
- */
+import { type Mock } from "vitest";
+
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
@@ -146,7 +145,7 @@ describe('Pagination', () => {
 
 		describe('quand l utilisateur clique sur la pagination', () => {
 			it('met à jour l url avec la valeur sélectionné', async () => {
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 
 				mockUseRouter({ push: routerPush });
 				render(
@@ -222,10 +221,10 @@ describe('Pagination', () => {
 		});
 	});
 	describe('je peux naviguer au clavier', () => {
-		let routerPush: jest.Mock;
+		let routerPush: Mock;
 
 		beforeEach(() => {
-			routerPush = jest.fn();
+			routerPush = vi.fn();
 			mockUseRouter({ push: routerPush, query: { page: '3' } });
 
 		});

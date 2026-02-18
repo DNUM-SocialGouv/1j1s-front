@@ -1,6 +1,6 @@
 
 
-import { AnnonceDeLogement } from './annonceDeLogement';
+import { AnnonceDeLogement, AnnonceDeLogementService } from './annonceDeLogement';
 
 export function anAnnonceDeLogement(override?: Partial<AnnonceDeLogement>): AnnonceDeLogement {
 	return {
@@ -21,12 +21,12 @@ export function anAnnonceDeLogement(override?: Partial<AnnonceDeLogement>): Anno
 		prix: 1000,
 		prixHT: 980,
 		servicesInclus: [
-			AnnonceDeLogement.Service.INTERNET,
-			AnnonceDeLogement.Service.ASPIRATEUR,
+			AnnonceDeLogementService.INTERNET,
+			AnnonceDeLogementService.ASPIRATEUR,
 		],
 		servicesOptionnels: [
-			AnnonceDeLogement.Service.TV,
-			AnnonceDeLogement.Service.LOCAL_A_VELO,
+			AnnonceDeLogementService.TV,
+			AnnonceDeLogementService.LOCAL_A_VELO,
 		],
 		source: 'immojeune',
 		surface: 10,

@@ -1,9 +1,3 @@
-
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom';
-
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
@@ -25,7 +19,7 @@ describe('FormulaireRechercheFormationInitiale', () => {
 	});
 	describe('lorsque je fais une recherche', () => {
 		it('ajoute le mot clé au query params', async () => {
-			const routerPush = jest.fn();
+			const routerPush = vi.fn();
 			mockUseRouter({ push: routerPush });
 
 			render(<FormulaireRechercheFormationInitiale />);
@@ -40,7 +34,7 @@ describe('FormulaireRechercheFormationInitiale', () => {
 	});
 	describe('lorsque je fais une recherche sans remplir le formulaire', () => {
 		it('ajoute un mot clé vide au query params', async () => {
-			const routerPush = jest.fn();
+			const routerPush = vi.fn();
 			mockUseRouter({ push: routerPush });
 
 			render(<FormulaireRechercheFormationInitiale />);

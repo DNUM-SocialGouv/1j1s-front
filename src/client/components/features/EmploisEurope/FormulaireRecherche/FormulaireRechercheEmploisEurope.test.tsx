@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -39,7 +35,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		describe('quand on recherche par mot clé', () => {
 			it('ajoute le mot clé recherché aux query params', async () => {
 				// GIVEN
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -60,7 +56,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		describe('quand on recherche par localisation', () => {
 			it('ajoute la localisation aux query params', async () => {
 				// GIVEN
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -81,7 +77,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		describe('quand on recherche par type de contrat', () => {
 			it('ajoute les types de contrat aux query params', async () => {
 				// GIVEN
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -108,7 +104,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		describe('quand on recherche par temps de travail', () => {
 			it('ajoute les types de temps de travail aux query params', async () => {
 				// GIVEN
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -136,7 +132,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		describe('quand on recherche par niveau d’étude', () => {
 			it('ajoute les niveaux d’étude aux query params', async () => {
 				// GIVEN
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -165,7 +161,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		describe('quand on recherche par secteur d‘activité', () => {
 			it('ajoute les secteurs d‘activité aux query params', async () => {
 				// GIVEN
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -217,7 +213,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		describe('quand on recherche par type de contrat', () => {
 			it('ajoute les types de contrat aux query params', async () => {
 				// GIVEN
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -242,7 +238,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		describe('quand on recherche par temps de travail', () => {
 			it('ajoute les temps de travail aux query params', async () => {
 				// GIVEN
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -268,7 +264,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		describe('quand on recherche par niveau d‘étude', () => {
 			it('ajoute les niveaux d‘étude aux query params', async () => {
 				// GIVEN
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
@@ -295,7 +291,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		describe('quand on recherche par secteur d‘activité', () => {
 			it('ajoute les secteurs d’activités aux query params', async () => {
 				// GIVEN
-				const routerPush = jest.fn();
+				const routerPush = vi.fn();
 				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 

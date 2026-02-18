@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import '~/test-utils';
 
 import { render, screen } from '@testing-library/react';
@@ -18,11 +14,11 @@ import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
 import { dependencies } from '~/server/start';
 
-jest.mock('~/server/start', () => ({
+vi.mock('~/server/start', () => ({
 	dependencies: {
 		offreEmploiDependencies: {
 			rechercherOffreEmploi: {
-				handle: jest.fn(),
+				handle: vi.fn(),
 			},
 		},
 	},
@@ -51,7 +47,7 @@ describe('Page Emploi', () => {
 		describe('lorsque la page est chargée sans query params', () => {
 			it('redirige vers la page 1', async () => {
 				// GIVEN
-				const routerReplace = jest.fn();
+				const routerReplace = vi.fn();
 				mockUseRouter({ isReady: true, query: {}, replace: routerReplace });
 				mockLargeScreen();
 				const offres = aRésultatsRechercheOffre({
@@ -76,7 +72,7 @@ describe('Page Emploi', () => {
 
 	describe('getServerSideProps', () => {
 		beforeEach(() => {
-			jest.resetAllMocks();
+			vi.resetAllMocks();
 		});
 
 		describe('lorsque la recherche est lancée sans query params', () => {
@@ -93,7 +89,7 @@ describe('Page Emploi', () => {
 		describe('lorsque la recherche est lancée avec des query params', () => {
 			it('filtre les offres et retourne le résultat', async () => {
 				// GIVEN
-				jest.spyOn(dependencies.offreEmploiDependencies.rechercherOffreEmploi, 'handle').mockResolvedValue(createSuccess(aRésultatsRechercheOffre()));
+				vi.spyOn(dependencies.offreEmploiDependencies.rechercherOffreEmploi, 'handle').mockResolvedValue(createSuccess(aRésultatsRechercheOffre()));
 
 				const context = aGetServerSidePropsContext({ query: { page: '1' } });
 
@@ -115,7 +111,7 @@ describe('Page Emploi', () => {
 				it('relai l‘erreur associée', async () => {
 					// GIVEN
 					const defaultStatusCode = 200;
-					jest.spyOn(dependencies.offreEmploiDependencies.rechercherOffreEmploi, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+					vi.spyOn(dependencies.offreEmploiDependencies.rechercherOffreEmploi, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 					const context = aGetServerSidePropsContext({
 						query: { page: '1' },
 						res: { statusCode: defaultStatusCode },

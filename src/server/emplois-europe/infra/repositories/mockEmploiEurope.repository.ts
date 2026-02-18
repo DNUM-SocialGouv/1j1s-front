@@ -3,7 +3,8 @@ import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEur
 import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailItem,
-	ApiEuresEmploiEuropeDetailResponse, ApiEuresEmploiEuropeDetailXML,
+	ApiEuresEmploiEuropeDetailResponse,
+	ApiEuresEmploiEuropeDetailXMLNiveauEtudeAPIEures as NiveauEtudeAPIEures,
 	ApiEuresEmploiEuropeRechercheResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import {
@@ -13,7 +14,6 @@ import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/reposi
 import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import NiveauEtudeAPIEures = ApiEuresEmploiEuropeDetailXML.NiveauEtudeAPIEures;
 
 export class MockEmploiEuropeRepository implements EmploiEuropeRepository {
 	constructor(

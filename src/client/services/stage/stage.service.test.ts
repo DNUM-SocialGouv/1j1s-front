@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import {
 	aFormulaireEnvoyePostedValue,
 	aFormulaireEtapeEntreprise,
@@ -17,7 +13,7 @@ describe('stageService', () => {
 		it('enregistre l’offre de stage', async () => {
 			// GIVEN
 			const httpClient = anHttpClientService();
-			jest.spyOn(httpClient, 'post').mockResolvedValue(createSuccess(undefined));
+			vi.spyOn(httpClient, 'post').mockResolvedValue(createSuccess(undefined));
 			const offreToSubmit = aFormulaireEnvoyePostedValue();
 			const stageService = new BffStageService(httpClient);
 

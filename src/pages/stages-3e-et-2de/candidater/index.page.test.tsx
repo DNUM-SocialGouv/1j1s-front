@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import '~/test-utils';
 
 import { render } from '@testing-library/react';
@@ -19,11 +15,11 @@ import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { dependencies } from '~/server/start';
 
-jest.mock('~/server/start', () => ({
+vi.mock('~/server/start', () => ({
 	dependencies: {
 		stage3eEt2deDependencies: {
 			recupererAppellationMetiersParAppellationCodesUseCase: {
-				handle: jest.fn(),
+				handle: vi.fn(),
 			},
 		},
 	},
@@ -96,7 +92,7 @@ describe('Page Candidater Stages 3e et 2de', () => {
 					};
 					const defaultStatusCode = 200;
 					const context = aGetServerSidePropsContext({
-						// @ts-expect-error
+						// @ts-expect-error TS2322
 						query: queryWithInvalidSiretType,
 						res: { statusCode: defaultStatusCode },
 					});
@@ -113,7 +109,7 @@ describe('Page Candidater Stages 3e et 2de', () => {
 				describe('lorsque la récupération des appellations échoue', () => {
 					it('retourne en props une erreur Service Indisponible', async () => {
 						// Given
-						jest.spyOn(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+						vi.spyOn(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 						const defaultStatusCode = 200;
 						const context = aGetServerSidePropsContext({
 							query: {
@@ -136,7 +132,7 @@ describe('Page Candidater Stages 3e et 2de', () => {
 				describe('lorsque la récupération des appellations retourne un tableau vide', () => {
 					it('retourne en props une erreur Service Indisponible', async () => {
 						// Given
-						jest.spyOn(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase, 'handle').mockResolvedValue(createSuccess([]));
+						vi.spyOn(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase, 'handle').mockResolvedValue(createSuccess([]));
 						const query = {
 							appellationCodes: 'appellationCodes',
 							modeDeContact: 'IN_PERSON',
@@ -160,7 +156,7 @@ describe('Page Candidater Stages 3e et 2de', () => {
 				describe('lorsque la récupération des appellations réussit', () => {
 					it('retourne les props', async () => {
 						// Given
-						jest.spyOn(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase, 'handle').mockResolvedValue(createSuccess([
+						vi.spyOn(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase, 'handle').mockResolvedValue(createSuccess([
 							{
 								code: 'code',
 								label: 'label',

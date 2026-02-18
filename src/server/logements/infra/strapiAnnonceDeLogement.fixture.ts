@@ -1,4 +1,4 @@
-import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
+import { AnnonceDeLogementService } from '~/server/logements/domain/annonceDeLogement';
 
 import { StrapiAnnonceDeLogement } from './strapiAnnonceDeLogement';
 
@@ -21,12 +21,12 @@ export function aStrapiAnnonceDeLogement(override?: Partial<StrapiAnnonceDeLogem
 		prix: 1000,
 		prixHT: 980,
 		servicesInclus: [
-			{ nom: AnnonceDeLogement.Service.INTERNET },
-			{ nom: AnnonceDeLogement.Service.ASPIRATEUR },
+			{ nom: AnnonceDeLogementService.INTERNET },
+			{ nom: AnnonceDeLogementService.ASPIRATEUR },
 		],
 		servicesOptionnels: [
-			{ nom: AnnonceDeLogement.Service.TV },
-			{ nom: AnnonceDeLogement.Service.LOCAL_A_VELO },
+			{ nom: AnnonceDeLogementService.TV },
+			{ nom: AnnonceDeLogementService.LOCAL_A_VELO },
 		],
 		slug: 'logement-slug',
 		source: 'immojeune',

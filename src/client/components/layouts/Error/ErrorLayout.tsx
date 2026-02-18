@@ -27,7 +27,7 @@ export function ErrorLayout(props: React.PropsWithChildren<ErrorLayoutProps>) {
 			</div>
 
 			<div className={styles.errorLogo}>
-          	<Image src="/images/logos/technical-error.svg" alt="" width={185} height={205} />
+				<Image src="/images/logos/technical-error.svg" alt="" width={185} height={205} />
 			</div>
 		</Container>
 	);

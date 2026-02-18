@@ -1,7 +1,7 @@
-import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
+import { OffreDeStageDeposeeStage } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 
 export interface StageDeposerOffreEtape2PersistenceService {
-	getInformationsEtape2: () => OffreDeStageDeposee.Stage | null;
-	setInformationsEtape2: (informations: OffreDeStageDeposee.Stage) => void;
+	getInformationsEtape2: () => OffreDeStageDeposeeStage | null;
+	setInformationsEtape2: (informations: OffreDeStageDeposeeStage) => void;
 	removeInformationsEtape2: () => void;
 }

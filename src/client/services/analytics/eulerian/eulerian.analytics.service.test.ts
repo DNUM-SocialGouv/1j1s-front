@@ -1,14 +1,10 @@
-/**
- * @jest-environment jsdom
- */
-
 import { aCookiesService } from '~/client/services/cookies/cookies.service.fixture';
 
 import { PageTags } from '../analytics';
 import { EulerianAnalyticsService } from './eulerian.analytics.service';
 
 describe('EulerianAnalyticsService', () => {
-	const eulerianAnalyticsPushSpy = jest.fn();
+	const eulerianAnalyticsPushSpy = vi.fn();
 	beforeEach(() => {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(global as any).EA_push = eulerianAnalyticsPushSpy;

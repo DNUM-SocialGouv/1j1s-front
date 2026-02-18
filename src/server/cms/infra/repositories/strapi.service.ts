@@ -1,5 +1,5 @@
 import { CmsService } from '~/server/cms/domain/cmsService';
-import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
+import { StrapiCollectionType, StrapiSingleType } from '~/server/cms/infra/repositories/strapi.response';
 import { createSuccess, Either } from '~/server/errors/either';
 import { ErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
@@ -18,7 +18,7 @@ export class StrapiService implements CmsService {
 	async getSingleType<Response>(resource: string, query: string): Promise<Either<Response>> {
 		try {
 			const endpoint = `${resource}?${query}`;
-			const { data } = await this.httpClientService.get<Strapi.SingleType<Response>>(endpoint);
+			const { data } = await this.httpClientService.get<StrapiSingleType<Response>>(endpoint);
 			return createSuccess(data.data.attributes);
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
@@ -96,11 +96,11 @@ export class StrapiService implements CmsService {
 		}
 	}
 
-	private async getPaginatedCollectionType<Collection>(resource: string, query: string, page: number): Promise<Strapi.CollectionType<Collection>> {
+	private async getPaginatedCollectionType<Collection>(resource: string, query: string, page: number): Promise<StrapiCollectionType<Collection>> {
 		const paginationQuery = `pagination[pageSize]=${MAX_PAGINATION_SIZE}&pagination[page]=${page}`;
 		const queryWithPagination = query ? `${query}&${paginationQuery}` : paginationQuery;
 		const endpoint = `${resource}?${queryWithPagination}`;
-		const { data } = await this.httpClientService.get<Strapi.CollectionType<Collection>>(endpoint);
+		const { data } = await this.httpClientService.get<StrapiCollectionType<Collection>>(endpoint);
 		return data;
 	}
 }

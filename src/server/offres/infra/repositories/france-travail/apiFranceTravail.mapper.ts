@@ -1,10 +1,29 @@
 
-import { Offre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import {
+	CONTRAT_CDD,
+	CONTRAT_CDI,
+	CONTRAT_INTÉRIMAIRE,
+	CONTRAT_SAISONNIER,
+	Offre,
+	OffreDuréeTravail,
+	OffreExpérience,
+	OffreFormation,
+	OffreTypeDeContrat,
+	RésultatsRechercheOffre,
+} from '~/server/offres/domain/offre';
 import {
 	OffreResponse,
+	OffreResponseCompétence,
+	OffreResponseDuréeTravail,
+	OffreResponseExpérience,
+	OffreResponseFormation,
+	OffreResponseLieuTravail,
+	OffreResponseQualitéeProfessionnelle,
+	OffreResponseTypeContrat,
 	RésultatsRechercheOffreResponse,
+	RésultatsRechercheOffreResponseAgregation,
+	RésultatsRechercheOffreResponseFiltresPossibles,
 } from '~/server/offres/infra/repositories/france-travail/franceTravailOffre.response';
-import TypeDeContrat = Offre.TypeDeContrat;
 import {
 	RésultatsRéférentielCommunesResponse,
 } from '~/server/offres/infra/repositories/france-travail/apiFranceTravailReferentiel.repository';
@@ -43,33 +62,33 @@ export function mapOffre(offreResponse: OffreResponse): Offre {
 	};
 }
 
-function mapDuréeTravail(duréeTravailResponse?: OffreResponse.DuréeTravail): Offre.DuréeTravail | undefined {
+function mapDuréeTravail(duréeTravailResponse?: OffreResponseDuréeTravail): OffreDuréeTravail | undefined {
 	switch (duréeTravailResponse) {
 		case 'Temps partiel':
-			return Offre.DuréeTravail.TEMPS_PARTIEL;
+			return OffreDuréeTravail.TEMPS_PARTIEL;
 		case 'Temps plein':
-			return Offre.DuréeTravail.TEMPS_PLEIN;
+			return OffreDuréeTravail.TEMPS_PLEIN;
 		default:
 			return undefined;
 	}
 }
 
-function mapTypeContrat(typeContrat: OffreResponse.TypeContrat): TypeDeContrat | undefined {
+function mapTypeContrat(typeContrat: OffreResponseTypeContrat): OffreTypeDeContrat | undefined {
 	switch (typeContrat) {
 		case 'CDD':
-			return Offre.CONTRAT_CDD;
+			return CONTRAT_CDD;
 		case 'CDI':
-			return Offre.CONTRAT_CDI;
+			return CONTRAT_CDI;
 		case 'MIS':
-			return Offre.CONTRAT_INTÉRIMAIRE;
+			return CONTRAT_INTÉRIMAIRE;
 		case 'SAI':
-			return Offre.CONTRAT_SAISONNIER;
+			return CONTRAT_SAISONNIER;
 		default:
 			return undefined;
 	}
 }
 
-export function mapFormationList(formationResponse?: OffreResponse.Formation[]): Offre.Formation[] {
+export function mapFormationList(formationResponse?: OffreResponseFormation[]): OffreFormation[] {
 	if (!formationResponse) {
 		return [];
 	}
@@ -80,14 +99,14 @@ export function mapFormationList(formationResponse?: OffreResponse.Formation[]):
 	}));
 }
 
-export function mapCompétenceList(compétenceResponse?: OffreResponse.Compétence[]): string[] {
+export function mapCompétenceList(compétenceResponse?: OffreResponseCompétence[]): string[] {
 	if (!compétenceResponse) return [];
 
 	const compétenceMappée = compétenceResponse.map((compétence) => (compétence.libelle));
 	return compétenceMappée.filter((compétence) => compétence !== undefined);
 }
 
-export function mapQualitéeProfessionnelleList(qualitéeProfessionnelleResponse?: OffreResponse.QualitéeProfessionnelle[]): string[] {
+export function mapQualitéeProfessionnelleList(qualitéeProfessionnelleResponse?: OffreResponseQualitéeProfessionnelle[]): string[] {
 	if (!qualitéeProfessionnelleResponse) {
 		return [];
 	}
@@ -95,7 +114,7 @@ export function mapQualitéeProfessionnelleList(qualitéeProfessionnelleResponse
 	return qualitéeProfessionnelleMappée.filter((qualitéeProfessionnelle) => qualitéeProfessionnelle !== undefined);
 }
 
-function mapLieuTravail(lieuTravailResponse?: OffreResponse.LieuTravail): string | undefined {
+function mapLieuTravail(lieuTravailResponse?: OffreResponseLieuTravail): string | undefined {
 	if (!lieuTravailResponse) {
 		return undefined;
 	}
@@ -105,24 +124,24 @@ function mapLieuTravail(lieuTravailResponse?: OffreResponse.LieuTravail): string
 	return ville ? `${ville} (${département})` : `${département}`;
 }
 
-function mapExpérience(expérienceExigéeResponse?: OffreResponse.Expérience): Offre.Expérience | undefined {
+function mapExpérience(expérienceExigéeResponse?: OffreResponseExpérience): OffreExpérience | undefined {
 	switch (expérienceExigéeResponse) {
 		case 'D':
-			return Offre.Expérience.DEBUTANT_ACCEPTE;
+			return OffreExpérience.DEBUTANT_ACCEPTE;
 		case 'S':
-			return Offre.Expérience.EXPERIENCE_SOUHAITEE;
+			return OffreExpérience.EXPERIENCE_SOUHAITEE;
 		case 'E':
-			return Offre.Expérience.EXPERIENCE_EXIGEE;
+			return OffreExpérience.EXPERIENCE_EXIGEE;
 		default:
 			return undefined;
 	}
 }
 
-function sumRésultatsAgrégation(agrégationResponseList: RésultatsRechercheOffreResponse.FiltresPossiblesResponse.Agrégation[]): number {
+function sumRésultatsAgrégation(agrégationResponseList: RésultatsRechercheOffreResponseAgregation[]): number {
 	return agrégationResponseList.reduce((nbRésultats, agrégationResponse) => nbRésultats + agrégationResponse.nbResultats, 0);
 }
 
-function getNombreRésultats(filtrePossibleResponseList: RésultatsRechercheOffreResponse.FiltresPossibles[] | undefined): number {
+function getNombreRésultats(filtrePossibleResponseList: RésultatsRechercheOffreResponseFiltresPossibles[] | undefined): number {
 	if (!filtrePossibleResponseList?.length) return 0;
 
 	const maxNombreRésultatList = filtrePossibleResponseList.flatMap((filtrePossibleResponse) => sumRésultatsAgrégation(filtrePossibleResponse.agregation));

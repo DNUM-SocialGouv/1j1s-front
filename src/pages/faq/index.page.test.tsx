@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import '~/test-utils';
 
 import {
@@ -14,10 +11,10 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import FaqPage from '~/pages/faq/index.page';
-import { FAQ } from '~/server/faq/domain/FAQ';
+import { FAQQuestion } from '~/server/faq/domain/FAQ';
 import { aQuestion } from '~/server/faq/domain/FAQ.fixture';
 
-const listeDeQuestionResultat: Array<FAQ.Question> = [
+const listeDeQuestionResultat: Array<FAQQuestion> = [
 	aQuestion({
 		problématique: 'Comment constituer un dossier locatif ?',
 		slug: 'Comment-constituer-un-dossier-locatif-?',
@@ -35,7 +32,7 @@ describe('Page FAQ', () => {
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(

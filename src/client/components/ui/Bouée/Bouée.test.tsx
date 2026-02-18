@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-import '@testing-library/jest-dom';
-
 import { act, render, screen } from '@testing-library/react';
 import { RefObject } from 'react';
 
@@ -12,9 +7,9 @@ const LABEL_BOUEE = 'Remonter en haut de la page';
 const DEBOUNCE_DELAY = 50;
 
 describe('<Bouée />', () => {
-	afterEach(() => jest.resetAllMocks());
+	afterEach(() => vi.resetAllMocks());
 	beforeEach(() => {
-		window.scrollTo = jest.fn().mockImplementation(() => {
+		window.scrollTo = vi.fn().mockImplementation(() => {
 			window.dispatchEvent(new Event('scroll'));
 		});
 	});
@@ -22,7 +17,7 @@ describe('<Bouée />', () => {
 	function mockSurface (initialY = 20): [RefObject<HTMLElement>, (y: number) => void] {
 		let y = initialY;
 		const surface = {
-			getBoundingClientRect: jest.fn(() => ({ y } as DOMRect)),
+			getBoundingClientRect: vi.fn(() => ({ y } as DOMRect)),
 		};
 		const surfaceRef: RefObject<HTMLElement> = { current: surface as unknown as HTMLElement };
 		const setY = (n: number) => { y=n; };

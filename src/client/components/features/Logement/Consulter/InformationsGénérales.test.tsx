@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
@@ -268,7 +264,7 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement({
 				dateDeDisponibilité: new Date(2022, 1, 1),
 			});
-			jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 janvier 2022');
+			vi.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 janvier 2022');
 			render(
 				<DependenciesProvider dateService={dateService}>
 					<InformationsGénérales annonce={annonce} />

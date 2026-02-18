@@ -26,17 +26,24 @@ export default function RechercherStages3eEt2de() {
 	const stage3eEt2deService = useDependency<Stage3eEt2deService>('stage3eEt2deService');
 
 	const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(!empty(stage3eEt2deQuery));
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 	const [stage3eEt2deList, setStage3eEt2deList] = useState<ResultatRechercheStage3eEt2de | undefined>(undefined);
+	const [previousQuery, setPreviousQuery] = useState(stage3eEt2deQuery);
+
+	if (stage3eEt2deQuery !== previousQuery) {
+		setPreviousQuery(stage3eEt2deQuery);
+		if (!empty(stage3eEt2deQuery)) {
+			setIsLoading(true);
+			setErreurRecherche(undefined);
+		}
+	}
 
 	useEffect(() => {
 		if (empty(stage3eEt2deQuery)) {
 			return;
 		}
 
-		setIsLoading(true);
-		setErreurRecherche(undefined);
 		stage3eEt2deService.rechercherStage3eEt2de(stage3eEt2deQuery)
 			.then((response) => {
 				if (isSuccess(response)) {

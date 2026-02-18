@@ -1,5 +1,5 @@
 import { Either } from '~/server/errors/either';
-import { FAQ } from '~/server/faq/domain/FAQ';
+import { FAQQuestion } from '~/server/faq/domain/FAQ';
 
 import { FAQRepository } from '../domain/FAQ.repository';
 
@@ -7,7 +7,7 @@ import { FAQRepository } from '../domain/FAQ.repository';
 export class ListerFAQUseCase {
 	constructor(private faqRepository: FAQRepository) {}
 
-	handle(): Promise<Either<Array<FAQ.Question>>> {
+	handle(): Promise<Either<Array<FAQQuestion>>> {
 		return this.faqRepository.getAllFAQ();
 	}
 }

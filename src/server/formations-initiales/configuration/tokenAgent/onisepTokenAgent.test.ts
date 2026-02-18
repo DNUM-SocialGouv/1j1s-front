@@ -1,3 +1,4 @@
+// @vitest-environment node
 import nock from 'nock';
 
 import { OnisepTokenAgent } from '~/server/formations-initiales/configuration/tokenAgent/onisepTokenAgent';

@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -207,7 +203,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				type: TypeÉtablissement.MISSION_LOCALE,
 			});
 			const établissementAccompagnementService = anEtablissementAccompagnementService();
-			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(new Promise(() => {
+			vi.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockImplementation(() => new Promise(() => {
 			}));
 			render(
 				<DependenciesProvider
@@ -237,7 +233,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				type: TypeÉtablissement.MISSION_LOCALE,
 			});
 			const établissementAccompagnementService = anEtablissementAccompagnementService();
-			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createSuccess(undefined));
+			vi.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createSuccess(undefined));
 
 			render(<DependenciesProvider
 				établissementAccompagnementService={établissementAccompagnementService}
@@ -264,7 +260,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 					type: TypeÉtablissement.MISSION_LOCALE,
 				});
 				const établissementAccompagnementService = anEtablissementAccompagnementService();
-				jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+				vi.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 				render(<DependenciesProvider
 					établissementAccompagnementService={établissementAccompagnementService}
@@ -292,7 +288,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				const établissementAccompagnementService = anEtablissementAccompagnementService();
 				const localisationService = aLocalisationService();
 
-				jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+				vi.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 				render(<DependenciesProvider
 					établissementAccompagnementService={établissementAccompagnementService}
@@ -324,7 +320,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				const établissementAccompagnementService = anEtablissementAccompagnementService();
 				const localisationService = aLocalisationService();
 
-				jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+				vi.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 				render(<DependenciesProvider
 					établissementAccompagnementService={établissementAccompagnementService}

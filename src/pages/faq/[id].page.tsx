@@ -7,20 +7,21 @@ import { Head } from '~/client/components/head/Head';
 import { Article } from '~/server/articles/domain/article';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import {
-	FAQ,
+	FAQQuestionEtReponse,
+	FAQSlug,
 } from '~/server/faq/domain/FAQ';
 import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 import { dependencies } from '~/server/start';
 
 type ConsulterFAQRéponsePageProps = {
-	faqRéponse: FAQ.QuestionEtReponse
+	faqRéponse: FAQQuestionEtReponse
 }
 
 interface FAQRéponse extends ParsedUrlQuery {
-	id: FAQ.Slug
+	id: FAQSlug
 }
 
-const faqRéponseMapToArticleFormat = (faqRéponse: FAQ.QuestionEtReponse): Article => {
+const faqRéponseMapToArticleFormat = (faqRéponse: FAQQuestionEtReponse): Article => {
 	return {
 		contenu: faqRéponse.contenu,
 		titre: faqRéponse.problématique,
