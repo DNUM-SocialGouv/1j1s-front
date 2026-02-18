@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/nextjs';
 
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';

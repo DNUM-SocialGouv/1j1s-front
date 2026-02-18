@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/nextjs';
 
 import { MetierDependenciesProvider } from '~/client/context/metier.context';
 import { MetierService } from '~/client/services/metiers/metier.service';
