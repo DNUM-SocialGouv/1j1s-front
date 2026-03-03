@@ -41,13 +41,6 @@ export default function DeposerOffrePage() {
 					className={styles.iframe}
 					src={SOURCE_LBA_IFRAME}
 					title="Formulaire de dépôt d’offre d’alternance en partenariat avec La bonne alternance" />
-				<p className={styles.cadreInformation}>
-					Vous êtes informé que vos données sont collectées et traitées par La bonne alternance pour traiter votre
-					demande de dépôt d‘offre d’alternace. Pour en savoir plus sur vos droits, consultez la <Link
-						href={POLITIQUE_CONFIDENTIALITÉ_URL}>Politique de Confidentialité</Link> de La bonne alternance.
-					En cliquant sur «&nbsp;envoyer ma demande&nbsp;» vous reconnaissez avoir pris connaissance et accepter les <Link
-						href={CONDITIONS_GÉNÉRALES_UTILISATION_URL}>Conditions Générales d‘Utilisation</Link> de La bonne alternance.
-				</p>
 			</Container>
 		</main>
 	);
