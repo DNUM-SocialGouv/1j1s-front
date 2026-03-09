@@ -6,14 +6,7 @@ const { withSentryConfig } = require('@sentry/nextjs');
 const { URL } = require('url');
 
 const IS_ONLINE_CONFIG_ENVIRONMENT = ['recette', 'production'];
-const NODE_ENV_ENABLE_SOURCEMAP = 'production';
 const isOnlineEnvironment = IS_ONLINE_CONFIG_ENVIRONMENT.includes(process.env.ENVIRONMENT);
-
-const shouldUploadSourceMap = (env = process.env) =>
-	IS_ONLINE_CONFIG_ENVIRONMENT.includes(env.NEXT_PUBLIC_SENTRY_ENVIRONMENT)
-	&& env.NODE_ENV === NODE_ENV_ENABLE_SOURCEMAP;
-
-const DISABLE_UPLOAD_SOURCEMAP = !shouldUploadSourceMap();
 
 function getHostName(uri) {
 	return new URL(uri).hostname;
@@ -32,14 +25,6 @@ function getImagesRemotePattern() {
 const CMS_HOST = getHostName(process.env.STRAPI_URL_API);
 const STRAPI_MEDIA_URL = getHostName(process.env.STRAPI_MEDIA_URL);
 
-
-const sentryModuleExports = {
-	disableClientWebpackPlugin: DISABLE_UPLOAD_SOURCEMAP,
-	disableServerWebpackPlugin: DISABLE_UPLOAD_SOURCEMAP,
-	hideSourceMaps: true,
-	silent: true,
-	widenClientFileUpload: true,
-};
 
 const moduleExports = {
 	compress: true,
@@ -110,7 +95,6 @@ module.exports = isOnlineEnvironment
 		{
 			...moduleExports,
 			headers: async () => SECURITY_MODE_HEADERS,
-			sentry: sentryModuleExports,
 		}, {
 			errorHandler: (err, invokeErr, compilation) => {
 				if (err.message.includes('sentry')) {
@@ -119,8 +103,12 @@ module.exports = isOnlineEnvironment
 					invokeErr();
 				}
 			},
-
-		}, sentryModuleExports)
+			silent: true,
+			sourcemaps: {
+				deleteSourcemapsAfterUpload: true,
+			},
+			widenClientFileUpload: true,
+		})
 	: {
 		...moduleExports,
 		headers: async () => LOCAL_MODE_HEADERS,
