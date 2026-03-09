@@ -9,8 +9,6 @@ import analytics from '~/pages/apprentissage/deposer-offre/index.analytics';
 import styles from '~/pages/apprentissage/deposer-offre/index.module.scss';
 
 const SOURCE_LBA_IFRAME = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}espace-pro/widget/1J1S?utm_source=1j1s&utm_medium=widget&utm_campaign=widget-depot-offre1j1s`;
-const POLITIQUE_CONFIDENTIALITÉ_URL = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}politique-de-confidentialite`;
-const CONDITIONS_GÉNÉRALES_UTILISATION_URL = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}cgu`;
 const FORMULAIRE_DEPOT_OFFRE_LBA_URL = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}espace-pro/creation/entreprise/redirec_from_widget_1j1s`;
 const AUTHENTIFICATION_LBA_URL = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}espace-pro/authentification`;
 
@@ -41,13 +39,6 @@ export default function DeposerOffrePage() {
 					className={styles.iframe}
 					src={SOURCE_LBA_IFRAME}
 					title="Formulaire de dépôt d’offre d’alternance en partenariat avec La bonne alternance" />
-				<p className={styles.cadreInformation}>
-					Vous êtes informé que vos données sont collectées et traitées par La bonne alternance pour traiter votre
-					demande de dépôt d‘offre d’alternace. Pour en savoir plus sur vos droits, consultez la <Link
-						href={POLITIQUE_CONFIDENTIALITÉ_URL}>Politique de Confidentialité</Link> de La bonne alternance.
-					En cliquant sur «&nbsp;envoyer ma demande&nbsp;» vous reconnaissez avoir pris connaissance et accepter les <Link
-						href={CONDITIONS_GÉNÉRALES_UTILISATION_URL}>Conditions Générales d‘Utilisation</Link> de La bonne alternance.
-				</p>
 			</Container>
 		</main>
 	);

@@ -37,7 +37,7 @@ export default function ImmersionReferenceMonEntreprisePage() {
 			<Container>
 				<iframe
 					className={styles.iframe}
-					src="https://immersion-facile.beta.gouv.fr/etablissement/unJeuneUneSolution"
+					src="https://immersion-facile.beta.gouv.fr/accueil-beneficiaires"
 					title="Formulaire recueil des entreprises volontaires pour l‘accueil des immersions professionnelles" />
 				<p className={styles.rgpd}>
 					Vous êtes informé que vos données sont collectées et traitées par le Groupement d‘intérêt public de
