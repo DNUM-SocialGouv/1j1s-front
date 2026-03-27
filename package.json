@@ -81,7 +81,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-storybook": "^10.2.10",
     "eslint-plugin-testing-library": "^7.16.0",
-    "eslint-plugin-vitest": "^0.5.4",
+    "@vitest/eslint-plugin": "^1.0.1",
     "globals": "^17.3.0",
     "html-validate": "^9.7.1",
     "jest-axe": "^9.0.0",
