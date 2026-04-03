@@ -39,7 +39,7 @@ jobs:
 
   scalingo:
     name: Déployer le code sur Scalingo
-    needs: [backup] # FIXME: remettre [terraform, backup] une fois le token Cloudflare corrigé
+    needs: [terraform, backup]
     runs-on: ubuntu-latest
     environment:
       name: scalingo-production
