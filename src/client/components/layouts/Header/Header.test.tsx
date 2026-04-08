@@ -229,41 +229,28 @@ describe('Header', () => {
 				// GIVEN
 				mockUseRouter({ pathname: '/' });
 				process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE = '1';
+				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE = '1';
 
 				// WHEN
 				render(<Header />);
 
 				// THEN
-				const lienEnquete = screen.getByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes - nouvelle fenêtre' });
+				const lienEnquete = screen.getByRole('link', { name: "Vous souhaitez aider 1jeune1solution à s'améliorer ? Donnez votre avis en moins de 2 minutes - nouvelle fenêtre" });
 				expect(lienEnquete).toBeVisible();
 				expect(lienEnquete).toHaveAttribute('href', 'https://jedonnemonavis.numerique.gouv.fr/Demarches/4085?button=4514');
 			});
 
-			it('ON, mais que l’url de l’enquête n’est pas fournie, masque le lien vers l’enquête de satisfaction', () => {
-				// GIVEN
-				mockUseRouter({ pathname: '/' });
-				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE = '1';
-				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_URL = '';
-
-				// WHEN
-				render(<Header />);
-
-				// THEN
-				const lienEnquete = screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes' });
-				expect(lienEnquete).not.toBeInTheDocument();
-			});
 
 			it('OFF, masque le lien vers l’enquête de satisfaction', () => {
 				// GIVEN
 				mockUseRouter({ pathname: '/' });
 				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE = '0';
-				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_URL = 'https://jedonnemonavis.numerique.gouv.fr/Demarches/4085?button=4514';
 
 				// WHEN
 				render(<Header />);
 
 				// THEN
-				const lienEnquete = screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes' });
+				const lienEnquete = screen.queryByRole('link', { name: "Vous souhaitez aider 1jeune1solution à s'améliorer ? Donnez votre avis en moins de 2 minutes" });
 				expect(lienEnquete).not.toBeInTheDocument();
 			});
 		});
