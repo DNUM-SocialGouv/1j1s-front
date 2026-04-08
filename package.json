@@ -10,6 +10,7 @@
     "prepare": "npm dedupe && ./setup.sh",
     "dev": "next dev",
     "build": "next build",
+    "heroku-postbuild": "next build && echo '--- Slug size breakdown ---' && du -sh .next/ .next/*/ node_modules/ public/ src/ 2>/dev/null | sort -rh && rm -rf .next/cache",
     "start": "next start",
     "lint": "eslint ./src --max-warnings=0",
     "lint:fix": "eslint --fix ./src",
@@ -26,7 +27,6 @@
   },
   "dependencies": {
     "@meilisearch/instant-meilisearch": "^0.23.0",
-    "@next/bundle-analyzer": "^14.2.35",
     "@sentry/nextjs": "^8.55.0",
     "axios": "^1.13.5",
     "axios-cache-interceptor": "^1.11.4",
@@ -53,6 +53,7 @@
     "sharp": "^0.34.5"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^14.2.35",
     "@eslint/compat": "^2.0.2",
     "@eslint/js": "^9.39.2",
     "@socialgouv/eslint-config-recommended": "^1.131.0",
