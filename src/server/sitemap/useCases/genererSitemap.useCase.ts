@@ -34,8 +34,6 @@ const OTHER_STATIC_PATH_LIST = [
 	'/apprentissage/deposer-offre-lba',
 	'/espace-jeune',
 	'/apprentissage-entreprises',
-	'/apprentissage/simulation?simulateur=alternant',
-	'/apprentissage/simulation?simulateur=employeur',
 ];
 
 export class GenererSitemapUseCase {

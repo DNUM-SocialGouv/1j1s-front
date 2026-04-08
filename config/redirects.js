@@ -1,5 +1,16 @@
 const ALL_MODE_REDIRECT = [
 	{
+		destination: 'https://labonnealternance.apprentissage.beta.gouv.fr/salaire-alternant',
+		has: [{ key: 'simulateur', type: 'query', value: 'alternant' }],
+		permanent: true,
+		source: '/apprentissage/simulation',
+	},
+	{
+		destination: 'https://travail-emploi.gouv.fr/aides-couts-salaire-le-simulateur-en-ligne-pour-les-employeurs-apprentis',
+		permanent: true,
+		source: '/apprentissage/simulation',
+	},
+	{
 		destination: '/apprentissage-entreprises',
 		permanent: true,
 		source: '/article/dynamisez-votre-entreprise-grace-au-recrutement-d-un-jeune-salarie-en-apprentissage',

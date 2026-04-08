@@ -240,12 +240,6 @@ export function aSitemap(baseUrl: string) {
 		<loc>${baseUrl}/apprentissage-entreprises</loc>
 	</url>
 	<url>
-		<loc>${baseUrl}/apprentissage/simulation?simulateur=alternant</loc>
-	</url>
-	<url>
-		<loc>${baseUrl}/apprentissage/simulation?simulateur=employeur</loc>
-	</url>
-	<url>
 		<loc>${baseUrl}/decouvrir-les-metiers/ingénieur%2Fe production en mécanique</loc>
 	</url>
 	<url>

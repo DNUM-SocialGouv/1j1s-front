@@ -13,7 +13,6 @@ import VideosCampagneApprentissage
 	from '~/client/components/features/CampagneApprentissage/VideosCampagneApprentissage/VideosCampagneApprentissage';
 import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
 import { Link } from '~/client/components/ui/Link/Link';
-import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
 import { VideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage';
 
 import styles from '../CampagneApprentissage.module.scss';
@@ -57,7 +56,7 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 						className={styles.avoidLineBreakInside}>sur le terrain</span> <span
 						className={styles.avoidLineBreakInside}>et vous êtes payés !</span>
 					</h1>
-					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.ALTERNANT}`}
+					<Link href="https://labonnealternance.apprentissage.beta.gouv.fr/salaire-alternant"
 						appearance={'asPrimaryButton'}
 						className={styles.cta}>
 						<span>
