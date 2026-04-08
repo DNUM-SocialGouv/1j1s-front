@@ -10,8 +10,7 @@ import { NavDesktop } from '~/client/components/layouts/Header/Navigation/NavDes
 
 export function Header() {
 
-	const enqueteSatisfactionUrl = process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_URL ?? '';
-	const displayEnqueteSatisfactionBanner = process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE === '1' && !!enqueteSatisfactionUrl;
+	const displayEnqueteSatisfactionBanner = process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE === '1';
 
 	return (
 		<header className={styles.header} role="banner">
@@ -19,7 +18,7 @@ export function Header() {
 			<HeaderBody />
 			<NavDesktop />
 			{displayEnqueteSatisfactionBanner &&
-				<EnqueteSatisfactionBanner enqueteUrl={enqueteSatisfactionUrl} />
+				<EnqueteSatisfactionBanner />
 			}
 		</header>
 	);
