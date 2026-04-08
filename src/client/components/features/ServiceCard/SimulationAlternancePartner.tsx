@@ -7,7 +7,7 @@ export function SimulationAlternancePartner() {
 		<ServiceCard
 			linkLabel="J’accède au site web"
 			logo="/images/logos/portail-alternance.png"
-			link="https://www.alternance.emploi.gouv.fr/simulateur-alternant/etape-1"
+			link="https://labonnealternance.apprentissage.beta.gouv.fr/salaire-alternant"
 			title="Vous êtes alternant ?"
 			titleAs={'h3'}>
 			<strong>Simulez en quelques clics</strong> et moins de 3 minutes le montant de la

@@ -66,7 +66,7 @@ describe('CampagneApprentissageJeunes', () => {
 		// THEN
 		const simulation = screen.getByRole('link', { name: /Simuler votre rémunération en tant qu’apprenti/i });
 		expect(simulation).toBeVisible();
-		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation?simulateur=alternant');
+		expect(simulation).toHaveAttribute('href', 'https://labonnealternance.apprentissage.beta.gouv.fr/salaire-alternant');
 	});
 
 	describe('affiche une première section pour les raisons de choisir l’apprentissage', () => {
