@@ -1,5 +1,21 @@
 # Changelog
 
+## [3.362.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.361.0...v3.362.0) (2026-04-08)
+
+
+### Features
+
+* ✨ met à jour le logo et utilise les styles DSFR ([02f3d32](https://github.com/DNUM-SocialGouv/1j1s-front/commit/02f3d328fd55fe61b423f3bcf3cb080fee528c90))
+
+
+### Bug Fixes
+
+* 🛠️ Fix failing tests ([1001618](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1001618b94488d8ed2d1e240a6b675755da4a0a4))
+* **alternance:** redirige les simulateurs alternant et employeur vers LBA et travail-emploi.gouv.fr ([#3637](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3637)) ([68d9c8d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/68d9c8d298fc29603167b7260491801b9b5a8ac7))
+* **ci:** contourne l'étape Terraform dans la mise en production ([#3633](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3633)) ([cfb05b5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cfb05b50a5bcce79fc46f2e3cb9d70a444564b89))
+* **déploiement:** réduit la taille du slug Scalingo sous la limite de 2048 Mo ([#3638](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3638)) ([46d811e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/46d811eadc04e3e823ae67811a07e8753245447f))
+* Fix linter ([c0a4f48](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c0a4f48745207ed539c30c8bb41f3da6a8e022a1))
+
 ## [3.361.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.360.0...v3.361.0) (2026-02-03)
 
 
