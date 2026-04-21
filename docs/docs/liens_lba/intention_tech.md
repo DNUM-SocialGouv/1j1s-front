@@ -2,7 +2,16 @@
 
 **Destinataires** : équipes LBA, DGEFP, hébergeur Scalingo
 **Objet** : présenter l'approche technique retenue côté 1J1S pour rediriger les parcours alternance vers les deux landing pages LBA, sans entrer dans le détail du code.
-**Version** : 1, 14 avril 2026
+**Version** : 2, 21 avril 2026 (v1 datée du 14 avril 2026, ajustement UTM post test recette)
+
+> **Mise à jour UTM (21 avril 2026)** : suite retour de LBA, les UTM hardcodés côté destination sont désormais :
+>
+> * Candidats : `utm_source=1j1s&utm_medium=website&utm_campaign=landinglba1j1s`
+> * Recruteurs : `utm_source=1j1s&utm_medium=website&utm_campaign=recruteurs_landinglba1j1s`
+>
+> Par rapport à la v1 (`utm_source=1jeune1solution` seul) : la valeur `utm_source` change, et deux paramètres `utm_medium` + `utm_campaign` sont ajoutés. Conséquence notable : les `utm_campaign` et `utm_medium` présents dans une URL source tierce sont désormais écrasés par les valeurs hardcodées (comportement standard des redirects Next.js, déjà le cas pour `utm_source` en v1). Compromis accepté pour permettre à LBA de mesurer un canal « landing 1J1S » unifié.
+>
+> L'URL de base reste configurable par environnement via `NEXT_PUBLIC_LBA_LANDING_CANDIDAT_URL` et `NEXT_PUBLIC_LBA_LANDING_RECRUTEUR_URL` (recette LBA vs prod LBA). Les UTM sont systématiquement appendés par le code, impossible à omettre en configuration.
 
 ## 1. Objectif
 

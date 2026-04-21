@@ -1,5 +1,12 @@
 # Rediriger les parcours alternance 1J1S vers les landing pages LBA dédiées
 
+> **Mise à jour post test recette (21 avril 2026)** : suite retour de LBA, les UTM injectés sur les redirections ont été ajustés. Les valeurs effectives produites par le code sont désormais :
+>
+> * Candidats : `utm_source=1j1s&utm_medium=website&utm_campaign=landinglba1j1s`
+> * Recruteurs : `utm_source=1j1s&utm_medium=website&utm_campaign=recruteurs_landinglba1j1s`
+>
+> Les mentions `utm_source=1jeune1solution` dans le corps de ce ticket correspondent à la spec initiale, pas à l'état courant.
+
 **Type** : User story (avec volet enabler de nettoyage)
 **Priorité** : P1
 **Échéance** : semaine du 20 avril 2026 au plus tard (campagne grand public alternance en mai 2026)
