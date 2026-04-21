@@ -1,3 +1,9 @@
+# Contexte et archives
+
+> **Mise à jour UTM (21 avril 2026)** : suite retour de LBA sur la recette, les UTM injectés côté destination sont désormais `utm_source=1j1s&utm_medium=website&utm_campaign=landinglba1j1s` (candidats) et `utm_source=1j1s&utm_medium=website&utm_campaign=recruteurs_landinglba1j1s` (recruteurs). Les mentions `utm_source=1jeune1solution` ci-dessous correspondent à la spec initiale (échange email et analyse technique du 13 au 14 avril). Source de vérité actuelle : `src/shared/lbaLandingUrls.ts` et `config/redirects.js`.
+
+## Archives : emails et analyse technique initiale
+
 De : GARTOUM, Houssine (DGEFP/SDFIMOD/MISI) <houssine.gartoum@emploi.gouv.fr>
 Envoyé : jeudi 9 avril 2026 15:29
 À : ADEBLE MENARD, Daisy (DNUM/SCN-SIM-ARS) <daisy.adeble-menard@sg.social.gouv.fr>
