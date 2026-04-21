@@ -3,7 +3,6 @@ Allow: /
 Allow: /emplois/
 
 User-agent: *
-Disallow: /apprentissage/
 Disallow: /benevolat/
 Disallow: /emplois-europe/
 Disallow: /jobs-etudiants/

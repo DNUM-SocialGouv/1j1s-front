@@ -18,16 +18,16 @@ describe('DecouvrirDispositifs', () => {
 		});
 	});
 	describe('quand on clique sur Déposer une offre d’alternance', () => {
-		it('renvoie vers le formulaire du dépot d’alternance', () => {
+		it('renvoie vers la landing recruteurs LBA en nouvelle fenêtre', () => {
 			// Given
-			const deposerOffreAlternance = 'Déposer une offre d’alternance';
+			const deposerOffreAlternance = 'Déposer une offre d’alternance - nouvelle fenêtre';
 
 			render(<DécouvrirDispositifs />);
 
 			// Then
 			const link = screen.getByRole('link', { name: deposerOffreAlternance });
 			expect(link).toBeInTheDocument();
-			expect(link).toHaveAttribute('href', expect.stringContaining('/apprentissage/deposer-offre'));
+			expect(link).toHaveAttribute('href', expect.stringContaining('1jeune1solution-recruteurs'));
 		});
 	});
 	describe('quand on clique sur Déposer une offre de stage', () => {

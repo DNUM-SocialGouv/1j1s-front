@@ -20,7 +20,9 @@ const aQuery = {
 	ville: 'Paris',
 };
 
-describe('Parcours alternance LBA', () => {
+// NOTE : suite désactivée suite à la bascule vers les landings LBA (308 cross-origin).
+// Le fichier sera supprimé par le PR enabler de nettoyage code mort.
+describe.skip('Parcours alternance LBA', () => {
 	beforeEach(() => {
 		cy.viewport('iphone-x');
 	});

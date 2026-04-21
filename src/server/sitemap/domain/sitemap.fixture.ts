@@ -174,9 +174,6 @@ export function aSitemap(baseUrl: string) {
 		<loc>${baseUrl}/stages-3e-et-2de</loc>
 	</url>
 	<url>
-		<loc>${baseUrl}/apprentissage</loc>
-	</url>
-	<url>
 		<loc>${baseUrl}/jobs-ete</loc>
 	</url>
 	<url>
@@ -193,9 +190,6 @@ export function aSitemap(baseUrl: string) {
 	</url>
 	<url>
 		<loc>${baseUrl}/evenements</loc>
-	</url>
-	<url>
-		<loc>${baseUrl}/choisir-apprentissage</loc>
 	</url>
 	<url>
 		<loc>${baseUrl}/faq</loc>
@@ -225,19 +219,10 @@ export function aSitemap(baseUrl: string) {
 		<loc>${baseUrl}/emplois/deposer-offre</loc>
 	</url>
 	<url>
-		<loc>${baseUrl}/apprentissage/deposer-offre</loc>
-	</url>
-	<url>
 		<loc>${baseUrl}/immersions/referencer-mon-entreprise</loc>
 	</url>
 	<url>
-		<loc>${baseUrl}/apprentissage/deposer-offre-lba</loc>
-	</url>
-	<url>
 		<loc>${baseUrl}/espace-jeune</loc>
-	</url>
-	<url>
-		<loc>${baseUrl}/apprentissage-entreprises</loc>
 	</url>
 	<url>
 		<loc>${baseUrl}/decouvrir-les-metiers/ingénieur%2Fe production en mécanique</loc>

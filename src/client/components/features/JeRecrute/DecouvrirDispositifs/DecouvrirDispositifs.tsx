@@ -3,6 +3,7 @@ import React from 'react';
 import styles from '~/client/components/features/JeRecrute/DecouvrirDispositifs/DecouvrirDispositifs.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Link } from '~/client/components/ui/Link/Link';
+import { LBA_RECRUTEUR_URL } from '~/shared/lbaLandingUrls';
 
 export function DécouvrirDispositifs () {
 	return (
@@ -15,7 +16,7 @@ export function DécouvrirDispositifs () {
 						<Link href="/emplois/deposer-offre" appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre d‘emploi<Link.Icon /></Link>
 					</li>
 					<li>
-						<Link href="/apprentissage/deposer-offre" appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre d’alternance<Link.Icon /></Link>
+						<Link href={LBA_RECRUTEUR_URL} appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre d’alternance<Link.Icon /></Link>
 					</li>
 					<li>
 						<Link href="/stages/deposer-offre" appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre de stage<Link.Icon /></Link>
