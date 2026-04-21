@@ -68,7 +68,7 @@ describe('Header', () => {
 				await user.click(formationsEtOrientationNavItem);
 
 				// THEN
-				const campagneApprentissageLink = screen.getByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
+				const campagneApprentissageLink = screen.getByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage - nouvelle fenêtre' });
 				expect(campagneApprentissageLink).toBeVisible();
 			});
 		});

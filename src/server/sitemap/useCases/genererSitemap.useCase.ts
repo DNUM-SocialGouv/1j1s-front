@@ -29,11 +29,8 @@ const OTHER_STATIC_PATH_LIST = [
 	'/les-entreprises-s-engagent/inscription',
 	'/stages/deposer-offre',
 	'/emplois/deposer-offre',
-	'/apprentissage/deposer-offre',
 	'/immersions/referencer-mon-entreprise',
-	'/apprentissage/deposer-offre-lba',
 	'/espace-jeune',
-	'/apprentissage-entreprises',
 ];
 
 export class GenererSitemapUseCase {

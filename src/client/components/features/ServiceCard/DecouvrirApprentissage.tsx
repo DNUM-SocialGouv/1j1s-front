@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { LBA_CANDIDAT_URL } from '~/shared/lbaLandingUrls';
+
 import { ServiceCard } from './Card/ServiceCard';
 
 export function DecouvrirApprentissage() {
@@ -7,7 +9,7 @@ export function DecouvrirApprentissage() {
 		<ServiceCard
 			imageFit="cover"
 			linkLabel="Découvrir l‘apprentissage"
-			link="/choisir-apprentissage"
+			link={LBA_CANDIDAT_URL}
 			logo="/images/campagne-apprentissage-jeune-sans-texte.webp"
 			title="L’apprentissage est-il fait pour vous ?"
 			titleAs="h3">

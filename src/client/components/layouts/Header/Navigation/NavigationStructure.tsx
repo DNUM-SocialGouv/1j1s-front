@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { LBA_CANDIDAT_URL, LBA_RECRUTEUR_URL } from '~/shared/lbaLandingUrls';
+
 export interface NavigationItemWithChildren {
 	label: string;
 	legend?: string;
@@ -28,7 +30,7 @@ const offresNav = (): NavigationItemWithChildren => ({
 			label: 'Stages de 3e et 2de',
 			link: '/stages-3e-et-2de',
 		}] : []),
-		{ label: 'Contrats d’alternance', link: '/apprentissage' },
+		{ label: 'Contrats d’alternance', link: LBA_CANDIDAT_URL },
 		...(process.env.NEXT_PUBLIC_JOB_ETE_FEATURE === '1' ? [{ label: 'Jobs d‘été ', link: '/jobs-ete' }] : []),
 		{ label: 'Jobs étudiants', link: '/jobs-etudiants' },
 		...(process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE === '1' ? [{
@@ -55,7 +57,7 @@ const orientationNav = (): NavigationItemWithChildren => ({
 		}] : []),
 		{ label: 'Découvrir les métiers', link: '/decouvrir-les-metiers' },
 		{ label: 'Participer à des évènements', link: '/evenements' },
-		{ label: 'Découvrir et trouver sa voie avec l’apprentissage', link: '/choisir-apprentissage' },
+		{ label: 'Découvrir et trouver sa voie avec l’apprentissage', link: LBA_CANDIDAT_URL },
 		...(process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE === '0' ? [{
 			label: 'Découvrir les services jeunes liés aux formations et à l’orientation',
 			link: '/services-jeunes?filtre=orienterFormer',
@@ -101,7 +103,7 @@ const employeurNav = (): NavigationItemWithChildren => ({
 				{ label: 'Je deviens mentor', link: '/je-deviens-mentor' },
 				{ label: 'Je propose des immersions', link: '/immersions' },
 				{ label: 'Je forme les jeunes grâce à l‘emploi', link: '/je-recrute-afpr-poei' },
-				{ label: 'Je recrute un apprenti', link: '/apprentissage-entreprises' },
+				{ label: 'Je recrute un apprenti', link: LBA_RECRUTEUR_URL },
 			],
 			label: 'Recruter et agir pour les jeunes',
 		},

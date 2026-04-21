@@ -48,16 +48,16 @@ describe('DecouvrirMesuresEmployeursEtApprentissage', () => {
 		});
 	});
 	describe('quand on clique sur Découvrir l’apprentissage', () => {
-		it('on est renvoyé vers la page Apprentissage Entreprise', () => {
+		it('on est renvoyé vers la landing recruteurs LBA en nouvelle fenêtre', () => {
 			// Given
-			const boutonDécouvrir = 'Découvrir l’apprentissage';
+			const boutonDécouvrir = 'Découvrir l’apprentissage - nouvelle fenêtre';
 
 			renderComponent();
 
 			// Then
 			const link = screen.getByRole('link', { name: boutonDécouvrir });
 			expect(link).toBeInTheDocument();
-			expect(link).toHaveAttribute('href', expect.stringContaining('/apprentissage-entreprises'));
+			expect(link).toHaveAttribute('href', expect.stringContaining('1jeune1solution-recruteurs'));
 		});
 	});
 });

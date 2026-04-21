@@ -1,3 +1,10 @@
+const LBA_CANDIDAT_BASE = process.env.NEXT_PUBLIC_LBA_LANDING_CANDIDAT_URL
+	|| 'https://labonnealternance.apprentissage.beta.gouv.fr/1jeune1solution';
+const LBA_RECRUTEUR_BASE = process.env.NEXT_PUBLIC_LBA_LANDING_RECRUTEUR_URL
+	|| 'https://labonnealternance.apprentissage.beta.gouv.fr/1jeune1solution-recruteurs';
+const LBA_CANDIDAT_URL = `${LBA_CANDIDAT_BASE}?utm_source=1jeune1solution`;
+const LBA_RECRUTEUR_URL = `${LBA_RECRUTEUR_BASE}?utm_source=1jeune1solution`;
+
 const ALL_MODE_REDIRECT = [
 	{
 		destination: 'https://labonnealternance.apprentissage.beta.gouv.fr/salaire-alternant',
@@ -11,7 +18,32 @@ const ALL_MODE_REDIRECT = [
 		source: '/apprentissage/simulation',
 	},
 	{
-		destination: '/apprentissage-entreprises',
+		destination: LBA_RECRUTEUR_URL,
+		permanent: true,
+		source: '/apprentissage/deposer-offre',
+	},
+	{
+		destination: LBA_RECRUTEUR_URL,
+		permanent: true,
+		source: '/apprentissage-entreprises',
+	},
+	{
+		destination: LBA_CANDIDAT_URL,
+		permanent: true,
+		source: '/apprentissage',
+	},
+	{
+		destination: LBA_CANDIDAT_URL,
+		permanent: true,
+		source: '/apprentissage/:path*',
+	},
+	{
+		destination: LBA_CANDIDAT_URL,
+		permanent: true,
+		source: '/choisir-apprentissage',
+	},
+	{
+		destination: LBA_RECRUTEUR_URL,
 		permanent: true,
 		source: '/article/dynamisez-votre-entreprise-grace-au-recrutement-d-un-jeune-salarie-en-apprentissage',
 	},

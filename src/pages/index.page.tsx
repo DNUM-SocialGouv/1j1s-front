@@ -13,6 +13,7 @@ import useAnalytics from '~/client/hooks/useAnalytics';
 import { Actualite } from '~/server/actualites/domain/actualite';
 import { isFailure } from '~/server/errors/either';
 import { dependencies } from '~/server/start';
+import { LBA_CANDIDAT_URL } from '~/shared/lbaLandingUrls';
 
 import analytics from './index.analytics';
 import styles from './index.module.scss';
@@ -76,7 +77,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 		{
 			children: <p>Trouvez votre entreprise pour concrétiser vos projets d’alternance</p>,
 			imageUrl: '/images/alternance.webp',
-			link: '/apprentissage',
+			link: LBA_CANDIDAT_URL,
 			linkLabel: 'Voir les offres',
 			title: 'Contrats d‘alternance',
 		},

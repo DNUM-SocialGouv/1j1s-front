@@ -21,7 +21,7 @@ describe('Plan du site', () => {
 		${'Emplois'}                                              | ${'/emplois'}
 		${'Stages d’études'}                                      | ${'/stages'}
 		${'Stages de 3e et 2de'}                                	| ${'/stages-3e-et-2de'}
-		${'Contrats d’alternance'}                                | ${'/apprentissage'}
+		${'Contrats d’alternance'}                                | ${'https://labonnealternance.apprentissage.beta.gouv.fr/1jeune1solution?utm_source=1jeune1solution'}
 		${'Jobs d‘été'}                                           | ${'/jobs-ete'}
 		${'Jobs étudiants'}                                       | ${'/jobs-etudiants'}
 		${'Emplois en Europe'}                                    | ${'/emplois-europe'}
@@ -31,7 +31,7 @@ describe('Plan du site', () => {
 		${'Formations en apprentissage'}                          | ${'/formations/apprentissage'}
 		${'Découvrir les métiers'}                                | ${'/decouvrir-les-metiers'}
 		${'Participer à des évènements'}                          | ${'/evenements'}
-		${'Découvrir et trouver sa voie avec l’apprentissage'}    | ${'/choisir-apprentissage'}
+		${'Découvrir et trouver sa voie avec l’apprentissage'}    | ${'https://labonnealternance.apprentissage.beta.gouv.fr/1jeune1solution?utm_source=1jeune1solution'}
 		${'Découvrir les services jeunes liés aux formations et à l’orientation'}   | ${'/services-jeunes?filtre=orienterFormer'}
 		
 		${'Bénévolat'}                                            | ${'/benevolat'}
@@ -60,7 +60,7 @@ describe('Plan du site', () => {
 		${'Je deviens mentor'}                                    | ${'/je-deviens-mentor'}
 		${'Je propose des immersions'}                            | ${'/immersions'}
 		${'Je forme les jeunes grâce à l‘emploi'}                 | ${'/je-recrute-afpr-poei'}
-		${'Je recrute un apprenti'} 							                | ${'/apprentissage-entreprises'}
+		${'Je recrute un apprenti'} 							                | ${'https://labonnealternance.apprentissage.beta.gouv.fr/1jeune1solution-recruteurs?utm_source=1jeune1solution'}
 		${'Découvrir les mesures employeurs'}                     | ${'/mesures-employeurs'}
 		${'Accéder à mon espace'}                                 | ${'/mon-espace'}
 		
