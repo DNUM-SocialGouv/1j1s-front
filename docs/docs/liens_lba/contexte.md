@@ -4,10 +4,10 @@
 
 ## Archives : emails et analyse technique initiale
 
-De : GARTOUM, Houssine (DGEFP/SDFIMOD/MISI) <houssine.gartoum@emploi.gouv.fr>
+De : GARTOUM, Houssine (DGEFP/SDFIMOD/MISI) \<houssine.gartoum@emploi.gouv.fr\>
 Envoyé : jeudi 9 avril 2026 15:29
-À : ADEBLE MENARD, Daisy (DNUM/SCN-SIM-ARS) <daisy.adeble-menard@sg.social.gouv.fr>
-Cc : GARNIER, Gilles (DNUM/DO) <gilles.garnier@sg.social.gouv.fr>; DIBOA, Nicolas (DGEFP/CS1/MCOM) <nicolas.diboa@emploi.gouv.fr>; VASSORD, Sebastien (DGEFP/SDFIMOD/MISI) <sebastien.vassord@emploi.gouv.fr>; CHASSEIGNE, Nadine (DGEFP/SDFIMOD/MISI) <nadine.chasseigne@emploi.gouv.fr>; BOUDEAU, Marine (DNUM/SDPSN) <marine.boudeau@sg.social.gouv.fr>
+À : ADEBLE MENARD, Daisy (DNUM/SCN-SIM-ARS) \<daisy.adeble-menard@sg.social.gouv.fr\>
+Cc : GARNIER, Gilles (DNUM/DO) \<gilles.garnier@sg.social.gouv.fr\>; DIBOA, Nicolas (DGEFP/CS1/MCOM) \<nicolas.diboa@emploi.gouv.fr\>; VASSORD, Sebastien (DGEFP/SDFIMOD/MISI) \<sebastien.vassord@emploi.gouv.fr\>; CHASSEIGNE, Nadine (DGEFP/SDFIMOD/MISI) \<nadine.chasseigne@emploi.gouv.fr\>; BOUDEAU, Marine (DNUM/SDPSN) \<marine.boudeau@sg.social.gouv.fr\>
 Objet : Redirections alternance sur 1J1S – besoin d'action côté Scalingo (urgent)
 
 Bonjour @ADEBLE MENARD, Daisy (DNUM/SCN-SIM-ARS),
@@ -145,9 +145,9 @@ Adresse postale : 14, avenue Duquesne 75350 Paris 07 SP
 
 travail-emploi.gouv.fr
 
-De : Thibaut Poullain <thibaut.poullain@ydrazil.fr>
+De : Thibaut Poullain \<thibaut.poullain@ydrazil.fr\>
 Envoyé : vendredi 10 avril 2026 19:07
-À : ADEBLE MENARD, Daisy (DNUM/SCN-SIM-ARS) <daisy.adeble-menard@sg.social.gouv.fr>; GARNIER, Gilles (DNUM/DO) <gilles.garnier@sg.social.gouv.fr>; DIBOA, Nicolas (DGEFP/CS1/MCOM) <nicolas.diboa@emploi.gouv.fr>; VASSORD, Sebastien (DGEFP/SDFIMOD/MISI) <sebastien.vassord@emploi.gouv.fr>; CHASSEIGNE, Nadine (DGEFP/SDFIMOD/MISI) <nadine.chasseigne@emploi.gouv.fr>; BOUDEAU, Marine (DNUM/SDPSN) <marine.boudeau@sg.social.gouv.fr>; GARTOUM, Houssine (DGEFP/SDFIMOD/MISI) <houssine.gartoum@emploi.gouv.fr>
+À : ADEBLE MENARD, Daisy (DNUM/SCN-SIM-ARS) \<daisy.adeble-menard@sg.social.gouv.fr\>; GARNIER, Gilles (DNUM/DO) \<gilles.garnier@sg.social.gouv.fr\>; DIBOA, Nicolas (DGEFP/CS1/MCOM) \<nicolas.diboa@emploi.gouv.fr\>; VASSORD, Sebastien (DGEFP/SDFIMOD/MISI) \<sebastien.vassord@emploi.gouv.fr\>; CHASSEIGNE, Nadine (DGEFP/SDFIMOD/MISI) \<nadine.chasseigne@emploi.gouv.fr\>; BOUDEAU, Marine (DNUM/SDPSN) \<marine.boudeau@sg.social.gouv.fr\>; GARTOUM, Houssine (DGEFP/SDFIMOD/MISI) \<houssine.gartoum@emploi.gouv.fr\>
 Objet : Re: TR: Redirections alternance sur 1J1S – besoin d'action côté Scalingo (urgent)
 
 Bonjour, 
@@ -207,7 +207,7 @@ En préalable à nos échanges, j'aurais quelques questions : 
 
 Merci à vous !
 
-Le vendredi 10 avril 2026 à 14:46, ADEBLE MENARD, Daisy (DNUM/SCN-SIM-ARS) <daisy.adeble-menard@sg.social.gouv.fr> a écrit :
+Le vendredi 10 avril 2026 à 14:46, ADEBLE MENARD, Daisy (DNUM/SCN-SIM-ARS) \<daisy.adeble-menard@sg.social.gouv.fr\> a écrit :
 
 > Bonjour @ADEBLE MENARD, Daisy (DNUM/SCN-SIM-ARS),
 >
@@ -251,10 +251,10 @@ Le vendredi 10 avril 2026 à 14:46, ADEBLE MENARD, Daisy (DNUM/SCN-SIM-ARS) <dai
 >
 > travail-emploi.gouv.fr
 >
-> > De : GARTOUM, Houssine (DGEFP/SDFIMOD/MISI) <houssine.gartoum@emploi.gouv.fr>
+> > De : GARTOUM, Houssine (DGEFP/SDFIMOD/MISI) \<houssine.gartoum@emploi.gouv.fr\>
 > > Envoyé : jeudi 9 avril 2026 15:29
-> > À : ADEBLE MENARD, Daisy (DNUM/SCN-SIM-ARS) <daisy.adeble-menard@sg.social.gouv.fr>
-> > Cc : GARNIER, Gilles (DNUM/DO) <gilles.garnier@sg.social.gouv.fr>; DIBOA, Nicolas (DGEFP/CS1/MCOM) <nicolas.diboa@emploi.gouv.fr>; VASSORD, Sebastien (DGEFP/SDFIMOD/MISI) <sebastien.vassord@emploi.gouv.fr>; CHASSEIGNE, Nadine (DGEFP/SDFIMOD/MISI) <nadine.chasseigne@emploi.gouv.fr>; BOUDEAU, Marine (DNUM/SDPSN) <marine.boudeau@sg.social.gouv.fr>
+> > À : ADEBLE MENARD, Daisy (DNUM/SCN-SIM-ARS) \<daisy.adeble-menard@sg.social.gouv.fr\>
+> > Cc : GARNIER, Gilles (DNUM/DO) \<gilles.garnier@sg.social.gouv.fr\>; DIBOA, Nicolas (DGEFP/CS1/MCOM) \<nicolas.diboa@emploi.gouv.fr\>; VASSORD, Sebastien (DGEFP/SDFIMOD/MISI) \<sebastien.vassord@emploi.gouv.fr\>; CHASSEIGNE, Nadine (DGEFP/SDFIMOD/MISI) \<nadine.chasseigne@emploi.gouv.fr\>; BOUDEAU, Marine (DNUM/SDPSN) \<marine.boudeau@sg.social.gouv.fr\>
 > > Objet : Redirections alternance sur 1J1S – besoin d'action côté Scalingo (urgent)
 
 Afficher le message d'origine
