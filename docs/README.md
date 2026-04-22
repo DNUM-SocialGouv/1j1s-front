@@ -1,6 +1,6 @@
 # Documentation Technique
 
-Ce site Web est construit à l'aide de [Docusaurus 2](https://docusaurus.io/), un générateur de documentation statique moderne.
+Ce site Web est construit à l'aide de [Docusaurus 2](https://docusaurus.io/), un générateur de documentation statique moderne
 
 ### Installation
 
