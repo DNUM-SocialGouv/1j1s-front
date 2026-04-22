@@ -20,9 +20,16 @@ module "front_app" {
   }
 
   github_integration = {
-    repo_url            = "https://github.com/DNUM-SocialGouv/1j1s-front"
-    branch              = var.branche_git
-    auto_deploy_enabled = (terraform.workspace == "default") ? true : false
+    repo_url = "https://github.com/DNUM-SocialGouv/1j1s-front"
+    branch   = var.branche_git
+    # Auto-deploy désactivé sur tous les environnements : le déclenchement
+    # est désormais explicite via les workflows GitHub Actions
+    # (terraform-recette.yml et mise-en-production.yml) qui appellent
+    # `scalingo integration-link-manual-deploy main` après le terraform apply.
+    # Cela évite le blocage silencieux quand un check ancillaire (Docusaurus,
+    # Storybook) tourne au rouge : Scalingo attendait alors tous les checks
+    # verts pour déclencher l'auto-deploy via webhook.
+    auto_deploy_enabled = false
   }
 
   environment = local.envs_du_fichier_env

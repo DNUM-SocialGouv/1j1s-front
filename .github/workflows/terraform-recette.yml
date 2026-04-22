@@ -1,9 +1,13 @@
 name: Déploiement en Recette
 
-# Déploie le code Terraform lors de chaque commit/merge sur la branche "main"
-# une fois que c'est réussi, normalement l'intégration Github<=>Scalingo automatique va déployer
-# la branche main sur l'app 1j1s-front (qui correspond à la recette)
-# c'est pour ça qu'on ne déploie pas Scalingo ici
+# Déploie le code Terraform lors de chaque commit/merge sur la branche "main",
+# puis déclenche explicitement un déploiement Scalingo via l'API.
+#
+# Historiquement on s'appuyait sur l'intégration Github<=>Scalingo automatique,
+# mais cela bloquait silencieusement dès qu'un check ancillaire (Docusaurus,
+# Storybook) tournait au rouge : Scalingo attend tous les checks verts pour
+# auto-deploy. On reproduit donc le pattern de mise-en-production.yml en recette
+# pour rendre le pipeline explicite et déterministe.
 on:
   push:
     branches: [ main ]
@@ -17,3 +21,22 @@ jobs:
       environnement_name: scalingo-recette
       environnement_url: https://recette.1jeune1solution.gouv.fr
     concurrency: terraform-state-recette # Evite les conflits sur le state Terraform
+
+  scalingo:
+    name: Déployer le code sur Scalingo
+    needs: [ recette ]
+    runs-on: ubuntu-latest
+    environment:
+      name: scalingo-recette
+      url: https://recette.1jeune1solution.gouv.fr
+    steps:
+      - name: Configurer la CLI Scalingo
+        uses: scalingo-community/setup-scalingo@v0.1.1
+        with:
+          version: 1.34.0
+          api_token: ${{ secrets.SCALINGO_API_TOKEN }}
+          region: ${{ vars.SCALINGO_REGION }}
+          app_name: ${{ secrets.TF_VAR_NOM_DE_L_APPLICATION }}
+      - name: Déployer le code sur Scalingo
+        run: |
+          scalingo integration-link-manual-deploy main
