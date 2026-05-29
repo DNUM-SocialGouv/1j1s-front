@@ -35,7 +35,7 @@ export default function PageEvenements() {
 								buttonLabel='Trouver un événement France Travail'
 								buttonLabelSecondary='Trouver un événement ma Mission Locale'
 								buttonHref='https://mesevenementsemploi.francetravail.fr/mes-evenements-emploi/evenements'
-								buttonHrefSecondary='https://40-ans.unml.info/le-programme'
+								buttonHrefSecondary='https://www.unml.info/actualites/nos-actualites/?category=154&post_tag='
 								imgSrc='/images/évènements.webp' />
 						</main>
 					</>
