@@ -277,7 +277,7 @@ export const RÉSEAU_FINANCEMENT: EntreprendreRéseauProps[] = [{
 export const RÉSEAU_ÉCONOMIE_SOCIALE_ET_SOLIDAIRE: EntreprendreRéseauProps[] = [{
 	entreprise: {
 		description: 'Pour les jeunes de moins de 30 ans, Live for Good propose un parcours de formations collectif et un coaching individualisé pour structurer et faire décoller son projet entrepreneurial.',
-		lien: 'https://candidater.live-for-good.org/',
+		lien: 'https://www.live-for-good.org/',
 		logo: '/images/entreprendre/live_for_good.png',
 		nom: 'Live for Good',
 		tagline: '6 mois pour accélérer votre projet à impact positif.',
