@@ -235,9 +235,9 @@ describe('Header', () => {
 				render(<Header />);
 
 				// THEN
-				const lienEnquete = screen.getByRole('link', { name: "Aidez nous à construire l'application mobile de vos rêves 📲 - nouvelle fenêtre" });
+				const lienEnquete = screen.getByRole('link', { name: "Vous souhaitez aider 1jeune1solution à s'améliorer ? Donnez votre avis en moins de 2 minutes - nouvelle fenêtre" });
 				expect(lienEnquete).toBeVisible();
-				expect(lienEnquete).toHaveAttribute('href', 'https://tally.so/r/J9ePWJ');
+				expect(lienEnquete).toHaveAttribute('href', 'https://jedonnemonavis.numerique.gouv.fr/Demarches/4085?button=4514');
 			});
 
 
@@ -250,7 +250,7 @@ describe('Header', () => {
 				render(<Header />);
 
 				// THEN
-				const lienEnquete = screen.queryByRole('link', { name: "Aidez nous à construire l'application mobile de vos rêves 📲" });
+				const lienEnquete = screen.queryByRole('link', { name: "Vous souhaitez aider 1jeune1solution à s'améliorer ? Donnez votre avis en moins de 2 minutes" });
 				expect(lienEnquete).not.toBeInTheDocument();
 			});
 		});
