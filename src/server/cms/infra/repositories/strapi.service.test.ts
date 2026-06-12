@@ -160,24 +160,16 @@ describe('strapiService', () => {
 		});
 
 		describe('lorsque l‘appel à Strapi est en succès', () => {
-			it('lorsqu‘il n‘y a pas de résultat, appelle le service et gestion d‘erreur et relais la failure associée', async () => {
-				const ressource = 'ressource';
-				const expectedFailureFromErrorManagementService = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
+			it('lorsqu‘il n‘y a pas de résultat, retourne une failure CONTENU_INDISPONIBLE sans solliciter la gestion d‘erreur', async () => {
 				const httpClientService = aPublicHttpClientService();
 				const errorManagementService = anErrorManagementService();
 				vi.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiCollectionType([])));
-				vi.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(expectedFailureFromErrorManagementService);
 				const strapiService = new StrapiService(httpClientService, anAuthenticatedHttpClientService(), errorManagementService);
 
-				const result = await strapiService.getFirstFromCollectionType(ressource, 'query');
+				const result = await strapiService.getFirstFromCollectionType('ressource', 'query');
 
-				expect(errorManagementService.handleFailureError).toHaveBeenCalledTimes(1);
-				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(new Error('pas de résultat'), aLogInformation({
-					apiSource: 'API Strapi',
-					contexte: 'get first from collection type strapi',
-					message: `Erreur inconnue - Aucune donnée dans le résultat associé à la ressource ${ressource}`,
-				}));
-				expect(result).toEqual(expectedFailureFromErrorManagementService);
+				expect(errorManagementService.handleFailureError).not.toHaveBeenCalled();
+				expect(result).toEqual(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 			});
 
 			it('lorsqu‘il y a plusieurs résultats, renvoie un succès avec le premier résultat de la liste', async () => {
