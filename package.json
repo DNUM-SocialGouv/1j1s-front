@@ -26,7 +26,7 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
-    "@meilisearch/instant-meilisearch": "^0.23.0",
+    "@meilisearch/instant-meilisearch": "^0.31.0",
     "@sentry/nextjs": "^8.55.0",
     "axios": "^1.13.5",
     "axios-cache-interceptor": "^1.11.4",
@@ -50,7 +50,7 @@
     "react-instantsearch-router-nextjs": "^7.24.0",
     "redis": "^4.7.1",
     "reflect-metadata": "^0.2.2",
-    "sharp": "^0.34.5"
+    "sharp": "^0.35.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^14.2.35",
