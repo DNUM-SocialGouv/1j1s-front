@@ -32,7 +32,7 @@
     "axios-cache-interceptor": "^1.11.4",
     "classnames": "^2.5.1",
     "dompurify": "^3.3.1",
-    "fast-xml-parser": "^4.5.3",
+    "fast-xml-parser": "^5.0.0",
     "ioredis": "^5.9.3",
     "joi": "^17.13.3",
     "lodash.debounce": "^4.0.8",
