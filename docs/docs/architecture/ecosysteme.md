@@ -28,4 +28,4 @@ Le front interagit majoritairement avec les services suivants :
 * [Onisep](https://opendata.onisep.fr/) : recherche de métiers
 * [Tipimail](https://docs.tipimail.com/fr/integrate/api) : envoie d'email
 * [Eulerian](https://eulerian.wiki/doku.php?id=fr:quickonboarding:start) : analyse d'utilisation du site
-* [Sentry](https://sentry.fabrique.social.gouv.fr/) : surveille les anomalies du site
+* [Sentry](https://sentry2.fabrique.social.gouv.fr/) : surveille les anomalies du site
