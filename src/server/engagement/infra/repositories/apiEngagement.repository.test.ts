@@ -165,6 +165,18 @@ describe('ApiEngagementRepository', () => {
 			});
 		});
 
+		describe('quand l’id n’a pas le format d’un identifiant de mission (ObjectId)', () => {
+			it('retourne une erreur de contenu indisponible sans appeler l’api engagement', async () => {
+				vi.spyOn(httpClientService, 'get');
+				const identifiantAuMauvaisFormat = 'b0d143f4-4b75-49be-bfab-cbf4d5443368';
+
+				const { errorType } = await apiEngagementRepository.getMissionEngagement(identifiantAuMauvaisFormat) as Failure;
+
+				expect(httpClientService.get).not.toHaveBeenCalled();
+				expect(errorType).toEqual(ErreurMetier.CONTENU_INDISPONIBLE);
+			});
+		});
+
 		describe('quand l’api engagement répond avec une erreur', () => {
 			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
 				const httpError = anHttpError(500);

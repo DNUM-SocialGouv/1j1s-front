@@ -1,6 +1,6 @@
 import { aStrapiCollectionType, aStrapiSingleType } from '~/server/cms/infra/repositories/strapi.fixture';
-import { StrapiService } from '~/server/cms/infra/repositories/strapi.service';
-import { createFailure, createSuccess } from '~/server/errors/either';
+import { NOMBRE_MAX_REQUETES_PARALLELES_CMS, StrapiService } from '~/server/cms/infra/repositories/strapi.service';
+import { createFailure, createSuccess, isSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { Severity } from '~/server/services/error/errorManagement.service';
@@ -121,6 +121,35 @@ describe('strapiService', () => {
 				expect(httpClientService.get).toHaveBeenNthCalledWith(3, `ressource?query&pagination[pageSize]=${MAX_PAGINATION_SIZE}&pagination[page]=3`);
 				expect(httpClientService.get).toHaveBeenNthCalledWith(4, `ressource?query&pagination[pageSize]=${MAX_PAGINATION_SIZE}&pagination[page]=4`);
 				expect(result).toEqual(createSuccess([...dataPremierePage, ...dataDeuxiemePage, ...dataTroisiemePage, ...dataQuatriemePage]));
+			});
+
+			it('plafonne le nombre de requêtes envoyées simultanément au CMS pour ne pas le saturer', async () => {
+				// Test de non-régression de l'incident prod du 24/06/2026 : on simule une grosse
+				// collection (bien plus de pages que le plafond) et on mesure le nombre maximal de
+				// requêtes en vol au même instant. Il ne doit jamais dépasser le plafond, sinon on
+				// retombe sur la rafale qui saturait puis crashait le conteneur unique du CMS.
+				const nombreTotalDePages = NOMBRE_MAX_REQUETES_PARALLELES_CMS * 2 + 1;
+				const httpClientService = aPublicHttpClientService();
+				let requetesEnCours = 0;
+				let maxRequetesSimultanees = 0;
+				vi.spyOn(httpClientService, 'get').mockImplementation((endpoint) => {
+					requetesEnCours++;
+					maxRequetesSimultanees = Math.max(maxRequetesSimultanees, requetesEnCours);
+					// La requête ne se résout qu'au microtask suivant : tant qu'un lot n'est pas
+					// résolu, ses requêtes restent comptées comme « en cours » simultanément.
+					const numeroPage = Number(endpoint.split('pagination[page]=')[1] ?? '1');
+					return Promise.resolve().then(() => {
+						requetesEnCours--;
+						return anAxiosResponse(aStrapiCollectionType([{ test: `page${numeroPage}` }], { page: numeroPage, pageCount: nombreTotalDePages }));
+					});
+				});
+				const strapiService = new StrapiService(httpClientService, anAuthenticatedHttpClientService(), anErrorManagementService());
+
+				const result = await strapiService.getCollectionType('ressource', 'query');
+
+				expect(httpClientService.get).toHaveBeenCalledTimes(nombreTotalDePages);
+				expect(maxRequetesSimultanees).toBeLessThanOrEqual(NOMBRE_MAX_REQUETES_PARALLELES_CMS);
+				expect(isSuccess(result)).toBe(true);
 			});
 		});
 

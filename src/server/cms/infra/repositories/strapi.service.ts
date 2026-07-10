@@ -8,6 +8,20 @@ import { PublicHttpClientService } from '~/server/services/http/publicHttpClient
 
 const MAX_PAGINATION_SIZE = '100';
 
+// Nombre maximum de requêtes lancées EN PARALLÈLE vers le CMS lors de la récupération
+// d'une collection paginée.
+//
+// Pourquoi ce plafond existe-t-il ?
+// Certaines collections (ex. annonces-de-logement : ~850 pages) étaient récupérées en
+// lançant TOUTES les pages d'un coup via un unique Promise.all. Le CMS Strapi tourne sur
+// un conteneur unique : ces rafales (pics mesurés à ~430 requêtes/seconde) saturaient son
+// pool de connexions à la base et son event loop, provoquant des réponses 503 puis le
+// crash et le redémarrage automatique du conteneur en production (incident du 24/06/2026,
+// génération du sitemap). On borne donc le nombre de requêtes simultanées pour lisser la
+// charge. La valeur est volontairement basse et alignée sur la taille du pool de
+// connexions configuré côté CMS, afin de ne jamais le saturer.
+export const NOMBRE_MAX_REQUETES_PARALLELES_CMS = 5;
+
 export class StrapiService implements CmsService {
 	constructor(
 		private httpClientService: PublicHttpClientService,
@@ -39,12 +53,24 @@ export class StrapiService implements CmsService {
 
 			const hasSeveralPages = pageCount > page;
 			if (hasSeveralPages) {
-				const promiseList = [];
+				// La page 1 a déjà été chargée ci-dessus ; on liste les pages restantes à récupérer.
+				const pagesRestantes: number[] = [];
 				for (let currentPage = page + 1; currentPage <= pageCount; currentPage++) {
-					promiseList.push(this.getPaginatedCollectionType<Collection>(resource, query, currentPage));
+					pagesRestantes.push(currentPage);
 				}
-				const resultList = await Promise.all(promiseList);
-				dataResponseList.push(...resultList.flatMap((result) => result.data));
+
+				// On récupère ces pages par LOTS successifs plutôt que toutes en même temps :
+				// au plus NOMBRE_MAX_REQUETES_PARALLELES_CMS requêtes sont en vol simultanément,
+				// et le lot suivant ne démarre qu'une fois le précédent entièrement résolu (await).
+				// Le résultat final est identique à l'ancien code (mêmes pages, même ordre), mais
+				// la charge envoyée au CMS est lissée au lieu d'arriver en une seule rafale.
+				for (let debutLot = 0; debutLot < pagesRestantes.length; debutLot += NOMBRE_MAX_REQUETES_PARALLELES_CMS) {
+					const lotDePages = pagesRestantes.slice(debutLot, debutLot + NOMBRE_MAX_REQUETES_PARALLELES_CMS);
+					const resultatsDuLot = await Promise.all(
+						lotDePages.map((numeroPage) => this.getPaginatedCollectionType<Collection>(resource, query, numeroPage)),
+					);
+					dataResponseList.push(...resultatsDuLot.flatMap((resultat) => resultat.data));
+				}
 			}
 
 			const collections = dataResponseList.map((data) => data.attributes);

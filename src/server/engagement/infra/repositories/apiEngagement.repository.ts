@@ -12,17 +12,26 @@ import {
 	RésultatsMissionEngagementResponse,
 	RésultatsRechercheMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response';
-import { createSuccess, Either } from '~/server/errors/either';
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 const JE_VEUX_AIDER_PUBLISHER_ID = '5f5931496c7ea514150a818f';
 const SERVICE_CIVIQUE_PUBLISHER_ID = '5f99dbe75eb1ad767733b206';
 
+// L’API Engagement identifie ses missions par un ObjectId MongoDB (24 caractères hexadécimaux).
+// Tout id d’un autre format (ex : UUID de vieilles URL indexées) ne peut correspondre à aucune
+// mission : on court-circuite pour ne pas polluer l’API partenaire avec des requêtes vouées au 404.
+const FORMAT_ID_MISSION_ENGAGEMENT = /^[a-f\d]{24}$/i;
+
 export class ApiEngagementRepository implements EngagementRepository {
 	constructor(private readonly httpClientService: PublicHttpClientService, private readonly errorManagementService: ErrorManagementService) {}
 
 	async getMissionEngagement(id: MissionId): Promise<Either<Mission>> {
+		if (!FORMAT_ID_MISSION_ENGAGEMENT.test(id)) {
+			return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
+		}
 		try {
 			const response = await this.httpClientService.get<RésultatsMissionEngagementResponse>(
 				`mission/${id}`,
