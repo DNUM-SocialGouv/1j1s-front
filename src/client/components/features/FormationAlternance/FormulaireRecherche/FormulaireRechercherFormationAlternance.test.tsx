@@ -139,6 +139,72 @@ describe('FormulaireRechercherFormationAlternance', () => {
 		});
 	});
 
+	describe('lorsque la recherche est déjà celle affichée', () => {
+		const queryPreremplie: Record<string, string> = {
+			codeCommune: '75056',
+			codePostal: '75001',
+			codeRomes: 'D1102,D1104',
+			distanceCommune: '30',
+			latitudeCommune: '48.859',
+			libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+			longitudeCommune: '2.347',
+			niveauEtudes: '4',
+			ville: 'Paris',
+		};
+		const asPathPrerempli = `/formations/apprentissage?${new URLSearchParams(queryPreremplie).toString()}`;
+
+		it('ne pousse pas de navigation lorsque le formulaire est resoumis inchangé', async () => {
+			const routerPush = vi.fn();
+			mockUseRouter({ asPath: asPathPrerempli, push: routerPush, query: queryPreremplie });
+
+			render(
+				<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={aMetierService()}>
+					<FormulaireRechercherFormationAlternance />
+				</DependenciesProvider>,
+			);
+
+			const user = userEvent.setup();
+			await user.click(screen.getByRole('button', { name: 'Rechercher' }));
+
+			expect(routerPush).not.toHaveBeenCalled();
+		});
+
+		it('pousse quand même la navigation lorsque la page est en état d‘erreur, pour permettre le réessai', async () => {
+			const routerPush = vi.fn();
+			mockUseRouter({ asPath: asPathPrerempli, push: routerPush, query: queryPreremplie });
+
+			render(
+				<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={aMetierService()}>
+					<FormulaireRechercherFormationAlternance enEtatErreur />
+				</DependenciesProvider>,
+			);
+
+			const user = userEvent.setup();
+			await user.click(screen.getByRole('button', { name: 'Rechercher' }));
+
+			expect(routerPush).toHaveBeenCalledTimes(1);
+		});
+
+		it('pousse la navigation lorsqu‘un champ est modifié', async () => {
+			const routerPush = vi.fn();
+			mockUseRouter({ asPath: asPathPrerempli, push: routerPush, query: queryPreremplie });
+
+			render(
+				<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={aMetierService()}>
+					<FormulaireRechercherFormationAlternance />
+				</DependenciesProvider>,
+			);
+
+			const user = userEvent.setup();
+			await user.click(screen.getByRole('combobox', { name: 'Niveau d’études visé (facultatif) Exemples : CAP, Bac...' }));
+			await user.click(screen.getByRole('option', { name: FORMATION_NIVEAU_3.libellé }));
+			await user.click(screen.getByRole('button', { name: 'Rechercher' }));
+
+			expect(routerPush).toHaveBeenCalledTimes(1);
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('niveauEtudes=3') });
+		});
+	});
+
 	describe('recherche incorrecte', () => {
 		it('lorsqu‘il manque la commune, n‘effectue pas de recherche', async () => {
 			// Given

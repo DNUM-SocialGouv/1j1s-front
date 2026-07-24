@@ -72,7 +72,7 @@ export function RechercherOffreEmploi(props: RechercherOffreEmploiProps) {
 					banniere={<BannièreOffreEmploi />}
 					erreurRecherche={erreurRecherche}
 					etiquettesRecherche={<EtiquettesFiltreOffreEmploi />}
-					formulaireRecherche={<FormulaireRechercheOffreEmploi />}
+					formulaireRecherche={<FormulaireRechercheOffreEmploi enEtatErreur={erreurRecherche != null} />}
 					isChargement={false}
 					isEtatInitial={empty(offreQuery)}
 					messageResultatRecherche={messageRésultatRecherche}

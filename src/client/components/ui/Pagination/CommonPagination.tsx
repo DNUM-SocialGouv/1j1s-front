@@ -37,7 +37,9 @@ export function CommonPagination(props: CommonPaginationProps) {
 					aria-current={currentPage === page}
 					onClick={(event) => {
 						event.preventDefault();
-						onPageClick(page);
+						if (page !== currentPage) {
+							onPageClick(page);
+						}
 					}}>
 					{page + 1}
 				</a>

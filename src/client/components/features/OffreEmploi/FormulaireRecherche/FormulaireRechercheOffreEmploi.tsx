@@ -34,6 +34,7 @@ import {
 	mapRéférentielDomaineToOffreCheckboxFiltre,
 	mapTypeDeContratToOffreEmploiCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
+import { estQueryIdentiqueAAsPath } from '~/client/utils/queryString.util';
 import { EXPÉRIENCE, TEMPS_DE_TRAVAIL_LIST, TYPE_DE_CONTRAT_LIST } from '~/server/offres/domain/offre';
 
 function updateFilterQuery(filterQuery: Array<string>, filterToToggle: string) {
@@ -48,7 +49,11 @@ function updateFilterQuery(filterQuery: Array<string>, filterToToggle: string) {
 	return currentString;
 }
 
-export function FormulaireRechercheOffreEmploi() {
+type FormulaireRechercheOffreEmploiProps = {
+	enEtatErreur?: boolean
+}
+
+export function FormulaireRechercheOffreEmploi({ enEtatErreur = false }: FormulaireRechercheOffreEmploiProps) {
 	const rechercheOffreEmploiForm = useRef<HTMLFormElement>(null);
 
 	const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
@@ -86,9 +91,11 @@ export function FormulaireRechercheOffreEmploi() {
 		setInputDomaine(updateFilterQuery(inputDomaine, value));
 	}, [inputDomaine]);
 
-	function updateRechercherOffreEmploiQueryParams(event: FormEvent<HTMLFormElement>) {
+	function updateRechercherOffreEmploiQueryParams(event: FormEvent<HTMLFormElement>): void {
 		event.preventDefault();
 		const query = getFormAsQuery(event.currentTarget, queryParams);
+		// NOTE: en état d‘erreur, resoumettre à l‘identique est le geste de réessai de l‘utilisateur : la garde doit être levée.
+		if (!enEtatErreur && estQueryIdentiqueAAsPath(router.asPath, query)) return;
 		router.push({ query }, undefined, { scroll: false });
 	}
 

@@ -473,5 +473,70 @@ describe('FormulaireRechercheOffreEmploi', () => {
 			});
 		});
 	});
+
+	describe('lorsque la recherche est déjà celle affichée', () => {
+		it('ne pousse pas de navigation lorsque le formulaire est resoumis inchangé', async () => {
+			const routerPush = vi.fn();
+			const user = userEvent.setup();
+			mockUseRouter({
+				asPath: '/emplois?motCle=boulanger&page=1',
+				push: routerPush,
+				query: { motCle: 'boulanger', page: '1' },
+			});
+
+			render(
+				<DependenciesProvider localisationService={aLocalisationService()}>
+					<FormulaireRechercheOffreEmploi />
+				</DependenciesProvider>,
+			);
+
+			await user.click(screen.getByRole('button', { name: 'Rechercher' }));
+
+			expect(routerPush).not.toHaveBeenCalled();
+		});
+
+		it('pousse quand même la navigation lorsque la page est en état d‘erreur, pour permettre le réessai', async () => {
+			const routerPush = vi.fn();
+			const user = userEvent.setup();
+			mockUseRouter({
+				asPath: '/emplois?motCle=boulanger&page=1',
+				push: routerPush,
+				query: { motCle: 'boulanger', page: '1' },
+			});
+
+			render(
+				<DependenciesProvider localisationService={aLocalisationService()}>
+					<FormulaireRechercheOffreEmploi enEtatErreur />
+				</DependenciesProvider>,
+			);
+
+			await user.click(screen.getByRole('button', { name: 'Rechercher' }));
+
+			expect(routerPush).toHaveBeenCalledTimes(1);
+			expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger&page=1' }, undefined, { scroll: false });
+		});
+
+		it('pousse la navigation lorsque le mot clé est modifié', async () => {
+			const routerPush = vi.fn();
+			const user = userEvent.setup();
+			mockUseRouter({
+				asPath: '/emplois?motCle=boulanger&page=1',
+				push: routerPush,
+				query: { motCle: 'boulanger', page: '1' },
+			});
+
+			render(
+				<DependenciesProvider localisationService={aLocalisationService()}>
+					<FormulaireRechercheOffreEmploi />
+				</DependenciesProvider>,
+			);
+
+			await user.type(screen.getByRole('textbox', { name: /Métier, mot-clé/i }), 'ie');
+			await user.click(screen.getByRole('button', { name: 'Rechercher' }));
+
+			expect(routerPush).toHaveBeenCalledTimes(1);
+			expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulangerie&page=1' }, undefined, { scroll: false });
+		});
+	});
 });
 
