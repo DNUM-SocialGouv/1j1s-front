@@ -77,6 +77,56 @@ describe('ApiTrajectoiresPro token agent', () => {
 		setTimeoutSpy.mockRestore();
 	});
 
+	it.each([
+		[60],
+		[30],
+	])('doit planifier le renouvellement au délai plancher quand expires_in vaut %i', async (expiresIn) => {
+		// GIVEN
+		const setTimeoutSpy = vi.spyOn(global, 'setTimeout');
+		const tokenResponse = { access_token: 'some-token', expires_in: expiresIn };
+		nock(apiAuthenticationUrl)
+			.post('', requestBody)
+			.matchHeader('X-omogen-api-key', apiKey)
+			.reply(200, tokenResponse);
+
+		const tokenAgent = new ApiTrajectoiresProTokenAgent(apiAuthenticationUrl, clientId, clientSecret, apiKey);
+
+		// WHEN
+		await tokenAgent.getToken();
+
+		// THEN - un délai nul ou négatif ferait tirer setTimeout immédiatement, en boucle serrée
+		const refreshCall = setTimeoutSpy.mock.calls.find(([, delay]) => delay === 30_000);
+		expect(refreshCall).toBeDefined();
+
+		tokenAgent.destroy();
+		setTimeoutSpy.mockRestore();
+	});
+
+	it('doit mutualiser les appels concurrents en un seul POST', async () => {
+		// GIVEN
+		let nombreDePost = 0;
+		nock(apiAuthenticationUrl)
+			.post('', requestBody)
+			.matchHeader('X-omogen-api-key', apiKey)
+			.once()
+			.reply(200, function reply() {
+				nombreDePost++;
+				return { access_token: 'single-flight-token', expires_in: 600 };
+			});
+
+		const tokenAgent = new ApiTrajectoiresProTokenAgent(apiAuthenticationUrl, clientId, clientSecret, apiKey);
+
+		// WHEN
+		const [premierToken, secondToken] = await Promise.all([tokenAgent.getToken(), tokenAgent.getToken()]);
+
+		// THEN
+		expect(nombreDePost).toBe(1);
+		expect(premierToken).toBe('single-flight-token');
+		expect(secondToken).toBe('single-flight-token');
+
+		tokenAgent.destroy();
+	});
+
 	it('doit renouveler le token quand le cache est invalidé', async () => {
 		// GIVEN
 		nock(apiAuthenticationUrl)
