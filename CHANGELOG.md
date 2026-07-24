@@ -1,5 +1,30 @@
 # Changelog
 
+## [3.362.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.361.0...v3.362.0) (2026-07-24)
+
+
+### Features
+
+* ✨ met à jour le logo et utilise les styles DSFR ([02f3d32](https://github.com/DNUM-SocialGouv/1j1s-front/commit/02f3d328fd55fe61b423f3bcf3cb080fee528c90))
+* **alternance:** redirige les parcours alternance 1J1S vers les landings LBA ([#3641](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3641)) ([b9ef26c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b9ef26c5cb14753c93aa6f6ebc51856b670a917b))
+
+
+### Bug Fixes
+
+* 🛠️ Fix failing tests ([1001618](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1001618b94488d8ed2d1e240a6b675755da4a0a4))
+* **alternance:** redirige les simulateurs alternant et employeur vers LBA et travail-emploi.gouv.fr ([#3637](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3637)) ([68d9c8d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/68d9c8d298fc29603167b7260491801b9b5a8ac7))
+* **ci:** contourne l'étape Terraform dans la mise en production ([#3633](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3633)) ([cfb05b5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cfb05b50a5bcce79fc46f2e3cb9d70a444564b89))
+* **cms:** retourne un 404 au lieu d'un 500 quand le slug est absent du CMS ([#3648](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3648)) ([2024fc0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2024fc0dab77c74ec7903e13fc73661f84e7d94b))
+* **déploiement:** réduit la taille du slug Scalingo sous la limite de 2048 Mo ([#3638](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3638)) ([46d811e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/46d811eadc04e3e823ae67811a07e8753245447f))
+* **docs:** échappe les emails dans contexte LBA pour ne pas casser Docusaurus ([c199ee5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c199ee5301791723c55a3e547a0b4681bc700291))
+* **docs:** met à jour l'URL Sentry vers la nouvelle instance ([#3649](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3649)) ([63262d7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/63262d728be6b36adabd82aa825a6d998148decf))
+* Fix linter ([c0a4f48](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c0a4f48745207ed539c30c8bb41f3da6a8e022a1))
+* **header:** restaure le lien 'je donne mon avis' du bandeau enquête satisfaction ([#3647](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3647)) ([3d651ce](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3d651cee0c8baf432446d3fc3a977a621e1d931b))
+* **liens externes:** remplace plusieurs URL externes mortes ou obsolètes ([#3646](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3646)) ([ada8346](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ada8346c36c9b87804e686568470e8e1b5462595))
+* Poc pour trigger process déploiement ([#3643](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3643)) ([7d0fa55](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7d0fa5516899022f658868987cfb359e86a47fde))
+* **recherche:** passe le combobox localisation au facet search Meilisearch ([#3652](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3652)) ([f389de2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f389de2393b827b9afd1067346fe1b0bfce97ece))
+* réduit la charge sur le CMS (cache du sitemap + concurrence bornée) ([#3650](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3650)) ([5b48b9c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5b48b9ce738a188b255157e59a5a10004e0bca93))
+
 ## [3.361.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.360.0...v3.361.0) (2026-02-03)
 
 
