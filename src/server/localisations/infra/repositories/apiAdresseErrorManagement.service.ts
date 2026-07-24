@@ -22,7 +22,7 @@ export class ApiAdresseErrorManagementService extends DefaultErrorManagementServ
 
 	protected logHttpError(error: HttpError, logInformation: LogInformation) {
 		const logSentry = super.buildHttpErrorToLog(logInformation, error);
-		if (error.response?.status === 400 && error.response.data.message === error400IdIncorrect) {
+		if (error.response?.status === 400 && error.response.data?.message === error400IdIncorrect) {
 			this.logError(logSentry, Severity.WARNING);
 		} else {
 			this.logError(logSentry, Severity.ERROR);

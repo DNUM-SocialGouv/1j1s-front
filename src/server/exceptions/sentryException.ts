@@ -1,6 +1,7 @@
 export type Tag = {
   context: string,
   source: string,
+  status?: string,
 }
 
 export class SentryException extends Error {

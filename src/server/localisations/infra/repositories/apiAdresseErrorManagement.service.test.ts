@@ -6,6 +6,7 @@ import {
 } from '~/server/localisations/infra/repositories/apiAdresseErrorManagement.service';
 import { aLogInformation } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
+import { anAxiosResponse } from '~/server/services/http/publicHttpClient.service.fixture';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 const aLogInformationApiAdresse = aLogInformation({
@@ -33,7 +34,7 @@ describe('apiAdresseErrorManagementService', () => {
 				const httpError = anHttpError(400, error400IdIncorrect);
 				const expectedLogDetails = new SentryException(
 					`[${aLogInformationApiAdresse.apiSource}] ${aLogInformationApiAdresse.message} (erreur http)`,
-					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource },
+					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource, status: '400' },
 					{ errorDetail: httpError.response?.data },
 				);
 
@@ -50,11 +51,28 @@ describe('apiAdresseErrorManagementService', () => {
 				const httpError = anHttpError(400, 'message inconnu');
 				const expectedLogDetails = new SentryException(
 					`[${aLogInformationApiAdresse.apiSource}] ${aLogInformationApiAdresse.message} (erreur http)`,
-					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource },
+					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource, status: '400' },
 					{ errorDetail: httpError.response?.data },
 				);
 
 				apiAdresseErrorManagementService.handleFailureError(httpError, aLogInformationApiAdresse);
+
+				expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
+			});
+		});
+
+		describe('quand l’api renvoie une erreur 400 avec un corps null', () => {
+			it('log les informations en erreur sans lever d’exception', () => {
+				const loggerService = aLoggerService();
+				const apiAdresseErrorManagementService = new ApiAdresseErrorManagementService(loggerService);
+				const httpError = anHttpError(400, undefined, anAxiosResponse(null, 400));
+				const expectedLogDetails = new SentryException(
+					`[${aLogInformationApiAdresse.apiSource}] ${aLogInformationApiAdresse.message} (erreur http)`,
+					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource, status: '400' },
+					{ errorDetail: null },
+				);
+
+				expect(() => apiAdresseErrorManagementService.handleFailureError(httpError, aLogInformationApiAdresse)).not.toThrow();
 
 				expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
 			});
@@ -67,7 +85,7 @@ describe('apiAdresseErrorManagementService', () => {
 				const httpError = anHttpError(504);
 				const expectedLogDetails = new SentryException(
 					`[${aLogInformationApiAdresse.apiSource}] ${aLogInformationApiAdresse.message} (erreur http)`,
-					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource },
+					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource, status: '504' },
 					{ errorDetail: httpError.response?.data },
 				);
 
@@ -84,7 +102,7 @@ describe('apiAdresseErrorManagementService', () => {
 				const httpError = anHttpError(504);
 				const expectedLogDetails = new SentryException(
 					`[${aLogInformationApiAdresse.apiSource}] ${aLogInformationApiAdresse.message} (erreur http)`,
-					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource },
+					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource, status: '504' },
 					{ errorDetail: httpError.response?.data },
 				);
 
