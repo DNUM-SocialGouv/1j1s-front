@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import {
@@ -19,7 +19,16 @@ type BackButtonProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonComponen
 export function BackButton({ className, label= 'Retour', ...rest }: BackButtonProps) {
 	const router = useRouter();
 	const isPreviousPageLocal = useSessionStorage<boolean>(IS_PREVIOUS_PAGE_LOCAL);
-	const displayBackButton = useMemo(() => !!isPreviousPageLocal.get(), [isPreviousPageLocal]);
+	// Le sessionStorage n’existe pas côté serveur : le lire pendant le rendu désapparie l’hydratation
+	// (React #418). L’état part donc à false, comme le rendu serveur, et l’effet le corrige après.
+	const [displayBackButton, setDisplayBackButton] = useState(false);
+
+	useEffect(function lireHistoriqueApresHydratation() {
+		setDisplayBackButton(!!isPreviousPageLocal.get());
+		// useSessionStorage renvoie un objet littéral neuf à chaque rendu : le mettre en dépendance
+		// relancerait l’effet à chaque rendu.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		displayBackButton && (
