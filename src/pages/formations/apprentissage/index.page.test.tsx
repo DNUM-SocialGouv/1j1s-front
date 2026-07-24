@@ -132,6 +132,39 @@ describe('Page Formations en Apprentissage', () => {
 				});
 			});
 
+			describe('et que le format des codes ROME est invalide', () => {
+				it('retourne une erreur, passe la page en 400 et ne fait pas de recherche', async () => {
+					vi.mocked(dependencies.formationDependencies.rechercherFormation.handle).mockClear();
+					const context = aGetServerSidePropsContext({
+						query: rechercheFormationAlternanceQuery({ codeRomes: 'abc' }),
+						res: { statusCode: 200 },
+					});
+
+					const result = await getServerSideProps(context);
+
+					expect(result).toEqual({ props: { erreurRecherche: ErreurMetier.DEMANDE_INCORRECTE } });
+					expect(context.res.statusCode).toEqual(400);
+					expect(dependencies.formationDependencies.rechercherFormation.handle).not.toHaveBeenCalled();
+				});
+			});
+
+			// La casse minuscule est acceptée par La Bonne Alternance : le sondage direct (preuve 4 du diagnostic) montre que
+			// romes=m1805 renvoie HTTP 200. Le pattern /^[A-Z]\d{4}$/ suggéré par le message d‘erreur du partenaire régresserait ce cas.
+			describe('et que les codes ROME sont en minuscules', () => {
+				it('fait la recherche', async () => {
+					vi.spyOn(dependencies.formationDependencies.rechercherFormation, 'handle').mockResolvedValue(createSuccess(aRésultatRechercheFormationList()));
+					const context = aGetServerSidePropsContext({
+						query: rechercheFormationAlternanceQuery({ codeRomes: 'm1805' }),
+					});
+
+					await getServerSideProps(context);
+
+					expect(dependencies.formationDependencies.rechercherFormation.handle).toHaveBeenCalledWith(expect.objectContaining({
+						codeRomes: ['m1805'],
+					}));
+				});
+			});
+
 			describe('et qu‘ils sont valides', () => {
 				it('fait une recherche avec les query params', async () => {
 					vi.spyOn(dependencies.formationDependencies.rechercherFormation, 'handle').mockResolvedValue(createSuccess(aRésultatRechercheFormationList()));
