@@ -5,8 +5,6 @@ import styles
 import { MeilisearchComboboxLocalisation } from '~/client/components/ui/Meilisearch/MeilisearchComboboxLocalisation/MeilisearchComboboxLocalisation';
 import { MeilisearchInput } from '~/client/components/ui/Meilisearch/MeilisearchInput/MeilisearchInput';
 
-const LIMIT_MAX_FACETS = 10000;
-
 export function FormulaireRechercheEvenement() {
 	return (
 		<form className={styles.rechercherEvenementForm} onSubmit={(event) => event.preventDefault()}>
@@ -15,8 +13,7 @@ export function FormulaireRechercheEvenement() {
 				name="motCle"
 				placeholder="Exemples : gendarmerie, cuisinier, mentorat" />
 	  <MeilisearchComboboxLocalisation
-				attribute="lieuEvenement"
-				limit={LIMIT_MAX_FACETS} />
+				attribute="lieuEvenement" />
 		</form>
 	);
 }

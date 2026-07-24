@@ -8,7 +8,6 @@ import { MeilisearchInput } from '~/client/components/ui/Meilisearch/Meilisearch
 import { MeilisearchSelectMultiple } from '~/client/components/ui/Meilisearch/MeilisearchSelectMultiple/MeilisearchSelectMultiple';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
-const LIMIT_MAX_FACETS = 100000;
 const LIMIT_MAX_DOMAINS = 100;
 
 function sortASCII(a: SearchResults.FacetValue, b: SearchResults.FacetValue) {
@@ -49,8 +48,7 @@ export function FormulaireRechercheOffreStage() {
 				name="motCle"
 				placeholder="Exemples : designer, juriste…" />
 			<MeilisearchComboboxLocalisation
-				attribute="localisationFiltree"
-				limit={LIMIT_MAX_FACETS} />
+				attribute="localisationFiltree" />
 			<MeilisearchSelectMultiple
 				attribute="domaines"
 				limit={LIMIT_MAX_DOMAINS}

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { useRefinementList, UseRefinementListProps } from 'react-instantsearch';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
@@ -11,24 +11,23 @@ const NOMBRE_RESULTAT_MAXIMUM = 20;
 const INPUT_VALUE_NAME = 'inputLocalisation';
 
 export function MeilisearchComboboxLocalisation(props: UseRefinementListProps) {
-	const { refine, items } = useRefinementList(props);
+	const { refine, items, searchForItems } = useRefinementList({ ...props, limit: NOMBRE_RESULTAT_MAXIMUM });
 	const [userInput, setUserInput] = useState<string>('');
 	const comboboxRef = useRef<HTMLInputElement>(null);
 
-	const filterLocalisations = useCallback(function filterLocalisation() {
-		function isLocalisationMatchingUserInput(localisation: string) {
-			return localisation.toLowerCase().includes(userInput.toLowerCase());
-		}
+	const listeDeLocalisations = useMemo(
+		() => items.filter(({ isRefined }) => !isRefined).map(({ value }) => value).slice(0, NOMBRE_RESULTAT_MAXIMUM),
+		[items]);
 
-		return items.filter(({ value, isRefined }) => !isRefined && isLocalisationMatchingUserInput(value));
-	}, [items, userInput]);
-
-	const listeDeLocalisations = useMemo(() => filterLocalisations().map(({ value }) => value).slice(0, NOMBRE_RESULTAT_MAXIMUM),
-		[filterLocalisations]);
+	function rechercherLocalisations(saisie: string) {
+		setUserInput(saisie);
+		searchForItems(saisie);
+	}
 
 	function onOptionSelected(localisation: string) {
 		refine(localisation);
 		setUserInput('');
+		searchForItems('');
 	}
 
 	function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -66,7 +65,7 @@ export function MeilisearchComboboxLocalisation(props: UseRefinementListProps) {
 				autoComplete="off"
 				filter={Combobox.noFilter}
 				onChange={(_, newValue) => {
-					setUserInput(newValue);
+					rechercherLocalisations(newValue);
 				}}>
 				{listeDeLocalisations.map((suggestion) => (
 					<Combobox.Option key={suggestion} onClick={onClickOnOption}>
