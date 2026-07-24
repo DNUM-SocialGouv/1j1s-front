@@ -4,6 +4,7 @@ import { SentryException } from '~/server/exceptions/sentryException';
 import { ApiGeoErrorManagementService } from '~/server/localisations/infra/repositories/apiGeoErrorManagement.service';
 import { aLogInformation } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
+import { anAxiosResponse } from '~/server/services/http/publicHttpClient.service.fixture';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 const aLogInformationApiGeo = aLogInformation({
@@ -31,7 +32,7 @@ describe('apiGeoErrorManagementService', () => {
 				const httpError = anHttpError(400, error400IdIncorrect);
 				const expectedLogDetails = new SentryException(
 					`[${aLogInformationApiGeo.apiSource}] ${aLogInformationApiGeo.message} (erreur http)`,
-					{ context: aLogInformationApiGeo.contexte, source: aLogInformationApiGeo.apiSource },
+					{ context: aLogInformationApiGeo.contexte, source: aLogInformationApiGeo.apiSource, status: '400' },
 					{ errorDetail: httpError.response?.data },
 				);
 
@@ -48,11 +49,28 @@ describe('apiGeoErrorManagementService', () => {
 				const httpError = anHttpError(400, 'message inconnu');
 				const expectedLogDetails = new SentryException(
 					`[${aLogInformationApiGeo.apiSource}] ${aLogInformationApiGeo.message} (erreur http)`,
-					{ context: aLogInformationApiGeo.contexte, source: aLogInformationApiGeo.apiSource },
+					{ context: aLogInformationApiGeo.contexte, source: aLogInformationApiGeo.apiSource, status: '400' },
 					{ errorDetail: httpError.response?.data },
 				);
 
 				apiGeoErrorManagementService.handleFailureError(httpError, aLogInformationApiGeo);
+
+				expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
+			});
+		});
+
+		describe('quand l’api renvoie une erreur 400 avec un corps null', () => {
+			it('log les informations en erreur sans lever d’exception', () => {
+				const loggerService = aLoggerService();
+				const apiGeoErrorManagementService = new ApiGeoErrorManagementService(loggerService);
+				const httpError = anHttpError(400, undefined, anAxiosResponse(null, 400));
+				const expectedLogDetails = new SentryException(
+					`[${aLogInformationApiGeo.apiSource}] ${aLogInformationApiGeo.message} (erreur http)`,
+					{ context: aLogInformationApiGeo.contexte, source: aLogInformationApiGeo.apiSource, status: '400' },
+					{ errorDetail: null },
+				);
+
+				expect(() => apiGeoErrorManagementService.handleFailureError(httpError, aLogInformationApiGeo)).not.toThrow();
 
 				expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
 			});
@@ -65,7 +83,7 @@ describe('apiGeoErrorManagementService', () => {
 				const httpError = anHttpError(504);
 				const expectedLogDetails = new SentryException(
 					`[${aLogInformationApiGeo.apiSource}] ${aLogInformationApiGeo.message} (erreur http)`,
-					{ context: aLogInformationApiGeo.contexte, source: aLogInformationApiGeo.apiSource },
+					{ context: aLogInformationApiGeo.contexte, source: aLogInformationApiGeo.apiSource, status: '504' },
 					{ errorDetail: httpError.response?.data },
 				);
 
@@ -82,7 +100,7 @@ describe('apiGeoErrorManagementService', () => {
 				const httpError = anHttpError(504);
 				const expectedLogDetails = new SentryException(
 					`[${aLogInformationApiGeo.apiSource}] ${aLogInformationApiGeo.message} (erreur http)`,
-					{ context: aLogInformationApiGeo.contexte, source: aLogInformationApiGeo.apiSource },
+					{ context: aLogInformationApiGeo.contexte, source: aLogInformationApiGeo.apiSource, status: '504' },
 					{ errorDetail: httpError.response?.data },
 				);
 

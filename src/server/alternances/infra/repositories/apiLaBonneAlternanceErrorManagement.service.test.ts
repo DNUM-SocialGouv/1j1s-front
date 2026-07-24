@@ -30,7 +30,7 @@ describe('apiLaBonneAlternanceErrorManagementServiceSearch', () => {
 			expect(loggerService.errorWithExtra).toHaveBeenCalledTimes(1);
 			expect(loggerService.errorWithExtra).toHaveBeenCalledWith(new SentryException(
 				'[API LaBonneAlternance] impossible d’effectuer la demande - trop de requêtes (erreur http)',
-				{ context: logInformation.contexte, source: logInformation.apiSource },
+				{ context: logInformation.contexte, source: logInformation.apiSource, status: '429' },
 				{ errorDetail: httpError.response?.data },
 			));
 		});
@@ -53,7 +53,7 @@ describe('apiLaBonneAlternanceErrorManagementServiceGet', () => {
 			expect(loggerService.warnWithExtra).toHaveBeenCalledTimes(1);
 			expect(loggerService.warnWithExtra).toHaveBeenCalledWith(new SentryException(
 				'[API LaBonneAlternance] impossible d’effectuer la demande - annonce non trouvé/expiré (erreur http)',
-				{ context: logInformation.contexte, source: logInformation.apiSource },
+				{ context: logInformation.contexte, source: logInformation.apiSource, status: '404' },
 				{ errorDetail: httpError.response?.data },
 			));
 		});

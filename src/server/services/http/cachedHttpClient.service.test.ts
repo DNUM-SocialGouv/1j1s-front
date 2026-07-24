@@ -2,6 +2,7 @@
 import nock from 'nock';
 
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
+import { HttpError } from '~/server/services/http/httpError';
 import { PublicHttpClientConfig } from '~/server/services/http/publicHttpClient.service';
 
 const clientConfig: PublicHttpClientConfig = {
@@ -79,6 +80,68 @@ describe('CachedHttpClientService', () => {
 					expect(actual.data).toEqual({ ...bodyWithSomeOtherParams });
 					expect(actual.cached).toBeFalsy();
 				});
+			});
+		});
+
+		describe('quand l’api renvoie une erreur', () => {
+			it('lorsque la réponse porte un statut, rejette une HttpError', async () => {
+				// Given
+				nock('https://some.url.com')
+					.get('/some-failing-endpoint')
+					.reply(500, { message: 'geo down' });
+
+				// When
+				const result = httpClientServiceWithCache.get('some-failing-endpoint');
+
+				// Then
+				await expect(result).rejects.toThrow(HttpError);
+				await expect(result).rejects.toMatchObject({ message: 'geo down', status: 500 });
+			});
+
+			it('lorsque la requête échoue au niveau réseau, rejette l’AxiosError porteuse du code', async () => {
+				// Given
+				nock('https://some.url.com')
+					.get('/some-unreachable-endpoint')
+					.replyWithError({ code: 'ECONNRESET' });
+
+				// When
+				const result = httpClientServiceWithCache.get('some-unreachable-endpoint');
+
+				// Then
+				await expect(result).rejects.not.toThrow(HttpError);
+				await expect(result).rejects.toMatchObject({ code: 'ECONNRESET', isAxiosError: true });
+			});
+		});
+	});
+
+	describe('post', () => {
+		describe('quand l’api renvoie une erreur', () => {
+			it('lorsque la réponse porte un statut, rejette une HttpError', async () => {
+				// Given
+				nock('https://some.url.com')
+					.post('/some-failing-endpoint')
+					.reply(500, { message: 'geo down' });
+
+				// When
+				const result = httpClientServiceWithCache.post('some-failing-endpoint', { some: 'body' });
+
+				// Then
+				await expect(result).rejects.toThrow(HttpError);
+				await expect(result).rejects.toMatchObject({ message: 'geo down', status: 500 });
+			});
+
+			it('lorsque la requête échoue au niveau réseau, rejette l’AxiosError porteuse du code', async () => {
+				// Given
+				nock('https://some.url.com')
+					.post('/some-unreachable-endpoint')
+					.replyWithError({ code: 'ECONNRESET' });
+
+				// When
+				const result = httpClientServiceWithCache.post('some-unreachable-endpoint', { some: 'body' });
+
+				// Then
+				await expect(result).rejects.not.toThrow(HttpError);
+				await expect(result).rejects.toMatchObject({ code: 'ECONNRESET', isAxiosError: true });
 			});
 		});
 	});

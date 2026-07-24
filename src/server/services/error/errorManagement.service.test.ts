@@ -1,10 +1,12 @@
 import { createFailure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { ErreurTechnique } from '~/server/errors/erreurTechnique.types';
 import { SentryException } from '~/server/exceptions/sentryException';
 import { ApiValidationError } from '~/server/services/error/apiValidationError';
 import { aLogInformation } from '~/server/services/error/errorManagement.fixture';
 import { DefaultErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
+import { anAxiosError } from '~/server/services/http/publicHttpClient.service.fixture';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 const logInformation = aLogInformation({
@@ -56,6 +58,20 @@ describe('DefaultErrorManagementService', () => {
 			expect(result).toStrictEqual(expectedFailure);
 		});
 
+		it('qui est une 429 doit créer une failure trop de requêtes', () => {
+			// GIVEN
+			const loggerService = aLoggerService();
+			const errorManagementService = new DefaultErrorManagementService(loggerService);
+			const httpError = anHttpError(429);
+			const expectedFailure = createFailure(ErreurTechnique.TOO_MANY_REQUESTS);
+
+			// WHEN
+			const result = errorManagementService.handleFailureError(httpError, logInformation);
+
+			// THEN
+			expect(result).toStrictEqual(expectedFailure);
+		});
+
 		it('qui est une autre erreur doit créer une failure contenu indisponible', () => {
 			// GIVEN
 			const loggerService = aLoggerService();
@@ -77,7 +93,7 @@ describe('DefaultErrorManagementService', () => {
 			const errorManagementService = new DefaultErrorManagementService(loggerService);
 			const expectedLogDetails = new SentryException(
 				`[${logInformation.apiSource}] ${logInformation.message} (erreur http)`,
-				{ context: logInformation.contexte, source: logInformation.apiSource },
+				{ context: logInformation.contexte, source: logInformation.apiSource, status: '500' },
 				{ errorDetail: httpError.response?.data },
 			);
 
@@ -86,6 +102,21 @@ describe('DefaultErrorManagementService', () => {
 
 			// THEN
 			expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
+		});
+
+		it('doit taguer le statut de la réponse', () => {
+			// GIVEN
+			const loggerService = aLoggerService();
+			const httpError = anHttpError(429);
+			const errorManagementService = new DefaultErrorManagementService(loggerService);
+
+			// WHEN
+			errorManagementService.handleFailureError(httpError, logInformation);
+
+			// THEN
+			expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expect.objectContaining({
+				tag: { context: logInformation.contexte, source: logInformation.apiSource, status: '429' },
+			}));
 		});
 
 		describe('Gère la sévérité de l‘erreur', () => {
@@ -102,7 +133,7 @@ describe('DefaultErrorManagementService', () => {
 				const errorManagementService = new DefaultErrorManagementService(loggerService);
 				const expectedLogDetails = new SentryException(
 					`[${logInformation.apiSource}] ${logInformation.message} (erreur http)`,
-					{ context: logInformation.contexte, source: logInformation.apiSource },
+					{ context: logInformation.contexte, source: logInformation.apiSource, status: '500' },
 					{ errorDetail: httpError.response?.data },
 				);
 
@@ -125,7 +156,7 @@ describe('DefaultErrorManagementService', () => {
 				const errorManagementService = new DefaultErrorManagementService(loggerService);
 				const expectedLogDetails = new SentryException(
 					`[${logInformation.apiSource}] ${logInformation.message} (erreur http)`,
-					{ context: logInformation.contexte, source: logInformation.apiSource },
+					{ context: logInformation.contexte, source: logInformation.apiSource, status: '500' },
 					{ errorDetail: httpError.response?.data },
 				);
 
@@ -148,7 +179,7 @@ describe('DefaultErrorManagementService', () => {
 				const errorManagementService = new DefaultErrorManagementService(loggerService);
 				const expectedLogDetails = new SentryException(
 					`[${logInformation.apiSource}] ${logInformation.message} (erreur http)`,
-					{ context: logInformation.contexte, source: logInformation.apiSource },
+					{ context: logInformation.contexte, source: logInformation.apiSource, status: '500' },
 					{ errorDetail: httpError.response?.data },
 				);
 
@@ -171,7 +202,7 @@ describe('DefaultErrorManagementService', () => {
 				const errorManagementService = new DefaultErrorManagementService(loggerService);
 				const expectedLogDetails = new SentryException(
 					`[${logInformation.apiSource}] ${logInformation.message} (erreur http)`,
-					{ context: logInformation.contexte, source: logInformation.apiSource },
+					{ context: logInformation.contexte, source: logInformation.apiSource, status: '500' },
 					{ errorDetail: httpError.response?.data },
 				);
 
@@ -217,6 +248,24 @@ describe('DefaultErrorManagementService', () => {
 				// THEN
 				expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
 			});
+			it('avec le code d’erreur lorsque l‘erreur est une AxiosError sans réponse', () => {
+				// GIVEN
+				const loggerService = aLoggerService();
+				const networkError = anAxiosError({ code: 'ECONNRESET', message: 'read ECONNRESET', response: undefined });
+				const errorManagementService = new DefaultErrorManagementService(loggerService);
+				const expectedLogDetails = new SentryException(
+					`[${logInformation.apiSource}] ${logInformation.message} (erreur interne)`,
+					{ context: logInformation.contexte, source: logInformation.apiSource },
+					{ errorCode: 'ECONNRESET', errorMessage: 'read ECONNRESET', stacktrace: networkError.stack },
+				);
+
+				// WHEN
+				errorManagementService.handleFailureError(networkError, logInformation);
+
+				// THEN
+				expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
+			});
+
 			it('avec le contenu entier lorsque l‘erreur n‘est pas une Error', () => {
 				// GIVEN
 				const loggerService = aLoggerService();

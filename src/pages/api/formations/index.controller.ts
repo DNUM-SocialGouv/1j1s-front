@@ -11,7 +11,7 @@ import { dependencies } from '~/server/start';
 
 export const formationRechercheQuerySchema = Joi.object({
 	codeCommune: Joi.string().required(),
-	codeRomes: Joi.string().required(),
+	codeRomes: Joi.string().pattern(/^[A-Za-z]\d{4}(,[A-Za-z]\d{4})*$/).required(),
 	distanceCommune: Joi.string().required(),
 	latitudeCommune: Joi.string().required(),
 	longitudeCommune: Joi.string().required(),

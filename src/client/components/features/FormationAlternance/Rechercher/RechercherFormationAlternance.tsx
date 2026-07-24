@@ -76,7 +76,7 @@ export default function RechercherFormationAlternance({ resultats: formationAlte
 					banniere={<BannièreFormation />}
 					erreurRecherche={erreurRecherche}
 					etiquettesRecherche={<EtiquettesFiltreFormationAlternance />}
-					formulaireRecherche={<FormulaireRechercherFormationAlternance />}
+					formulaireRecherche={<FormulaireRechercherFormationAlternance enEtatErreur={erreurRecherche != null} />}
 					isChargement={false}
 					isEtatInitial={empty(formationQuery)}
 					messageResultatRecherche={messageRésultatRecherche}

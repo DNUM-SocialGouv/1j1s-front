@@ -1,4 +1,7 @@
+import axios from 'axios';
+
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { ErreurTechnique } from '~/server/errors/erreurTechnique.types';
 import { SentryException } from '~/server/exceptions/sentryException';
 import { ApiValidationError } from '~/server/services/error/apiValidationError';
 import { HttpError, isHttpError } from '~/server/services/http/httpError';
@@ -10,6 +13,16 @@ export enum Severity {
 	FATAL = 'fatal',
 	ERROR = 'error',
 	WARNING = 'warning',
+}
+
+function buildExtraForInternalError(error: unknown): Record<string, unknown> {
+	if (axios.isAxiosError(error)) {
+		return { errorCode: error.code, errorMessage: error.message, stacktrace: error.stack };
+	}
+	if (error instanceof Error) {
+		return { stacktrace: error.stack };
+	}
+	return { error: JSON.stringify(error) };
 }
 
 export interface LogInformation {
@@ -69,7 +82,7 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 	protected buildHttpErrorToLog(logInformation: LogInformation, error: HttpError) {
 		return new SentryException(
 			`[${logInformation.apiSource}] ${logInformation.message} (erreur http)`,
-			{ context: logInformation.contexte, source: logInformation.apiSource },
+			{ context: logInformation.contexte, source: logInformation.apiSource, status: String(error.response?.status) },
 			{ errorDetail: error.response?.data },
 		);
 	}
@@ -79,15 +92,11 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 		this.logError(errorToLog, logInformation.severity);
 	}
 
-	protected buildInternalErrorToLog(logInformation: LogInformation, error: unknown) {
-		const extra = error instanceof Error
-			? { stacktrace: error.stack }
-			: { error: JSON.stringify(error) };
-
+	protected buildInternalErrorToLog(logInformation: LogInformation, error: unknown): SentryException {
 		return new SentryException(
 			`[${logInformation.apiSource}] ${logInformation.message} (erreur interne)`,
 			{ context: logInformation.contexte, source: logInformation.apiSource },
-			extra,
+			buildExtraForInternalError(error),
 		);
 	}
 
@@ -114,6 +123,9 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 		}
 		if (error.response?.status === 400) {
 			return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
+		}
+		if (error.response?.status === 429) {
+			return createFailure(ErreurTechnique.TOO_MANY_REQUESTS);
 		}
 		if (error.response?.status === 404) {
 			return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);

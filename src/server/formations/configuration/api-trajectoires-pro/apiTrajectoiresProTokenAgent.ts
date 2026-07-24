@@ -3,6 +3,7 @@ import axios from 'axios';
 import { TokenAgent } from '~/server/services/http/authenticatedHttpClient.service';
 
 const MARGE_REFRESH_EN_SECONDES = 60;
+const DELAI_MINIMAL_EN_SECONDES = 30;
 
 interface TokenResponse {
 	access_token: string
@@ -11,6 +12,7 @@ interface TokenResponse {
 
 export class ApiTrajectoiresProTokenAgent implements TokenAgent {
 	private cachedToken: string | null = null;
+	private inflight: Promise<string> | null = null;
 	private refreshTimer: ReturnType<typeof setTimeout> | null = null;
 
 	constructor(
@@ -24,7 +26,12 @@ export class ApiTrajectoiresProTokenAgent implements TokenAgent {
 		if (this.cachedToken) {
 			return this.cachedToken;
 		}
-		return this.refreshToken();
+		if (!this.inflight) {
+			this.inflight = this.refreshToken().finally(() => {
+				this.inflight = null;
+			});
+		}
+		return this.inflight;
 	}
 
 	destroy(): void {
@@ -64,7 +71,7 @@ export class ApiTrajectoiresProTokenAgent implements TokenAgent {
 			clearTimeout(this.refreshTimer);
 		}
 
-		const delayInMs = (expiresInSeconds - MARGE_REFRESH_EN_SECONDES) * 1000;
+		const delayInMs = Math.max(expiresInSeconds - MARGE_REFRESH_EN_SECONDES, DELAI_MINIMAL_EN_SECONDES) * 1000;
 
 		this.refreshTimer = setTimeout(() => {
 			this.refreshToken().catch(() => {

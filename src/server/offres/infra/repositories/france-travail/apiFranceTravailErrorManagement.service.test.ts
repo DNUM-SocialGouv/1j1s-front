@@ -35,7 +35,7 @@ describe('handleFailureError', () => {
 					const httpError = anHttpError(400, messageErrorFromApiFranceTravail);
 					const expectedLogDetails = new SentryException(
 						`[${aLogInformationSearch.apiSource}] ${aLogInformationSearch.message} (erreur http)`,
-						{ context: aLogInformationSearch.contexte, source: aLogInformationSearch.apiSource },
+						{ context: aLogInformationSearch.contexte, source: aLogInformationSearch.apiSource, status: '400' },
 						{ errorDetail: httpError.response?.data },
 					);
 
@@ -62,7 +62,7 @@ describe('handleFailureError', () => {
 				const httpError = anHttpError(400, 'message inconnu');
 				const expectedLogDetails = new SentryException(
 					`[${aLogInformationSearch.apiSource}] ${aLogInformationSearch.message} (erreur http)`,
-					{ context: aLogInformationSearch.contexte, source: aLogInformationSearch.apiSource },
+					{ context: aLogInformationSearch.contexte, source: aLogInformationSearch.apiSource, status: '400' },
 					{ errorDetail: httpError.response?.data },
 				);
 
@@ -88,7 +88,7 @@ describe('handleFailureError', () => {
 				const httpError = anHttpError(400, 'message inconnu');
 				const expectedLogDetails = new SentryException(
 					`[${aLogInformationSearch.apiSource}] ${aLogInformationSearch.message} (erreur http)`,
-					{ context: aLogInformationSearch.contexte, source: aLogInformationSearch.apiSource },
+					{ context: aLogInformationSearch.contexte, source: aLogInformationSearch.apiSource, status: '400' },
 					{ errorDetail: httpError.response?.data },
 				);
 
@@ -159,7 +159,7 @@ describe('handleFailureError', () => {
 				const httpError = anHttpError(400, errorFromApiFranceTravailGet);
 				const expectedLogDetails = new SentryException(
 					`[${aLogInformationGet.apiSource}] ${aLogInformationGet.message} (erreur http)`,
-					{ context: aLogInformationGet.contexte, source: aLogInformationGet.apiSource },
+					{ context: aLogInformationGet.contexte, source: aLogInformationGet.apiSource, status: '400' },
 					{ errorDetail: httpError.response?.data },
 				);
 
@@ -185,7 +185,7 @@ describe('handleFailureError', () => {
 				const httpError = anHttpError(400, 'message inconnu');
 				const expectedLogDetails = new SentryException(
 					`[${aLogInformationGet.apiSource}] ${aLogInformationGet.message} (erreur http)`,
-					{ context: aLogInformationGet.contexte, source: aLogInformationGet.apiSource },
+					{ context: aLogInformationGet.contexte, source: aLogInformationGet.apiSource, status: '400' },
 					{ errorDetail: httpError.response?.data },
 				);
 
@@ -211,7 +211,7 @@ describe('handleFailureError', () => {
 				const httpError = anHttpError(400, 'message inconnu');
 				const expectedLogDetails = new SentryException(
 					`[${aLogInformationGet.apiSource}] ${aLogInformationGet.message} (erreur http)`,
-					{ context: aLogInformationGet.contexte, source: aLogInformationGet.apiSource },
+					{ context: aLogInformationGet.contexte, source: aLogInformationGet.apiSource, status: '400' },
 					{ errorDetail: httpError.response?.data },
 				);
 

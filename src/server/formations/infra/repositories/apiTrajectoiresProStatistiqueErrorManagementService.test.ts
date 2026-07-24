@@ -22,7 +22,7 @@ describe('ApiTrajectoiresProStatistiqueErrorManagementService', () => {
 			// THEN
 			expect(loggerService.warnWithExtra).toHaveBeenCalledWith(new SentryException(
 				`[${logInformation.apiSource}] ${logInformation.message} (erreur http)`,
-				{ context: logInformation.contexte, source: logInformation.apiSource },
+				{ context: logInformation.contexte, source: logInformation.apiSource, status: '404' },
 				{ errorDetail: httpNotFoundError.response?.data },
 			));
 			expect(failure.errorType).toStrictEqual(ErreurMetier.CONTENU_INDISPONIBLE);
@@ -41,7 +41,7 @@ describe('ApiTrajectoiresProStatistiqueErrorManagementService', () => {
 			// THEN
 			expect(loggerService.errorWithExtra).toHaveBeenCalledWith(new SentryException(
 				`[${logInformation.apiSource}] ${logInformation.message} (erreur http)`,
-				{ context: logInformation.contexte, source: logInformation.apiSource },
+				{ context: logInformation.contexte, source: logInformation.apiSource, status: '400' },
 				{ errorDetail: httpNotFoundError.response?.data },
 			));
 			expect(failure.errorType).toStrictEqual(ErreurMetier.DEMANDE_INCORRECTE);

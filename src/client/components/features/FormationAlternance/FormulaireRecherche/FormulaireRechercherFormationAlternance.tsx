@@ -14,12 +14,17 @@ import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { useFormationQuery } from '~/client/hooks/useFormationQuery';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { getFormAsQuery } from '~/client/utils/form.util';
+import { estQueryIdentiqueAAsPath } from '~/client/utils/queryString.util';
 import { FORMATION_NIVEAU_ETUDES } from '~/server/formations/domain/formation';
 
 import styles
 	from './FormulaireRechercheFormationAlternance.module.scss';
 
-export function FormulaireRechercherFormationAlternance() {
+type FormulaireRechercherFormationAlternanceProps = {
+	enEtatErreur?: boolean
+}
+
+export function FormulaireRechercherFormationAlternance({ enEtatErreur = false }: FormulaireRechercherFormationAlternanceProps) {
 	const queryParams = useFormationQuery();
 	const {
 		libelleMetier,
@@ -48,10 +53,12 @@ export function FormulaireRechercherFormationAlternance() {
 	});
 	const router = useRouter();
 
-	async function updateRechercherFormationQueryParams(event: FormEvent<HTMLFormElement>) {
+	async function updateRechercherFormationQueryParams(event: FormEvent<HTMLFormElement>): Promise<boolean | void> {
 		event.preventDefault();
-		const formEntries = getFormAsQuery(event.currentTarget, queryParams, false);
-		return router.push({ query: new URLSearchParams(formEntries).toString() });
+		const query = getFormAsQuery(event.currentTarget, queryParams, false);
+		// NOTE: en état d‘erreur, resoumettre à l‘identique est le geste de réessai de l‘utilisateur : la garde doit être levée.
+		if (!enEtatErreur && estQueryIdentiqueAAsPath(router.asPath, query)) return;
+		return router.push({ query });
 	}
 
 	return (

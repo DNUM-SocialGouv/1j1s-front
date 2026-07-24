@@ -18,10 +18,10 @@ export class CachedHttpClientService {
 		config?: AxiosRequestConfig,
 	): Promise<CacheAxiosResponse<Response>> {
 		try {
-			return this.client.get<Response>(endpoint, config);
+			return await this.client.get<Response>(endpoint, config);
 		} catch (e) {
 			if (axios.isAxiosError(e) && e.response) {
-				throw new HttpError(e.response.status, e.response.data.message, e.response);
+				throw new HttpError(e.response.status, e.response.data?.message, e.response);
 			}
 			throw e;
 		}
@@ -29,10 +29,10 @@ export class CachedHttpClientService {
 
 	async post<Body>(endpoint: string, body: Body) {
 		try {
-			return this.client.post(endpoint, body);
+			return await this.client.post(endpoint, body);
 		} catch (e) {
 			if (axios.isAxiosError(e) && e.response) {
-				throw new HttpError(e.response.status, e.response.data.message, e.response);
+				throw new HttpError(e.response.status, e.response.data?.message, e.response);
 			}
 			throw e;
 		}

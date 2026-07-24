@@ -45,7 +45,7 @@ export default function FormationAlternancePage(props: RechercherFormationAppren
 
 const formationQuerySchema = Joi.object({
 	codeCommune: Joi.string().required(),
-	codeRomes: transformQueryToArray.array().items(Joi.string()).required(),
+	codeRomes: transformQueryToArray.array().items(Joi.string().pattern(/^[A-Za-z]\d{4}$/)).min(1).required(),
 	distanceCommune: Joi.string().required(),
 	latitudeCommune: Joi.string().required(),
 	longitudeCommune: Joi.string().required(),
@@ -79,6 +79,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 	}
 
 	if (formationQuerySchema.validate(query).error) {
+		changeStatusCodeWhenErrorOcurred(context, ErreurMetier.DEMANDE_INCORRECTE);
 		return {
 			props: {
 				erreurRecherche: ErreurMetier.DEMANDE_INCORRECTE,

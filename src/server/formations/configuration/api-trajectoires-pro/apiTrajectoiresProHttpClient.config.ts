@@ -5,7 +5,8 @@ import { ConfigurationService } from '~/server/services/configuration.service';
 import { AuthenticatedHttpClientConfig } from '~/server/services/http/authenticatedHttpClient.service';
 
 export function getApiTrajectoiresProConfig(configurationService: ConfigurationService): AuthenticatedHttpClientConfig {
-	const authenticationUrl = `${configurationService.getConfiguration().API_TRAJECTOIRES_PRO_URL}/auth/token`;
+	const baseUrl = configurationService.getConfiguration().API_TRAJECTOIRES_PRO_URL.replace(/\/+$/, '');
+	const authenticationUrl = `${baseUrl}/auth/token`;
 	const clientId = configurationService.getConfiguration().API_TRAJECTOIRES_PRO_CLIENT_ID;
 	const clientSecret = configurationService.getConfiguration().API_TRAJECTOIRES_PRO_CLIENT_SECRET;
 	const apiKey = configurationService.getConfiguration().API_TRAJECTOIRES_PRO_API_KEY;

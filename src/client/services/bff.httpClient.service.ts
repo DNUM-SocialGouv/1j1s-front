@@ -5,6 +5,7 @@ import { HttpClientService } from '~/client/services/httpClient.service';
 import { LoggerService } from '~/client/services/logger.service';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { ErreurTechnique } from '~/server/errors/erreurTechnique.types';
 
 export class BffHttpClientService implements HttpClientService {
 	readonly client: AxiosInstance;
@@ -61,6 +62,9 @@ export class BffHttpClientService implements HttpClientService {
 			}
 			if (e.response?.status === 400) {
 				return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
+			}
+			if (e.response?.status === 429) {
+				return createFailure(ErreurTechnique.TOO_MANY_REQUESTS);
 			}
 			if (e.response?.status === 404) {
 				return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
