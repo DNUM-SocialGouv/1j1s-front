@@ -104,10 +104,10 @@ export interface ApiEuresEmploiEuropeDetailXMLPositionQualifications {
 }
 
 export interface ApiEuresEmploiEuropeDetailXMLPositionCompetency {
-	TaxonomyID: {
+	TaxonomyID?: {
 		'textContent': string
 	},
-	CompetencyID: {
+	CompetencyID?: {
 		'textContent': string
 	},
 	RequiredProficiencyLevel?: {
@@ -119,11 +119,11 @@ export interface ApiEuresEmploiEuropeDetailXMLPositionCompetency {
 }
 
 export interface ApiEuresEmploiEuropeDetailXMLCompetencyDimension {
-	CompetencyDimensionTypeCode: {
+	CompetencyDimensionTypeCode?: {
 		'textContent': string
 	}
-	Score: {
-		ScoreText: {
+	Score?: {
+		ScoreText?: {
 			'textContent': LEVEL_CODE
 		}
 	}

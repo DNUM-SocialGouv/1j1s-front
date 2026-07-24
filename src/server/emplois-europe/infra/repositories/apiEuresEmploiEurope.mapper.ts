@@ -39,7 +39,7 @@ export class ApiEuresEmploiEuropeMapper {
 	}
 
 	private findItemByHandle(items: Array<ApiEuresEmploiEuropeDetailItem>, handle: string) {
-		return items.find((detail) => detail.jobVacancy.header.handle === handle);
+		return items.find((detail) => detail?.jobVacancy?.header?.handle === handle);
 	}
 
 	public mapRechercheEmploiEurope(reponseRecherche: ApiEuresEmploiEuropeRechercheResponse, reponseDetailRecherche: ApiEuresEmploiEuropeDetailResponse): ResultatRechercheEmploiEurope {
@@ -56,7 +56,7 @@ export class ApiEuresEmploiEuropeMapper {
 
 
 	public mapDetailOffre = (handle: string, item?: ApiEuresEmploiEuropeDetailItem): EmploiEurope => {
-		const itemDetailParsed = this.xmlService.parse<ApiEuresEmploiEuropeDetailXML>(item?.jobVacancy.hrxml);
+		const itemDetailParsed = this.xmlService.parse<ApiEuresEmploiEuropeDetailXML>(item?.jobVacancy?.hrxml);
 
 		const positionOpening = this.getElementOrFirstElementInArray(itemDetailParsed?.PositionOpening);
 		const positionProfile = this.getElementOrFirstElementInArray(positionOpening?.PositionProfile);
@@ -93,7 +93,7 @@ export class ApiEuresEmploiEuropeMapper {
 			tempsDeTravail,
 			titre,
 			typeContrat,
-			urlCandidature: item?.related.urls[0].urlValue,
+			urlCandidature: item?.related?.urls?.[0]?.urlValue,
 		};
 	};
 
@@ -221,10 +221,13 @@ export class ApiEuresEmploiEuropeMapper {
 		const listPositionsCompetencies = this.transformElementToArray(positionsCompetencies);
 
 		listPositionsCompetencies.map((positionCompetency) => {
-			const taxonomyID = this.xmlService.getTextValue(positionCompetency.TaxonomyID);
-			if (taxonomyID.toLowerCase() !== TAXONOMY_ID_LANGUAGE) return;
+			const taxonomyID = positionCompetency.TaxonomyID && this.xmlService.getTextValue(positionCompetency.TaxonomyID);
+			if (taxonomyID?.toLowerCase() !== TAXONOMY_ID_LANGUAGE) return;
 
-			const compentencyId = this.xmlService.getTextValue(positionCompetency.CompetencyID).toLowerCase();
+			const competencyID = positionCompetency.CompetencyID;
+			if (!competencyID) return;
+
+			const compentencyId = this.xmlService.getTextValue(competencyID).toLowerCase();
 			const languageName = findLanguageNameCompetency(compentencyId);
 			if (!languageName) return;
 
@@ -260,11 +263,11 @@ export class ApiEuresEmploiEuropeMapper {
 		const languageCompetenciesDetails: Array<LanguageSpecificationCompetence> = [];
 
 		competencies?.map((competencyDimension) => {
-			const scoreText = this.xmlService.getTextValue(competencyDimension.Score.ScoreText);
-			const competencyLevel = findCompetencyLevel(scoreText);
+			const scoreText = competencyDimension.Score?.ScoreText && this.xmlService.getTextValue(competencyDimension.Score.ScoreText);
+			const competencyLevel = scoreText && findCompetencyLevel(scoreText);
 
-			const competencyDimensionText = this.xmlService.getTextValue(competencyDimension.CompetencyDimensionTypeCode);
-			const competencyName = findCompetencyName(competencyDimensionText);
+			const competencyDimensionText = competencyDimension.CompetencyDimensionTypeCode && this.xmlService.getTextValue(competencyDimension.CompetencyDimensionTypeCode);
+			const competencyName = competencyDimensionText && findCompetencyName(competencyDimensionText);
 
 			if (competencyLevel && competencyName) {
 				languageCompetenciesDetails.push({

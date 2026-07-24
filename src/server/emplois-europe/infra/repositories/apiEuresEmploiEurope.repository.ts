@@ -98,7 +98,7 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 	}
 
 	private findItemByHandle(items: Array<ApiEuresEmploiEuropeDetailItem>, handle: string) {
-		return items.find((detail) => detail.jobVacancy.header.handle === handle);
+		return items.find((detail) => detail?.jobVacancy?.header?.handle === handle);
 	}
 
 	async get(handle: string): Promise<Either<EmploiEurope>> {
