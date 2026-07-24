@@ -15,14 +15,14 @@ vi.mock('react-instantsearch');
 const spyed = vi.mocked(useRefinementList);
 
 describe('MeilisearchComboboxLocalisation', () => {
-	it('l‘utilisateur peut intéragir avec le combobox et voir les options', async () => {
+	it('délègue le filtrage à Meilisearch via searchForItems et affiche les options renvoyées', async () => {
+		const searchForItems = vi.fn();
 		spyed.mockImplementation(() => mockUseRefinementList({
 			items: [
 				generateRefinementListItem({ value: 'Paris' }),
-				generateRefinementListItem({ value: 'Marseille' }),
-				generateRefinementListItem({ value: 'PACA' }),
-				generateRefinementListItem({ value: 'Le Vésinet' })],
+				generateRefinementListItem({ value: 'PACA' })],
 			refine: vi.fn(),
+			searchForItems,
 		}));
 		const user = userEvent.setup();
 
@@ -31,6 +31,7 @@ describe('MeilisearchComboboxLocalisation', () => {
 		await user.type(combobox, 'p');
 
 		expect(combobox).toHaveValue('p');
+		expect(searchForItems).toHaveBeenCalledWith('p');
 		const options = screen.getAllByRole('option');
 		expect(options.length).toBe(2);
 		expect(options[0]).toHaveTextContent('Paris');
