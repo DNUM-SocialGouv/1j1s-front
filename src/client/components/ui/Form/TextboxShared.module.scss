@@ -41,7 +41,7 @@ $border-width-compensation: calc($error-border-width - $border-width);
     @extend %disabled;
   }
 
-  &[data-touched="true"]:invalid {
+  &:user-invalid {
     @extend %error;
   }
   &:valid,
