@@ -1,3 +1,4 @@
+import '@gouvfr/dsfr/dist/dsfr.min.css';
 import '~/styles/main.scss';
 import '../client/dsfr/styles.css';
 
