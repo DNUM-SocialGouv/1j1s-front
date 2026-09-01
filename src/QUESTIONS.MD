@@ -12,8 +12,12 @@
 - On met en place un CLAUDE.md ?
 
 
+## PAGE CV
+- Est-ce que le wording du breadcrumb est correct ? mon - son - personnalisé - ... 
+
 ## FOOTER
 - on garde les tests du footer ? Vous les trouvez pertinent ?
+- faut-il ajouter aria-current="page" pour l'a11y
 - pour métier:
     - Quid du pre-footer « Une initiative du Gouvernement… » ?
     - Quid du « France Relance » ?
