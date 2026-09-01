@@ -23,7 +23,7 @@ const helpfulLinks: Array<FooterLink> = [
 
 export function Footer() {
 	return (
-		<footer className="fr-footer fr-pb-4w" role="contentinfo">
+		<footer id="footer" className="fr-footer fr-pb-4w" role="contentinfo">
 			<div className="fr-container">
 				<div className="fr-footer__body">
 					<div className="fr-footer__brand fr-enlarge-link">
