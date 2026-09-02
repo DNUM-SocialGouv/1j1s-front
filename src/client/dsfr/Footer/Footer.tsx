@@ -34,7 +34,7 @@ export function Footer() {
 						</p>
 					</div>
 					<div className="fr-footer__content">
-						<ul aria-label="Liens externes" className="fr-footer__content-list">
+						<ul className="fr-footer__content-list">
 							{externalLinks.map((link) => (
 								<li className="fr-footer__content-item" key={link.title}>
 									<Link href={link.url} className="fr-footer__content-link" prefetch={false}>
@@ -46,7 +46,7 @@ export function Footer() {
 					</div>
 				</div>
 				<div className="fr-footer__bottom">
-					<ul aria-label="Liens utiles" className="fr-footer__bottom-list">
+					<ul className="fr-footer__bottom-list">
 						{helpfulLinks.map(link => (
 							<li className="fr-footer__bottom-item" key={link.title}>
 								<Link href={link.url} className="fr-footer__bottom-link" prefetch={false}>{link.title}</Link>
