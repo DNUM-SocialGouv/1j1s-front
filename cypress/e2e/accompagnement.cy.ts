@@ -27,12 +27,8 @@ describe('Parcours Accompagnement', () => {
 
 				cy.findByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' }).type('par');
 				cy.wait('@get-communes');
-				cy.findByRole('listbox', { name: 'communes' })
-					.within(() => cy.findAllByRole('option').first().click());
-
-				cy.findByRole('combobox', { name: 'Type d‘accompagnement Exemple : Missions locales' }).click();
-				cy.findByRole('listbox')
-					.within(() => cy.findAllByRole('option').first().click());
+        cy.get('li[role="option"]').first().click()
+				cy.findByRole('combobox', { name: 'Type d‘accompagnement Exemple : Missions locales' }).select(1);
 
 				const apiResponse = [
 					anEtablissementAccompagnement({ id: '1' }),
@@ -64,12 +60,9 @@ describe('Parcours Accompagnement', () => {
 
 				cy.findByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' }).type('par');
 				cy.wait('@get-communes');
-				cy.findByRole('listbox', { name: 'communes' })
-					.within(() => cy.findAllByRole('option').first().click());
+        cy.get('li[role="option"]').first().click()
 
-				cy.findByRole('combobox', { name: 'Type d‘accompagnement Exemple : Missions locales' }).click();
-				cy.findByRole('listbox')
-					.within(() => cy.findAllByRole('option').first().click());
+				cy.findByRole('combobox', { name: 'Type d‘accompagnement Exemple : Missions locales' }).select(1);
 
 				cy.intercept(
 					'GET',
@@ -91,8 +84,7 @@ describe('Parcours Accompagnement', () => {
 				cy.findByRole('textbox', { name: 'Nom Exemple : Dupont' }).type('Doe', { force: true });
 				cy.findByRole('textbox', { name: /Adresse e-mail/ }).type('john.doe@email.com');
 				cy.findByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }).type('0606060606');
-				cy.findByRole('combobox', { name: 'Age Exemple : 16 ans' }).click();
-				cy.findByRole('option', { name: '23 ans' }).click();
+				cy.findByRole('combobox', { name: 'Age Exemple : 16 ans' }).select('23 ans');
 
 				cy.intercept({
 					method: 'GET',

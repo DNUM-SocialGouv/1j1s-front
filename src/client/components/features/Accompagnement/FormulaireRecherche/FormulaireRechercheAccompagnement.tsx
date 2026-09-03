@@ -70,13 +70,9 @@ export function FormulaireRechercheAccompagnement() {
 						<Champ.Input
 							render={SelectSimple}
 							required
-							optionsAriaLabel={'type d‘accompagnement'}
+							optionsList={typeAccompagnementListe}
 							name="typeAccompagnement"
-							defaultValue={typeAccompagnement}>
-							{typeAccompagnementListe.map((option) =>
-								<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
-							)}
-						</Champ.Input>
+							defaultValue={typeAccompagnement} />
 						<Champ.Error />
 					</Champ>
 

@@ -110,12 +110,10 @@ describe('RechercherMission', () => {
 				const user = userEvent.setup();
 				const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 				await user.type(comboboxCommune, 'Pari');
-				const resultListCommune = await screen.findAllByRole('option');
-				await user.click(resultListCommune[0]);
+				const communeOption = await screen.findByRole('option', { name: 'Paris (75006)' });
+				await user.click(communeOption);
 				const selectRadius = screen.getByRole('combobox', { name: 'Rayon Exemple : 30 km' });
-				await user.click(selectRadius);
-
-				expect(screen.getByRole('option', { name: '30 km' })).toBeVisible();
+				expect(selectRadius).toHaveDisplayValue('30 km');
 				expect(await screen.findByText('2 missions de service civique')).toBeInTheDocument();
 				// eslint-disable-next-line testing-library/no-node-access
 				expect((await screen.findAllByRole('list', { name: /Offre pour/ }))[0].children).toHaveLength(2);
@@ -187,13 +185,10 @@ describe('RechercherMission', () => {
 				const user = userEvent.setup();
 				const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 				await user.type(comboboxCommune, 'Pari');
-				const resultListCommune = await screen.findAllByRole('option');
-				await user.click(resultListCommune[0]);
+				const communeOption = await screen.findByRole('option', { name: 'Paris (75006)' });
+				await user.click(communeOption);
 				const selectRadius = screen.getByRole('combobox', { name: 'Rayon Exemple : 30 km' });
-				await user.click(selectRadius);
-
-				expect(screen.getByRole('option', { name: '100 km' })).toHaveAttribute('aria-selected', 'true');
-				;
+				expect(selectRadius).toHaveDisplayValue('100 km');
 				expect(await screen.findByText('2 missions de bénévolat')).toBeInTheDocument();
 				// eslint-disable-next-line testing-library/no-node-access
 				expect((await screen.findAllByRole('list', { name: /Offre pour/ }))[0].children).toHaveLength(2);

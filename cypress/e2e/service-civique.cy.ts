@@ -14,8 +14,7 @@ context('Parcours service civique', () => {
 			cy.visit('/service-civique');
 		});
 		it('affiche la liste des résultats', () => {
-			cy.findByRole('combobox', { name: 'Domaine Exemple : Culture et loisirs' }).click();
-			cy.findAllByRole('option').first().click();
+			cy.findByRole('combobox', { name: 'Domaine Exemple : Culture et loisirs' }).select(1);
 
 			cy.intercept(
 				'GET',
@@ -34,7 +33,7 @@ context('Parcours service civique', () => {
 			cy.findByRole('combobox', { name: /Localisation/i }).type('paris');
 			cy.wait('@recherche-communes');
 
-			cy.findAllByRole('option').first().click();
+      cy.get('li[role="option"]').first().click()
 
 			cy.intercept('GET', '/api/services-civique*', JSON.stringify(aRésultatRechercheMission()))
 				.as('recherche-services-civique');

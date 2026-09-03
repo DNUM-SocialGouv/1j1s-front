@@ -250,6 +250,7 @@ export function SelectMultiple({
 						value={optionValue} />
 				))}
 				<button
+					className='fr-input'
 					type="button"
 					role="combobox"
 					aria-controls={listboxId}
