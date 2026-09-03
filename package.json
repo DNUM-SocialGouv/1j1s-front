@@ -97,7 +97,7 @@
   },
   "overrides": {
     "jest-axe": {
-      "axe-core": "4.10.2"
+      "axe-core": "4.13.0"
     },
     "@socialgouv/eslint-config-recommended": {
       "eslint": "^9.39.2"
