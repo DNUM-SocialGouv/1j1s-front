@@ -4,9 +4,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import {
 	FormulaireRechercheFormationInitiale,
 } from '~/client/components/features/FormationInitiale/Rechercher/FormulaireRecherche/FormulaireRechercheFormationInitiale';
-import {
-	ListeDesServicesInteressants,
-} from '~/client/components/features/FormationInitiale/Rechercher/ServicesInteressants/ListeDesServicesInteressants';
 import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
@@ -27,6 +24,12 @@ import {
 	FormationInitiale,
 	NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE,
 } from '~/server/formations-initiales/domain/formationInitiale';
+import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { CarifOrefPartner } from '~/client/components/features/ServiceCard/CarifOrefPartner';
+import { FormationsEnApprentissageCard } from '~/client/components/features/ServiceCard/FormationsEnApprentissageCard';
+import { MonCompteFormationPartner } from '~/client/components/features/ServiceCard/MonCompteFormationPartner';
+import { ParcourSupPartner } from '~/client/components/features/ServiceCard/ParcourSupPartner';
+import { PixPartner } from '~/client/components/features/ServiceCard/PixPartner';
 
 const PREFIX_TITRE_PAGE = 'Rechercher une formation initiale';
 
@@ -95,7 +98,13 @@ export function RechercherFormationInitiale() {
 					paginationOffset={NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE}
 					listeSolutionElement={<ListeFormationInitiale resultatList={resultatList} />} />
 
-				<ListeDesServicesInteressants />
+				<ServiceCardList heading="Des services faits pour vous">
+					<CarifOrefPartner />
+					<FormationsEnApprentissageCard />
+					<ParcourSupPartner />
+					<MonCompteFormationPartner />
+					<PixPartner />
+				</ServiceCardList>
 			</main>
 		</>
 	);

@@ -15,7 +15,6 @@ import { RechercherSolutionLayout } from '~/client/components/layouts/Rechercher
 import {
 	ResultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
-import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import {
 	formatLibelleLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/formatLibelleLocalisation';
@@ -99,7 +98,6 @@ export function RechercherJobÉtudiant(props: RechercherJobEtudiantProps) {
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
 					maxPage={MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL - 1}
 					listeSolutionElement={<ListeOffreJobÉtudiant résultatList={jobÉtudiantList} />} />
-				<EnTete heading="Découvrez des services faits pour vous" />
 				<ServiceCardList>
 					<LaBonneBoitePartner />
 					<OnisepMetierPartner />

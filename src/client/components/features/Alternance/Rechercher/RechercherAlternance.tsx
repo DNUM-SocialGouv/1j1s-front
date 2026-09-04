@@ -11,7 +11,8 @@ import {
 import {
 	ListeSolutionAlternanceEntreprise,
 } from '~/client/components/features/Alternance/Rechercher/Resultats/ListeSolutionAlternanceEntreprise';
-import { ServiceCard, ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { Carte } from '~/client/dsfr';
 import { DecouvrirApprentissage } from '~/client/components/features/ServiceCard/DecouvrirApprentissage';
 import { OnisepMetierPartner } from '~/client/components/features/ServiceCard/OnisepMetierPartner';
 import { PassPartner } from '~/client/components/features/ServiceCard/PassPartner';
@@ -19,7 +20,6 @@ import { Head } from '~/client/components/head/Head';
 import {
 	RechercherSolutionLayoutWithTabs,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayoutWithTabs';
-import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
@@ -126,20 +126,16 @@ export default function RechercherAlternance(props: RechercherAlternanceProps) {
 						messageResultatRecherche: getMessageResultatRecherche(alternanceList.entrepriseList.length),
 						nombreDeSolutions: alternanceList.entrepriseList.length,
 					}]} />
-				<EnTete heading="Consultez nos articles" />
-				<ServiceCardList aria-label="Liste de nos articles">
-					<ServiceCard
-						logo="/images/articles/aide-exceptionnelle-apprentissage.svg"
-						imageFit="cover"
-						linkLabel="Lire l‘article"
-						link="/articles/l-aide-a-l-apprentissage-l-atout-qu-il-faut-pour-vos-candidatures"
-						title="Une aide exceptionnelle pour l’apprentissage : l’atout qu’il vous faut pour vos candidatures !"
-						titleAs={'h3'}>
-					Découvrez un argument supplémentaire à avancer pour vous faire embaucher
-					</ServiceCard>
-				</ServiceCardList>
+					<ServiceCardList heading="Consultez nos articles" aria-label="Liste de nos articles">
+						<Carte
+							horizontal
+							imageSrc="/images/articles/aide-exceptionnelle-apprentissage.svg"
+							lien="/articles/l-aide-a-l-apprentissage-l-atout-qu-il-faut-pour-vos-candidatures"
+							titre="Une aide exceptionnelle pour l’apprentissage : l’atout qu’il vous faut pour vos candidatures !">
+						Découvrez un argument supplémentaire à avancer pour vous faire embaucher
+						</Carte>
+					</ServiceCardList>
 
-				<EnTete heading="Découvrez des services faits pour vous" />
 				<ServiceCardList>
 					<DecouvrirApprentissage />
 					<PassPartner />

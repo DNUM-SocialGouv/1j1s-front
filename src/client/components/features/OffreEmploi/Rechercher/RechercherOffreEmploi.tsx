@@ -80,12 +80,12 @@ export function RechercherOffreEmploi(props: RechercherOffreEmploiProps) {
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
 					maxPage={MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL - 1}
 					listeSolutionElement={<ListeOffreEmploi résultatList={offreEmploiList} />} />
-				<EnTete heading="Découvrez des services faits pour vous" />
-				<ServiceCardList>
-					<LaBonneBoitePartner />
-					<OnisepMetierPartner />
-					<ServiceCiviquePartner />
-				</ServiceCardList>
+					
+						<ServiceCardList>
+							<LaBonneBoitePartner />
+							<OnisepMetierPartner />
+							<ServiceCiviquePartner />
+						</ServiceCardList>
 			</main>
 		</>
 	);

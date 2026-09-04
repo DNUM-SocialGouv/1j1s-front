@@ -5,7 +5,6 @@ import { HtmlHeadingTag } from '~/client/components/props';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 import { Tag } from './Tag';
-import { Image } from '../components/ui/Img';
 
 interface CarteProps {
 	titre: string

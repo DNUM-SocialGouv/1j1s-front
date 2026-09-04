@@ -17,7 +17,6 @@ import { EuresPartner } from '~/client/components/features/ServiceCard/EuresPart
 import { ExperiencesEurope } from '~/client/components/features/ServiceCard/ExperiencesEurope';
 import { Head } from '~/client/components/head/Head';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
 import { EmploiEuropeService } from '~/client/services/europe/emploiEurope.service';
@@ -97,13 +96,12 @@ export default function RechercherEmploisEurope() {
 					listeSolutionElement={<ListeResultatsEmploiEurope resultatList={emploiEuropeList} />}
 					messageResultatRecherche={messageResultatRecherche}
 					maxPage={EMPLOIS_EUROPE_LAST_VISIBLE_PAGE_ALLOWED - 1} />
-				<EnTete heading="Découvrez les dispositifs pour vous accompagner dans votre projet" />
-				<ServiceCardList>
-					<EuresPartner />
-					<EurasmusPlusPartner />
-					<AidesFinancieresEurope />
-					<ExperiencesEurope />
-				</ServiceCardList>
+					<ServiceCardList heading="Découvrez les dispositifs pour vous accompagner dans votre projet">
+						<EuresPartner />
+						<EurasmusPlusPartner />
+						<AidesFinancieresEurope />
+						<ExperiencesEurope />
+					</ServiceCardList>
 			</main>
 		</>
 	);

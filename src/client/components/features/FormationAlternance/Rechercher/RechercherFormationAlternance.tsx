@@ -22,7 +22,6 @@ import { RechercherSolutionLayout } from '~/client/components/layouts/Rechercher
 import {
 	ResultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
-import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useFormationQuery } from '~/client/hooks/useFormationQuery';
 import empty from '~/client/utils/empty';
@@ -90,15 +89,14 @@ export default function RechercherFormationAlternance({ resultats: formationAlte
 							})} />
 					)
 					} />
-				<EnTete heading="Découvrez des services faits pour vous" />
-				<ServiceCardList>
-					<DecouvrirApprentissage />
-					<MonCompteFormationPartner />
-					<ParcourSupPartner />
-					<CarifOrefPartner />
-					<PixPartner />
-					<MétierDuSoinPartner />
-				</ServiceCardList>
+					<ServiceCardList>
+						<DecouvrirApprentissage />
+						<MonCompteFormationPartner />
+						<ParcourSupPartner />
+						<CarifOrefPartner />
+						<PixPartner />
+						<MétierDuSoinPartner />
+					</ServiceCardList>
 			</main>
 		</>
 	);

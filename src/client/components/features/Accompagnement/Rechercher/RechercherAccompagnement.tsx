@@ -15,7 +15,6 @@ import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -112,9 +111,9 @@ export function RechercherAccompagnement() {
 					isEtatInitial={empty(accompagnementQuery)}
 					messageResultatRecherche={messageRésultatRecherche}
 					nombreTotalSolutions={établissementAccompagnementList?.length || 0}
-					listeSolutionElement={<ListeÉtablissementAccompagnement résultatList={établissementAccompagnementList} />} />
-				<EnTete heading="Découvrez d’autres services faits pour vous" />
-				<ServiceCardList>
+					listeSolutionElement={<ListeÉtablissementAccompagnement résultatList={établissementAccompagnementList} />}
+				/>
+				<ServiceCardList heading="Découvrez d’autres services faits pour vous">
 					<MissionsLocalesPartner />
 					<InfoJeunesPartner />
 					<FranceTravailPartner />
