@@ -1,4 +1,5 @@
 export { Breadcrumb } from './Breadcrumb';
+export { Button } from './Button';
 export { Carte } from './Carte';
 export { Footer } from './Footer/Footer';
 export { Header } from './Header/Header';
