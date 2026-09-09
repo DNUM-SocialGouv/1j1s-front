@@ -7,7 +7,6 @@ import {
 import {
 	EtiquettesFiltreMission,
 } from '~/client/components/features/Engagement/Rechercher/ResultatsRecherche/EtiquettesFiltreMission';
-import { ListeMissions } from '~/client/components/features/Engagement/Rechercher/ResultatsRecherche/ListeMissions';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { Carte } from '~/client/dsfr';
 import { Head } from '~/client/components/head/Head';
@@ -166,5 +165,24 @@ export function messageNombreResultats({ nombreResultats, isServiceCivique, doma
 		domaine && `pour ${domaine}`,
 	].filter(Boolean)
 		.join(' ');
+}
+
+function ListeMissions({ resultatList, isServiceCivique }: { resultatList: Mission[], isServiceCivique: boolean }) {
+	if (!resultatList.length) return null;
+
+	return (
+		<ul className="fr-grid-row fr-grid-row--gutters" aria-label={isServiceCivique ? 'Offre pour le service civique' : 'Offre pour le bénévolat'}>
+			{resultatList.map((mission: Mission) => (
+				<li key={mission.id} className="fr-col-lg-4 fr-col-md-6 fr-col-12">
+					<Carte
+						titre={mission.titre}
+						lien={isServiceCivique ? `/service-civique/${mission.id}` : `/benevolat/${mission.id}`}
+						tags={mission.étiquetteList}>
+						{mission.nomEntreprise}
+					</Carte>
+				</li>
+			))}
+		</ul>
+	);
 }
 

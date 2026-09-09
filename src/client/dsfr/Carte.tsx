@@ -7,7 +7,7 @@ import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 import { Tag } from './Tag';
 
 interface CarteProps {
-	titre: string
+	titre: string | React.ReactNode
 	lien: string
 	tags?: string[]
 	imageSrc?: string

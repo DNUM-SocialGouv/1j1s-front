@@ -30,7 +30,7 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 		className,
 	} = props;
 
-	const columnClass = colClass ?? `fr-col-${12 / numberOfVisibleItems}`;
+	const columnClass = colClass ?? (numberOfVisibleItems > 0 ? `fr-col-${12 / numberOfVisibleItems}` : 'fr-col-12');
 	const ariaId = useId();
 	const listRef = useRef<HTMLUListElement>(null);
 	const [isOpen, setIsOpen] = useState(false);
@@ -64,7 +64,7 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 		<>
 			{itemListToDisplay.length > 0 && (
 				
-					<ul className='fr-grid-row fr-grid-row--gutters' ref={listRef} tabIndex={-1}>
+					<ul id={`section-${ariaId}`} className='fr-grid-row fr-grid-row--gutters' ref={listRef} tabIndex={-1}>
 						{itemListToDisplay?.map((element, index) =>
 							<li key={index} className={columnClass}>{element}</li>,
 						)}

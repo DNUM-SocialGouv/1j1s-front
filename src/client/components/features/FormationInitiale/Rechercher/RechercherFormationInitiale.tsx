@@ -5,13 +5,8 @@ import {
 	FormulaireRechercheFormationInitiale,
 } from '~/client/components/features/FormationInitiale/Rechercher/FormulaireRecherche/FormulaireRechercheFormationInitiale';
 import { Head } from '~/client/components/head/Head';
-import {
-	ListeRésultatsRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import {
-	ResultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
+import { Carte } from '~/client/dsfr';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useFormationInitialeQuery } from '~/client/hooks/useFormationInitialeQuery';
@@ -127,13 +122,7 @@ interface ListResultatProps {
 }
 
 function ListeFormationInitiale({ resultatList }: ListResultatProps) {
-	if (!resultatList) {
-		return undefined;
-	}
-
-	function getLienOffre(identifiant?: string) {
-		return identifiant ? `/formations-initiales/${encodeURIComponent(identifiant)}` : undefined;
-	}
+	if (!resultatList.length) return null;
 
 	function getTags(formation: FormationInitiale) {
 		const tags = [];
@@ -144,16 +133,17 @@ function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 	}
 
 	return (
-		<ListeRésultatsRechercherSolution aria-label="Formations Initiales">
-			{resultatList.map((formation: FormationInitiale) => (
-				<li key={formation.libelle}>
-					<ResultatRechercherSolution
-						étiquetteOffreList={getTags(formation)}
-						intituléOffre={formation.libelle}
-						logo={'/images/logos/fallback.svg'}
-						lienOffre={getLienOffre(formation.identifiant)} />
-				</li>
-			))}
-		</ListeRésultatsRechercherSolution>
+		<ul className="fr-grid-row fr-grid-row--gutters" aria-label="Formations Initiales">
+			{resultatList
+				.filter((formation) => formation.identifiant)
+				.map((formation: FormationInitiale) => (
+					<li key={formation.libelle} className="fr-col-lg-4 fr-col-md-6 fr-col-12">
+						<Carte
+							titre={formation.libelle}
+							lien={`/formations-initiales/${encodeURIComponent(formation.identifiant!)}`}
+							tags={getTags(formation)} />
+					</li>
+				))}
+		</ul>
 	);
 }

@@ -5,11 +5,10 @@ import {
 	FormulaireRechercheEmploisEurope,
 } from '~/client/components/features/EmploisEurope/FormulaireRecherche/FormulaireRechercheEmploisEurope';
 import {
-	ListeResultatsEmploiEurope,
-} from '~/client/components/features/EmploisEurope/FormulaireRecherche/ListeResultatsEmploiEurope';
-import {
 	EtiquettesFiltresRecherche,
 } from '~/client/components/features/EmploisEurope/Rechercher/EtiquettesFiltresRecherche';
+import { getTagsFromAnnonce } from '~/client/components/features/EmploisEurope/tags.utils';
+import { Carte } from '~/client/dsfr';
 import { AidesFinancieresEurope } from '~/client/components/features/ServiceCard/AidesFinancieresEurope';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { EurasmusPlusPartner } from '~/client/components/features/ServiceCard/ErasmusPlusPartner';
@@ -104,5 +103,24 @@ export default function RechercherEmploisEurope() {
 					</ServiceCardList>
 			</main>
 		</>
+	);
+}
+
+function ListeResultatsEmploiEurope({ resultatList }: { resultatList: EmploiEurope[] }) {
+	if (!resultatList.length) return null;
+
+	return (
+		<ul className="fr-grid-row fr-grid-row--gutters" aria-label="Offres d'emplois en Europe">
+			{resultatList.map((emploiEurope) => (
+				<li key={emploiEurope.id} className="fr-col-lg-4 fr-col-md-6 fr-col-12">
+					<Carte
+						titre={emploiEurope.titre ? <span lang={emploiEurope.codeLangueDeLOffre ?? ''}>{emploiEurope.titre}</span> : "Offre d'emploi sans titre"}
+						lien={`/emplois-europe/${emploiEurope.id}`}
+						tags={getTagsFromAnnonce(emploiEurope)}>
+						{emploiEurope.nomEntreprise}
+					</Carte>
+				</li>
+			))}
+		</ul>
 	);
 }

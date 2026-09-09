@@ -9,13 +9,8 @@ import { LaBonneBoitePartner } from '~/client/components/features/ServiceCard/La
 import { OnisepMetierPartner } from '~/client/components/features/ServiceCard/OnisepMetierPartner';
 import { ServiceCiviquePartner } from '~/client/components/features/ServiceCard/ServiceCiviquePartner';
 import { Head } from '~/client/components/head/Head';
-import {
-	ListeRésultatsRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import {
-	ResultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
+import { Carte } from '~/client/dsfr';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
@@ -33,7 +28,6 @@ import {
 const FormulaireRechercheOffreEmploi = dynamic(() => import('../FormulaireRecherche/FormulaireRechercheOffreEmploi').then((mod) => mod.FormulaireRechercheOffreEmploi), { ssr: false });
 
 const PREFIX_TITRE_PAGE = 'Rechercher un emploi';
-const LOGO_FRANCE_TRAVAIL = '/images/logos/france-travail.svg';
 
 interface RechercherOffreEmploiProps {
 	erreurRecherche?: Erreur
@@ -96,24 +90,21 @@ interface ListeRésultatProps {
 }
 
 function ListeOffreEmploi({ résultatList }: ListeRésultatProps) {
-	if (!résultatList.length) {
-		return undefined;
-	}
+	if (!résultatList.length) return null;
 
 	return (
-		<ListeRésultatsRechercherSolution aria-label="Offres d‘emplois">
+		<ul className="fr-grid-row fr-grid-row--gutters" aria-label="Offres d’emplois">
 			{résultatList.map((offreEmploi: Offre) => (
-				<li key={offreEmploi.id}>
-					<ResultatRechercherSolution
-						étiquetteOffreList={offreEmploi.étiquetteList}
-						intituléOffre={offreEmploi.intitulé}
-						lienOffre={`/emplois/${offreEmploi.id}`}
-						logo={offreEmploi.entreprise.logo || LOGO_FRANCE_TRAVAIL}
-						logoAlt={offreEmploi.entreprise.logo ? '' : 'France travail'}
-						sousTitreOffre={offreEmploi.entreprise.nom} />
+				<li key={offreEmploi.id} className="fr-col-lg-4 fr-col-md-6 fr-col-12">
+					<Carte
+						titre={offreEmploi.intitulé}
+						lien={`/emplois/${offreEmploi.id}`}
+						tags={offreEmploi.étiquetteList}>
+						{offreEmploi.entreprise.nom}
+					</Carte>
 				</li>
 			))}
-		</ListeRésultatsRechercherSolution>
+		</ul>
 	);
 }
 

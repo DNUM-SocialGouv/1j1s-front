@@ -11,9 +11,6 @@ import { FranceTravailPartner } from '~/client/components/features/ServiceCard/F
 import { InfoJeunesPartner } from '~/client/components/features/ServiceCard/InfoJeunesPartner';
 import { MissionsLocalesPartner } from '~/client/components/features/ServiceCard/MissionsLocalesPartner';
 import { Head } from '~/client/components/head/Head';
-import {
-	ListeRésultatsRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
@@ -141,18 +138,16 @@ interface ListeRésultatProps {
 }
 
 function ListeÉtablissementAccompagnement({ résultatList }: ListeRésultatProps) {
-	if (!résultatList.length) {
-		return undefined;
-	}
+	if (!résultatList.length) return null;
 
 	return (
-		<ListeRésultatsRechercherSolution aria-label="Établissements d‘accompagnement">
+		<ul className="fr-grid-row fr-grid-row--gutters" aria-label="Établissements d’accompagnement">
 			{résultatList.map((établissementAccompagnement: EtablissementAccompagnement) => (
-				<li key={établissementAccompagnement.id}>
+				<li key={établissementAccompagnement.id} className="fr-col-lg-4 fr-col-md-6 fr-col-12">
 					<RésultatRechercherAccompagnement etablissement={établissementAccompagnement} />
 				</li>
 			))}
-		</ListeRésultatsRechercherSolution>
+		</ul>
 	);
 }
 
