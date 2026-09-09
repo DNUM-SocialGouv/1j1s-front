@@ -2,6 +2,8 @@
 
 ## GLOBAL
 - On met en place un CLAUDE.md ?
+- /stages-3e-et-2de ça parle à quelqu'un c'est obsolète ou event ?
+- /apprentissage redirect LBA
 
 ## HEADER
 - Quid du "je donne mon avis" dans le bandeau information importante sous le header
