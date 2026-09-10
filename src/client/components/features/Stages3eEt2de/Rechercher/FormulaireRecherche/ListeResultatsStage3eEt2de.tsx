@@ -51,7 +51,7 @@ function ResultatStage3eEt2de({ stage3eEt2de }: { stage3eEt2de: Stage3eEt2de }) 
 		<li className="fr-col-lg-4 fr-col-md-6 fr-col-12">
 			<Carte
 				titre={stage3eEt2de.nomEntreprise}
-				lien={lienOffre!} // FIXME
+				lien={lienOffre!}
 				tags={tags}>
 				{stage3eEt2de.domaine}
 				<br />

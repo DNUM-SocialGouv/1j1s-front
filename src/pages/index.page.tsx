@@ -248,7 +248,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 						<div className="fr-col-lg-6 fr-col-12 fr-py-4w">
 							<h1>À chacun<br/> sa solution</h1>
 							<p>Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !</p>
-							<Link href='/actualites' className='fr-btn'>
+							<Link href='/espace-jeune' className='fr-btn'>
 								Voir toutes les actualités
 							</Link>
 						</div>

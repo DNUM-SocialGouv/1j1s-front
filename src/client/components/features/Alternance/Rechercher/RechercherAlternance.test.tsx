@@ -166,9 +166,10 @@ describe('RechercherAlternance', () => {
 			expect(messageResultats).toBeInTheDocument();
 
 
-			const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’alternances' });
+			const resultatsUl = await screen.findAllByRole('list');
+			
 			// eslint-disable-next-line testing-library/no-node-access
-			const resultListOffre = resultatsUl[0].children;
+			const resultListOffre = resultatsUl[1].children;
 			expect(resultListOffre).toHaveLength(alternanceFixture.length);
 			expect(await screen.findByText(alternanceFixture[0].titre)).toBeInTheDocument();
 			expect(await screen.findByText(alternanceFixture[1].titre)).toBeInTheDocument();

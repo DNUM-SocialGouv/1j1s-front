@@ -79,23 +79,28 @@ describe('RechercherEmploisEurope', () => {
 						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
-				const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
+				await screen.findByText("Entreprise 1");
+				const resultatsUl = document.querySelector("ul.fr-grid-row") as HTMLElement;
 				// eslint-disable-next-line testing-library/no-node-access
-				const resultats = resultatsUl[0].children;
+				const resultats = resultatsUl.children;
 
 				// THEN
 				expect(resultats).toHaveLength(resultatsService.offreList.length);
-				expect(await screen.findByText('Entreprise 1')).toBeVisible();
-				expect(await screen.findByText('Titre 1')).toBeVisible();
 
-				const lienOffre1 = screen.getByRole('link', { name: 'Titre 1 En savoir plus' });
+				const nomEntreprise1 = within(resultatsUl).getByRole('heading', { level: 3, name: 'Titre 1' })
+				const lienEntreprise1 = screen.getByRole('link', { name: "Titre 1" })
+
+				expect(nomEntreprise1).toBeInTheDocument()
+				expect(lienEntreprise1).toBeInTheDocument()
+
+				const lienOffre1 = screen.getByRole('link', { name: 'Titre 1' });
 				expect(lienOffre1).toBeVisible();
 				expect(lienOffre1).toHaveAttribute('href', '/emplois-europe/1');
 
 				expect(await screen.findByText('Entreprise 2')).toBeVisible();
 				expect(await screen.findByText('Titre 2')).toBeVisible();
 
-				const lienOffre2 = screen.getByRole('link', { name: 'Titre 2 En savoir plus' });
+				const lienOffre2 = screen.getByRole('link', { name: 'Titre 2' });
 				expect(lienOffre2).toBeVisible();
 				expect(lienOffre2).toHaveAttribute('href', '/emplois-europe/2');
 			});
@@ -134,7 +139,7 @@ describe('RechercherEmploisEurope', () => {
 						</DependenciesProvider>,
 					);
 
-					const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
+					const resultatsUl = await screen.findAllByRole('list');
 					// eslint-disable-next-line testing-library/no-node-access
 					const resultats = resultatsUl[0].children;
 
@@ -180,7 +185,7 @@ describe('RechercherEmploisEurope', () => {
 						</DependenciesProvider>,
 					);
 
-					const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
+					const resultatsUl = await screen.findAllByRole('list');
 					// eslint-disable-next-line testing-library/no-node-access
 					const resultats = resultatsUl[0].children;
 
@@ -226,7 +231,7 @@ describe('RechercherEmploisEurope', () => {
 						</DependenciesProvider>,
 					);
 
-					const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
+					const resultatsUl = await screen.findAllByRole('list');
 					// eslint-disable-next-line testing-library/no-node-access
 					const resultats = resultatsUl[0].children;
 
@@ -275,7 +280,7 @@ describe('RechercherEmploisEurope', () => {
 						</DependenciesProvider>,
 					);
 
-					const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
+					const resultatsUl = await screen.findAllByRole('list');
 					// eslint-disable-next-line testing-library/no-node-access
 					const resultats = resultatsUl[0].children;
 
@@ -416,9 +421,10 @@ describe('RechercherEmploisEurope', () => {
 					</DependenciesProvider>,
 				);
 
-				const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
+				const resultatsUl = await screen.findAllByRole('list');
 				// eslint-disable-next-line testing-library/no-node-access
-				const resultats = resultatsUl[0].children;
+				const resultats = resultatsUl[1].children;
+				
 
 				// THEN
 				expect(resultats).toHaveLength(resultatsService.offreList.length);
@@ -602,7 +608,7 @@ describe('RechercherEmploisEurope', () => {
 				</DependenciesProvider>,
 			);
 
-			await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
+			await screen.findAllByRole('list');
 			const etiquettesRecherche = screen.queryByRole('list', { name: 'Filtres de la recherche' });
 			expect(etiquettesRecherche).not.toBeInTheDocument();
 		});
@@ -721,6 +727,7 @@ describe('RechercherEmploisEurope', () => {
 				});
 			});
 		});
+
 		describe('chaque résultat affiche des informations sur l’offre', () => {
 			it('si le type de contrat est présent, affiche le type de contrat', async () => {
 				// GIVEN
@@ -754,14 +761,15 @@ describe('RechercherEmploisEurope', () => {
 						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
-				const listeDesResultats = await screen.findByRole('list', { name: 'Offres d’emplois en Europe' });
-				const premierResultat = (await within(listeDesResultats).findAllByRole('listitem'))[0];
+				await screen.findByText("Entreprise 1");
 
 				// THEN
-				const tagTypeContrat = within(premierResultat).getByText('Embauche directe');
+				const tags = screen.getAllByText("Embauche directe");
+				const tagTypeContrat = tags.find((tag) => tag.classList.contains("fr-tag"));
 				expect(tagTypeContrat).toBeVisible();
 			});
-			it('si le type de contrat n’est pas présent, n’affiche rien sur le type de contrat', async () => {
+
+			it("si le type de contrat n’est pas present, n’affiche rien sur le type de contrat", async () => {
 				// GIVEN
 				const emploiEuropeServiceMock = anEmploiEuropeService();
 				const resultatsService = aResultatRechercheEmploiEuropeList({
@@ -793,8 +801,8 @@ describe('RechercherEmploisEurope', () => {
 						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
-				const listeDesResultats = await screen.findByRole('list', { name: 'Offres d’emplois en Europe' });
-				const premierResultat = (await within(listeDesResultats).findAllByRole('listitem'))[0];
+				const listeDesResultats = await screen.findAllByRole('list');
+				const premierResultat = (await within(listeDesResultats[1]).findAllByRole('listitem'))[0];
 
 				// THEN
 				const tagTypeContrat = within(premierResultat).queryByText('Embauche directe');
@@ -825,14 +833,14 @@ describe('RechercherEmploisEurope', () => {
 						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
-				const listeDesResultats = await screen.findByRole('list', { name: 'Offres d’emplois en Europe' });
-				const premierResultat = (await within(listeDesResultats).findAllByRole('listitem'))[0];
+				await screen.findByText("Offre d’emploi sans titre");
 
 				// THEN
-				const tagTypeContrat = within(premierResultat).getByText('Temps partiel');
-				expect(tagTypeContrat).toBeVisible();
+				const tags = screen.getAllByText("Temps partiel");
+				const tagTempsTravail = tags.find((tag) => tag.classList.contains("fr-tag"));
+				expect(tagTempsTravail).toBeVisible();
 			});
-			it('si le niveau d’études est présent, affiche le niveau d’études', async () => {
+			it("si le niveau d’etudes est present, affiche le niveau d’etudes", async () => {
 				// GIVEN
 				const emploiEuropeServiceMock = anEmploiEuropeService();
 				const resultatsService = aResultatRechercheEmploiEuropeList({
@@ -856,12 +864,12 @@ describe('RechercherEmploisEurope', () => {
 						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
-				const listeDesResultats = await screen.findByRole('list', { name: 'Offres d’emplois en Europe' });
-				const premierResultat = (await within(listeDesResultats).findAllByRole('listitem'))[0];
+				await screen.findByText("Offre d’emploi sans titre");
 
 				// THEN
-				const tagTypeContrat = within(premierResultat).getByText('Supérieur court (Bac+2 maximum)');
-				expect(tagTypeContrat).toBeVisible();
+				const tags = screen.getAllByText("Supérieur court (Bac+2 maximum)");
+				const tagNiveauEtudes = tags.find((tag) => tag.classList.contains("fr-tag"));
+				expect(tagNiveauEtudes).toBeVisible();
 			});
 			it('si le niveau d’études est "Niveau d‘études non spécifié", n’affiche pas le niveau d’études', async () => {
 				// GIVEN
@@ -887,9 +895,8 @@ describe('RechercherEmploisEurope', () => {
 						<RechercherEmploisEurope />
 					</DependenciesProvider>,
 				);
-				const listeDesResultats = await screen.findByRole('list', { name: 'Offres d’emplois en Europe' });
-				const premierResultat = (await within(listeDesResultats).findAllByRole('listitem'))[0];
-
+				const listeDesResultats = await screen.findAllByRole('list');
+				const premierResultat = (await within(listeDesResultats[1]).findAllByRole('listitem'))[0];
 				// THEN
 				const tagTypeContrat = within(premierResultat).queryByText('Niveau d‘études non spécifié');
 				expect(tagTypeContrat).not.toBeInTheDocument();

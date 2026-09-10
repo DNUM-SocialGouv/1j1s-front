@@ -110,11 +110,11 @@ function ListeResultatsEmploiEurope({ resultatList }: { resultatList: EmploiEuro
 	if (!resultatList.length) return null;
 
 	return (
-		<ul className="fr-grid-row fr-grid-row--gutters" aria-label="Offres d'emplois en Europe">
+		<ul className="fr-grid-row fr-grid-row--gutters">
 			{resultatList.map((emploiEurope) => (
 				<li key={emploiEurope.id} className="fr-col-lg-4 fr-col-md-6 fr-col-12">
 					<Carte
-						titre={emploiEurope.titre ? <span lang={emploiEurope.codeLangueDeLOffre ?? ''}>{emploiEurope.titre}</span> : "Offre d'emploi sans titre"}
+						titre={emploiEurope.titre ? <span lang={emploiEurope.codeLangueDeLOffre ?? ''}>{emploiEurope.titre}</span> : "Offre d’emploi sans titre"}
 						lien={`/emplois-europe/${emploiEurope.id}`}
 						tags={getTagsFromAnnonce(emploiEurope)}>
 						{emploiEurope.nomEntreprise}
