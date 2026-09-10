@@ -48,7 +48,7 @@ describe('Parcours Accompagnement', () => {
 				cy.findByRole('button', { name: 'Rechercher' }).click();
 				cy.wait('@recherche-accompagnement');
 
-				cy.findByRole('list', { name: 'Établissements d‘accompagnement' })
+				cy.findByRole('list', { name: 'Établissements d’accompagnement' })
 					.children('li')
 					.should('have.length', 2);
 			});
@@ -81,7 +81,7 @@ describe('Parcours Accompagnement', () => {
 				cy.findByRole('button', { name: 'Rechercher' }).click();
 				cy.wait('@recherche-accompagnement');
 
-				cy.findByRole('list', { name: 'Établissements d‘accompagnement' })
+				cy.findByRole('list', { name: 'Établissements d’accompagnement' })
 					.children('li')
 					.should('have.length', 1);
 

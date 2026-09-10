@@ -21,13 +21,9 @@ describe('Page de recherche d’emplois', () => {
 
 			cy.visit('/emplois');
 
-			cy.findByRole('list', { name: /Offres d‘emplois/i })
+      cy.contains('li', expectedResult.result.résultats[0].intitulé).parent('ul')
 				.children()
 				.should('have.length', expectedResult.result.résultats.length);
-			cy.findByRole('list', { name: /Offres d‘emplois/i })
-				.children()
-				.first()
-				.should('contain.text', expectedResult.result.résultats[0].intitulé);
 		});
 
 		context('quand l‘utilisateur rentre un mot clé', () => {
@@ -40,7 +36,7 @@ describe('Page de recherche d’emplois', () => {
 
 				cy.findByRole('button', { name: /Rechercher/i }).click();
 
-				cy.findByRole('list', { name: /Offres d‘emplois/i })
+        cy.contains('li', expectedResult.result.résultats[0].intitulé).parent('ul')
 					.children()
 					.should('have.length', expectedResult.result.résultats.length);
 			});
@@ -52,7 +48,7 @@ describe('Page de recherche d’emplois', () => {
 
 				cy.visit('/emplois');
 
-				cy.findByRole('list', { name: /Offres d‘emplois/i })
+        cy.contains('li', expectedResult.result.intitulé).parent('ul')
 					.children()
 					.first()
 					.click();

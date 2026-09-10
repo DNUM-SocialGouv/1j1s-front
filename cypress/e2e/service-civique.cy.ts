@@ -69,7 +69,7 @@ context('Parcours service civique', () => {
 				.as('get-services-civique');
 
 			cy.findByRole('list', { name: /Offre pour le service civique/i }).children().first()
-				.within(() => cy.findByRole('link', { name: /En savoir plus/i }).click());
+				.within(() => cy.findByRole('link', { name: aRésultatRechercheMission().résultats[0].titre }).click());
 			cy.wait('@get-services-civique');
 
 			cy.findByRole('heading', { level: 1 })
