@@ -29,11 +29,9 @@ export function OffreDeStage(props: HitProps<OffreDeStageIndexée>) {
 		listeEtiquettes.push(etiquetteLocalisation);
 	}
 
-	listeEtiquettes.push(
-		(stage.dureeCategorisee && stage.dureeCategorisee !== 'Non renseigné')
-			? stage.dureeCategorisee
-			: '',
-	);
+	if (stage.dureeCategorisee && stage.dureeCategorisee !== 'Non renseigné') {
+		listeEtiquettes.push(stage.dureeCategorisee);
+	}
 
 	if (stage.dateDeDebutMin) {
 		listeEtiquettes.push(formatDate(stage.dateDeDebutMin, stage.dateDeDebutMax));

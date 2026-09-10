@@ -151,7 +151,8 @@ describe('RechercherFormationInitiale', () => {
 						render(<DependenciesProvider formationInitialeService={aFormationService}>
 							<RechercherFormationInitiale />
 						</DependenciesProvider>);
-						const listeTags = await screen.findByRole('list', { name: 'Caractéristiques de l‘offre' });
+						const formationList = await screen.findByRole('list', { name: 'Formations Initiales' });
+						const listeTags = await within(formationList).findByRole('list');
 						const tags = within(listeTags).getAllByRole('listitem');
 						expect(tags).toHaveLength(3);
 						expect(tags[0]).toHaveTextContent('Certifiante');
@@ -174,7 +175,8 @@ describe('RechercherFormationInitiale', () => {
 							<RechercherFormationInitiale />
 						</DependenciesProvider>);
 
-						const listeTags = await screen.findByRole('list', { name: 'Caractéristiques de l‘offre' });
+						const formationList = await screen.findByRole('list', { name: 'Formations Initiales' });
+						const listeTags = await within(formationList).findByRole('list');
 						const tags = within(listeTags).getAllByRole('listitem');
 						expect(tags).toHaveLength(2);
 						expect(tags[0]).toHaveTextContent('Bac + 2');

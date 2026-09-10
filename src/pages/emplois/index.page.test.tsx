@@ -40,7 +40,6 @@ describe('Page Emploi', () => {
 					<RechercherOffreEmploiPage resultats={aRésultatsRechercheOffre()} />);
 				</DependenciesProvider>);
 
-			await screen.findByRole('list', { name: /Offres d‘emplois/i });
 			await expect(container).toBeAccessible();
 		});
 

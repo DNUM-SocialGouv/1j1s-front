@@ -7,7 +7,7 @@ export function DecouvrirApprentissage() {
 	return (
 		<Carte
 			horizontal
-			titre="L'apprentissage est-il fait pour vous ?"
+			titre="L’apprentissage est-il fait pour vous ?"
 			imageSrc="/images/campagne-apprentissage-jeune-sans-texte.webp"
 			lien={LBA_CANDIDAT_URL}>
 			Découvrez tout sur l’apprentissage et simulez la rémunération que vous pourriez avoir en devenant apprenti&middot;e !

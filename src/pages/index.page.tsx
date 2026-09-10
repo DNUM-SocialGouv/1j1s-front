@@ -6,6 +6,7 @@ import houseSvg from 'public/images/dsfr/house.svg';
 import schoolSvg from 'public/images/dsfr/school.svg';
 import mentalDisabilitiesSvg from 'public/images/dsfr/mental-disabilities.svg';
 import React from 'react';
+import BannieresCampagnes from 'src/client/components/features/BannieresCampagnes';
 
 import { Image } from '~/client/components/ui/Img';
 
@@ -58,13 +59,13 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 
 	const offreCardListContent: CardContent[] = [
 			{
-			children: <p>Plus de 300 000 offres d’emplois sélectionnées spécialement pour vous</p>,
+			children: <>Plus de 300 000 offres d’emplois sélectionnées spécialement pour vous</>,
 			imageUrl: '/images/emploi.webp',
 			link: '/emplois',
 			title: 'Emplois',
 		},
 		{
-			children: <p>Plus de 20 000 offres de stages sélectionnées spécialement pour vous</p>,
+			children: <>Plus de 20 000 offres de stages sélectionnées spécialement pour vous</>,
 			imageUrl: '/images/stage.webp',
 			link: '/stages',
 			linkLabel: 'Voir les offres',
@@ -84,7 +85,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 		},
 		isJobEteCardVisible ?
 			{
-				children: <>Des milliers d’offres de jobs d’été sélectionnées pour vous (durée maximale de 2 mois)</>,
+				children: <>Des milliers d‘offres de jobs d‘été sélectionnées pour vous (durée maximale de 2 mois)</>,
 				imageUrl: "/images/jobs-ete.webp",
 				link: "/jobs-ete",
 				title: "Jobs d’été",
@@ -257,7 +258,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 					</div>
 				</div>
 				<hr className='fr-p-0' />
-
+				<BannieresCampagnes />
 				{!isOldEspaceJeuneActif && actualitesCardListContent.length > 0
 					&& (
 						<section className={styles.section}>
@@ -288,8 +289,8 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 							<SeeMoreItemList
 								itemList={getCardList(offreCardListContent)}
 								numberOfVisibleItems={3}
-								seeMoreAriaLabel={'Voir plus de résultats sur les offres d"emplois'}
-								seeLessAriaLabel={'Voir moins de résultats sur les offres d"emplois'} 
+								seeMoreAriaLabel={'Voir plus de résultats sur les offres d‘emplois'}
+								seeLessAriaLabel={'Voir moins de résultats sur les offres d‘emplois'} 
 								colClass='fr-col-12 fr-col-md-6 fr-col-lg-4'
 							/>
 					</section>

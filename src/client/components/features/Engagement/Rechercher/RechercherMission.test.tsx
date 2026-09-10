@@ -323,7 +323,7 @@ describe('RechercherMission', () => {
 			);
 
 			const serviceCardsUl = await screen.findByRole('list', { name: 'Liste des partenaires et des services' });
-			const serviceCards = within(serviceCardsUl).getAllByTestId(/^card-.*$/);
+			const serviceCards = await within(serviceCardsUl).findAllByRole('listitem');
 			expect(serviceCards).toHaveLength(2);
 			expect(within(serviceCards[0]).getByRole('heading', {
 				level: 3,
@@ -332,7 +332,7 @@ describe('RechercherMission', () => {
 			expect(within(serviceCards[0]).getByRole('link')).toHaveAttribute('href', '/articles/faire-un-service-civique');
 			expect(within(serviceCards[1]).getByRole('heading', {
 				level: 3,
-				name: "L'impact du service civique sur les jeunes",
+				name: "L’impact du service civique sur les jeunes",
 			})).toBeVisible();
 			expect(within(serviceCards[1]).getByRole('link')).toHaveAttribute('href', '/articles/service-civique-jeunes');
 		});
@@ -347,7 +347,7 @@ describe('RechercherMission', () => {
 			);
 
 			const serviceCardsUl = await screen.findByRole('list', { name: 'Liste des partenaires et des services' });
-			const serviceCards = within(serviceCardsUl).getAllByTestId(/^card-.*$/);
+			const serviceCards = await within(serviceCardsUl).findAllByRole('listitem');
 			expect(serviceCards).toHaveLength(1);
 			expect(within(serviceCards[0]).getByRole('heading', {
 				level: 3,

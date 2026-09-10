@@ -6,7 +6,7 @@ export function ParcourSupPartner() {
 	return (
 		<Carte
 			horizontal
-			titre="La plateforme de pré-inscription en première année de l'enseignement supérieur"
+			titre="La plateforme de pré-inscription en première année de l’enseignement supérieur"
 			imageSrc="/images/logos/parcoursup.svg"
 			lien="https://www.parcoursup.fr/">
 			Si vous êtes lycéen(ne) en réorientation, rendez-vous sur Parcoursup, la

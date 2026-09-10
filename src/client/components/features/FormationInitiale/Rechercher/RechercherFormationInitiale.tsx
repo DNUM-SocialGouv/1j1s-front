@@ -91,8 +91,8 @@ export function RechercherFormationInitiale() {
 					messageResultatRecherche={messageResultatRecherche}
 					nombreTotalSolutions={nombreDeResultat}
 					paginationOffset={NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE}
-					listeSolutionElement={<ListeFormationInitiale resultatList={resultatList} />} />
-
+					listeSolutionElement={<ListeFormationInitiale resultatList={resultatList} />}
+				/>
 				<ServiceCardList heading="Des services faits pour vous">
 					<CarifOrefPartner />
 					<FormationsEnApprentissageCard />

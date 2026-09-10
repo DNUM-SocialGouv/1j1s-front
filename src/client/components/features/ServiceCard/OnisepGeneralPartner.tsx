@@ -11,7 +11,7 @@ export function OnisepGeneralPartner({ headingLevel }: OnisepGeneralCardProps) {
 	return (
 		<Carte
 			horizontal
-			titre="Onisep : l'information pour l'orientation"
+			titre="Onisep : l’information pour l’orientation"
 			imageSrc="/images/logos/onisep.svg"
 			lien="https://www.onisep.fr/"
 			titreAs={headingLevel}>

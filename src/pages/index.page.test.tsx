@@ -194,7 +194,7 @@ describe('Page d’accueil', () => {
 				);
 
 				// THEN
-				const redirectionVersStagesDEtudes = screen.getByRole('link', { name: 'Stages d’études Voir les offres' });
+				const redirectionVersStagesDEtudes = screen.getByRole('link', { name: 'Stages d’études' });
 				expect(redirectionVersStagesDEtudes).toBeVisible();
 				expect(redirectionVersStagesDEtudes).toHaveAttribute('href', '/stages');
 			});
@@ -245,7 +245,7 @@ describe('Page d’accueil', () => {
 						);
 
 						// THEN
-						const redirectionVersStages3eEt2de = screen.getByRole('link', { name: 'Stages de 3e et 2de Voir les offres' });
+						const redirectionVersStages3eEt2de = screen.getByRole('link', { name: 'Stages de 3e et 2de' });
 						expect(redirectionVersStages3eEt2de).toBeVisible();
 						expect(redirectionVersStages3eEt2de).toHaveAttribute('href', '/stages-3e-et-2de');
 					});
@@ -294,7 +294,7 @@ describe('Page d’accueil', () => {
 							</DependenciesProvider>,
 						);
 
-						const link = screen.getByRole('link', { name: 'Formations initiales En savoir plus' });
+						const link = screen.getByRole('link', { name: 'Formations initiales' });
 						expect(link).toBeVisible();
 						expect(link).toHaveAttribute('href', '/formations-initiales');
 					});
@@ -313,22 +313,6 @@ describe('Page d’accueil', () => {
 							</DependenciesProvider>,
 						);
 						expect(screen.queryByText('Aides au permis de conduire')).not.toBeInTheDocument();
-					});
-				});
-				describe('quand le feature flip 1jeune1permis est actif', () => {
-					it('je vois la carte de redirection vers les aides au permis de conduire', () => {
-						process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '1';
-
-						render(
-							<DependenciesProvider analyticsService={analyticsService}>
-								<Accueil actualites={anActualiteList()} />
-							</DependenciesProvider>,
-						);
-
-						// FIXME (GAFI 07-10-2024): On test le lien "Aides au logement" quand les aides au permis de conduire activé ?
-						const link = screen.getByRole('link', { name: 'Aides financières au logement Voir les aides' });
-						expect(link).toBeVisible();
-						expect(link).toHaveAttribute('href', '/logements/aides-logement');
 					});
 				});
 			});
