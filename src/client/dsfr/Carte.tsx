@@ -1,14 +1,16 @@
 import classNames from 'classnames';
+import Link from 'next/link';
 import React from 'react';
 
 import { HtmlHeadingTag } from '~/client/components/props';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 import { Tag } from './Tag';
+import { Image } from '../components/ui/Img';
 
 interface CarteProps {
 	titre: string | React.ReactNode
-	lien: string
+	lien?: string
 	tags?: string[]
 	imageSrc?: string
 	imageAlt?: string
@@ -28,8 +30,7 @@ export function Carte({
 	className,
 	horizontal = false,
 }: React.PropsWithChildren<CarteProps>) {
-	const isInternalLink = useIsInternalLink(lien);
-	const externalLinkProps = !isInternalLink ? { target: '_blank', rel: 'noreferrer', title: `${titre} - nouvelle fenêtre` } : {};
+	const isInternalLink = useIsInternalLink(lien || "");
 
 	return (
 		<div className={classNames('fr-card', 'fr-enlarge-link', { 'fr-card--horizontal': horizontal }, className)}>
@@ -49,7 +50,11 @@ export function Carte({
 					{React.createElement(
 						titreAs,
 						{ className: 'fr-card__title' },
-						<a href={lien} {...externalLinkProps}>{titre}</a>
+						lien
+							? (isInternalLink
+								? <Link href={lien}>{titre}</Link>
+								: <a href={lien} target="_blank" rel="noreferrer" title={`${titre} - nouvelle fenêtre`}>{titre}</a>)
+							: titre
 					)}
 					<p className="fr-card__desc">{children}</p>
 				</div>
@@ -57,7 +62,7 @@ export function Carte({
 			{imageSrc && (
 				<div className="fr-card__header">
 					<div className="fr-card__img">
-						<img className="fr-responsive-img" src={imageSrc} alt={imageAlt} />
+						<Image src={imageSrc} alt={imageAlt} className="fr-responsive-img" width={300} height={300}  />
 					</div>
 				</div>
 			)}

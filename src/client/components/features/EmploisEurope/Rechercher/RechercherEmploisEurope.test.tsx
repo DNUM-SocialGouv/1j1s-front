@@ -80,6 +80,7 @@ describe('RechercherEmploisEurope', () => {
 					</DependenciesProvider>,
 				);
 				await screen.findByText("Entreprise 1");
+				// eslint-disable-next-line testing-library/no-node-access
 				const resultatsUl = document.querySelector("ul.fr-grid-row") as HTMLElement;
 				// eslint-disable-next-line testing-library/no-node-access
 				const resultats = resultatsUl.children;

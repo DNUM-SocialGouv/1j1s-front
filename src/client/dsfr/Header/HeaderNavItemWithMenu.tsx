@@ -9,7 +9,6 @@ import {
 	NavigationItemWithChildren,
 } from '~/client/components/layouts/Header/Navigation/NavigationStructure';
 import { Link } from '~/client/components/ui/Link/Link';
-import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 interface HeaderNavItemWithMenuProps {
 	item: NavigationItemWithChildren;
