@@ -7,7 +7,7 @@ import { Input } from '~/client/components/ui/Form/Input';
 import { Champ } from './Champ';
 
 describe('<Champ/>', () => {
-	it('lorsqu‘on séléctionne un élément valide, le message d‘erreur se met bien à jour', async () => {
+	it('lorsqu‘on sélectionne un élément valide, le message d‘erreur se met bien à jour', async () => {
 		const user = userEvent.setup();
 		render(
 			<Champ>
@@ -28,7 +28,7 @@ describe('<Champ/>', () => {
 		expect(input).toHaveAccessibleDescription('');
 	});
 
-	it('accepte un className en plus du style "champ" déjà en place', () => {
+	it('accepte un className', () => {
 		const { container } = render(
 			<Champ className={'someStyle'}>
 				<Champ.Input render={Input} />
@@ -36,7 +36,7 @@ describe('<Champ/>', () => {
 		);
 
 		// eslint-disable-next-line testing-library/no-node-access
-		expect(container.children[0]).toHaveAttribute('class', 'champ someStyle');
+		expect(container.children[0]).toHaveAttribute('class', 'someStyle');
 	});
 
 	it('affiche son contenu', () => {

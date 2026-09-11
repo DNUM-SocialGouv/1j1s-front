@@ -6,9 +6,10 @@ import { ID_TOP_ELEMENT } from '../client/components/ui/Bouée/Bouée';
 
 export default function Document() {
 	return (
-		<Html lang="fr">
+		<Html lang="fr" data-fr-scheme="system">
 			<Head>
 				<meta name="author" content="1jeune1solution" />
+				<meta name="theme-color" content="#000091" />
 				<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png" />
 				<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png" />
 				<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png" />

@@ -132,13 +132,9 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposeeStage
 					className={styles.dureeStage}
 					render={SelectSimple}
 					required
-					optionsAriaLabel={'Durée'}
+					optionsList={dureeStageList}
 					name={StageEnum.DUREE}
-					defaultValue={props.informationsStage?.dureeStage}>
-					{dureeStageList.map((option) =>
-						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
-					)}
-				</Champ.Input>
+					defaultValue={props.informationsStage?.dureeStage} />
 				<Champ.Error />
 			</Champ>
 		</>
@@ -155,13 +151,9 @@ function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposeeStage |
 				</Champ.Label>
 				<Champ.Input
 					render={SelectSimple}
-					optionsAriaLabel={'Domaine'}
+					optionsList={domaineStage}
 					name={StageEnum.DOMAINE}
-					defaultValue={props.informationsStage?.domaineStage}>
-					{domaineStage.map((option) =>
-						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
-					)}
-				</Champ.Input>
+					defaultValue={props.informationsStage?.domaineStage} />
 				<Champ.Error />
 			</Champ>
 

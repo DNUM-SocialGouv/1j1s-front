@@ -8,7 +8,7 @@ import {
 	RéseauÉconomieSocialeEtSolidaireList,
 	RéseauFinancementList,
 } from '~/client/components/features/Entreprendre/Réseau/EntreprendreReseau';
-import { ServiceCard } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { Carte } from '~/client/dsfr';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Accordion } from '~/client/components/ui/Accordion/Accordion';
@@ -109,19 +109,18 @@ export default function Entreprendre() {
 						<h2 className={styles.marseilleHeader}>Découvrez l’ensemble des opportunités offertes par l’éco-système
 							marseillais</h2>
 
-						<ServiceCard
-							link="https://entreprendreamarseille.fr/prendre-un-rendez-vous/"
-							linkLabel="Prendre rendez-vous pour exposer son projet"
-							logo="/images/entreprendre/région-sud.png"
-							logoAlt="Région Sud, Provence Alpes Côte d'Azur. Gourvenement, Liberté, Égalité, Fraternité"
-							title="Vous avez moins de 30 ans, habitez Marseille et souhaitez créer votre entreprise ?"
-							titleAs={'h3'}>
+						<Carte
+							horizontal
+							lien="https://entreprendreamarseille.fr/prendre-un-rendez-vous/"
+							imageSrc="/images/entreprendre/région-sud.png"
+							imageAlt="Région Sud, Provence Alpes Côte d'Azur. Gourvenement, Liberté, Égalité, Fraternité"
+							titre="Vous avez moins de 30 ans, habitez Marseille et souhaitez créer votre entreprise ?">
 							Dans le cadre de l’initiative “Marseille en grand” lancée par le
 							Président de la République le 2 septembre 2021, l’Etat et la
 							région Sud se mobilisent pour soutenir la création d’entreprises à
 							Marseille notamment avec l’ouverture des Carrefours de
 							l’entreprenariat.
-						</ServiceCard>
+						</Carte>
 					</Container>
 				</div>
 			</main>

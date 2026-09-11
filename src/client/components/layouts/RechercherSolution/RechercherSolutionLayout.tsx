@@ -92,19 +92,17 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 						</Container>
 					</div>
 
-					<div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
-						<Container>
-							{listeSolutionElement}
-							{footnote && <div className={styles.footnote}>{footnote}</div>}
-							{paginationOffset && nombreTotalSolutions && nombreTotalSolutions > paginationOffset && (
-								<div className={styles.pagination}>
-									<Pagination
-										numberOfResult={nombreTotalSolutions}
-										numberOfResultPerPage={paginationOffset}
-										maxPage={maxPage} />
-								</div>
-							)}
-						</Container>
+					<div className="fr-container fr-py-5w">
+						{listeSolutionElement}
+						{footnote && <div className={styles.footnote}>{footnote}</div>}
+						{paginationOffset && nombreTotalSolutions && nombreTotalSolutions > paginationOffset && (
+							<div className={styles.pagination}>
+								<Pagination
+									numberOfResult={nombreTotalSolutions}
+									numberOfResultPerPage={paginationOffset}
+									maxPage={maxPage} />
+							</div>
+						)}
 					</div>
 				</>
 			);

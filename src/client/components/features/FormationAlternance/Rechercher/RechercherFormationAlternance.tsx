@@ -15,14 +15,8 @@ import { MonCompteFormationPartner } from '~/client/components/features/ServiceC
 import { ParcourSupPartner } from '~/client/components/features/ServiceCard/ParcourSupPartner';
 import { PixPartner } from '~/client/components/features/ServiceCard/PixPartner';
 import { Head } from '~/client/components/head/Head';
-import {
-	ListeRésultatsRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import {
-	ResultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
-import { EnTete } from '~/client/components/ui/EnTete/EnTete';
+import { Carte } from '~/client/dsfr';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useFormationQuery } from '~/client/hooks/useFormationQuery';
 import empty from '~/client/utils/empty';
@@ -90,15 +84,14 @@ export default function RechercherFormationAlternance({ resultats: formationAlte
 							})} />
 					)
 					} />
-				<EnTete heading="Découvrez des services faits pour vous" />
-				<ServiceCardList>
-					<DecouvrirApprentissage />
-					<MonCompteFormationPartner />
-					<ParcourSupPartner />
-					<CarifOrefPartner />
-					<PixPartner />
-					<MétierDuSoinPartner />
-				</ServiceCardList>
+					<ServiceCardList>
+						<DecouvrirApprentissage />
+						<MonCompteFormationPartner />
+						<ParcourSupPartner />
+						<CarifOrefPartner />
+						<PixPartner />
+						<MétierDuSoinPartner />
+					</ServiceCardList>
 			</main>
 		</>
 	);
@@ -121,28 +114,22 @@ interface ListeRésultatProps {
 }
 
 function ListeFormation({ résultatList, queryParams }: ListeRésultatProps) {
-	if (!résultatList.length) {
-		return undefined;
-	}
+	if (!résultatList.length) return null;
 
 	return (
-
-		<ListeRésultatsRechercherSolution aria-label="Formations en alternance">
+		<ul className="fr-grid-row fr-grid-row--gutters" aria-label="Formations en alternance">
 			{résultatList.map((formation) => (
-				<li key={formation.id}>
-					<ResultatRechercherSolution
-						lienOffre={getLienOffre(formation, queryParams)}
-						intituléOffre={formation.titre}
-						// TODO (BRUJ 05/08/2024): les tags devraient être constitués côté client
-						étiquetteOffreList={formation.tags as string[]}>
-						<section>
-							<div>{formation.nomEntreprise && formation.nomEntreprise}</div>
-							<div>Adresse : {formation.adresse && formation.adresse}</div>
-						</section>
-					</ResultatRechercherSolution>
+				<li key={formation.id} className="fr-col-lg-4 fr-col-md-6 fr-col-12">
+					<Carte
+						titre={formation.titre}
+						lien={getLienOffre(formation, queryParams)}
+						tags={formation.tags as string[]}>
+						{formation.nomEntreprise}
+						{formation.adresse && <><br />Adresse : {formation.adresse}</>}
+					</Carte>
 				</li>
 			))}
-		</ListeRésultatsRechercherSolution>
+		</ul>
 	);
 }
 

@@ -1,6 +1,3 @@
-// Core
-@use "reset/styles";
-
 // Base
 @use "theme/styles" as theme-styles;
 @use "typography/styles" as typography-styles;
@@ -61,3 +58,28 @@ input {
   font-family: inherit;
 }
 
+hr {
+  height: 8px;
+  background-color: var(--background-active-blue-france);
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-item-center {
+  align-items: center;
+}
+
+.text-blue {
+  color: var(--text-title-blue-france);
+}
+
+.img-contain {
+  object-fit: contain;
+  width: 100%;
+}

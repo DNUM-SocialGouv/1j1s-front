@@ -8,14 +8,8 @@ import { LaBonneBoitePartner } from '~/client/components/features/ServiceCard/La
 import { OnisepMetierPartner } from '~/client/components/features/ServiceCard/OnisepMetierPartner';
 import { ServiceCiviquePartner } from '~/client/components/features/ServiceCard/ServiceCiviquePartner';
 import { Head } from '~/client/components/head/Head';
-import {
-	ListeRésultatsRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import {
-	ResultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
-import { EnTete } from '~/client/components/ui/EnTete/EnTete';
+import { Carte } from '~/client/dsfr';
 import {
 	formatLibelleLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/formatLibelleLocalisation';
@@ -36,7 +30,6 @@ import {
 } from '~/server/offres/domain/offre';
 
 const PREFIX_TITRE_PAGE = 'Rechercher un job étudiant';
-const LOGO_FRANCE_TRAVAIL = '/images/logos/france-travail.svg';
 
 interface RechercherJobEtudiantProps {
 	erreurRecherche?: Erreur
@@ -99,7 +92,6 @@ export function RechercherJobÉtudiant(props: RechercherJobEtudiantProps) {
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
 					maxPage={MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL - 1}
 					listeSolutionElement={<ListeOffreJobÉtudiant résultatList={jobÉtudiantList} />} />
-				<EnTete heading="Découvrez des services faits pour vous" />
 				<ServiceCardList>
 					<LaBonneBoitePartner />
 					<OnisepMetierPartner />
@@ -115,24 +107,21 @@ interface ListeRésultatProps {
 }
 
 function ListeOffreJobÉtudiant({ résultatList }: ListeRésultatProps) {
-	if (!résultatList.length) {
-		return undefined;
-	}
+	if (!résultatList.length) return null;
 
 	return (
-		<ListeRésultatsRechercherSolution aria-label="Offres de jobs étudiants">
+		<ul className="fr-grid-row fr-grid-row--gutters" aria-label="Offres de jobs étudiants">
 			{résultatList.map((offreEmploi: Offre) => (
-				<li key={offreEmploi.id}>
-					<ResultatRechercherSolution
-						étiquetteOffreList={offreEmploi.étiquetteList}
-						intituléOffre={offreEmploi.intitulé}
-						lienOffre={`/jobs-etudiants/${offreEmploi.id}`}
-						logo={offreEmploi.entreprise.logo || LOGO_FRANCE_TRAVAIL}
-						logoAlt={offreEmploi.entreprise.logo ? '' : 'France travail'}
-						sousTitreOffre={offreEmploi.entreprise.nom} />
+				<li key={offreEmploi.id} className="fr-col-lg-4 fr-col-md-6 fr-col-12">
+					<Carte
+						titre={offreEmploi.intitulé}
+						lien={`/jobs-etudiants/${offreEmploi.id}`}
+						tags={offreEmploi.étiquetteList}>
+						{offreEmploi.entreprise.nom}
+					</Carte>
 				</li>
 			))}
-		</ListeRésultatsRechercherSolution>
+		</ul>
 	);
 }
 

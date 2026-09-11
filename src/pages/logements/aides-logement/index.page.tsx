@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import { ServiceCard } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { Carte } from '~/client/dsfr';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
@@ -34,32 +34,30 @@ export default function AidesLogement() {
 							<h2 className={styles.sectionHeading}>Découvrez vos aides :</h2>
 							<ul aria-label="Vos aides">
 								<li className={styles.serviceCard}>
-									<ServiceCard
-										logo="/images/logos/caisse-allocations-familiales.svg"
-										link="https://wwwd.caf.fr/wps/portal/caffr/aidesetdemarches/mesdemarches/faireunesimulation/lelogement#/preparation"
-										linkLabel="Tester mon éligibilité pour les aides au logement de la CAF"
-										title="Vous dépendez du régime général ? Demandez vos aides à la CAF !"
-										titleAs={'h3'}>
+									<Carte
+										horizontal
+										imageSrc="/images/logos/caisse-allocations-familiales.svg"
+										lien="https://wwwd.caf.fr/wps/portal/caffr/aidesetdemarches/mesdemarches/faireunesimulation/lelogement#/preparation"
+										titre="Vous dépendez du régime général ? Demandez vos aides à la CAF !">
 										La CAF signifie Caisse d’Allocation Familiales. Il y en a
 										dans chaque département. Son rôle est de verser les aides
 										qui concernent la famille, le logement mais aussi une partie
 										des aides destinées à lutter contre la pauvreté, comme le
 										RSA ou la Prime d’activité.
-									</ServiceCard>
+									</Carte>
 								</li>
 								<li className={styles.serviceCard}>
-									<ServiceCard
-										logo="/images/logos/mutualite-sociale-agricole.svg"
-										link="https://www.msa.fr/lfp/web/msa/logement/offre-msa"
-										linkLabel="Découvrir les aides au logement de la MSA"
-										title="Vous dépendez du régime agricole ? Demandez vos aides à la MSA !"
-										titleAs={'h3'}>
+									<Carte
+										horizontal
+										imageSrc="/images/logos/mutualite-sociale-agricole.svg"
+										lien="https://www.msa.fr/lfp/web/msa/logement/offre-msa"
+										titre="Vous dépendez du régime agricole ? Demandez vos aides à la MSA !">
 										La MSA signifie Mutualité Sociale Agricole, c’est le régime
 										de protection sociale obligatoire pour toute personne du
 										secteur agricole. Son rôle est donc de verser à tous ses
 										adhérents les aides dont ils pourraient avoir besoin :
 										maladie, maternité, retraite...mais aussi logement !
-									</ServiceCard>
+									</Carte>
 								</li>
 							</ul>
 						</section>

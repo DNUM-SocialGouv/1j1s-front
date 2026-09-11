@@ -95,12 +95,8 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 				<Champ.Input
 					render={SelectSimple}
 					required
-					optionsAriaLabel={'années'}
-					name="age">
-					{ageOptions.map((option) =>
-						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
-					)}
-				</Champ.Input>
+					optionsList={ageOptions}
+					name="age" />
 				<Champ.Error />
 			</Champ>
 

@@ -26,6 +26,7 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
+    "@gouvfr/dsfr": "^1.15.2",
     "@meilisearch/instant-meilisearch": "^0.23.0",
     "@sentry/nextjs": "^8.55.0",
     "axios": "^1.13.5",
@@ -53,9 +54,9 @@
     "sharp": "^0.34.5"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^14.2.35",
     "@eslint/compat": "^2.0.2",
     "@eslint/js": "^9.39.2",
+    "@next/bundle-analyzer": "^14.2.35",
     "@socialgouv/eslint-config-recommended": "^1.131.0",
     "@storybook/addon-docs": "^10.2.10",
     "@storybook/addon-links": "^10.2.10",
