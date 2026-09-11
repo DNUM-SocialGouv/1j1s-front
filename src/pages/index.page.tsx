@@ -248,16 +248,18 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 						<div className="fr-col-lg-6 fr-col-12 fr-py-4w">
 							<h1>À chacun<br/> sa solution</h1>
 							<p>Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !</p>
-							<Link href='/espace-jeune' className='fr-btn'>
-								Voir toutes les actualités
-							</Link>
+							{ isOldEspaceJeuneActif && 
+								<Link href='/espace-jeune' className='fr-btn'>
+									Voir toutes les actualités
+								</Link>
+							}
 						</div>
 						<div className="fr-col-lg-6 fr-col-12 fr-hidden fr-unhidden-lg">
 							<Image src="/images/home.jpg" alt="" width={660} height={440} className='img-contain'/>
 						</div>
 					</div>
 				</div>
-				<hr className='fr-p-0' />
+				<hr className='fr-p-0' aria-hidden={true} />
 				<BannieresCampagnes />
 				{!isOldEspaceJeuneActif && actualitesCardListContent.length > 0
 					&& (

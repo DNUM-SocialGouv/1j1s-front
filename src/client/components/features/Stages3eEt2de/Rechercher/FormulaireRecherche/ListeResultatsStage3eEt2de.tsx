@@ -52,12 +52,17 @@ function ResultatStage3eEt2de({ stage3eEt2de }: { stage3eEt2de: Stage3eEt2de }) 
 			<Carte
 				titre={stage3eEt2de.nomEntreprise}
 				lien={lienOffre!}
-				tags={tags}>
+				tags={tags}
+				end={
+					<ul aria-label="Métiers proposés">
+						{stage3eEt2de.appellationLibelle.map((appellationLibelle) =>
+							<li key={appellationLibelle}>{appellationLibelle}</li>,
+						)}
+					</ul>
+				}>
 				{stage3eEt2de.domaine}
 				<br />
 				{stage3eEt2de.adresse.rueEtNumero}, {stage3eEt2de.adresse.codePostal} {stage3eEt2de.adresse.ville}
-				<br />
-				Métiers : {stage3eEt2de.appellationLibelle.join(', ')}
 			</Carte>
 		</li>
 	);

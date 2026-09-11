@@ -48,7 +48,7 @@ describe('Page d’accueil', () => {
 
 	describe('Bannières', () => {
 		describe('Espace jeune', () => {
-			it("quand le feature flip est active, n'affiche pas la section actualites", () => {
+			it("quand le feature flip est activé, n'affiche pas la section actualites", () => {
 				process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = "1";
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
@@ -62,10 +62,10 @@ describe('Page d’accueil', () => {
 				process.env.NEXT_PUBLIC_OLD_ESPACE_JEUNE_FEATURE = '0';
 				render(
 					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil actualites={anActualiteList()} />
+						<Accueil actualites={[]} />
 					</DependenciesProvider>,
 				);
-				expect(screen.queryByRole('link', { name: /Découvrir les actualités et services jeunes/ })).not.toBeInTheDocument();
+				expect(screen.queryByRole('link', { name: /Voir toutes les actualités/ })).not.toBeInTheDocument();
 			});
 		});
 	});
@@ -141,9 +141,8 @@ describe('Page d’accueil', () => {
 						);
 
 						// Then
-						const ctaActualites = screen.getAllByRole("link", { name: "Voir toutes les actualités" });
-						expect(ctaActualites[0]).toBeVisible();
-						expect(ctaActualites[0]).toHaveAttribute("href", "/espace-jeune");
+						const ctaActualites = screen.getByRole("link", { name: "Voir toutes les actualités" });
+						expect(ctaActualites).toHaveAttribute("href", "/actualites");
 					});
 					it('affiche les cartes d’actualités dans une liste', async () => {
 						// Given

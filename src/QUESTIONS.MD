@@ -27,3 +27,6 @@
 
 ## PAGE CV
 - Est-ce que le wording du breadcrumb est correct ? mon - son - personnalisé - ... 
+
+## PAGE RECHERCHE STRUCTURE ACCOMPAGNEMENT + STAGE 2NDE 3E
+- Quid carte multi-liens (téléphone, mailto...) ?

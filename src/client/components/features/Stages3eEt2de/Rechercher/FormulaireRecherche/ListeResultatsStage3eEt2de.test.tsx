@@ -81,7 +81,11 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 			// THEN
 			const resultatsUl = screen.getByRole("list", { name: "Stages de 3e et 2de" });
 			expect(resultatsUl).toBeInTheDocument();
-			expect(screen.getByText(/Métier 1, Métier 2, Métier 3/)).toBeVisible();
+			const metiersUl = within(resultatsUl).getByRole('list', { name: "Métiers proposés"});
+			const metiersLi = within(metiersUl).getAllByRole('listitem');
+			expect(metiersLi[0]).toHaveTextContent('Métier 1');
+			expect(metiersLi[1]).toHaveTextContent('Métier 2');
+			expect(metiersLi[2]).toHaveTextContent('Métier 3');
 		});
 		it('de l’adresse', () => {
 			// GIVEN
@@ -203,12 +207,12 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 
 			// THEN
 			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
-			const tagsList = within(resultatsUl).getByRole('list');
+			const tagsList = within(resultatsUl).getAllByRole('list')[0];
 			const tagNombreDeSalariés = within(tagsList).getByText('42 salariés');
 			expect(tagNombreDeSalariés).toBeVisible();
 		});
 
-		it('ajoute un tag correspond si l’offre est accessible aux personnes en situation de handicap', () => {
+		it('ajoute un tag correspondant si l’offre est accessible aux personnes en situation de handicap', () => {
 			// GIVEN
 			const resultatRecherche = aResultatRechercheStage3eEt2de({
 				nombreDeResultats: 1,
@@ -224,7 +228,7 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 
 			// THEN
 			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
-			const tagsList = within(resultatsUl).getByRole('list');
+			const tagsList = within(resultatsUl).getAllByRole('list')[0];
 			const tagHandiAccessible = within(tagsList).getByText('Handi-accessible');
 			expect(tagHandiAccessible).toBeVisible();
 		});
@@ -247,9 +251,9 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 
 			// THEN
 			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
-			const tagsList = within(resultatsUl).queryByRole('list');
+			const tagsList = within(resultatsUl).getAllByRole('list');
 
-			expect(tagsList).not.toBeInTheDocument();
+			expect(tagsList).toHaveLength(1);
 		});
 	});
 });

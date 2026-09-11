@@ -80,8 +80,7 @@ describe('RechercherEmploisEurope', () => {
 					</DependenciesProvider>,
 				);
 				await screen.findByText("Entreprise 1");
-				// eslint-disable-next-line testing-library/no-node-access
-				const resultatsUl = document.querySelector("ul.fr-grid-row") as HTMLElement;
+				const resultatsUl = screen.getAllByRole('list')[0];
 				// eslint-disable-next-line testing-library/no-node-access
 				const resultats = resultatsUl.children;
 
@@ -763,10 +762,11 @@ describe('RechercherEmploisEurope', () => {
 					</DependenciesProvider>,
 				);
 				await screen.findByText("Entreprise 1");
+				const listeDesResultats = await screen.findAllByRole('list');
+				const premierResultat = (await within(listeDesResultats[0]).findAllByRole('listitem'))[0];
 
 				// THEN
-				const tags = screen.getAllByText("Embauche directe");
-				const tagTypeContrat = tags.find((tag) => tag.classList.contains("fr-tag"));
+				const tagTypeContrat = within(premierResultat).getByText('Embauche directe');
 				expect(tagTypeContrat).toBeVisible();
 			});
 
@@ -837,9 +837,12 @@ describe('RechercherEmploisEurope', () => {
 				await screen.findByText("Offre d’emploi sans titre");
 
 				// THEN
-				const tags = screen.getAllByText("Temps partiel");
-				const tagTempsTravail = tags.find((tag) => tag.classList.contains("fr-tag"));
-				expect(tagTempsTravail).toBeVisible();
+				const listeDesResultats = await screen.findAllByRole('list');
+				const premierResultat = (await within(listeDesResultats[0]).findAllByRole('listitem'))[0];
+
+				// THEN
+				const tagTypeContrat = within(premierResultat).getByText('Temps partiel');
+				expect(tagTypeContrat).toBeVisible();
 			});
 			it("si le niveau d’etudes est present, affiche le niveau d’etudes", async () => {
 				// GIVEN
@@ -866,11 +869,12 @@ describe('RechercherEmploisEurope', () => {
 					</DependenciesProvider>,
 				);
 				await screen.findByText("Offre d’emploi sans titre");
+				const listeDesResultats = await screen.findAllByRole('list');
+				const premierResultat = (await within(listeDesResultats[0]).findAllByRole('listitem'))[0];
 
 				// THEN
-				const tags = screen.getAllByText("Supérieur court (Bac+2 maximum)");
-				const tagNiveauEtudes = tags.find((tag) => tag.classList.contains("fr-tag"));
-				expect(tagNiveauEtudes).toBeVisible();
+				const tagTypeContrat = within(premierResultat).getByText('Supérieur court (Bac+2 maximum)');
+				expect(tagTypeContrat).toBeVisible();
 			});
 			it('si le niveau d’études est "Niveau d‘études non spécifié", n’affiche pas le niveau d’études', async () => {
 				// GIVEN

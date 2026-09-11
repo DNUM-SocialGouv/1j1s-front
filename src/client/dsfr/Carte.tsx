@@ -17,6 +17,7 @@ interface CarteProps {
 	titreAs?: HtmlHeadingTag
 	className?: string
 	horizontal?: boolean
+	end?: React.ReactNode
 }
 
 export function Carte({
@@ -29,6 +30,7 @@ export function Carte({
 	titreAs = 'h3',
 	className,
 	horizontal = false,
+	end,
 }: React.PropsWithChildren<CarteProps>) {
 	const isInternalLink = useIsInternalLink(lien || "");
 
@@ -57,6 +59,9 @@ export function Carte({
 							: titre
 					)}
 					<p className="fr-card__desc">{children}</p>
+					{end && (
+						<div className="fr-card__end">{end}</div>
+					)}
 				</div>
 			</div>
 			{imageSrc && (

@@ -231,8 +231,7 @@ describe('RechercherAccompagnement', () => {
 			const boutonsContact = screen.getAllByRole("button", { name: "Je souhaite être contacté(e)" });
 
 			// THEN
-			expect(boutonsContact.length).toBeGreaterThan(0);
-			expect(boutonsContact[0]).toBeInTheDocument();
+			expect(boutonsContact[0]).toBeVisible();
 		});
 	});
 });

@@ -124,6 +124,10 @@ interface ListResultatProps {
 function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 	if (!resultatList.length) return null;
 
+	function getLienOffre(identifiant?: string) {
+		return identifiant ? `/formations-initiales/${encodeURIComponent(identifiant)}` : undefined;
+	}
+
 	function getTags(formation: FormationInitiale) {
 		const tags = [];
 		if (formation.isCertifiante) tags.push('Certifiante');
@@ -140,7 +144,7 @@ function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 					<li key={formation.libelle} className="fr-col-lg-4 fr-col-md-6 fr-col-12">
 						<Carte
 							titre={formation.libelle}
-							lien={`/formations-initiales/${encodeURIComponent(formation.identifiant!)}`}
+							lien={getLienOffre(formation.identifiant)}
 							tags={getTags(formation)} />
 					</li>
 				))}
