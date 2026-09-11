@@ -27,7 +27,7 @@ import styles from './index.module.scss';
 
 
 interface CardContent {
-	children: React.ReactNode
+	children: React.JSX.Element
 	imageUrl: string
 	link: string
 	title: string
@@ -50,7 +50,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 
 	const actualitesCardListContent: CardContent[] = accueilProps.actualites.map((carte: Actualite): CardContent => {
 		return {
-			children: carte.extraitContenu,
+			children: <>{carte.extraitContenu}</>,
 			imageUrl: carte.bannière?.src || "",
 			link: carte.link,
 			title: carte.titre,
@@ -68,7 +68,6 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 			children: <>Plus de 20 000 offres de stages sélectionnées spécialement pour vous</>,
 			imageUrl: '/images/stage.webp',
 			link: '/stages',
-			linkLabel: 'Voir les offres',
 			title: 'Stages d’études',
 		},
 		isStages3eEt2deVisible ? {
