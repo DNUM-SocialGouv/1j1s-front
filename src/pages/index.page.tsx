@@ -283,7 +283,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 				}
 				<div className="fr-container">
 					<section className='fr-py-5v'>
-						<h2 id="offres" className="fr-h2 text-blue flex align-item-center fr-mb-2w">
+						<h2 id="offres" className="fr-h2 text--blue flex align-item-center fr-mb-2w">
 							<Image src={documentSvg} alt="" width={64} height={64} className='fr-mr-2w' />
 							Offres
 						</h2>
@@ -296,7 +296,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 							/>
 					</section>
 					<section className='fr-py-5v'>
-						<h2 id="formation" className="fr-h2 text-blue flex align-item-center fr-mb-2w">
+						<h2 id="formation" className="fr-h2 text--blue flex align-item-center fr-mb-2w">
 							<Image src={schoolSvg} alt="" width={64} height={64}  className='fr-mr-2w' />
 							Formations et orientation
 						</h2>
@@ -309,7 +309,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 							/>
 					</section>
 					<section className='fr-py-5v'>
-						<h2 id="engagement-benevolat" className="fr-h2 text-blue flex align-item-center fr-mb-2w">
+						<h2 id="engagement-benevolat" className="fr-h2 text--blue flex align-item-center fr-mb-2w">
 							<Image src={communitySvg} alt="" width={64} height={64}  className='fr-mr-2w' />
 							Engagement
 						</h2>
@@ -322,7 +322,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 							/>
 					</section>
 					<section className='fr-py-5v'>
-						<h2 id="logement" className="fr-h2 text-blue flex align-item-center fr-mb-2w">
+						<h2 id="logement" className="fr-h2 text--blue flex align-item-center fr-mb-2w">
 							<Image src={houseSvg} alt="" width={64} height={64}  className='fr-mr-2w' />
 							Logement
 						</h2>
@@ -335,7 +335,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 						/>
 					</section>
 					<section className='fr-py-5v'>
-						<h2 id="aides-orientation-accompagnement" className="fr-h2 text-blue flex align-item-center fr-mb-2w">
+						<h2 id="aides-orientation-accompagnement" className="fr-h2 text--blue flex align-item-center fr-mb-2w">
 							<Image src={mentalDisabilitiesSvg} alt="" width={64} height={64}  className='fr-mr-2w' />
 							Accompagnement
 						</h2>
@@ -348,7 +348,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 						/>
 					</section>				
 					<section className='fr-py-5v'>
-						<h2 id="aides-et-outils" className="fr-h2 text-blue flex align-item-center fr-mb-2w">
+						<h2 id="aides-et-outils" className="fr-h2 text--blue flex align-item-center fr-mb-2w">
 							<Image src={ecosystemSvg} alt="" width={64} height={64}  className='fr-mr-2w' />
 							Aides et outils
 						</h2>

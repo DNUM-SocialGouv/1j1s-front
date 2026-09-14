@@ -7,7 +7,6 @@ import React, {
 	useState,
 } from 'react';
 
-import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxLocalisation } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
 import {
@@ -16,7 +15,6 @@ import {
 import { Input } from '~/client/components/ui/Form/Input';
 import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple';
 import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
-import { Icon } from '~/client/components/ui/Icon/Icon';
 import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
@@ -73,7 +71,7 @@ export function FormulaireRechercheOffreEmploi({ enEtatErreur = false }: Formula
 			aria-label="Rechercher une offre d'emploi"
 			onSubmit={updateRechercherOffreEmploiQueryParams}
 			role="search">
-			<h2 className="fr-h4 text-blue fr-mb-5w">Trouvez l’emploi qui vous correspond</h2>
+			<h2 className="fr-h4 text--blue fr-mb-5w">Trouvez l’emploi qui vous correspond</h2>
 			<div className="fr-grid-row fr-grid-row--gutters">
 				<div className="fr-col-12 fr-col-md-6 fr-col-lg-4">
 					<Champ className="fr-input-group">

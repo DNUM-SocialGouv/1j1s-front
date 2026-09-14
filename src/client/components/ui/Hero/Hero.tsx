@@ -46,3 +46,18 @@ export function HeroSecondaryText({ children, className, ...rest }: React.Compon
 		</p>
 	);
 }
+
+export function BannerWithIllustration({ children, image, ...rest }: HeroIllustrationProps) {
+	return (
+		<div className="fr-container">
+			<div className="fr-grid-row fr-grid-row-gutters align-item-center" {...rest}>
+				<div className="fr-col-lg-6 fr-col-12">
+					{children}
+				</div>
+				<div className="fr-col-lg-6 fr-col-12 fr-hidden fr-unhidden-lg">
+					<Image className="img-contain" src={image} alt="" width="400" height="300" sizes="(min-width: 992px) 50vw" />
+				</div>
+			</div>
+		</div>
+	);
+}

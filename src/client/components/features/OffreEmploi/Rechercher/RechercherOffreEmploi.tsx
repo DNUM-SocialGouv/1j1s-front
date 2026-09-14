@@ -109,14 +109,11 @@ function ListeOffreEmploi({ résultatList }: ListeRésultatProps) {
 
 function BannièreOffreEmploi() {
 	return (
-		<HeroWithIllustration
-			// TODO: format d'image/standard?
-			image="/images/offres-emploi-banner.png"
-		>
-			{/*TODO: classe text blue branche guic*/}
-			<h1><span className="text-blue">Des milliers d‘offres d‘emplois </span>
+		<BannerWithIllustration image="/images/offres-emploi-banner.png">
+			<h1 className="fr-h1 fr-text--bold">
+				<span className="text--blue">Des milliers d‘offres d‘emplois </span>
 				sélectionnées pour vous par France Travail
 			</h1>
-		</HeroWithIllustration>
+		</BannerWithIllustration>
 	);
 }

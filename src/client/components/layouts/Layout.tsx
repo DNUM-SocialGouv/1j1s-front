@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 
 import { Footer, Header, SkipLink } from '~/client/dsfr';
-import Bouée from '~/client/components/ui/Bouée/Bouée';
 
 export function Layout({ children }: React.PropsWithChildren) {
 	const surface = useRef<HTMLDivElement>(null);
@@ -12,7 +11,6 @@ export function Layout({ children }: React.PropsWithChildren) {
 			<Header />
 			{children}
 			<Footer />
-			<Bouée surface={ surface } />
 		</div>
 	);
 }
