@@ -21,7 +21,7 @@ import {
 	Offre,
 	RésultatsRechercheOffre,
 } from '~/server/offres/domain/offre';
-import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
+import {BannerWithIllustration, HeroWithIllustration} from '~/client/components/ui/Hero/Hero';
 
 // NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
 const FormulaireRechercheOffreEmploi = dynamic(() => import('../FormulaireRecherche/FormulaireRechercheOffreEmploi').then((mod) => mod.FormulaireRechercheOffreEmploi), { ssr: false });
