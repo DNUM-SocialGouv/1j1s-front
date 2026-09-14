@@ -35,7 +35,7 @@ export class ApiFranceTravailOffreRepository implements OffreRepository {
 	) {
 	}
 
-	paramètreParDéfaut = 'natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI';
+	paramètreParDéfaut = 'natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,CC,CU,EE,ER,CI';
 
 	private ECHANTILLON_OFFRE_EMPLOI_KEY = 'ECHANTILLON_OFFRE_EMPLOI_KEY';
 
