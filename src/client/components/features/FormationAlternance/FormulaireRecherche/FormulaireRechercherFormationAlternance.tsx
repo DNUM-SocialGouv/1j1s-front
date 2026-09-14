@@ -89,13 +89,9 @@ export function FormulaireRechercherFormationAlternance({ enEtatErreur = false }
 						</Champ.Label>
 						<Champ.Input
 							render={SelectSimple}
-							optionsAriaLabel={'Niveau d‘études'}
+							optionsList={FORMATION_NIVEAU_ETUDES}
 							name="niveauEtudes"
-							defaultValue={niveauEtudes}>
-							{FORMATION_NIVEAU_ETUDES.map((option) =>
-								<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
-							)}
-						</Champ.Input>
+							defaultValue={niveauEtudes} />
 						<Champ.Error />
 					</Champ>
 				</div>

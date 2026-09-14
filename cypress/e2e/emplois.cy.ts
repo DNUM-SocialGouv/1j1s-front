@@ -11,9 +11,6 @@ import {
 } from '~/server/offres/infra/repositories/mockOffre.repository';
 
 describe('Page de recherche d’emplois', () => {
-	beforeEach(() => {
-		cy.viewport('iphone-x');
-	});
 
 	context('Parcours standard', () => {
 		it('affiche 15 résultats par défaut', () => {
@@ -76,15 +73,16 @@ describe('Page de recherche d’emplois', () => {
 			cy.findByRole('textbox', { name: /Métier, Mot-clé/i }).should('have.value', query.motCle);
 			cy.findByRole('combobox', { name: /Localisation/i }).should('have.value', `${query.nomLocalisation} (${query.codeLocalisation})`);
 
-			cy.findByRole('button', { name: /Filtrer ma recherche/i }).click();
+			cy.findByRole('button', { name: /Rechercher/i }).click();
 
-			cy.findByRole('checkbox', { name: /Contrat à durée indéterminé/i }).should('be.checked');
-			cy.findByText(summary(/Temps de travail/i)).click();
-			cy.findByRole('radio', { name: /Temps partiel/i }).should('be.checked');
-			cy.findByText(summary(/Niveau demandé/i)).click();
-			cy.findByRole('radio', { name: /Plus de 3 ans/i }).should('be.checked');
-			cy.findByText(summary(/Domaine/i)).click();
-			cy.findByRole('checkbox', { name: /Arts \/ Artisanat d‘art/i }).should('be.checked');
+      cy.get('li[role="option"]')
+        .contains(/CDI/i)
+        .should('have.attr', 'aria-selected', 'true')
+      cy.findByRole('option', { name: /Temps partiel/i }).should('be.selected', true);
+      cy.findByRole('option', { name: /Plus de 3 ans/i }).should('be.selected', true);
+      cy.get('li[role="option"]')
+        .contains(/Arts \/ Artisanat d‘art/i)
+        .should('have.attr', 'aria-selected', 'true')
 		});
 	});
 
@@ -96,11 +94,3 @@ describe('Page de recherche d’emplois', () => {
 		});
 	});
 });
-
-// NOTE (GAFI 08-08-2023): summary n'a pas de role mais est intéractif :(
-//	cf. https://w3c.github.io/html-aria/#el-summary
-function summary(expectedContent: string | RegExp) {
-	return function summary(content: string, element: Element | null): boolean {
-		return Boolean(element?.tagName === 'SUMMARY' && content.match(expectedContent));
-	};
-}

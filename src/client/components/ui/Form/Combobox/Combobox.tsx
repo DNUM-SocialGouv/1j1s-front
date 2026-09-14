@@ -224,6 +224,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					required={required}
 					{...inputProps} />
 				<button
+					className='fr-input'
 					onClick={() => {
 						dispatch(new ComboboxActionToggleList());
 						inputRef.current?.focus();

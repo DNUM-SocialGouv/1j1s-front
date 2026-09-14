@@ -59,13 +59,9 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 					</Champ.Label>
 					<Champ.Input
 						render={SelectSimple}
-						optionsAriaLabel={'Domaines'}
+						optionsList={domainList}
 						name="domain"
-						defaultValue={domain}>
-						{domainList.map((option) =>
-							<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
-						)}
-					</Champ.Input>
+						defaultValue={domain} />
 					<Champ.Error />
 				</Champ>
 
