@@ -3,7 +3,7 @@ import Script from 'next/script';
 
 export default function Document() {
 	return (
-		<Html lang="fr">
+		<Html lang="fr" data-fr-scheme="system">
 			<Head>
 				<meta name="author" content="1jeune1solution" />
 				<meta name="theme-color" content="#000091" />
