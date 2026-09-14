@@ -132,7 +132,7 @@ describe('ApiFranceTravailOffreRepository', () => {
 
 					expect(result).toEqual(aRésultatsRechercheOffre());
 					expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
-						'/search?range=0-14&natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI',
+						'/search?range=0-14&natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,CC,CU,EE,ER,CI',
 					);
 
 					expect(cacheService.set).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI_KEY', aRésultatsRechercheOffreEmploiApiResponse(), 24);
