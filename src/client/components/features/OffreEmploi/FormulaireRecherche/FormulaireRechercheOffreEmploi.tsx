@@ -157,8 +157,9 @@ export function FormulaireRechercheOffreEmploi({ enEtatErreur = false }: Formula
 							onChange={(option) => onChangeMultipleSelect(option, setInputDomaine)}
 							value={inputDomaine}>
 							{mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList).map((option) =>
-								<SelectMultiple.Option key={option.libellé}
-								                       value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
+								<SelectMultiple.Option key={option.libellé} value={option.valeur}>
+									{option.libellé}
+								</SelectMultiple.Option>
 							)}
 						</Champ.Input>
 						<Champ.Error/>

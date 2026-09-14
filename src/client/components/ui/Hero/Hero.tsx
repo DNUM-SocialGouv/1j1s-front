@@ -47,6 +47,18 @@ export function HeroSecondaryText({ children, className, ...rest }: React.Compon
 	);
 }
 
+export function Banner({ children, ...rest }: React.ComponentPropsWithoutRef<'div'>) {
+	return (
+		<div className="fr-container fr-py-5w">
+			<div className="fr-grid-row fr-grid-row-gutters align-item-center" {...rest}>
+				<div className="fr-col-lg-7 fr-col-12">
+					{children}
+				</div>
+			</div>
+		</div>
+	);
+}
+
 export function BannerWithIllustration({ children, image, ...rest }: HeroIllustrationProps) {
 	return (
 		<div className="fr-container">
