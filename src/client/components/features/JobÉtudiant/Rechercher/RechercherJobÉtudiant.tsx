@@ -128,7 +128,7 @@ function ListeOffreJobÉtudiant({ résultatList }: ListeRésultatProps) {
 function BannièreJobÉtudiant() {
 	return (
 		<Banner>
-			<h1 className="fr-h1">
+			<h1 className="fr-h1 fr-mb-0">
 				<span className="text--blue">Des milliers de jobs étudiants </span>
 				sélectionnés pour vous par France Travail
 			</h1>

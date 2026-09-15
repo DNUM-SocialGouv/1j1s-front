@@ -1,9 +1,6 @@
 import { useRouter } from 'next/router';
-import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useCallback, useRef, useState } from 'react';
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useRef, useState } from 'react';
 
-import {
-	ModaleFiltreAvancee,
-} from '~/client/components/features/EmploisEurope/FormulaireRecherche/ModaleFiltreAvancee';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxPays } from '~/client/components/ui/Form/Combobox/ComboboxPays';
 import { Input } from '~/client/components/ui/Form/Input';
@@ -16,18 +13,6 @@ import { getFormAsQuery } from '~/client/utils/form.util';
 import { niveauDEtudes } from '~/server/emplois-europe/domain/niveauDEtudes';
 import { secteurActiviteEures } from '~/server/emplois-europe/infra/secteurActiviteEures';
 import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
-
-function updateFilterQuery(filterQuery: Array<string>, filterToToggle: string) {
-	const newQuery = filterQuery.filter((element) => element);
-	const indexOfValue = newQuery.indexOf(filterToToggle);
-	if (indexOfValue >= 0) {
-		newQuery.splice(indexOfValue, 1);
-	} else {
-		newQuery.push(filterToToggle);
-	}
-
-	return newQuery;
-}
 
 export function FormulaireRechercheEmploisEurope() {
 	const rechercheEmploiEuropeForm = useRef<HTMLFormElement>(null);
@@ -44,8 +29,6 @@ export function FormulaireRechercheEmploisEurope() {
 	} = queryParams;
 	const router = useRouter();
 
-	const [isFiltresAvancesMobileOpen, setIsFiltresAvancesMobileOpen] = useState<boolean>(false);
-
 	const [inputMotCle, setInputMotCle] = useState<string>(motCle ?? '');
 	const [inputTypeContrat, setInputTypeContrat] = useState(typeContrat ? typeContrat.split(',') : []);
 	const [inputTempsDeTravail, setInputTempsDeTravail] = useState(tempsDeTravail ? tempsDeTravail.split(',') : []);
@@ -54,29 +37,6 @@ export function FormulaireRechercheEmploisEurope() {
 	const localisationDefaultValue = (codePays && libellePays)
 		? { code: codePays, label: libellePays }
 		: undefined;
-
-	const toggleTypeContrat = useCallback((typeContrat: string) => {
-		setInputTypeContrat(updateFilterQuery(inputTypeContrat, typeContrat));
-	}, [inputTypeContrat]);
-
-	const toggleTempsDeTravail = useCallback((tempsDeTravail: string) => {
-		setInputTempsDeTravail(updateFilterQuery(inputTempsDeTravail, tempsDeTravail));
-	}, [inputTempsDeTravail]);
-
-	const toggleNiveauEtude = useCallback((niveauEtude: string) => {
-		setInputNiveauEtude(updateFilterQuery(inputNiveauEtude, niveauEtude));
-	}, [inputNiveauEtude]);
-
-	const toggleSecteurActivite = useCallback((secteurActivite: string) => {
-		setInputSecteurActivite(updateFilterQuery(inputSecteurActivite, secteurActivite));
-	}, [inputSecteurActivite]);
-
-	const applyFiltresAvances = useCallback(() => {
-		setIsFiltresAvancesMobileOpen(false);
-		rechercheEmploiEuropeForm.current?.dispatchEvent(
-			new Event('submit', { bubbles: true, cancelable: true }),
-		);
-	}, []);
 
 	function updateRechercherEmploiEuropeQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -212,19 +172,6 @@ export function FormulaireRechercheEmploisEurope() {
 						type="submit" />
 				</div>
 			</div>
-
-			<ModaleFiltreAvancee
-				close={() => setIsFiltresAvancesMobileOpen(false)}
-				toggleTypeContrat={toggleTypeContrat}
-				toggleTempsDeTravail={toggleTempsDeTravail}
-				toggleNiveauEtude={toggleNiveauEtude}
-				toggleSecteurActivite={toggleSecteurActivite}
-				inputTypeContrat={inputTypeContrat}
-				inputSecteurActivite={inputSecteurActivite}
-				inputNiveauEtude={inputNiveauEtude}
-				inputTempsDeTravail={inputTempsDeTravail}
-				open={isFiltresAvancesMobileOpen}
-				onClick={applyFiltresAvances} />
 		</form>
 	);
 }
