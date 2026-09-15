@@ -119,8 +119,8 @@ function ListeOffreJobEte({ resultatList }: ListeResultatProps) {
 function BanniereJobEte() {
 	return (
 		<Banner>
-			<h1>
-				<span className='text--blue'>Des milliers de jobs d’été</span><br/>
+			<h1 className="fr-h1">
+				<span className="text--blue">Des milliers de jobs d’été </span>
 				sélectionnés pour vous par France Travail
 			</h1>
 		</Banner>
