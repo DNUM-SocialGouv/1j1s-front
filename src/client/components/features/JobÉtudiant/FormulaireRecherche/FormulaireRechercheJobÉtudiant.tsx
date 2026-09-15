@@ -31,7 +31,7 @@ export function FormulaireRechercheJobÉtudiant() {
 
 	return (
 		<form
-			className="border-blue fr-p-5w"
+			className="border--blue fr-p-5w"
 			ref={rechercheJobÉtudiantForm}
 			aria-label="Rechercher un job étudiant"
 			onSubmit={updateRechercherJobÉtudiantQueryParams}

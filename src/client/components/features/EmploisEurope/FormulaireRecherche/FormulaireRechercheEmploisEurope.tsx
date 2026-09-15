@@ -99,7 +99,7 @@ export function FormulaireRechercheEmploisEurope() {
 
 	return (
 		<form
-			className="border-blue fr-p-5w"
+			className="border--blue fr-p-5w"
 			ref={rechercheEmploiEuropeForm}
 			aria-label="Rechercher une offre d'emploi en Europe"
 			onSubmit={updateRechercherEmploiEuropeQueryParams}
@@ -130,13 +130,6 @@ export function FormulaireRechercheEmploisEurope() {
 							placeholder="Sélectionnez vos choix" />
 					</div>
 				</div>
-				{/* <div className="fr-col-12 fr-hidden-md">
-					<Button
-						appearance="quaternary"
-						type="button"
-						label="Filtrer ma recherche"
-						onClick={() => setIsFiltresAvancesMobileOpen(!isFiltresAvancesMobileOpen)} />
-				</div> */}
 				<div className="fr-col-12 fr-col-md-6 fr-col-lg-4">
 					<Champ className="fr-select-group">
 						<Champ.Label>

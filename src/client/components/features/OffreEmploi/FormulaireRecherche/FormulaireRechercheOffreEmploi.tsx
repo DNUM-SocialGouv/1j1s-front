@@ -66,7 +66,7 @@ export function FormulaireRechercheOffreEmploi({ enEtatErreur = false }: Formula
 
 	return (
 		<form
-			className="border-blue fr-p-5w"
+			className="border--blue fr-p-5w"
 			ref={rechercheOffreEmploiForm}
 			aria-label="Rechercher une offre d'emploi"
 			onSubmit={updateRechercherOffreEmploiQueryParams}

@@ -98,7 +98,7 @@ function ListeOffreEmploi({ résultatList }: ListeRésultatProps) {
 					<Carte
 						titre={offreEmploi.intitulé}
 						lien={`/emplois/${offreEmploi.id}`}
-						tags={offreEmploi.étiquetteList}>
+						tags={offreEmploi.étiquetteList.map((tag) => <>{tag}</>)}>
 						{offreEmploi.entreprise.nom}
 					</Carte>
 				</li>

@@ -11,7 +11,7 @@ import { Image } from '../components/ui/Img';
 interface CarteProps {
 	titre: string | React.ReactNode
 	lien?: string
-	tags?: string[]
+	tags?: React.ReactNode[]
 	imageSrc?: string
 	imageAlt?: string
 	titreAs?: HtmlHeadingTag
@@ -41,9 +41,9 @@ export function Carte({
 					{tags && tags.length > 0 && (
 						<div className="fr-card__start">
 							<ul className="fr-tags-group">
-								{tags.map((tag) => (
-									<li key={tag}>
-										<Tag label={tag} />
+								{tags.map((tag, index) => (
+									<li key={index}>
+										<Tag>{tag}</Tag>
 									</li>
 								))}
 							</ul>

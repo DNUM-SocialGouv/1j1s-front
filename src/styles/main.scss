@@ -84,11 +84,15 @@ hr {
   width: 100%;
 }
 
-.border-blue {
+.border--blue {
   border: 1px solid var(--border-action-low-blue-france);
 }
 
 .list-style-none {
   list-style: none !important;
+}
+
+.background--green {
+  background-color: var(--background-alt-green-bourgeon);
 }
 

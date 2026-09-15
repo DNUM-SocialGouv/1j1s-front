@@ -30,7 +30,7 @@ export function FormulaireRechercheJobEte() {
 
 	return (
 		<form
-			className="border-blue fr-p-5w"
+			className="border--blue fr-p-5w"
 			ref={rechercheJobEteForm}
 			aria-label="Rechercher un job d’été"
 			onSubmit={updateRechercherJobEteQueryParams}
