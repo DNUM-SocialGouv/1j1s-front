@@ -77,7 +77,6 @@ export function FormulaireRechercherFormationAlternance({ enEtatErreur = false }
 						</MetierDependenciesProvider>
 					</div>
 					<div className="fr-col-12 fr-col-md-6 fr-col-lg-4">
-
 						<ComboboxCommune
 							defaultCommune={communeDefaultValue}
 							showRadiusInput
