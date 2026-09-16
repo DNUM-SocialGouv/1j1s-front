@@ -110,8 +110,8 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 	return (
 		<>
 			{banniere}
-			<div className={styles.rechercheSolution} aria-busy={isChargement} aria-live="polite">
-				<div className="fr-container">
+			<div className="fr-pb-5w" aria-busy={isChargement} aria-live="polite">
+				<div className="fr-container ">
 					{formulaireRecherche}
 				</div>
 				{getResultatsDeRecherche()}
