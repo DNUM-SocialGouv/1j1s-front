@@ -243,7 +243,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 				robots="index,follow" />
 			<main id="contenu" className={styles.accueil}>
 				<div className="fr-container">
-					<div className={`${styles.homeBanner} fr-grid-row fr-grid-row--gutters align-item-center`}>
+					<div className={`${styles.homeBanner} fr-grid-row fr-grid-row--gutters align-items--center`}>
 						<div className="fr-col-lg-6 fr-col-12 fr-py-4w">
 							<h1>À chacun<br/> sa solution</h1>
 							<p>Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !</p>
@@ -259,7 +259,24 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 					</div>
 				</div>
 				<hr className='fr-p-0' aria-hidden={true} />
-				<BannieresCampagnes />
+
+				<section className="background--blue-light">
+					<div className="fr-container">
+						<div className="fr-grid-row fr-grid-row--gutters align-items--center">
+							<div className="fr-col-12 fr-col-lg-6 fr-hidden fr-unhidden-lg fr-p-0">
+								<Image src="/images/banner-lba-home.png" alt="" width={660} height={330} className="img-cover"/>
+							</div>
+							<div className="fr-col-12 fr-col-lg-6 fr-py-4w">
+								<h2 className="text--blue">Trouvez votre alternance</h2>
+								<p>Avec la bonne alternance, accédez à 38 000 offres d’apprentissage et trouvez celle qui vous correspond. Déjà 6 000 offres déposées et 4 000 candidatures pour vous aider à passer à l’action.</p>
+								<Link className="fr-btn fr-btn--secondary fr-mr-2w fr-mb-2w" href="https://labonnealternance.apprentissage.beta.gouv.fr/1jeune1solution?utm_source=1j1s&utm_medium=website&utm_campaign=landinglba1j1s">Déposer une offre</Link>
+								<Link className="fr-btn" href="https://labonnealternance.apprentissage.beta.gouv.fr/1jeune1solution?utm_source=1j1s&utm_medium=website&utm_campaign=landinglba1j1s">Consulter les offres</Link>
+							</div>
+						</div>
+					</div>
+				</section>
+				
+				{/* <BannieresCampagnes /> */}
 				{!isOldEspaceJeuneActif && actualitesCardListContent.length > 0
 					&& (
 						<section className={styles.section}>
@@ -281,9 +298,10 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 						</section>
 					)
 				}
+
 				<div className="fr-container">
 					<section className='fr-py-5v'>
-						<h2 id="offres" className="fr-h2 text-blue flex align-item-center fr-mb-2w">
+						<h2 id="offres" className="fr-h2 text-blue flex align-items--center fr-mb-2w">
 							<Image src={documentSvg} alt="" width={64} height={64} className='fr-mr-2w' />
 							Offres
 						</h2>
@@ -293,10 +311,10 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 								seeMoreAriaLabel={'Voir plus de résultats sur les offres d‘emplois'}
 								seeLessAriaLabel={'Voir moins de résultats sur les offres d‘emplois'} 
 								colClass='fr-col-12 fr-col-md-6 fr-col-lg-4'
-							/>
+								/>
 					</section>
 					<section className='fr-py-5v'>
-						<h2 id="formation" className="fr-h2 text-blue flex align-item-center fr-mb-2w">
+						<h2 id="formation" className="fr-h2 text-blue flex align-items--center fr-mb-2w">
 							<Image src={schoolSvg} alt="" width={64} height={64}  className='fr-mr-2w' />
 							Formations et orientation
 						</h2>
@@ -306,10 +324,10 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 								seeMoreAriaLabel={'Voir plus de résultats sur les formations et orientation'}
 								seeLessAriaLabel={'Voir moins de résultats sur les formations et orientation'}
 								colClass='fr-col-12 fr-col-md-6 fr-col-lg-4'
-							/>
+								/>
 					</section>
 					<section className='fr-py-5v'>
-						<h2 id="engagement-benevolat" className="fr-h2 text-blue flex align-item-center fr-mb-2w">
+						<h2 id="engagement-benevolat" className="fr-h2 text-blue flex align-items--center fr-mb-2w">
 							<Image src={communitySvg} alt="" width={64} height={64}  className='fr-mr-2w' />
 							Engagement
 						</h2>
@@ -319,10 +337,24 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 								seeMoreAriaLabel={'Voir plus de résultats sur les engagements et bénévolats'}
 								seeLessAriaLabel={'Voir moins de résultats sur les engagements et bénévolats'}
 								colClass='fr-col-12 fr-col-md-6 fr-col-lg-4'
-							/>
+								/>
 					</section>
+
 					<section className='fr-py-5v'>
-						<h2 id="logement" className="fr-h2 text-blue flex align-item-center fr-mb-2w">
+						<div className="fr-grid-row fr-grid-row--gutters align-items--center background--green">
+							<div className="fr-col-12 fr-col-lg-6">
+								<h2>Employeurs : Trouvez vos futurs talents sur 1jeune1solution</h2>
+								<p>Déposez gratuitement vos offres d’emploi et rendez-les visibles auprès des jeunes à la recherche d’une nouvelle opportunité.</p>
+								<Link className="fr-btn fr-mr-2w fr-mb-2w" href="https://labonnealternance.apprentissage.beta.gouv.fr/1jeune1solution?utm_source=1j1s&utm_medium=website&utm_campaign=landinglba1j1s">Déposer une offre</Link>
+							</div>
+							<div className="fr-col-12 fr-col-lg-6 fr-hidden fr-unhidden-lg fr-p-0">
+								<Image src="/images/banner-lba-home.png" alt="" width={660} height={330} className="img-cover"/>
+							</div>
+						</div>
+					</section>
+
+					<section className='fr-py-5v'>
+						<h2 id="logement" className="fr-h2 text-blue flex align-items--center fr-mb-2w">
 							<Image src={houseSvg} alt="" width={64} height={64}  className='fr-mr-2w' />
 							Logement
 						</h2>
@@ -332,10 +364,10 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 							seeMoreAriaLabel={'Voir plus de résultats sur les logements'}
 							seeLessAriaLabel={'Voir moins de résultats sur les logements'}
 							colClass='fr-col-12 fr-col-md-6 fr-col-lg-4'
-						/>
+							/>
 					</section>
 					<section className='fr-py-5v'>
-						<h2 id="aides-orientation-accompagnement" className="fr-h2 text-blue flex align-item-center fr-mb-2w">
+						<h2 id="aides-orientation-accompagnement" className="fr-h2 text-blue flex align-items--center fr-mb-2w">
 							<Image src={mentalDisabilitiesSvg} alt="" width={64} height={64}  className='fr-mr-2w' />
 							Accompagnement
 						</h2>
@@ -345,10 +377,11 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 							seeMoreAriaLabel={'Voir plus de résultats sur les aides et accompagnements'}
 							seeLessAriaLabel={'Voir moins de résultats sur les aides et accompagnements'}
 							colClass='fr-col-12 fr-col-md-6 fr-col-lg-4'
-						/>
+							/>
 					</section>				
+							
 					<section className='fr-py-5v'>
-						<h2 id="aides-et-outils" className="fr-h2 text-blue flex align-item-center fr-mb-2w">
+						<h2 id="aides-et-outils" className="fr-h2 text-blue flex align-items--center fr-mb-2w">
 							<Image src={ecosystemSvg} alt="" width={64} height={64}  className='fr-mr-2w' />
 							Aides et outils
 						</h2>

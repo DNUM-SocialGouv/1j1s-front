@@ -37,6 +37,15 @@ body {
   overflow: auto;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  word-break: break-word;
+}
+
 a {
   color: inherit;
 }
@@ -71,15 +80,27 @@ hr {
   justify-content: center;
 }
 
-.align-item-center {
+.align-items--center {
   align-items: center;
 }
 
-.text-blue {
+.text--blue {
   color: var(--text-title-blue-france);
 }
 
 .img-contain {
   object-fit: contain;
   width: 100%;
+}
+
+.img-cover {
+  object-fit: cover;
+  width: 100%;
+}
+
+.background--blue-light {
+  background-color: var(--background-alt-blue-france);
+}
+.background--green {
+  background-color: #A9FB68;
 }
