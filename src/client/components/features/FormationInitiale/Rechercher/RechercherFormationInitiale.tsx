@@ -111,7 +111,7 @@ function BanniereFormationInitiale() {
 		<Banner>
 			<h1 className="fr-h1 fr-mb-0">
 				<span className="text--blue">Des milliers de formations </span>
-				pour vous permettre de realiser votre projet professionnel
+				pour vous permettre de réaliser votre projet professionnel
 			</h1>
 		</Banner>
 	);

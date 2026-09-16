@@ -25,6 +25,7 @@ export function FormulaireRechercheFormationInitiale() {
 			className="border--blue fr-p-5w"
 			onSubmit={submitForm}
 		>
+			<h2 className="fr-h4 text--blue fr-mb-5w">Trouvez une formation</h2>
 			<div className="fr-grid-row fr-grid-row--gutters">
 				<div className="fr-col-12">
 					<Champ>
@@ -41,7 +42,7 @@ export function FormulaireRechercheFormationInitiale() {
 					</Champ>
 				</div>
 				<div className="fr-m-auto fr-mt-4w">
-					<Button label="Recherche" type="submit" className="fr-btn--lg" />
+					<Button label="Rechercher" type="submit" className="fr-btn--lg" />
 				</div>
 			</div>
 		</form>

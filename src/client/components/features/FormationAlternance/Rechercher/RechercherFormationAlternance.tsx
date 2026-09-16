@@ -17,13 +17,13 @@ import { PixPartner } from '~/client/components/features/ServiceCard/PixPartner'
 import { Head } from '~/client/components/head/Head';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { Carte } from '~/client/dsfr';
-import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useFormationQuery } from '~/client/hooks/useFormationQuery';
 import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
 import { RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { transformObjectToQueryString } from '~/server/services/utils/urlParams.util';
+import {Banner} from "~/client/components/ui/Hero/Hero";
 
 const PREFIX_TITRE_PAGE = 'Rechercher une formation en apprentissage';
 
@@ -99,12 +99,12 @@ export default function RechercherFormationAlternance({ resultats: formationAlte
 
 function BannièreFormation() {
 	return (
-		<LightHero>
-			<h1>
-				<LightHeroPrimaryText>Des milliers de formations en alternance</LightHeroPrimaryText>
+		<Banner>
+			<h1 className="fr-h1 fr-mb-0">
+				<span className="text--blue">Des milliers de formations en alternance </span>
+				pour vous permettre de réaliser votre projet professionnel
 			</h1>
-			<LightHeroSecondaryText>pour vous permettre de réaliser votre projet professionnel</LightHeroSecondaryText>
-		</LightHero>
+		</Banner>
 	);
 }
 
