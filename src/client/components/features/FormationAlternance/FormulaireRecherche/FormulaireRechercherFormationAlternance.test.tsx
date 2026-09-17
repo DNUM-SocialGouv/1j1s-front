@@ -130,8 +130,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 
 			const user = userEvent.setup();
 			const selectNiveauEtudes = screen.getByRole('combobox', { name: 'Niveau d’études visé (facultatif) Exemples : CAP, Bac...' });
-			await user.click(selectNiveauEtudes);
-			await user.click(screen.getByRole('option', { name: FORMATION_NIVEAU_3.libellé }));
+			await user.selectOptions(selectNiveauEtudes, FORMATION_NIVEAU_3.libellé);
 
 			await user.click(screen.getByRole('button', { name: 'Rechercher' }));
 
@@ -196,8 +195,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 			);
 
 			const user = userEvent.setup();
-			await user.click(screen.getByRole('combobox', { name: 'Niveau d’études visé (facultatif) Exemples : CAP, Bac...' }));
-			await user.click(screen.getByRole('option', { name: FORMATION_NIVEAU_3.libellé }));
+			await user.selectOptions(screen.getByRole('combobox', { name: 'Niveau d’études visé (facultatif) Exemples : CAP, Bac...' }), FORMATION_NIVEAU_3.libellé);
 			await user.click(screen.getByRole('button', { name: 'Rechercher' }));
 
 			expect(routerPush).toHaveBeenCalledTimes(1);
@@ -304,7 +302,7 @@ describe('FormulaireRechercherFormationAlternance', () => {
 
 		const selectRayon = screen.getByRole('combobox', { name: /Rayon/i });
 		expect(selectRayon).toHaveTextContent('30 km');
-		expect(screen.getByDisplayValue('30')).toBeInTheDocument();
+		expect(screen.getByDisplayValue('30 km')).toBeInTheDocument();
 
 		const niveau = screen.getByRole('combobox', { name: /Niveau d’études visé/i });
 		expect(niveau).toHaveTextContent('Bac, autres formations niveau 4');

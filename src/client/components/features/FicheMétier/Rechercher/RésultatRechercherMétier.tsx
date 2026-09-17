@@ -1,10 +1,7 @@
 import React, { useMemo } from 'react';
 
-import styles from '~/client/components/features/FicheMétier/Rechercher/RésultatRechercherMétier.module.scss';
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
-import {
-	ResultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
+import { Carte } from '~/client/dsfr';
 import useSanitize from '~/client/hooks/useSanitize';
 import { formatCarriageReturnToHtml } from '~/client/utils/formatCarriageReturnToHtml';
 import { mapFicheMetier } from '~/server/fiche-metier/domain/ficheMetierHttp';
@@ -20,11 +17,10 @@ export function RésultatRechercherMétier(props: HitProps<Partial<StrapiFicheMe
 	if (!ficheMetier.nomMetier) return null;
 
 	return (
-		<ResultatRechercherSolution
-			intituléOffre={nomMetier}
-			étiquetteOffreList={[]}
-			lienOffre={`/decouvrir-les-metiers/${encodeURIComponent(ficheMetier.nomMetier)}`}>
-			<div className={styles.description} dangerouslySetInnerHTML={{ __html: accrocheMétier || '' }} />
-		</ResultatRechercherSolution>
+		<Carte
+			titre={nomMetier}
+			lien={`/decouvrir-les-metiers/${encodeURIComponent(ficheMetier.nomMetier)}`}>
+			<span dangerouslySetInnerHTML={{ __html: accrocheMétier || '' }} />
+		</Carte>
 	);
 }

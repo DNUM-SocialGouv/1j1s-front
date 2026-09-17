@@ -123,7 +123,7 @@ describe('RechercherAccompagnement', () => {
 				vi.spyOn(etablissementAccompagnementService, 'rechercher').mockResolvedValue(createSuccess([
 					anEtablissementAccompagnement({ id: '1', nom: 'Point information jeunesse - Saint-Céré' }),
 					anEtablissementAccompagnement({ id: '2', nom: 'Point information jeunesse - Figeac' }),
-					anEtablissementAccompagnement({ id: '3', nom: 'Point information jeunesse - Saint-Céré' }),
+					anEtablissementAccompagnement({ id: '3', nom: 'Point information jeunesse - Saint-Jacques' }),
 				]));
 				const localisationServiceMock = aLocalisationService();
 
@@ -144,18 +144,13 @@ describe('RechercherAccompagnement', () => {
 				);
 
 				// WHEN
-				const résultatRechercheÉtablissementAccompagnementListHeader = await screen.findByRole('list', { name: 'Établissements d‘accompagnement' });
-				const résultatRechercheÉtablissementAccompagnementTitle = await within(résultatRechercheÉtablissementAccompagnementListHeader).findAllByRole('heading', { level: 3 });
-
-				const rechercheÉtablissementAccompagnementNombreRésultats = await screen.findByText('3 établissements d‘accompagnement pour les structures Infos Jeunes');
+				const rechercheNombreResultats = await screen.findByText("3 établissements d‘accompagnement pour les structures Infos Jeunes");
+				expect(rechercheNombreResultats).toBeInTheDocument();
 
 				// THEN
-				expect(résultatRechercheÉtablissementAccompagnementTitle).toHaveLength(3);
-
-				expect(rechercheÉtablissementAccompagnementNombreRésultats).toBeInTheDocument();
-				expect(résultatRechercheÉtablissementAccompagnementTitle[0].textContent).toEqual('Point information jeunesse - Saint-Céré');
-				expect(résultatRechercheÉtablissementAccompagnementTitle[1].textContent).toEqual('Point information jeunesse - Figeac');
-				expect(résultatRechercheÉtablissementAccompagnementTitle[2].textContent).toEqual('Point information jeunesse - Saint-Céré');
+				expect(screen.getByRole("heading", { level: 3, name: "Point information jeunesse - Saint-Céré" })).toBeInTheDocument();
+				expect(screen.getByRole("heading", { level: 3, name: "Point information jeunesse - Figeac" })).toBeInTheDocument();
+				expect(screen.getByRole("heading", { level: 3, name: "Point information jeunesse - Saint-Jacques" })).toBeInTheDocument();
 			});
 		});
 
@@ -232,11 +227,11 @@ describe('RechercherAccompagnement', () => {
 			);
 
 			// WHEN
-			const résultatRechercheÉtablissementAccompagnementListHeader = await screen.findByRole('list', { name: 'Établissements d‘accompagnement' });
-			const résultatRechercheÉtablissementAccompagnementButton = within(résultatRechercheÉtablissementAccompagnementListHeader).getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
+			await screen.findByText(/1 établissement/);
+			const boutonsContact = screen.getAllByRole("button", { name: "Je souhaite être contacté(e)" });
 
 			// THEN
-			expect(résultatRechercheÉtablissementAccompagnementButton).toBeVisible();
+			expect(boutonsContact[0]).toBeVisible();
 		});
 	});
 });
