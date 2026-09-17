@@ -2,7 +2,6 @@ import classNames from 'classnames';
 
 import { navigationItemList } from '~/client/components/layouts/Header/Navigation/NavigationStructure';
 
-import { HeaderNavEmployeur } from './HeaderNavEmployeur';
 import { HeaderNavItem } from './HeaderNavItem';
 import { HeaderNavItemWithMenu } from './HeaderNavItemWithMenu';
 
@@ -72,9 +71,11 @@ export function HeaderNavigation({ isOpen, onClose, isMobile = false }: HeaderNa
 							onClick={onClose}
 							isMobile={isMobile}
 						/>
-						<HeaderNavEmployeur
+						<HeaderNavItemWithMenu
+							buttonClassName="background--employeur"
 							item={employeurNav}
 							onClick={onClose}
+							isMobile={isMobile}
 						/>
 					</ul>
 				</nav>
