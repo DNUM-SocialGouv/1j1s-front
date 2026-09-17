@@ -12,7 +12,6 @@ import { InfoJeunesPartner } from '~/client/components/features/ServiceCard/Info
 import { MissionsLocalesPartner } from '~/client/components/features/ServiceCard/MissionsLocalesPartner';
 import { Head } from '~/client/components/head/Head';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
