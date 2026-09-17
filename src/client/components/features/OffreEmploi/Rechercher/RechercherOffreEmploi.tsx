@@ -21,7 +21,7 @@ import {
 	Offre,
 	RésultatsRechercheOffre,
 } from '~/server/offres/domain/offre';
-import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
+import {BannerWithIllustration} from '~/client/components/ui/Hero/Hero';
 
 // NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
 const FormulaireRechercheOffreEmploi = dynamic(() => import('../FormulaireRecherche/FormulaireRechercheOffreEmploi').then((mod) => mod.FormulaireRechercheOffreEmploi), { ssr: false });
@@ -98,7 +98,7 @@ function ListeOffreEmploi({ résultatList }: ListeRésultatProps) {
 					<Carte
 						titre={offreEmploi.intitulé}
 						lien={`/emplois/${offreEmploi.id}`}
-						tags={offreEmploi.étiquetteList}>
+						tags={offreEmploi.étiquetteList.map((tag) => <>{tag}</>)}>
 						{offreEmploi.entreprise.nom}
 					</Carte>
 				</li>
@@ -109,14 +109,11 @@ function ListeOffreEmploi({ résultatList }: ListeRésultatProps) {
 
 function BannièreOffreEmploi() {
 	return (
-		<HeroWithIllustration
-			// TODO: format d'image/standard?
-			image="/images/offres-emploi-banner.png"
-		>
-			{/*TODO: classe text blue branche guic*/}
-			<h1><span className="text-blue">Des milliers d‘offres d‘emplois </span>
+		<BannerWithIllustration image="/images/offres-emploi-banner.png">
+			<h1 className="fr-h1 fr-mb-0">
+				<span className="text--blue">Des milliers d‘offres d‘emplois </span>
 				sélectionnées pour vous par France Travail
 			</h1>
-		</HeroWithIllustration>
+		</BannerWithIllustration>
 	);
 }

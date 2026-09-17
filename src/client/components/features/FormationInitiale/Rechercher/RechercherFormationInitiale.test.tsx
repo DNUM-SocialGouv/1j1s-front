@@ -243,7 +243,7 @@ describe('RechercherFormationInitiale', () => {
 			</DependenciesProvider>);
 
 			// THEN
-			const titreSection = screen.getByRole('heading', { level: 2, name: /Des services faits pour vous/ });
+			const titreSection = screen.getByRole("heading", { level: 2, name: /Découvrez des services faits pour vous/ });
 			expect(titreSection).toBeVisible();
 		});
 

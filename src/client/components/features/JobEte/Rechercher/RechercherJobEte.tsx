@@ -12,7 +12,6 @@ import {
 import {
 	getCodeLibelleLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/getCodeLibelleLocalisation';
-import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import empty from '~/client/utils/empty';
@@ -24,6 +23,7 @@ import {
 	Offre,
 	RésultatsRechercheOffre,
 } from '~/server/offres/domain/offre';
+import { Banner } from '~/client/components/ui/Hero/Hero';
 
 const PREFIX_TITRE_PAGE = 'Rechercher un job d’été';
 
@@ -118,11 +118,11 @@ function ListeOffreJobEte({ resultatList }: ListeResultatProps) {
 
 function BanniereJobEte() {
 	return (
-		<LightHero>
-			<h1>
-				<LightHeroPrimaryText>Des milliers de jobs d’été</LightHeroPrimaryText>
-				<LightHeroSecondaryText>sélectionnés pour vous par France Travail</LightHeroSecondaryText>
+		<Banner>
+			<h1 className="fr-h1 fr-mb-0">
+				<span className="text--blue">Des milliers de jobs d’été </span>
+				sélectionnés pour vous par France Travail
 			</h1>
-		</LightHero>
+		</Banner>
 	);
 }

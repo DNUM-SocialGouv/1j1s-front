@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { EnqueteSatisfactionBanner } from '~/client/components/layouts/Header/Banner/EnqueteSatisfaction/EnqueteSatisfactionBanner';
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Link } from '~/client/components/ui/Link/Link';
 
@@ -8,7 +7,6 @@ import { HeaderNavigation } from './HeaderNavigation';
 
 export function Header() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const displayEnqueteSatisfactionBanner = process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE === '1';
 
 	const openMenu = () => setIsMenuOpen(true);
 	const closeMenu = useCallback(() => setIsMenuOpen(false), []);
@@ -71,7 +69,6 @@ export function Header() {
 				</div>
 				<HeaderNavigation isOpen={isMenuOpen} onClose={closeMenu} isMobile={isMenuOpen} />
 			</header>
-			{displayEnqueteSatisfactionBanner && <EnqueteSatisfactionBanner />}
 		</>
 	);
 }

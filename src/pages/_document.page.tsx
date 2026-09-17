@@ -1,12 +1,9 @@
 import { Head, Html, Main, NextScript } from 'next/document';
 import Script from 'next/script';
-import React from 'react';
-
-import { ID_TOP_ELEMENT } from '../client/components/ui/Bouée/Bouée';
 
 export default function Document() {
 	return (
-		<Html lang="fr" data-fr-scheme="system">
+		<Html lang="fr">
 			<Head>
 				<meta name="author" content="1jeune1solution" />
 				<meta name="theme-color" content="#000091" />
@@ -31,7 +28,7 @@ export default function Document() {
 				<meta name="msapplication-wide310x150logo" content="/favicons/mstile-310x150.png" />
 				<meta name="msapplication-square310x310logo" content="/favicons/mstile-310x310.png" />
 			</Head>
-			<body id={ID_TOP_ELEMENT} data-version={process.env.NEXT_PUBLIC_APPLICATION_VERSION} data-env={process.env.NODE_ENV}>
+			<body data-version={process.env.NEXT_PUBLIC_APPLICATION_VERSION} data-env={process.env.NODE_ENV}>
 				<Main />
 				<NextScript />
 				{

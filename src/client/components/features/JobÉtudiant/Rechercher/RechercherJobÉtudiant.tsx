@@ -16,7 +16,7 @@ import {
 import {
 	getCodeLibelleLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/getCodeLibelleLocalisation';
-import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
+import { Banner } from '~/client/components/ui/Hero/Hero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import empty from '~/client/utils/empty';
@@ -127,11 +127,11 @@ function ListeOffreJobÉtudiant({ résultatList }: ListeRésultatProps) {
 
 function BannièreJobÉtudiant() {
 	return (
-		<LightHero>
-			<h1>
-				<LightHeroPrimaryText>Des milliers de jobs étudiants</LightHeroPrimaryText>
-				<LightHeroSecondaryText>sélectionnés pour vous par France Travail</LightHeroSecondaryText>
+		<Banner>
+			<h1 className="fr-h1 fr-mb-0">
+				<span className="text--blue">Des milliers de jobs étudiants </span>
+				sélectionnés pour vous par France Travail
 			</h1>
-		</LightHero>
+		</Banner>
 	);
 }
