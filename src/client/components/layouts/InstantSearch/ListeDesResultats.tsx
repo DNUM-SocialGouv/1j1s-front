@@ -20,23 +20,20 @@ export const ListeDesResultats = React.forwardRef<HTMLElement | null, ListeDesRe
 	const ref = useSynchronizedRef(outerRef);
 
 	return (
-		<section className={styles.listeDesResultatsWrapper} ref={ref} aria-label='Résultats de la recherche'>
-			<Container
-				className={classNames({ [styles.listeDesResultats]: !isAffichageListeDeResultatsDesktopDirectionRow })}>
-				<Skeleton
-					type="card"
-					isLoading={isLoading}
-					repeat={skeletonRepeat}
-					className={classNames({ [styles.skeletonAffichageDesktopDirectionRow]: !isAffichageListeDeResultatsDesktopDirectionRow })}>
-					<>
-						{resultats}
-						{pagination}
-						<Footnote htmlFor="partenaires-reference" id="partenaires" className={styles.footnote}>
-							les annonces listées ci-dessus nous sont fournies par nos partenaires (<a href="/cgu#3.-services">liste disponible dans les <abbr title="Conditions Générales d'Utilisation">CGU</abbr></a>)
-						</Footnote>
-					</>
-				</Skeleton>
-			</Container>
+		<section className="fr-container" ref={ref} aria-label='Résultats de la recherche'>
+			<Skeleton
+				type="card"
+				isLoading={isLoading}
+				repeat={skeletonRepeat}
+				className={classNames({ [styles.skeletonAffichageDesktopDirectionRow]: !isAffichageListeDeResultatsDesktopDirectionRow })}>
+				<>
+					{resultats}
+					{pagination}
+					<Footnote htmlFor="partenaires-reference" id="partenaires" className={styles.footnote}>
+						les annonces listées ci-dessus nous sont fournies par nos partenaires (<a href="/cgu#3.-services">liste disponible dans les <abbr title="Conditions Générales d'Utilisation">CGU</abbr></a>)
+					</Footnote>
+				</>
+			</Skeleton>
 		</section>
 	);
 });
