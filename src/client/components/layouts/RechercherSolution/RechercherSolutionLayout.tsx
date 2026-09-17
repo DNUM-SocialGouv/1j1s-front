@@ -94,11 +94,13 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 						{listeSolutionElement}
 						{footnote && <div className={styles.footnote}>{footnote}</div>}
 						{paginationOffset && nombreTotalSolutions && nombreTotalSolutions > paginationOffset && (
-							<div className={styles.pagination}>
-								<Pagination
-									numberOfResult={nombreTotalSolutions}
-									numberOfResultPerPage={paginationOffset}
-									maxPage={maxPage} />
+							<div className="fr-grid-row fr-mt-3w">
+								<div className="fr-m-auto">
+									<Pagination
+										numberOfResult={nombreTotalSolutions}
+										numberOfResultPerPage={paginationOffset}
+										maxPage={maxPage} />
+								</div>
 							</div>
 						)}
 					</div>
