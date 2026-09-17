@@ -27,6 +27,7 @@ import {
 	EtablissementAccompagnement,
 	TypeÉtablissement,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
+import {Banner} from "~/client/components/ui/Hero/Hero";
 
 export function RechercherAccompagnement() {
 	const accompagnementQuery = useAccompagnementQuery();
@@ -122,14 +123,12 @@ export function RechercherAccompagnement() {
 
 function BannièreAccompagnement() {
 	return (
-		<LightHero>
-			<h1>
-				<LightHeroPrimaryText>
-					Je recherche un accompagnement proche de chez moi
-				</LightHeroPrimaryText>
+		<Banner>
+			<h1 className="fr-h1 fr-mb-0">
+				<span className="text--blue">Je recherche un accompagnement proche de chez moi </span>
+				pour être aidé dans mes démarches et mon parcours
 			</h1>
-			<LightHeroSecondaryText>je veux être aidé dans mes démarches et mon parcours</LightHeroSecondaryText>
-		</LightHero>
+		</Banner>
 	);
 }
 
