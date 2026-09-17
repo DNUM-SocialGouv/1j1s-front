@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/InstantSearch/ListeDesResultats.module.scss';
 import { Footnote } from '~/client/components/ui/Footnote/Footnote';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
