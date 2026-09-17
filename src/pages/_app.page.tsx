@@ -1,3 +1,4 @@
+import '@gouvfr/dsfr/dist/dsfr.min.css';
 import '~/styles/main.scss';
 import '../client/dsfr/styles.css';
 
@@ -45,6 +46,13 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
 	usePageHistory();
 	useTriggerServicesOnNavigation(dependenciesContainerInstance.cookiesService);
+
+	useEffect(function initDsfr() {
+		import('@gouvfr/dsfr/dist/dsfr.module').then(() => {
+			// @ts-expect-error dsfr is attached to window
+			window.dsfr.start();
+		});
+	}, []);
 
 	useEffect(function focusAnchor() {
 		const [/* full path */, targetId] = router.asPath.match(/^[^#]*#(.+)$/) ?? [];

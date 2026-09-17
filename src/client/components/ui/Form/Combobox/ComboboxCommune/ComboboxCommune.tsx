@@ -158,13 +158,9 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 					</Champ.Label>
 					<Champ.Input
 						render={SelectSimple}
-						optionsAriaLabel={'Rayons'}
+						optionsList={radiusList}
 						name={'distanceCommune'}
-						defaultValue={defaultDistanceProps || DEFAULT_RADIUS_VALUE}>
-						{radiusList.map((option) =>
-							<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
-						)}
-					</Champ.Input>
+						defaultValue={defaultDistanceProps || DEFAULT_RADIUS_VALUE} />
 					<Champ.Error />
 				</Champ>
 			)}

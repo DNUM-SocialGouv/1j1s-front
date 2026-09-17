@@ -231,12 +231,8 @@ function FormulaireContactParTelephone(props: {
 							<Champ.Input
 								render={SelectSimple}
 								required
-								optionsAriaLabel={'metiers'}
-								name={'metierCode'}>
-								{props.metiersStage3eEt2de.map((metier) =>
-									<SelectSimple.Option key={metier.label} value={metier.code}>{metier.label}</SelectSimple.Option>,
-								)}
-							</Champ.Input>
+								optionsList={props.metiersStage3eEt2de.map((metier) => ({ libellé: metier.label, valeur: metier.code }))}
+								name={'metierCode'} />
 							<Champ.Error />
 						</Champ>
 					) : (
@@ -346,12 +342,8 @@ function FormulaireContactParEmail(props: {
 							<Champ.Input
 								render={SelectSimple}
 								required
-								optionsAriaLabel={'metiers'}
-								name={'metierCode'}>
-								{props.metiersStage3eEt2de.map((metier) =>
-									<SelectSimple.Option key={metier.label} value={metier.code}>{metier.label}</SelectSimple.Option>,
-								)}
-							</Champ.Input>
+								optionsList={props.metiersStage3eEt2de.map((metier) => ({ libellé: metier.label, valeur: metier.code }))}
+								name={'metierCode'} />
 							<Champ.Error />
 						</Champ>
 					) : (
