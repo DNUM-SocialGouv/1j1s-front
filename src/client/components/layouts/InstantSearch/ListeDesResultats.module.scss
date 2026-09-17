@@ -2,40 +2,23 @@
 
 $color-background-resultats-list: utilities.$color-background-primary-alternative;
 
-.listeDesResultatsWrapper {
-  background-color: $color-background-resultats-list;
-  padding: 2rem 1rem;
-
-  & ol {
-    list-style-type: none;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    @include utilities.media(medium) {
-      gap: 2rem;
-    }
-  }
-}
-
 .listeDesResultats {
   & ol {
-    display: flex;
-    align-content: center;
+    list-style-type: none;
+    display: grid;
     gap: 1.5rem;
-    flex-direction: column;
-    flex-wrap: wrap;
+    grid-template-columns: 1fr;
 
     @include utilities.media(medium) {
-      gap: 2rem 2.5rem;
-      flex-direction: row;
-      justify-content: center;
+      grid-template-columns: repeat(2,1fr);
+    }
+
+    @include utilities.media(large) {
+      grid-template-columns: repeat(3,1fr);
     }
 
     > li {
-      flex-grow: 1;
-      flex-basis: 100%;
-      max-width: 22.5rem;
+      max-width: none;
     }
   }
 }
