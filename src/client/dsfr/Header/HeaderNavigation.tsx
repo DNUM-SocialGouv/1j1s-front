@@ -72,6 +72,7 @@ export function HeaderNavigation({ isOpen, onClose, isMobile = false }: HeaderNa
 							isMobile={isMobile}
 						/>
 						<HeaderNavItemWithMenu
+							buttonClassName="background--employeur"
 							item={employeurNav}
 							onClick={onClose}
 							isMobile={isMobile}

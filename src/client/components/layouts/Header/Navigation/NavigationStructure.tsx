@@ -100,7 +100,7 @@ const employeurNav = (): NavigationItemWithChildren => ({
 		{ label: "Je recrute", link: "/je-recrute" },
 		{ label: "Je deviens mentor", link: "/je-deviens-mentor" },
 		{ label: "Je propose des immersions", link: "/immersions" },
-		{ label: "Je forme les jeunes", link: "/je-recrute-afpr-poei" },
+		{ label: "Je forme les jeunes grâce à l‘emploi", link: "/je-recrute-afpr-poei" },
 		{ label: "Je recrute un apprenti", link: LBA_RECRUTEUR_URL },
 		{ label: "Découvrir les mesures employeurs", link: "/mesures-employeurs" },
 		{ label: "Accéder à mon espace", link: "/mon-espace" },

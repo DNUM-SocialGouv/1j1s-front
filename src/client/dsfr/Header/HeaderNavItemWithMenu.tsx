@@ -14,9 +14,10 @@ interface HeaderNavItemWithMenuProps {
 	item: NavigationItemWithChildren;
 	onClick?: () => void;
 	isMobile?: boolean;
+	buttonClassName?: string;
 }
 
-export function HeaderNavItemWithMenu({ item, onClick, isMobile = false }: HeaderNavItemWithMenuProps) {
+export function HeaderNavItemWithMenu({ item, onClick, isMobile = false, buttonClassName = "" }: HeaderNavItemWithMenuProps) {
 	const router = useRouter();
 	const containerRef = useRef<HTMLLIElement>(null);
 	const [isExpanded, setIsExpanded] = useState(false);
@@ -60,7 +61,7 @@ export function HeaderNavItemWithMenu({ item, onClick, isMobile = false }: Heade
 	return (
 		<li className="fr-nav__item" ref={containerRef} onBlur={handleBlur} onKeyUp={handleKeyUp}>
 			<button
-				className="fr-nav__btn"
+				className={`fr-nav__btn ${buttonClassName}`}
 				aria-expanded={isExpanded}
 				aria-controls={menuId}
 				aria-current={hasActiveChild ? true : undefined}
