@@ -8,11 +8,11 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { InstantSearchErrorBoundary } from '~/client/components/layouts/InstantSearch/InstantSearchErrorBoundary';
 import styles from '~/client/components/layouts/InstantSearch/InstantSearchLayout.module.scss';
 import { ListeDesResultats } from '~/client/components/layouts/InstantSearch/ListeDesResultats';
+import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { MeiliSearchPagination } from '~/client/components/ui/Meilisearch/MeilisearchPagination/MeiliSearchPagination';
 import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/MessageResultatRecherche/MessageResultatRecherche';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
-import { Banner } from "~/client/components/ui/Hero/Hero";
 
 export interface HitProps<THit extends BaseHit> {
     hit: THit;
@@ -62,12 +62,12 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 
 	return (
 		<main id="contenu">
-			<Banner>
-				<h1 className="fr-h1 fr-mb-0">
-					<span className="text--blue">{titre} </span>
-					{sousTitre}
+			<LightHero>
+				<h1>
+					<LightHeroPrimaryText>{titre}</LightHeroPrimaryText>
+					<LightHeroSecondaryText>{sousTitre}</LightHeroSecondaryText>
 				</h1>
-			</Banner>
+			</LightHero>
 			<InstantSearch
 				searchClient={searchClient}
 				indexName={meilisearchIndex}

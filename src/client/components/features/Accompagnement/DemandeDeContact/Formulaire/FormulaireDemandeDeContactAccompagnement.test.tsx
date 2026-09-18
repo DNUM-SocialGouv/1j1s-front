@@ -136,7 +136,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 			await user.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), '0606060606');
 			await user.type(screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles (facultatif)' }), 'Merci de me recontacter');
 
-			await user.selectOptions(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }), '23 ans');
+			await user.click(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }));
+			await user.click(screen.getByRole('option', { name: '23 ans' }));
 
 			await user.type(screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' }), 'Paris');
 			await user.click(await screen.findByRole('option', { name: 'Paris (75006)' }));
@@ -179,7 +180,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 			await user.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), '0606060606');
 			await user.type(screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles (facultatif)' }), 'Merci de me recontacter');
 
-			await user.selectOptions(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }), '23 ans');
+			await user.click(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }));
+			await user.click(screen.getByRole('option', { name: '23 ans' }));
 
 			await user.type(screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' }), 'Paris');
 			await user.click(await screen.findByRole('option', { name: 'Paris (75006)' }));
@@ -209,7 +211,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 			await user.type(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' }), 'John');
 			await user.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), '0606060606');
 
-			await user.selectOptions(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }), '23 ans');
+			await user.click(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }));
+			await user.click(screen.getByRole('option', { name: '23 ans' }));
 
 			await user.type(screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' }), 'Paris');
 			await user.click(await screen.findByRole('option', { name: 'Paris (75006)' }));

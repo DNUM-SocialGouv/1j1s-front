@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, {
 	ChangeEvent,
 	useId,
@@ -26,6 +27,7 @@ export const MeilisearchInput = (props: MeilisearchCustomSearchBoxProps & UseSea
 		id: idProps,
 		placeholder,
 		resetTitle,
+		className,
 	} = props;
 	const { refine, clear, query } = useSearchBox(props);
 	const internalId = useId();
@@ -45,9 +47,9 @@ export const MeilisearchInput = (props: MeilisearchCustomSearchBoxProps & UseSea
 	};
 
 	return (
-		<div className="fr-input-group">
-			<label className="fr-label" htmlFor={inputId}>{label}</label>
-			<span>
+		<div className={classNames(className)}>
+			<label className={styles.label} htmlFor={inputId}>{label}</label>
+			<span className={styles.customSearchBoxInputWrapper}>
 				<input
 					id={inputId}
 					type="text"
@@ -55,7 +57,7 @@ export const MeilisearchInput = (props: MeilisearchCustomSearchBoxProps & UseSea
 					placeholder={placeholder}
 					value={value}
 					onChange={updateValue}
-					className="fr-input" />
+					className={styles.customSearchBoxInput} />
 				{
 					!!value && (
 						<button

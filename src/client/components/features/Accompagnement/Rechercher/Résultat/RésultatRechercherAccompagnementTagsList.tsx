@@ -2,7 +2,7 @@ import styles
 	from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
-import { Tag } from '~/client/dsfr';
+import { Tag } from '~/client/components/ui/Tag/Tag';
 import {
 	EtablissementAccompagnement,
 	TypeÉtablissement,
