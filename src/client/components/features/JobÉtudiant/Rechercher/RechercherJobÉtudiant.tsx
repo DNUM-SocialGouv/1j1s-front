@@ -8,15 +8,21 @@ import { LaBonneBoitePartner } from '~/client/components/features/ServiceCard/La
 import { OnisepMetierPartner } from '~/client/components/features/ServiceCard/OnisepMetierPartner';
 import { ServiceCiviquePartner } from '~/client/components/features/ServiceCard/ServiceCiviquePartner';
 import { Head } from '~/client/components/head/Head';
+import {
+	ListeRésultatsRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import { Carte } from '~/client/dsfr';
+import {
+	ResultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
+import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import {
 	formatLibelleLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/formatLibelleLocalisation';
 import {
 	getCodeLibelleLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/getCodeLibelleLocalisation';
-import { Banner } from '~/client/components/ui/Hero/Hero';
+import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import empty from '~/client/utils/empty';
@@ -30,6 +36,7 @@ import {
 } from '~/server/offres/domain/offre';
 
 const PREFIX_TITRE_PAGE = 'Rechercher un job étudiant';
+const LOGO_FRANCE_TRAVAIL = '/images/logos/france-travail.svg';
 
 interface RechercherJobEtudiantProps {
 	erreurRecherche?: Erreur
@@ -92,6 +99,7 @@ export function RechercherJobÉtudiant(props: RechercherJobEtudiantProps) {
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
 					maxPage={MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL - 1}
 					listeSolutionElement={<ListeOffreJobÉtudiant résultatList={jobÉtudiantList} />} />
+				<EnTete heading="Découvrez des services faits pour vous" />
 				<ServiceCardList>
 					<LaBonneBoitePartner />
 					<OnisepMetierPartner />
@@ -107,31 +115,34 @@ interface ListeRésultatProps {
 }
 
 function ListeOffreJobÉtudiant({ résultatList }: ListeRésultatProps) {
-	if (!résultatList.length) return null;
+	if (!résultatList.length) {
+		return undefined;
+	}
 
 	return (
-		<ul className="fr-grid-row fr-grid-row--gutters" aria-label="Offres de jobs étudiants">
+		<ListeRésultatsRechercherSolution aria-label="Offres de jobs étudiants">
 			{résultatList.map((offreEmploi: Offre) => (
-				<li key={offreEmploi.id} className="fr-col-lg-4 fr-col-md-6 fr-col-12">
-					<Carte
-						titre={offreEmploi.intitulé}
-						lien={`/jobs-etudiants/${offreEmploi.id}`}
-						tags={offreEmploi.étiquetteList}>
-						{offreEmploi.entreprise.nom}
-					</Carte>
+				<li key={offreEmploi.id}>
+					<ResultatRechercherSolution
+						étiquetteOffreList={offreEmploi.étiquetteList}
+						intituléOffre={offreEmploi.intitulé}
+						lienOffre={`/jobs-etudiants/${offreEmploi.id}`}
+						logo={offreEmploi.entreprise.logo || LOGO_FRANCE_TRAVAIL}
+						logoAlt={offreEmploi.entreprise.logo ? '' : 'France travail'}
+						sousTitreOffre={offreEmploi.entreprise.nom} />
 				</li>
 			))}
-		</ul>
+		</ListeRésultatsRechercherSolution>
 	);
 }
 
 function BannièreJobÉtudiant() {
 	return (
-		<Banner>
-			<h1 className="fr-h1 fr-mb-0">
-				<span className="text--blue">Des milliers de jobs étudiants </span>
-				sélectionnés pour vous par France Travail
+		<LightHero>
+			<h1>
+				<LightHeroPrimaryText>Des milliers de jobs étudiants</LightHeroPrimaryText>
+				<LightHeroSecondaryText>sélectionnés pour vous par France Travail</LightHeroSecondaryText>
 			</h1>
-		</Banner>
+		</LightHero>
 	);
 }

@@ -585,5 +585,6 @@ async function remplirFormulaire() {
 	await user.click(villeOption);
 
 	const selectAge = screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' });
-	await user.selectOptions(selectAge, formulaireContact.age);
+	await user.click(selectAge);
+	await user.click(screen.getByRole('option', { name: formulaireContact.age }));
 }

@@ -16,7 +16,7 @@ export interface Offre {
 	expérience?: OffreExpérience
 	duréeTravail?: OffreDuréeTravail
 	urlOffreOrigine: string
-	étiquetteList: React.ReactNode[]
+	étiquetteList: string[]
 }
 
 export enum OffreExpérience {

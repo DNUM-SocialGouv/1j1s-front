@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Phases } from '~/client/components/features/Entreprendre/Réseau/EntreprendreReseau';
 import styles from '~/client/components/features/Entreprendre/Réseau/PhasesProjet/EntreprendreRéseauStadesProjet.module.scss';
-import { Tag } from '~/client/dsfr';
+import { Tag } from '~/client/components/ui/Tag/Tag';
 
 interface EntreprendreRéseauPhasesProjetProps extends React.ComponentPropsWithoutRef<'ol'> {
   phases: Phases

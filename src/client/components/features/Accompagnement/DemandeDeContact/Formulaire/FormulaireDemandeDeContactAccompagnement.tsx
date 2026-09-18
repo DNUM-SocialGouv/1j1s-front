@@ -112,8 +112,12 @@ export function FormulaireDemandeDeContactAccompagnement({
 				<Champ.Input
 					render={SelectSimple}
 					required
-					optionsList={ageOptions}
-					name="age" />
+					optionsAriaLabel={'années'}
+					name="age">
+					{ageOptions.map((option) =>
+						<SelectSimple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectSimple.Option>,
+					)}
+				</Champ.Input>
 				<Champ.Error />
 			</Champ>
 

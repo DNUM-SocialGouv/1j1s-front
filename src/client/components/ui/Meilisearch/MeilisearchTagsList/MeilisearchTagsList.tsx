@@ -2,7 +2,7 @@ import React from 'react';
 import { useCurrentRefinements, UseCurrentRefinementsProps } from 'react-instantsearch';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Tag } from '~/client/dsfr';
+import { Tag } from '~/client/components/ui/Tag/Tag';
 
 import { getCapitalizedItems } from '../getCapitalizedItems';
 import styles from './MeilisearchTagsList.module.scss';
