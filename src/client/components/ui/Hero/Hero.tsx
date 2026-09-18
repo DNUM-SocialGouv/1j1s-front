@@ -3,6 +3,7 @@ import React from 'react';
 
 import styles from '~/client/components/ui/Hero/Hero.module.scss';
 import { Image } from '~/client/components/ui/Img';
+import useBreakpoint from "~/client/hooks/useBreakpoint";
 
 interface HeroIllustrationProps extends React.ComponentPropsWithoutRef<'div'> {
 	image: string
@@ -60,8 +61,10 @@ export function Banner({ children, ...rest }: React.ComponentPropsWithoutRef<'di
 }
 
 export function BannerWithIllustration({ children, image, ...rest }: HeroIllustrationProps) {
+	const { isLargeScreen } = useBreakpoint();
+	const containerClassName = isLargeScreen ? "fr-container" : "fr-container fr-py-5w"
 	return (
-		<div className="fr-container">
+		<div className={containerClassName}>
 			<div className="fr-grid-row fr-grid-row-gutters align-item-center" {...rest}>
 				<div className="fr-col-lg-6 fr-col-12">
 					{children}
