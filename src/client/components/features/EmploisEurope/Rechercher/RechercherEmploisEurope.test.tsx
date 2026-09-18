@@ -508,7 +508,7 @@ describe('RechercherEmploisEurope', () => {
 				</DependenciesProvider>,
 			);
 
-			const pagination = within(await screen.findByRole('navigation', { name: 'pagination' })).getAllByRole('link');
+			const pagination = within(await screen.findByRole('navigation', { name: 'Pagination' })).getAllByRole('link');
 			const dernierePage = pagination[pagination.length - 1];
 			await user.click(dernierePage);
 
