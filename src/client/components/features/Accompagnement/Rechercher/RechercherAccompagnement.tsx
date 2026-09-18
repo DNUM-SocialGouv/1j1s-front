@@ -11,12 +11,7 @@ import { FranceTravailPartner } from '~/client/components/features/ServiceCard/F
 import { InfoJeunesPartner } from '~/client/components/features/ServiceCard/InfoJeunesPartner';
 import { MissionsLocalesPartner } from '~/client/components/features/ServiceCard/MissionsLocalesPartner';
 import { Head } from '~/client/components/head/Head';
-import {
-	ListeRésultatsRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import { EnTete } from '~/client/components/ui/EnTete/EnTete';
-import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
@@ -31,6 +26,7 @@ import {
 	EtablissementAccompagnement,
 	TypeÉtablissement,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
+import {Banner} from "~/client/components/ui/Hero/Hero";
 
 export function RechercherAccompagnement() {
 	const accompagnementQuery = useAccompagnementQuery();
@@ -112,9 +108,9 @@ export function RechercherAccompagnement() {
 					isEtatInitial={empty(accompagnementQuery)}
 					messageResultatRecherche={messageRésultatRecherche}
 					nombreTotalSolutions={établissementAccompagnementList?.length || 0}
-					listeSolutionElement={<ListeÉtablissementAccompagnement résultatList={établissementAccompagnementList} />} />
-				<EnTete heading="Découvrez d’autres services faits pour vous" />
-				<ServiceCardList>
+					listeSolutionElement={<ListeÉtablissementAccompagnement résultatList={établissementAccompagnementList} />}
+				/>
+				<ServiceCardList heading="Découvrez d’autres services faits pour vous">
 					<MissionsLocalesPartner />
 					<InfoJeunesPartner />
 					<FranceTravailPartner />
@@ -126,14 +122,12 @@ export function RechercherAccompagnement() {
 
 function BannièreAccompagnement() {
 	return (
-		<LightHero>
-			<h1>
-				<LightHeroPrimaryText>
-					Je recherche un accompagnement proche de chez moi
-				</LightHeroPrimaryText>
+		<Banner>
+			<h1 className="fr-h1 fr-mb-0">
+				<span className="text--blue">Je recherche un accompagnement proche de chez moi </span>
+				pour être aidé dans mes démarches et mon parcours
 			</h1>
-			<LightHeroSecondaryText>je veux être aidé dans mes démarches et mon parcours</LightHeroSecondaryText>
-		</LightHero>
+		</Banner>
 	);
 }
 
@@ -142,18 +136,16 @@ interface ListeRésultatProps {
 }
 
 function ListeÉtablissementAccompagnement({ résultatList }: ListeRésultatProps) {
-	if (!résultatList.length) {
-		return undefined;
-	}
+	if (!résultatList.length) return null;
 
 	return (
-		<ListeRésultatsRechercherSolution aria-label="Établissements d‘accompagnement">
+		<ul className="fr-grid-row fr-grid-row--gutters" aria-label="Établissements d’accompagnement">
 			{résultatList.map((établissementAccompagnement: EtablissementAccompagnement) => (
-				<li key={établissementAccompagnement.id}>
+				<li key={établissementAccompagnement.id} className="fr-col-lg-4 fr-col-md-6 fr-col-12">
 					<RésultatRechercherAccompagnement etablissement={établissementAccompagnement} />
 				</li>
 			))}
-		</ListeRésultatsRechercherSolution>
+		</ul>
 	);
 }
 
