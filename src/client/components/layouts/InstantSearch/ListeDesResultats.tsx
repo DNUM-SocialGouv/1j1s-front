@@ -19,7 +19,7 @@ export const ListeDesResultats = React.forwardRef<HTMLElement | null, ListeDesRe
 	const ref = useSynchronizedRef(outerRef);
 
 	return (
-		<section className="fr-container" ref={ref} aria-label='Résultats de la recherche'>
+		<section className={classNames("fr-container", styles.listeDesResultats)} ref={ref} aria-label='Résultats de la recherche'>
 			<Skeleton
 				type="card"
 				isLoading={isLoading}

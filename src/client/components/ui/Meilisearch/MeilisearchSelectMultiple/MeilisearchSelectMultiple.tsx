@@ -11,7 +11,7 @@ type MeilisearchSelectMultipleProps = Partial<Pick<HTMLElement, 'className'>> & 
 
 export function MeilisearchSelectMultiple(props: UseRefinementListProps & MeilisearchSelectMultipleProps) {
 	const { refine, items } = useRefinementList(props);
-	const { label, className } = props;
+	const { label } = props;
 
 	const valuesSelected = useMemo(() => {
 		return items.filter((item) => item.isRefined)
@@ -24,7 +24,7 @@ export function MeilisearchSelectMultiple(props: UseRefinementListProps & Meilis
 	}, [refine]);
 
 	return (
-		<Champ className={className}>
+		<Champ className='fr-select-group'>
 			<Champ.Label>
 				{label}
 			</Champ.Label>

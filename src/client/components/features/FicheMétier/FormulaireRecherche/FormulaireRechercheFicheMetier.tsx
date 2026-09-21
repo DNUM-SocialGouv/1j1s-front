@@ -15,7 +15,7 @@ export function FormulaireRechercheFicheMetier() {
 				className={styles.inputNomMetier}
 				label="Métier"
 				name="metier"
-				placeholder="Exemple : cuisinier" />
+				labelComplement="Exemple : cuisinier" />
 			<MeilisearchSelectMultiple
 				className={styles.inputCentresInteret}
 				attribute="centres_interet"

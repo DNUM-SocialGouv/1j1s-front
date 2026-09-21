@@ -51,11 +51,10 @@ export function FormulaireRechercheOffreStage() {
 					<MeilisearchInput
 						label="Métiers, mots clés, …"
 						name="motCle"
-						placeholder="Exemples : designer, juriste…"/>
+						labelComplement="Exemples : designer, juriste…"/>
 				</div>
 				<div className="fr-col-12 fr-col-md-6">
-					<MeilisearchComboboxLocalisation
-						attribute="localisationFiltree"/>
+					<MeilisearchComboboxLocalisation attribute="localisationFiltree"/>
 				</div>
 				<div className="fr-col-12 fr-col-md-6">
 					<MeilisearchSelectMultiple
