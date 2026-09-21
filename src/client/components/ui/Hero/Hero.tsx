@@ -51,7 +51,7 @@ export function HeroSecondaryText({ children, className, ...rest }: React.Compon
 export function Banner({ children, ...rest }: React.ComponentPropsWithoutRef<'div'>) {
 	return (
 		<div className="fr-container fr-py-5w">
-			<div className="fr-grid-row fr-grid-row-gutters align-item-center" {...rest}>
+			<div className="fr-grid-row fr-grid-row-gutters align-items--center" {...rest}>
 				<div className="fr-col-lg-7 fr-col-12">
 					{children}
 				</div>
@@ -65,7 +65,7 @@ export function BannerWithIllustration({ children, image, ...rest }: HeroIllustr
 	const containerClassName = isLargeScreen ? "fr-container" : "fr-container fr-py-5w"
 	return (
 		<div className={containerClassName}>
-			<div className="fr-grid-row fr-grid-row-gutters align-item-center" {...rest}>
+			<div className="fr-grid-row fr-grid-row-gutters align-items--center" {...rest}>
 				<div className="fr-col-lg-6 fr-col-12">
 					{children}
 				</div>
