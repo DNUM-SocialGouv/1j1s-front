@@ -4,5 +4,5 @@ export { Carte } from './Carte';
 export { Footer } from './Footer/Footer';
 export { Header } from './Header/Header';
 export { SkipLink } from './SkipLink/SkipLink';
-export { Pagination } from "./Pagination";
-export { Tag } from "./Tag";
+export { Tag } from './Tag';
+export { Pagination } from './Pagination';

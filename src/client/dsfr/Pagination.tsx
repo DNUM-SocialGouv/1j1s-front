@@ -48,7 +48,7 @@ export function Pagination(props: PaginationProps) {
 	const displayFirstPageLink = () => (
 		<li>
 			<a
-				href={(!isFirstPage && createURL) ? createURL(0) : undefined}
+				href={!isFirstPage ? createURL ? createURL(0) : '#' : undefined}
 				className="fr-pagination__link fr-pagination__link--first"
 				aria-disabled={isFirstPage}
 				aria-label="Revenir à la première page"
@@ -62,7 +62,7 @@ export function Pagination(props: PaginationProps) {
 	const displayPreviousPageLink = () => (
 		<li>
 			<a
-				href={(!isFirstPage && createURL) ? createURL(currentPage - 1) : undefined}
+				href={!isFirstPage ? createURL ? createURL(currentPage - 1) : '#' : undefined}
 				className="fr-pagination__link fr-pagination__link--prev fr-pagination__link--lg-label"
 				aria-disabled={isFirstPage}
 				aria-label="Revenir à la page précédente"
@@ -91,7 +91,7 @@ export function Pagination(props: PaginationProps) {
 	const displayNextPageLink = () => (
 		<li>
 			<a
-				href={(!isLastPage && createURL) ? createURL(currentPage + 1) : undefined}
+				href={!isLastPage ? createURL ? createURL(currentPage + 1) : '#' : undefined}
 				className="fr-pagination__link fr-pagination__link--next fr-pagination__link--lg-label"
 				aria-disabled={isLastPage}
 				aria-label="Aller à la page suivante"
@@ -105,7 +105,7 @@ export function Pagination(props: PaginationProps) {
 	const displayLastPageLink = () => (
 		<li>
 			<a
-				href={(!isLastPage && createURL) ? createURL(computedLastPage) : undefined}
+				href={!isLastPage ? createURL ? createURL(computedLastPage) : '#' : undefined}
 				className="fr-pagination__link fr-pagination__link--last"
 				aria-disabled={isLastPage}
 				aria-label="Aller à la dernière page"
