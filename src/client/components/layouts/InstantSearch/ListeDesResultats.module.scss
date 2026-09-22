@@ -5,6 +5,7 @@ $color-background-resultats-list: utilities.$color-background-primary-alternativ
 .listeDesResultats {
   & ol {
     list-style-type: none;
+    padding-inline-start: 0;
     display: grid;
     gap: 1.5rem;
     grid-template-columns: 1fr;
@@ -20,6 +21,10 @@ $color-background-resultats-list: utilities.$color-background-primary-alternativ
     > li {
       max-width: none;
     }
+    
+    > li::marker {
+      content: '';
+    };
   }
 }
 

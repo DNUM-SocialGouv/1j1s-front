@@ -10,12 +10,13 @@ import {
 
 import { Icon } from '../../Icon/Icon';
 import styles from './MeilisearchInput.module.scss';
+import {Label} from "~/client/components/ui/Form/Label";
 
 interface MeilisearchCustomSearchBoxProps extends Pick<React.HTMLAttributes<unknown>, 'className'> {
 	id?: string
 	label: string
 	name: string
-	placeholder: string
+	labelComplement: string
 	resetTitle?: string
 }
 
@@ -24,7 +25,7 @@ export const MeilisearchInput = (props: MeilisearchCustomSearchBoxProps & UseSea
 		label,
 		name,
 		id: idProps,
-		placeholder,
+		labelComplement,
 		resetTitle,
 	} = props;
 	const { refine, clear, query } = useSearchBox(props);
@@ -46,28 +47,28 @@ export const MeilisearchInput = (props: MeilisearchCustomSearchBoxProps & UseSea
 
 	return (
 		<div className="fr-input-group">
-			<label className="fr-label" htmlFor={inputId}>{label}</label>
-			<span>
-				<input
-					id={inputId}
-					type="text"
-					name={name}
-					placeholder={placeholder}
-					value={value}
-					onChange={updateValue}
-					className="fr-input" />
-				{
-					!!value && (
-						<button
-							type="reset"
-							title={resetTitle || DEFAULT_RESET_TITLE}
-							onClick={() => resetValue()}
-							className={styles.customSearchBoxResetButton}>
-							<Icon name="close" />
-						</button>
-					)
-				}
-			</span>
+			<Label htmlFor={inputId}>
+				{label}
+				<Label.Complement>{labelComplement}</Label.Complement>
+			</Label>
+			<input
+				id={inputId}
+				type="text"
+				name={name}
+				value={value}
+				onChange={updateValue}
+				className="fr-input" />
+			{
+				!!value && (
+					<button
+						type="reset"
+						title={resetTitle || DEFAULT_RESET_TITLE}
+						onClick={() => resetValue()}
+						className={styles.customSearchBoxResetButton}>
+						<Icon name="close" />
+					</button>
+				)
+			}
 		</div>
 	);
 };

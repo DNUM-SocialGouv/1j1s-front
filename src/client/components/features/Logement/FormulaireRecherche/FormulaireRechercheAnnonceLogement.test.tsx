@@ -35,7 +35,7 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 		it('affiche les champs de recherche', () => {
 			render(<FormulaireRechercheAnnonceLogement />);
 
-			expect(screen.getByRole('textbox', { name: 'Ville' })).toBeVisible();
+			expect(screen.getByRole('textbox', { name: /Ville/ })).toBeVisible();
 			expect(screen.getByRole('combobox', { name: 'Type d‘offre' })).toBeVisible();
 			expect(screen.getByRole('combobox', { name: 'Type de bien' })).toBeVisible();
 			expect(screen.getByRole('button', { name: 'Surface (m²)' })).toBeVisible();
@@ -51,7 +51,7 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 		it('affiche uniquement le champ ville dans le formulaire', () => {
 			render(<FormulaireRechercheAnnonceLogement />);
 
-			expect(screen.getByRole('textbox', { name: 'Ville' })).toBeVisible();
+			expect(screen.getByRole('textbox', { name: /Ville/ })).toBeVisible();
 		});
 
 		it('affiche un bouton pour filtrer la recherche', () => {

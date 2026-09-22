@@ -4,9 +4,7 @@ import { BaseHit } from 'instantsearch.js/es/types/results';
 import React, { useRef } from 'react';
 import { Configure, Hits, InstantSearch, useInstantSearch, useStats } from 'react-instantsearch';
 
-import { Container } from '~/client/components/layouts/Container/Container';
 import { InstantSearchErrorBoundary } from '~/client/components/layouts/InstantSearch/InstantSearchErrorBoundary';
-import styles from '~/client/components/layouts/InstantSearch/InstantSearchLayout.module.scss';
 import { ListeDesResultats } from '~/client/components/layouts/InstantSearch/ListeDesResultats';
 import { MeiliSearchPagination } from '~/client/components/ui/Meilisearch/MeilisearchPagination/MeiliSearchPagination';
 import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/MessageResultatRecherche/MessageResultatRecherche';
@@ -77,14 +75,14 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 					<>
 						{/* @ts-expect-error -- le type de la prop hitsPerPage est manquant dans Configure */}
 						<Configure hitsPerPage={nombreDeResultatParPage} />
-						<section className="separator">
-							<Container>
+						<section>
+							<div className="fr-container">
 								{formulaireDeRecherche}
-							</Container>
+							</div>
 						</section>
-						<Container className={styles.TagListWrapper}>
+						<div className='fr-container fr-py-4w'>
 							{tagList}
-						</Container>
+						</div>
 						<AfficherResultatDeRecherche
 							messageResultatRechercheLabelSingulier={messageResultatRechercheLabelSingulier}
 							messageResultatRechercheLabelPluriel={messageResultatRechercheLabelPluriel}
@@ -129,15 +127,15 @@ const AfficherResultatDeRecherche = React.forwardRef(function AfficherResultatDe
 
 	return (
 		<>
-			<section className="separator">
-				<Container className={styles.ResultatTotal}>
+			<section>
+				<div className='fr-container'>
 					<MessageResultatRecherche
 						labelSingulier={messageResultatRechercheLabelSingulier}
 						labelPluriel={messageResultatRechercheLabelPluriel}
 						isLoading={isInstantSearchLoading}
 						numberOfResult={nbHits} />
 
-				</Container>
+				</div>
 			</section>
 			<ListeDesResultats
 				ref={ref}
@@ -145,7 +143,7 @@ const AfficherResultatDeRecherche = React.forwardRef(function AfficherResultatDe
 				skeletonRepeat={nombreDeSkeleton}
 				pagination={(
 					<MeiliSearchPagination numberOfResultPerPage={nombreDeResultatParPage}
-																					 className={styles.pagination}
+																					 className='fr-grid-row fr-mt-3w justify-center'
 																					 onPageChange={scrollToTopOfListeDesResultats} />
 				)}
 				isLoading={isInstantSearchLoading}

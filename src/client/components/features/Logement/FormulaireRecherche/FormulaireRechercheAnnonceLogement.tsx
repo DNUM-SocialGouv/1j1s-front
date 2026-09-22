@@ -41,7 +41,7 @@ export function FormulaireRechercheAnnonceLogement() {
 				className={styles.inputVille}
 				label="Ville"
 				name="ville"
-				placeholder="Exemples : Paris, Toulouse" />
+				labelComplement="Exemples : Paris, Toulouse" />
 			<MeilisearchSelectMultiple
 				className={styles.filtresDesktop}
 				attribute="type"

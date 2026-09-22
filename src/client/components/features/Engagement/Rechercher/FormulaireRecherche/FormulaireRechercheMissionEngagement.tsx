@@ -51,7 +51,7 @@ export function FormulaireRechercheMissionEngagement({domainList}: FormulaireRec
 			<h2 className="fr-h4 text--blue fr-mb-3w">Trouvez une mission d&apos;engagement</h2>
 			<div className="fr-grid-row fr-grid-row--gutters">
 				<div className="fr-col-12 fr-col-md-6">
-					<Champ>
+					<Champ className="fr-select-group">
 						<Champ.Label>
 							Domaine
 							<Champ.Label.Complement>Exemple : Culture et loisirs</Champ.Label.Complement>
