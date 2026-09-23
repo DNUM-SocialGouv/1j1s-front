@@ -2,8 +2,8 @@ import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
 	ApiFranceTravailJobEtudiantRepository,
-} from '~/server/jobs-étudiants/infra/repositories/apiFranceTravailJobEtudiant.repository';
-import { Offre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+} from '~/server/jobs-etudiants/infra/repositories/apiFranceTravailJobEtudiant.repository';
+import { Offre, ResultatsRechercheOffre } from '~/server/offres/domain/offre';
 import {
 	anOffreÉchantillonAvecLocalisationEtMotCléFiltre,
 	anOffreÉchantillonFiltre,
@@ -127,7 +127,7 @@ describe('ApiFranceTravailJobEtudiantRepository', () => {
 
 					const offreFiltre = anOffreÉchantillonFiltre();
 
-					const { result } = await apiFranceTravailJobEtudiantRepository.search(offreFiltre) as Success<RésultatsRechercheOffre>;
+					const { result } = await apiFranceTravailJobEtudiantRepository.search(offreFiltre) as Success<ResultatsRechercheOffre>;
 
 					expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY');
 
@@ -145,7 +145,7 @@ describe('ApiFranceTravailJobEtudiantRepository', () => {
 
 					const offreFiltre = anOffreÉchantillonFiltre();
 
-					const { result } = await apiFranceTravailJobEtudiantRepository.search(offreFiltre) as Success<RésultatsRechercheOffre>;
+					const { result } = await apiFranceTravailJobEtudiantRepository.search(offreFiltre) as Success<ResultatsRechercheOffre>;
 
 					expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY');
 
@@ -168,7 +168,7 @@ describe('ApiFranceTravailJobEtudiantRepository', () => {
 
 				const offreFiltre = anOffreEmploiFiltre();
 
-				const { result } = await apiFranceTravailJobEtudiantRepository.search(offreFiltre) as Success<RésultatsRechercheOffre>;
+				const { result } = await apiFranceTravailJobEtudiantRepository.search(offreFiltre) as Success<ResultatsRechercheOffre>;
 
 				expect(cacheService.get).not.toHaveBeenCalled();
 
@@ -189,7 +189,7 @@ describe('ApiFranceTravailJobEtudiantRepository', () => {
 					.mockResolvedValue('region=34&motsCles=boulanger&range=0-14');
 				const offreEmploiFiltre = anOffreEmploiFiltre();
 
-				const { result } = await apiFranceTravailJobEtudiantRepository.search(offreEmploiFiltre) as Success<RésultatsRechercheOffre>;
+				const { result } = await apiFranceTravailJobEtudiantRepository.search(offreEmploiFiltre) as Success<ResultatsRechercheOffre>;
 
 				expect(result).toEqual(aRésultatsRechercheOffre());
 				expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
@@ -204,7 +204,7 @@ describe('ApiFranceTravailJobEtudiantRepository', () => {
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse({}, 204));
 
-				const { result } = await apiFranceTravailJobEtudiantRepository.search(anOffreÉchantillonAvecLocalisationEtMotCléFiltre()) as Success<RésultatsRechercheOffre>;
+				const { result } = await apiFranceTravailJobEtudiantRepository.search(anOffreÉchantillonAvecLocalisationEtMotCléFiltre()) as Success<ResultatsRechercheOffre>;
 
 				expect(result).toEqual({ nombreRésultats: 0, résultats: [] });
 			});

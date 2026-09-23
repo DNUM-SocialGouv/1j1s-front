@@ -1,6 +1,6 @@
-import { ConsulterOffreJobÉtudiantUseCase } from '~/server/jobs-étudiants/useCases/consulterOffreJobÉtudiantUseCase';
-import { RechercherOffreJobÉtudiantUseCase } from '~/server/jobs-étudiants/useCases/rechercherOffreJobÉtudiantUseCase';
 import { OffreRepository } from '~/server/offres/domain/offre.repository';
+import { ConsulterOffreJobÉtudiantUseCase } from "~/server/jobs-etudiants/useCases/consulterOffreJobEtudiantUseCase";
+import { RechercherOffreJobÉtudiantUseCase } from "~/server/jobs-etudiants/useCases/rechercherOffreJobEtudiantUseCase";
 
 export interface OffresJobÉtudiantDependencies {
 	consulterOffreJobÉtudiant: ConsulterOffreJobÉtudiantUseCase

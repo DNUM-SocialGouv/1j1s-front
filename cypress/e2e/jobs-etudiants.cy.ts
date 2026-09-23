@@ -4,7 +4,7 @@
 import { stringify } from 'querystring';
 
 import { Success } from '~/server/errors/either';
-import { Offre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import { Offre, ResultatsRechercheOffre } from '~/server/offres/domain/offre';
 import {
 	getOffreRepositoryMockResults,
 	searchOffreRepositoryMockResults,
@@ -17,7 +17,7 @@ describe('Page de recherche d’emplois', () => {
 
 	context('Parcours standard', () => {
 		it('affiche 15 résultats par défaut', () => {
-			const expectedResult = searchOffreRepositoryMockResults({ page: 1 }) as Success<RésultatsRechercheOffre>;
+			const expectedResult = searchOffreRepositoryMockResults({ page: 1 }) as Success<ResultatsRechercheOffre>;
 
 			cy.visit('/jobs-etudiants');
 
@@ -32,7 +32,7 @@ describe('Page de recherche d’emplois', () => {
 
 		context('quand l‘utilisateur rentre un mot clé', () => {
 			it('filtre les résultats par mot clé', () => {
-				const expectedResult = searchOffreRepositoryMockResults({ motClé: 'barman', page: 1 }) as Success<RésultatsRechercheOffre>;
+				const expectedResult = searchOffreRepositoryMockResults({ motClé: 'barman', page: 1 }) as Success<ResultatsRechercheOffre>;
 
 				cy.visit('/jobs-etudiants');
 

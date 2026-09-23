@@ -2,7 +2,7 @@
 /// <reference types="@testing-library/cypress" />
 
 import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEngagement.fixture';
-import { aCommune } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
+import { aCommune } from '~/server/localisations/domain/localisationAvecCoordonnees.fixture';
 
 describe('Parcours bénévolat', () => {
 

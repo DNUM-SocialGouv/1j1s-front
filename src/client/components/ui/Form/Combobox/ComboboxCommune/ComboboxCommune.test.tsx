@@ -11,7 +11,7 @@ import { radiusList } from '~/server/localisations/domain/localisation';
 import {
 	aCommune, aCommuneList,
 	aRésultatsRechercheCommune,
-} from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
+} from '~/server/localisations/domain/localisationAvecCoordonnees.fixture';
 
 const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des lieux. Veuillez réessayer plus tard.';
 const MESSAGE_PAS_DE_RESULTAT = 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un lieu. Exemple : Paris, ...';

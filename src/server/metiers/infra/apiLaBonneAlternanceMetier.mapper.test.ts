@@ -1,7 +1,7 @@
 import { MetierLaBonneAlternanceApiResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 import { aMetier } from '~/server/metiers/domain/metierAlternance.fixture';
-import { aMetierLaBonneAlternanceApiResponse } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.fixture';
-import { mapMetier } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.mapper';
+import { aMetierLaBonneAlternanceApiResponse } from '~/server/metiers/infra/apiLaBonneAlternanceMetier.fixture';
+import { mapMetier } from '~/server/metiers/infra/apiLaBonneAlternanceMetier.mapper';
 
 describe('mapMetier', () => {
 	it('converti une response en liste de métiers', () => {

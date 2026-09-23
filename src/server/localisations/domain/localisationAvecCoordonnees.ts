@@ -8,6 +8,6 @@ export interface Commune {
   }
 }
 
-export interface RésultatsRechercheCommune {
+export interface ResultatsRechercheCommune {
   résultats: Commune[]
 }

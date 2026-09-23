@@ -6,7 +6,7 @@ import {
 	anEtablissementAccompagnement,
 	anEtablissementAccompagnementList,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
-import { aCommuneList } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
+import { aCommuneList } from '~/server/localisations/domain/localisationAvecCoordonnees.fixture';
 
 describe('Parcours Accompagnement', () => {
 	beforeEach(() => {

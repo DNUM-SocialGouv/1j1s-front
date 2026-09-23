@@ -2,7 +2,7 @@ import { MetierLaBonneAlternanceApiResponse } from '~/server/alternances/infra/r
 import { createSuccess, Either } from '~/server/errors/either';
 import { MetierAlternance } from '~/server/metiers/domain/metierAlternance';
 import { MétierRepository } from '~/server/metiers/domain/metierAlternance.repository';
-import { mapMetier } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.mapper';
+import { mapMetier } from '~/server/metiers/infra/apiLaBonneAlternanceMetier.mapper';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 

@@ -1,16 +1,16 @@
 import {
 	Commune,
-	RésultatsRechercheCommune,
-} from './localisationAvecCoordonnées';
-import { LocalisationAvecCoordonnéesRepository } from './localisationAvecCoordonnées.repository';
+	ResultatsRechercheCommune,
+} from './localisationAvecCoordonnees';
+import { LocalisationAvecCoordonneesRepository } from './localisationAvecCoordonnees.repository';
 
-export function aLocalisationAvecCoordonnéesRepository() : LocalisationAvecCoordonnéesRepository {
+export function aLocalisationAvecCoordonnéesRepository() : LocalisationAvecCoordonneesRepository {
 	return {
 		getCommuneList: vi.fn(),
 	};
 }
 
-export function aRésultatsRechercheCommune(communeList?: Array<Commune>): RésultatsRechercheCommune {
+export function aRésultatsRechercheCommune(communeList?: Array<Commune>): ResultatsRechercheCommune {
 	return {
 		résultats: communeList ?? aCommuneList(),
 	};

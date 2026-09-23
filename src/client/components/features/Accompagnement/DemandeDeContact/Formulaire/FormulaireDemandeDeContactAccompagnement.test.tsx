@@ -17,7 +17,7 @@ import { TypeÉtablissement } from '~/server/etablissement-accompagnement/domain
 import {
 	aContactÉtablissementAccompagnement,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
-import { aCommune } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
+import { aCommune } from '~/server/localisations/domain/localisationAvecCoordonnees.fixture';
 
 describe('FormulaireDemandeDeContactAccompagnement', () => {
 	beforeAll(() => {

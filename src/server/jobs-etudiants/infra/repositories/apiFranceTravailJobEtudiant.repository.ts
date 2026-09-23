@@ -1,6 +1,6 @@
 import { createSuccess, Either } from '~/server/errors/either';
-import { JobÉtudiantFiltre } from '~/server/jobs-étudiants/domain/jobÉtudiant';
-import { isOffreÉchantillonFiltre, Offre, OffreId, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import { JobEtudiantFiltre } from '~/server/jobs-etudiants/domain/jobEtudiant';
+import { isOffreÉchantillonFiltre, Offre, OffreId, ResultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { OffreRepository } from '~/server/offres/domain/offre.repository';
 import {
 	mapOffre,
@@ -54,12 +54,12 @@ export class ApiFranceTravailJobEtudiantRepository implements OffreRepository {
 		}
 	}
 
-	async search(jobÉtudiantFiltre: JobÉtudiantFiltre): Promise<Either<RésultatsRechercheOffre>> {
+	async search(jobÉtudiantFiltre: JobEtudiantFiltre): Promise<Either<ResultatsRechercheOffre>> {
 		if (isOffreÉchantillonFiltre(jobÉtudiantFiltre)) return this.getÉchantillonJobÉtudiant(jobÉtudiantFiltre);
 		return this.getOffreJobÉtudiantRecherche(jobÉtudiantFiltre);
 	}
 
-	async buildJobÉtudiantParamètresRecherche(jobÉtudiantFiltre: JobÉtudiantFiltre): Promise<string | undefined> {
+	async buildJobÉtudiantParamètresRecherche(jobÉtudiantFiltre: JobEtudiantFiltre): Promise<string | undefined> {
 		const queryList: Record<string, string> = {
 			grandDomaine: jobÉtudiantFiltre.grandDomaineList?.join(',') || '',
 		};
@@ -71,7 +71,7 @@ export class ApiFranceTravailJobEtudiantRepository implements OffreRepository {
 		return params.toString();
 	}
 
-	private async getOffreJobÉtudiantRecherche(jobÉtudiantFiltre: JobÉtudiantFiltre) {
+	private async getOffreJobÉtudiantRecherche(jobÉtudiantFiltre: JobEtudiantFiltre) {
 		const paramètresRecherche = await this.franceTravailParametreBuilderService.buildCommonParamètresRecherche(jobÉtudiantFiltre);
 		const jobÉtudiantParamètresRecherche = await this.buildJobÉtudiantParamètresRecherche(jobÉtudiantFiltre);
 		try {
@@ -90,7 +90,7 @@ export class ApiFranceTravailJobEtudiantRepository implements OffreRepository {
 		}
 	}
 
-	private async getÉchantillonJobÉtudiant(jobÉtudiantFiltre: JobÉtudiantFiltre) {
+	private async getÉchantillonJobÉtudiant(jobÉtudiantFiltre: JobEtudiantFiltre) {
 		const responseInCache = await this.cacheService.get<RésultatsRechercheOffreResponse>(this.ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY);
 		const range = buildRangeParamètre(jobÉtudiantFiltre);
 

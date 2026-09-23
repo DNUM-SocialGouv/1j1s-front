@@ -122,10 +122,10 @@ import {
 import {
 	jobsÉtudiantsDependenciesContainer,
 	OffresJobÉtudiantDependencies,
-} from '~/server/jobs-étudiants/configuration/dependencies.container';
+} from '~/server/jobs-etudiants/configuration/dependencies.container';
 import {
 	ApiFranceTravailJobEtudiantRepository,
-} from '~/server/jobs-étudiants/infra/repositories/apiFranceTravailJobEtudiant.repository';
+} from '~/server/jobs-etudiants/infra/repositories/apiFranceTravailJobEtudiant.repository';
 import { getApiAdresseConfig } from '~/server/localisations/configuration/adresse/adresseHttpClient.config';
 import {
 	LocalisationDependencies,
@@ -163,7 +163,7 @@ import {
 	MétierDependencies,
 	métiersDependenciesContainer,
 } from '~/server/metiers/configuration/dependencies.container';
-import { ApiLaBonneAlternanceMétierRepository } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.repository';
+import { ApiLaBonneAlternanceMétierRepository } from '~/server/metiers/infra/apiLaBonneAlternanceMetier.repository';
 import {
 	getApiFranceTravailOffresConfig,
 	getApiFranceTravailReferentielsConfig,

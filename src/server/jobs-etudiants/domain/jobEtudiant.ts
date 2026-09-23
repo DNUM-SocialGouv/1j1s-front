@@ -1,5 +1,5 @@
 import { OffreFiltre } from '~/server/offres/domain/offre';
 
-export interface JobÉtudiantFiltre extends OffreFiltre {
+export interface JobEtudiantFiltre extends OffreFiltre {
   grandDomaineList?: string[];
 }
