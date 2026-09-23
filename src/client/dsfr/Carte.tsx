@@ -18,7 +18,7 @@ interface CarteProps {
 	className?: string
 	horizontal?: boolean
 	end?: React.ReactNode
-	imageFit?: 'cover' | 'contain'
+	isContain?: boolean
 }
 
 export function Carte({
@@ -32,10 +32,10 @@ export function Carte({
 	className,
 	horizontal = false,
 	end,
-	imageFit = 'cover',
+	isContain = false,
 }: React.PropsWithChildren<CarteProps>) {
 	const isInternalLink = useIsInternalLink(lien || "");
-	const imageClassName = classNames('fr-responsive-img', imageFit === 'contain' && 'img-contain');
+	const imageClassName = classNames(isContain ? 'img-contain' : 'fr-responsive-img');
 
 	return (
 		<div className={classNames('fr-card', 'fr-enlarge-link', { 'fr-card--horizontal': horizontal }, className)}>
