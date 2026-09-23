@@ -1,7 +1,5 @@
-import classNames from 'classnames';
 import React from 'react';
 
-import styles from '~/client/components/ui/Hero/Hero.module.scss';
 import { Image } from '~/client/components/ui/Img';
 
 import { Link } from '../Link/Link';
@@ -22,26 +20,29 @@ export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
 	const { titlePrimaryText, titleSecondaryText, content, buttonLabel, buttonLabelSecondary, buttonHref, buttonHrefSecondary, imgSrc, additionalInformation } = props;
 
 	return (
-		<div className={styles.heading}>
-			<div className={styles.headingContainerWrapper}>
-				<div className={styles.headingContainer}>
-					<h1 className={styles.headingContainer__Title}>
-						<span className={styles.headingContainer__TitlePrimary}>{titlePrimaryText}</span>
-						{titleSecondaryText && <span className={styles.headingContainer__TitleSecondary}>{titleSecondaryText}</span>}
-					</h1>
-					<p className={styles.headingContainer__TextContent}>
-						{content}
-					</p>
-					<div className={styles.linkAsButtonContainer}>
-						<Link className={styles.linkAsButton} href={buttonHref} appearance='asPrimaryButton'>{buttonLabel}<Link.Icon /></Link>
-						{(buttonLabelSecondary && buttonHrefSecondary) && <Link className={classNames(styles.linkAsButton, styles.linkAsButtonSecondary)} href={buttonHrefSecondary} appearance='asPrimaryButton'>{buttonLabelSecondary}<Link.Icon /></Link>}
+		<div className="fr-container">
+			<div className="fr-grid-row fr-grid-row--gutters">
+				<div className="fr-col-lg-6 fr-col-12">
+					<div className="fr-py-4w">
+							<h1 className="fr-h1 fr-mb-4w">
+								<span className="text--blue">{titlePrimaryText} </span>
+								{titleSecondaryText}
+							</h1>
+							<p className="fr-text--lead fr-mb-4w">
+								{content}
+							</p>
+							<div className="fr-grid-row fr-grid-row--center">
+								<Link className="fr-btn fr-btn--lg" href={buttonHref}>{buttonLabel}</Link>
+								{(buttonLabelSecondary && buttonHrefSecondary) && <Link className="fr-btn fr-btn--secondary fr-mt-2w" href={buttonHrefSecondary}>{buttonLabelSecondary}</Link>}
+							</div>
+							{additionalInformation}
+						</div>
 					</div>
-					{additionalInformation}
+				<div className="fr-col-lg-6 fr-col-12 fr-hidden fr-unhidden-lg">
+					<Image className="img-cover height--full" src={imgSrc} alt="" width="810" height="540" priority />
 				</div>
 			</div>
-			<div className={styles.imageWrapper}>
-				<Image src={imgSrc} alt="" fill sizes="{(min-width:992px) 50vw}" priority />
-			</div>
 		</div>
+
 	);
 }
