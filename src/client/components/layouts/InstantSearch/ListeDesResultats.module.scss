@@ -8,20 +8,27 @@ $color-background-resultats-list: utilities.$color-background-primary-alternativ
     padding-inline-start: 0;
     display: grid;
     gap: 1.5rem;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: 1fr;
 
     @include utilities.media(medium) {
-      grid-template-columns: repeat(2,1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     @include utilities.media(large) {
-      grid-template-columns: repeat(3,1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     > li {
       max-width: none;
+      min-width: 0;
+      display: flex;
+
+      > * {
+        flex: 1;
+      }
     }
-    
+
     > li::marker {
       content: '';
     };
