@@ -35,7 +35,7 @@ export function Carte({
 	imageFit = 'cover',
 }: React.PropsWithChildren<CarteProps>) {
 	const isInternalLink = useIsInternalLink(lien || "");
-	const imageClassName = classNames(imageFit === 'contain' && 'img-contain');
+	const imageClassName = classNames('fr-responsive-img', imageFit === 'contain' && 'img-contain');
 
 	return (
 		<div className={classNames('fr-card', 'fr-enlarge-link', { 'fr-card--horizontal': horizontal }, className)}>
