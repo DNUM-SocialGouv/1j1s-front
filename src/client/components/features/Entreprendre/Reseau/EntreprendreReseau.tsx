@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import styles from '~/client/components/features/Entreprendre/Réseau/EntreprendreReseau.module.scss';
+import styles from '~/client/components/features/Entreprendre/Reseau/EntreprendreReseau.module.scss';
 import {
 	EntreprendreRéseauPhasesProjet,
-} from '~/client/components/features/Entreprendre/Reseau/PhasesProjet/EntreprendreRéseauPhasesProjet';
+} from '~/client/components/features/Entreprendre/Reseau/PhasesProjet/EntreprendreReseauPhasesProjet';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';

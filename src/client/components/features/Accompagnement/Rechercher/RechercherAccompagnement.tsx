@@ -4,8 +4,8 @@ import {
 	FormulaireRechercheAccompagnement,
 } from '~/client/components/features/Accompagnement/FormulaireRecherche/FormulaireRechercheAccompagnement';
 import {
-	RésultatRechercherAccompagnement,
-} from '~/client/components/features/Accompagnement/Rechercher/Resultat/RésultatRechercherAccompagnement';
+	ResultatRechercherAccompagnement,
+} from '~/client/components/features/Accompagnement/Rechercher/Resultat/ResultatRechercherAccompagnement';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { FranceTravailPartner } from '~/client/components/features/ServiceCard/FranceTravailPartner';
 import { InfoJeunesPartner } from '~/client/components/features/ServiceCard/InfoJeunesPartner';
@@ -142,7 +142,7 @@ function ListeÉtablissementAccompagnement({ résultatList }: ListeRésultatProp
 		<ul className="fr-grid-row fr-grid-row--gutters" aria-label="Établissements d’accompagnement">
 			{résultatList.map((établissementAccompagnement: EtablissementAccompagnement) => (
 				<li key={établissementAccompagnement.id} className="fr-col-lg-4 fr-col-md-6 fr-col-12">
-					<RésultatRechercherAccompagnement etablissement={établissementAccompagnement} />
+					<ResultatRechercherAccompagnement etablissement={établissementAccompagnement} />
 				</li>
 			))}
 		</ul>

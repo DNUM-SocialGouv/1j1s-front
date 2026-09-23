@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Evenement } from '~/client/components/features/Evenement/Evenement.type';
-import styles from '~/client/components/features/Evenement/RésultatRechercherEvenement.module.scss';
+import styles from '~/client/components/features/Evenement/ResultatRechercherEvenement.module.scss';
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { Card } from '~/client/components/ui/Card/Card';
 import { Icon } from '~/client/components/ui/Icon/Icon';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 
-import styles from './Bannière.module.scss';
+import styles from './Banniere.module.scss';
 
 
 export default function Bannière() {

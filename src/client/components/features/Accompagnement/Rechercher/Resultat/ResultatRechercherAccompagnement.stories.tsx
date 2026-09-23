@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
 	anEtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/etablissementAccompagnement.fixture';
+} from '~/client/services/etablissementAccompagnement/etablissementAccompagnement.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import {
 	anEtablissementAccompagnement,
@@ -12,19 +12,19 @@ import {
 	anEtablissementAccompagnementMissionLocale,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 
-import { RésultatRechercherAccompagnement } from './RésultatRechercherAccompagnement';
+import { ResultatRechercherAccompagnement } from './ResultatRechercherAccompagnement';
 
-const meta: Meta<typeof RésultatRechercherAccompagnement> = {
+const meta: Meta<typeof ResultatRechercherAccompagnement> = {
 	args: {
 		etablissement: anEtablissementAccompagnement(),
 	},
-	component: RésultatRechercherAccompagnement,
+	component: ResultatRechercherAccompagnement,
 	render: (args) => {
 		return (
 			<DependenciesProvider
 				établissementAccompagnementService={anEtablissementAccompagnementService()}
 				localisationService={aLocalisationService()}>
-				<RésultatRechercherAccompagnement {...args} />
+				<ResultatRechercherAccompagnement {...args} />
 			</DependenciesProvider>
 		);
 	},
@@ -32,7 +32,7 @@ const meta: Meta<typeof RésultatRechercherAccompagnement> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof RésultatRechercherAccompagnement>;
+type Story = StoryObj<typeof ResultatRechercherAccompagnement>;
 
 export const MissionLocale: Story = {
 	args: {

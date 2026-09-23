@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { FormulaireRechercheFicheMetier } from '~/client/components/features/FicheMetier/FormulaireRecherche/FormulaireRechercheFicheMetier';
-import { RésultatRechercherMétier } from '~/client/components/features/FicheMetier/Rechercher/RésultatRechercherMétier';
-import { MétierDuSoinPartner } from '~/client/components/features/ServiceCard/MétiersDuSoinPartner';
+import { RésultatRechercherMétier } from '~/client/components/features/FicheMetier/Rechercher/ResultatRechercherMetier';
+import { MétierDuSoinPartner } from '~/client/components/features/ServiceCard/MetiersDuSoinPartner';
 import { Head } from '~/client/components/head/Head';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import MeilisearchTagsList

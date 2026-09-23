@@ -6,7 +6,7 @@ import MarkdownToHtml from '~/client/components/ui/MarkdownToHtml/MarkdownToHtml
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 
-import styles from './ConsulterFicheMétier.module.scss';
+import styles from './ConsulterFicheMetier.module.scss';
 
 export function ConsulterFicheMétier({ ficheMetier }: { ficheMetier: FicheMétier }) {
 	const {

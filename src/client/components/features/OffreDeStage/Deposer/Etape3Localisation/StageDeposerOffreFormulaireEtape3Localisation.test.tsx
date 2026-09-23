@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import Localisation
-	from '~/client/components/features/OffreDeStage/Deposer/Etape3Localisation/StageDeposerOffreFormulaireÉtape3Localisation';
+	from '~/client/components/features/OffreDeStage/Deposer/Etape3Localisation/StageDeposerOffreFormulaireEtape3Localisation';
 import {
 	aFormulaireEtapeEntreprise, aFormulaireEtapeLocalisation,
 	aFormulaireEtapeStage,

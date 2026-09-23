@@ -40,7 +40,7 @@ enum LocalisationInputName {
 	DEPARTEMENT = 'departement',
 }
 
-export default function StageDeposerOffreFormulaireÉtape3Localisation() {
+export default function StageDeposerOffreFormulaireEtape3Localisation() {
 	const router = useRouter();
 	const [isModalErrorSubmitOpen, setIsModalErrorSubmitOpen] = useState<boolean>(false);
 	const stageService = useDependency<StageService>('stageService');

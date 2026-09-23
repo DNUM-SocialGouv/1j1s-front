@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 
 import {
 	RésultatRechercherAccompagnementTagsList,
-} from '~/client/components/features/Accompagnement/Rechercher/Resultat/RésultatRechercherAccompagnementTagsList';
+} from '~/client/components/features/Accompagnement/Rechercher/Resultat/ResultatRechercherAccompagnementTagsList';
 import { TypeÉtablissement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import {
 	anEtablissementAccompagnement,

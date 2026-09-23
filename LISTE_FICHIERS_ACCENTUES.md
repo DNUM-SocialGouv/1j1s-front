@@ -16,48 +16,48 @@ nom ASCII mais situés dans un dossier accentué, et 12 dossiers accentués.
 - [ ] logos/république-française.svg
 - [ ] métiers.webp
 
-### 🚧 src/client/components/features/ (42)
-- [ ] Accompagnement/Rechercher/Résultat/Horaires/HorairesRésultatRechercherAccompagnement.module.scss
-- [ ] Accompagnement/Rechercher/Résultat/Horaires/HorairesRésultatRechercherAccompagnement.test.tsx
-- [ ] Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement.module.scss
-- [ ] Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement.stories.tsx
-- [ ] Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement.test.tsx
-- [ ] Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement.tsx
-- [ ] Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnementTagsList.test.tsx
-- [ ] Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnementTagsList.tsx
-- [ ] ContratEngagementJeune/Accompagnement/Formulaires/Démarrage.tsx
-- [ ] ContratEngagementJeune/FormulaireContactCEJ/DechargeRGPD/DéchargeRGPD.module.scss
-- [ ] ContratEngagementJeune/FormulaireContactCEJ/DechargeRGPD/DéchargeRGPD.tsx
-- [ ] ContratEngagementJeune/Témoignages/Témoignages.module.scss
-- [ ] ContratEngagementJeune/Témoignages/Témoignages.tsx
-- [ ] Entreprendre/Réseau/PhasesProjet/EntreprendreRéseauPhasesProjet.tsx
-- [ ] Entreprendre/Réseau/PhasesProjet/EntreprendreRéseauStadesProjet.module.scss
-- [ ] Evenement/RésultatRechercherEvenement.module.scss
-- [ ] Evenement/RésultatRechercherEvenement.tsx
-- [ ] FicheMétier/Consulter/ConsulterFicheMétier.module.scss
-- [ ] FicheMétier/Consulter/ConsulterFicheMétier.tsx
-- [ ] FicheMétier/Rechercher/RésultatRechercherMétier.tsx
-- [ ] Immersions/ReferencesEntreprises/RéférencerEntreprises.module.scss
-- [ ] Immersions/ReferencesEntreprises/RéférencerEntreprises.tsx
-- [ ] JobÉtudiant/FormulaireRecherche/FormulaireRechercheJobÉtudiant.test.tsx
-- [ ] JobÉtudiant/FormulaireRecherche/FormulaireRechercheJobÉtudiant.tsx
-- [ ] JobÉtudiant/Rechercher/RechercherJobÉtudiant.test.tsx
-- [ ] JobÉtudiant/Rechercher/RechercherJobÉtudiant.tsx
-- [ ] Logement/Consulter/DateMiseÀJour.tsx
-- [ ] Logement/Consulter/InformationsGénérales.test.tsx
-- [ ] Logement/Consulter/InformationsGénérales.tsx
-- [ ] MesuresEmployeurs/Bannière/Bannière.module.scss
-- [ ] MesuresEmployeurs/Bannière/Bannière.tsx
-- [ ] OffreDeStage/Déposer/Étape1Entreprise/StageDeposerOffreFormulaireÉtape1Entreprise.module.scss
-- [ ] OffreDeStage/Déposer/Étape1Entreprise/StageDeposerOffreFormulaireÉtape1Entreprise.test.tsx
-- [ ] OffreDeStage/Déposer/Étape1Entreprise/StageDeposerOffreFormulaireÉtape1Entreprise.tsx
-- [ ] OffreDeStage/Déposer/Étape2Stage/StageDeposerOffreFormulaireÉtape2Stage.module.scss
-- [ ] OffreDeStage/Déposer/Étape2Stage/StageDeposerOffreFormulaireÉtape2Stage.test.tsx
-- [ ] OffreDeStage/Déposer/Étape2Stage/StageDeposerOffreFormulaireÉtape2Stage.tsx
-- [ ] OffreDeStage/Déposer/Étape3Localisation/StageDeposerOffreFormulaireÉtape3Localisation.test.tsx
-- [ ] OffreDeStage/Déposer/Étape3Localisation/StageDeposerOffreFormulaireÉtape3Localisation.tsx
-- [ ] ServiceCard/MétiersDuSoinPartner.tsx
-- [ ] src/client/domain/référentielDomaineList.ts
+### ✅ src/client/components/features/ (42)
+- [x] Accompagnement/Rechercher/Résultat/Horaires/HorairesRésultatRechercherAccompagnement.module.scss
+- [x] Accompagnement/Rechercher/Résultat/Horaires/HorairesResultatRechercherAccompagnement.test.tsx
+- [x] Accompagnement/Rechercher/Résultat/ResultatRechercherAccompagnement.module.scss
+- [x] Accompagnement/Rechercher/Résultat/ResultatRechercherAccompagnement.stories.tsx
+- [x] Accompagnement/Rechercher/Résultat/ResultatRechercherAccompagnement.test.tsx
+- [x] Accompagnement/Rechercher/Résultat/ResultatRechercherAccompagnement.tsx
+- [x] Accompagnement/Rechercher/Résultat/ResultatRechercherAccompagnementTagsList.test.tsx
+- [x] Accompagnement/Rechercher/Résultat/ResultatRechercherAccompagnementTagsList.tsx
+- [x] ContratEngagementJeune/Accompagnement/Formulaires/Demarrage.tsx
+- [x] ContratEngagementJeune/FormulaireContactCEJ/DechargeRGPD/DéchargeRGPD.module.scss
+- [x] ContratEngagementJeune/FormulaireContactCEJ/DechargeRGPD/DechargeRGPD.tsx
+- [x] ContratEngagementJeune/Témoignages/Témoignages.module.scss
+- [x] ContratEngagementJeune/Témoignages/Temoignages.tsx
+- [x] Entreprendre/Réseau/PhasesProjet/EntreprendreReseauPhasesProjet.tsx
+- [x] Entreprendre/Réseau/PhasesProjet/EntreprendreRéseauStadesProjet.module.scss
+- [x] Evenement/RésultatRechercherEvenement.module.scss
+- [x] Evenement/ResultatRechercherEvenement.tsx
+- [x] FicheMétier/Consulter/ConsulterFicheMétier.module.scss
+- [x] FicheMétier/Consulter/ConsulterFicheMetier.tsx
+- [x] FicheMétier/Rechercher/ResultatRechercherMetier.tsx
+- [x] Immersions/ReferencesEntreprises/RéférencerEntreprises.module.scss
+- [x] Immersions/ReferencesEntreprises/ReferencerEntreprises.tsx
+- [x] JobÉtudiant/FormulaireRecherche/FormulaireRechercheJobEtudiant.test.tsx
+- [x] JobÉtudiant/FormulaireRecherche/FormulaireRechercheJobEtudiant.tsx
+- [x] JobÉtudiant/Rechercher/RechercherJobEtudiant.test.tsx
+- [x] JobÉtudiant/Rechercher/RechercherJobEtudiant.tsx
+- [x] Logement/Consulter/DateMiseAJour.tsx
+- [x] Logement/Consulter/InformationsGenerales.test.tsx
+- [x] Logement/Consulter/InformationsGenerales.tsx
+- [x] MesuresEmployeurs/Bannière/Bannière.module.scss
+- [x] MesuresEmployeurs/Bannière/Bannière.tsx
+- [x] OffreDeStage/Déposer/Étape1Entreprise/StageDeposerOffreFormulaireÉtape1Entreprise.module.scss
+- [x] OffreDeStage/Déposer/Étape1Entreprise/StageDeposerOffreFormulaireEtape1Entreprise.test.tsx
+- [x] OffreDeStage/Déposer/Étape1Entreprise/StageDeposerOffreFormulaireEtape1Entreprise.tsx
+- [x] OffreDeStage/Déposer/Étape2Stage/StageDeposerOffreFormulaireÉtape2Stage.module.scss
+- [x] OffreDeStage/Déposer/Étape2Stage/StageDeposerOffreFormulaireEtape2Stage.test.tsx
+- [x] OffreDeStage/Déposer/Étape2Stage/StageDeposerOffreFormulaireEtape2Stage.tsx
+- [x] OffreDeStage/Déposer/Étape3Localisation/StageDeposerOffreFormulaireEtape3Localisation.test.tsx
+- [x] OffreDeStage/Déposer/Étape3Localisation/StageDeposerOffreFormulaireEtape3Localisation.tsx
+- [x] ServiceCard/MetiersDuSoinPartner.tsx
+- [x] src/client/domain/référentielDomaineList.ts
 
 ### ✅ src/server/ (13)
 - [x] jobs-étudiants/domain/jobÉtudiant.ts

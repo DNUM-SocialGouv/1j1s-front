@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { InformationsGénérales } from '~/client/components/features/Logement/Consulter/InformationsGénérales';
+import { InformationsGénérales } from '~/client/components/features/Logement/Consulter/InformationsGenerales';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aDateService } from '~/client/services/date/date.service.fixture';
 import { anAnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement.fixture';

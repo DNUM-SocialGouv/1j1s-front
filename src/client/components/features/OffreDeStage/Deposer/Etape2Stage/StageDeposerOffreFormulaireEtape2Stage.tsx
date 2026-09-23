@@ -29,7 +29,7 @@ import { DomainesStage } from '~/server/stages/repository/domainesStage';
 import { emailRegex } from '~/shared/emailRegex';
 import { urlRegex } from '~/shared/urlRegex';
 
-import styles from './StageDeposerOffreFormulaireÉtape2Stage.module.scss';
+import styles from './StageDeposerOffreFormulaireEtape2Stage.module.scss';
 
 const EMAIL_OR_URL_REGEX = `${emailRegex}|${urlRegex}`;
 const DUREE_MOIS_EN_JOUR = 30;

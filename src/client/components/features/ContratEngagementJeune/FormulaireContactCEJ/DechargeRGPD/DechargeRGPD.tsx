@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Link } from '../../../../ui/Link/Link';
-import styles from './DéchargeRGPD.module.scss';
+import styles from './DechargeRGPD.module.scss';
 
 export function DéchargeRGPD() {
 	return (

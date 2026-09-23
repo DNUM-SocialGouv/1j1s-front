@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { TimeRange } from '~/client/components/ui/TimeRange/TimeRange';
 import { EtablissementAccompagnementHoraire } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
-import styles from './HorairesRésultatRechercherAccompagnement.module.scss';
+import styles from './HorairesResultatRechercherAccompagnement.module.scss';
 
 interface HorairesResultatRechercherAccompagnementProps {
   horaire: EtablissementAccompagnementHoraire

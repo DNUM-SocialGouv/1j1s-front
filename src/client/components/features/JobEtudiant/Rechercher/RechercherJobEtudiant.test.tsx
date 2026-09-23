@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
 import React from 'react';
 
-import { RechercherJobÉtudiant } from '~/client/components/features/JobEtudiant/Rechercher/RechercherJobÉtudiant';
+import { RechercherJobÉtudiant } from '~/client/components/features/JobEtudiant/Rechercher/RechercherJobEtudiant';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';

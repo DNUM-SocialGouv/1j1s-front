@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Localisation
-	from '~/client/components/features/OffreDeStage/Deposer/Etape3Localisation/StageDeposerOffreFormulaireÉtape3Localisation';
+	from '~/client/components/features/OffreDeStage/Deposer/Etape3Localisation/StageDeposerOffreFormulaireEtape3Localisation';
 import { Head } from '~/client/components/head/Head';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 

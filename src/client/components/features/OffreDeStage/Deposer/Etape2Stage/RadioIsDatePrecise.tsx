@@ -1,9 +1,9 @@
 import {
 	IsDateDeDebutPrecise,
 	StageEnum,
-} from '~/client/components/features/OffreDeStage/Deposer/Etape2Stage/StageDeposerOffreFormulaireÉtape2Stage';
+} from '~/client/components/features/OffreDeStage/Deposer/Etape2Stage/StageDeposerOffreFormulaireEtape2Stage';
 import styles
-	from '~/client/components/features/OffreDeStage/Deposer/Étape2Stage/StageDeposerOffreFormulaireÉtape2Stage.module.scss';
+	from '~/client/components/features/OffreDeStage/Deposer/Etape2Stage/StageDeposerOffreFormulaireEtape2Stage.module.scss';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 
 export function RadioIsDatePrecise(props: { checked: boolean, onChange: () => void }) {

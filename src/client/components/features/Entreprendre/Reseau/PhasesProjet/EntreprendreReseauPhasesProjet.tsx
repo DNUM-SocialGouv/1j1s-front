@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { Phases } from '~/client/components/features/Entreprendre/Reseau/EntreprendreReseau';
-import styles from '~/client/components/features/Entreprendre/Réseau/PhasesProjet/EntreprendreRéseauStadesProjet.module.scss';
+import styles from '~/client/components/features/Entreprendre/Reseau/PhasesProjet/EntreprendreReseauStadesProjet.module.scss';
 import { Tag } from '~/client/dsfr';
 
 interface EntreprendreRéseauPhasesProjetProps extends React.ComponentPropsWithoutRef<'ol'> {

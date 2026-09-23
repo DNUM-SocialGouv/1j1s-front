@@ -5,7 +5,7 @@ import {
 import { userEvent } from '@testing-library/user-event';
 
 import Entreprise
-	from '~/client/components/features/OffreDeStage/Deposer/Etape1Entreprise/StageDeposerOffreFormulaireÉtape1Entreprise';
+	from '~/client/components/features/OffreDeStage/Deposer/Etape1Entreprise/StageDeposerOffreFormulaireEtape1Entreprise';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {

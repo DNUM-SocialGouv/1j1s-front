@@ -2,7 +2,7 @@ import portraitKévin from 'public/images/CEJ/vignette-kevin.jpg';
 import portraitLatifa from 'public/images/CEJ/vignette-latifa.jpg';
 import React from 'react';
 
-import styles from '~/client/components/features/ContratEngagementJeune/Témoignages/Témoignages.module.scss';
+import styles from '~/client/components/features/ContratEngagementJeune/Temoignages/Temoignages.module.scss';
 import { Image } from '~/client/components/ui/Img';
 import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
 

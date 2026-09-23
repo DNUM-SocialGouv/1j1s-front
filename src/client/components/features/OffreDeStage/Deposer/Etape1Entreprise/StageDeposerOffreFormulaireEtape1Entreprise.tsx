@@ -18,7 +18,7 @@ import {
 import { URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
 import { emailRegex } from '~/shared/emailRegex';
 
-import styles from './StageDeposerOffreFormulaireÉtape1Entreprise.module.scss';
+import styles from './StageDeposerOffreFormulaireEtape1Entreprise.module.scss';
 
 const URL_REGEX = '(https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*))';
 

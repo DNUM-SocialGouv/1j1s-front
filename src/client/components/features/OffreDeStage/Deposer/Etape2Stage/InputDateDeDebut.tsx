@@ -2,9 +2,9 @@ import React, { useMemo, useState } from 'react';
 
 import {
 	StageEnum,
-} from '~/client/components/features/OffreDeStage/Deposer/Etape2Stage/StageDeposerOffreFormulaireÉtape2Stage';
+} from '~/client/components/features/OffreDeStage/Deposer/Etape2Stage/StageDeposerOffreFormulaireEtape2Stage';
 import styles
-	from '~/client/components/features/OffreDeStage/Deposer/Étape2Stage/StageDeposerOffreFormulaireÉtape2Stage.module.scss';
+	from '~/client/components/features/OffreDeStage/Deposer/Etape2Stage/StageDeposerOffreFormulaireEtape2Stage.module.scss';
 import { OffreDeStageDeposeeStage } from '~/client/components/features/OffreDeStage/Deposer/StageDeposerOffre';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';

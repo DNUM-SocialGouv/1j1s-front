@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import {
 	FormulaireRechercheJobÉtudiant,
-} from '~/client/components/features/JobEtudiant/FormulaireRecherche/FormulaireRechercheJobÉtudiant';
+} from '~/client/components/features/JobEtudiant/FormulaireRecherche/FormulaireRechercheJobEtudiant';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { LaBonneBoitePartner } from '~/client/components/features/ServiceCard/LaBonneBoitePartner';
 import { OnisepMetierPartner } from '~/client/components/features/ServiceCard/OnisepMetierPartner';

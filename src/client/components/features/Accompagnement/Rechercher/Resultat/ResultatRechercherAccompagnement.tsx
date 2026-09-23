@@ -9,7 +9,7 @@ import {
 } from '~/client/components/features/Accompagnement/Rechercher/Resultat/Horaires/HorairesResultatRechercherAccompagnement';
 import {
 	RésultatRechercherAccompagnementTagsList,
-} from '~/client/components/features/Accompagnement/Rechercher/Resultat/RésultatRechercherAccompagnementTagsList';
+} from '~/client/components/features/Accompagnement/Rechercher/Resultat/ResultatRechercherAccompagnementTagsList';
 import {
 	useAccompagnementLogo,
 } from '~/client/components/features/Accompagnement/Rechercher/Resultat/useAccompagnementLogo';
@@ -21,7 +21,7 @@ import {
 	TypeÉtablissement,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
-import styles from './RésultatRechercherAccompagnement.module.scss';
+import styles from './ResultatRechercherAccompagnement.module.scss';
 
 export interface RésultatRechercherAccompagnementProps {
 	etablissement: EtablissementAccompagnement
@@ -81,7 +81,7 @@ function MailLink({ email }: MailLinkProps) {
 	);
 }
 
-export function RésultatRechercherAccompagnement({ etablissement }: RésultatRechercherAccompagnementProps) {
+export function ResultatRechercherAccompagnement({ etablissement }: RésultatRechercherAccompagnementProps) {
 
 	const isMissionLocale = etablissement.type === TypeÉtablissement.MISSION_LOCALE;
 	const [isPopInOpen, setIsPopInOpen] = useState(false);
