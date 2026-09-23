@@ -5,7 +5,7 @@ import {
 } from '~/client/components/features/Accompagnement/FormulaireRecherche/FormulaireRechercheAccompagnement';
 import {
 	RésultatRechercherAccompagnement,
-} from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement';
+} from '~/client/components/features/Accompagnement/Rechercher/Resultat/RésultatRechercherAccompagnement';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { FranceTravailPartner } from '~/client/components/features/ServiceCard/FranceTravailPartner';
 import { InfoJeunesPartner } from '~/client/components/features/ServiceCard/InfoJeunesPartner';
@@ -17,7 +17,7 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
 import {
 	EtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/etablissementAccompagnement.service';
+} from '~/client/services/etablissementAccompagnement/etablissementAccompagnement.service';
 import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { isSuccess } from '~/server/errors/either';

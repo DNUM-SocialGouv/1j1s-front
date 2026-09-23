@@ -8,7 +8,7 @@ import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
 	anEtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/etablissementAccompagnement.fixture';
+} from '~/client/services/etablissementAccompagnement/etablissementAccompagnement.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aDemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';

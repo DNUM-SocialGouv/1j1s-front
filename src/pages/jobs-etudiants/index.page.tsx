@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
 import React, { useEffect } from 'react';
 
-import { RechercherJobÉtudiant } from '~/client/components/features/JobÉtudiant/Rechercher/RechercherJobÉtudiant';
+import { RechercherJobÉtudiant } from '~/client/components/features/JobEtudiant/Rechercher/RechercherJobÉtudiant';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import empty from '~/client/utils/empty';
 import { transformQueryToArray } from '~/pages/api/utils/joi/joi.util';

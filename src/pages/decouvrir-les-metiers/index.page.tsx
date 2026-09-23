@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { FormulaireRechercheFicheMetier } from '~/client/components/features/FicheMétier/FormulaireRecherche/FormulaireRechercheFicheMetier';
-import { RésultatRechercherMétier } from '~/client/components/features/FicheMétier/Rechercher/RésultatRechercherMétier';
+import { FormulaireRechercheFicheMetier } from '~/client/components/features/FicheMetier/FormulaireRecherche/FormulaireRechercheFicheMetier';
+import { RésultatRechercherMétier } from '~/client/components/features/FicheMetier/Rechercher/RésultatRechercherMétier';
 import { MétierDuSoinPartner } from '~/client/components/features/ServiceCard/MétiersDuSoinPartner';
 import { Head } from '~/client/components/head/Head';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';

@@ -76,10 +76,10 @@ nom ASCII mais situés dans un dossier accentué, et 12 dossiers accentués.
 - [x] robots/useCases/générerRobots.useCase.ts
 - [x] stages/repository/sourceDesDonneesStage.ts
 
-## 🚧 Dossiers accentués (12)
+## ✅ Dossiers accentués (12)
 
-Bannière, Déposer, établissementAccompagnement, Étape1Entreprise, Étape2Stage, Étape3Localisation, FicheMétier,
-JobÉtudiant, ~~jobs-étudiants~~, Réseau, Résultat, Témoignages
+~~Bannière~~, ~~Déposer~~, ~~établissementAccompagnement~~, ~~Étape1Entreprise, Étape2Stage, Étape3Localisation~~, ~~FicheMétier~~,
+~~JobÉtudiant~~, ~~jobs-étudiants~~, ~~Réseau, Résultat, Témoignages~~
 
 Ces 12 dossiers hébergent 22 fichiers supplémentaires dont le nom est déjà ASCII (ex. Déposer/StageDeposerOffre.ts,
 établissementAccompagnement/etablissementAccompagnement.service.ts) — donc à renommer aussi si l'objectif de la

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Entreprise
-	from '~/client/components/features/OffreDeStage/Déposer/Étape1Entreprise/StageDeposerOffreFormulaireÉtape1Entreprise';
+	from '~/client/components/features/OffreDeStage/Deposer/Etape1Entreprise/StageDeposerOffreFormulaireÉtape1Entreprise';
 import { Head } from '~/client/components/head/Head';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import useAnalytics from '~/client/hooks/useAnalytics';

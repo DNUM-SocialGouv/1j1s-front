@@ -7,7 +7,7 @@ import {
 	RéseauAccompagnementList,
 	RéseauÉconomieSocialeEtSolidaireList,
 	RéseauFinancementList,
-} from '~/client/components/features/Entreprendre/Réseau/EntreprendreReseau';
+} from '~/client/components/features/Entreprendre/Reseau/EntreprendreReseau';
 import { Carte } from '~/client/dsfr';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
