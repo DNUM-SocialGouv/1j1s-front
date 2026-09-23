@@ -1,13 +1,11 @@
-import classNames from 'classnames';
-
 import { Carte } from '~/client/dsfr';
 import { Head } from '~/client/components/head/Head';
-import { Container } from '~/client/components/layouts/Container/Container';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/logements/aides-logement/index.analytics';
 import styles from '~/pages/logements/aides-logement/index.module.scss';
+import {ServiceCardList} from "~/client/components/features/ServiceCard/Card/ServiceCard";
 
 export default function AidesLogement() {
 	useAnalytics(analytics);
@@ -28,41 +26,30 @@ export default function AidesLogement() {
 					buttonHref="/mes-aides"
 					imgSrc="/images/aides-au-logement.webp"
 					additionalInformation={additionalInformation()} />
-				<div className={classNames(styles.contentWrapper, 'background-white-lilac')}>
-					<Container>
-						<section className={styles.section}>
-							<h2 className={styles.sectionHeading}>Découvrez vos aides :</h2>
-							<ul aria-label="Vos aides">
-								<li className={styles.serviceCard}>
-									<Carte
-										horizontal
-										imageSrc="/images/logos/caisse-allocations-familiales.svg"
-										lien="https://wwwd.caf.fr/wps/portal/caffr/aidesetdemarches/mesdemarches/faireunesimulation/lelogement#/preparation"
-										titre="Vous dépendez du régime général ? Demandez vos aides à la CAF !">
-										La CAF signifie Caisse d’Allocation Familiales. Il y en a
-										dans chaque département. Son rôle est de verser les aides
-										qui concernent la famille, le logement mais aussi une partie
-										des aides destinées à lutter contre la pauvreté, comme le
-										RSA ou la Prime d’activité.
-									</Carte>
-								</li>
-								<li className={styles.serviceCard}>
-									<Carte
-										horizontal
-										imageSrc="/images/logos/mutualite-sociale-agricole.svg"
-										lien="https://www.msa.fr/lfp/web/msa/logement/offre-msa"
-										titre="Vous dépendez du régime agricole ? Demandez vos aides à la MSA !">
-										La MSA signifie Mutualité Sociale Agricole, c’est le régime
-										de protection sociale obligatoire pour toute personne du
-										secteur agricole. Son rôle est donc de verser à tous ses
-										adhérents les aides dont ils pourraient avoir besoin :
-										maladie, maternité, retraite...mais aussi logement !
-									</Carte>
-								</li>
-							</ul>
-						</section>
-					</Container>
-				</div>
+				<ServiceCardList heading="Découvrez vos aides" aria-label="Découvrez vos aides">
+					<Carte
+						horizontal
+						imageSrc="/images/logos/caisse-allocations-familiales.svg"
+						lien="https://wwwd.caf.fr/wps/portal/caffr/aidesetdemarches/mesdemarches/faireunesimulation/lelogement#/preparation"
+						titre="Vous dépendez du régime général ? Demandez vos aides à la CAF !">
+						La CAF signifie Caisse d’Allocation Familiales. Il y en a
+						dans chaque département. Son rôle est de verser les aides
+						qui concernent la famille, le logement mais aussi une partie
+						des aides destinées à lutter contre la pauvreté, comme le
+						RSA ou la Prime d’activité.
+					</Carte>
+					<Carte
+						horizontal
+						imageSrc="/images/logos/mutualite-sociale-agricole.svg"
+						lien="https://www.msa.fr/lfp/web/msa/logement/offre-msa"
+						titre="Vous dépendez du régime agricole ? Demandez vos aides à la MSA !">
+						La MSA signifie Mutualité Sociale Agricole, c’est le régime
+						de protection sociale obligatoire pour toute personne du
+						secteur agricole. Son rôle est donc de verser à tous ses
+						adhérents les aides dont ils pourraient avoir besoin :
+						maladie, maternité, retraite...mais aussi logement !
+					</Carte>
+				</ServiceCardList>
 			</main>
 		</>
 	);

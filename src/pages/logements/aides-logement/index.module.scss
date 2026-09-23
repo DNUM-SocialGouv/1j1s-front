@@ -45,7 +45,7 @@
   @extend %text-small;
 
   svg {
-    color: utilities-deprecated.$color-primary;
+    color: var(--text-title-blue-france);
     flex-shrink: 0;
     margin-right: 0.5rem;
     margin-top: 0.3rem;
