@@ -15,9 +15,6 @@ export default function FormationPage() {
 				title="Créer mon CV personnalisé | 1jeune1solution"
 				robots="index,follow" />
 			<main id="contenu">
-				<div className="fr-container">
-					<Breadcrumb items={[{ label: 'Créer son CV personnalisé' }]} />
-				</div>
 				<HeroWithButtonLink
 					titlePrimaryText="Je crée un CV personnalisé qui valorise mes compétences "
 					titleSecondaryText="et s’adapte à chaque annonce"
