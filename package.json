@@ -36,7 +36,7 @@
     "dompurify": "^3.3.1",
     "fast-xml-parser": "^5.11.1",
     "ioredis": "^6.0.0",
-    "joi": "^17.13.3",
+    "joi": "^18.2.9",
     "lodash.debounce": "^4.0.8",
     "markdown-it": "^15.0.2",
     "markdown-it-anchor": "^10.0.0",
