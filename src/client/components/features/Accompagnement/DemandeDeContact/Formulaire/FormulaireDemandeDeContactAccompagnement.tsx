@@ -14,7 +14,7 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { ageOptions } from '~/client/domain/selectAgeData';
 import {
 	EtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/etablissementAccompagnement.service';
+} from '~/client/services/etablissementAccompagnement/etablissementAccompagnement.service';
 import { Age, DemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact';
 import { isSuccess } from '~/server/errors/either';
 import {

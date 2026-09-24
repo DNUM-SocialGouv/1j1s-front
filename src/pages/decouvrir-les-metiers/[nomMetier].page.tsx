@@ -3,7 +3,7 @@ import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
-import { ConsulterFicheMétier } from '~/client/components/features/FicheMétier/Consulter/ConsulterFicheMétier';
+import { ConsulterFicheMétier } from '~/client/components/features/FicheMetier/Consulter/ConsulterFicheMetier';
 import { OnisepGeneralPartner } from '~/client/components/features/ServiceCard/OnisepGeneralPartner';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';

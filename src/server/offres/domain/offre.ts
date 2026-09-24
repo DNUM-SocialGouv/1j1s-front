@@ -141,7 +141,7 @@ export interface OffreCheckboxFiltre {
 	valeur: string
 }
 
-export interface RésultatsRechercheOffre {
+export interface ResultatsRechercheOffre {
 	nombreRésultats: number
 	résultats: Offre[]
 }

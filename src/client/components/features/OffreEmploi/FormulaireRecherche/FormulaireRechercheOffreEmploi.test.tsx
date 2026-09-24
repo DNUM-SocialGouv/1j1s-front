@@ -8,7 +8,7 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockScrollIntoView } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
+import { référentielDomaineList } from '~/client/domain/referentielDomaineList';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { CONTRAT_CDD, EXPÉRIENCE_DEBUTANT, TEMPS_PLEIN } from '~/server/offres/domain/offre';
 

@@ -15,7 +15,7 @@ import {
 import { Input } from '~/client/components/ui/Form/Input';
 import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple';
 import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
-import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
+import { référentielDomaineList } from '~/client/domain/referentielDomaineList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import {

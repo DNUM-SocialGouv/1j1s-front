@@ -12,7 +12,7 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import { aMetier, aMetierService } from '~/client/services/metiers/metier.fixture';
 import { createSuccess } from '~/server/errors/either';
 import { FORMATION_NIVEAU_3 } from '~/server/formations/domain/formation';
-import { aCommune } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
+import { aCommune } from '~/server/localisations/domain/localisationAvecCoordonnees.fixture';
 
 describe('FormulaireRechercherFormationAlternance', () => {
 	beforeAll(() => {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import OffreStage
-	from '~/client/components/features/OffreDeStage/Déposer/Étape2Stage/StageDeposerOffreFormulaireÉtape2Stage';
+	from '~/client/components/features/OffreDeStage/Deposer/Etape2Stage/StageDeposerOffreFormulaireEtape2Stage';
 import { Head } from '~/client/components/head/Head';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 

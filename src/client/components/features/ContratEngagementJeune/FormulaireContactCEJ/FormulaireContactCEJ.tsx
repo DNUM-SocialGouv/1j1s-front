@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react';
 
 import {
 	DéchargeRGPD,
-} from '~/client/components/features/ContratEngagementJeune/FormulaireContactCEJ/DechargeRGPD/DéchargeRGPD';
+} from '~/client/components/features/ContratEngagementJeune/FormulaireContactCEJ/DechargeRGPD/DechargeRGPD';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';

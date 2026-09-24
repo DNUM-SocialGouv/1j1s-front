@@ -17,10 +17,10 @@ import { BffDemandeDeContactService } from '~/client/services/demandeDeContact/b
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import {
 	BffEtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/bff.etablissementAccompagnement.service';
+} from '~/client/services/etablissementAccompagnement/bff.etablissementAccompagnement.service';
 import {
 	EtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/etablissementAccompagnement.service';
+} from '~/client/services/etablissementAccompagnement/etablissementAccompagnement.service';
 import { BffEmploiEuropeService } from '~/client/services/europe/bff.emploiEurope.service';
 import { EmploiEuropeService } from '~/client/services/europe/emploiEurope.service';
 import {
