@@ -64,7 +64,7 @@
     "@storybook/nextjs": "^10.2.10",
     "@storybook/react": "^10.2.10",
     "@testing-library/cypress": "^10.1.0",
-    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/lodash.debounce": "^4.0.9",
@@ -86,10 +86,10 @@
     "eslint-plugin-vitest": "^0.5.4",
     "globals": "^17.3.0",
     "html-validate": "^11.16.0",
-    "jest-axe": "^9.0.0",
+    "jest-axe": "^11.0.0",
     "jsdom": "^25.0.1",
-    "next-test-api-route-handler": "^4.0.16",
-    "nock": "^13.5.6",
+    "next-test-api-route-handler": "^5.0.7",
+    "nock": "^14.0.17",
     "sass": "^1.97.3",
     "storybook": "^10.2.10",
     "tsconfig-paths-webpack-plugin": "^4.2.0",
@@ -97,9 +97,6 @@
     "vitest": "^4.0.18"
   },
   "overrides": {
-    "jest-axe": {
-      "axe-core": "4.10.2"
-    },
     "@socialgouv/eslint-config-recommended": {
       "eslint": "^9.39.2"
     },
