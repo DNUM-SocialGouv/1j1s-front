@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import {
-	FormulaireRechercheJobÉtudiant,
+	FormulaireRechercheJobEtudiant,
 } from '~/client/components/features/JobEtudiant/FormulaireRecherche/FormulaireRechercheJobEtudiant';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { LaBonneBoitePartner } from '~/client/components/features/ServiceCard/LaBonneBoitePartner';
@@ -84,7 +84,7 @@ export function RechercherJobÉtudiant(props: RechercherJobEtudiantProps) {
 					banniere={<BannièreJobÉtudiant />}
 					erreurRecherche={erreurRecherche}
 					etiquettesRecherche={étiquettesRecherche}
-					formulaireRecherche={<FormulaireRechercheJobÉtudiant />}
+					formulaireRecherche={<FormulaireRechercheJobEtudiant />}
 					isChargement={false}
 					isEtatInitial={empty(offreEmploiQuery)}
 					messageResultatRecherche={messageRésultatRecherche}

@@ -3,12 +3,12 @@ import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
 import {
-	FormulaireRechercheJobÉtudiant,
+	FormulaireRechercheJobEtudiant,
 } from '~/client/components/features/JobEtudiant/FormulaireRecherche/FormulaireRechercheJobEtudiant';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { référentielDomaineList } from '~/client/domain/referentielDomaineList';
+import { referentielDomaineList } from '~/client/domain/referentielDomaineList';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createSuccess } from '~/server/errors/either';
 import { aLocalisationListWithCommuneAndDépartement } from '~/server/localisations/domain/localisation.fixture';
@@ -32,7 +32,7 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheJobÉtudiant />
+						<FormulaireRechercheJobEtudiant />
 					</DependenciesProvider>,
 				);
 
@@ -58,7 +58,7 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 				mockUseRouter({ push: routerPush });
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheJobÉtudiant />
+						<FormulaireRechercheJobEtudiant />
 					</DependenciesProvider>,
 				);
 
@@ -92,7 +92,7 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 			mockUseRouter({ push: vi.fn() });
 			render(
 				<DependenciesProvider localisationService={localisationServiceMock}>
-					<FormulaireRechercheJobÉtudiant />
+					<FormulaireRechercheJobEtudiant />
 				</DependenciesProvider>,
 			);
 
@@ -110,7 +110,7 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheJobÉtudiant />
+						<FormulaireRechercheJobEtudiant />
 					</DependenciesProvider>,
 				);
 
@@ -118,13 +118,13 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 				await user.click(button);
 
 
-				const optionDomaine = screen.getByRole('option', { name: référentielDomaineList[2].libelle });
+				const optionDomaine = screen.getByRole('option', { name: referentielDomaineList[2].libelle });
 				await user.click(optionDomaine);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
 
-				expect(routerPush).toHaveBeenCalledWith({ query: `grandDomaine=${référentielDomaineList[2].code}&page=1` }, undefined, { scroll: false });
+				expect(routerPush).toHaveBeenCalledWith({ query: `grandDomaine=${referentielDomaineList[2].code}&page=1` }, undefined, { scroll: false });
 			});
 		});
 	});
@@ -133,7 +133,7 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 		mockUseRouter({ query: {
 			codeLocalisation: '75110',
 			codePostalLocalisation: '75010',
-			grandDomaine: référentielDomaineList[0].code,
+			grandDomaine: referentielDomaineList[0].code,
 			motCle: 'Boulanger',
 			nomLocalisation: 'Paris',
 			typeLocalisation: 'COMMUNE',
@@ -141,7 +141,7 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 
 		render(
 			<DependenciesProvider localisationService={aLocalisationService()}>
-				<FormulaireRechercheJobÉtudiant />
+				<FormulaireRechercheJobEtudiant />
 			</DependenciesProvider>,
 		);
 
@@ -151,6 +151,6 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 		expect(localisation).toHaveValue('Paris (75010)');
 
 		expect(screen.getByRole('combobox', { name: 'Domaines Exemple : Commerce, Immobilier…' })).toHaveTextContent('1 choix sélectionné');
-		expect(screen.getByDisplayValue(référentielDomaineList[0].code)).toBeInTheDocument();
+		expect(screen.getByDisplayValue(referentielDomaineList[0].code)).toBeInTheDocument();
 	});
 });

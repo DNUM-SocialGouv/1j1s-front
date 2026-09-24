@@ -30,7 +30,7 @@ enum InputName {
 	SITE = 'siteEmployeur'
 }
 
-export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
+export default function StageDeposerOffreFormulaireEtape1Entreprise() {
 	const formRef = useRef<HTMLFormElement>(null);
 
 	const router = useRouter();
@@ -55,7 +55,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 				<Champ.Error />
 				<Champ.Hint>255 caractères maximum</Champ.Hint>
 			</Champ>
-			<Champ>
+			<Champ className="fr-input-group">
 				<Champ.Label>Adresse mail de contact
 					<Champ.Label.Complement>Exemple : contactRH@example.com</Champ.Label.Complement>
 				</Champ.Label>
@@ -94,7 +94,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 
 	const champsFacultatifs = (
 		<>
-			<Champ>
+			<Champ className="fr-input-group">
 				<Champ.Label>Logo de l’entreprise - lien/URL
 					<Champ.Label.Complement>Exemple :
 					https://www.1jeune1solution.gouv.fr/images/logos/r%C3…</Champ.Label.Complement>
@@ -106,7 +106,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 					pattern={URL_REGEX} />
 				<Champ.Error />
 			</Champ>
-			<Champ>
+			<Champ className="fr-input-group">
 				<Champ.Label>Lien du site de l’entreprise - lien/URL
 					<Champ.Label.Complement>Exemple : https://1jeune1solution.gouv.fr</Champ.Label.Complement>
 				</Champ.Label>
@@ -132,8 +132,8 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
-		const donnéesEntreprise = parseDonnéesEntreprise(data);
-		persistenceEntreprise.setInformationsEtape1(donnéesEntreprise);
+		const donneesEntreprise = parseDonneesEntreprise(data);
+		persistenceEntreprise.setInformationsEtape1(donneesEntreprise);
 		return router.push(`${URL_DEPOSER_OFFRE}/votre-offre-de-stage`);
 	}
 
@@ -150,7 +150,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 	);
 };
 
-function parseDonnéesEntreprise(formData: FormData): OffreDeStageDeposeeEntreprise {
+function parseDonneesEntreprise(formData: FormData): OffreDeStageDeposeeEntreprise {
 	return {
 		descriptionEmployeur: String(formData.get(InputName.DESCRIPTION)),
 		emailEmployeur: String(formData.get(InputName.EMAIL)),

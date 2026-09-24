@@ -182,7 +182,7 @@ export enum DomaineCode {
 	N = 'N'
 }
 
-export interface RéférentielDomaine {
+export interface ReferentielDomaine {
 	code: DomaineCode
 	libelle: string
 }

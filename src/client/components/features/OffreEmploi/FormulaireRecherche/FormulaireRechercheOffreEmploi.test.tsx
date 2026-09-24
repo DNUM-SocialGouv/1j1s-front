@@ -8,7 +8,7 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockScrollIntoView } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { référentielDomaineList } from '~/client/domain/referentielDomaineList';
+import { referentielDomaineList } from '~/client/domain/referentielDomaineList';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { CONTRAT_CDD, EXPÉRIENCE_DEBUTANT, TEMPS_PLEIN } from '~/server/offres/domain/offre';
 
@@ -65,13 +65,13 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const selectDomaine = screen.getByRole('combobox', { name: 'Domaines Exemple : Commerce, Immobilier…' });
 				await user.click(selectDomaine);
 
-				const optionDomaine = screen.getByRole('option', { name: référentielDomaineList[2].libelle });
+				const optionDomaine = screen.getByRole('option', { name: referentielDomaineList[2].libelle });
 				await user.click(optionDomaine);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
 
-				expect(routerPush).toHaveBeenCalledWith({ query: `grandDomaine=${référentielDomaineList[2].code}&page=1` }, undefined, { scroll: false });
+				expect(routerPush).toHaveBeenCalledWith({ query: `grandDomaine=${referentielDomaineList[2].code}&page=1` }, undefined, { scroll: false });
 			});
 		});
 
@@ -130,7 +130,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 						codeLocalisation: '75110',
 						codePostalLocalisation: '75010',
 						experienceExigence: EXPÉRIENCE_DEBUTANT.valeur,
-						grandDomaine: référentielDomaineList[0].code,
+						grandDomaine: referentielDomaineList[0].code,
 						motCle: 'Boulanger',
 						nomLocalisation: 'Paris',
 						tempsDeTravail: 'tempsPlein',
@@ -153,7 +153,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				expect(screen.getByRole('option', { hidden: true, name: CONTRAT_CDD.libelléCourt })).toHaveAttribute('aria-selected', 'true');
 				expect(screen.getByRole('option', { hidden: true, name: TEMPS_PLEIN.libellé })).toHaveProperty('selected', true);
 				expect(screen.getByRole('option', { hidden: true, name: EXPÉRIENCE_DEBUTANT.libellé })).toHaveProperty('selected', true);
-				expect(screen.getByRole('option', { hidden: true, name: référentielDomaineList[0].libelle })).toHaveAttribute('aria-selected', 'true');
+				expect(screen.getByRole('option', { hidden: true, name: referentielDomaineList[0].libelle })).toHaveAttribute('aria-selected', 'true');
 			});
 		});
 		describe('que le type de localisation est un département', () => {
@@ -162,7 +162,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 					query: {
 						codeLocalisation: '75',
 						experienceExigence: EXPÉRIENCE_DEBUTANT.valeur,
-						grandDomaine: référentielDomaineList[0].code,
+						grandDomaine: referentielDomaineList[0].code,
 						motCle: 'Boulanger',
 						nomLocalisation: 'Paris',
 						tempsDeTravail: TEMPS_PLEIN.valeur,
@@ -185,7 +185,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				expect(screen.getByRole('option', { hidden: true, name: CONTRAT_CDD.libelléCourt })).toHaveAttribute('aria-selected', 'true');
 				expect(screen.getByRole('option', { hidden: true, name: TEMPS_PLEIN.libellé })).toHaveProperty('selected', true);
 				expect(screen.getByRole('option', { hidden: true, name: EXPÉRIENCE_DEBUTANT.libellé })).toHaveProperty('selected', true);
-				expect(screen.getByRole('option', { hidden: true, name: référentielDomaineList[0].libelle })).toHaveAttribute('aria-selected', 'true');
+				expect(screen.getByRole('option', { hidden: true, name: referentielDomaineList[0].libelle })).toHaveAttribute('aria-selected', 'true');
 			});
 		});
 	});
