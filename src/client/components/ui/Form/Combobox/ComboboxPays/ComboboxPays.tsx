@@ -84,7 +84,7 @@ export const ComboboxPays = React.forwardRef<ComboboxRef, ComboboxPaysProps>(fun
 
 	return (
 		<div className={className}>
-			<Champ>
+			<Champ className="fr-select-group">
 				<Champ.Label>
 					{label}
 					<Champ.Label.Complement>{labelComplement}</Champ.Label.Complement>

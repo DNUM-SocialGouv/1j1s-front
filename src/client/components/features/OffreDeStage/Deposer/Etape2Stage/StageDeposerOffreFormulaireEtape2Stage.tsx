@@ -123,7 +123,7 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposeeStage
 					informationsStage={props.informationsStage} />
 			</fieldset>
 
-			<Champ>
+			<Champ className="fr-select-group">
 				<Champ.Label>
 				Durée du stage
 					<Champ.Label.Complement>Exemple : 3 mois</Champ.Label.Complement>
@@ -144,7 +144,7 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposeeStage
 function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposeeStage | null }) {
 	return (
 		<>
-			<Champ>
+			<Champ className="fr-select-group">
 				<Champ.Label>
 				Domaine de l’offre de stage
 					<Champ.Label.Complement>Exemple : Agriculture</Champ.Label.Complement>
@@ -157,7 +157,7 @@ function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposeeStage |
 				<Champ.Error />
 			</Champ>
 
-			<Champ>
+			<Champ className="fr-input-group">
 				<Champ.Label>
 				Rémunération par mois
 					<Champ.Label.Complement>Exemple : 560</Champ.Label.Complement>
@@ -192,7 +192,7 @@ function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposeeStage |
 	);
 }
 
-export default function StageDeposerOffreFormulaireÉtape2Stage() {
+export default function StageDeposerOffreFormulaireEtape2Stage() {
 	const router = useRouter();
 	const formRef = useRef<HTMLFormElement>(null);
 
@@ -212,8 +212,8 @@ export default function StageDeposerOffreFormulaireÉtape2Stage() {
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
-		const donnéesOffreDeStage = parseDonneesOffreDeStage(data);
-		persistenceStage.setInformationsEtape2(donnéesOffreDeStage);
+		const donneesOffreDeStage = parseDonneesOffreDeStage(data);
+		persistenceStage.setInformationsEtape2(donneesOffreDeStage);
 		return router.push(`${URL_DEPOSER_OFFRE}/localisation`);
 	}
 

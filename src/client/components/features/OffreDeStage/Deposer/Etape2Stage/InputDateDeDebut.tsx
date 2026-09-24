@@ -62,7 +62,7 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 	return (
 		<>
 			{props.displayDateDeDebutPrecise ? (
-				<Champ>
+				<Champ className="fr-input-group">
 					<Champ.Label>
 					Date précise du début de stage
 					</Champ.Label>
@@ -83,7 +83,7 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 			)
 				: (
 					<div className={styles.contenuDateDeDebutInputDate}>
-						<Champ>
+						<Champ className="fr-input-group">
 							<Champ.Label>
 						Date de début du stage au plus tôt
 							</Champ.Label>
@@ -101,7 +101,7 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 								placeholder={placeholderDate} />
 							<Champ.Error />
 						</Champ>
-						<Champ>
+						<Champ className="fr-input-group">
 							<Champ.Label>
 						Date de début du stage au plus tard
 							</Champ.Label>

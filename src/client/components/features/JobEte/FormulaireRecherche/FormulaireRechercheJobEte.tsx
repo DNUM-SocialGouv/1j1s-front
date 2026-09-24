@@ -9,10 +9,10 @@ import {
 import { Input } from '~/client/components/ui/Form/Input';
 import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple';
 import { Button } from '~/client/dsfr';
-import { référentielDomaineList } from '~/client/domain/referentielDomaineList';
+import { referentielDomaineList } from '~/client/domain/referentielDomaineList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
-import { mapRéférentielDomaineToOffreCheckboxFiltre } from '~/client/utils/offreEmploi.mapper';
+import { mapReferentielDomaineToOffreCheckboxFiltre } from '~/client/utils/offreEmploi.mapper';
 
 export function FormulaireRechercheJobEte() {
 	const rechercheJobEteForm = useRef<HTMLFormElement>(null);
@@ -52,9 +52,7 @@ export function FormulaireRechercheJobEte() {
 					</Champ>
 				</div>
 				<div className="fr-col-12 fr-col-md-6 fr-col-lg-4">
-					<div className="fr-select-group">
-						<ComboboxLocalisation defaultValue={inputLocalisation} />
-					</div>
+					<ComboboxLocalisation defaultValue={inputLocalisation} />
 				</div>
 				<div className="fr-col-12 fr-col-md-6 fr-col-lg-4">
 					<Champ className="fr-select-group">
@@ -67,7 +65,7 @@ export function FormulaireRechercheJobEte() {
 							optionsAriaLabel={'Domaines'}
 							name="grandDomaine"
 							defaultValue={queryParams.grandDomaine?.split(',')}>
-							{mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList).map((option) =>
+							{mapReferentielDomaineToOffreCheckboxFiltre(referentielDomaineList).map((option) =>
 								<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 							)}
 						</Champ.Input>

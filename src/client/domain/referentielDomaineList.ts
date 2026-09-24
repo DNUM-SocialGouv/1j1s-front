@@ -1,9 +1,9 @@
 import {
 	DomaineCode,
-	RéférentielDomaine,
+	ReferentielDomaine,
 } from '~/server/offres/domain/offre';
 
-export const référentielDomaineList: RéférentielDomaine[] = [
+export const referentielDomaineList: ReferentielDomaine[] = [
 	{
 		code: DomaineCode.M,
 		libelle: 'Achats / Comptabilité / Gestion',

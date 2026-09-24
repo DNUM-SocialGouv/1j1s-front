@@ -85,7 +85,7 @@ export default function StageDeposerOffreFormulaireEtape3Localisation() {
 				labelComplement={'Exemple : France'}
 				valueName={LocalisationInputName.PAYS}
 				required />
-			<Champ>
+			<Champ className="fr-input-group">
 				<Champ.Label>
 				Ville
 					<Champ.Label.Complement>Exemple : Paris</Champ.Label.Complement>
@@ -97,7 +97,7 @@ export default function StageDeposerOffreFormulaireEtape3Localisation() {
 					defaultValue={informationsLocalisation?.ville} />
 				<Champ.Error />
 			</Champ>
-			<Champ>
+			<Champ className="fr-input-group">
 				<Champ.Label>
 				Adresse
 					<Champ.Label.Complement>Exemple : 127 rue de Grenelle</Champ.Label.Complement>
@@ -109,7 +109,7 @@ export default function StageDeposerOffreFormulaireEtape3Localisation() {
 					defaultValue={informationsLocalisation?.adresse} />
 				<Champ.Error />
 			</Champ>
-			<Champ>
+			<Champ className="fr-input-group">
 				<Champ.Label>
 				Code postal
 					<Champ.Label.Complement>Exemple : 75007</Champ.Label.Complement>
@@ -126,7 +126,7 @@ export default function StageDeposerOffreFormulaireEtape3Localisation() {
 
 	const champsFacultatifs = (
 		<>
-			<Champ>
+			<Champ className="fr-input-group">
 				<Champ.Label>
 				Région
 					<Champ.Label.Complement>Exemple : Île-De-France</Champ.Label.Complement>
@@ -137,7 +137,7 @@ export default function StageDeposerOffreFormulaireEtape3Localisation() {
 					defaultValue={informationsLocalisation?.region} />
 				<Champ.Error />
 			</Champ>
-			<Champ>
+			<Champ className="fr-input-group">
 				<Champ.Label>
 				Département
 					<Champ.Label.Complement>Exemple : Yvelines</Champ.Label.Complement>
@@ -167,11 +167,11 @@ export default function StageDeposerOffreFormulaireEtape3Localisation() {
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
-		const donnéesLocalisation = parseDonnéesLocalisation(data);
-		persistenceLocalisation.setInformationsEtape3(donnéesLocalisation);
+		const donneesLocalisation = parseDonneesLocalisation(data);
+		persistenceLocalisation.setInformationsEtape3(donneesLocalisation);
 
 		if (informationsEntreprise !== null && informationsStage !== null) {
-			const result = await stageService.enregistrerOffreDeStage(informationsEntreprise, informationsStage, donnéesLocalisation);
+			const result = await stageService.enregistrerOffreDeStage(informationsEntreprise, informationsStage, donneesLocalisation);
 			if (isSuccess(result)) {
 				persistenceStage.removeInformationsEtape2();
 				return router.push(`${URL_DEPOSER_OFFRE}/confirmation-envoi`);
@@ -201,7 +201,7 @@ export default function StageDeposerOffreFormulaireEtape3Localisation() {
 	);
 };
 
-function parseDonnéesLocalisation(formData: FormData): OffreDeStageDeposeeLocalisation {
+function parseDonneesLocalisation(formData: FormData): OffreDeStageDeposeeLocalisation {
 	return {
 		adresse: String(formData.get(LocalisationInputName.ADRESSE)),
 		codePostal: String(formData.get(LocalisationInputName.CODE_POSTAL)),

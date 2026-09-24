@@ -9,21 +9,21 @@ import {
 import { Input } from '~/client/components/ui/Form/Input';
 import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple';
 import { Button } from '~/client/dsfr';
-import { référentielDomaineList } from '~/client/domain/referentielDomaineList';
+import { referentielDomaineList } from '~/client/domain/referentielDomaineList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
-import { mapRéférentielDomaineToOffreCheckboxFiltre } from '~/client/utils/offreEmploi.mapper';
+import { mapReferentielDomaineToOffreCheckboxFiltre } from '~/client/utils/offreEmploi.mapper';
 
 
-export function FormulaireRechercheJobÉtudiant() {
-	const rechercheJobÉtudiantForm = useRef<HTMLFormElement>(null);
+export function FormulaireRechercheJobEtudiant() {
+	const rechercheJobEtudiantForm = useRef<HTMLFormElement>(null);
 
 	const queryParams = useOffreQuery();
 	const router = useRouter();
 
 	const inputLocalisation = mapToDefaultLocalisation(queryParams.codeLocalisation, queryParams.typeLocalisation, queryParams.nomLocalisation, queryParams.codePostalLocalisation);
 
-	async function updateRechercherJobÉtudiantQueryParams(event: FormEvent<HTMLFormElement>) {
+	async function updateRechercherJobEtudiantQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const query = getFormAsQuery(event.currentTarget, queryParams);
 		return router.push({ query }, undefined, { scroll: false });
@@ -32,9 +32,9 @@ export function FormulaireRechercheJobÉtudiant() {
 	return (
 		<form
 			className="border--blue fr-p-5w"
-			ref={rechercheJobÉtudiantForm}
+			ref={rechercheJobEtudiantForm}
 			aria-label="Rechercher un job étudiant"
-			onSubmit={updateRechercherJobÉtudiantQueryParams}
+			onSubmit={updateRechercherJobEtudiantQueryParams}
 			role="search">
 			<h2 className="fr-h4 text--blue fr-mb-5w">Trouvez votre job étudiant</h2>
 			<div className="fr-grid-row fr-grid-row--gutters">
@@ -53,9 +53,7 @@ export function FormulaireRechercheJobÉtudiant() {
 					</Champ>
 				</div>
 				<div className="fr-col-12 fr-col-md-6 fr-col-lg-4">
-					<div className="fr-select-group">
-						<ComboboxLocalisation defaultValue={inputLocalisation} />
-					</div>
+					<ComboboxLocalisation defaultValue={inputLocalisation} />
 				</div>
 				<div className="fr-col-12 fr-col-md-6 fr-col-lg-4">
 					<Champ className="fr-select-group">
@@ -68,7 +66,7 @@ export function FormulaireRechercheJobÉtudiant() {
 							optionsAriaLabel={'Domaines'}
 							name="grandDomaine"
 							defaultValue={queryParams.grandDomaine?.split(',')}>
-							{mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList).map((option) =>
+							{mapReferentielDomaineToOffreCheckboxFiltre(referentielDomaineList).map((option) =>
 								<SelectMultiple.Option key={option.libellé} value={option.valeur}>{option.libellé}</SelectMultiple.Option>,
 							)}
 						</Champ.Input>
