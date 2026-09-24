@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
-import { Breadcrumb } from '~/client/dsfr';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/creer-mon-cv/index.analytics';
 
