@@ -31,9 +31,9 @@ export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
 							<p className="fr-text--lead fr-mb-4w">
 								{content}
 							</p>
-							<div className="fr-grid-row fr-grid-row--center">
+							<div className="fr-btns-group width--fill-content">
 								<Link className="fr-btn fr-btn--lg" href={buttonHref}>{buttonLabel}</Link>
-								{(buttonLabelSecondary && buttonHrefSecondary) && <Link className="fr-btn fr-btn--secondary fr-mt-2w" href={buttonHrefSecondary}>{buttonLabelSecondary}</Link>}
+								{(buttonLabelSecondary && buttonHrefSecondary) && <Link className="fr-btn fr-btn--secondary fr-btn--lg" href={buttonHrefSecondary}>{buttonLabelSecondary}</Link>}
 							</div>
 							{additionalInformation}
 						</div>
