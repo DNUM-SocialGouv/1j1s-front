@@ -69,6 +69,9 @@ const moduleExports = {
 	},
 	pageExtensions: ['page.tsx','controller.ts'],
 	poweredByHeader: false,
+	sassOptions: {
+		charset: false,
+	},
 	reactStrictMode: true,
 	redirects: async () => ALL_MODE_REDIRECT,
 	rewrites: async () => ALL_MODE_REWRITE,

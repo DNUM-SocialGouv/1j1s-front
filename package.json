@@ -101,6 +101,7 @@
     "@socialgouv/eslint-config-recommended": {
       "eslint": "^9.39.2"
     },
+    "postcss": "^8.5.28",
     "webpack": "5.101.2"
   },
   "lint-staged": {
