@@ -2,7 +2,7 @@ const { LOCAL_MODE_HEADERS, SECURITY_MODE_HEADERS } = require('./config/headers'
 const { ALL_MODE_REDIRECT } = require('./config/redirects');
 const { ALL_MODE_REWRITE } = require('./config/rewrites');
 const { name, version } = require('./package.json');
-const { withSentryConfig } = require('@sentry/nextjs');
+const { withSentryConfig } = require('@sentry/nextjs/config');
 const { URL } = require('url');
 
 const IS_ONLINE_CONFIG_ENVIRONMENT = ['recette', 'production'];
@@ -36,6 +36,10 @@ const moduleExports = {
 		ignoreDuringBuilds: true,
 	},
 	experimental: {
+		// NOTE (JFE 25-09-2026): requis par next 14 pour charger
+		// 	src/instrumentation.controller.ts, où vit l’init Sentry serveur et edge
+		// 	depuis la v11. Le drapeau devient inutile à partir de next 15.
+		instrumentationHook: true,
 	    scrollRestoration: true,
 	},
 	images: {
