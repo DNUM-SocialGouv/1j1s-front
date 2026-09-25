@@ -36,11 +36,7 @@ const moduleExports = {
 		ignoreDuringBuilds: true,
 	},
 	experimental: {
-		// NOTE (JFE 25-09-2026): requis par next 14 pour charger
-		// 	src/instrumentation.controller.ts, où vit l’init Sentry serveur et edge
-		// 	depuis la v11. Le drapeau devient inutile à partir de next 15.
-		instrumentationHook: true,
-	    scrollRestoration: true,
+		scrollRestoration: true,
 	},
 	images: {
 		remotePatterns: [
