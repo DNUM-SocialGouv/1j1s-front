@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 /// <reference types="@testing-library/cypress" />
 
-import { stringify } from 'querystring';
+import { toQueryString } from '../toQueryString';
 
 import { Success } from '~/server/errors/either';
 import { Offre, ResultatsRechercheOffre } from '~/server/offres/domain/offre';
@@ -68,7 +68,7 @@ describe('Page de recherche d’emplois', () => {
 				typeLocalisation: 'DEPARTEMENT',
 			};
 
-			cy.visit(`/emplois?${stringify(query)}`);
+			cy.visit(`/emplois?${toQueryString(query)}`);
 
 			cy.findByRole('textbox', { name: /Métier, Mot-clé/i }).should('have.value', query.motCle);
 			cy.findByRole('combobox', { name: /Localisation/i }).should('have.value', `${query.nomLocalisation} (${query.codeLocalisation})`);
