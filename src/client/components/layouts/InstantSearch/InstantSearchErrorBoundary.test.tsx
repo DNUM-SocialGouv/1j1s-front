@@ -51,7 +51,7 @@ describe('InstantSearchErrorBoundary', () => {
 				</DependenciesProvider>,
 			);
 
-			const errorContent = screen.getByRole('heading', { level: 2 });
+			const errorContent = screen.getByRole('heading', { level: 1 });
 			expect(errorContent).toBeInTheDocument();
 			expect(errorContent).toHaveTextContent('Service Indisponible');
 		});
