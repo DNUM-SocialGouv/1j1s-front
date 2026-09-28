@@ -38,13 +38,11 @@ function ContactButton({ onClick }: ContactButtonProps) {
 			<ButtonComponent
 				className={classNames(styles.contactFormulaireÉtablissement, styles.contactFormulaireÉtablissementDesktopOnly)}
 				label={label}
-				appearance={'quaternary'}
 				onClick={onClick} />
 
 			<ButtonComponent
 				className={classNames(styles.contactFormulaireÉtablissement, styles.contactFormulaireÉtablissementMobileOnly)}
 				label={label}
-				appearance={'primary'}
 				onClick={onClick} />
 		</>
 	);
