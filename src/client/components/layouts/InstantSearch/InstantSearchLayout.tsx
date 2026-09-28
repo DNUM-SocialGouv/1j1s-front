@@ -1,4 +1,3 @@
-import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 import { SendEventForHits } from 'instantsearch.js/es/lib/utils/createSendEventForHits';
 import { BaseHit } from 'instantsearch.js/es/types/results';
 import React, { useRef } from 'react';
@@ -9,6 +8,7 @@ import { ListeDesResultats } from '~/client/components/layouts/InstantSearch/Lis
 import { MeiliSearchPagination } from '~/client/components/ui/Meilisearch/MeilisearchPagination/MeiliSearchPagination';
 import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/MessageResultatRecherche/MessageResultatRecherche';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { RechercheClientService } from '~/client/dependencies.container';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 import { Banner } from "~/client/components/ui/Hero/Hero";
 
@@ -51,7 +51,7 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 		isAffichageListeDeResultatsDesktopDirectionRow,
 	} = props;
 
-	const searchClient = useDependency<SearchClient>('rechercheClientService');
+	const searchClient = useDependency<RechercheClientService>('rechercheClientService');
 	const listeDesResultatsRef = useRef<HTMLElement>(null);
 
 	const scrollToTopOfListeDesResultats = () => {

@@ -1,7 +1,10 @@
 import * as Sentry from '@sentry/nextjs';
-import pkg from './package.json' with { type: 'json' };
 
+import pkg from '../package.json' with { type: 'json' };
+
+// NOTE (JFE 25-09-2026): sentry 11 ne charge plus sentry.server.config.ts ni sentry.edge.config.ts : l’init doit vivre dans le register() d’un fichier d’instrumentation Next.
 const { name, version } = pkg;
+
 const DEFAULT_SENTRY_ENVIRONMENT = 'local';
 const USER_AGENT_BLACKLIST = process.env.NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST?.split(',');
 const SENTRY_ENVIRONMENTS_ENABLE_SEND_DATA = ['recette', 'production', 'review_app'];
@@ -10,16 +13,21 @@ const RUNTIME_ENVIRONMENT = process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_S
 const SHOULD_INIT = RUNTIME_ENVIRONMENT === 'production';
 const SEND_DATA = SENTRY_ENVIRONMENTS_ENABLE_SEND_DATA.includes(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || '');
 const DEBUG_DATA = SENTRY_ENVIRONMENTS_ENABLE_DEBUG.includes(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || '');
-const RELEASE_NAME_SUFFIX = 'edge';
 
-const releaseName = (environnement = process.env) => {
+const releaseName = (suffixe: string, environnement = process.env) => {
 	if(environnement.NEXT_PUBLIC_SENTRY_ENVIRONMENT === 'review_app') {
-		return `${name}@review+${version}-${RELEASE_NAME_SUFFIX}`;
+		return `${name}@review+${version}-${suffixe}`;
 	}
-	return `${name}@${version}-${RELEASE_NAME_SUFFIX}`;
+	return `${name}@${version}-${suffixe}`;
 };
 
-if (SHOULD_INIT) {
+export function register() {
+	if (!SHOULD_INIT) {
+		return;
+	}
+
+	const suffixeDeRelease = process.env.NEXT_RUNTIME === 'edge' ? 'edge' : 'server';
+
 	Sentry.init({
 		beforeSend(event) {
 			if(!SEND_DATA) {
@@ -42,8 +50,8 @@ if (SHOULD_INIT) {
 		initialScope: {
 			level: process.env.NEXT_PUBLIC_SENTRY_LOG_LEVEL as Sentry.SeverityLevel,
 		},
-		release: releaseName(),
+		release: releaseName(suffixeDeRelease),
 		sendClientReports: SEND_DATA,
 		tracesSampleRate: Number(process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE),
-});
+	});
 }

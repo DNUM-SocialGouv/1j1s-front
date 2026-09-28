@@ -1,5 +1,5 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
-import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
+import { CompositionClient, SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/eulerian.analytics.service';
@@ -68,6 +68,8 @@ import { StorageService } from '~/client/services/storage/storage.service';
 import { VideoService } from '~/client/services/video/video.service';
 import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';
 
+export type RechercheClientService = SearchClient | CompositionClient;
+
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
 	cookiesService: CookiesService
@@ -78,7 +80,7 @@ export type Dependencies = {
 	metierLbaService: MetierService
 	metierStage3eEt2deService: MetierService
 	missionEngagementService: MissionEngagementService
-	rechercheClientService: SearchClient
+	rechercheClientService: RechercheClientService
 	stageService: StageService
 	youtubeService: VideoService
 	établissementAccompagnementService: EtablissementAccompagnementService
