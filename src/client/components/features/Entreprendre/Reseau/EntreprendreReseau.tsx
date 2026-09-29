@@ -1,13 +1,6 @@
-import classNames from 'classnames';
-import React from 'react';
+import React from "react";
 
-import styles from '~/client/components/features/Entreprendre/Reseau/EntreprendreReseau.module.scss';
-import {
-	EntreprendreRéseauPhasesProjet,
-} from '~/client/components/features/Entreprendre/Reseau/PhasesProjet/EntreprendreReseauPhasesProjet';
-import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Image } from '~/client/components/ui/Img';
-import { Link } from '~/client/components/ui/Link/Link';
+import { Carte } from "~/client/dsfr";
 
 interface Entreprise {
   logo: string
@@ -32,22 +25,28 @@ export interface EntreprendreRéseauProps {
 function EntreprendreReseau(props: EntreprendreRéseauProps) {
 	const { entreprise, phases, publicConcerné } = props;
 
+	const tags = [
+		phases.anteCréation && "Phase ante-création",
+		phases.test && "Phase test",
+		phases.postCréation && "Phase post-création",
+	].filter(Boolean);
+
 	return (
-		<Link href={entreprise.lien} className={classNames(styles.card, 'underline-none')} prefetch={false}>
-			<div className={classNames(styles.logoWrapper, styles.cardHeader)}>
-				<Image alt="" src={entreprise.logo} width={120} height={120}  />
-			</div>
-			<div className={classNames(styles.infoEntreprise, styles.cardHeader)}>
-				<div className={styles.infoEntrepriseTitle}>{entreprise.nom}</div>
-				{ entreprise.tagline && <div className={styles.infoEntrepriseSubTitle}>{entreprise.tagline}</div> }
-			</div>
-			<div className={styles.cardDescription}>
-				<p className={styles.descriptionEntreprise}>{entreprise.description}</p>
-				<EntreprendreRéseauPhasesProjet phases={phases} />
-				{publicConcerné && <p className={styles.descriptionPublicConcerne}>{publicConcerné}</p>}
-				<span className={styles.callToAction}>Découvrir<Icon name={'external-redirection'} /></span>
-			</div>
-		</Link>
+		<Carte
+			horizontal
+			isContain
+			titre={entreprise.nom}
+			titreAs="h4"
+			lien={entreprise.lien}
+			tags={tags}
+			end={(entreprise.tagline || publicConcerné) && (
+				<>
+					{entreprise.tagline && <p className="fr-card__detail">{entreprise.tagline}</p>}
+					{publicConcerné && <p className="fr-card__detail fr-text--bold">{publicConcerné}</p>}
+				</>
+			)}>
+			{entreprise.description}
+		</Carte>
 	);
 }
 
@@ -57,9 +56,9 @@ interface EntreprendreRéseauListProps extends React.HTMLAttributes<unknown> {
 
 function EntreprendreRéseauList({ réseauList, ...rest }: EntreprendreRéseauListProps ) {
 	return (
-		<ul className={styles.réseauList} {...rest}>
+		<ul className="list-style-none fr-pl-0" {...rest}>
 			{réseauList.map((réseau) => (
-				<li key={réseau.entreprise.nom}>
+				<li key={réseau.entreprise.nom} className="fr-mb-3w">
 					<EntreprendreReseau
 						entreprise={réseau.entreprise}
 						phases={réseau.phases}
