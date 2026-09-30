@@ -1,10 +1,10 @@
 /// <reference types="cypress" />
 /// <reference types="@testing-library/cypress" />
 
-import { toQueryString } from '../toQueryString';
+import { stringify } from 'querystring';
 
 import { Success } from '~/server/errors/either';
-import { Offre, ResultatsRechercheOffre } from '~/server/offres/domain/offre';
+import { Offre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import {
 	getOffreRepositoryMockResults,
 	searchOffreRepositoryMockResults,
@@ -14,7 +14,7 @@ describe('Page de recherche d’emplois', () => {
 
 	context('Parcours standard', () => {
 		it('affiche 15 résultats par défaut', () => {
-			const expectedResult = searchOffreRepositoryMockResults({ page: 1 }) as Success<ResultatsRechercheOffre>;
+			const expectedResult = searchOffreRepositoryMockResults({ page: 1 }) as Success<RésultatsRechercheOffre>;
 
 			cy.visit('/emplois');
 
@@ -25,7 +25,7 @@ describe('Page de recherche d’emplois', () => {
 
 		context('quand l‘utilisateur rentre un mot clé', () => {
 			it('filtre les résultats par mot clé', () => {
-				const expectedResult = searchOffreRepositoryMockResults({ motClé: 'barman', page: 1 }) as Success<ResultatsRechercheOffre>;
+				const expectedResult = searchOffreRepositoryMockResults({ motClé: 'barman', page: 1 }) as Success<RésultatsRechercheOffre>;
 
 				cy.visit('/emplois');
 
@@ -68,7 +68,7 @@ describe('Page de recherche d’emplois', () => {
 				typeLocalisation: 'DEPARTEMENT',
 			};
 
-			cy.visit(`/emplois?${toQueryString(query)}`);
+			cy.visit(`/emplois?${stringify(query)}`);
 
 			cy.findByRole('textbox', { name: /Métier, Mot-clé/i }).should('have.value', query.motCle);
 			cy.findByRole('combobox', { name: /Localisation/i }).should('have.value', `${query.nomLocalisation} (${query.codeLocalisation})`);

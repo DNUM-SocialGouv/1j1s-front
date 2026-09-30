@@ -60,11 +60,7 @@ export function Banner({ children, ...rest }: React.ComponentPropsWithoutRef<'di
 	);
 }
 
-interface BannerIllustrationProps extends HeroIllustrationProps {
-	isCover?: boolean
-}
-
-export function BannerWithIllustration({ children, image, isCover = false, ...rest }: BannerIllustrationProps) {
+export function BannerWithIllustration({ children, image, ...rest }: HeroIllustrationProps) {
 	const { isLargeScreen } = useBreakpoint();
 	const containerClassName = isLargeScreen ? "fr-container" : "fr-container fr-py-5w"
 	return (
@@ -74,7 +70,7 @@ export function BannerWithIllustration({ children, image, isCover = false, ...re
 					{children}
 				</div>
 				<div className="fr-col-lg-6 fr-col-12 fr-hidden fr-unhidden-lg">
-					<Image className={isCover ? "img-cover" : "img-contain"} src={image} alt="" width="400" height="300" sizes="(min-width: 992px) 50vw" />
+					<Image className="img-contain" src={image} alt="" width="400" height="300" sizes="(min-width: 992px) 50vw" />
 				</div>
 			</div>
 		</div>

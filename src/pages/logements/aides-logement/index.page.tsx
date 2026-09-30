@@ -1,8 +1,10 @@
 import { Carte } from '~/client/dsfr';
 import { Head } from '~/client/components/head/Head';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/logements/aides-logement/index.analytics';
+import styles from '~/pages/logements/aides-logement/index.module.scss';
 import {ServiceCardList} from "~/client/components/features/ServiceCard/Card/ServiceCard";
 
 export default function AidesLogement() {
@@ -55,9 +57,10 @@ export default function AidesLogement() {
 
 function additionalInformation() {
 	return (
-		<p className="fr-text--sm fr-mt-2w">
-			<span className="fr-icon-information-line text--blue fr-mr-1w" aria-hidden="true" />
-			Avant de démarrer la simulation de vos aides, pensez à vous munir de vos ressources et de celles de vos parents si vous êtes encore à leur charge.
-		</p>
+		<div className={styles.additionalInfo}>
+			<Icon name="information" />
+			<span>Avant de démarrer la simulation de vos aides, pensez à vous munir de vos ressources et de celles de vos
+        parents si vous êtes encore à leur charge.</span>
+		</div>
 	);
 }

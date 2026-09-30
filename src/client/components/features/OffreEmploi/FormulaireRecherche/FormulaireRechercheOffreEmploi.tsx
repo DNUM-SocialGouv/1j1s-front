@@ -15,11 +15,11 @@ import {
 import { Input } from '~/client/components/ui/Form/Input';
 import { SelectMultiple } from '~/client/components/ui/Form/Select/SelectMultiple';
 import { SelectSimple } from '~/client/components/ui/Form/Select/SelectSimple';
-import { referentielDomaineList } from '~/client/domain/referentielDomaineList';
+import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import {
-	mapReferentielDomaineToOffreCheckboxFiltre,
+	mapRéférentielDomaineToOffreCheckboxFiltre,
 	mapTypeDeContratToOffreEmploiCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
 import { estQueryIdentiqueAAsPath } from '~/client/utils/queryString.util';
@@ -37,7 +37,7 @@ export function FormulaireRechercheOffreEmploi({ enEtatErreur = false }: Formula
 	const router = useRouter();
 
 	const [inputTypeDeContrat, setInputTypeDeContrat] = useState(queryParams.typeDeContrats ? queryParams.typeDeContrats.split(',') : []);
-	const [inputExperience, setInputExperience] = useState(queryParams.experienceExigence ?? '');
+	const [inputExpérience, setInputExpérience] = useState(queryParams.experienceExigence ?? '');
 	const [inputTempsDeTravail, setInputTempsDeTravail] = useState(queryParams.tempsDeTravail ?? '');
 	const [inputDomaine, setInputDomaine] = useState(queryParams.grandDomaine ? queryParams.grandDomaine.split(',') : []);
 
@@ -88,7 +88,9 @@ export function FormulaireRechercheOffreEmploi({ enEtatErreur = false }: Formula
 					</Champ>
 				</div>
 				<div className="fr-col-12 fr-col-md-6 fr-col-lg-4">
-					<ComboboxLocalisation defaultValue={inputLocalisation}/>
+					<div className='fr-select-group'>
+						<ComboboxLocalisation defaultValue={inputLocalisation}/>
+					</div>
 				</div>
 				<div className="fr-col-12 fr-col-md-6 fr-col-lg-4">
 					<Champ className='fr-select-group'>
@@ -136,8 +138,8 @@ export function FormulaireRechercheOffreEmploi({ enEtatErreur = false }: Formula
 							render={SelectSimple}
 							optionsList={EXPÉRIENCE}
 							name={'experienceExigence'}
-							onChange={(optionValue) => setInputExperience(optionValue)}
-							value={inputExperience}>
+							onChange={(optionValue) => setInputExpérience(optionValue)}
+							value={inputExpérience}>
 						</Champ.Input>
 						<Champ.Error/>
 					</Champ>
@@ -154,7 +156,7 @@ export function FormulaireRechercheOffreEmploi({ enEtatErreur = false }: Formula
 							name={'grandDomaine'}
 							onChange={(option) => onChangeMultipleSelect(option, setInputDomaine)}
 							value={inputDomaine}>
-							{mapReferentielDomaineToOffreCheckboxFiltre(referentielDomaineList).map((option) =>
+							{mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList).map((option) =>
 								<SelectMultiple.Option key={option.libellé} value={option.valeur}>
 									{option.libellé}
 								</SelectMultiple.Option>

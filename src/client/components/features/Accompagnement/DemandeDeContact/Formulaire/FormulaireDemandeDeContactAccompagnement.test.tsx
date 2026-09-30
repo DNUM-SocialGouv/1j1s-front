@@ -8,7 +8,7 @@ import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
 	anEtablissementAccompagnementService,
-} from '~/client/services/etablissementAccompagnement/etablissementAccompagnement.fixture';
+} from '~/client/services/établissementAccompagnement/etablissementAccompagnement.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aDemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -17,7 +17,7 @@ import { TypeÉtablissement } from '~/server/etablissement-accompagnement/domain
 import {
 	aContactÉtablissementAccompagnement,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
-import { aCommune } from '~/server/localisations/domain/localisationAvecCoordonnees.fixture';
+import { aCommune } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
 
 describe('FormulaireDemandeDeContactAccompagnement', () => {
 	beforeAll(() => {
@@ -34,7 +34,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 				localisationService={aLocalisationService()}
 				établissementAccompagnementService={anEtablissementAccompagnementService()}>
 				<FormulaireDemandeDeContactAccompagnement
-					contactEtablissementAccompagnement={aContactÉtablissementAccompagnement()}
+					contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 					onSuccess={vi.fn()}
 					onFailure={vi.fn()} />
 			</DependenciesProvider>,
@@ -53,7 +53,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 					localisationService={aLocalisationService()}
 					établissementAccompagnementService={anEtablissementAccompagnementService()}>
 					<FormulaireDemandeDeContactAccompagnement
-						contactEtablissementAccompagnement={aContactÉtablissementAccompagnement()}
+						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 						onSuccess={vi.fn()}
 						onFailure={vi.fn()} />
 				</DependenciesProvider>,
@@ -75,7 +75,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 				localisationService={aLocalisationService()}
 				établissementAccompagnementService={anEtablissementAccompagnementService()}>
 				<FormulaireDemandeDeContactAccompagnement
-					contactEtablissementAccompagnement={aContactÉtablissementAccompagnement()}
+					contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 					onSuccess={vi.fn()}
 					onFailure={vi.fn()} />
 			</DependenciesProvider>,
@@ -95,7 +95,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 				localisationService={aLocalisationService()}
 				établissementAccompagnementService={anEtablissementAccompagnementService()}>
 				<FormulaireDemandeDeContactAccompagnement
-					contactEtablissementAccompagnement={aContactÉtablissementAccompagnement()}
+					contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 					onSuccess={vi.fn()}
 					onFailure={vi.fn()} />
 			</DependenciesProvider>,
@@ -124,7 +124,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 					localisationService={localisationService}
 					établissementAccompagnementService={établissementAccompagnementService}>
 					<FormulaireDemandeDeContactAccompagnement
-						contactEtablissementAccompagnement={aContactÉtablissementAccompagnement()}
+						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 						onSuccess={vi.fn()}
 						onFailure={vi.fn()} />
 				</DependenciesProvider>,
@@ -167,7 +167,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 					localisationService={aLocalisationService()}
 					établissementAccompagnementService={anEtablissementAccompagnementService()}>
 					<FormulaireDemandeDeContactAccompagnement
-						contactEtablissementAccompagnement={aContactÉtablissementAccompagnement()}
+						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 						onSuccess={onSuccess}
 						onFailure={vi.fn()} />
 				</DependenciesProvider>,
@@ -198,7 +198,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 					localisationService={aLocalisationService()}
 					établissementAccompagnementService={établissementAccompagnementService}>
 					<FormulaireDemandeDeContactAccompagnement
-						contactEtablissementAccompagnement={aContactÉtablissementAccompagnement()}
+						contactÉtablissementAccompagnement={aContactÉtablissementAccompagnement()}
 						onSuccess={vi.fn()}
 						onFailure={onFailure} />
 				</DependenciesProvider>,
