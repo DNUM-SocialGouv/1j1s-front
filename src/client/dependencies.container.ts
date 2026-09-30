@@ -1,5 +1,5 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
-import { CompositionClient, SearchClient } from 'algoliasearch-helper/types/algoliasearch';
+import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/eulerian.analytics.service';
@@ -17,10 +17,10 @@ import { BffDemandeDeContactService } from '~/client/services/demandeDeContact/b
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import {
 	BffEtablissementAccompagnementService,
-} from '~/client/services/etablissementAccompagnement/bff.etablissementAccompagnement.service';
+} from '~/client/services/établissementAccompagnement/bff.etablissementAccompagnement.service';
 import {
 	EtablissementAccompagnementService,
-} from '~/client/services/etablissementAccompagnement/etablissementAccompagnement.service';
+} from '~/client/services/établissementAccompagnement/etablissementAccompagnement.service';
 import { BffEmploiEuropeService } from '~/client/services/europe/bff.emploiEurope.service';
 import { EmploiEuropeService } from '~/client/services/europe/emploiEurope.service';
 import {
@@ -68,8 +68,6 @@ import { StorageService } from '~/client/services/storage/storage.service';
 import { VideoService } from '~/client/services/video/video.service';
 import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';
 
-export type RechercheClientService = SearchClient | CompositionClient;
-
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
 	cookiesService: CookiesService
@@ -80,7 +78,7 @@ export type Dependencies = {
 	metierLbaService: MetierService
 	metierStage3eEt2deService: MetierService
 	missionEngagementService: MissionEngagementService
-	rechercheClientService: RechercheClientService
+	rechercheClientService: SearchClient
 	stageService: StageService
 	youtubeService: VideoService
 	établissementAccompagnementService: EtablissementAccompagnementService
