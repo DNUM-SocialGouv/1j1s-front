@@ -82,6 +82,7 @@ export function FlippingCard(props: FlippingCardProps) {
 						{hasFlipCardContent && (
 							<ButtonComponent
 								label="Pour qui ?"
+								appearance={'quaternary'}
 								ref={flipButton}
 								onClick={() => flipCard()} />
 						)}

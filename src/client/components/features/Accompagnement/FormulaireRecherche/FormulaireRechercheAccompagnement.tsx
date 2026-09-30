@@ -63,7 +63,7 @@ export function FormulaireRechercheAccompagnement() {
 							required/>
 					</div>
 					<div className="fr-col-12 fr-col-md-6">
-						<Champ className="fr-input-group">
+						<Champ>
 							<Champ.Label>Type d‘accompagnement<Champ.Label.Complement>Exemple : Missions
 								locales</Champ.Label.Complement></Champ.Label>
 							<Champ.Input

@@ -82,11 +82,13 @@ export function FormulaireRechercheEmploisEurope() {
 					</Champ>
 				</div>
 				<div className="fr-col-12 fr-col-md-6 fr-col-lg-4">
-					<ComboboxPays
-						paysList={paysEuropeList}
-						labelComplement="Exemple : Belgique, Allemagne"
-						defaultValue={localisationDefaultValue}
-						placeholder="Sélectionnez vos choix" />
+					<div className="fr-select-group">
+						<ComboboxPays
+							paysList={paysEuropeList}
+							labelComplement="Exemple : Belgique, Allemagne"
+							defaultValue={localisationDefaultValue}
+							placeholder="Sélectionnez vos choix" />
+					</div>
 				</div>
 				<div className="fr-col-12 fr-col-md-6 fr-col-lg-4">
 					<Champ className="fr-select-group">

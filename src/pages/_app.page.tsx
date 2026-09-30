@@ -1,6 +1,4 @@
 import '@gouvfr/dsfr/dist/dsfr.min.css';
-import "@gouvfr/dsfr/dist/utility/icons/icons-arrows/icons-arrows.min.css";
-import "@gouvfr/dsfr/dist/utility/icons/icons-system/icons-system.min.css";
 import '~/styles/main.scss';
 import '../client/dsfr/styles.css';
 

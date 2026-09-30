@@ -4,8 +4,8 @@ import {
 	FormulaireRechercheAccompagnement,
 } from '~/client/components/features/Accompagnement/FormulaireRecherche/FormulaireRechercheAccompagnement';
 import {
-	ResultatRechercherAccompagnement,
-} from '~/client/components/features/Accompagnement/Rechercher/Resultat/ResultatRechercherAccompagnement';
+	RésultatRechercherAccompagnement,
+} from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { FranceTravailPartner } from '~/client/components/features/ServiceCard/FranceTravailPartner';
 import { InfoJeunesPartner } from '~/client/components/features/ServiceCard/InfoJeunesPartner';
@@ -17,7 +17,7 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
 import {
 	EtablissementAccompagnementService,
-} from '~/client/services/etablissementAccompagnement/etablissementAccompagnement.service';
+} from '~/client/services/établissementAccompagnement/etablissementAccompagnement.service';
 import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { isSuccess } from '~/server/errors/either';
@@ -142,7 +142,7 @@ function ListeÉtablissementAccompagnement({ résultatList }: ListeRésultatProp
 		<ul className="fr-grid-row fr-grid-row--gutters" aria-label="Établissements d’accompagnement">
 			{résultatList.map((établissementAccompagnement: EtablissementAccompagnement) => (
 				<li key={établissementAccompagnement.id} className="fr-col-lg-4 fr-col-md-6 fr-col-12">
-					<ResultatRechercherAccompagnement etablissement={établissementAccompagnement} />
+					<RésultatRechercherAccompagnement etablissement={établissementAccompagnement} />
 				</li>
 			))}
 		</ul>

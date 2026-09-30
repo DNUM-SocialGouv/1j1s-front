@@ -35,6 +35,7 @@ describe('<Champ/>', () => {
 			</Champ>,
 		);
 
+		// eslint-disable-next-line testing-library/no-node-access
 		expect(container.children[0]).toHaveAttribute('class', 'someStyle');
 	});
 
