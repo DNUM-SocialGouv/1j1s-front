@@ -32,7 +32,7 @@ describe('Parcours logement', () => {
 				cy.intercept({ pathname: '/multi-search' }, logementNonFiltreeResponse);
 				cy.intercept({ pathname: '/multi-search' }, logementFiltreeResponse);
 
-				cy.findByRole('textbox', { name: 'Ville' }).type('par');
+				cy.findByRole('textbox', { name: /Ville/ }).type('par');
 
 				cy.get('ol > li').should('have.length', 2);
 	  });

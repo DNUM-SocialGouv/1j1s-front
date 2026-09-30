@@ -1,8 +1,8 @@
 import markdownit from 'markdown-it';
 import markdownItAnchor from 'markdown-it-anchor';
 
-function isAnchor(url: string | null): boolean {
-	if (!url) return false;
+function isAnchor(url: string | number | null): boolean {
+	if (typeof url !== 'string') return false;
 	return url.startsWith('#');
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { FormulaireRechercheEvenement } from '~/client/components/features/Evenement/FormulaireRecherche/FormulaireRechercheEvenement';
-import { RésultatRechercherEvenement } from '~/client/components/features/Evenement/RésultatRechercherEvenement';
+import { RésultatRechercherEvenement } from '~/client/components/features/Evenement/ResultatRechercherEvenement';
 import { Head } from '~/client/components/head/Head';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';

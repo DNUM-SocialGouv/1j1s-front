@@ -4,7 +4,7 @@ import React from 'react';
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import { BilanEnergetiqueLogement } from '~/client/components/features/Logement/Consulter/BilanEnergetiqueLogement';
 import { DescriptionDuLogement } from '~/client/components/features/Logement/Consulter/DescriptionDuLogement';
-import { InformationsGénérales } from '~/client/components/features/Logement/Consulter/InformationsGénérales';
+import { InformationsGénérales } from '~/client/components/features/Logement/Consulter/InformationsGenerales';
 import { Services } from '~/client/components/features/Logement/Consulter/Services';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Image as ImageProps } from '~/client/components/props';
@@ -14,7 +14,7 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { AnnonceDeLogement, AnnonceDeLogementSource } from '~/server/logements/domain/annonceDeLogement';
 
 import styles from './ConsulterAnnonce.module.scss';
-import { DateMiseÀJour } from './DateMiseÀJour';
+import { DateMiseÀJour } from './DateMiseAJour';
 
 interface ConsulterAnnonceDeLogementProps {
 	annonceDeLogement: AnnonceDeLogement
