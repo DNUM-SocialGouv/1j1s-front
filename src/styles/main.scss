@@ -71,6 +71,14 @@ hr {
   height: 100%;
 }
 
+.width--full {
+  width: 100%;
+}
+
+.width--fill-content {
+  width: fit-content;
+}
+
 .flex {
   display: flex;
 }
@@ -88,7 +96,7 @@ hr {
 }
 
 .img-contain {
-  object-fit: contain;
+  object-fit: contain !important;
   width: 100%;
 }
 

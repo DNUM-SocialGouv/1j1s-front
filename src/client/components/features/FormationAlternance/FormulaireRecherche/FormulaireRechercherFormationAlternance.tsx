@@ -84,7 +84,7 @@ export function FormulaireRechercherFormationAlternance({ enEtatErreur = false }
 							required/>
 					</div>
 					<div className="fr-col-12 fr-col-md-6 fr-col-lg-4">
-						<Champ>
+						<Champ className="fr-select-group">
 							<Champ.Label>
 								Niveau d’études visé (facultatif)
 								<Champ.Label.Complement>Exemples : CAP, Bac...</Champ.Label.Complement>

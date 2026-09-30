@@ -5,7 +5,7 @@ import {
 	aFormulaireEtapeEntreprise,
 	aFormulaireEtapeLocalisation,
 	aFormulaireEtapeStage,
-} from '../../src/client/components/features/OffreDeStage/Déposer/StageDeposerOffre.fixture';
+} from '../../src/client/components/features/OffreDeStage/Deposer/StageDeposerOffre.fixture';
 import { interceptPost } from '../interceptPost';
 
 const FORMULAIRE_ETAPE_1_LABEL = 'formulaireEtape1';

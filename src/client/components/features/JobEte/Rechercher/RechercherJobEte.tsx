@@ -21,7 +21,7 @@ import {
 	MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL,
 	NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE,
 	Offre,
-	RésultatsRechercheOffre,
+	ResultatsRechercheOffre,
 } from '~/server/offres/domain/offre';
 import { Banner } from '~/client/components/ui/Hero/Hero';
 
@@ -29,7 +29,7 @@ const PREFIX_TITRE_PAGE = 'Rechercher un job d’été';
 
 interface RechercherJobEteProps {
 	erreurRecherche?: Erreur
-	resultats?: RésultatsRechercheOffre
+	resultats?: ResultatsRechercheOffre
 }
 
 export function RechercherJobEte(props: RechercherJobEteProps) {

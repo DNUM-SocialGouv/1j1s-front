@@ -19,7 +19,7 @@ import {
 	MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL,
 	NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE,
 	Offre,
-	RésultatsRechercheOffre,
+	ResultatsRechercheOffre,
 } from '~/server/offres/domain/offre';
 import {BannerWithIllustration} from '~/client/components/ui/Hero/Hero';
 
@@ -30,7 +30,7 @@ const PREFIX_TITRE_PAGE = 'Rechercher un emploi';
 
 interface RechercherOffreEmploiProps {
 	erreurRecherche?: Erreur
-	resultats?: RésultatsRechercheOffre
+	resultats?: ResultatsRechercheOffre
 }
 
 export function RechercherOffreEmploi(props: RechercherOffreEmploiProps) {

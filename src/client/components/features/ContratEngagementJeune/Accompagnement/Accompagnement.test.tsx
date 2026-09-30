@@ -7,7 +7,7 @@ import { aDemandeDeContactService } from '~/client/services/demandeDeContact/dem
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import { aCommune } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
+import { aCommune } from '~/server/localisations/domain/localisationAvecCoordonnees.fixture';
 
 import Accompagnement from './Accompagnement';
 
