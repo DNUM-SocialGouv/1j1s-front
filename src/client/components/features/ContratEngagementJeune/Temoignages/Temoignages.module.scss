@@ -6,6 +6,11 @@
   article {
     .portrait, h2 {
       display: none;
+
+      > img {
+        height:100%;
+        width:100%;
+      }
     }
 
     .bio {
