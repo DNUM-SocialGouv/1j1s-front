@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Bannière from '~/client/components/features/MesuresEmployeurs/Bannière/Bannière';
+import Bannière from '~/client/components/features/MesuresEmployeurs/Banniere/Banniere';
 import styles from '~/client/components/features/MesuresEmployeurs/MesuresEmployeurs.module.scss';
 import { Head } from '~/client/components/head/Head';
 import { FlippingCard } from '~/client/components/ui/Card/Flipping/FlippingCard';

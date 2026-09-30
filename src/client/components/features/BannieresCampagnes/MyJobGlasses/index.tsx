@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import React from 'react';
 
 import { HeroPrimaryText, HeroSecondaryText, HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
 import { Link } from '~/client/components/ui/Link/Link';
@@ -20,7 +19,6 @@ export default function MyJobGlassesBanner() {
 			</HeroSecondaryText>
 			<Link href="/myjobglasses" appearance={'asSecondaryButton'} className={styles.cta}>
 				Trouver un professionnel
-				<Link.Icon />
 			</Link>
 		</HeroWithIllustration>
 	);

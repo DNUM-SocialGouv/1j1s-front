@@ -1,7 +1,7 @@
 import React from 'react';
 
 import StageDeposerOffreFormulaireEnvoye
-	from '~/client/components/features/OffreDeStage/Déposer/Confirmation/StageDeposerOffreFormulaireEnvoye';
+	from '~/client/components/features/OffreDeStage/Deposer/Confirmation/StageDeposerOffreFormulaireEnvoye';
 import { Head } from '~/client/components/head/Head';
 import { LightHero, LightHeroPrimaryText } from '~/client/components/ui/Hero/LightHero';
 
