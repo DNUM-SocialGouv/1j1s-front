@@ -28,7 +28,7 @@ export function FormulaireRechercheFormationInitiale() {
 			<h2 className="fr-h4 text--blue fr-mb-5w">Trouvez une formation</h2>
 			<div className="fr-grid-row fr-grid-row--gutters">
 				<div className="fr-col-12">
-					<Champ>
+					<Champ className="fr-input-group">
 						<Champ.Label>Domaine, mot-clé…
 							<Champ.Label.Complement>Exemples: boulanger, informatique</Champ.Label.Complement>
 						</Champ.Label>

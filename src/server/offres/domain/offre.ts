@@ -141,7 +141,7 @@ export interface OffreCheckboxFiltre {
 	valeur: string
 }
 
-export interface RésultatsRechercheOffre {
+export interface ResultatsRechercheOffre {
 	nombreRésultats: number
 	résultats: Offre[]
 }
@@ -182,7 +182,7 @@ export enum DomaineCode {
 	N = 'N'
 }
 
-export interface RéférentielDomaine {
+export interface ReferentielDomaine {
 	code: DomaineCode
 	libelle: string
 }

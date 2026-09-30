@@ -15,7 +15,7 @@ import { createSuccess } from '~/server/errors/either';
 import {
 	aCommune,
 	aRésultatsRechercheCommune,
-} from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
+} from '~/server/localisations/domain/localisationAvecCoordonnees.fixture';
 
 describe('FormulaireRechercheStages3eEt2de', () => {
 	beforeEach(() => {

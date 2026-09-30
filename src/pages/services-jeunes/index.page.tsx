@@ -125,7 +125,7 @@ interface SelectionTypeServiceProps {
 function SelectionTypeService({ filtreList, toggle }: SelectionTypeServiceProps) {
 	return (
 		<form>
-			<Champ>
+			<Champ className="fr-select-group">
 				<Champ.Label>
 				Types de services
 					<Champ.Label.Complement>Sélectionnez votre/vos choix</Champ.Label.Complement>

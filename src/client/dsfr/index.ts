@@ -1,3 +1,4 @@
+export { Accordion } from "./Accordion";
 export { Breadcrumb } from './Breadcrumb';
 export { Button } from './Button';
 export { Carte } from './Carte';
@@ -5,4 +6,5 @@ export { Footer } from './Footer/Footer';
 export { Header } from './Header/Header';
 export { SkipLink } from './SkipLink/SkipLink';
 export { Tag } from './Tag';
+export { Tuile } from "./Tuile";
 export { Pagination } from './Pagination';
