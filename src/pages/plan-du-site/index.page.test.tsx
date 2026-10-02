@@ -81,8 +81,11 @@ describe('Plan du site', () => {
 					</DependenciesProvider>,
 				);
 
+				// les liens externes annoncent l'ouverture dans un nouvel onglet
+				const nomAccessible = path.startsWith('http') ? `${nom} - nouvelle fenêtre` : nom;
+
 				const plan = screen.getByRole('list', { name: /Plan du site/i });
-				const lien = within(plan).getByRole('link', { name: nom });
+				const lien = within(plan).getByRole('link', { name: nomAccessible });
 				expect(lien).toBeVisible();
 				expect(lien).toHaveAttribute('href', path);
 			});

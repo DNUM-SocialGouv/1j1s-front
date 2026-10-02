@@ -71,8 +71,8 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 			</DependenciesProvider>,
 		);
 
-		const lienConditionsGénéralesUtilisation = screen.getByRole('link', { name: 'Conditions Générales d‘Utilisation' });
-		const lienPolitiqueConfidentialité = screen.getByRole('link', { name: 'Politique de Confidentialité' });
+		const lienConditionsGénéralesUtilisation = screen.getByRole('link', { name: 'Conditions Générales d‘Utilisation - nouvelle fenêtre' });
+		const lienPolitiqueConfidentialité = screen.getByRole('link', { name: 'Politique de Confidentialité - nouvelle fenêtre' });
 
 		expect(lienConditionsGénéralesUtilisation).toBeInTheDocument();
 		expect(lienPolitiqueConfidentialité).toBeInTheDocument();
