@@ -17,12 +17,9 @@ interface FooterLink {
 }
 
 const socialLinks: Array<SocialLink> = [
-	{ id: "rs-facebook", label: "Facebook", url: "", buttonClass: "fr-btn--facebook" },
-	{ id: "rs-twitter-x", label: "X (anciennement Twitter)", url: "", buttonClass: "fr-btn--twitter-x" },
-	{ id: "rs-linkedin", label: "LinkedIn", url: "", buttonClass: "fr-btn--linkedin" },
-	{ id: "rs-instagram", label: "Instagram", url: "", buttonClass: "fr-btn--instagram" },
-	{ id: "rs-youtube", label: "YouTube", url: "", buttonClass: "fr-btn--youtube" },
-	{ id: "rs-tiktok", label: "TikTok", url: "", buttonClass: "fr-btn--tiktok" },
+	{ id: "rs-linkedin", label: "LinkedIn", url: "https://www.linkedin.com/showcase/1jeune1solution/about/", buttonClass: "fr-btn--linkedin" },
+	{ id: "rs-instagram", label: "Instagram", url: "https://www.instagram.com/1jeune1solution/", buttonClass: "fr-btn--instagram" },
+	{ id: "rs-tiktok", label: "TikTok", url: "https://www.tiktok.com/@1jeune_1solution", buttonClass: "fr-btn--tiktok" },
 ];
 
 const externalLinks: Array<FooterLink> = [
