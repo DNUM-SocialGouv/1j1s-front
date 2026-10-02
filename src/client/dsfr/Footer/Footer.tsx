@@ -17,6 +17,7 @@ interface FooterLink {
 }
 
 const socialLinks: Array<SocialLink> = [
+	{ id: "rs-linkedin", label: "LinkedIn", url: "https://www.linkedin.com/showcase/1jeune1solution/about/", buttonClass: "fr-btn--linkedin" },
 	{ id: "rs-instagram", label: "Instagram", url: "https://www.instagram.com/1jeune1solution/", buttonClass: "fr-btn--instagram" },
 	{ id: "rs-tiktok", label: "TikTok", url: "https://www.tiktok.com/@1jeune_1solution", buttonClass: "fr-btn--tiktok" },
 ];
