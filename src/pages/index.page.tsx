@@ -262,7 +262,7 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 					<div className="fr-container">
 						<div className="fr-grid-row fr-grid-row--no-gutters align-items--center">
 							<div className="fr-col-12 fr-col-lg-6 fr-hidden fr-unhidden-lg">
-								<Image src="/images/banner-alternance-handshake.png" alt="" width={660} height={330} className="img-cover"/>
+								<Image src="/images/banner-alternance-handshake.jpg" alt="" width={660} height={330} className="img-cover"/>
 							</div>
 							<div className="fr-col-12 fr-col-lg-6 fr-p-4w">
 								<h2 className="text--blue">Employeurs : Trouvez vos futurs apprentis sur 1jeune1solution</h2>
