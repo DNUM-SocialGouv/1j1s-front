@@ -253,23 +253,23 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 								</Link>
 							}
 						</div>
-						<div className="fr-col-lg-6 fr-col-12 fr-hidden fr-unhidden-lg">
-							<Image src="/images/home.png" alt="" width={660} height={440} className='img-contain'/>
+						<div className="fr-col-lg-6 fr-col-12 fr-hidden fr-unhidden-lg fr-pl-0">
+							<Image src="/images/accueil-banner.png" alt="" width={662} height={382} className='img-cover' />
 						</div>
 					</div>
 				</div>
-				<hr className='fr-p-0 fr-mb-3v' aria-hidden={true} />
-				<section className="background--blue-light fr-mb-3v">
+				<section className="background--employeur border-top--employeur fr-mb-3v">
 					<div className="fr-container">
-						<div className="fr-grid-row fr-grid-row--gutters align-items--center">
-							<div className="fr-col-12 fr-col-lg-6 fr-p-0 fr-hidden fr-unhidden-lg">
-								<Image src="/images/banner-lba-home.png" alt="" width={660} height={330} className="img-cover"/>
+						<div className="fr-grid-row fr-grid-row--no-gutters align-items--center">
+							<div className="fr-col-12 fr-col-lg-6 fr-hidden fr-unhidden-lg">
+								<Image src="/images/banner-alternance-handshake.png" alt="" width={660} height={330} className="img-cover"/>
 							</div>
-							<div className="fr-col-12 fr-col-lg-6 fr-pl-4w">
-								<h2 className="text--blue">Trouvez votre alternance</h2>
-								<p>Avec la bonne alternance, accédez à 38 000 offres d’apprentissage et trouvez celle qui vous correspond. Déjà 6 000 offres déposées et 4 000 candidatures pour vous aider à passer à l’action.</p>
-								<Link className="fr-btn fr-btn--secondary fr-mr-2w fr-mb-2w" href="https://labonnealternance.apprentissage.beta.gouv.fr/1jeune1solution?utm_source=1j1s&utm_medium=website&utm_campaign=landinglba1j1s">Déposer une offre</Link>
-								<Link className="fr-btn" href="https://labonnealternance.apprentissage.beta.gouv.fr/1jeune1solution?utm_source=1j1s&utm_medium=website&utm_campaign=landinglba1j1s">Consulter les offres</Link>
+							<div className="fr-col-12 fr-col-lg-6 fr-p-4w">
+								<h2 className="text--blue">Employeurs : Trouvez vos futurs apprentis sur 1jeune1solution</h2>
+								<p>Déposez gratuitement vos offres en apprentissage et gagnez en visibilité auprès des jeunes en recherche d’une opportunité</p>
+								<div className="fr-grid-row fr-grid-row--center">
+									<Link className="fr-btn " href="https://labonnealternance.apprentissage.beta.gouv.fr/1jeune1solution?utm_source=1j1s&utm_medium=website&utm_campaign=landinglba1j1s">Déposer une offre</Link>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -311,6 +311,21 @@ export default function Accueil(accueilProps: AccueilPageProps) {
 								colClass='fr-col-12 fr-col-md-6 fr-col-lg-4'
 							/>
 					</section>
+					
+					<section className="background--blue-light fr-my-5v">
+						<div className="fr-grid-row fr-grid-row--no-gutters align-items--center">
+							<div className="fr-col-12 fr-col-lg-6 fr-p-4w">
+								<h2 className="text--blue">Trouvez votre alternance</h2>
+								<p>Avec la bonne alternance, accédez à 38 000 offres d’apprentissage et trouvez celle qui vous correspond. Déjà 6 000 offres déposées et 4 000 candidatures pour vous aider à passer à l’action.</p>
+								<div className="fr-grid-row fr-grid-row--center">
+									<Link className="fr-btn" href="https://labonnealternance.apprentissage.beta.gouv.fr/1jeune1solution?utm_source=1j1s&utm_medium=website&utm_campaign=landinglba1j1s">Consulter les offres</Link>
+								</div>
+							</div>
+							<div className={`${styles.bgConsultation} fr-col-12 fr-col-lg-6 fr-hidden fr-unhidden-lg`}>
+							</div>
+						</div>
+					</section>
+
 					<section className='fr-py-5v'>
 						<h2 id="formation" className="fr-h2 text--blue flex align-items--center fr-mb-2w">
 							<Image src={schoolSvg} alt="" width={64} height={64}  className='fr-mr-2w' />

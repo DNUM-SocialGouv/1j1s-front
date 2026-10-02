@@ -26,7 +26,7 @@ describe('<RésultatRechercherAccompagnementTagsList/>', () => {
 		it('lorsque le téléphone est présent, je vois le lien de contact par téléphone', () => {
 			render(<RésultatRechercherAccompagnementTagsList
 				etablissement={anEtablissementAccompagnement({ telephone: '0601010101' })} />);
-			expect(screen.getByRole('link', { name: '0601010101' })).toHaveAttribute('href', 'tel:0601010101');
+			expect(screen.getByRole('link', { name: '0601010101 - nouvelle fenêtre' })).toHaveAttribute('href', 'tel:0601010101');
 		});
 	});
 
@@ -55,7 +55,7 @@ describe('<RésultatRechercherAccompagnementTagsList/>', () => {
 					type: TypeÉtablissement.INFO_JEUNE,
 				})} />);
 			expect(screen.getByRole('listitem', { name: 'email de l‘établissement' })).toHaveTextContent(etablissementEmail);
-			expect(screen.getByRole('link', { name: etablissementEmail })).toHaveAttribute('href', `mailto:${etablissementEmail}`);
+			expect(screen.getByRole('link', { name: `${etablissementEmail} - nouvelle fenêtre` })).toHaveAttribute('href', `mailto:${etablissementEmail}`);
 		});
 	});
 });

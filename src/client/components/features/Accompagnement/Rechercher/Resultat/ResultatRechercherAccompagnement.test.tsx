@@ -98,7 +98,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 			</DependenciesProvider>);
 
 			// THEN
-			const link = screen.getAllByRole('link', { name: 'Contacter l‘agence' })[0];
+			const link = screen.getAllByRole('link', { name: 'Contacter l‘agence - nouvelle fenêtre' })[0];
 			expect(link).toBeVisible();
 			expect(link).toHaveAttribute('href', `mailto:${email}`);
 			expect(link).toHaveAttribute('title', 'Contacter l‘agence - adresse mail');
